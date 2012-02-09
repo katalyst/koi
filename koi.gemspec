@@ -7,17 +7,84 @@ require "koi/version"
 Gem::Specification.new do |s|
   s.name        = "koi"
   s.version     = Koi::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Koi."
-  s.description = "TODO: Description of Koi."
+  s.authors     = ["Rahul Trikha"]
+  s.email       = ["rahul@katalyst.com.au"]
+  s.homepage    = "https://github.com/katalyst/koi"
+  s.summary     = "Koi CMS admin framework"
+  s.description = "Framework to provide rapid application development"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.1"
-  # s.add_dependency "jquery-rails"
+  # MVC Framework
+  s.add_dependency 'rails'                       , "~> 3.2.1"
 
-  s.add_development_dependency "sqlite3"
+  # Overwrite for default rails
+  s.add_dependency 'jquery-rails'
+
+  # Database
+  s.add_dependency 'mysql2'                      , '~> 0.3.11'
+
+  # Authorization
+  s.add_dependency 'devise'                      , '~> 1.5.3'
+  s.add_dependency 'cancan'                      , '~> 1.6.7'
+
+  # Form
+  s.add_dependency 'simple_form'                 , '~> 1.5.2'
+
+  # Tree
+  s.add_dependency 'nested_set'                  , '~> 1.6.8'
+
+  # Mailer
+  s.add_dependency 'sendgrid'                    , '~> 1.0.1'
+
+  # File Handling
+  s.add_dependency 'dragonfly'                   , '~> 0.9.9'
+
+  # User Friendly Slugs
+  s.add_dependency 'friendly_id'                 , '~> 4.0.0'
+
+  # Pagination
+  s.add_dependency 'kaminari'                    , '~> 0.13.0'
+
+  # Data Seeding
+  s.add_dependency 'seedbank'                    , '~> 0.0.7'
+
+  # Easier SQL Queries
+  s.add_dependency 'squeel'                      , '~> 0.9.3'
+
+  # Inherited Resources
+  s.add_dependency 'inherited_resources'         , '~> 1.3.0'
+  s.add_dependency 'has_scope'                   , '~> 0.5.1'
+  s.add_dependency 'responders'                  , '~> 0.6.4'
+
+  # Navigation Rendering
+  s.add_dependency 'simple-navigation'           , '~> 3.6.0'
+
+  # Tags
+  s.add_dependency 'acts-as-taggable-on'         , '~> 2.2.0'
+
+  # Scoped Search
+  s.add_dependency 'scoped_search'               , '~> 2.3.6'
+
+  # Association Patterns
+  s.add_dependency 'has'                         , '~> 1.0.3'
+
+  # i18n ActiveRecord backend
+  s.add_dependency 'i18n-active_record'
+
+  # Deployment
+  s.add_dependency 'engineyard'
+
+  # Unique ID generation
+  s.add_dependency "uuidtools"                   , '~> 2.1.2'
+
+  # Logs for Views
+  s.add_development_dependency 'rails-footnotes' , '3.7.4'
+
+  # Console Replacement
+  s.add_development_dependency 'pry'             , '~> 0.9.7'
+
+  # Powder makes POW easy
+  s.add_development_dependency 'powder'          , '0.1.7'
 end
