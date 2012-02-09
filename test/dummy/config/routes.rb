@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Koi::Engine => "/koi"
+  mount Koi::Engine => "/admin"
 end
