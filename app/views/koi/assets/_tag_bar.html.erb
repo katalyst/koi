@@ -1,0 +1,19 @@
+<span class="bold">Filter:</span>
+<ul class="hoverable solid grey inline buttons fonted-11px padded-1 spaced-1 rounded-3px h-2 ln-h-2 sp-l-1">
+
+  <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
+
+  <li class="<%= "black" if @tags.empty? %>">
+    <%= link_to "All", { tags: nil } %>
+  </li>
+
+  <% @all_tags.each do |tag| %>
+
+    <% selected = @tags.include? tag %>
+
+    <li class="<%= "black" if selected %>">
+      <%= link_to tag.to_s, params.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ) %>
+    </li>
+
+  <% end %>
+</ul>

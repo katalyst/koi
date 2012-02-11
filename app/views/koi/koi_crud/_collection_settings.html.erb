@@ -1,0 +1,11 @@
+<% @setting ||= collection_settings_record %>
+<% if @setting %>
+  <%= render "shared/flash_messages" %>
+  <%= simple_form_for [:admin, @setting], remote: true, html: { multipart: true, class: "koi-admin-crud-form" } do |f| %>
+    <%= f.input :url %>
+    <%= f.input :meta_title %>
+    <%= f.input :meta_description %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+

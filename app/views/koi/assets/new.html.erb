@@ -1,0 +1,35 @@
+<%= render 'js_data' %>
+<%= render "tagify" %>
+<%= render 'plupload' %>
+
+<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
+  <h2 class="heading tx-16px">Upload New <%= resource_class.name %></h2>
+</header>
+
+<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
+
+<section class="assets section pd-lr-2 sp-b-1">
+
+  <%= simple_form_for([:admin, resource], html: { id: 'upload-form', multipart: true }) do |f| %>
+    <%= f.error_notification %>
+
+    <p class="sp-b-2px">Select file/s:</p>
+
+    <div id="upload-files"></div>
+
+    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1 sp-t-5px">
+      <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
+    </ul>
+
+    <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
+
+    <div class="h-2u5"></div>
+
+    <ul class="fonted-11px padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1">
+      <li class="solid disabled" id="upload-button-upload"><%= f.submit value: "Upload", disabled: "disabled" %></li>
+      <li><%= link_to "Cancel", collection_path %></li>
+    </ul>
+
+  <% end %>
+
+</section>

@@ -1,0 +1,13 @@
+<%
+  object = f.object
+  klass = object.class
+  attribute = object.send attr
+  is_required = klass.validates_presence_of? attr
+  is_association = object.respond_to? :reflect_on_association
+  is_serialized = true
+  is_empty = is_association && attribute.empty? || is_serialized && attribute.all?(&:blank?)
+%>
+
+<% if !object.errors.empty? && is_required && is_empty %>
+  <p class="error pull-u-15px">A value is required</p>
+<% end %>
