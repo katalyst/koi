@@ -50,7 +50,7 @@ module Koi::IconHelper
   #
   # Example:
   #
-  #     document_icon(file) # => /assets/admin/icon/file/pdf.png
+  #     document_icon(file) # => /assets/koi/icon/file/pdf.png
   #
   def document_icon(document)
     ext = File.extname(document.name).gsub('.', '')

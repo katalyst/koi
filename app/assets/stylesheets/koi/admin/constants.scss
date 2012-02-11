@@ -1,0 +1,33 @@
+$orange: #fc6b02;
+$light-orange: #fc8833;
+
+$grey-10: #101010; $grey-14: #141414; $grey-18: #181818; $grey-1c: #1c1c1c;
+$grey-20: #202020; $grey-24: #242424; $grey-28: #282828; $grey-2c: #2c2c2c;
+$grey-30: #303030; $grey-34: #343434; $grey-38: #383838; $grey-3c: #3c3c3c;
+$grey-40: #404040; $grey-44: #444444; $grey-48: #484848; $grey-4c: #4c4c4c;
+$grey-50: #505050; $grey-54: #545454; $grey-58: #585858; $grey-5c: #5c5c5c;
+$grey-60: #606060; $grey-64: #646464; $grey-68: #686868; $grey-6c: #6c6c6c;
+$grey-70: #707070; $grey-74: #747474; $grey-78: #787878; $grey-7c: #7c7c7c;
+$grey-80: #808080; $grey-84: #848484; $grey-88: #888888; $grey-8c: #8c8c8c;
+$grey-90: #909090; $grey-94: #949494; $grey-98: #989898; $grey-9c: #9c9c9c;
+$grey-a0: #a0a0a0; $grey-a4: #a4a4a4; $grey-a8: #a8a8a8; $grey-ac: #acacac;
+$grey-b0: #b0b0b0; $grey-b4: #b4b4b4; $grey-b8: #b8b8b8; $grey-bc: #bcbcbc;
+$grey-c0: #c0c0c0; $grey-c4: #c4c4c4; $grey-c8: #c8c8c8; $grey-cc: #cccccc;
+$grey-d0: #d0d0d0; $grey-d4: #d4d4d4; $grey-d8: #d8d8d8; $grey-dc: #dcdcdc;
+$grey-e0: #e0e0e0; $grey-e4: #e4e4e4; $grey-e8: #e8e8e8; $grey-ec: #ececec;
+$grey-f0: #f0f0f0; $grey-f4: #f4f4f4; $grey-f8: #f8f8f8; $grey-fc: #fcfcfc;
+
+$greys-x0: $grey-10 $grey-20 $grey-30 $grey-40 $grey-50 $grey-60 $grey-70 $grey-80 $grey-90 $grey-a0 $grey-b0 $grey-c0 $grey-d0 $grey-e0 $grey-f0 $grey-fc;
+
+$greys-x4: $grey-14 $grey-24 $grey-34 $grey-44 $grey-54 $grey-64 $grey-74 $grey-84 $grey-94 $grey-a4 $grey-b4 $grey-c4 $grey-d4 $grey-e4 $grey-f4;
+
+$greys-x8: $grey-18 $grey-28 $grey-38 $grey-48 $grey-58 $grey-68 $grey-78 $grey-88 $grey-98 $grey-a8 $grey-b8 $grey-c8 $grey-d8 $grey-e8 $grey-f8;
+
+$greys-xc: $grey-1c $grey-2c $grey-3c $grey-4c $grey-5c $grey-6c $grey-7c $grey-8c $grey-9c $grey-ac $grey-bc $grey-cc $grey-dc $grey-ec $grey-fc;
+
+$greys: join( join( $greys-x0, $greys-x4 ), join( $greys-x8, $greys-xc ) );
+
+$color-names: append( $color-names, ($orange orange) );
+$color-names: append( $color-names, ($light-orange light-orange) );
+
+

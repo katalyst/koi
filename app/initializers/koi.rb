@@ -1,6 +1,6 @@
 # ASSETS ###########################################################################################
 
-KOI_ASSET_UNKNOWN_IMAGE = '/assets/admin/asset/asset-unknown.png'
+KOI_ASSET_UNKNOWN_IMAGE = '/assets/koi/asset/asset-unknown.png'
 
 KOI_ASSET_IMAGE_SIZES = [
   { :title => 'Original', :size => '' },
@@ -20,12 +20,12 @@ KOI_ASSET_DOCUMENT_EXTENSIONS = [ :pdf, :doc, :docx, :xls, :xlsx, :ppt, :zip ] +
 KOI_ASSET_DOCUMENT_MIME_TYPES = %w(application/pdf application/doc application/docx application/xls application/xlsx application/ppt application/zip)
 
 KOI_ASSET_DOCUMENT_ICONS = {
-  'pdf'  => '/assets/admin/icon/file/pdf.png',
-  'doc'  => '/assets/admin/icon/file/doc.png',
-  'docx' => '/assets/admin/icon/file/doc.png',
-  'xls'  => '/assets/admin/icon/file/xls.png',
-  'xlsx' => '/assets/admin/icon/file/xls.png',
-  'ppt'  => '/assets/admin/icon/file/ppt.png',
-  'zip'  => '/assets/admin/icon/file/zip.png'
+  'pdf'  => '/assets/koi/icon/file/pdf.png',
+  'doc'  => '/assets/koi/icon/file/doc.png',
+  'docx' => '/assets/koi/icon/file/doc.png',
+  'xls'  => '/assets/koi/icon/file/xls.png',
+  'xlsx' => '/assets/koi/icon/file/xls.png',
+  'ppt'  => '/assets/koi/icon/file/ppt.png',
+  'zip'  => '/assets/koi/icon/file/zip.png'
 }
 

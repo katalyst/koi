@@ -1,0 +1,348 @@
+// layout /////////////////////////////////////////////////////////////////////
+
+@mixin def-as( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-as( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include as( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-display( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-display( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include display( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-overflow( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-overflow( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include overflow( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-visibility( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-visibility( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include visibility( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-z-index( $amount ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-z-index( $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include z-index( $a ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+// position ///////////////////////////////////////////////////////////////////
+
+@mixin def-position( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-position( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include position( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-inset( $side, $amount ) {
+  @include def-position( absolute );
+
+  @each $s in expand( $side ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-inset( $s, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include inset( $s, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-outset( $side, $amount ) {
+  @include def-position( absolute );
+
+  @each $s in expand( $side ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-outset( $s, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include outset( $s, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-float( $direction ) {
+  @each $d in expand-directions( $direction ) {
+
+    $class: class-float( $d ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include float( $d ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-clear( $direction ) {
+  @each $d in expand-directions( $direction ) {
+
+    $class: class-clear( $d ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include clear( $d ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-push( $direction, $amount ) {
+  @include def-position( relative );
+
+  @each $d in expand( $direction ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-push( $d, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include push( $d, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-pull( $direction, $amount ) {
+  @include def-position( relative );
+
+  @each $d in expand( $direction ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-pull( $d, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include pull( $d, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-space( $side, $amount ) {
+  @each $s in expand-sides( $side ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-space( $s, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include space( $s, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-backspace( $side, $amount ) {
+  @each $s in expand-sides( $side ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-backspace( $s, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include backspace( $s, $a ); }
+      @include end-def( $class );
+    }
+  }}
+}
+
+@mixin def-pad( $side, $amount ) {
+  @each $s in expand-sides( $side ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-pad( $s, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include pad( $s, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-align( $align ) {
+  @each $a in expand( $align ) {
+
+    $class: class-align( $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include align( $a ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+// dimension //////////////////////////////////////////////////////////////////
+
+@mixin def-box( $dimension, $amount ) {
+  @each $d in expand( $dimension ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-box( $d, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include box( $d, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-line( $dimension, $amount ) {
+  @each $d in expand( $dimension ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-line( $d, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include line( $d, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-min( $dimension, $amount ) {
+  @each $d in expand( $dimension ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-min( $d, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include min( $d, $a ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+// type ///////////////////////////////////////////////////////////////////////
+
+@mixin def-text( $key, $value ) {
+  @each $v in expand( $value ) {
+  @each $k in expand( $key ) {
+
+    $class: class-text( $k, $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include text( $k, $v ); }
+      @include end-def( $class );
+    }
+  }}
+}
+
+@mixin def-text-hidden {
+  $class: class-text-hidden(); @if is-defineable( $class ) {
+    @include begin-def( $class );
+    #{ $class } { @include text-hidden(); }
+    @include end-def( $class );
+  }
+}
+
+@mixin def-text-inherit {
+  @each $p in $text-attributes { @include def-text( $p, inherit ); }
+
+  $class: class-text-inherit(); @if is-defineable( $class ) {
+    @include begin-def( $class );
+    #{ $class } { @include text-inherit(); }
+    @include end-def( $class );
+  }
+}
+
+@mixin def-indent( $value ) {
+  @each $v in expand( $value ) {
+
+    $class: class-indent( $k, $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include indent( $v ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-outdent( $value ) {
+  @each $v in expand( $value ) {
+
+    $class: class-outdent( $k, $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include outdent( $v ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+// effects ////////////////////////////////////////////////////////////////////
+
+@mixin def-background( $key, $value ) {
+  @each $v in expand( $value ) {
+  @each $k in expand( $key ) {
+
+    $class: class-background( $k, $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include background( $k, $v ); }
+      @include end-def( $class );
+    }
+	}}
+}
+
+@mixin def-opacity( $value ) {
+  @each $v in expand( $value ) {
+
+    $class: class-opacity( $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include opacity( $v ); }
+      @include end-def( $class );
+    }
+  }
+}
+
+@mixin def-border( $key, $side, $value ) {
+  @each $k in expand( $key ) {
+  @each $s in expand-sides( $side ) {
+  @each $v in expand( $value ) {
+
+    $class: class-border( $k, $s, $v ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include border( $k, $s, $v ); }
+      @include end-def( $class );
+    }
+  }}}
+}
+
+@mixin def-round( $corner, $amount ) {
+  @each $c in expand-corners( $corner ) {
+  @each $a in expand( $amount ) {
+
+    $class: class-round( $c, $a ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include round( $c, $a ); }
+      @include end-def( $class );
+    }
+  }}
+}
+
+@mixin def-cursor( $type ) {
+  @each $t in expand( $type ) {
+
+    $class: class-cursor( $t ); @if is-defineable( $class ) {
+      @include begin-def( $class );
+      #{ $class } { @include cursor( $t ); }
+      @include end-def( $class );
+    }
+  }
+}
+

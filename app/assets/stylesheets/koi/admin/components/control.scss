@@ -1,0 +1,51 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+.control {
+
+  &.inline {
+    @include display( inline-block );
+  }
+
+  &.adjusted {
+    a, button, input[type=submit] { position:relative; top:1px; }
+  }
+
+  a, a:hover, button, input[type=submit] {
+    @include display( inline-block );
+    @include as( border-box );
+    @include text-inherit;
+    font-family: inherit;
+    line-height: inherit;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    cursor: inherit;
+    overflow: visible;
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    button span { margin-top: -1px; }
+  }
+
+  button::-moz-focus-inner {
+    border: none;
+    margin-top: -1px;
+  }
+
+  button span {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  cursor: pointer;
+  &.disabled { cursor: default; }
+
+  &.move { cursor: move; }
+}
+

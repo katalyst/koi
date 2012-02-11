@@ -1,0 +1,69 @@
+/**************************************************************************************************/
+/* BLUEPRINT EXTENSIONS                                                      BLUEPRINT EXTENSIONS */
+/**************************************************************************************************/
+
+h6, .h6 {line-height:20px;}
+
+.color-white {border-color:#fff;}
+
+.pd-e2 {padding-left:2px;}
+.pd-e2 {padding-right:2px;}
+.pd-t-e2 {padding-top:2px;}
+.pd-b-e2 {padding-bottom:2px;}
+
+.border-half {border-width:5px;}
+
+.w-e325 {width:325px;}
+
+/**************************************************************************************************/
+/* DEFAULT                                                                                DEFAULT */
+/**************************************************************************************************/
+
+/* elements **************************************************************************** elements */
+/* headings **************************************************************************** headings */
+/* classes ****************************************************************************** classes */
+
+/* FIXME: This shouldn't have a hack. */
+html a.asset-document-link:focus,
+html a.asset-document-link:hover,
+html a.asset-document-link {text-decoration:none;}
+html a.asset-document-link-act:focus,
+html a.asset-document-link-act:hover,
+html a.asset-document-link-act {color:#008dc2;text-decoration:none;}
+
+/* FIXME: This shouldn't have a hack. */
+html a.asset-tag-link:focus,
+html a.asset-tag-link:hover,
+html a.asset-tag-link {text-decoration:none;}
+html a.asset-tag-link-act:focus,
+html a.asset-tag-link-act:hover,
+html a.asset-tag-link-act {color:#fff;}
+
+.asset-info {min-height:600px;}
+.asset-list {height:600px;overflow:scroll;overflow-y:auto;overflow-x:hidden;}
+
+.bg-blue {background-color:#008dc2;}
+.bg-dark-grey {background-color:#4f4f4f;}
+.bg-light-grey {background-color:#c7c7c7;}
+.bg-pale-grey {background-color:#ededed;}
+.bg-subtle-blue {background-color:#016b93;}
+
+.color-blue {border-color:#008dc2;color:#008dc2;}
+.color-blue a:focus,
+.color-blue a:hover {color:#008dc2;text-decoration:none;}
+.color-blue a {color:#008dc2;text-decoration:underline;}
+.color-grey {color:#6c6c6c;}
+.color-grey a:focus,
+.color-grey a:hover {color:#6c6c6c;text-decoration:none;}
+.color-grey a {color:#6c6c6c;text-decoration:underline;}
+.color-subtle-blue {border-color:#016b93;color:#055175;}
+.color-subtle-blue a:focus,
+.color-subtle-blue a:hover {color:#055175;text-decoration:none;}
+.color-subtle-blue a {color:#055175;text-decoration:underline;}
+
+.rd-1, .rd-b-1, .rd-l-1, .rd-bl-1 {border-bottom-left-radius:10px;-moz-border-radius-bottomleft:10px;-webkit-border-bottom-left-radius:10px;}
+.rd-1, .rd-b-1, .rd-r-1, .rd-br-1 {border-bottom-right-radius:10px;-moz-border-radius-bottomright:10px;-webkit-border-bottom-right-radius:10px;}
+.rd-1, .rd-t-1, .rd-l-1, .rd-tl-1 {border-top-left-radius:10px;-moz-border-radius-topleft:10px;-webkit-border-top-left-radius:10px;}
+.rd-1, .rd-t-1, .rd-r-1, .rd-tr-1 {border-top-right-radius:10px;-moz-border-radius-topright:10px;-webkit-border-top-right-radius:10px;}
+
+#image_tag_list, #document_tag_list {width: 210px;}
