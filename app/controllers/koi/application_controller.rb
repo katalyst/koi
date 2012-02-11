@@ -1,9 +1,8 @@
 module Koi
   class ApplicationController < ActionController::Base
-    # before_filter :authenticate_admin!, only: [:login]
+    before_filter :authenticate_admin!
 
     def index
-      render text: "Koi Admin"
     end
 
     def login
