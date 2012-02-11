@@ -1,0 +1,24 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+$colorful: $greys-x0 $greys-x4 $greys-x8 $greys-xc ($orange white black);
+
+@include def-text-hidden;
+
+@include def-text-inherit;
+
+@include def-text( weight, bold );
+
+@include def-text( style, italic );
+
+@include def-text( size, (0) (8px 9px _ 25px) (20px 22px _ 40px));
+
+@include def-text( color, $colorful );
+
+@include def-text( decoration, underline );
+
+@include def-text( transform, uppercase lowercase italic );
+
+@include def-text( align, left right center );
+
+.wf-univers-bold-condensed { font-family: 'UniversLTW01-67BoldCn'; }

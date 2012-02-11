@@ -1,0 +1,39 @@
+<% content_for :global do %>
+
+  <body class="bg-grey-f0 tk-proxima-nova tx-13px ln-h-1em5">
+    <div class="bg-white pd-b-5">
+
+      <header class="katalyst titlebar bg-black border-4px ln-h-4 h-4">
+        <div class="center container w-24col">
+
+          <nav class="flt-r tx-uc">
+            <ul class="inline spaced-2 auto-height superfish main menu buttons ln-h-4 h-4 wf-univers-bold-condensed">
+              <li><%= link_to "Dashboard", dashboard_path %></li>
+              <li class="selected"><%= link_to "Sitemap", "#" %></li>
+              <li class="has-children">
+                <%= link_to "Modules", "#" %>
+                <ul class="vertical divided hoverable solid light-orange menu buttons tk-proxima-nova">
+                </ul>
+              </li>
+              <li><a href="#">Reports</a></li>
+              <li><%= link_to "Settings", "#" %></li>
+              <li><%= link_to "Logout", destroy_admin_session_path, :method => :delete %></li>
+            </ul>
+          </nav>
+
+          <%= link_to "", dashboard_path, class: "tx-14px h-4 ln-h-4 header-katalyst-logo as-iblk" %>
+        </div>
+      </header>
+
+      <div class="inner-shadow-t br-t br-grey-f8">
+        <div class="center container w-24col pd-t-5">
+          <%= content_for?(:main) ? yield(:main) : yield %>
+        </div>
+      </div>
+
+    </div>
+  </body>
+
+<% end %>
+
+<%= render :file => 'layouts/koi/global' %>

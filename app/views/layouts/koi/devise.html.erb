@@ -1,0 +1,9 @@
+<% content_for :global do %>
+
+  <body class="bg-white tk-proxima-nova">
+    <%= content_for?(:devise) ? yield(:devise) : yield %>
+  </body>
+
+<% end %>
+
+<%= render :file => 'layouts/admin/global' %>

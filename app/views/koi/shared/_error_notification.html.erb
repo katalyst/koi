@@ -1,0 +1,9 @@
+<div class="background-error-light round pd-t-2 pd-b-half pd-l-2 bad-r-2 sp-b-2">
+  <p><strong><%= t('simple_form.error_notification.default_message') %></strong></p>
+  <ul>
+    <% errors.each do |error| %>
+      <li><%= raw "<strong>#{error[:name].to_s.humanize}</strong> #{error[:message]}" %></li>
+    <% end %>
+  </ul>
+</div>
+
