@@ -10,6 +10,9 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# jQuery
+gem 'jquery-rails'
+
 # Koi
 gem 'koi_config'                , :git => 'git@github.com:katalyst/koi_config.git'
 
