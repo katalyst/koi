@@ -1,0 +1,79 @@
+<% js_data "sort_admin_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
+
+<% if is_orderable? %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      document.onselectstart = function () { return false; }
+
+      $(function() {
+        var notice = $('<p class="pd-1 background-light-green">Saving...</p>').hide();
+        $("#sortable").sortable({
+          placeholder: 'ui-state-placeholder',
+          // Return a helper with preserved width of cells
+          helper: function(e, ui) {
+            ui.children().each(function() {
+              $(this).width($(this).width());
+            });
+            return ui;
+          },
+          update: function() {
+            notice.stop(true, true).removeClass('success').addClass('notice').text("Saving...").show();
+            $.post(jsData.sortAdmin<%= resource_class.to_s.pluralize %>Path, '_method=put&'+$(this).sortable('serialize'), function() {
+              notice.removeClass('notice').addClass('success').text("Save successful.").delay(1000).fadeOut();
+            });
+          }
+        }).disableSelection().parent().next().prepend(notice);
+      });
+    </script>
+  <% end %>
+<% end %>
+
+<div id="index-fields">
+  <table class="table padded-sides ruled br br-grey-d8 rd-b-5px ln-h-3">
+    <thead>
+      <tr class="control tx-11px tx-grey-54 bg-grey-f4">
+        <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
+          <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
+          <% if is_sortable? %>
+            <th class="sort-icon"><%= sortable attr.to_s, label %></th>
+          <% else %>
+            <th><%= label %></th>
+          <% end %>
+        <% end %>
+        <th class="w-15">Actions</th>
+      </tr>
+    </thead>
+    <%- if is_orderable? -%>
+    <tbody id="sortable" class="">
+    <%- else -%>
+    <tbody class="">
+    <%- end -%>
+      <% collection.each_with_index do |object, i| %>
+        <%- if is_orderable? -%>
+        <tr id="<%= "#{singular_name}_#{object.id}" %>">
+        <%- else -%>
+        <tr class="<%= i.odd? ? "odd" : "even" %>">
+        <%- end -%>
+          <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
+            <td class="<%= (index == 0) ? '' : 'tx-11px' %>">
+              <div class="br-grey-d8 bg-white">
+                <%=
+                begin
+                  render crud_partial(attr, :index), { :attr => attr, :object => object }
+                rescue ActionView::MissingTemplate
+                  render "index_field_default", { :attr => attr, :object => object }
+                end
+                %>
+              </div>
+            </td>
+          <% end %>
+          <td class="w-15">
+            <div class="br-grey-d8 bg-white">
+              <%= render "index_fields_action", { :object => object } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

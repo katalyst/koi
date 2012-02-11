@@ -1,0 +1,81 @@
+<p>Drag and drop the categories into a nested set then hit save</p>
+
+<h3><a href='#' id='serialize'>Save Sorted Elements</a></h3>
+<div id="output">&nbsp;</div>
+
+<ol class="unmarked-list">
+    <li id="navigation_item_1">
+      <div>Home Page <a href="/admin/navigation_items/1/edit">Edit</a> <a href="/admin/pages/new?parent=1">Add Page</a></div>
+      <ol>
+    <li id="item_2">
+      <div>
+         Environmental
+         <a href="/admin/navigation_items/2/edit">Edit</a>
+         <a href="/admin/navigation_items/2" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+         <a href="/admin/pages/new?parent=2">Add Page</a>
+      </div>
+      <ol>
+</ol>
+
+    </li>
+    <li id="item_3">
+      <div>
+         Information
+         <a href="/admin/navigation_items/3/edit">Edit</a>
+         <a href="/admin/navigation_items/3" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+         <a href="/admin/pages/new?parent=3">Add Page</a>
+      </div>
+      <ol>
+</ol>
+
+    </li>
+    <li id="item_4">
+      <div>
+         Identity &amp; branding
+         <a href="/admin/navigation_items/4/edit">Edit</a>
+         <a href="/admin/navigation_items/4" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+         <a href="/admin/pages/new?parent=4">Add Page</a>
+      </div>
+      <ol>
+</ol>
+
+    </li>
+    <li id="item_5">
+      <div>
+         View all projects
+         <a href="/admin/navigation_items/5/edit">Edit</a>
+         <a href="/admin/navigation_items/5" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+         <a href="/admin/pages/new?parent=5">Add Page</a>
+      </div>
+      <ol>
+</ol>
+
+    </li>
+</ol>
+
+    </li>
+</ol>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('ol.sortable').nestedSortable({
+      disableNesting: 'no-nest',
+      forcePlaceholderSize: true,
+      handle: 'div',
+      helper: 'clone',
+      items: 'li',
+      opacity: .6,
+      placeholder: 'placeholder',
+      revert: 250,
+      tabSize: 25,
+      tolerance: 'pointer',
+      toleranceElement: '> div'
+    });
+
+    $('#serialize').click(function (){
+      var c = {set : JSON.stringify($('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0}))};
+      $.post("/admin/navigation/savesort", c, $('#output').html('<p id="flash_notice">Saved Successfully</p>'));
+      return false;
+    });
+  });
+</script>

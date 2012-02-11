@@ -4,7 +4,6 @@ Koi::Engine.routes.draw do
     module: :devise
   }
 
-  get "application/login"
-
-  root to: "application#index"
+  match 'dashboard' => 'application#index', :as => :dashboard
+  root to: 'application#login'
 end

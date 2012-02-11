@@ -1,0 +1,8 @@
+$("#modal-for-nav-item")
+  .html("<%= escape_javascript render("modal_nav_item") %>")
+  .modal("show")
+  .on ("shown", function () {
+    $ (this)
+      .find (".tab-content")
+        .each (function () { $(this).children ().maximise ('height'); });
+  });
