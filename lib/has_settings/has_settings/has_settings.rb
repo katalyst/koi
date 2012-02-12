@@ -12,12 +12,9 @@ module HasSettings
   module Model
     extend ActiveSupport::Concern
 
-    module ClassMethods
-    end
-
     def to_setting(options={})
       options.merge!(:set => self)
-      setting = self.setting.blank? ? Setting.new : self.setting
+      setting = setting.blank? ? Koi::Setting.new : setting
       setting.attributes = options.merge(url: polymorphic_path(self))
       setting
     end
