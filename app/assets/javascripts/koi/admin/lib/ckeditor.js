@@ -1,6 +1,6 @@
 //= require ./ckeditor/path
-//= require koi/ckeditor/ckeditor
-//= require koi/ckeditor/adapters/jquery
+//= require ckeditor/ckeditor
+//= require ckeditor/adapters/jquery
 
 CKEDITOR.replaceByClassEnabled = false;
 

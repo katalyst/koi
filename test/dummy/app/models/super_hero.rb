@@ -3,7 +3,7 @@ class SuperHero < ActiveRecord::Base
            searchable: [:id, :name, :gender, :powers],
            orderable: false
 
-  has :many, attributed: :images, orderable: true
+  # has :many, attributed: :koi_images, orderable: true
 
   image_accessor :image
   file_accessor  :file
@@ -32,7 +32,7 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       index   fields: [:name]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers, :images]
+                       :telephone, :image, :file, :powers]
     end
   end
 

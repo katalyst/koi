@@ -11,19 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120211113547) do
-
-  create_table "assets", :force => true do |t|
-    t.string   "data_uid"
-    t.string   "data_name"
-    t.string   "type"
-    t.integer  "attribute_ordinal"
-    t.string   "attribute_name"
-    t.integer  "attributable_id"
-    t.string   "attributable_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120212025918) do
 
   create_table "koi_admins", :force => true do |t|
     t.string   "first_name"
@@ -47,7 +35,19 @@ ActiveRecord::Schema.define(:version => 20120211113547) do
   add_index "koi_admins", ["email"], :name => "index_koi_admins_on_email", :unique => true
   add_index "koi_admins", ["reset_password_token"], :name => "index_koi_admins_on_reset_password_token", :unique => true
 
-  create_table "nav_items", :force => true do |t|
+  create_table "koi_assets", :force => true do |t|
+    t.string   "data_uid"
+    t.string   "data_name"
+    t.string   "type"
+    t.integer  "attribute_ordinal"
+    t.string   "attribute_name"
+    t.integer  "attributable_id"
+    t.string   "attributable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "koi_nav_items", :force => true do |t|
     t.string   "type"
     t.string   "title"
     t.string   "url"
@@ -69,11 +69,11 @@ ActiveRecord::Schema.define(:version => 20120211113547) do
     t.datetime "updated_at",     :null => false
   end
 
-  add_index "nav_items", ["navigable_id"], :name => "index_nav_items_on_navigable_id"
-  add_index "nav_items", ["navigable_type"], :name => "index_nav_items_on_navigable_type"
-  add_index "nav_items", ["url"], :name => "index_nav_items_on_url"
+  add_index "koi_nav_items", ["navigable_id"], :name => "index_koi_nav_items_on_navigable_id"
+  add_index "koi_nav_items", ["navigable_type"], :name => "index_koi_nav_items_on_navigable_type"
+  add_index "koi_nav_items", ["url"], :name => "index_koi_nav_items_on_url"
 
-  create_table "pages", :force => true do |t|
+  create_table "koi_pages", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "slug"
@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(:version => 20120211113547) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "pages", ["slug"], :name => "index_pages_on_slug", :unique => true
+  add_index "koi_pages", ["slug"], :name => "index_koi_pages_on_slug", :unique => true
 
-  create_table "settings", :force => true do |t|
+  create_table "koi_settings", :force => true do |t|
     t.string   "url"
     t.string   "meta_title"
     t.text     "meta_description"
@@ -93,9 +93,26 @@ ActiveRecord::Schema.define(:version => 20120211113547) do
     t.datetime "updated_at",       :null => false
   end
 
-  add_index "settings", ["set_id"], :name => "index_settings_on_set_id"
-  add_index "settings", ["set_type"], :name => "index_settings_on_set_type"
-  add_index "settings", ["url"], :name => "index_settings_on_url"
+  add_index "koi_settings", ["set_id"], :name => "index_koi_settings_on_set_id"
+  add_index "koi_settings", ["set_type"], :name => "index_koi_settings_on_set_type"
+  add_index "koi_settings", ["url"], :name => "index_koi_settings_on_url"
+
+  create_table "koi_translations", :force => true do |t|
+    t.string   "locale",         :default => "en"
+    t.string   "label"
+    t.string   "key"
+    t.text     "value"
+    t.text     "interpolations"
+    t.string   "role"
+    t.string   "field_type",     :default => "string"
+    t.string   "hint"
+    t.boolean  "is_proc",        :default => false
+    t.boolean  "is_required",    :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "koi_translations", ["key"], :name => "index_koi_translations_on_key", :unique => true
 
   create_table "super_heros", :force => true do |t|
     t.string   "name"
@@ -135,22 +152,5 @@ ActiveRecord::Schema.define(:version => 20120211113547) do
   create_table "tags", :force => true do |t|
     t.string "name"
   end
-
-  create_table "translations", :force => true do |t|
-    t.string   "locale",         :default => "en"
-    t.string   "label"
-    t.string   "key"
-    t.text     "value"
-    t.text     "interpolations"
-    t.string   "role"
-    t.string   "field_type",     :default => "string"
-    t.string   "hint"
-    t.boolean  "is_proc",        :default => false
-    t.boolean  "is_required",    :default => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-  end
-
-  add_index "translations", ["key"], :name => "index_translations_on_key", :unique => true
 
 end

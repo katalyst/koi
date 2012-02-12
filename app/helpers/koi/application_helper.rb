@@ -47,4 +47,7 @@ module Koi::ApplicationHelper
     image_tag(placeholder_image(text, args).url, args)
   end
 
+  def new_uuid
+    UUIDTools::UUID.timestamp_create().to_s
+  end
 end

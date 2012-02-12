@@ -1,2 +1,2 @@
-class Admin::SuperHerosController < Admin::KoiCrudController
+class Admin::SuperHerosController < Koi::AdminCrudController
 end

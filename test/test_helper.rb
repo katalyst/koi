@@ -5,7 +5,6 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rails/test_help'
 require 'factory_girl'
 require 'forgery'
-require 'turn'
 require 'pry'
 
 Rails.backtrace_cleaner.remove_silencers!
