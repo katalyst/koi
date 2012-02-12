@@ -1,4 +1,4 @@
-<%= form_tag resource_class, :method => 'get', class: "form-search w-9col2 as-iblk h-3" do %>
+<%= form_tag collection_path, :method => 'get', class: "form-search w-9col2 as-iblk h-3" do %>
 
   <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
   <%= hidden_field_tag :sort, params[:sort], id: "search_sort" %>
@@ -17,7 +17,7 @@
       <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search" %>
     </li>
     <li class="hollow grey h-2 push-d-1px">
-      <%= link_to "Reset", resource_class, class: "push-u-1px" %>
+      <%= link_to "Reset", collection_path, class: "push-u-1px" %>
     </li>
   </ul>
 <% end %>

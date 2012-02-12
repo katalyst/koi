@@ -1,6 +1,6 @@
-<% form_path = resource %>
+<% form_path = [:admin, resource] %>
 
-<% form_path.insert(0, parent) if respond_to?(:parent) && !parent.nil? %>
+<% form_path.insert(1, parent) if respond_to?(:parent) && !parent.nil? %>
 
 <%= simple_form_for form_path, html: { multipart: true } do |f| %>
   <%= render "form_parent",  { :f => f } %>

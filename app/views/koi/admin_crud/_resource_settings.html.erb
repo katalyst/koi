@@ -1,6 +1,6 @@
 <% if @setting %>
-  <%= render "shared/flash_messages" %>
-  <%= simple_form_for [:admin, @setting], remote: true, html: { multipart: true, class: "koi-admin-crud-form" } do |f| %>
+  <%= render "koi/shared/flash_messages" %>
+  <%= simple_form_for @setting, remote: true, html: { multipart: true, class: "koi-admin-crud-form" } do |f| %>
     <%= f.input :set_type, as: :hidden %>
     <%= f.input :set_id, as: :hidden %>
     <%= f.input :url, as: :hidden %>

@@ -36,7 +36,7 @@ module HasCrud
           if params[:commit].eql?("Continue")
             edit_resource_path
           elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
-            sitemap_admin_nav_items_path
+            sitemap_nav_items_path
           else
             collection_path
           end

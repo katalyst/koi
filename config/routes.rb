@@ -27,7 +27,7 @@ Koi::Engine.routes.draw do
 
   resources :translations, path: :site_settings
   resources :settings
-  resources :pages, :class_name => "Koi::Page"
+  resources :pages
   resources :admins
   resources :module_nav_items
   resources :folder_nav_items
