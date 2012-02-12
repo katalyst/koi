@@ -1,0 +1,9 @@
+<%- if is_allowed?(:show) %>
+  <%= link_to "Show", resource_path(object) %>
+<%- end %>
+<%- if is_allowed?(:edit) %>
+  <%= link_to "Edit", edit_resource_path(object) %>
+<%- end %>
+<%- if is_allowed?(:destroy) %>
+  <%= link_to "Destroy", resource_path(object), :confirm => 'Are you sure?', :method => :delete %>
+<%- end %>

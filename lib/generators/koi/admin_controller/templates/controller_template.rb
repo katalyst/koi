@@ -1,3 +1,3 @@
-class <%= 'admin'.capitalize %>::<%= plural_class_name %>Controller < Admin::KoiCrudController
+class <%= 'admin'.capitalize %>::<%= plural_class_name %>Controller < Koi::AdminCrudController
 end
 

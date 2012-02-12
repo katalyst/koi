@@ -1,2 +1,2 @@
-class SuperHerosController < ApplicationController
+class SuperHerosController < Koi::CrudController
 end

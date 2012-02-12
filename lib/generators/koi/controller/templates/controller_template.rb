@@ -1,3 +1,3 @@
-class <%= plural_class_name %>Controller < KoiCrudController
+class <%= plural_class_name %>Controller < Koi::CrudController
 end
 
