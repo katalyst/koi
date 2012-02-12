@@ -17,10 +17,5 @@ categories_module = ModuleNavItem.create!(title: "Categories", url: "/categories
 AliasNavItem.create!(title: "About Us", alias_id: about_us_page.id, parent: footer)
 AliasNavItem.create!(title: "Contact Us", alias_id: contact_us_page.id, parent: footer)
 
-# Categories
-["Environment", "Information", "Identity & branding"].each do |category|
-  Category.create! title: category, description: "Lorem..."
-end
-
 # One Footer Pages
 privacy_policy_page = Page.create!(title: "Privacy Policy").to_navigator!(parent_id: footer.id)

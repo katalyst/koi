@@ -1,7 +1,7 @@
 # This migration comes from koi (originally 20111228035029)
 class CreateNavItems < ActiveRecord::Migration
   def change
-    create_table :nav_items do |t|
+    create_table :koi_nav_items do |t|
       t.string   :type
       t.string   :title
       t.string   :url
@@ -23,8 +23,8 @@ class CreateNavItems < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :nav_items, :url
-    add_index :nav_items, :navigable_id
-    add_index :nav_items, :navigable_type
+    add_index :koi_nav_items, :url
+    add_index :koi_nav_items, :navigable_id
+    add_index :koi_nav_items, :navigable_type
   end
 end
