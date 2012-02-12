@@ -5,7 +5,7 @@
   </span>
 </h1>
 
-<%= simple_form_for [:admin, resource], remote: true, html: { multipart: true } do |f| %>
+<%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
 
   <div class="bg-white br-b br-grey-c0 pd-b-1 as-clr">
     <div class="right column w-15 pd-tr-2">
@@ -50,7 +50,7 @@
       </li>
       <%- unless resource.new_record? -%>
       <li class="ln-h-3 h-3">
-        <%= link_to "Delete", resource_path, confirm: "Are you sure?", method: :delete, remote: true %>
+        <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true %>
       </li>
       <%- end -%>
     </ul>

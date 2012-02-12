@@ -1,7 +1,6 @@
 module Koi
   class NavItemsController < AdminCrudController
     custom_actions resource: :toggle
-    respond_to :html, :js
 
     def new
       @site_parent = NavItem.find(params[:site_parent])
@@ -45,7 +44,6 @@ module Koi
         prev_item = dbitem
       end
       NavItem.rebuild!
-  #    render :nothing => true
       render partial: "nav_item_root", locals: { nav_item: RootNavItem.root }
     end
 
@@ -73,7 +71,7 @@ module Koi
       if params[:commit].eql?("Continue")
         edit_resource_url
       else
-        sitemap_admin_nav_items_path
+        sitemap_nav_items_path
       end
     end
   end

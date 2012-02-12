@@ -1,2 +1,2 @@
-<%= f.input attr, as: :select, collection: nested_set_options(NavItem, resource) {|i, level| "#{'-' * level} #{i.title}"} %>
+<%= f.input attr, as: :select, collection: nested_set_options(Koi::NavItem, resource) {|i, level| "#{'-' * level} #{i.title}"} %>
 
