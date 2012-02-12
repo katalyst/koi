@@ -7,7 +7,7 @@
 
         var $children = $sitemap.component ('.children')
         ,   $undo     = $sitemap.component ('.undo.button')
-        ,   path      = "<%= savesort_admin_nav_items_path %>"
+        ,   path      = "<%= koi_engine.savesort_nav_items_path %>"
         ;
 
         function save (data, cb) {
@@ -93,7 +93,7 @@
   </div>
 
   <ol class="children bsp-l-2 w-14col">
-    <%= render 'nav_item_root', nav_item: RootNavItem.root, level: 0 %>
+    <%= render 'nav_item_root', nav_item: Koi::RootNavItem.root, level: 0 %>
   </ol>
 
   <div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
