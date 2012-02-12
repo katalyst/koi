@@ -1,4 +1,4 @@
-<% js_data "sort_admin_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
+<% js_data "sort_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
 
 <% if is_orderable? %>
   <% content_for :head do %>

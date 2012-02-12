@@ -14,7 +14,7 @@ module SimpleForm
   @@collection_class = "vertical spaced-10px list"
 
   mattr_accessor :error_notification_partial
-  @@error_notification_partial = 'shared/error_notification'
+  @@error_notification_partial = 'koi/shared/error_notification'
 
   mattr_accessor :fieldset_legend_tag
   @@fieldset_legend_tag = :h3

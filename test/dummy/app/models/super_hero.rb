@@ -7,7 +7,7 @@ class SuperHero < ActiveRecord::Base
 
   image_accessor :image
   file_accessor  :file
-  serialize :powers, Array
+  # serialize :powers, Array
 
   Gender = ["Male", "Female", "Robot"]
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
