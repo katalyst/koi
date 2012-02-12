@@ -15,7 +15,7 @@ module HasCrud
         self.crud = KoiConfig::Config.new
 
         #FIXME: refactor
-        has_settings   unless options[:settings].eql?(false)
+        has_settings   if options[:settings].eql?(true)
         has_navigation if options[:navigation].eql?(true)
 
         if options[:orderable]

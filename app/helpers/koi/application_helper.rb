@@ -24,10 +24,9 @@ module Koi::ApplicationHelper
   end
 
   def resource_settings_record
-    return nil
-    resource.to_setting if !resource.new_record? && resource.respond_to?(:to_setting)
-  rescue NoMethodError
-    logger.info "Settings: No route found for #{resource_class} show"
+  #   resource.to_setting if !resource.new_record? && resource.respond_to?(:to_setting)
+  # rescue NoMethodError
+  #   logger.info "Settings: No route found for #{resource_class} show"
     nil
   end
 

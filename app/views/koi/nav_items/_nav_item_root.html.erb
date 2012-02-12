@@ -18,10 +18,10 @@
           <li class="w-7 rd-tr-5px">
             <a href="#">Add...</a>
             <ul class="vertical solid divided hoverable light-orange menu buttons w-7">
-              <%= content_tag :li, link_to("Module", koi_engine.new_module_nav_item_path(parent: nav_item.id)) if current_admin.god? %>
-              <%= content_tag :li, link_to("Alias" , koi_engine.new_alias_nav_item_path(parent: nav_item.id)) %>
-              <%= content_tag :li, link_to("Folder", koi_engine.new_folder_nav_item_path(parent: nav_item.id)) %>
-              <%= content_tag :li, link_to("Page"  , koi_engine.new_page_path(parent: nav_item.id)) %>
+              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") if current_admin.god? %>
+              <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id)) %>
             </ul>
           </li>
         </ul>
