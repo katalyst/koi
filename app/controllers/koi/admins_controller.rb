@@ -1,4 +1,4 @@
 module Koi
-  class AdminsController < Koi::CrudController
+  class AdminsController < CrudController
   end
 end

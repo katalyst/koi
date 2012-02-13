@@ -1,5 +1,6 @@
 module Koi
   class NavItemsController < AdminCrudController
+    defaults :route_prefix => ''
     custom_actions resource: :toggle
 
     def new

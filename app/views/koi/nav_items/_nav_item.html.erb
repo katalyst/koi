@@ -1,6 +1,5 @@
 <% nav_item_type = nav_item.class.name.underscore.dasherize %>
 <% nav_item_id = nav_item.id %>
-<% level ||= 1 %>
 
 <li id="nav-item-<%= nav_item.id %>"
     class="nav-item application type-nav-item id-<%= nav_item_id %>
@@ -23,7 +22,7 @@
           <li class="w-7">
             <a href="#">Add...</a>
             <ul class="vertical solid divided hoverable light-orange menu buttons w-7">
-              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") if current_admin.god? %>
+              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
               <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
               <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
               <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id)) %>

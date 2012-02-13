@@ -50,4 +50,9 @@ module Koi::ApplicationHelper
   def new_uuid
     UUIDTools::UUID.timestamp_create().to_s
   end
+
+  def is_koi_core_class?(klass)
+    ["Page", "Setting", "Translation", "NavItem", "AliasNavItem",
+     "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem"].include? klass.name
+  end
 end

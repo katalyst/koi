@@ -14,7 +14,7 @@ module HasSettings
 
     def to_setting(options={})
       options.merge!(:set => self)
-      setting = setting.blank? ? Koi::Setting.new : setting
+      setting = setting.blank? ? Setting.new : setting
       setting.attributes = options.merge(url: polymorphic_path(self))
       setting
     end
