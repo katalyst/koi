@@ -16,6 +16,9 @@ gem 'koi'                       , :path => "/Users/rahult/Development/katalyst/r
 # Ruby debugger
 gem 'ruby-debug19'              , :require => 'ruby-debug'
 
+# Fixture replacement
+gem 'factory_girl_rails'        , '>= 1.2.0'
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem_group :assets do
@@ -25,7 +28,7 @@ gem_group :assets do
 end
 
 # Setup rvm
-file ".rvmrc", <<-END
+create_file ".rvmrc", <<-END
 rvm use ruby-1.9.2-p136@koi-gem --create
 END
 
@@ -37,7 +40,7 @@ end
 
 # Setup database yml
 run 'rm config/database.yml'
-file "config/database.yml", <<-END
+create_file "config/database.yml", <<-END
 development:
   adapter: mysql2
   encoding: utf8
@@ -57,23 +60,32 @@ test:
   pool: 5
   username: root
   password: katalyst
-
 END
 
 # Setup seed
 run 'rm db/seeds.rb'
-file "db/seeds.rb", <<-END
+create_file "db/seeds.rb", <<-END
 Koi::Engine.load_seed
 END
 
-git :init
-git :add => "."
-git :commit => "-m Initial Commit!"
+# Install Migrations
+rake 'koi:install:migrations'
 
-rake("db:create")
+route 'mount Koi::Engine => "/admin", as: "koi_engine"'
+
+run 'rm public/index.html'
+
+rake 'db:drop'
+rake 'db:create'
 
 generate("koi:controller", "super_hero title:string description:text")
 generate("koi:admin_controller", "super_hero title:string description:text --skip-model")
 
-rake("db:migrate")
-rake("db:seed")
+route 'root to: "super_heros#index"'
+
+rake 'db:migrate'
+rake 'db:seed'
+
+git :init
+git :add => '.'
+git :commit => '-m "Initial Commit"'
