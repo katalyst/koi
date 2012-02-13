@@ -3,11 +3,11 @@ class SuperHero < ActiveRecord::Base
            searchable: [:id, :name, :gender, :powers],
            orderable: false
 
-  # has :many, attributed: :koi_images, orderable: true
+  has :many, attributed: :images, orderable: true
 
   image_accessor :image
   file_accessor  :file
-  # serialize :powers, Array
+  serialize :powers, Array
 
   Gender = ["Male", "Female", "Robot"]
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
@@ -32,7 +32,7 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       index   fields: [:name]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers]
+                       :telephone, :image, :file, :powers, :images]
     end
   end
 

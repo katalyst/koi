@@ -1,8 +1,7 @@
 <% form_path = [resource] %>
-
 <%
-  # FIXME: admin namespace is not needed for koi core classes server from the railtie
-  #        as they live in engine namespace
+  # NOTE: admin namespace is not needed for koi core classes server from the railtie
+  #       as they live in engine namespace
 %>
 <% form_path.insert(0, :admin) unless is_koi_core_class?(resource_class) %>
 <% form_path.insert(1, parent) if respond_to?(:parent) && !parent.nil? %>
@@ -13,4 +12,3 @@
   <%= render "form_fields",  { :f => f } %>
   <%= render "form_buttons", { :f => f } %>
 <% end %>
-

@@ -1,6 +1,6 @@
 # Default Super admin
-Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
-             role: "Super", password: "1S*f91$l9", password_confirmation: "1S*f91$l9")
+# Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
+#              role: "Super", password: "1S*f91$l9", password_confirmation: "1S*f91$l9")
 
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
 header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation")

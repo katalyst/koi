@@ -1,4 +1,4 @@
-KoiEngine::Engine.load_seed
+Koi::Engine.load_seed
 
 # Add super heros
 heros = ["Abbess", "Ablaze", "Ace", "Acid", "Adamant", "Aegis", "Airspeed", "Alaczar (Spanish: Fortress)", "AlleyCat",
