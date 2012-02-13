@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<%= yield :title if content_for?(:title) %>
 <%= yield %>
 
 </body>
