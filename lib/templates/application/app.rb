@@ -83,6 +83,8 @@ generate("koi:admin_controller", "super_hero title:string description:text --ski
 
 route 'root to: "super_heros#index"'
 
+route 'resources :pages'
+
 rake 'db:migrate'
 rake 'db:seed'
 
