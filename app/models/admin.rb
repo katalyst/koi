@@ -1,7 +1,7 @@
 class Admin < ActiveRecord::Base
-    devise :database_authenticatable, :recoverable,
-           :rememberable, :trackable, :validatable,
-           :registerable, :stretches => 20
+    # devise :database_authenticatable, :recoverable,
+    #        :rememberable, :trackable, :validatable,
+    #        :registerable, :stretches => 20
 
     attr_accessible :email, :password, :password_confirmation,
                     :remember_me, :first_name, :last_name, :role
