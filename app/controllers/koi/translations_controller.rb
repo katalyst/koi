@@ -1,3 +1,4 @@
-class Admin::TranslationsController < Admin::KoiCrudController
+module Koi
+  class TranslationsController < AdminCrudController
+  end
 end
-

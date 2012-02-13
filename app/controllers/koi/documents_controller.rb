@@ -1,2 +1,4 @@
-class Admin::DocumentsController < Admin::AssetsController
+module Koi
+  class DocumentsController < AssetsController
+  end
 end

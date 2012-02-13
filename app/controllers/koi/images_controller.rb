@@ -1,2 +1,4 @@
-class Admin::ImagesController < Admin::AssetsController
+module Koi
+  class ImagesController < AssetsController
+  end
 end

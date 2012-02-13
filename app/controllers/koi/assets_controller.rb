@@ -1,81 +1,83 @@
-class Admin::AssetsController < Admin::KoiCrudController
-  before_filter :init
+module Koi
+  class AssetsController < AdminCrudController
+    before_filter :init
 
-  def new
-    params[:asset] = { :tag_list => [ @tags ] }
-    super
-  end
-
-  def show
-  end
-
-  def create
-    create! do |success, failure|
-      success.html { redirect_to edit_resource_path }
-      success.js
+    def new
+      params[:asset] = { :tag_list => [ @tags ] }
+      super
     end
-  end
 
-  def update
-    super do |success, failure|
-      success.html {  }
-      success.js
-      redirect_to edit_resource_path
+    def show
     end
-  end
 
-  def delete
-    respond_to do |format|
-      format.html # delete.html.erb
+    def create
+      create! do |success, failure|
+        success.html { redirect_to edit_resource_path }
+        success.js
+      end
     end
-  end
 
-  # HELPERS ########################################################################################
+    def update
+      super do |success, failure|
+        success.html {  }
+        success.js
+        redirect_to edit_resource_path
+      end
+    end
 
-  def url_options
-    super.reverse_merge(custom_url_options)
-  end
+    def delete
+      respond_to do |format|
+        format.html # delete.html.erb
+      end
+    end
 
-  def custom_url_options
-    @custom_url_options || {}
-  end
+    # HELPERS ########################################################################################
 
-  def custom_url_options=(options)
-    @custom_url_options = (@custom_url_options || {}).merge(options) if options.is_a?(Hash)
-  end
+    def url_options
+      super.reverse_merge(custom_url_options)
+    end
 
-protected
+    def custom_url_options
+      @custom_url_options || {}
+    end
 
-  def sort_column
-    resource_class.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-  end
+    def custom_url_options=(options)
+      @custom_url_options = (@custom_url_options || {}).merge(options) if options.is_a?(Hash)
+    end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
+    protected
 
-  def collection
-    return get_collection_ivar unless get_collection_ivar.nil?
-    coll = end_of_association_chain.search_for params[:search]
-    coll = coll.tagged_with @tags unless @tags.blank?
-    coll = coll.order sort_column + " " + sort_direction
-    set_collection_ivar coll
-  end
+    def sort_column
+      resource_class.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
 
-  def init
-    @tags = params[:tags] || []
-    @all_tags = resource_class.tag_counts_on(:tags).collect { |x| x.name }
-    self.custom_url_options = { :tags => @tags, :CKEditorFuncNum => params[:CKEditorFuncNum] }
-  end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
 
-  def create_resource(object)
-    object.data = params[:file].tempfile
-    object.data_name = params[:file].original_filename
-    object.tag_list = params[:tag_list]
-    object.save
-  end
+    def collection
+      return get_collection_ivar unless get_collection_ivar.nil?
+      coll = end_of_association_chain.search_for params[:search]
+      coll = coll.tagged_with @tags unless @tags.blank?
+      coll = coll.order sort_column + " " + sort_direction
+      set_collection_ivar coll
+    end
 
-  def resource_class
-    params[:controller].sub("admin/", "").singularize.capitalize.constantize
+    def init
+      @tags = params[:tags] || []
+      @all_tags = resource_class.tag_counts_on(:tags).collect { |x| x.name }
+      self.custom_url_options = { :tags => @tags, :CKEditorFuncNum => params[:CKEditorFuncNum] }
+    end
+
+    def create_resource(object)
+      object.data = params[:file].tempfile
+      object.data_name = params[:file].original_filename
+      object.tag_list = params[:tag_list]
+      object.save
+    end
+
+    def resource_class
+      params[:controller].sub("admin/", "").singularize.capitalize.constantize
+    end
   end
 end
