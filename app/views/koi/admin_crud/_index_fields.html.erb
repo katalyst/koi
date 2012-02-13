@@ -1,3 +1,32 @@
+<% if is_orderable? %>
+  <% js_data "sort_admin_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      document.onselectstart = function () { return false; }
+
+      $(function() {
+        var notice = $('<p class="pd-1 background-light-green">Saving...</p>').hide();
+        $("#sortable").sortable({
+          placeholder: 'ui-state-placeholder',
+          // Return a helper with preserved width of cells
+          helper: function(e, ui) {
+            ui.children().each(function() {
+              $(this).width($(this).width());
+            });
+            return ui;
+          },
+          update: function() {
+            notice.stop(true, true).removeClass('success').addClass('notice').text("Saving...").show();
+            $.post(jsData.sortAdmin<%= resource_class.to_s.pluralize %>Path, '_method=put&'+$(this).sortable('serialize'), function() {
+              notice.removeClass('notice').addClass('success').text("Save successful.").delay(1000).fadeOut();
+            });
+          }
+        }).disableSelection().parent().next().prepend(notice);
+      });
+    </script>
+  <% end %>
+<% end %>
+
 <div id="index-fields">
   <table class="table padded-sides ruled br br-grey-d8 rd-b-5px ln-h-3">
     <thead>

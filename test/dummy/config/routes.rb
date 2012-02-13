@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pages
   resources :news_items
   resources :super_heros
 
