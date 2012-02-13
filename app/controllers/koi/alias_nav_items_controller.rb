@@ -1,5 +1,5 @@
 module Koi
-  class AliasNavItemsController < Koi::AdminCrudController
+  class AliasNavItemsController < NavItemsController
     defaults :resource_class => AliasNavItem
   end
 end

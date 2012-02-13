@@ -1,6 +1,6 @@
 class CreateTranslations < ActiveRecord::Migration
   def change
-    create_table :koi_translations do |t|
+    create_table :translations do |t|
       t.string  :locale, default: "en"
       t.string  :label
       t.string  :key
@@ -15,6 +15,6 @@ class CreateTranslations < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :koi_translations, :key, :unique => true
+    add_index :translations, :key, :unique => true
   end
 end

@@ -1,3 +1,5 @@
+KoiEngine::Engine.load_seed
+
 # Add super heros
 heros = ["Abbess", "Ablaze", "Ace", "Acid", "Adamant", "Aegis", "Airspeed", "Alaczar (Spanish: Fortress)", "AlleyCat",
   "Animus", "Anti-Matter Man", "Aqualung (guy with frog powers)", "Arc", "ArchAngel", "Argus", "Armadillo",

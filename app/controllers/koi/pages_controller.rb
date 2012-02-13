@@ -1,4 +1,5 @@
 module Koi
-  class PagesController < Koi::AdminCrudController
+  class PagesController < AdminCrudController
+    defaults :route_prefix => ''
   end
 end

@@ -1,6 +1,6 @@
 class CreateSettings < ActiveRecord::Migration
   def change
-    create_table :koi_settings do |t|
+    create_table :settings do |t|
       t.string   :url
       t.string   :meta_title
       t.text     :meta_description
@@ -10,8 +10,8 @@ class CreateSettings < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :koi_settings, :url
-    add_index :koi_settings, :set_id
-    add_index :koi_settings, :set_type
+    add_index :settings, :url
+    add_index :settings, :set_id
+    add_index :settings, :set_type
   end
 end

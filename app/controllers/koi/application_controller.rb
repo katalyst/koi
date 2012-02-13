@@ -1,3 +1,9 @@
+class Admin
+  def god?
+    true
+  end
+end
+
 module Koi
   class ApplicationController < ActionController::Base
     helper :all
@@ -9,7 +15,7 @@ module Koi
     end
 
     def current_admin
-      Koi::Admin.first
+      new Admin
     end
 
     def login
