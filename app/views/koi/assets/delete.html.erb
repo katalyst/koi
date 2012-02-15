@@ -1,0 +1,14 @@
+<% content_for :title, 'Delete Asset' %>
+
+<% content_for :title_bar, render("title_bar") %>
+<% content_for :tag_bar, render("tag_bar") %>
+<% content_for :asset_table, render("asset_table") %>
+
+<% form_for url_for, :html => { :method => :delete } do |f| %>
+  <p>
+    Are you sure you want to delete this asset?
+  </p>
+  <p>
+    <%= submit_tag "Delete" %> or <%= link_to "cancel", resource_path(resource) %>
+  </p>
+<% end %>

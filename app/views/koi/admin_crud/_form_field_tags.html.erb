@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      var myTextArea = $('textarea.tagme').tagify();
+
+      myTextArea.tagify('inputField').autocomplete({
+        source: <%= raw resource_class.tag_counts.collect { |t| t.name } %>,
+        position: { of: myTextArea.tagify('containerDiv') },
+        close: function(event, ui) { myTextArea.tagify('add'); },
+      });
+
+      $('textarea.tagme').closest("form").submit( function() {
+        $('textarea').tagify('serialize');
+      });
+    });
+  </script>
+  <style type="text/css" media="all">
+    .ui-autocomplete {width:296px;}
+  </style>
+<% end %>
+
+<%= f.input :tag_list, as: :text, input_html: { class: "tagme" } %>
+

@@ -1,0 +1,22 @@
+<%% content_for :title, "<%= plural_name.titleize %>" %>
+
+<table>
+  <tr>
+  <%- for attribute in model_attributes -%>
+    <th><%= attribute.human_name.titleize %></th>
+  <%- end -%>
+  </tr>
+  <%% @<%= instances_name %>.each do |<%= instance_name %>| %>
+    <tr>
+    <%- for attribute in model_attributes -%>
+      <td><%%= <%= instance_name %>.<%= attribute.name %> %></td>
+    <%- end -%>
+      <td><%%= link_to "Show", <%= item_path %> %></td>
+      <td><%%= link_to "Edit", <%= item_path :action => :edit %> %></td>
+      <td><%%= link_to "Destroy", <%= item_path %>, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <%% end %>
+</table>
+
+<p><%%= link_to "New <%= singular_name.titleize %>", <%= item_path :action => :new %> %></p>
+

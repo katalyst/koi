@@ -1,0 +1,34 @@
+<% nav_item_type = nav_item.class.name.underscore.dasherize %>
+<% nav_item_id = nav_item.id %>
+
+<li id="nav-item-<%= nav_item.id %>"
+    class="nav-item application type-nav-item id-<%= nav_item_id %> br-t br-grey-f4"
+    data-type="<%= nav_item_type %>"
+    data-id="<%= nav_item_id %>">
+
+  <!-- zone provides hoverable space between elements so there are no dead-spots -->
+  <div class="zone pd-t-4px">
+    <div class="main rd-5px ln-h-22px h-22px pd-l-3 sp-l-2 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>">
+      <div class="information flt-l button <%= "tx-14px tx-bold" unless nav_item.children.empty? %>">
+        <%= link_to nav_item.title, nav_item.admin_url.blank? ? "#" : nav_item.admin_url, class: "link" %>
+      </div>
+
+      <div class="controls flt-r ln-h-22px h-22px vis-hidden">
+        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px tx-uc">
+          <li class="w-7 rd-tr-5px">
+            <a href="#">Add...</a>
+            <ul class="vertical solid divided hoverable light-orange menu buttons w-7">
+              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id)) %>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ol class="children sp-l-2">
+    <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
+  </ol>
+</li>

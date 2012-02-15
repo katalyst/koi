@@ -1,0 +1,322 @@
+// layout /////////////////////////////////////////////////////////////////////
+
+@mixin as( $type ) {
+  $class: class-as( $type );
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include css-as( $type ); }
+}
+
+@mixin display( $type ) {
+  $class: class-display( $type );
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include css-display( $type ); }
+}
+
+@mixin overflow( $type ) {
+  $class: class-overflow( $type );
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include css-overflow( $type ); }
+}
+
+@mixin visibility( $type ) {
+  $class: class-visibility( $type );
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include css-visibility( $type ); }
+}
+
+@mixin z-index( $i ) {
+  $class: class-z-index( $i );
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include css-z-index( $i ); }
+}
+
+// position ///////////////////////////////////////////////////////////////////
+
+@mixin position( $type ) {
+  @each $t in condense( $type ) {
+    $class: class-position( $t );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-position( $t ); }
+  }
+}
+
+@mixin inset( $side, $amount ) {
+  @include position( absolute );
+
+  @each $s in condense-sides( $side ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-inset( $s, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-inset( $s, $a ); }
+  }}
+}
+
+@mixin outset( $side, $amount ) {
+  @include position( absolute );
+
+  @each $s in condense-sides( $side ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-outset( $s, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-outset( $s, $a ); }
+  }}
+}
+
+@mixin float( $direction ) {
+  @each $d in condense-directions( $direction ) {
+
+    $class: class-float( $d );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-float( $d ); }
+  }
+}
+
+@mixin clear( $direction ) {
+  @each $d in condense-directions( $direction ) {
+
+    $class: class-clear( $d );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-clear( $d ); }
+  }
+}
+
+@mixin push( $direction, $amount ) {
+  @include position( relative );
+
+  @each $d in condense-directions( $direction ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-push( $d, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-push( $d, $a ); }
+  }}
+}
+
+@mixin pull( $direction, $amount ) {
+  @include position( relative );
+
+  @each $d in condense-directions( $direction ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-pull( $d, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-pull( $d, $a ); }
+  }}
+}
+
+@mixin space( $side, $amount ) {
+  @each $s in condense-sides( $side ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-space( $s, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-space( $s, $a ); }
+  }}
+}
+
+@mixin backspace( $side, $amount ) {
+  @each $s in condense-sides( $side ) {
+  @each $a in condense( $amount ) {
+
+     $class: class-backspace( $s, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-backspace( $s, $a ); }
+  }}
+}
+
+@mixin pad( $side, $amount ) {
+  @each $s in condense-sides( $side ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-pad( $s, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-pad( $s, $a ); }
+  }}
+}
+
+@mixin align( $aln ) {
+  @each $s in condense( $aln ) {
+
+    $class: class-align( $s );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-align( $aln ); }
+  }
+}
+
+// dimension //////////////////////////////////////////////////////////////////
+
+@mixin box( $dimension, $amount ) {
+  @each $d in condense( $dimension ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-box( $d, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-box( $d, $a ); }
+  }}
+}
+
+@mixin line( $dimension, $amount ) {
+  @each $d in condense( $dimension ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-line( $d, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-line( $d, $a ); }
+  }}
+}
+
+@mixin min( $dimension, $amount ) {
+  @each $d in condense( $dimension ) {
+  @each $a in condense( $amount ) {
+
+    $class: class-min( $d, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-min( $d, $a ); }
+  }}
+}
+
+// type ///////////////////////////////////////////////////////////////////////
+
+@mixin text( $key, $val ) {
+  @each $v in condense( $val ) {
+
+    $class: class-text( $key, $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-text( $key, $val ); }
+  }
+}
+
+@mixin text-hidden {
+  $class: class-text-hidden();
+  @if is-extendable( $class ) { @extend #{ $class }; }
+  @else { @include indent( hidden ); }
+}
+
+@mixin text-inherit {
+  @each $p in enum( $text-attributes ) {
+
+    $class: class-text( $p, inherit );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-text( $p, inherit ); }
+  }
+}
+
+@mixin indent( $val ) {
+  @if $val == hidden { $val: 9999px; }
+  @each $v in condense( $val ) {
+
+    $class: class-indent( $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-text( indent, $val ); }
+  }
+}
+
+@mixin outdent( $val ) {
+  @if $val == hidden { $val: 0px; }
+  @each $v in condense( $val ) {
+
+    $class: class-outdent( $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-text( indent, -$val ); }
+  }
+}
+
+// effects ////////////////////////////////////////////////////////////////////
+
+@mixin background( $key, $val ) {
+  @each $v in condense( $val ) {
+
+    $class: class-background( $key, $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-background( $key, $val ); }
+  }
+}
+
+@mixin opacity( $val ) {
+  @if $val == hidden { $val: 0; }
+  @each $v in condense( $val ) {
+
+    $class: class-opacity( $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-opacity( $val ); }
+  }
+}
+
+@mixin border( $key, $side, $value ) {
+  @each $k in condense( $key ) {
+  @each $s in condense-sides( $side ) {
+  @each $v in condense( $value ) {
+
+    $class: class-border( $k, $s, $v );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-border( $k, $s, $v ); }
+
+  }}}
+}
+
+@mixin round( $corner, $amount ) {
+  @each $c in condense( $corner ) { // uses shorthand for compatability with pie.htc
+  @each $a in condense( $amount ) {
+
+    $class: class-round( $c, $a );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-round( $c, $a ); }
+  }}
+}
+
+// shadow has equal blur, spread, and offset
+
+@mixin shadow( $direction, $spread, $col ) {
+  $spread:  $spread ;
+  $xy: screen-vector( $direction );
+  $x: first( $xy ) * $spread;
+  $y: second( $xy ) * -$spread;
+  @include css-box-shadow( $x, $y, $spread, $spread, $col );
+}
+
+@mixin unishadow( $direction, $spread, $col, $inner: () ) {
+  $spread:  $spread ;
+  $xy: screen-vector( $direction );
+  $x: first( $xy ) * $spread;
+  $y: second( $xy ) * $spread;
+  @include css-box-shadow( $x, $y, $spread, -$spread, $col, true );
+}
+
+@mixin inner-unishadow( $side, $spread, $col ) {
+  @include unishadow( opposite-direction-of-side($side), $spread, $col, true );
+}
+
+// trail has negative spread corresponding to blur
+
+@mixin trail( $direction, $spread, $col ) {
+  $spread:  $spread ;
+  $xy: screen-vector( $direction );
+  $x: first( $xy ) * $spread;
+  $y: second( $xy ) * -$spread;
+  @include css-box-shadow( $x, $y, $spread, -$spread, $col );
+}
+
+// glow has no offset, and equal blur and spread
+
+@mixin glow( $blur, $col ) {
+  $blur:  $blur ;
+  @include css-box-shadow( 0, 0, $blur, $blur / 3, $col );
+}
+
+// grow has no offset or blur, only spread and color
+
+@mixin grow( $spread, $col ) {
+  $spread:  $spread ;
+  @include css-box-shadow( 0, 0, 0, $spread, $col );
+}
+
+@mixin cursor( $type ) {
+  @each $t in condense( $type ) {
+
+    $class: class-cursor( $t );
+    @if is-extendable( $class ) { @extend #{ $class }; }
+    @else { @include css-cursor( $t ); }
+  }
+}

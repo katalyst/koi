@@ -1,0 +1,15 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+.links-inherit, .links.inherit {
+  a {
+    @include text-inherit;
+    @include text-inherit;
+  }
+}
+
+.links-orange, .links.orange {
+  a { color: $orange; }
+  a:hover { text-decoration: underline; }
+}
+

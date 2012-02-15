@@ -10,6 +10,9 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# jQuery
+gem 'jquery-rails'
+
 # Koi
 gem 'koi_config'                , :git => 'git@github.com:katalyst/koi_config.git'
 
@@ -17,7 +20,7 @@ gem 'koi_config'                , :git => 'git@github.com:katalyst/koi_config.gi
 gem 'awesome_nested_fields'     , :git => "git@github.com:katalyst/awesome_nested_fields.git"
 
 # Ruby debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug19'              , :require => 'ruby-debug'
 
 # Gems used only for assets and not required
 # in production environments by default.

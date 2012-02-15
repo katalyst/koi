@@ -1,0 +1,55 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(function() {
+
+      $("#modal-for-nav-item").modal ({ backdrop: true, keyboard: true });
+
+      $(".site-tree").delegate ("a.nav-item-link", 'click', function(event) {
+        event.preventDefault ();
+        $.getScript (this.href);
+      });
+
+      $(".nav-item").application (true, function ($item) {
+
+        var $main = $item.component (".main");
+        var $panel = $item.component (".control-panel").css ({ opacity:0 });
+
+        $main.mouseleave (function () { $panel.animate({ opacity:0 }, 100); });
+        $main.mouseover (function () { $panel.animate({ opacity:1 }, 100); });
+      });
+
+    });
+  </script>
+<% end %>
+
+<% content_for :title, "Nav Items" %>
+
+<div id="output">&nbsp;</div>
+
+<div id="modal-for-nav-item" class="modal hide fade bg-black">&nbsp;</div>
+
+<%= render 'nav_item', nav_item: RootNavItem.root, css: "unmarked-list sortable sitemap not-nestable", root: true %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('ol.sortable').nestedSortable({
+      disableNesting: 'not-nestable',
+      forcePlaceholderSize: true,
+      handle: 'div',
+      helper: 'clone',
+      items: 'li.sortable-li',
+      opacity: .6,
+      placeholder: 'placeholder',
+      revert: 250,
+      tabSize: 25,
+      tolerance: 'pointer',
+      toleranceElement: '> div',
+      protectRoot: true,
+      update: function(){
+        var newOrder = {set : JSON.stringify($('ol.sortable').nestedSortable('toHierarchy'))};
+        $.post("<%= savesort_admin_nav_items_path %>", newOrder, $('#output').html('<p id="flash_notice">Saved Successfully</p>'));
+      }
+    });
+  });
+</script>
+

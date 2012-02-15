@@ -1,0 +1,29 @@
+<div class="flt-l tx-16px tx-grey-a4"><%= pluralize collection.size, resource_class.name %></div>
+
+<%= form_tag collection_path, :method => 'get', class: "form-search w-9col2 as-iblk h-3 flt-r" do %>
+
+  <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
+  <%= hidden_field_tag :sort, params[:sort], id: "search_sort" %>
+  <%= hidden_field_tag :per, params[:per], id: "search_per" %>
+  <% unless params[:tags].blank? %>
+    <% params[:tags].each do |tag| %>
+      <%= hidden_field_tag "tags[]", tag %>
+    <% end %>
+  <% end %>
+  <span class="tx-bold sp-r-5px">Search</span>
+
+  <input type="text"
+         name="search"
+         placeholder="Enter search criteria"
+         value="<%= params[:search] %>"
+         class="w-20 h-22px ln-h-22px as-iblk" />
+
+  <ul class="rounded-3px padded-1 spaced-3px hoverable solid grey inline buttons h-2 ln-h-2 tx-11px">
+    <li class="orange sp-l-5px">
+      <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search" %>
+    </li>
+    <li>
+      <%= link_to "Reset", collection_path(params.merge search: nil) %>
+    </li>
+  </ul>
+<% end %>

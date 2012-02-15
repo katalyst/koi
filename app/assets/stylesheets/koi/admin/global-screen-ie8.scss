@@ -1,0 +1,8 @@
+// body { behavior:url(/assets/koi/pie.htc); }
+
+.adjusted {
+  &.control, &.button, &.buttons, &.menu {
+    a, button, input[type=submit] { top:0 !important; }
+  }
+}
+

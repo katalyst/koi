@@ -1,0 +1,12 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+@include def-box( width, (25% 33% 50% 66% 100%) (1px 2px _ 25px) (0.0col 0.1col _ 24.0col) );
+
+@include def-box( height, (1px 2px _ 25px) (20px 25px _ 100px) (100px 110px _ 1000px) (570px) );
+
+@include def-min( height, (100px 110px _ 1000px) (570px) );
+
+@include def-line( height, (10px 11px _ 25px) (20px 25px _ 100px) (1.0em 1.1em _ 4.0em) );
+
+

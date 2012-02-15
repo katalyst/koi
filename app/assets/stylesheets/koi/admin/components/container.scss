@@ -1,0 +1,11 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+.container {
+  @include as( clear );
+  display: block;
+
+  &.center {
+    margin: 0 auto;
+  }
+}
