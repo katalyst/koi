@@ -1,6 +1,5 @@
 class Document < Asset
-  validates_size_of :data, maximum: KOI_ASSET_DOCUMENT_SIZE_LIMIT
+  validates_size_of :data, maximum: Koi::Asset::Document.size_limit
   validates_property :mime_type, of: :data,
-    in: KOI_ASSET_DOCUMENT_MIME_TYPES + KOI_ASSET_IMAGE_MIME_TYPES
+    in: Koi::Asset::Document.mime_types
 end
-

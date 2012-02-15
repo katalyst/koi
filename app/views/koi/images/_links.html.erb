@@ -3,7 +3,7 @@
   <h6>Sizes Available:</h6>
   <ul class="spaced-5px vertical elements sp-t-1 sp-b-1 tx-bold">
     <li><%= render "link_size", size: resource.dragonfly_options, title: "#{ resource.title_options } (Original)", checked: true %></li>
-    <% KOI_ASSET_IMAGE_SIZES[ 1..-1 ].each do |size| %>
+    <% Koi::Asset::Image.sizes[ 1..-1 ].each do |size| %>
       <li><%= render partial: "link_size", locals: size %></li>
     <% end %>
   </ul>

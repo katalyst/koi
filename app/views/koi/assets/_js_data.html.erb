@@ -1,2 +1,2 @@
 <% js_data(:create_asset_url, '/admin/assets') %>
-<% js_data(:accecpted_extensions, (KOI_ASSET_IMAGE_EXTENSIONS+KOI_ASSET_DOCUMENT_EXTENSIONS).join(',')) %>
+<% js_data(:accecpted_extensions, (Koi::Asset::Document.extensions).join(',')) %>
