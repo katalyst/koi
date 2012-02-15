@@ -1,3 +1,6 @@
+# Add private gem source
+add_source "https://gems.gemfury.com/aPkgq5q1k8kUqnitXdyJ/"
+
 # Overwrite for default rails
 gem 'jquery-rails'
 
@@ -84,6 +87,13 @@ generate("koi:admin_controller", "super_hero title:string description:text --ski
 route 'root to: "super_heros#index"'
 
 route 'resources :pages'
+
+# Setup Initializer Example
+create_file "config/Initializers/koi.rb", <<-END
+Koi::Menu.items = {
+  "Super Heros" => "/admin/super_heros",
+}
+END
 
 rake 'db:migrate'
 rake 'db:seed'
