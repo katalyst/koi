@@ -10,7 +10,7 @@
 
 <section class="assets section pd-lr-2 sp-b-1">
 
-  <%= simple_form_for([:admin, resource], html: { id: 'upload-form', multipart: true }) do |f| %>
+  <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <p class="sp-b-2px">Select file/s:</p>
