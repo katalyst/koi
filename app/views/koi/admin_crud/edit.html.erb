@@ -1,0 +1,22 @@
+<%= render 'edit_title' %>
+
+  <ul class="tabs">
+    <li class="active h6"><a href="#edit" data-toggle="tab">Edit</a></li>
+    <% if @setting ||= resource_settings_record %>
+      <li class="h6"><a href="#meta-data" data-toggle="tab">Meta data</a></li>
+    <% end %>
+  </ul>
+
+<div id="myTabContent" class="tab-content">
+  <div class="active tab-pane" id="edit">
+    <%= render 'edit_form' %>
+    <%= render 'edit_form_actions' %>
+  </div>
+  <div class="tab-pane" id="meta-data">
+     <%= render 'resource_settings' %>
+  </div>
+</div>
+
+<% content_for :side do %>
+  <%= render 'new_side' %>
+<% end %>

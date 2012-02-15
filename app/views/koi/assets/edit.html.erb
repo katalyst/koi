@@ -1,0 +1,110 @@
+<% unless params[:CKEditorFuncNum].blank? %>
+  <% js_data :ck_editor_func_num, params[:CKEditorFuncNum] %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      $(function() {
+        var CKEditorFuncNum = '#{}';
+        $('.insert.asset.button').click(function() {
+          try {
+            window.opener.CKEDITOR.tools.callFunction(jsData.ckEditorFuncNum, $(this).attr("href"));
+            window.close();
+            return false;
+          } catch (e) {}
+        });
+      });
+    </script>
+  <% end %>
+<% end %>
+
+<%= render "tagify" %>
+
+<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
+  <h2 class="heading tx-16px"><%= resource_class.name %> Details</h2>
+</header>
+
+<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
+
+<section class="assets section pd-lr-2 sp-b-1">
+
+  <%= render "preview" %>
+
+</section>
+
+<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
+  <h2 class="heading tx-16px">Edit <%= resource_class.name %></h2>
+</header>
+
+<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1"></div>
+
+<section class="assets section pd-lr-2 sp-b-1">
+
+  <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
+
+    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1 sp-t-2">
+      <% if resource.new_record? %>
+        <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
+        <li class="solid disabled" id="upload-button-upload"><%= f.submit value: "Upload", disabled: "disabled" %></li>
+      <% else %>
+        <li class="solid orange">
+          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue" %>
+        </li>
+        <li><%= link_to "Cancel", collection_path %></li>
+      <% end %>
+    </ul>
+
+  <% end %>
+
+</section>
+
+<%# Maybe? %>
+<%
+=begin
+%>
+<script type="text/javascript">
+  $(function() {
+    var $all = $("#edit, #info");
+    $all.each(function() {
+      var $this = $(this);
+      var $heading = $this.prev("h1, h2, h3, h4, h5, h6").first();
+      var $toggle = $('<span class="small right" />');
+
+      $this.data("show", function() {
+        $this.show();
+        $toggle.text("Hide");
+      });
+
+      $this.data("hide", function() {
+        $this.hide();
+        $toggle.text("Show");
+      });
+
+      $this.data("toggle", function() {
+        if ($this.is(":visible")) {
+          $this.data("hide")();
+        } else {
+          $this.data("show")();
+        }
+      });
+
+      $this.data("hide")();
+
+      $toggle.css({ lineHeight: $heading.css("line-height") });
+
+      $heading.css({ cursor: 'pointer' }).hover(function() {
+        $heading.add($toggle).css({ color: 'red' })
+      }, function() {
+        $heading.add($toggle).css({ color: 'black' })
+      });
+
+      $heading.append($toggle).click($this.data("toggle"));
+    });
+
+    $all.first().data("show")();
+  });
+</script>
+<%
+=end
+%>

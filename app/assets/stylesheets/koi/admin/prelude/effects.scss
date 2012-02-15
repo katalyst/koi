@@ -1,0 +1,23 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+$colorful: $greys-x0 $greys-x4 $greys-x8 $greys-xc ($orange white black);
+
+@each $x in enum( left center right ) {
+@each $y in enum( left center right ) {
+  #{ class( bg x $x ) }#{ class( bg y $y ) } { background-position: $x $y !important; }
+}}
+
+@include def-background( color, $colorful );
+
+@include def-opacity( hidden );
+
+@include def-border( width, all, 1px 2px _ 4px );
+
+@include def-border( style, all, solid dotted dashed );
+
+@include def-border( color, all, $colorful );
+
+@include def-round( all, 3px 5px _ 9px );
+
+@include def-cursor( default pointer move );

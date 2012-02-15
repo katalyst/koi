@@ -1,0 +1,13 @@
+//= depend_on ./_import.scss
+//= depend_on ./elements.scss
+
+@import "./_import.scss";
+@import "./elements.scss";
+
+.list {
+  @extend .elements;
+
+  &.bulleted {
+    list-style-type: disc;
+  }
+}

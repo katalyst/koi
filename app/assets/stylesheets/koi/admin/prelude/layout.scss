@@ -1,0 +1,13 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+@include def-as( layout clear border-box content-box );
+
+@include def-display( block inline inline-block hidden );
+
+@include def-overflow( auto scroll hidden visible ); // overflow-x overflow-y
+
+@include def-visibility( hidden visible );
+
+@include def-z-index( 1 2 _ 10 );
+

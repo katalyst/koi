@@ -1,0 +1,15 @@
+<div class="tx-11px">
+  <span class="orange links">
+    <ol class="inline elements spaced-1 sp-r-1">
+      <% if is_allowed? :edit %>
+        <li><%= link_to "edit", edit_resource_path(object) %></li>
+      <% end %>
+      <% (resource_class.crud.find(:admin, :index, :relations) || []).each do |child| %>
+        <li><%= link_to "#{child}", [:admin, object, child] %></li>
+      <% end %>
+    </ol>
+  </span>
+  <% if is_orderable? %>
+    <%= image_tag "admin/icon/index/sortable.png", class: "aln-m" %>
+  <% end %>
+</div>
