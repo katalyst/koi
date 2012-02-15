@@ -96,4 +96,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-test'
   s.add_development_dependency 'guard-livereload'
   s.add_development_dependency 'ruby_gntp'
+  s.add_development_dependency 'gemfury'
 end
