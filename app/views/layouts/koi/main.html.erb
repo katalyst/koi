@@ -13,6 +13,9 @@
               <li class="has-children">
                 <%= link_to "Modules", "#" %>
                 <ul class="vertical divided hoverable solid light-orange menu buttons tk-proxima-nova">
+                  <% Koi::Menu.items.each do |key, value| %>
+                    <%= content_tag :li, link_to(key, value) %>
+                  <% end %>
                 </ul>
               </li>
               <li><a href="#">Reports</a></li>
