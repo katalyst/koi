@@ -38,7 +38,7 @@
 
 <section class="assets section pd-lr-2 sp-b-1">
 
-  <%= simple_form_for([:admin, resource], html: { id: 'upload-form', multipart: true }) do |f| %>
+  <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>

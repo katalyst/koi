@@ -75,9 +75,5 @@ module Koi
       object.tag_list = params[:tag_list]
       object.save
     end
-
-    def resource_class
-      params[:controller].sub("admin/", "").singularize.capitalize.constantize
-    end
   end
 end
