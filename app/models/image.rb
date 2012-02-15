@@ -1,6 +1,6 @@
 class Image < Asset
-  validates_size_of :data, maximum: KOI_ASSET_IMAGE_SIZE_LIMIT
-  validates_property :mime_type, of: :data, in: KOI_ASSET_IMAGE_MIME_TYPES
+  validates_size_of :data, maximum: Koi::Asset::Image.size_limit
+  validates_property :mime_type, of: :data, in: Koi::Asset::Image.mime_types
 
   def html_options
     { width: width, height: height }
@@ -15,6 +15,4 @@ class Image < Asset
   def dragonfly_options
     "#{ width }x#{ height }"
   end
-
 end
-
