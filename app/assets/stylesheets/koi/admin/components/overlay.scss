@@ -1,0 +1,8 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+.overlay { position:relative; z-index:9997; }
+.overlay .container { background:transparent; border:none; }
+.overlay-background { background:#000; background:rgba(0, 0, 0, 0.8); height:100%; left:0; position:fixed; top:0; width:100%; z-index:9998; }
+.overlay-panel { background:#eee; border-color:#fff; border-width:10px; }
+.overlay-wrapper { position:absolute; top:50px; left:0; width:100%; z-index:9999; }

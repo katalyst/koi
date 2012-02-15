@@ -1,0 +1,45 @@
+<%
+  object      = f.object
+  klass       = f.object.class
+  association = klass.reflect_on_association attr
+  html        = "class-#{klass.name} attribute-#{attr}"
+%>
+
+<div class="<%= html %> nested-fields simple wrapper"
+    data-min="<%= association.minimum %>"
+    data-max="<%= association.maximum %>"
+    data-count="<%= object.count attr %>"
+    data-class="<%= klass.name %>"
+    data-attribute="<%= attr %>">
+  <fieldset class=" ">
+    <label class="simple label as-blk tx-bold"><%= attr.to_s.gsub("_", " ").titleize %></label>
+    <div class="<%= html %> <%= "sortable fields" if association.is_orderable? %> nested-fields-container br-t br-t-grey-a0 sp-b-1">
+      <%= f.nested_fields_for attr,
+          new_object: association.klass.new,
+          item_template_class: "#{html} nested-fields-item-template",
+          empty_template_class: "#{html} nested-fields-empty-template" do |g| %>
+        <div class="<%= html %> nested-fields-item pd-t-1 pd-b-1 br-t br-t-grey-a0 br-b br-b-grey-a0 as-clr bg-white bsp-t-1px">
+          <div class="as-table w-100pc">
+          <div class="as-row">
+            <div class="pad-r-5px aln-m as-cell">
+              <%= g.hidden_field :id %>
+              <%= g.hidden_field :_destroy %>
+              <%= render "form_fields", { :f => g } %>
+            </div>
+            <div class="pd-l-5px pd-r-5px aln-m as-cell">
+              <a href="#" class="<%= html %> nested-fields-remove tx-10px tx-red">&#x2716; delete</a>
+            </div>
+            <div class="pd-l-5px aln-m as-cell">
+              <a class="cursor-move" href="#"><%= image_tag "admin/icon/index/sortable.png" %></a>
+            </div>
+          </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+  <ul class="hoverable rounded-3px padded-1 spaced-1 solid orange buttons h-2 ln-h-2 txt-12px right-floated">
+    <li><a href="#" class="<%= html %> nested-fields-add">Add new</a></li>
+  </ul>
+</div>
+<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>

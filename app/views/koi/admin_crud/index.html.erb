@@ -1,0 +1,36 @@
+<% if is_ajaxable? %>
+  <% content_for :head do %>
+    <%= render "index_ajax" %>
+  <% end %>
+<% end %>
+
+<% content_for :title do %>
+  <%= render "index_title" %>
+<% end %>
+
+<% if is_searchable? || is_paginated? %>
+  <div class="ln-h-3 h-3">
+    <% if is_searchable? %>
+      <%= render 'index_search' %>
+    <% end %>
+    <% if is_paginated? %>
+      <div id="index-pagination-options" class="flt-r h-3">
+        <%= render 'index_pagination_options' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render 'index_actions' %>
+<%= render 'index_fields' %>
+
+<% if is_paginated? && collection.num_pages != 0 %>
+  <br />
+  <div id="index-pagination">
+    <%= render 'index_pagination' %>
+  </div>
+<% end %>
+
+<% content_for :side do %>
+  <%= render 'new_side' %>
+<% end %>

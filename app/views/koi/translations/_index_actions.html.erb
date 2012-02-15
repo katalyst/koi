@@ -1,0 +1,8 @@
+<ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 txt-12px">
+  <%- if is_allowed?(:new) %>
+    <li><%= link_to "Create", new_resource_path %></li>
+  <% end %>
+  <% if respond_to? :parent %>
+    <li><%= link_to "Back", collection_path %></li>
+  <% end %>
+</ul>

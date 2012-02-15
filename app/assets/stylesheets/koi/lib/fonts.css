@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'AkzidenzGroteskBE-Bold';
+  src:url('/assets/AkzidenzGroteskBE-Bold/AkzidGroBEBol.eot');
+  src:url('/assets/AkzidenzGroteskBE-Bold/AkzidGroBEBol.woff') format('woff');
+  src:url('/assets/AkzidenzGroteskBE-Bold/AkzidGroBEBol.svg#AkzidenzGroteskBE-Bold') format('svg');
+}
+
+@font-face {
+  font-family: 'AkzidenzGroteskBE-Regular';
+  src:url('/assets/AkzidenzGroteskBE-Regular/AkzidenzGroteskBE-Regular.eot');
+  src:url('/assets/AkzidenzGroteskBE-Regular/AkzidenzGroteskBE-Regular.woff') format('woff');
+  src:url('/assets/AkzidenzGroteskBE-Regular/AkzidenzGroteskBE-Regular.svg#AkzidenzGroteskBE-Regular') format('svg');
+}
+
+@font-face {
+  font-family: 'MrsEavesItalic';
+  src:url('/assets/MrsEavesItalic/MrsEavesItalic.eot');
+  src:url('/assets/MrsEavesItalic/MrsEavesItalic.woff') format('woff');
+  src:url('/assets/MrsEavesItalic/MrsEavesItalic.svg#MrsEavesItalic') format('svg');
+}

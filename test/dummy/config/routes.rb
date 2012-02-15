@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :pages
+  resources :news_items
+  resources :super_heros
 
-  mount Koi::Engine => "/admin"
+  namespace :admin do
+    resources :super_heros
+    resources :news_items
+  end
+
+  mount Koi::Engine => "/admin", as: "koi_engine"
+  root to: "super_heros#index"
 end

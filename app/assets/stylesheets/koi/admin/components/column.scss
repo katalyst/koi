@@ -1,0 +1,15 @@
+//= depend_on ./_import.scss
+@import "./_import.scss";
+
+.column {
+  @include as( clear );
+  display: block;
+
+  &.left {
+    float: left;
+  }
+
+  &.right {
+    float: right;
+  }
+}

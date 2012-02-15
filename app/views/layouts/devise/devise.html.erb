@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%= csrf_meta_tags %>
+    <%= yield(:meta) %>
+    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+    <link href="http://fast.fonts.com/cssapi/e0715776-9606-47b7-93c0-721a8906e16b.css"
+    rel="stylesheet"
+    type="text/css" />
+
+    <!--[if IE 7]> <%= stylesheet_link_tag "admin/global-screen-ie7" %> <![endif]-->
+    <!--[if IE 8]> <%= stylesheet_link_tag "admin/global-screen-ie8" %> <![endif]-->
+    <%= stylesheet_link_tag "koi/admin/global-screen" %>
+    <%= stylesheet_link_tag "koi/admin/global-print", media: "print" %>
+    <script type="text/javascript"
+    src="http://use.typekit.com/zhc5yzn.js"></script>
+
+    <script type="text/javascript">
+    try { Typekit.load(); } catch (e) {}
+    </script>
+
+    <%= javascript_include_tag "koi/admin/global" %>
+
+    <script type="text/javascript">
+    $ (".superfish").application (true, function ($menu) { $menu.superfish ({ delay:100 }); });
+    </script>
+    <%= yield(:head) %>
+  </head>
+  <body class="bg-white tk-proxima-nova">
+    <%= content_for?(:devise) ? yield(:devise) : yield %>
+  </body>
+</html>
