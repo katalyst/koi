@@ -28,7 +28,7 @@ module HasCrud
         scope :ordered, :order => 'ordinal ASC' if options[:orderable]
 
         options[:sortable] = true if options[:sortable].eql?(nil)
-        options[:ajaxable] = false unless options[:ajaxable].eql?(true)
+        options[:ajaxable] = true unless options[:ajaxable].eql?(false)
 
         unless options[:searchable].eql?(false)
           ignore_fields = [:created_at, :updated_at, :slug]
