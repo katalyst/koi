@@ -29,6 +29,9 @@ class SuperHero < ActiveRecord::Base
            powers:   { type: :check_boxes, data: Powers },
            published_at: { type: :date }
 
+    form   fields: [:name, :description, :published_at, :gender, :is_alive, :url,
+                    :telephone]
+
     config :admin do
       index   fields: [:name]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
