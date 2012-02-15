@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'squeel'                        , '~> 0.9.3'
 
   # Inherited Resources
-  # s.add_dependency 'inherited_resources'           , '~> 1.3.0'
+  s.add_dependency 'inherited_resources'           , '~> 1.3.0'
   s.add_dependency 'has_scope'                     , '~> 0.5.1'
   s.add_dependency 'responders'                    , '~> 0.6.4'
 

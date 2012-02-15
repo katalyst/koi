@@ -16,9 +16,6 @@ gem 'jquery-rails'
 # Koi
 gem 'koi_config'                , :git => 'git@github.com:katalyst/koi_config.git'
 
-# Inherited Resources
-gem 'inherited_resources'       , :git => 'git@github.com:marcelloma/inherited_resources.git'
-
 # Nested fields
 gem 'awesome_nested_fields'     , :git => "git@github.com:katalyst/awesome_nested_fields.git"
 
