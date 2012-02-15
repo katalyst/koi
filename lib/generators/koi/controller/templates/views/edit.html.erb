@@ -1,0 +1,9 @@
+<%% content_for :title, "Edit <%= singular_name.titleize %>" %>
+
+<%%= render "form" %>
+
+<p>
+  <%%= link_to "Show", <%= item_path :instance_variable => true %> %> |
+  <%%= link_to "View All", <%= items_path %> %>
+</p>
+

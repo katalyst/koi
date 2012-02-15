@@ -1,0 +1,2 @@
+<%= f.submit resource.new_record? ? (resource_class.crud.find(:form, :submit, :new) || "Submit") : (resource_class.crud.find(:form, :submit, :edit) || "Update") %>
+

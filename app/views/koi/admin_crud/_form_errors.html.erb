@@ -1,0 +1,9 @@
+<% unless f.object.errors.empty? %>
+  <div class="bg-light-red rd-3px pd-2 sp-b-2 tx-grey-44">
+    <p>
+      <strong><%= t('simple_form.error_notification.default_message') %></strong>
+      <br/>
+      Please review and correct the <%= pluralize(f.object.errors.size, "error") %> below before resubmitting the page.
+    </p>
+  </div>
+<% end %>

@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Koi</title>
-  <%= stylesheet_link_tag    "koi/application", :media => "all" %>
-  <%= javascript_include_tag "koi/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<% content_for :main do %>
 
-<%= yield %>
+  <header class="main header">
+    <% if content_for?(:title) %>
+      <h1 class="heading"><%= yield :title %></h1>
+    <% end %>
+    <% if content_for?(:breadcrumbs) %>
+      <h4 class="subheading"><%= yield :breadcrumbs %></h4>
+    <% end %>
+  </header>
 
-</body>
-</html>
+  <div class="left main column w-16col2 sp-r-2">
+    <%= render "koi/shared/flash_messages" %>
+    <%= yield %>
+  </div>
+
+  <section class="right side column w-6col2 pd-l-2">
+    <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
+  </section>
+
+<% end %>
+
+<%= render :file => 'layouts/koi/main' %>

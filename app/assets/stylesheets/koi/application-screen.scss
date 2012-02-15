@@ -1,0 +1,58 @@
+//= require ./admin/prelude/_export
+//= require ./admin/components/_export
+//= require ./lib/orbit
+//= require_self
+//= depend_on ./_import.scss
+
+@import "./_import";
+
+body {font-family:'AkzidenzGroteskBE-Regular';}
+h1, h2 {font-family:'MrsEavesItalic';}
+h1 {font-size:59px;}
+h2 {font-size:42px;}
+
+h6 { @extend .font-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
+
+// .ff-akzidenz-grotesk-be { font-family: 'AkzidenzGroteskBE-Regular'; }
+// .ff-akzidenz-grotesk-be-bold { font-family: 'AkzidenzGroteskBE-Bold'; }
+// .ff-mrs-eaves-italic { font-family: 'MrsEavesItalic'; }
+
+.slideshow > * + * { display:none; }
+
+$orange: #ff551e;
+$black: #111111;
+$red: #f00;
+
+.tx-orange { color: $orange; }
+.tx-black { color: $black; }
+
+a { @extend .tx-orange; font-family: 'AkzidenzGroteskBE-Bold'; };
+a:hover { color: #333; text-decoration:none; };
+
+p { @extend .tx-black; };
+
+.pull-quote { @extend .tx-orange; font-size: 17px; }
+
+.br-dotted { border-style:dotted; }
+
+.br-orange { border-color: $orange; }
+
+
+.h-305px { height:305px; }
+
+
+
+body {font-family:AkzidenzGroteskBE-Regular;}
+h1, h2 {font-family:MrsEavesItalic;}
+
+h1 {font-size:60px;}
+h2 {font-size:42px;}
+
+
+h6 { @extend .tx-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
+
+
+
+.left-arrow-icon { background: url(/assets/icon/arrow/left.png) left center no-repeat; min-width:18px; min-height:15px; padding-left:25px; }
+
+.right-arrow-icon { background: url(/assets/icon/arrow/right.png) right center no-repeat; min-width:18px; min-height:15px;padding-right:25px; }

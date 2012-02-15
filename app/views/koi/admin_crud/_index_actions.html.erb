@@ -1,0 +1,16 @@
+<div class="bg-grey-60 rd-t-3px pd-tb-1 pd-lr-1u5 br-lr br-grey-d8 as-clr">
+  <div class="flt-l">
+    <ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 tx-12px">
+      <% if respond_to? :parent %>
+        <li><%= link_to "Back", [:admin, parent.class] %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="flt-r tx-r">
+    <ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 tx-12px">
+      <%- if is_allowed?(:new) %>
+        <li><%= link_to "Add new #{resource_class}", new_resource_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

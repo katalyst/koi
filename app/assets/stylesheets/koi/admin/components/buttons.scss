@@ -1,0 +1,64 @@
+//= depend_on ./_import.scss
+//= depend_on ./button.scss
+//= depend_on ./elements.scss
+
+@import "./_import.scss";
+@import "./button.scss";
+@import "./elements.scss";
+
+@mixin extend-button-class( $class:"" ) {
+  &#{ $class } > * { @extend #{ $class }.button; } // @extend .button;
+}
+
+@mixin extend-button( $class:"" ) {
+  @include extend-button-class( "#{ $class }" );
+  @include extend-button-class( "#{ $class }.hoverable" );
+  @include extend-button-class( "#{ $class }.hoverable.menu" );
+}
+
+@mixin extend-buttons( $classes:() ) {
+  @each $class in $classes { @include extend-button( $class ); }
+}
+
+.buttons {
+  @extend .elements;
+
+  @each $a in expand( 3px 5px _ 9px ) {
+    @include extend-button-class( class( rounded $a ) );
+
+    &#{ class( rounded $a ) } {
+
+      &.contiguous {
+
+        &.horizontal {
+          > * { @include round( all, 0 ); }
+          > :first-child { @include round( left, $a ); }
+          > :last-child { @include round( right, $a ); }
+        }
+
+        &.vertical {
+          > * { @include round( all, 0 ); }
+          > :first-child { @include round( top, $a ); }
+          > :last-child { @include round( bottom, $a ); }
+        }
+      }
+    }
+  }
+
+  @each $a in expand( 5px 10px _ 20px ) {
+    @include extend-button-class( class( padded $a ) );
+  }
+
+  &.solid.divided.light-orange > * { // should be: &.divided > * { @extend .button.bordered; }
+    border-color: mix( $light-orange, yellow, 80% );
+  }
+
+  &.hollow > .solid { @extend .solid.button; }
+  &.solid > .hollow { @extend .hollow.button; }
+
+  @include extend-button;
+  @include extend-buttons( ".adjusted" ".text" ".sprite" );
+  @include extend-buttons( ".hollow" ".hollow.grey" ".hollow.orange" );
+  @include extend-buttons( ".solid" ".solid.grey" ".solid.white" ".solid.black" ".solid.light-grey" ".solid.red" ".solid.orange" ".solid.light-orange" );
+  @include extend-button-class( ".hoverable.hover-shadow" );
+}

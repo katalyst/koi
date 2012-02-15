@@ -1,0 +1,8 @@
+<% if resource.errors.any? -%>
+  $("#modal-for-nav-item").html("<%= escape_javascript render( "modal_nav_item") %>");
+<% else %>
+  $("#modal-for-nav-item").modal('hide');
+  $("#nav-item-<%= resource.parent.id %>").append("<%= escape_javascript render("nav_item", nav_item: resource) %>").slideDown();
+  $("#nav-item-<%= resource.id %>").effect("highlight", {}, 3000);
+<% end %>
+
