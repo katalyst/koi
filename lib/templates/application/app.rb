@@ -98,6 +98,34 @@ END
 rake 'db:migrate'
 rake 'db:seed'
 
+# Setup up Git
+file ".gitignore", <<-END
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore database yaml file
+/config/database.yml
+
+# Mac DS Store
+.DS_Store
+
+# System
+public/system/**/*
+
+# Ignore SASS cache files
+.sass-cache/
+
+# Ignore compiled assets
+/public/assets
+END
+
 git :init
 git :add => '.'
 git :commit => '-m "Initial Commit"'
