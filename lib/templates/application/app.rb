@@ -99,6 +99,7 @@ rake 'db:migrate'
 rake 'db:seed'
 
 # Setup up Git
+run 'rm .gitignore'
 file ".gitignore", <<-END
 # Ignore bundler config
 /.bundle
