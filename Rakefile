@@ -36,5 +36,8 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+task :release => :build do
+  system "fury push koi-#{Bunder::VERSION}"
+end
 
 task :default => :test
