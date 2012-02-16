@@ -5,16 +5,18 @@ require "koi/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "koi"
-  s.version     = Koi::VERSION
-  s.authors     = ["Rahul Trikha"]
-  s.email       = ["rahul@katalyst.com.au"]
-  s.homepage    = "https://github.com/katalyst/koi"
-  s.summary     = "Koi CMS admin framework"
-  s.description = "Framework to provide rapid application development"
+  s.name          = "koi"
+  s.version       = Koi::VERSION
+  s.authors       = ["Rahul Trikha"]
+  s.email         = ["rahul@katalyst.com.au"]
+  s.homepage      = "https://github.com/katalyst/koi"
+  s.summary       = "Koi CMS admin framework"
+  s.description   = "Framework to provide rapid application development"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
 
   # MVC Framework
   s.add_dependency 'rails'                       , "~> 3.2.1"
