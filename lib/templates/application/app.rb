@@ -1,5 +1,5 @@
 # Add private gem source
-add_source "https://gems.gemfury.com/aPkgq5q1k8kUqnitXdyJ/"
+add_source 'https://gems.gemfury.com/aPkgq5q1k8kUqnitXdyJ/'
 
 # Overwrite for default rails
 gem 'jquery-rails'
@@ -14,7 +14,7 @@ gem 'inherited_resources'       , :git => 'git@github.com:marcelloma/inherited_r
 gem 'awesome_nested_fields'     , :git => "git@github.com:katalyst/awesome_nested_fields.git"
 
 # Koi CMS
-gem 'koi'                       , :path => "/Users/rahult/Development/katalyst/rails/gems/koi"
+gem 'koi'                       , '~> 1.0.0.alpha'
 
 # Ruby debugger
 gem 'ruby-debug19'              , :require => 'ruby-debug'
