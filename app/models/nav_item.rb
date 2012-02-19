@@ -64,7 +64,7 @@ class NavItem < ActiveRecord::Base
       key:   nav_key,
       name:  title,
       url:   url,
-      items: content_block ? eval(content_block) : children.collect { |c| c.to_hash unless c.is_hidden }.compact
+      items: content_block.blank? ? children.collect { |c| c.to_hash unless c.is_hidden }.compact : eval(content_block)
     }
     hash[:options] = options unless options.blank?
     hash
