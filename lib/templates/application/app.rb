@@ -15,6 +15,10 @@ gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 gem_group :development do
   # Ruby debugger
   gem 'ruby-debug19'            , :require => 'ruby-debug'
+  # Engineyard
+  gem 'engineyard'
+  # Console
+  gem 'powder'
 end
 
 application(nil, :env => 'development') do
