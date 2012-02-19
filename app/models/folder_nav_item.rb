@@ -12,5 +12,11 @@ class FolderNavItem < NavItem
   def self.title
     "Folder"
   end
+
+  def url
+    return "#" if descendants.empty?
+    descend = descendants.keep_if { |c| !c.is_hidden }
+    descend.first.url unless descend.empty?
+  end
 end
 
