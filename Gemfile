@@ -14,10 +14,10 @@ gemspec
 gem 'jquery-rails'
 
 # Koi
-gem 'koi_config'                , :git => 'git@github.com:katalyst/koi_config.git'
+gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Nested fields
-gem 'awesome_nested_fields'     , :git => "git@github.com:katalyst/awesome_nested_fields.git"
+gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
 # Ruby debugger
 gem 'ruby-debug19'              , :require => 'ruby-debug'
