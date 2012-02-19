@@ -7,6 +7,7 @@ end
 module Koi
   class ApplicationController < ActionController::Base
     helper :all
+    layout "koi/admin"
 
     # before_filter :authenticate_admin!, :except => :login
 
