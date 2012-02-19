@@ -9,8 +9,8 @@ footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.r
 # Few Header Pages
 about_us_page   = Page.create!(title: "About Us").to_navigator!(parent_id: header.id)
 contact_us_page = Page.create!(title: "Contact Us").to_navigator!(parent_id: header.id)
-categories_module = ModuleNavItem.create!(title: "Categories", url: "/categories",
-                                          admin_url: "/admin/categories", parent_id: header.id,
+super_heros_module = ModuleNavItem.create!(title: "Super Heros", url: "/super_heros",
+                                          admin_url: "/admin/super_heros", parent_id: header.id,
                                           content_block: "")
 
 # Few Aliases
