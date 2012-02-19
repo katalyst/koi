@@ -81,14 +81,14 @@ Gem::Specification.new do |s|
   # Unique ID generation
   s.add_dependency "uuidtools"                     , '~> 2.1.2'
 
+  # Fixture replacement
+  s.add_dependency 'factory_girl_rails'            , '1.2.0'
+
   # Console Replacement
   s.add_development_dependency 'pry'               , '~> 0.9.7'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'            , '0.1.7'
-
-  # Fixture replacement
-  s.add_development_dependency 'factory_girl_rails', '1.2.0'
 
   # Clever Data Generator
   s.add_development_dependency 'forgery'
