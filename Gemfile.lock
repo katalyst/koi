@@ -1,12 +1,12 @@
 GIT
-  remote: git@github.com:katalyst/awesome_nested_fields.git
+  remote: git://github.com/katalyst/awesome_nested_fields.git
   revision: bc9c686234c5ebff6f8052d613576cfff159434f
   specs:
     awesome_nested_fields (0.5.3)
       rails (>= 3.0.0)
 
 GIT
-  remote: git@github.com:katalyst/koi_config.git
+  remote: git://github.com/katalyst/koi_config.git
   revision: d25a662fce55b794b289250c4d7f5d2f808e0f5d
   specs:
     koi_config (0.0.1)
@@ -118,21 +118,9 @@ GEM
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
-    faraday (0.7.6)
-      addressable (~> 2.2)
-      multipart-post (~> 1.1)
-      rack (~> 1.1)
-    faraday_middleware (0.7.0)
-      faraday (~> 0.7.3)
     ffi (1.0.11)
     forgery (0.5.0)
     friendly_id (4.0.0)
-    gemfury (0.4.4)
-      faraday (~> 0.7.4)
-      faraday_middleware (~> 0.7.0)
-      highline (~> 1.6.0)
-      multi_json (~> 1.0.2)
-      thor (~> 0.14.0)
     guard (1.0.0)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
@@ -175,7 +163,6 @@ GEM
     method_source (0.7.0)
     mime-types (1.17.2)
     multi_json (1.0.4)
-    multipart-post (1.1.5)
     mysql2 (0.3.11)
     nested_set (1.6.8)
       activerecord (>= 3.0.0)
@@ -276,7 +263,6 @@ DEPENDENCIES
   awesome_nested_fields!
   coffee-rails (~> 3.2.1)
   forgery
-  gemfury
   guard
   guard-livereload
   guard-test
