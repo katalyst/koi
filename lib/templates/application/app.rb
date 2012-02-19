@@ -4,17 +4,17 @@ rvm use ruby-1.9.2-p290@koi-gem --create
 END
 
 # Koi Config
-gem 'koi_config', :git => 'git@github.com:katalyst/koi_config.git'
+gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Nested fields
-gem 'awesome_nested_fields'     , :git => 'git@github.com:katalyst/awesome_nested_fields.git'
+gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 
 gem_group :development do
   # Ruby debugger
-  gem 'ruby-debug19'              , :require => 'ruby-debug'
+  gem 'ruby-debug19'            , :require => 'ruby-debug'
 end
 
 application(nil, :env => 'development') do
