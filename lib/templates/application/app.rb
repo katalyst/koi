@@ -63,17 +63,23 @@ run 'rm public/index.html'
 rake 'db:drop'
 rake 'db:create'
 
-generate('koi:controller', 'super_hero title:string description:text')
-generate('koi:admin_controller', 'super_hero title:string description:text --skip-model')
+create_file 'app/controllers/pages_controller.rb', <<-END
+class PagesController < Koi::CrudController
+end
+END
 
 route "root to: 'super_heros#index'"
 
 route 'resources :pages'
 
+generate('koi:controller', 'super_hero title:string description:text')
+generate('koi:admin_controller', 'super_hero title:string description:text --skip-model')
+
 # Setup Initializer Example
 create_file 'config/Initializers/koi.rb', <<-END
 Koi::Menu.items = {
-  'Super Heros' => '/admin/super_heros',
+  'Pages' => '/admin/pages',
+  'Super Heros' => '/admin/super_heros'
 }
 END
 
