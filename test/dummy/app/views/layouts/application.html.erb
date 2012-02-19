@@ -9,14 +9,14 @@
   <body>
 
     <header>
-      <%= render_navigation expand_all: true, items: NavItem.navigation("header_navigation") %>
+      <%= render_navigation items: NavItem.navigation("header_navigation"), expand_all: true %>
     </header>
 
     <%= yield :title if content_for?(:title) %>
     <%= yield %>
 
     <footer>
-      <%= render_navigation expand_all: true, items: NavItem.navigation("footer_navigation"), expand_all: true %>
+      <%= render_navigation items: NavItem.navigation("footer_navigation"), expand_all: true %>
     </footer>
 
   </body>
