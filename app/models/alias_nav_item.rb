@@ -16,6 +16,10 @@ class AliasNavItem < NavItem
     NavItem.find_by_id(alias_id)
   end
 
+  def url
+    alias_record.url unless alias_record.is_hidden
+  end
+
   def admin_url
     alias_record.admin_url if alias_record
   end
