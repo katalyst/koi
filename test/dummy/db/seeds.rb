@@ -59,15 +59,13 @@ heros = ["Abbess", "Ablaze", "Ace", "Acid", "Adamant", "Aegis", "Airspeed", "Ala
   "Windchill", "Windstorm", "Winter Wolf (Werewolf Brick)", "Wraith", "Wrecker", "X-1 - The Negative Man:  Energy vampire", "X-Calibre",
   "Yellow Rose (Blaster/Texas Ranger)", "Zapp", "Zenith", "Zero", "Zodiac"]
 
-image = Dragonfly::App[:images].generate(:plasma, 300, 300)
-file  = Dragonfly::App[:images].generate(:plasma, 50, 50)
 
 generic_hero_details = {
   url: "http://example.com/",
   telephone: "1234 123 123",
   description: "A super hero.",
-  image: image,
-  file: file
+  image: Dragonfly::App[:images].generate(:plasma, 300, 300),
+  file:  Dragonfly::App[:images].generate(:plasma, 50, 50)
 }
 
 heros.each do |name|
