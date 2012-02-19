@@ -74,8 +74,8 @@ class NavItem < ActiveRecord::Base
     true
   end
 
-  def self.navigation(key)
-    start ||= NavItem.find_by_key(key)
+  def self.navigation(key=nil)
+    start = NavItem.find_by_key(key) || RootNavItem.root
     start.children.collect { |c| c.to_hash unless c.is_hidden }.compact
   end
 end

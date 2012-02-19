@@ -67,14 +67,16 @@ run 'rm public/index.html'
 rake 'db:drop'
 rake 'db:create'
 
-create_file 'app/controllers/pages_controller.rb', <<-END
-class PagesController < Koi::CrudController
-end
-END
-
 route "root to: 'super_heros#index'"
 
 route 'resources :pages'
+
+create_file 'config/navigation.rb', <<-END
+# -*- coding: utf-8 -*-
+# Configures your navigation
+SimpleNavigation::Configuration.run do |navigation|
+end
+END
 
 generate('koi:controller', 'super_hero title:string description:text')
 generate('koi:admin_controller', 'super_hero title:string description:text --skip-model')
