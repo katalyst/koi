@@ -3,11 +3,14 @@ create_file '.rvmrc', <<-END
 rvm use ruby-1.9.2-p290@koi-gem --create
 END
 
-# Koi Config
-gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
+# Inherited Resources
+gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
 
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
+
+# Koi Config
+gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
