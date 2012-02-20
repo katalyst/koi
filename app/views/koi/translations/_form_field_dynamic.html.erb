@@ -5,6 +5,6 @@
     render "form_field_default", :f => f, :attr => attr
   end
 %>
-<% if !f.object.hint.blank? %>
+<% if !current_admin.god? && !f.object.hint.blank? %>
   <p><%= f.object.hint %></p>
 <% end %>

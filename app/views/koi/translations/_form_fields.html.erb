@@ -1,7 +1,7 @@
 <% klass = f.object.class %>
 <% resource.field_type ||= "string" %>
 <%- klass.admin_attributes(:form).each do |attr| -%>
-  <%- [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
+  <%- next if !current_admin.god? && [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
   <%=
     assoc    = klass.reflect_on_association(attr)
     partial  = 'form_field'

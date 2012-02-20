@@ -5,7 +5,7 @@
   <li>
     <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue" %>
   </li>
-  <% if !resource.new_record? %>
+  <% if !resource.new_record? && current_admin.god? %>
     <li>
       <%= link_to("Delete", resource_path, confirm: "Are you sure?", method: :delete) %>
     </li>

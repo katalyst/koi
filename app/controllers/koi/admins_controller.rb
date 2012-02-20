@@ -1,4 +1,5 @@
 module Koi
-  class AdminsController < CrudController
+  class AdminsController < AdminCrudController
+    defaults :route_prefix => ''
   end
 end

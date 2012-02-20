@@ -88,6 +88,7 @@ generate('koi:admin_controller', 'super_hero title:string description:text --ski
 create_file 'config/Initializers/koi.rb', <<-END
 Koi::Menu.items = {
   'Pages' => '/admin/pages',
+  'Admins' => '/admin/site_users',
   'Super Heros' => '/admin/super_heros'
 }
 END
