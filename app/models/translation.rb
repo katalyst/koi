@@ -17,8 +17,10 @@ class Translation < ActiveRecord::Base
            value:      { type: :dynamic }
 
     config :admin do
-      index fields: [:label]
-      form  fields: [:label, :field_type, :key, :value, :hint, :is_proc]
+      index fields: [:label],
+            title: "Settings"
+      form  fields: [:label, :field_type, :key, :value, :hint, :is_proc],
+            title: { new: "Create new setting", edit: "Edit setting" }
     end
   end
 end

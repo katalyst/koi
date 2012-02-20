@@ -5,9 +5,7 @@
 
   <h1 class="katalyst titlebar border-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-25px">Sign in</h1>
 
-  <%= simple_form_for resource,
-                      as: resource_name,
-                      url: session_path(resource_name),
+  <%= simple_form_for :admin, url: koi_engine.new_admin_session_path,
                       html: { class: "simple form" } do |f| %>
 
     <div class="bg-grey-f0 pd-ltr-2 br-b br-grey-c0 pd-b-1">
@@ -40,7 +38,7 @@
         <%- if devise_mapping.recoverable? &&
                controller_name != 'passwords' %>
           <li class="round ln-h-25px h-25px">
-            <%= link_to "Forgot your password?", new_password_path(resource_name), class: "pull-u-1px" %>
+            <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "pull-u-1px" %>
           </li>
         <% end -%>
 
