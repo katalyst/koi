@@ -1,4 +1,9 @@
 Koi::Engine.routes.draw do
+  devise_for :admins, {
+    class_name: 'Admin',
+    module: :devise
+  }
+
   resources :assets do
     get 'index', on: :collection, to: 'assets#new'
     member do
