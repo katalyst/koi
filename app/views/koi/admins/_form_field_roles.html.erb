@@ -1,1 +1,3 @@
-<%= f.input :role, as: :select, collection: Admin::ROLES %>
+<% if current_admin.god? %>
+  <%= f.input :role, as: :select, collection: Admin::ROLES %>
+<% end %>
