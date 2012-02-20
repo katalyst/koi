@@ -12,6 +12,10 @@
       <%= render_navigation items: NavItem.navigation("header_navigation"), expand_all: true %>
     </header>
 
+    <h2><%= active_navigation_item_name %></h2>
+
+    <h3><%= render_navigation :renderer => :breadcrumbs, :join_with => ' &raquo; ' %></h3>
+
     <%= yield :title if content_for?(:title) %>
     <%= yield %>
 
