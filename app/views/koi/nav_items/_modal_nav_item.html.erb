@@ -18,20 +18,24 @@
       <div class="tab-encloser">
         <ul id="setting-tabs" class="tabs">
           <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
+          <% if current_admin.god? %>
             <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
             <li><a href="#god_settings" data-toggle="tab">God</a></li>
+          <% end %>
         </ul>
 
         <div id="setting-tab-content" class="tab-content">
           <div class="active tab-pane tx-grey-70 tx-13px ln-h-2" id="basic_settings">
             <%= render "form_fields", { f: f } %>
           </div>
+          <% if current_admin.god? %>
             <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="advanced_settings">
               <%= render "advanced_form_fields", { f: f } %>
             </div>
             <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="god_settings">
               <%= render "god_form_fields", { f: f } %>
             </div>
+          <% end %>
         </div>
 
       </div>
