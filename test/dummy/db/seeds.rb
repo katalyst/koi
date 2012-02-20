@@ -68,6 +68,6 @@ generic_hero_details = {
   file:  Dragonfly::App[:images].generate(:plasma, 50, 50)
 }
 
-heros.each do |name|
-  SuperHero.create!({ name: name, gender: SuperHero::Gender.sample, powers: SuperHero::Powers.sample(3) }.merge(generic_hero_details))
-end
+# heros.each do |name|
+#   SuperHero.create!({ name: name, gender: SuperHero::Gender.sample, powers: SuperHero::Powers.sample(3) }.merge(generic_hero_details))
+# end
