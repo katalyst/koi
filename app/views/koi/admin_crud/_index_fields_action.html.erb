@@ -1,8 +1,8 @@
-<div class="tx-11px">
+<div>
   <span class="orange links">
     <ol class="inline elements spaced-1 sp-r-1">
       <% if is_allowed? :edit %>
-        <li><%= link_to "edit", edit_resource_path(object) %></li>
+        <li><%= link_to "Edit", edit_resource_path(object) %></li>
       <% end %>
       <% (resource_class.crud.find(:admin, :index, :relations) || []).each do |child| %>
         <li><%= link_to "#{child}", [:admin, object, child] %></li>
