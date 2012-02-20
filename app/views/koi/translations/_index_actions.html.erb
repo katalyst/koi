@@ -1,4 +1,4 @@
-<ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 txt-12px">
+<ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 txt-12px space-b-1">
   <%- if is_allowed?(:new) && current_admin.god? %>
     <li><%= link_to "Create", new_resource_path %></li>
   <% end %>
