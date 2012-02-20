@@ -60,6 +60,9 @@ END
 
 run 'bundle install'
 
+# Generate Devise Config
+rake 'devise:install'
+
 # Install Migrations
 rake 'koi:install:migrations'
 
