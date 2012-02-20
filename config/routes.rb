@@ -29,7 +29,7 @@ Koi::Engine.routes.draw do
   resources :translations, path: :site_settings
   resources :settings
   resources :pages
-  resources :admins
+  resources :admins, path: :site_users
   resources :module_nav_items
   resources :folder_nav_items
   resources :alias_nav_items

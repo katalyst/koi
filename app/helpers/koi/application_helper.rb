@@ -52,7 +52,7 @@ module Koi::ApplicationHelper
   end
 
   def is_koi_core_class?(klass)
-    ["Page", "Setting", "Translation", "NavItem", "AliasNavItem",
+    ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem"].include? klass.name
   end
 end
