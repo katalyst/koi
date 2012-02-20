@@ -689,7 +689,7 @@ opacity: 1 }
 
 .orbit-caption {
   display: none;
-font-family: "HelveticaNeue", "Helvetica-Neue", Helvetica, Arial, sans-serif; }
+  font-weight:bold; }
 
 .orbit-wrapper .orbit-caption {
   background: #000;
@@ -6347,8 +6347,7 @@ input[type='submit'] {
 body {
   font-size: 75%;
   color: #222;
-  background: #fff;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; }
+  background: #fff; }
 
 h1, .h1 {
   font-size: 36px;
@@ -6479,14 +6478,13 @@ pre, code, tt {
 /* `format-value` returns the `$val` formatted as text, with the unit as decimal point */
 /* `to-unitless` returns the `$amt` without units */
 .bold {
-  font-family: 'HelveticaNeueETW01-75Bd'; }
+  font-weight:bold;}
 
 .main.header {
   border-bottom: 1px solid #a0a0a0;
   padding-bottom: 15px;
   margin-bottom: 40px; }
   .main.header .heading {
-    font-family: 'HelveticaNeueETW01-45Lt';
     font-size: 44px; }
 
 .side.header {
@@ -7058,7 +7056,7 @@ pre, code, tt {
   .button.hollow, .buttons.solid > .hollow, .buttons > .hollow, .buttons.hollow > * {
     border-style: solid;
     border-width: 1px;
-    font-family: 'HelveticaNeueETW01-75Bd'; }
+    font-weight:bold;}
     .button.hollow.grey, .buttons.solid > .grey.hollow, .buttons > .hollow.grey, .buttons.hollow > .grey, .buttons.hollow.grey > * {
       border: 1px solid #b0b0b0;
       background-color: #e9e9e9;
@@ -7078,7 +7076,7 @@ pre, code, tt {
   .button.solid, .buttons.hollow > .solid, .buttons > .solid, .buttons.solid > * {
     border: 0;
     border-style: none;
-    font-family: 'HelveticaNeueETW01-75Bd';
+    font-weight:bold;
     color: #fcfcfc; }
     .button.solid.grey, .buttons.hollow > .grey.solid, .buttons > .solid.grey, .buttons.solid > .grey, .buttons.solid.grey > * {
       color: #f4f4f4;
@@ -7732,7 +7730,7 @@ pre, code, tt {
   color: #fcfcfc; }
 .titlebar.katalyst {
   border-bottom-color: #fc6b02;
-  font-family: 'HelveticaNeueETW01-45Lt'; }
+  font-weight:bold;}
   .titlebar.katalyst.border-1px {
     border-bottom-width: 1px; }
   .titlebar.katalyst.border-u1 {
