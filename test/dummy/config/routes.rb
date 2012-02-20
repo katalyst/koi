@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     resources :news_items
   end
 
-  mount Koi::Engine => "/admin", as: "koi_engine"
   root to: "super_heros#index"
+  mount Koi::Engine => "/admin", as: "koi_engine"
 end
