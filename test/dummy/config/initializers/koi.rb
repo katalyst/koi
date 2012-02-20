@@ -2,6 +2,6 @@
 
 Koi::Menu.items = {
   "Super Heros" => "/admin/super_heros",
-  "Admins" => "/admin/admins",
+  "Admins" => "/admin/site_users",
   "News" => "/admin/news_items",
 }
