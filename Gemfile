@@ -14,7 +14,7 @@ gemspec
 gem 'jquery-rails'
 
 # Inherited Resources
-gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
+# gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
 
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
