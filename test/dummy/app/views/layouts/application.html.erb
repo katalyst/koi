@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dummy Frontend</title>
+    <title><%= "Dummy Site - " + render_navigation(:renderer => :text, :join_with => ' - ') %></title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
