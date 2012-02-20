@@ -15,8 +15,7 @@ class NavItem < ActiveRecord::Base
 
     config :admin do
       index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :admin_url,
-                     :key, :is_hidden, :parent_id]
+      form  fields: [:title, :url, :is_hidden, :parent_id]
     end
   end
 
