@@ -7927,3 +7927,9 @@ h6 {
   border-bottom-width: 1px; }
 .table.padded-sides.ruled tbody tr:last-child td > div {
   border-bottom-width: 0; }
+
+
+/* jason's styles */
+
+.space-t-1 {margin-top:10px !important ;}
+.space-b-1 {margin-bottom:10px !important ;}
