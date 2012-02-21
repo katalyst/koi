@@ -41,6 +41,7 @@ Koi::Engine.routes.draw do
       post :savesort
     end
   end
+  match 'help' => 'application#help', :as => :help
   match 'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
 end
