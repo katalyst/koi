@@ -88,7 +88,7 @@ run 'rm public/index.html'
 rake 'db:drop'
 rake 'db:create'
 
-route "root to: 'super_heros#index'"
+route "root to: 'pages#index'"
 
 route 'resources :pages'
 
@@ -99,15 +99,11 @@ SimpleNavigation::Configuration.run do |navigation|
 end
 END
 
-generate('koi:controller', 'super_hero title:string description:text')
-generate('koi:admin_controller', 'super_hero title:string description:text --skip-model')
-
 # Setup Initializer Example
 create_file 'config/Initializers/koi.rb', <<-END
 Koi::Menu.items = {
   'Pages' => '/admin/pages',
-  'Admins' => '/admin/site_users',
-  'Super Heros' => '/admin/super_heros'
+  'Admins' => '/admin/site_users'
 }
 END
 
