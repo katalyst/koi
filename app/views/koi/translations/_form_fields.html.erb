@@ -1,5 +1,6 @@
 <% klass = f.object.class %>
 <% resource.field_type ||= "string" %>
+<% resource.role ||= "Admin" %>
 <%- klass.admin_attributes(:form).each do |attr| -%>
   <%- next if !current_admin.god? && [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
   <%=
@@ -9,4 +10,3 @@
     render partial, :f => f, :attr => attr
   %>
 <%- end -%>
-
