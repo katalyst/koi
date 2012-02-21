@@ -3,9 +3,6 @@ create_file '.rvmrc', <<-END
 rvm use ruby-1.9.2-p290@koi-gem --create
 END
 
-# Inherited Resources
-gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
-
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
@@ -79,7 +76,7 @@ END
 run 'bundle install'
 
 # Generate Devise Config
-rake 'devise:install'
+generate('devise:install')
 
 # Install Migrations
 rake 'koi:install:migrations'
