@@ -3,9 +3,6 @@ create_file '.rvmrc', <<-END
 rvm use ruby-1.9.2-p290@koi-gem --create
 END
 
-# Inherited Resources
-gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
-
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
@@ -58,7 +55,28 @@ create_file 'db/seeds.rb', <<-END
 Koi::Engine.load_seed
 END
 
+# Setup seed
+run 'rm app/controllers/application_controller.rb'
+create_file 'app/controllers/application_controller.rb', <<-END
+class ApplicationController < ActionController::Base
+  protect_from_forgery
+
+  # FIXME: Hack to redirect back to admin after admin login
+  def after_sign_in_path_for(resource_or_scope)
+    resource_or_scope.is_a? Admin ? koi_engine.root_path : super
+  end
+
+  # FIXME: Hack to redirect back to admin after admin logout
+  def after_sign_out_path_for(resource_or_scope)
+    resource_or_scope == :admin ? koi_engine.root_path : super
+  end
+end
+END
+
 run 'bundle install'
+
+# Generate Devise Config
+generate('devise:install')
 
 # Install Migrations
 rake 'koi:install:migrations'
@@ -70,7 +88,7 @@ run 'rm public/index.html'
 rake 'db:drop'
 rake 'db:create'
 
-route "root to: 'super_heros#index'"
+route "root to: 'pages#index'"
 
 route 'resources :pages'
 
@@ -81,15 +99,11 @@ SimpleNavigation::Configuration.run do |navigation|
 end
 END
 
-generate('koi:controller', 'super_hero title:string description:text')
-generate('koi:admin_controller', 'super_hero title:string description:text --skip-model')
-
 # Setup Initializer Example
 create_file 'config/Initializers/koi.rb', <<-END
 Koi::Menu.items = {
   'Pages' => '/admin/pages',
-  'Admins' => '/admin/site_users',
-  'Super Heros' => '/admin/super_heros'
+  'Admins' => '/admin/site_users'
 }
 END
 

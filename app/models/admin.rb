@@ -6,6 +6,8 @@ class Admin < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation,
                   :remember_me, :first_name, :last_name, :role
 
+  before_validation :set_default_values
+
   validates :first_name, :last_name, :email, :role, presence: true
 
   ROLES = ["Super", "Admin"]
@@ -36,6 +38,10 @@ class Admin < ActiveRecord::Base
   end
 
 private
+
+  def set_default_values
+    self.role ||= "Admin"
+  end
 
   def password_required?
     new_record? || destroyed? || password.present? || password_confirmation.present?
