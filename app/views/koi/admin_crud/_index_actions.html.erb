@@ -9,7 +9,7 @@
   <div class="flt-r tx-r">
     <ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 tx-12px">
       <%- if is_allowed?(:new) %>
-        <li><%= link_to "Add new #{resource_class}", new_resource_path %></li>
+        <li><%= link_to "Add new #{resource_class.titleize}", new_resource_path %></li>
       <% end %>
     </ul>
   </div>
