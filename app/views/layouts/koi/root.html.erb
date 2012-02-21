@@ -9,6 +9,7 @@
     <%= yield(:stylesheets) %>
     <%= yield(:javascripts) %>
     <%= yield(:head) %>
+    <%= raw t("site.fonts", default: "") %>
   </head>
   <%= yield :root %>
 </html>
