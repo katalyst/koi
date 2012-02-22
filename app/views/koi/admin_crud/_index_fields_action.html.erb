@@ -5,11 +5,11 @@
         <li><%= link_to "Edit", edit_resource_path(object) %></li>
       <% end %>
       <% (resource_class.crud.find(:admin, :index, :relations) || []).each do |child| %>
-        <li><%= link_to "#{child}", [:admin, object, child] %></li>
+        <li><%= link_to "#{child.titleize}", [:admin, object, child] %></li>
       <% end %>
     </ol>
   </span>
   <% if is_orderable? %>
-    <%= image_tag "admin/icon/index/sortable.png", class: "aln-m" %>
+    <%= image_tag "koi/admin/icon/index/sortable.png", class: "aln-m" %>
   <% end %>
 </div>
