@@ -575,15 +575,15 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 /* PUT IN YOUR SLIDER ID AND SIZE TO MAKE LOAD BEAUTIFULLY
 ================================================== */
 
-.gallery {
+.koi-gallery {
   width: 648px;
   height: 305px;
   background: #000 url('/assets/orbit/loading.gif') no-repeat center center;
   overflow: hidden; margin-bottom:20px;}
 
-.gallery>img,
-.gallery>div,
-.gallery>a { display: none; }
+.koi-gallery>img,
+.koi-gallery>div,
+.koi-gallery>a { display: none; }
 
 /* CONTAINER
 ================================================== */
