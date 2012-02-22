@@ -11,4 +11,3 @@ class ResourceNavItem < NavItem
     read_attribute(:title) || "Title #{id}"
   end
 end
-
