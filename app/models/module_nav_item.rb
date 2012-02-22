@@ -9,4 +9,3 @@ class ModuleNavItem < NavItem
     "Module"
   end
 end
-
