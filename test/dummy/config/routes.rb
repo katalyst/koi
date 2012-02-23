@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :pages
   resources :news_items
   resources :super_heros
@@ -9,5 +11,6 @@ Rails.application.routes.draw do
   end
 
   root to: "super_heros#index"
+
   mount Koi::Engine => "/admin", as: "koi_engine"
 end
