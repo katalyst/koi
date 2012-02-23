@@ -51,10 +51,10 @@ class NavItem < ActiveRecord::Base
 
   def options
     hash = {}
-    hash[:if] = eval(self.if) unless self.if.blank?
-    hash[:unless] = eval(self.unless) unless self.unless.blank?
+    hash[:if] = Proc.new { eval(self.if, @@binding) } unless self.if.blank?
+    hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
     hash[:method] = method unless method.blank?
-    hash[:highlights_on] = eval(highlights_on) unless highlights_on.blank?
+    hash[:highlights_on] = Proc.new { eval(highlights_on, @@binding) } unless highlights_on.blank?
     hash
   end
 
@@ -73,9 +73,9 @@ class NavItem < ActiveRecord::Base
     true
   end
 
-  def self.navigation(key=nil)
+  def self.navigation(key=nil, get_binding=binding())
+    @@binding = get_binding
     start = NavItem.find_by_key(key) || RootNavItem.root
     start.children.collect { |c| c.to_hash unless c.is_hidden }.compact
   end
 end
-
