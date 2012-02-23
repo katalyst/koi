@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  # FIXME: Hack to set layout for admin devise resources
   def layout_by_resource
     if devise_controller? && resource_name == :admin
       "koi/devise"
