@@ -25,9 +25,10 @@ application(nil, :env => 'development') do
   "config.action_mailer.default_url_options = { :host => 'localhost:3000' }"
 end
 
+# Create Version File
 create_file 'VERSION', <<-END
 1.0.0
-end
+END
 
 # Setup database yml
 run 'rm config/database.yml'
