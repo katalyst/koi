@@ -25,6 +25,10 @@ application(nil, :env => 'development') do
   "config.action_mailer.default_url_options = { :host => 'localhost:3000' }"
 end
 
+create_file 'VERSION', <<-END
+1.0.0
+end
+
 # Setup database yml
 run 'rm config/database.yml'
 create_file 'config/database.yml', <<-END
@@ -88,8 +92,6 @@ END
 
 run 'bundle install'
 
-# Generate Devise Config
-generate('devise:install')
 
 # Install Migrations
 rake 'koi:install:migrations'
@@ -100,6 +102,9 @@ run 'rm public/index.html'
 
 rake 'db:drop'
 rake 'db:create'
+
+# Generate Devise Config
+generate('devise:install')
 
 route "root to: 'pages#index'"
 
