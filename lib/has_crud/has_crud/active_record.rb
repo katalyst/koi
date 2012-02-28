@@ -30,7 +30,7 @@ module HasCrud
         options[:sortable] = true if options[:sortable].eql?(nil)
         options[:ajaxable] = true unless options[:ajaxable].eql?(false)
 
-        unless options[:searchable].eql?(false)
+        if !options[:searchable].eql?(false) && table_exists?
           ignore_fields = [:created_at, :updated_at, :slug]
           if options[:searchable].eql?(true) || options[:searchable].eql?(nil)
             options[:searchable] = column_names.collect { |c| c.to_sym } - ignore_fields
