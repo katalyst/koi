@@ -78,6 +78,9 @@ Gem::Specification.new do |s|
   # Deployment
   s.add_dependency 'engineyard'
 
+  # New Relic
+  s.add_dependency 'newrelic_rpm'
+
   # Unique ID generation
   s.add_dependency "uuidtools"                     , '~> 2.1.2'
 
