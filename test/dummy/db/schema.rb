@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223012338) do
+ActiveRecord::Schema.define(:version => 20120303011314) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(:version => 20120223012338) do
     t.string   "attributable_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "exits", :force => true do |t|
+    t.text     "page_path"
+    t.integer  "pageviews"
+    t.integer  "unique_pageviews"
+    t.integer  "exits"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "nav_items", :force => true do |t|

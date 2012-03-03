@@ -1,3 +1,25 @@
 <% content_for :title, "Dashboard" %>
 
-<p>Coming soon...</p>
+<h3>Site Analytics</h3>
+
+<% if @result.eql?(false) %>
+  <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
+<% else %>
+  <p><%= link_to "Click here", "?analytics=true" %> to hard reset the analytics.</p>
+  <table>
+    <th>
+      <td>Path</td>
+      <td>Pageviews</td>
+      <td>Unique Pageviews</td>
+      <td>Exits</td>
+    </th>
+    <% @result.each do |r| %>
+    <tr>
+      <td><%= truncate r.page_path %></td>
+      <td><%= r.pageviews %></td>
+      <td><%= r.unique_pageviews %></td>
+      <td><%= r.exits %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
