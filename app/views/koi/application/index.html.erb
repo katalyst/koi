@@ -6,13 +6,15 @@
   <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
 <% else %>
   <p><%= link_to "Click here", "?analytics=true" %> to hard reset the analytics.</p>
-  <table>
-    <th>
-      <td>Path</td>
-      <td>Pageviews</td>
-      <td>Unique Pageviews</td>
-      <td>Exits</td>
-    </th>
+  <table class="table padded-sides ruled br br-grey-d8 rd-b-5px ln-h-3">
+    <thead>
+      <tr class="control tx-11px tx-grey-54 bg-grey-f4">
+        <th>Path</th>
+        <th>Pageviews</th>
+        <th>Unique Pageviews</th>
+        <th>Exits</th>
+      </tr>
+    </thead>
     <% @result.each do |r| %>
     <tr>
       <td><%= truncate r.page_path %></td>
