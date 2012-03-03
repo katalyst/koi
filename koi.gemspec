@@ -82,7 +82,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'newrelic_rpm'
 
   # Unique ID generation
-  s.add_dependency "uuidtools"                     , '~> 2.1.2'
+  s.add_dependency 'uuidtools'                     , '~> 2.1.2'
+
+  # Google Analytics
+  s.add_dependency 'garb'
 
   # Fixture replacement
   s.add_dependency 'factory_girl_rails'            , '1.2.0'
