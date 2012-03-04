@@ -17,11 +17,28 @@
     </thead>
     <% @result.each do |r| %>
     <tr>
-      <td><%= truncate r.page_path %></td>
+      <td><%= truncate r.page_path, length: 50 %></td>
       <td><%= r.pageviews %></td>
       <td><%= r.unique_pageviews %></td>
       <td><%= r.exits %></td>
     </tr>
     <% end %>
   </table>
+<% end %>
+
+<% content_for :side do %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      jQuery(function($){
+        $("#twitter-query").tweet({
+          avatar_size: 32,
+          count: 5,
+          query: "<%= Translation.find_by_key('site.twitter.query').value %>",
+          loading_text: "searching twitter..."
+        }).bind("empty", function() { $(this).append('No matching tweets found. Please<p>Please set your twitter search query <%= link_to "here", translations_path %></p>'); });
+      });
+  </script>
+  <% end %>
+  <h3>Latest Tweets</h3>
+  <div id="twitter-query"></div>
 <% end %>
