@@ -26,50 +26,114 @@
   </table>
 <% end %>
 
-<h3>Browsers</h3>
-<div id="browser-chart"></div>
-<% content_for :head do %>
-  <script type="text/javascript">
-    var chart;
-    $(document).ready(function() {
-      chart = new Highcharts.Chart({
-        chart: {
-          renderTo: 'browser-chart',
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false
-        },
-        title: {
-          text: 'Browsers used to access this website'
-        },
-        tooltip: {
-          formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
-          }
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              color: '#000000',
-              connectorColor: '#000000',
-              formatter: function() {
-                return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+<div class="chart">
+  <h3>Browsers</h3>
+  <div id="browser-chart"></div>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      var chart;
+      $(document).ready(function() {
+        chart = new Highcharts.Chart({
+          chart: {
+            renderTo: 'browser-chart',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+          },
+          title: {
+            text: 'Browsers used to access this website'
+          },
+          tooltip: {
+            formatter: function() {
+              return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+            }
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+                }
               }
             }
-          }
-        },
-        series: [{
-          type: 'pie',
-          name: 'Browser share',
-          data: <%= raw Exits.browsers %>
-        }]
+          },
+          series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: <%= raw Exits.browsers %>
+          }]
+        });
       });
-    });
-  </script>
-<% end %>
+    </script>
+  <% end %>
+</div>
+
+<div class="chart">
+  <h3>Keywords</h3>
+  <div id="keywords-chart"></div>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      var chart;
+      $(document).ready(function() {
+        chart = new Highcharts.Chart({
+          chart: {
+            renderTo: 'keywords-chart',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+          },
+          title: {
+            text: 'Keywords used to search this website'
+          },
+          tooltip: {
+            formatter: function() {
+              return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+            }
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+                }
+              }
+            }
+          },
+          series: [{
+            type: 'pie',
+            name: 'Keywords',
+            data: <%= raw Exits.keywords %>
+          }]
+        });
+      });
+    </script>
+  <% end %>
+</div>
+
+<div class="chart">
+  <table>
+    <tr>
+      <td>Continent</td>
+      <td>Pageviews</td>
+    </tr>
+    <% Exits.continents.each do |result| %>
+      <tr>
+        <td><%= result.continent %></td>
+        <td><%= result.pageviews %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
 <% content_for :side do %>
   <% content_for :head do %>
