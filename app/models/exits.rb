@@ -32,4 +32,14 @@ class Exits < ActiveRecord::Base
     end
     Exits.all
   end
+
+  def self.browsers
+    result = Garb::Report.new(profile,
+                       :start_date => (Date.today - 6.months),
+                       :end_date => Date.today,
+                       metrics: [:pageviews],
+                       dimensions: [:browser]).results
+    sum = result.sum { |r| r.pageviews.to_i }
+    result.collect { |r| [r.browser, ((r.pageviews.to_f / sum) * 100).round(2)] if ((r.pageviews.to_f / sum) * 100).round(2) > 1 }.compact
+  end
 end
