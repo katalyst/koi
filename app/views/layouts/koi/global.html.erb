@@ -6,6 +6,7 @@
   <!--[if IE 7]> <%= stylesheet_link_tag "admin/global-screen-ie7" %> <![endif]-->
   <!--[if IE 8]> <%= stylesheet_link_tag "admin/global-screen-ie8" %> <![endif]-->
   <%= stylesheet_link_tag "koi/admin/global-screen" %>
+  <%= stylesheet_link_tag "koi/admin/jquery.tweet" %>
   <%= stylesheet_link_tag "koi/admin/global-print", media: "print" %>
 <% end %>
 
@@ -18,6 +19,7 @@
   </script>
 
   <%= javascript_include_tag "koi/admin/global" %>
+  <%= javascript_include_tag "koi/admin/jquery.tweet.js" %>
 
   <script type="text/javascript">
       $ (".superfish").application (true, function ($menu) { $menu.superfish ({ delay:100 }); });
