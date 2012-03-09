@@ -1,3 +1,5 @@
+require 'garb'
+
 class Exits < ActiveRecord::Base
   extend Garb::Model
 
@@ -9,11 +11,12 @@ class Exits < ActiveRecord::Base
   default_scope order("unique_pageviews DESC")
 
   def self.profile
-    return @@profile if defined?(@@profile) && @@profile
+    # return @@profile if defined?(@@profile) && @@profile
     Garb::Session.login(Translation.find_by_key('site.google_analytics.username').value,
                         Translation.find_by_key('site.google_analytics.password').value)
-    @@profile ||= Garb::Management::Profile.all.detect { |p|
-                        p.web_property_id = Translation.find_by_key('site.google_analytics.profile_id').value }
+    # @@profile ||=
+    Garb::Management::Profile.all.detect { |p|
+                        p.web_property_id == Translation.find_by_key('site.google_analytics.profile_id').value }
   end
 
   def self.analytics(reset=nil)
