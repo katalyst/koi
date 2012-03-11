@@ -8,6 +8,7 @@ class Translation < ActiveRecord::Base
 
   FieldTypes = {
                  "String"    => "string",
+                 "Boolean"   => "boolean",
                  "Text"      => "text",
                  "Rich Text" => "rich_text"
                }

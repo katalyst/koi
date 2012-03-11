@@ -2,7 +2,7 @@
 
 <h3>Site Analytics</h3>
 
-<% if @result.eql?(false) %>
+<% unless Translation.find_by_key('site.show.dashboard.analytics').try(:value).eql?("true") %>
   <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
 <% else %>
   <p><%= link_to "Click here", "?analytics=true" %> to hard reset the analytics.</p>
