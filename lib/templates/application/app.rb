@@ -139,6 +139,9 @@ Time::DATE_FORMATS[:short] = "%d.%m.%Y"
 END
 
 create_file 'config/Initializers/koi.rb', <<-END
+# FIXME: Explicity require all main app controllers
+Dir.glob("#{Rails.root}/app/controllers/**/*.rb").each { |c| require c }
+
 Koi::Menu.items = {
   'Pages' => '/admin/pages',
   'Admins' => '/admin/site_users'
