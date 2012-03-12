@@ -142,7 +142,7 @@
         $("#twitter-query").tweet({
           avatar_size: 32,
           count: 5,
-          query: "<%= Translation.find_by_key('site.twitter.query').value %>",
+          query: "<%= Translation.find_by_key('site.twitter.query').try(:value) %>",
           loading_text: "searching twitter..."
         }).bind("empty", function() { $(this).append('No matching tweets found. Please<p>Please set your twitter search query <%= link_to "here", translations_path %></p>'); });
       });
