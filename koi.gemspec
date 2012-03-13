@@ -75,12 +75,6 @@ Gem::Specification.new do |s|
   # i18n ActiveRecord backend
   s.add_dependency 'i18n-active_record'
 
-  # Deployment
-  s.add_dependency 'engineyard'
-
-  # New Relic
-  s.add_dependency 'newrelic_rpm'
-
   # Unique ID generation
   s.add_dependency 'uuidtools'                     , '~> 2.1.2'
 
