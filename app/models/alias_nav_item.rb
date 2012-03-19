@@ -24,11 +24,11 @@ class AliasNavItem < NavItem
     alias_record.admin_url if alias_record
   end
 
-  def to_hash
-    hash = super
-    hash[:url] = alias_record[:url]
-    hash
-  end
+  # def to_hash
+  #   hash = super
+  #   hash[:url] = alias_record[:url]
+  #   hash
+  # end
 
   def self.title
     "Alias"
