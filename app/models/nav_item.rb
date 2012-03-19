@@ -59,12 +59,17 @@ class NavItem < ActiveRecord::Base
   end
 
   def to_hash
-    hash = {
-      key:   nav_key,
-      name:  title,
-      url:   url,
-      items: content_block.blank? ? children.collect { |c| c.to_hash unless c.is_hidden }.compact : eval(content_block)
-    }
+    hash = {}
+    if content_block.blank?
+      hash = {
+        key:   nav_key,
+        name:  title,
+        url:   url,
+        items: children.collect { |c| c.to_hash unless c.is_hidden }.compact
+      }
+    else
+      hash = eval(content_block, @@binding)
+    end
     hash[:options] = options unless options.blank?
     hash
   end
