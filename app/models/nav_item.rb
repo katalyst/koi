@@ -81,6 +81,6 @@ class NavItem < ActiveRecord::Base
   def self.navigation(key=nil, get_binding=binding())
     @@binding = get_binding
     start = NavItem.find_by_key(key) || RootNavItem.root
-    start.children.collect { |c| c.to_hash unless c.is_hidden }.compact
+    start.children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
   end
 end
