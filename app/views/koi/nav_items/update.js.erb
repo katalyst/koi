@@ -2,7 +2,7 @@
   $("#modal-for-nav-item").html("<%= escape_javascript render("modal_nav_item") %>");
 <% else %>
   $("#modal-for-nav-item").modal('hide');
-  $("#nav-item-<%= resource.parent.id %> > ol:first").replaceWith("<%= escape_javascript render("nav_item", nav_item: resource) %>");
+  $("#nav-item-<%= resource.id %>").replaceWith("<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>");
   $("#nav-item-<%= resource.id %> div:first").effect("highlight", {}, 3000);
 <% end %>
 
