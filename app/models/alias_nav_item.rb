@@ -17,21 +17,14 @@ class AliasNavItem < NavItem
   end
 
   def url
-    alias_record.url unless alias_record.is_hidden
+    alias_record.url if alias_record && !alias_record.is_hidden
   end
 
   def admin_url
     alias_record.admin_url if alias_record
   end
 
-  # def to_hash
-  #   hash = super
-  #   hash[:url] = alias_record[:url]
-  #   hash
-  # end
-
   def self.title
     "Alias"
   end
 end
-
