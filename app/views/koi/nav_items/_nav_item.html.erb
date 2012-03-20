@@ -1,6 +1,5 @@
 <% nav_item_type = nav_item.class.name.underscore.dasherize %>
 <% nav_item_id = nav_item.id %>
-<% level = nav_item.level %>
 
 <li id="nav-item-<%= nav_item.id %>"
     class="nav-item application type-nav-item id-<%= nav_item_id %>
@@ -14,11 +13,11 @@
   <div class="zone pd-t-4px">
     <div class="main rd-5px ln-h-22px h-22px pd-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
       <div class="information flt-l button <%= "tx-14px tx-bold" unless nav_item.children.empty? %>">
-        <%= link_to nav_item.title, nav_item.admin_url.blank? ? "#" : nav_item.admin_url %>
+        <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
       </div>
 
       <div class="flt-r controls ln-h-22px h-22px vis-hidden">
-        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px tx-uc">
+        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px tx-uc ui-nestedSortable-no-nesting">
           <li><%= link_to "Modify", [:edit, nav_item], class: "pop-up" %></li>
           <li class="w-7">
             <a href="#">Add...</a>
@@ -39,4 +38,3 @@
     <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
   </ol>
 </li>
-
