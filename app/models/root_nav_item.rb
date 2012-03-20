@@ -17,4 +17,3 @@ class RootNavItem < NavItem
     false
   end
 end
-
