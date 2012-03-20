@@ -7,12 +7,7 @@
 
 <%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
 
-  <div class="bg-white br-b br-grey-c0 pd-b-1 as-clr">
-    <div class="right column w-15 pd-tr-2">
-      <h6 class="sp-b-5px">Please note:</h6>
-      <p>Fields marked with an asterisk are required.</p>
-    </div>
-
+  <div class="bg-white br-b br-grey-c0 pd-b-1 as-clr h-40 ovr-auto">
     <div class="flt-l pd-ltr-2 w-33 sp-r-1">
 
       <div class="tab-encloser">
@@ -39,6 +34,11 @@
         </div>
 
       </div>
+    </div>
+
+    <div class="left column w-15 pd-t-2 pd-r-1">
+      <h6 class="sp-b-5px">Please note:</h6>
+      <p>Fields marked with an asterisk are required.</p>
     </div>
   </div>
 
