@@ -3,12 +3,20 @@
 
     $ (function () {
 
+      $ (".sitemap ol").livequery (function () {
+        $ (this).addClass ('children sp-l-2');
+      });
+
       $ (".sitemap.application").application (function ($sitemap) {
 
         var $children = $sitemap.component ('.children')
         ,   $undo     = $sitemap.component ('.undo.button')
         ,   path      = "<%= koi_engine.savesort_nav_items_path %>"
         ;
+
+        $sitemap.components ('ol', function ($ol) {
+          $ol.addClass ('children sp-l-2');
+        });
 
         function save (data, cb) {
           $.post (path, { set: data }, cb);
@@ -28,8 +36,7 @@
 
         $children
           .nestedSortable({
-            disableNesting: 'no-nest'
-          , forcePlaceholderSize: true
+            forcePlaceholderSize: true
           , handle: 'div'
           , helper: 'clone'
           , items: '.sortable'
