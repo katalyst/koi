@@ -2,7 +2,10 @@
   $("#modal-for-nav-item").html("<%= escape_javascript render( "modal_nav_item") %>");
 <% else %>
   $("#modal-for-nav-item").modal('hide');
-  $("#nav-item-<%= resource.parent.id %>").append("<%= escape_javascript render("nav_item", nav_item: resource) %>").slideDown();
-  $("#nav-item-<%= resource.id %>").effect("highlight", {}, 3000);
-<% end %>
 
+  var $parent = $("#nav-item-<%= resource.parent.id %>");
+  var $children = $parent.find (".children");
+  if (! $children.length) $children = $parent.append ("<ol class='children'>").slideDown ();
+  $children.append ("<%= escape_javascript render("nav_item", nav_item: resource, level: resource.parent.level + 1) %>")
+  $("#nav-item-<%= resource.id %>").slideDown ().effect("highlight", {}, 3000);
+<% end %>
