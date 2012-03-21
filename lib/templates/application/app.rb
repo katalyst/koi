@@ -140,7 +140,7 @@ END
 
 create_file 'config/Initializers/koi.rb', <<-END
 # FIXME: Explicity require all main app controllers
-Dir.glob("#{Rails.root}/app/controllers/admin/**/*.rb").each { |c| require c }
+Dir.glob("app/controllers/admin/**/*.rb").each { |c| require c }
 
 Koi::Menu.items = {
   'Pages' => '/admin/pages',
