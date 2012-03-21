@@ -1,4 +1,4 @@
-module Admin::DateHelper
+module Koi::DateHelper
 
   def date_format(date, format)
     date.strftime format.gsub(/yyyy/,  "%Y")
