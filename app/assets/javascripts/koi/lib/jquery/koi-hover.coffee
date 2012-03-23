@@ -2,7 +2,8 @@ $ = jQuery
 
 $.fn.koiHover = ( args... ) ->
   delay = if typeof args[0] is 'number' then args.shift() else 0
-  [ over, leave ] = args
+  over = args.shift()
+  leave = args.shift() or over
 
   @each =>
     nowRunning = false
