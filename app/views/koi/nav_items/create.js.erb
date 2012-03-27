@@ -1,11 +1,20 @@
 <% if resource.errors.any? -%>
-  $("#modal-for-nav-item").html("<%= escape_javascript render( "modal_nav_item") %>");
-<% else %>
-  $("#modal-for-nav-item").modal('hide');
 
-  var $parent = $("#nav-item-<%= resource.parent.id %>");
-  var $children = $parent.find (".children");
+  $ ("#modal-for-nav-item").html ("<%= escape_javascript render ("modal_nav_item") %>");
+
+<% else %>
+
+  $ ("#modal-for-nav-item").modal ('hide');
+
+  var rendered = "<%= escape_javascript render ("nav_item", nav_item: resource, level: resource.level) %>";
+  
+  var $parent = $ ("#nav-item-<%= resource.parent.id %>");
+  var $children = $parent.component (".children");
+
   if (! $children.length) $children = $parent.append ("<ol class='children'>").slideDown ();
-  $children.append ("<%= escape_javascript render("nav_item", nav_item: resource, level: resource.parent.level + 1) %>")
-  $("#nav-item-<%= resource.id %>").slideDown ().effect("highlight", {}, 3000);
+
+  $children.append (rendered);
+
+  $ ("#nav-item-<%= resource.id %>").slideDown ().effect ("highlight", {}, 3000);
+
 <% end %>
