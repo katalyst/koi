@@ -12,6 +12,9 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 
+# Bootstrap SASS
+gem 'bootstrap-sass'            , '~> 2.0.1', :group => :assets
+
 gem_group :development do
   # Ruby debugger
   gem 'ruby-debug19'            , :require => 'ruby-debug'
