@@ -1,4 +1,5 @@
 //= require ./_import
+//= require bootstrap
 
 !function ($) {
 

@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
-  s.add_dependency 'simple_form'                   , '~> 1.5.2'
+  s.add_dependency 'simple_form'                   , '~> 2.0.1'
 
   # Tree
   s.add_dependency 'nested_set'                    , '~> 1.6.8'
