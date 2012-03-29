@@ -4,7 +4,7 @@
   </div>
   <h1 class="katalyst titlebar br-b-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-25px">Password reset</h1>
 
-  <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { :method => :post }) do |f| %>
+  <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
 
     <%#= f.error_notification %>
 
