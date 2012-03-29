@@ -6,7 +6,7 @@
 
   $ ("#modal-for-nav-item").modal ('hide');
 
-  var rendered = "<%= escape_javascript render ("nav_item", nav_item: resource, level: resource.level) %>";
+  var rendered = "<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>";
   
   var $parent = $ ("#nav-item-<%= resource.parent.id %>");
   var $children = $parent.component (".children");
