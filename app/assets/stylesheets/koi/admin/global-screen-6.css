@@ -1,4 +1,5 @@
 
+ul.wf-univers-bold-condensed > li > a { font-weight:normal !important; }
 .wf-univers-bold-condensed {
   font-family: 'UniversLTW01-67BoldCn'; }
 /* `is-value` returns `true` if the `$val` is not blank, `false` otherise */
