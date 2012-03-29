@@ -21,4 +21,5 @@ $colorful: $greys-x0 $greys-x4 $greys-x8 $greys-xc ($orange white black);
 
 @include def-text( align, left right center );
 
-.wf-univers-bold-condensed { font-family: 'UniversLTW01-67BoldCn'; }
+.wf-univers-bold-condensed { font-family: 'UniversLTW01-67BoldCn'; font-weight:normal; }
+ul.wf-univers-bold-condensed > li > a { font-weight:normal !important; }
