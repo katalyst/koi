@@ -25,15 +25,13 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 # Ruby debugger
 gem 'ruby-debug19'              , :require => 'ruby-debug'
 
-# FIXME: Include Bootstrap outside of assets groud
-#        as it is unavailable to the assets otherwise
-gem 'bootstrap-sass'          , '~> 2.0.1'
+# Bowerbird
+gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails'              , '~> 3.1'
-  gem 'bootstrap-sass'          , '~> 2.0.1'
   gem 'coffee-rails'            , '~> 3.2.1'
   gem 'uglifier'                , '>= 1.0.3'
 end
