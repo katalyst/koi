@@ -1,16 +1,29 @@
-$iconSpritePath: image-path('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+/* VARIABLES **************************************************************************************/
+
+// Links
+$linkColor: #FC6B02;
+$linkColorHover: #FC6B02;
+
+// Colors
+$orange: #FC6B02;
+
+// Grid
 $gridColumns: 24;
 $gridColumnWidth: 30px;
 $gridGutterWidth: 10px;
-$linkColor: #FC6B02;
-$linkColorHover: #FC6B02;
+
+// Icons
+$iconSpritePath: image-path('glyphicons-halflings.png');
+$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+
+// Navbar
 $navbarLinkColor: #FFF;
-$orange: #FC6B02;
 
-@import "bootstrap";
+/* IMPORTS ****************************************************************************************/
 
-// Bootstrap overrides
+@import "bowerbird";
+
+/* CUSTOM STYLES **********************************************************************************/
 
 .btn {text-shadow:none;@include buttonBackground($orange, $gray);@include box-shadow(none);background-image: none;border:none;
 
@@ -27,7 +40,6 @@ $orange: #FC6B02;
 .btn-primary:hover {background-color: darken($orange, 4%);text-shadow:none;}
 
 // Elements
-
 body {margin-top:100px; font-family: "proxima-nova",sans-serif;}
 header {margin-bottom:20px;}
 h1 {font-size:44px; font-weight:normal;line-height:64px;border-bottom: 1px solid #CCC;}
@@ -40,21 +52,16 @@ legend.small {font-size: 13px;border-bottom:1px solid $grayLighter;margin-bottom
 
 abbr[title='required'] {color:$orange;font-weight:bold;}
 
-
-
-
 // Styles
 .logo {padding-top:8px;float:left;}
 .color-darkgrey {background-color:#666;}
 
 // Settings
-
 .w100 {width:100px;}
 
 
 // Media object
 // From: http://giusi.org/bootstrap-media/media.html
-
 .media, .media-body {overflow:hidden;*overflow:visible;zoom:1;}
 .media {margin-bottom: 10px;}
 .media .pull-left {margin-right: 10px;}
