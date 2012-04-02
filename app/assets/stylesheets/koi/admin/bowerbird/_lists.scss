@@ -1,0 +1,11 @@
+.unmarked-list {list-style-type:none;margin-right:0;padding-left:0;}
+.floated-l-list > li {float:left;}
+.floated-r-list > li {float:right;}
+.inline-list > li {display:inline;}
+.inline-block-list > li {display:-moz-inline-stack;display:inline-block;vertical-align:top;zoom:1;*display:inline;}
+.spaced-b-list > li {margin-bottom:10px;}
+.spaced-l-list > li {margin-left:10px;}
+.spaced-r-list > li {margin-right:10px;}
+ol li.last-item,
+ul li.last-item,
+dl li.last-item {margin-left:0;margin-right:0;}
