@@ -1,16 +1,6 @@
-<ol class="adjusted hoverable rounded-3px padded-1 spaced-1 inline solid grey buttons h-25px ln-h-25px tx-12px space-t-1">
-  <li class="orange">
-    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" %>
-  </li>
-  <li>
-    <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue" %>
-  </li>
-  <% unless resource.new_record? %>
-    <li>
-      <%= link_to("Delete", resource_path, confirm: "Are you sure?", method: :delete) %>
-    </li>
-  <% end %>
-  <li>
-    <%= link_to "Back", collection_path %>
-  </li>
-</ol>
+<div class="form-action">
+  <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "btn btn-primary" %>  
+  <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "btn btn-primary" %>
+  <%= link_to("Delete", resource_path, confirm: "Are you sure?", method: :delete, class: "btn") %>
+  <%= link_to "Back", collection_path, :class => "btn" %>
+</div>

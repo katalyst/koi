@@ -6,44 +6,57 @@ $gridGutterWidth: 10px;
 $linkColor: #FC6B02;
 $linkColorHover: #FC6B02;
 $navbarLinkColor: #FFF;
+$orange: #FC6B02;
 
 @import "bootstrap";
 
-.navbar-fixed-top {border-bottom: 4px solid #f60;}
-.navbar .nav li a {font-weight:800;text-transform:uppercase;}
+// Bootstrap overrides
 
+.btn {text-shadow:none;@include buttonBackground($orange, $gray);@include box-shadow(none);background-image: none;border:none;
 
-.btn {font-weight:800;background-image: none;@include box-shadow(none);border:none;}
+  font-weight:800;background-color:$grayLight;color:#FFF;
+}
 .btn-small {padding:4px 10px 3px 10px;font-size:12px;}
 .btn-mini {padding:3px 10px 4px 10px;font-size:12px;}
-.btn-primary {@include buttonBackground(#FC6B02, #FC6B02);border:none;text-shadow:none;}
-
+.btn-primary {border:none;background-image: none;background-color:$orange;text-shadow:none;}
+.navbar-fixed-top {border-bottom: 4px solid #f60;}
+.navbar .nav li a {font-weight:800;text-transform:uppercase;}
 .pagination ul {@include box-shadow(none);}
 
+.btn:hover {background-color: darken($grayLight, 10%);color:#FFF;}
+.btn-primary:hover {background-color: darken($orange, 4%);text-shadow:none;}
 
-
-$orange: #f60;
+// Elements
 
 body {margin-top:100px; font-family: "proxima-nova",sans-serif;}
 header {margin-bottom:20px;}
-
-
-.logo {padding-top:8px;float:left;}
-
-// .navbar {border-bottom:4px solid $orange;}
-
 h1 {font-size:44px; font-weight:normal;line-height:64px;border-bottom: 1px solid #CCC;}
 h2 {font-size:24px; font-weight:400;}
-
-.color-darkgrey {background-color:#666;}
-
 table {border: 1px solid #CCC;}
 th {background-color:#ececec;font-size:11px;}
-
-// .pagination a {line-height:20px; padding: 0 10px;}
-
-
-.space-half {padding:8px;}
-.space-0 {margin:0;}
-
 textarea {height:200px; width:400px;}
+legend.small {font-size: 13px;border-bottom:1px solid $grayLighter;margin-bottom:120px;}
+// label {font-weight:bold;}
+
+abbr[title='required'] {color:$orange;font-weight:bold;}
+
+
+
+
+// Styles
+.logo {padding-top:8px;float:left;}
+.color-darkgrey {background-color:#666;}
+
+// Settings
+
+.w100 {width:100px;}
+
+
+// Media object
+// From: http://giusi.org/bootstrap-media/media.html
+
+.media, .media-body {overflow:hidden;*overflow:visible;zoom:1;}
+.media {margin-bottom: 10px;}
+.media .pull-left {margin-right: 10px;}
+.media .pull-right {margin-left: 10px;}
+.media .media-object {display: block;}
