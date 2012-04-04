@@ -1,13 +1,10 @@
 <% content_for :stylesheets do %>
   <link href="http://fast.fonts.com/cssapi/e0715776-9606-47b7-93c0-721a8906e16b.css" rel="stylesheet" type="text/css" />
   <%= stylesheet_link_tag "koi/admin/application" %>
-  <%= stylesheet_link_tag "koi/admin/components/button" %>
-  <%= stylesheet_link_tag "koi/admin/components/menu" %>
-  <%= stylesheet_link_tag "koi/admin/components/icon" %>  
-
-  <% ancestor_paths.each do |path| %>
-    <%= stylesheet_link_tag path %> <!-- if file exists! -->
-  <% end %>
+  <%= stylesheet_link_tag "koi/admin/application/titlebar" %>
+  <%= stylesheet_link_tag "koi/admin/application/button" %>
+  <%= stylesheet_link_tag "koi/admin/application/menu" %>
+  <%= stylesheet_link_tag "koi/admin/application/icon" %>  
 
 <% end %>
 
@@ -20,7 +17,7 @@
 
   <%= javascript_include_tag "koi/admin/global" %>
   <%= javascript_include_tag "koi/admin/highcharts" %>
-  <%= javascript_include_tag "koi/admin/jquery.tweet" %>
+  <%#= javascript_include_tag "koi/admin/jquery.tweet" %>
 
   <script type="text/javascript">
       $ (".superfish").application (true, function ($menu) { $menu.superfish ({ delay:100 }); });

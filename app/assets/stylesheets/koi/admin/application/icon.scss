@@ -1,0 +1,15 @@
+.icon {
+  background-repeat: no-repeat;
+
+  &.overlay {
+    &.add {
+      background-image: url(/assets/koi/icon/overlay/add.png); min-height: 12px; min-width: 12px;
+    }
+  }
+
+  &.sort {
+    min-height: 16px; min-width: 16px;
+    &.ascending, &.asc { background-image: url(/assets/koi/icon/index/sort-ascending.png); }
+    &.descending, &.desc { background-image: url(/assets/koi/icon/index/sort-descending.png); }
+  }
+}
