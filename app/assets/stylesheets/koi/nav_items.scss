@@ -1,0 +1,16 @@
+.nav-item
+{
+  clear: both;
+  margin-top: 4px;
+
+  .level-1, .level-2 { border-top: 1px solid #f4f4f4; }
+  .level-1, .level-2, .level-3, .level-4, .level-5, level-6, .level-7, .level-8, .level-9 { padding-left:5px; }
+
+  .zone { padding-top: 4px; }
+
+  .body, .controls { height:22px; line-height:22px; }
+
+  .controls {float:right;}
+
+}
+
