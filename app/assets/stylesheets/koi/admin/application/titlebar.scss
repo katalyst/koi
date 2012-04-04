@@ -1,10 +1,13 @@
-.titlebar {
+header.titlebar {
 
   &.black, &.katalyst {
-    background-color:black; color: #fcfcfc;
+    background-color:black; color: #fcfcfc; padding-left:20px;
   }
 
   &.katalyst {
-    border-bottom:3px solid #fc6b02; font-weight:bold; height:55px; line-height:55px;
+    > h1 { font-size:24px; }
+    border-bottom:3px solid #fc6b02;
+    height:55px; line-height:55px;
+    -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; border-radius: 5px 5px 0 0;
   }
 }

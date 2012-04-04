@@ -2,11 +2,6 @@
   list-style-type:none; margin-left:0;
 }
 
-.nav-item.level-0 {
-  &.level-0 {}
-  &.level-1, .level-2 {  }
-}
-
 .nav-item {
   clear: both; margin-top: 4px; padding-left:20px; font-size:13px; font-weight:bold;
 

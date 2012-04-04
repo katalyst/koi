@@ -1,9 +1,13 @@
-<h1 class="katalyst titlebar border-3px round-t-5px pad-lr-2 h-55px ln-h-55px txt-25px">
-  <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-  <span class="control txt-orange flt-r">
-    <a href="#" class="close">&times;</a>
-  </span>
-</h1>
+<header class="katalyst titlebar">
+
+  <h1 class="">
+    <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
+    <span class="control txt-orange flt-r">
+      <a href="#" class="close">&times;</a>
+    </span>
+  </h1>
+
+</header>
 
 <%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
 
