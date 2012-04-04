@@ -1612,10 +1612,10 @@ pre, code, tt {
 .txt-c {
   text-align: center; }
 
-.tx-red, a.tx-red {
+.txt-red, a.txt-red {
   color: red; }
 
-a.tx-red:hover {
+a.txt-red:hover {
   text-decoration: none; }
 
 .header-katalyst-logo {

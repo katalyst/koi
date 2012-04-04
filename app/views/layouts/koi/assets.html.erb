@@ -4,19 +4,19 @@
 
 <% content_for :global do %>
 
-  <div class="center container w-93 tx-grey-68 tk-proxima-nova">
+  <div class="center container w-93 txt-grey-68 tk-proxima-nova">
 
-    <header class="katalyst titlebar border-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-26px">
+    <header class="katalyst titlebar border-3px round-t-5px pad-lr-2 h-55px ln-h-55px txt-26px">
       <%= render "title_bar" %>
     </header>
 
-    <nav class="bg-grey-e8 h-55px br-b br-grey-dc ln-h-55px pd-lr-2 as-bbox">
+    <nav class="bg-grey-e8 h-55px br-b br-grey-dc ln-h-55px pad-lr-2 as-bbox">
       <%= render "tag_bar" %>
     </nav>
 
     <div class="br-t br-white"></div>
 
-    <div class="main left column w-17col bg-grey-f4 h-57 rd-bl-5px pd-lbr-2 as-bbox ovr-auto">
+    <div class="main left column w-17col bg-grey-f4 h-57 round-bl-5px pad-lbr-2 as-bbox ovr-auto">
       <nav class="search h-55px ln-h-55px">
         <%= render "tool_bar" %>
       </nav>
@@ -24,7 +24,7 @@
       <%= render "asset_table" %>
     </div>
 
-    <div class="side right column w-26 bg-grey-c8 h-57 rd-br-5px as-bbox ln-h-16px tx-11px">
+    <div class="side right column w-26 bg-grey-c8 h-57 round-br-5px as-bbox ln-h-16px txt-11px">
       <%= content_for?(:assets) ? yield(:assets) : yield %>
     </div>
 
