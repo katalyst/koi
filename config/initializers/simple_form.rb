@@ -49,9 +49,9 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
-      ba.use :label, :class => 'control-label'
+      ba.use :label, :class => 'pad-l-0ex5 sp-l-1 control-label'
     end
-    b.use :error, :tag => 'span', :class => 'help-inline pd-l-0ex5 as-iblk'
+    b.use :error, :tag => 'span', :class => 'help-inline pad-l-0ex5 as-iblk'
     b.use :hint,  :tag => 'p', :class => 'help-block'
   end
 

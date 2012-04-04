@@ -10,14 +10,14 @@
     data-id="<%= nav_item_id %>">
 
   <!-- zone provides hoverable space between elements so there are no dead-spots -->
-  <div class="zone pd-t-4px">
-    <div class="main rd-5px ln-h-22px h-22px pd-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
-      <div class="information flt-l button <%= "tx-14px tx-bold" unless nav_item.children.empty? %>">
+  <div class="zone pad-t-4px">
+    <div class="main round-5px ln-h-22px h-22px pad-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
+      <div class="information flt-l button <%= "txt-14px txt-bold" unless nav_item.children.empty? %>">
         <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
       </div>
 
       <div class="flt-r controls ln-h-22px h-22px vis-hidden">
-        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px tx-uc ui-nestedSortable-no-nesting">
+        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px txt-uc ui-nestedSortable-no-nesting">
           <li><%= link_to "Modify", [:edit, nav_item], class: "pop-up" %></li>
           <li class="w-7">
             <a href="#">Add...</a>
@@ -29,7 +29,7 @@
             </ul>
           </li>
         </ul>
-        <div class="icon icon-sitemap icon-sitemap-sortable rd-r-5px pd-r-1 inline move control h-22px"><%= link_to "", "#" %></div>
+        <div class="icon icon-sitemap icon-sitemap-sortable round-r-5px pad-r-1 inline move control h-22px"><%= link_to "", "#" %></div>
       </div>
 
     </div>
