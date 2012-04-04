@@ -1,0 +1,10 @@
+.titlebar {
+
+  &.black, &.katalyst {
+    background-color:black; color: #fcfcfc;
+  }
+
+  &.katalyst {
+    border-bottom:3px solid #fc6b02; font-weight:bold; height:55px; line-height:55px;
+  }
+}
