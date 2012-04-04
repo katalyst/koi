@@ -2,23 +2,24 @@
 <% nav_item_id = nav_item.id %>
 
 <li id="nav-item-<%= nav_item.id %>"
-    class="nav-item application type-nav-item id-<%= nav_item_id %>
+    class="nav-item application id-<%= nav_item_id %>
            <%= "sortable cursor-move" if nav_item.draggable? %>
-           <%= "br-t br-grey-f4" if level < 2 %>
-           float-clear sp-t-4px"
+           level-<%= level %>"
     data-type="<%= nav_item_type %>"
     data-id="<%= nav_item_id %>">
 
   <!-- zone provides hoverable space between elements so there are no dead-spots -->
-  <div class="zone pad-t-4px">
-    <div class="main round-5px ln-h-22px h-22px pad-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
+  <div class="zone">
+    <div class="body round-5px pad-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
       <div class="information flt-l button <%= "txt-14px txt-bold" unless nav_item.children.empty? %>">
         <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
       </div>
 
-      <div class="flt-r controls ln-h-22px h-22px vis-hidden">
+      <div class="controls vis-hidden">
         <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px txt-uc ui-nestedSortable-no-nesting">
-          <li><%= link_to "Modify", [:edit, nav_item], class: "pop-up" %></li>
+          <% unless RootNavItem === nav_item %>
+            <li><%= link_to "Modify", [:edit, nav_item], class: "pop-up" %></li>
+          <% end %>
           <li class="w-7">
             <a href="#">Add...</a>
             <ul class="vertical solid divided hoverable light-orange menu buttons w-7">
