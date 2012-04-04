@@ -4,38 +4,39 @@
 <li id="nav-item-<%= nav_item.id %>"
     class="nav-item application id-<%= nav_item_id %>
            <%= "sortable cursor-move" if nav_item.draggable? %>
+           <%= "is-container" unless nav_item.children.empty? %>
            level-<%= level %>"
     data-type="<%= nav_item_type %>"
     data-id="<%= nav_item_id %>">
 
   <!-- zone provides hoverable space between elements so there are no dead-spots -->
   <div class="zone">
-    <div class="body round-5px pad-l-5 icon icon-sitemap icon-sitemap-<%= nav_item.is_what? %>" style="background-position:28px center !important">
-      <div class="information flt-l button <%= "txt-14px txt-bold" unless nav_item.children.empty? %>">
+    <div class="body round-5px <%= nav_item.is_what? %> sitemap icon" style="background-position:28px center !important">
+      <div class="information button">
         <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
       </div>
 
       <div class="controls vis-hidden">
-        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px txt-uc ui-nestedSortable-no-nesting">
-          <% unless RootNavItem === nav_item %>
-            <li><%= link_to "Modify", [:edit, nav_item], class: "pop-up" %></li>
-          <% end %>
+        <ul class="padded-1 spaced-1px hoverable solid light-grey inline superfish menu buttons fonted-10px ui-nestedSortable-no-nesting">
+          <%= content_tag :li, link_to("Modify",                                  [:edit, nav_item], class: "pop-up") unless RootNavItem === nav_item %>
+          <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") if current_admin.god? %>
+
           <li class="w-7">
             <a href="#">Add...</a>
-            <ul class="vertical solid divided hoverable light-orange menu buttons w-7">
+            <ul class="vertical solid divided hoverable light-orange menu buttons">
               <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), class: "pop-up") if current_admin.god? %>
-              <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
+              <%= content_tag :li, link_to("Alias" ,  new_alias_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
               <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), class: "pop-up") %>
-              <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id)) %>
+              <%= content_tag :li, link_to("Page"  ,            new_page_path(site_parent: nav_item.id)) %>
             </ul>
           </li>
         </ul>
-        <div class="icon icon-sitemap icon-sitemap-sortable round-r-5px pad-r-1 inline move control h-22px"><%= link_to "", "#" %></div>
+        <div class="sortable sitemap icon round-r-5px pad-r-1 inline move control h-22px"><%= link_to "", "#" %></div>
       </div>
 
     </div>
   </div>
-  <ol class="children sp-l-2">
+  <ol class="nav-items">
     <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
   </ol>
 </li>

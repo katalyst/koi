@@ -1,0 +1,27 @@
+.icon {
+  background-repeat: no-repeat;
+  
+  &.sitemap {
+    background-position: 5px center; min-width: 16px; min-height: 16px;
+    &.sortable { background-image: url(/assets/koi/icon/sitemap/sortable.png); }
+    &.settings { background-image: url(/assets/koi/icon/sitemap/settings.png); }
+    &.folder { background-image: url(/assets/koi/icon/sitemap/folder.png); }
+    &.module { background-image: url(/assets/koi/icon/sitemap/module.png); }
+    &.alias { background-image: url(/assets/koi/icon/sitemap/alias.png); }
+    &.home { background-image: url(/assets/koi/icon/sitemap/home.png); }
+    &.page { background-image: url(/assets/koi/icon/sitemap/page.png); }
+    &.move { background-image: url(/assets/koi/icon/sitemap/move.png); }
+  }
+
+  &.overlay {
+    &.add {
+      background-image: url(/assets/koi/icon/overlay/add.png); min-height: 12px; min-width: 12px; 
+    }
+  }
+  
+  &.sort {
+    min-height: 16px; min-width: 16px;
+    &.ascending, &.asc { background-image: url(/assets/koi/icon/index/sort-ascending.png); }
+    &.descending, &.desc { background-image: url(/assets/koi/icon/index/sort-descending.png); }
+  }
+}

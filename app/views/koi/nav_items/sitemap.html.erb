@@ -4,18 +4,18 @@
     $ (function () {
 
       $ (".sitemap ol").livequery (function () {
-        $ (this).addClass ('children sp-l-2');
+        $ (this).addClass ('nav-items sp-l-2');
       });
 
       $ (".sitemap.application").application (function ($sitemap) {
 
-        var $children = $sitemap.component ('.children')
+        var $navItems = $sitemap.component ('.nav-items')
         ,   $undo     = $sitemap.component ('.undo.button')
         ,   path      = "<%= koi_engine.savesort_nav_items_path %>"
         ;
 
         $sitemap.components ('ol', function ($ol) {
-          $ol.addClass ('children sp-l-2');
+          $ol.addClass ('nav-items sp-l-2');
         });
 
         function save (data, cb) {
@@ -23,7 +23,7 @@
         }
 
         function refresh (data) {
-          $children.load (path, { set: data });
+          $navItems.load (path, { set: data });
         }
 
         function toString () {
@@ -31,10 +31,10 @@
         }
 
         function toJSON () {
-          return $children.nestedSortable ('toHierarchy', { startDepthCount: 0 });
+          return $navItems.nestedSortable ('toHierarchy', { startDepthCount: 0 });
         }
 
-        $children
+        $navItems
           .nestedSortable({
             forcePlaceholderSize: true
           , handle: 'div'
@@ -70,7 +70,7 @@
         $main = $item.component (".main"),
         $link = $item.component (".pop-up"),
         $menu = $item.component (".controls");
-        $kids = $item.component (".children");
+        $kids = $item.component (".nav-items");
 
         $link.click (function () { $.getScript (this.href); return false; });
 
@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <ol class="children bsp-l-2 w-14col">
+  <ol class="nav-items bsp-l-2 w-14col">
     <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
   </ol>
 
