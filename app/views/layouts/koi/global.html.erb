@@ -1,8 +1,9 @@
 <% content_for :stylesheets do %>
   <link href="http://fast.fonts.com/cssapi/e0715776-9606-47b7-93c0-721a8906e16b.css" rel="stylesheet" type="text/css" />
   <%= stylesheet_link_tag "koi/admin/application" %>
-  <%= stylesheet_link_tag "koi/admin/components/buttons" %>
+  <%= stylesheet_link_tag "koi/admin/components/button" %>
   <%= stylesheet_link_tag "koi/admin/components/menu" %>
+  <%= stylesheet_link_tag "koi/admin/components/icon" %>  
 
   <% ancestor_paths.each do |path| %>
     <%= stylesheet_link_tag path %> <!-- if file exists! -->
