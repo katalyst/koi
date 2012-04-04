@@ -23,15 +23,15 @@ $orange: #ff551e;
 $black: #111111;
 $red: #f00;
 
-.tx-orange { color: $orange; }
-.tx-black { color: $black; }
+.txt-orange { color: $orange; }
+.txt-black { color: $black; }
 
-a { @extend .tx-orange; font-family: 'AkzidenzGroteskBE-Bold'; };
+a { @extend .txt-orange; font-family: 'AkzidenzGroteskBE-Bold'; };
 a:hover { color: #333; text-decoration:none; };
 
-p { @extend .tx-black; };
+p { @extend .txt-black; };
 
-.pull-quote { @extend .tx-orange; font-size: 17px; }
+.pull-quote { @extend .txt-orange; font-size: 17px; }
 
 .br-dotted { border-style:dotted; }
 
@@ -49,7 +49,7 @@ h1 {font-size:60px;}
 h2 {font-size:42px;}
 
 
-h6 { @extend .tx-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
+h6 { @extend .txt-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
 
 
 

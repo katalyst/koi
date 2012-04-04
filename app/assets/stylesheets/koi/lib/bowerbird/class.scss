@@ -59,7 +59,7 @@
 }
 
 @function class-pad( $side, $amount ) {
-  @return class( pd $side $amount );
+  @return class( pad $side $amount );
 }
 
 @function class-align( $align ) {
@@ -83,16 +83,16 @@
 // type ///////////////////////////////////////////////////////////////////////
 
 @function class-text( $key, $val ) {
-  @if is-common-value( $val ) { @return class( tx $val $key ); }
-  @return class( tx $val );
+  @if is-common-value( $val ) { @return class( txt $val $key ); }
+  @return class( txt $val );
 }
 
 @function class-text-hidden() {
-  @return class( tx hidden );
+  @return class( txt hidden );
 }
 
 @function class-text-inherit() {
-  @return class( tx inherit );
+  @return class( txt inherit );
 }
 
 @function class-indent( $val ) {
@@ -114,7 +114,7 @@
 }
 
 @function class-round( $corner, $amt ) {
-  @return class( rd $corner $amt );
+  @return class( round $corner $amt );
 }
 
 @function class-cursor( $type ) {
