@@ -36,18 +36,18 @@
   <h2 class="heading txt-16px"><%= resource_class.name %> Details</h2>
 </header>
 
-<div class="br-t br-b br-t-grey-b4 br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
+<div class="br-t br-b br-t-grey-b4 br-b-grey-d4 space-t-1 space-b-1u5"></div>
 
-<section class="assets section pad-lr-2 sp-b-1">
+<section class="assets section pad-lr-2 space-b-1">
 
   <%= render "preview" %>
 
   <% unless resource.tags.empty? %>
-    <h6 class="sp-t-1">Tags:</h6>
+    <h6 class="space-t-1">Tags:</h6>
 
-    <ul class="padded-1 rounded-3px solid white inline buttons fonted-11px sp-t-1 ln-h-2">
+    <ul class="padded-1 rounded-3px solid white inline buttons fonted-11px space-t-1 ln-h-2">
       <% resource.tags.each do |tag| %>
-        <li class="sp-r-1 sp-t-5px"><a><%= tag %></a></li>
+        <li class="space-r-1 space-t-5px"><a><%= tag %></a></li>
       <% end %>
     </ul>
   <% end %>
