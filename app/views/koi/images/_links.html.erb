@@ -1,7 +1,7 @@
 <div class="insert asset application">
 
   <h6>Sizes Available:</h6>
-  <ul class="spaced-5px vertical elements sp-t-1 sp-b-1 txt-bold">
+  <ul class="spaced-5px vertical elements space-t-1 space-b-1 txt-bold">
     <li><%= render "link_size", size: resource.dragonfly_options, title: "#{ resource.title_options } (Original)", checked: true %></li>
     <% Koi::Asset::Image.sizes[ 1..-1 ].each do |size| %>
       <li><%= render partial: "link_size", locals: size %></li>
