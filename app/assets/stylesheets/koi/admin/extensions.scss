@@ -19,10 +19,10 @@
 
 $red: #f00;
 
-.tx-red { color: $red; }
+.txt-red { color: $red; }
 
-a.tx-red { @extend .tx-red; }
-a.tx-red:hover { text-decoration:none; }
+a.txt-red { @extend .txt-red; }
+a.txt-red:hover { text-decoration:none; }
 
 .header-katalyst-logo {
   background: url(/assets/koi/logo/katalyst/header.png) no-repeat;

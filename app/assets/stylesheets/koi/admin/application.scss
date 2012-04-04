@@ -36,9 +36,6 @@ $navbarLinkColor: #FFF;
 .btn:hover {background-color: darken($grayLight, 10%);color:#FFF;}
 .btn-primary:hover {background-color: darken($orange, 4%);text-shadow:none;}
 
-// line 56 of bootstrap-sass
-input, textarea, select, .uneditable-input { height: 27px; line-height: 27px; }
-
 // Elements
 body {margin-top:100px; font-family: "proxima-nova",sans-serif;}
 header {margin-bottom:20px;}
