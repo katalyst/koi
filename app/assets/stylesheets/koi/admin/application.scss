@@ -25,9 +25,7 @@ $navbarLinkColor: #FFF;
 
 /* CUSTOM STYLES **********************************************************************************/
 
-.btn {text-shadow:none;@include buttonBackground($orange, $gray);@include box-shadow(none);background-image: none;border:none;
-
-  font-weight:800;background-color:$grayLight;color:#FFF;
+.btn {text-shadow:none;@include buttonBackground($orange, $gray);@include box-shadow(none);background-image: none;border:none;font-weight:800;background-color:$grayLight;color:#FFF;
 }
 .btn-small {padding:4px 10px 3px 10px;font-size:12px;}
 .btn-mini {padding:3px 10px 4px 10px;font-size:12px;}
@@ -35,7 +33,6 @@ $navbarLinkColor: #FFF;
 .navbar-fixed-top {border-bottom: 4px solid #f60;}
 .navbar .nav li a {font-weight:800;text-transform:uppercase;}
 .pagination ul {@include box-shadow(none);}
-
 .btn:hover {background-color: darken($grayLight, 10%);color:#FFF;}
 .btn-primary:hover {background-color: darken($orange, 4%);text-shadow:none;}
 
@@ -48,16 +45,16 @@ table {border: 1px solid #CCC;}
 th {background-color:#ececec;font-size:11px;}
 textarea {height:200px; width:400px;}
 legend.small {font-size: 13px;border-bottom:1px solid $grayLighter;margin-bottom:120px;}
-// label {font-weight:bold;}
-
 abbr[title='required'] {color:$orange;font-weight:bold;}
 
 // Styles
 .logo {padding-top:8px;float:left;}
-.color-darkgrey {background-color:#666;}
+.bg-darkgrey {background-color:#666;}
 
 // Settings
-.w100 {width:100px;}
+.w-100 {width:100px;}
+.w-1em5
+.help-inline {display:block;}
 
 // Media object
 // From: http://giusi.org/bootstrap-media/media.html
