@@ -44,6 +44,16 @@ SimpleForm.setup do |config|
     b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
+  
+  config.wrappers :inline, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :input
+      ba.use :label, :class => 'control-label'
+    end
+    b.use :error, :tag => 'span', :class => 'help-inline pd-l-0ex5 as-iblk'
+    b.use :hint,  :tag => 'p', :class => 'help-block'
+  end
 
   config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
     b.use :html5
