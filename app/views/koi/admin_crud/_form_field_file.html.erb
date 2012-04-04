@@ -20,7 +20,7 @@
     <% end %>
   <div class="media-body">
     <% if value.respond_to?(:name) %>
-      <p><%= link_to "View #{kind}", value.url %></p>
+      <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
     <% end %>
       <div class="controls">
       <% unless is_nil_or_new %>
