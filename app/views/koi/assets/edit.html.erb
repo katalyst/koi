@@ -22,9 +22,9 @@
   <h2 class="heading txt-16px"><%= resource_class.name %> Details</h2>
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
+<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 space-t-1 space-b-1u5"></div>
 
-<section class="assets section pad-lr-2 sp-b-1">
+<section class="assets section pad-lr-2 space-b-1">
 
   <%= render "preview" %>
 
@@ -34,16 +34,16 @@
   <h2 class="heading txt-16px">Edit <%= resource_class.name %></h2>
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1"></div>
+<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 space-t-1 space-b-1"></div>
 
-<section class="assets section pad-lr-2 sp-b-1">
+<section class="assets section pad-lr-2 space-b-1">
 
   <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
 
-    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1 sp-t-2">
+    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px space-b-1 space-t-2">
       <% if resource.new_record? %>
         <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
         <li class="solid disabled" id="upload-button-upload"><%= f.submit value: "Upload", disabled: "disabled" %></li>

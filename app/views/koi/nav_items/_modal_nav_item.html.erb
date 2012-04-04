@@ -8,7 +8,7 @@
 <%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
 
   <div class="bg-white br-b br-grey-c0 pad-b-1 as-clr h-40 ovr-auto">
-    <div class="flt-l pad-ltr-2 w-33 sp-r-1">
+    <div class="flt-l pad-ltr-2 w-33 space-r-1">
 
       <div class="tab-encloser">
         <ul id="setting-tabs" class="tabs">
@@ -37,14 +37,14 @@
     </div>
 
     <div class="left column w-15 pad-t-2 pad-r-1">
-      <h6 class="sp-b-5px">Please note:</h6>
+      <h6 class="space-b-5px">Please note:</h6>
       <p>Fields marked with an asterisk are required.</p>
     </div>
   </div>
 
   <div class="bg-grey-e0 pad-l-2 h-55px ln-h-55px round-b-5px br-t br-grey-fc txt-11px">
 
-    <ul class="adjusted hoverable solid grey rounded-5px padded-2 spaced-1 inline middle-aligned buttons ln-h-3 sp-t-12px">
+    <ul class="adjusted hoverable solid grey rounded-5px padded-2 spaced-1 inline middle-aligned buttons ln-h-3 space-t-12px">
       <li class="solid orange">
         <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" %>
       </li>
