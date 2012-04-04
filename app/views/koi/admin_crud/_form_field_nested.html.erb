@@ -13,7 +13,7 @@
     data-attribute="<%= attr %>">
 
   <fieldset>
-    <h4 class="border-b"><%= attr.to_s.gsub("_", " ").titleize %></h4>
+    <h4><%= attr.to_s.gsub("_", " ").titleize %></h4>
 
     <div class="<%= html %> <%= "sortable fields" if association.is_orderable? %> nested-fields-container space-t-2">
       <%= f.nested_fields_for attr,
@@ -23,7 +23,7 @@
         
         <div class="<%= html %> nested-fields-item">
         
-            <div class="row border-b space-t-1 space-b-1">
+            <div class="row border-t space-t-1 space-b-1 pad-t-1">
 
               <div class="span13">
                 <%= g.hidden_field :id %>
@@ -46,6 +46,7 @@
       <% end %>
     </div>
   </fieldset>
-  <p><a href="#" class="<%= html %> nested-fields-add btn">Add new</a></p>
+  
+  <div class="border-t pad-t-1 space-b-2 align-right"><a href="#" class="<%= html %> nested-fields-add btn btn-primary btn-small">Add new</a></div>
 </div>
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
