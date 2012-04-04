@@ -3,6 +3,8 @@
 
     .simple.form > div:first-child { height:0; overflow:hidden; display:block !important; }
 
+    .ln-h-2 {line-height:20px;}
+
   </style>
 <% end %>
 
@@ -31,7 +33,7 @@
         <% end %>
         <div class="h-1"></div>
 
-        <%= f.input :remember_me, as: :boolean, input_html: { class: "" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
+        <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
       </div>
     </div>
 
