@@ -1,5 +1,6 @@
 <% flash.each do |key, value| %>
-  <%= content_tag :div, class: "txt-bold round-5px pad-2 space-b-2 bg-#{key.to_s}" do %>
+  <%= content_tag :div, class: "alert alert-#{key.to_s} alert-block" do %>
+    <a href="" class="close" data-dismiss="alert">&times;</a>
     <p><%= value %></p>
   <% end %>
 <% end %>
