@@ -1,63 +1,53 @@
 <header class="katalyst titlebar">
 
-  <h1 class="">
+  <h2 class="pad-t-1">
     <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-    <span class="control txt-orange flt-r">
-      <a href="#" class="close">&times;</a>
-    </span>
-  </h1>
+
+    <!-- ALEX: originally had a close class which clashes with bootstrap -->
+
+      <a href="#" class="txt-orange pull-right space-r-2">&times;</a>
+  </h2>
 
 </header>
 
-<%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
+<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
 
-  <div class="bg-white br-b br-grey-c0 pad-b-1 as-clr h-40 ovr-auto">
-    <div class="flt-l pad-ltr-2 w-33 space-r-1">
-
-      <div class="tab-encloser">
-        <ul id="setting-tabs" class="tabs">
-          <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
-          <% if current_admin.god? %>
-            <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
-            <li><a href="#god_settings" data-toggle="tab">God</a></li>
-          <% end %>
-        </ul>
-
-        <div id="setting-tab-content" class="tab-content">
-          <div class="active tab-pane txt-grey-70 txt-13px ln-h-2" id="basic_settings">
-            <%= render "form_fields", { f: f } %>
-          </div>
-          <% if current_admin.god? %>
-            <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="advanced_settings">
-              <%= render "advanced_form_fields", { f: f } %>
-            </div>
-            <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="god_settings">
-              <%= render "god_form_fields", { f: f } %>
-            </div>
-          <% end %>
-        </div>
-
+<div class="span9">
+  <div class="tabbable space-1">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
+      <% if current_admin.god? %>
+        <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
+        <li><a href="#god_settings" data-toggle="tab">God</a></li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="basic_settings">
+        <%= render "form_fields", { f: f } %>
       </div>
+      <% if current_admin.god? %>
+        <div class="tab-pane" id="advanced_settings">
+          <%= render "advanced_form_fields", { f: f } %>
+        </div>
+        <div class="tab-pane" id="god_settings">
+          <%= render "god_form_fields", { f: f } %>
+        </div>
+      <% end %>
     </div>
+    <div>
+    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
+    <%- unless resource.new_record? -%>
+      <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn"  %>
+      <%- end -%>
+  </div>
+  </div>
+  
+</div>
 
-    <div class="left column w-15 pad-t-2 pad-r-1">
-      <h6 class="space-b-5px">Please note:</h6>
+    <div class="span5">
+      <h6>Please note:</h6>
       <p>Fields marked with an asterisk are required.</p>
     </div>
-  </div>
-
-  <div class="bg-grey-e0 pad-l-2 h-55px ln-h-55px round-b-5px br-t br-grey-fc txt-11px">
-
-    <ul class="adjusted hoverable solid grey rounded-5px padded-2 spaced-1 inline middle-aligned buttons ln-h-3 space-t-12px">
-      <li class="solid orange">
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" %>
-      </li>
-      <%- unless resource.new_record? -%>
-      <li class="">
-        <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true %>
-      </li>
-      <%- end -%>
-    </ul>
   </div>
 
 <% end %>
