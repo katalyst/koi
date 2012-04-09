@@ -2,13 +2,12 @@
 <%= render "tagify" %>
 <%= render 'plupload' %>
 
-<header class="assets header pad-t-1u5 pad-lr-2 pull-d-2px">
-  <h2 class="heading txt-16px">Upload New <%= resource_class.name %></h2>
+<header class="pad-1">
+  <h4>Upload New <%= resource_class.name %></h4>
+  <hr />
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 space-t-1 space-b-1u5"></div>
-
-<section class="assets section pad-lr-2 space-b-1">
+<section class="pad-1 space-b-1">
 
   <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
     <%= f.error_notification %>
@@ -17,7 +16,7 @@
 
     <div id="upload-files"></div>
 
-    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px space-b-1 space-t-5px">
+    <ul class="">
       <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
     </ul>
 
