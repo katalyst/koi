@@ -1,8 +1,8 @@
 <% content_for :main do %>
 
-  <header class="main header">
+  <header>
     <% if content_for?(:title) %>
-      <h1><%= yield :title %></h1>
+      <h1 class="space-b-2"><%= yield :title %></h1>
     <% end %>
     <% if content_for?(:breadcrumbs) %>
       <h4 class="subheading"><%= yield :breadcrumbs %></h4>
