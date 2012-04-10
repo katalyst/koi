@@ -1,10 +1,10 @@
-<table>
+<table class="table table-striped table-condensed txt-grey font-size-12">
   <thead>
     <tr>
-      <th class="w-3">
+      <th>
       </th>
       <th>
-        <div class="inline grey text button">
+        <div>
           <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
         </div>
       </th>
@@ -14,12 +14,15 @@
         </div>
       </th>
     </tr>
-    <tr>
-      <td colspan='3' class="br-b br-grey-e0 pad-t-5px"></td>
+
+<!-- ALEX: what is this for? -->
+
+  <!--   <tr>
+      <td colspan='3'></td>
     </tr>
     <tr>
-      <td colspan='3' class="h-1"></td>
-    </tr>
+      <td colspan='3'></td>
+    </tr> -->
   </thead>
   <tbody>
     <% collection.each_with_index do |asset, i| %>

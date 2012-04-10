@@ -32,33 +32,27 @@
   <% end %>
 <% end %>
 
-<header class="assets header pad-t-1u5 pad-lr-2 pull-d-2px">
-  <h2 class="heading txt-16px"><%= resource_class.name %> Details</h2>
+<header class="pad-1">
+  <h4><%= resource_class.name %> Details</h4>
 </header>
 
-<div class="br-t br-b br-t-grey-b4 br-b-grey-d4 space-t-1 space-b-1u5"></div>
-
-<section class="assets section pad-lr-2 space-b-1">
-
+<section class="pad-1 font-size-12">
   <%= render "preview" %>
 
   <% unless resource.tags.empty? %>
     <h6 class="space-t-1">Tags:</h6>
 
-    <ul class="padded-1 rounded-3px solid white inline buttons fonted-11px space-t-1 ln-h-2">
+    <ul class="unmarked-list floated-l-list clearfix">
       <% resource.tags.each do |tag| %>
-        <li class="space-r-1 space-t-5px"><a><%= tag %></a></li>
+        <li class="space-r-1"><a><%= tag %></a></li>
       <% end %>
     </ul>
   <% end %>
 
-  <div class="h-1"></div>
 
-  <div class="hoverable grey text button txt-ul">
-    <%= link_to "Edit tags", { action: :edit }, class: "as-blk" %>
+  <div class="space-b-1">
+    <%= link_to "Edit tags", { action: :edit }, class: "txt-grey" %>
   </div>
-
-  <div class="h-1"></div>
 
   <%= render "links" %>
 </section>
