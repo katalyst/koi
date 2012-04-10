@@ -54,6 +54,10 @@ abbr[title='required'] {color:$orange;font-weight:bold;}
 a.txt-orange { color: $orange; }
 a.txt-orange:hover { color: $orange; text-decoration:none}
 
+.txt-grey { color: $gray; }
+a.txt-grey, .txt-grey a { color: $gray; }
+a.txt-grey:hover, .txt-grey a:hover { color: $orange; text-decoration:none}
+
 
 // Styles
 .logo {padding-top:8px;float:left;}
@@ -69,6 +73,7 @@ a.txt-orange:hover { color: $orange; text-decoration:none}
 .w-1em5 {width:1.5em;}
 .space-t-10 {margin-top:100px;}
 .help-inline {display:block;}
+.font-size-12 {font-size:12px;}
 
 // Media object
 // From: http://giusi.org/bootstrap-media/media.html
