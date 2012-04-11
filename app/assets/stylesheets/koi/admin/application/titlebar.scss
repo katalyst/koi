@@ -1,0 +1,15 @@
+// ALEX do we need to define black and katalyst on this? can we also use bootstrap mixins for border radius? 
+
+header.titlebar {
+
+  &.black, &.katalyst {
+    background-color:black; color: #fcfcfc; padding-left:20px;
+  }
+
+  &.katalyst {
+    > h1 { font-size:24px; }
+    border-bottom:3px solid #fc6b02;
+    height:55px; line-height:55px;
+    -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; border-radius: 5px 5px 0 0;
+  }
+}

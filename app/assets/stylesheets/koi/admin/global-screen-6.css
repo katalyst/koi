@@ -1479,36 +1479,7 @@ pre, code, tt {
 /* `format-unit` returns the formatted unit of `$amt` */
 /* `format-value` returns the `$val` formatted as text, with the unit as decimal point */
 /* `to-unitless` returns the `$amt` without units */
-.titlebar.black, .titlebar.katalyst {
-  background: black;
-  color: #fcfcfc; }
-.titlebar.katalyst {
-  border-bottom-color: #fc6b02;
-  font-weight:bold;}
-  .titlebar.katalyst.border-1px {
-    border-bottom-width: 1px; }
-  .titlebar.katalyst.border-u1 {
-    border-bottom-width: 1px; }
-  .titlebar.katalyst.border-2px {
-    border-bottom-width: 2px; }
-  .titlebar.katalyst.border-u2 {
-    border-bottom-width: 2px; }
-  .titlebar.katalyst.border-3px {
-    border-bottom-width: 3px; }
-  .titlebar.katalyst.border-u3 {
-    border-bottom-width: 3px; }
-  .titlebar.katalyst.border-4px {
-    border-bottom-width: 4px; }
-  .titlebar.katalyst.border-u4 {
-    border-bottom-width: 4px; }
-  .titlebar.katalyst.border-5px {
-    border-bottom-width: 5px; }
-  .titlebar.katalyst.border-u5 {
-    border-bottom-width: 5px; }
-  .titlebar.katalyst.border-6px {
-    border-bottom-width: 6px; }
-  .titlebar.katalyst.border-u6 {
-    border-bottom-width: 6px; }
+
 /* `is-value` returns `true` if the `$val` is not blank, `false` otherise */
 /* `is-blank` returns `true` if the `$val` is `""` or `()`, `false` otherise */
 /* look-up *******************************************************************/
@@ -1613,10 +1584,10 @@ pre, code, tt {
 .txt-c {
   text-align: center; }
 
-.tx-red, a.tx-red {
+.txt-red, a.txt-red {
   color: red; }
 
-a.tx-red:hover {
+a.txt-red:hover {
   text-decoration: none; }
 
 .header-katalyst-logo {

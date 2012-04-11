@@ -1,8 +1,8 @@
-<li class="sp-b-1">
+<li class="space-b-1">
   <%= f.label(attr) %>
   <div class="as-clr">
     <% unless resource.send(attr).nil? || resource.new_record? %>
-      <%= link_to "Download File", resource.send(attr).url, :class => 'imgfix left sp-r-1 sp-b-1' %>
+      <%= link_to "Download File", resource.send(attr).url, :class => 'imgfix left space-r-1 space-b-1' %>
     <% end %>
     <ol class="left unmarked-list">
       <li>
