@@ -1,61 +1,31 @@
-<% content_for :head do %>
-  <style type="text/css">
+<div class="titlebar">
+  <h1>Sign in</h1>
+</div>
 
-    .simple.form > div:first-child { height:0; overflow:hidden; display:block !important; }
+<%= simple_form_for :admin, url: koi_engine.new_admin_session_path, html: { class: "form-vertical" } do |f| %>
+  <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 
-    .ln-h-2 {line-height:20px;}
+    <% if flash[:alert] %>
+      <p class="error"><%= flash[:alert] %></p>
+    <% end %>
 
-  </style>
-<% end %>
-
-<div class="center container w-56 pad-t-8">
-
-  <div class="txt-c pad-b-3 devise-katalyst-logo">
+    <%= f.input :email, required: false, autofocus: true %>
+    <%= f.input :password, required: false %>
+    <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "checkbox" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
   </div>
 
-  <h1 class="katalyst titlebar border-3px round-t-5px pad-lr-2 h-55px ln-h-55px txt-25px">Sign in</h1>
+  <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
+    <%= f.button :submit, "Sign in", class: "btn btn-primary" %>
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "btn" %>
+    <% end -%>
+      <%#= render "devise/shared/links" %>
+    </ul>
+  </div>
 
-  <%= simple_form_for :admin, url: koi_engine.new_admin_session_path,
-                      html: { class: "form-vertical" } do |f| %>
+<% end %>
 
-    <div class="bg-grey-f0 pad-ltr-2 br-b br-grey-c0 pad-b-1">
 
-      <div class="vertical list txt-grey-70 txt-13px ln-h-2">
-        <%= f.input :email, required: false, autofocus: true, input_html: { class: "txt-1u3 ln-h-2 as-blk" } %>
-        <%= f.input :password, required: false, input_html: { class: "txt-1u3 ln-h-2 as-blk" } %>
-
-        <% if flash[:error] %>
-          <p class="error"><%= flash[:error] %></p>
-        <% end %>
-
-        <% if flash[:alert] %>
-          <p class="error"><%= flash[:alert] %></p>
-        <% end %>
-        <div class="h-1"></div>
-
-        <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
-      </div>
-    </div>
-
-    <div class="bg-grey-e0 pad-l-2 h-55px round-b-5px br-t br-grey-fc txt-11px">
-
-      <ul class="hoverable hollow grey rounded-5px padded-1 spaced-1 inline middle-aligned buttons fonted-11px aln-m space-t-12px">
-
-        <li class="solid orange hover-shadow padded-2 ln-h-3 h-3">
-          <%= f.button :submit, "Sign in" %>
-        </li>
-
-        <%- if devise_mapping.recoverable? &&
-               controller_name != 'passwords' %>
-          <li class="round ln-h-25px h-25px">
-            <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "pull-u-1px" %>
-          </li>
-        <% end -%>
-
-        <%#= render "devise/shared/links" %>
-      </ul>
-    </div>
-
-  <% end %>
-
-</div>

@@ -63,12 +63,26 @@ a.txt-grey:hover, .txt-grey a:hover { color: $orange; text-decoration:none}
 .logo {padding-top:8px;float:left;}
 .bg-darkgrey {background-color:#666;}
 
-.asset-manager-bg-lightgrey {background-color:#f4f4f4;}
-.asset-manager-bg-mediumgrey {background-color:#E8E8E8;}
+
+.bg-lightgrey {background-color:#f4f4f4;}
+.bg-mediumgrey {background-color:#E8E8E8;}
 .asset-manager-bg-darkgrey {background-color:#C8C8C8;}
+
+.titlebar {background-color:#000; @include border-radius(4px 4px 0 0 );border-bottom:5px solid $orange;color:#FFF;margin:0;padding:15px;}
+.titlebar h1 {font-size:22px;border:none;line-height:22px;}
+
+p.error {
+background: url(/assets/koi/icon/form/error.png) 5px center no-repeat;
+min-height: 16px;
+min-width: 16px;
+padding-left: 27px;
+color: #E53A3A;
+margin-top: 5px;
+}
 
 // Settings
 .w-100 {width:100px;}
+.w-560 {width:560px;}
 .h-600 {height: 600px;}
 .w-1em5 {width:1.5em;}
 .space-t-10 {margin-top:100px;}
@@ -82,3 +96,7 @@ a.txt-grey:hover, .txt-grey a:hover { color: $orange; text-decoration:none}
 .media .pull-left {margin-right: 10px;}
 .media .pull-right {margin-left: 10px;}
 .media .media-object {display: block;}
+
+//Bowerbird extensions?
+
+.center {margin: 0 auto;}
