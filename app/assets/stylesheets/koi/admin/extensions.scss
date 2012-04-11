@@ -13,16 +13,21 @@
 .as-row {display:table-row;}
 .as-table {display:table;}
 
+// #ALEX: styles alredy exist in bowerbird;
+
 .txt-l { text-align: left; }
 .txt-r { text-align: right; }
 .txt-c { text-align: center; }
 
 $red: #f00;
 
-.tx-red { color: $red; }
+.txt-red { color: $red; }
 
-a.tx-red { @extend .tx-red; }
-a.tx-red:hover { text-decoration:none; }
+
+// #ALEX: what is this doing?
+
+a.txt-red { @extend .txt-red; }
+a.txt-red:hover { text-decoration:none; }
 
 .header-katalyst-logo {
   background: url(/assets/koi/logo/katalyst/header.png) no-repeat;
@@ -66,11 +71,17 @@ a:hover { color: $orange; text-decoration: underline; }
 
 h6 { font-size:inherit; }
 
+
+// Forms use bootstrap now
+
 .simple_form {
   input.check_boxes { margin-right:5px; }
   input.radio { margin-right:5px; }
   input.date { width:249px; }
 }
+
+
+// #ALEX: where is this used? If we can get away without new table styles the preferred
 
 .table.padded-sides {
   td:first-child,

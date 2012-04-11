@@ -1,5 +1,6 @@
 <% unless f.object.errors.empty? %>
-  <div class="bg-light-red rd-3px pd-2 sp-b-2 tx-grey-44">
+  <div class="alert alert-error alert-block">
+    <a href="" class="close" data-dismiss="alert">&times;</a>
     <p>
       <strong><%= t('simple_form.error_notification.default_message') %></strong>
       <br/>
