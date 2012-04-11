@@ -1,0 +1,42 @@
+// ALEX: is this needed?
+
+.menu.auto-height > li > ul {
+  height: auto;
+  line-height: normal; }
+.menu.superfish > li {
+  float: left;
+  position: relative; }
+  .menu.superfish > li:hover, .menu.superfish > li.sfHover {
+    visibility: inherit; }
+    .menu.superfish > li:hover > ul, .menu.superfish > li.sfHover > ul {
+      top: 100%;
+      z-index: 1; }
+.menu.superfish ul {
+  position: absolute;
+  top: -9999px; }
+.menu.main > li {
+  position: relative; }
+  .menu.main > li:hover, .menu.main > li.sfHover {
+    color: #fc8833; }
+    .menu.main > li:hover.has-children:after, .menu.main > li.sfHover.has-children:after {
+      position: absolute;
+      top: 100%;
+      margin-top: -6px;
+      margin-left: 50%;
+      left: -5px;
+      content: url("/assets/koi/icon/triangle/up-orange-on-black.png"); }
+  .menu.main > li > ul {
+    -moz-box-shadow: 3px 3px 4px -1px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 3px 3px 4px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 4px -1px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    left: -10px;
+    padding-top: 4px;
+    width: 180px; }
+    .menu.main > li > ul > li {
+      font-size: 11px; }
+      .menu.main > li > ul > li a, .menu.main > li > ul > li button, .menu.main > li > ul > li input[type=submit] {
+        padding: 7px 30px 7px 10px; }
+      .menu.main > li > ul > li.selected {
+        color: black; }
+.menu { list-style-type:none; margin-left:0; }

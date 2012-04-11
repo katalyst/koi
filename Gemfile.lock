@@ -11,6 +11,13 @@ GIT
   specs:
     koi_config (0.0.1)
 
+GIT
+  remote: git@github.com:katalyst/bowerbird_v2.git
+  revision: c1bf14a4e880b389f2327db0c51bc6603c4d95d0
+  specs:
+    bowerbird_v2 (0.1.1)
+      bootstrap-sass (~> 2.0)
+
 PATH
   remote: .
   specs:
@@ -76,7 +83,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (3.0.0)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.0.1)
+    bootstrap-sass (2.0.2)
     builder (3.0.0)
     cancan (1.6.7)
     coderay (1.0.5)
@@ -247,7 +254,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_nested_fields!
-  bootstrap-sass (~> 2.0.1)
+  bowerbird_v2!
   coffee-rails (~> 3.2.1)
   forgery
   guard
