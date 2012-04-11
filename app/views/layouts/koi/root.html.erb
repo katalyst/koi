@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" class="<%= page_type %>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" >
   <head>
     <meta charset="UTF-8" />
     <%= csrf_meta_tags %>
     <%= yield(:meta) %>
     <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
-    <%= js_data %>
+    <% # FIXME: Check for js_data added as the helper is not loaded by devise controller %>
+    <%= js_data if defined?(js_data) %>
     <%= yield(:stylesheets) %>
     <%= yield(:javascripts) %>
     <%= yield(:head) %>
