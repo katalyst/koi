@@ -1,14 +1,5 @@
-<div>
-  <h6 class="as-inl">Name:</h6>
-  <p class="as-inl tx-bold"><%= resource.data.name.truncate(25) %></p>
-</div>
-
-<div>
-  <h6 class="as-inl">Size:</h6>
-  <p class="as-inl tx-bold"><%= number_to_human_size(resource.data.size) %></p>
-</div>
-
-<div>
-  <h6 class="as-inl">Uploaded:</h6>
-  <p class="as-inl tx-bold"><%= date_d_Month_yyyy resource.created_at %></p>
-</div>
+<p class ="font-size-12">
+  Name: <%= resource.data.name.truncate(25) %> <br />
+  Size: <%= number_to_human_size(resource.data.size) %> <br />
+  Uploaded: <%= date_d_Month_yyyy resource.created_at %>
+</p>
