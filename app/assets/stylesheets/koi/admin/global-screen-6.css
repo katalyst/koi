@@ -1,4 +1,5 @@
 
+ul.wf-univers-bold-condensed > li > a { font-weight:normal !important; }
 .wf-univers-bold-condensed {
   font-family: 'UniversLTW01-67BoldCn'; }
 /* `is-value` returns `true` if the `$val` is not blank, `false` otherise */
@@ -1676,10 +1677,8 @@ h6 {
 .table.padded-sides td:last-child,
 .table.padded-sides th:last-child {
   padding-right: 20px; }
-.table.padded-sides.ruled tbody td > div {
-  border-bottom-width: 1px; }
-.table.padded-sides.ruled tbody tr:last-child td > div {
-  border-bottom-width: 0; }
+.table.padded-sides.ruled tbody tr + tr td > div {
+  border-top-width: 1px; }
 
 
 /* jason's styles */
