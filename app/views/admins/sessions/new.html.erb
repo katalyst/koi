@@ -5,7 +5,13 @@
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.new_admin_session_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
 
   <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
 
+    <% if flash[:alert] %>
+      <p class="error"><%= flash[:alert] %></p>
+    <% end %>
 
     <%= f.input :email, required: true, autofocus: true %>
 
