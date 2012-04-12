@@ -5,7 +5,8 @@ $linkColor: #FC6B02;
 $linkColorHover: #FC6B02;
 
 // Colors
-$orange: #FC6B02;
+$orange: #ff5700;
+$orange-dark: #ee3700;
 
 // Grid
 $gridColumns: 24;
@@ -49,7 +50,7 @@ abbr[title='required'] {color:$orange;font-weight:bold;}
 .navbar .nav li a {font-weight:800;text-transform:uppercase;}
 .pagination ul {@include box-shadow(none);}
 .btn:hover {background-color: darken($grayLight, 10%);color:#FFF;}
-.btn-primary:hover {background-color: darken($orange, 4%);text-shadow:none;}
+.btn-primary:hover {background-color: $orange-dark;text-shadow:none;}
 
 // Typography
 
