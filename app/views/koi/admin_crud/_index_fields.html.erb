@@ -28,9 +28,9 @@
 <% end %>
 
 <div id="index-fields">
-  <table class="table txt-grey space-b-0">
+  <table class="table space-b-0">
     <thead>
-      <tr class="control">
+      <tr class="contro txt-grey ">
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
           <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
           <% if is_sortable? %>
@@ -39,7 +39,7 @@
             <th><%= label %></th>
           <% end %>
         <% end %>
-        <th class="w100">Actions</th>
+        <th class="w-100">Actions</th>
       </tr>
     </thead>
     <%- if is_orderable? -%>
