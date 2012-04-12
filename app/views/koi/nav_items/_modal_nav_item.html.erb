@@ -4,8 +4,8 @@
     <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
 
     <!-- ALEX: originally had a close class which clashes with bootstrap -->
-
-      <a href="#" class="txt-orange pull-right space-r-2">&times;</a>
+    <!-- FIXME: Move the onclick modal close code to javascript file -->
+    <a href="#" onclick="$('#modal-for-nav-item').modal('hide');" class="txt-orange pull-right space-r-2">&times;</a>
   </h2>
 
 </header>
@@ -41,7 +41,7 @@
       <%- end -%>
   </div>
   </div>
-  
+
 </div>
 
     <div class="span5">
