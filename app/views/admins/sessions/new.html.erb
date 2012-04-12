@@ -2,18 +2,14 @@
   <h1>Sign in</h1>
 </div>
 
-<%= simple_form_for :admin, url: koi_engine.new_admin_session_path, html: { class: "form-vertical" } do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => koi_engine.new_admin_session_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
+
   <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
-    <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
-    <% end %>
 
-    <% if flash[:alert] %>
-      <p class="error"><%= flash[:alert] %></p>
-    <% end %>
 
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
+    <%= f.input :email, required: true, autofocus: true %>
+
+    <%= f.input :password, required: true %>
     <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "checkbox" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
   </div>
 
