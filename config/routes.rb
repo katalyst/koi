@@ -25,7 +25,9 @@ Koi::Engine.routes.draw do
     end
   end
 
-  resources :translations, path: :site_settings
+  resources :translations, path: :site_settings do
+    get :seed, on: :collection
+  end
   resources :settings
   resources :pages
   resources :admins, path: :site_users

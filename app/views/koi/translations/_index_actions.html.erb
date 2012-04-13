@@ -1,6 +1,7 @@
 <div class="pad-b-1">
   <%- if is_allowed?(:new) && current_admin.god? %>
     <%= link_to "Create", new_resource_path, class: "btn btn-primary" %>
+    <%= link_to "Seed", seed_translations_path, class: "btn" %>
   <% end %>
   <% if respond_to? :parent %>
     <%= link_to "Back", collection_path, class: "btn" %></li>
