@@ -15,6 +15,11 @@ gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 # Bootstrap SASS
 gem 'bootstrap-sass'            , '~> 2.0.1', :group => :assets
 
+# i18n ActiveRecord backend
+gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
+                                  :branch => 'rails-3.2',
+                                  :require => 'i18n/active_record'
+
 gem_group :development do
   # Ruby debugger
   gem 'ruby-debug19'            , :require => 'ruby-debug'
