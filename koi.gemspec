@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'                   , '~> 2.0.1'
 
   # Tree
-  s.add_dependency 'nested_set'                    , '~> 1.6.8'
+  s.add_dependency 'nested_set'                    , '~> 1.7.0'
 
   # Mailer
   s.add_dependency 'sendgrid'                      , '~> 1.0.1'
