@@ -12,6 +12,14 @@ GIT
     koi_config (0.0.1)
 
 GIT
+  remote: git://github.com/svenfuchs/i18n-active_record.git
+  revision: 4628202f676aecfbc00d404342e61f75078d9439
+  branch: rails-3.2
+  specs:
+    i18n-active_record (0.0.2)
+      i18n (>= 0.6.0)
+
+GIT
   remote: git@github.com:katalyst/bowerbird_v2.git
   revision: c1bf14a4e880b389f2327db0c51bc6603c4d95d0
   specs:
@@ -31,7 +39,6 @@ PATH
       garb
       has (~> 1.0.3)
       has_scope (~> 0.5.1)
-      i18n-active_record
       inherited_resources (~> 1.3.0)
       jquery-rails
       kaminari (~> 0.13.0)
@@ -136,8 +143,6 @@ GEM
     has_scope (0.5.1)
     hike (1.2.1)
     i18n (0.6.0)
-    i18n-active_record (0.0.2)
-      i18n (>= 0.5.0)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
       responders (~> 0.6)
@@ -260,6 +265,7 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-test
+  i18n-active_record!
   jquery-rails
   koi!
   koi_config!

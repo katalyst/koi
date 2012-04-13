@@ -72,9 +72,6 @@ Gem::Specification.new do |s|
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
 
-  # i18n ActiveRecord backend
-  s.add_dependency 'i18n-active_record'
-
   # Unique ID generation
   s.add_dependency 'uuidtools'                     , '~> 2.1.2'
 
