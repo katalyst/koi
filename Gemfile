@@ -28,6 +28,11 @@ gem 'ruby-debug19'              , :require => 'ruby-debug'
 # Bowerbird
 gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
 
+# i18n ActiveRecord backend
+gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
+                                  :branch => 'rails-3.2',
+                                  :require => 'i18n/active_record'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
