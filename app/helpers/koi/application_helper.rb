@@ -72,4 +72,7 @@ module Koi::ApplicationHelper
     ancestor_controller_paths.map { |path| path.match(/(.*)_controller/).to_a[1] }
   end
 
+  def active_item_cascade
+    "ba"
+  end
 end
