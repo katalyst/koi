@@ -44,7 +44,7 @@ SimpleForm.setup do |config|
     b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
-  
+
   config.wrappers :inline, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
     b.use :placeholder
     b.use :tag => 'div', :class => 'controls' do |ba|
@@ -89,6 +89,12 @@ SimpleForm.setup do |config|
       end
       input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
       input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    end
+  end
+
+  config.wrappers :checkbox, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :tag => 'div', :class => 'controls' do |ba|
+      ba.use :label_input
     end
   end
 
