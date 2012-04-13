@@ -73,8 +73,8 @@ run 'rm app/controllers/application_controller.rb'
 create_file 'app/controllers/application_controller.rb', <<-END
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
   layout :layout_by_resource
+  helper Koi::NavigationHelper
 
 protected
 
