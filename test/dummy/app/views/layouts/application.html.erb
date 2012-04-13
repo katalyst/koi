@@ -18,7 +18,7 @@
 
   <h2>Active Item: <%= active_navigation_item %>, <%= active_navigation_item_name %>, <%= active_navigation_item_key %></h2>
   <h2>Active Item Cascade:</h2>
-  <p><%= active_item_cascade.collect { |n| [n.id, n.title, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
+  <p><%= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
 
   <h3><%= render_navigation :renderer => :breadcrumbs, :join_with => ' &raquo; ' %></h3>
 
