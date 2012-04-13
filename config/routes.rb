@@ -41,6 +41,7 @@ Koi::Engine.routes.draw do
     end
   end
   match 'help' => 'application#help', :as => :help
-  match 'dashboard' => 'application#index', :as => :dashboard
+  match 'dashboard'   => 'application#index',       :as => :dashboard
+  match 'screencasts' => 'application#screencasts', :as => :screencasts
   root to: 'application#login'
 end
