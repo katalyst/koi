@@ -47,12 +47,12 @@ SimpleForm.setup do |config|
 
   config.wrappers :inline, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
     b.use :placeholder
-    b.use :tag => 'div', :class => 'controls' do |ba|
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
-      ba.use :label, :class => 'pad-l-0ex5 space-l-1 control-label'
+      ba.use :label, :wrap_with => { :class => 'pad-l-0ex5 space-l-1 control-label' }
     end
-    b.use :error, :tag => 'span', :class => 'help-inline pad-l-0ex5 as-iblk'
-    b.use :hint,  :tag => 'p', :class => 'help-block'
+    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline pad-l-0ex5 as-iblk' }
+    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
   end
 
   config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
@@ -93,7 +93,7 @@ SimpleForm.setup do |config|
   end
 
   config.wrappers :checkbox, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
-    b.use :tag => 'div', :class => 'controls' do |ba|
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :label_input
     end
   end
