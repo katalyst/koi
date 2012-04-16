@@ -26,7 +26,7 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 gem 'ruby-debug19'              , :require => 'ruby-debug'
 
 # Bowerbird
-gem 'bowerbird_v2'              , :path => '~/Projects/katalyst/bowerbird_v2' # :git => 'git@github.com:katalyst/bowerbird_v2.git'
+gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',

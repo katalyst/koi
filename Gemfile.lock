@@ -19,6 +19,13 @@ GIT
     i18n-active_record (0.0.2)
       i18n (>= 0.6.0)
 
+GIT
+  remote: git@github.com:katalyst/bowerbird_v2.git
+  revision: 49beae6bc1e7198003c12f241aea313f4726a945
+  specs:
+    bowerbird_v2 (2.0.0)
+      bootstrap-sass (~> 2.0)
+
 PATH
   remote: .
   specs:
@@ -46,12 +53,6 @@ PATH
       simple_form (~> 2.0.1)
       squeel (~> 0.9.3)
       uuidtools (~> 2.1.2)
-
-PATH
-  remote: ~/Projects/katalyst/bowerbird_v2
-  specs:
-    bowerbird_v2 (2.0.0)
-      bootstrap-sass (~> 2.0)
 
 GEM
   remote: http://rubygems.org/
