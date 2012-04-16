@@ -53,12 +53,11 @@ $ (function () {
 
   $ (".nav-item.application").application (true, function ($item) {
 
-    var
-    $zone = $item.component (".zone"),
-    $body = $item.component (".body"),
-    $link = $item.component (".pop-up"),
-    $menu = $item.component (".controls");
-    $kids = $item.component (".nav-items");
+    var $zone = $item.component (".zone");
+    var $body = $item.component (".body");
+    var $link = $item.component (".pop-up");
+    var $menu = $item.component (".controls");
+    var $kids = $item.component (".nav-items");
 
     $link.click (function () { $.getScript (this.href); return false; });
 
