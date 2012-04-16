@@ -1,6 +1,6 @@
 <% content_for :title, "Sitemap" %>
 
-<div class="sitemap application">
+<div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
 
   <ol class="nav-items bsp-l-2 w-14col">
     <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
