@@ -1,6 +1,6 @@
 <div class="insert asset application">
   <h6>Sizes Available:</h6>
-  <ul class="unmarked-list floated-l-list font-size-12 clearfix space-0">
+  <ul class="unmarked-list floated-l-list font-12px clearfix space-0">
     <li><%= render "link_size", size: resource.dragonfly_options, title: "#{ resource.title_options } (Original)", checked: true %></li>
     <% Koi::Asset::Image.sizes[ 1..-1 ].each do |size| %>
       <li><%= render partial: "link_size", locals: size %></li>

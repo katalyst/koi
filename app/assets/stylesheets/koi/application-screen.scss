@@ -55,9 +55,9 @@ ol, ul { list-style-type:none; margin-left:0; padding-right:0; }
 
 // typography /////////////////////////////////////////////////////////////////
 
-.txt-orange { color: $orange; }
-a.txt-orange { color: $orange; }
-a.txt-orange:hover { color: $orange; text-decoration: none }
+.font-orange { color: $orange; }
+a.font-orange { color: $orange; }
+a.font-orange:hover { color: $orange; text-decoration: none }
 
 // media (from giusi.org/bootstrap-media/media.html) //////////////////////////
 
@@ -90,7 +90,7 @@ a.txt-orange:hover { color: $orange; text-decoration: none }
 .w-560 { width: 560px; }
 .w-1em5 { width: 1.5em; }
 .space-t-10 { margin-top: 100px; }
-.font-size-12 { font-size: 12px; }
+.font-12px { font-size: 12px; }
 
 p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat; min-height: 16px; min-width: 16px; padding-left: 27px; color: #e53a3a; margin-top: 5px; }
 

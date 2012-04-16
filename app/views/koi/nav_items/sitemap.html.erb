@@ -1,13 +1,12 @@
 <% content_for :title, "Sitemap" %>
 
 <div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
-
-  <ol class="nav-items bsp-l-2 w-14col">
+  <ol class="nav-items">
     <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
   </ol>
-
-  <div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
 </div>
+
+<div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
 
 <% content_for :side do %>
 
