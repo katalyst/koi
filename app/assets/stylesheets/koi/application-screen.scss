@@ -1,58 +1,106 @@
-//= require ./admin/prelude/_export
-//= require ./admin/components/_export
-//= require ./lib/orbit
 //= require_self
-//= depend_on ./_import.scss
+//= require_tree ./application
+//= require ./nav_items
 
-@import "./_import";
+// import /////////////////////////////////////////////////////////////////////
 
-body {font-family:'AkzidenzGroteskBE-Regular';}
-h1, h2 {font-family:'MrsEavesItalic';}
-h1 {font-size:59px;}
-h2 {font-size:42px;}
+@import "lib/jquery/ui";
+@import "lib/tagify";
+@import "bowerbird";
 
-h6 { @extend .font-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
+// variables //////////////////////////////////////////////////////////////////
 
-// .ff-akzidenz-grotesk-be { font-family: 'AkzidenzGroteskBE-Regular'; }
-// .ff-akzidenz-grotesk-be-bold { font-family: 'AkzidenzGroteskBE-Bold'; }
-// .ff-mrs-eaves-italic { font-family: 'MrsEavesItalic'; }
+// links
 
-.slideshow > * + * { display:none; }
+// colors
+$orange:         #ff5700;
+$orangeDark:     #ee3700;
+$linkColor:      #fc6b02;
+$linkColorHover: #fc6b02;
 
-$orange: #ff551e;
-$black: #111111;
-$red: #f00;
+// grid
+$gridColumns:     24;
+$gridColumnWidth: 30px;
+$gridGutterWidth: 10px;
+
+// icons
+$iconSpritePath:      image-path('glyphicons-halflings.png');
+$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+
+// navbar
+$navbarLinkColor: #FFF;
+
+// elements ///////////////////////////////////////////////////////////////////
+
+body { font-family: "proxima-nova",sans-serif; }
+h1 { font-size: 44px; font-weight: normal; line-height: 64px; border-bottom: 1px solid #CCC; }
+h2 { font-size: 24px; font-weight: 400; }
+table { border: 1px solid #CCC; }
+th { background-color: #ececec; font-size: 11px; }
+textarea { height: 200px; width: 400px; }
+legend.small { font-size: 13px; border-bottom: 1px solid $grayLighter; margin-bottom: 120px; }
+abbr[title='required'] { color: $orange; font-weight: bold; }
+
+// bootstrap-on ///////////////////////////////////////////////////////////////
+
+.btn { text-shadow: none; @include buttonBackground($orange, $gray); @include box-shadow(none); background-image: none; border: none; font-weight: 800; background-color: $grayLight; color: #FFF; }
+.btn-small { padding: 4px 10px 3px 10px; font-size: 12px; }
+.btn-mini { padding: 3px 10px 4px 10px; font-size: 12px; }
+.btn-primary { border: none; background-image: none; background-color: $orange; text-shadow: none; }
+.navbar-fixed-top { border-bottom: 4px solid #f60; }
+.navbar .nav li a { font-weight: 800; text-transform: uppercase; }
+.pagination ul { @include box-shadow(none); }
+.btn:hover { background-color: darken($grayLight, 10%); color: #FFF; }
+.btn-primary:hover { background-color: $orangeDark; text-shadow: none; }
+
+// typography /////////////////////////////////////////////////////////////////
 
 .txt-orange { color: $orange; }
-.txt-black { color: $black; }
+a.txt-orange { color: $orange; }
+a.txt-orange:hover { color: $orange; text-decoration: none }
 
-a { @extend .txt-orange; font-family: 'AkzidenzGroteskBE-Bold'; };
-a:hover { color: #333; text-decoration:none; };
+// media (from giusi.org/bootstrap-media/media.html) //////////////////////////
 
-p { @extend .txt-black; };
+.media, .media-body { overflow: hidden; *overflow: visible; zoom: 1; }
+.media { margin-bottom: 10px; }
+.media .pull-left { margin-right: 10px; }
+.media .pull-right { margin-left: 10px; }
+.media .media-object { display: block; }
 
-.pull-quote { @extend .txt-orange; font-size: 17px; }
+// general ////////////////////////////////////////////////////////////////////
 
-.br-dotted { border-style:dotted; }
+.cursor-move { cursor: move; }
+.margin-center { margin: 0 auto; }
 
-.br-orange { border-color: $orange; }
+.logo-header { padding-top: 8px; float: left; }
 
+.bg-darkgrey { background-color: #666; }
+.bg-lightgrey { background-color: #f4f4f4; }
+.bg-mediumgrey { background-color: #E8E8E8; }
+.bg-light-red { background-color: #ffdede; }
+.bg-light-green, .bg-notice { background-color: #ceeed2; }
 
-.h-305px { height:305px; }
+.asset-manager-bg-darkgrey { background-color: #C8C8C8; }
 
+.titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px; }
+.titlebar h1 { font-size: 22px; border: none; line-height: 22px; }
 
+.h-600 { height: 600px; }
+.w-100 { width: 100px; }
+.w-560 { width: 560px; }
+.w-1em5 { width: 1.5em; }
+.space-t-10 { margin-top: 100px; }
+.font-size-12 { font-size: 12px; }
 
-body {font-family:AkzidenzGroteskBE-Regular;}
-h1, h2 {font-family:MrsEavesItalic;}
+p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat; min-height: 16px; min-width: 16px; padding-left: 27px; color: #e53a3a; margin-top: 5px; }
 
-h1 {font-size:60px;}
-h2 {font-size:42px;}
+abbr[title=required] { color: $orange; }
 
+a { color: $orange; }
+a:hover { color: $orange; text-decoration: underline; }
 
-h6 { @extend .txt-orange; font-family: "AkzidenzGroteskBE-Bold"; line-height: 1.5em; }
+.h6 { font-size: 13px; margin-bottom: 5px; color: #555; }
 
-
-
-.left-arrow-icon { background: url(/assets/icon/arrow/left.png) left center no-repeat; min-width:18px; min-height:15px; padding-left:25px; }
-
-.right-arrow-icon { background: url(/assets/icon/arrow/right.png) right center no-repeat; min-width:18px; min-height:15px;padding-right:25px; }
+.simple_form input.check_boxes { margin-right: 5px; }
+.simple_form input.radio { margin-right: 5px; }
+.simple_form input.date { width: 249px; }
