@@ -8,7 +8,7 @@ $ (function () {
 
     var $navItems = $sitemap.component ('.nav-items')
     ,   $undo     = $sitemap.component ('.undo.button')
-    ,   path      = "<%= koi_engine.savesort_nav_items_path %>"
+    ,   path      = $sitemap.data ('uri-save')
     ;
 
     $sitemap.components ('ol', function ($ol) {
