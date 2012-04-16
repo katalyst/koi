@@ -1,7 +1,7 @@
 $ (function () {
 
   $ (".sitemap ol").livequery (function () {
-    $ (this).addClass ('nav-items sp-l-2');
+    $ (this).addClass ('nav-items');
   });
 
   $ (".sitemap.application").application (function ($sitemap) {
@@ -12,7 +12,7 @@ $ (function () {
     ;
 
     $sitemap.components ('ol', function ($ol) {
-      $ol.addClass ('nav-items sp-l-2');
+      $ol.addClass ('nav-items');
     });
 
     function save (data, cb) {
