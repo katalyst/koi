@@ -3,7 +3,7 @@ require 'garb'
 module Koi
   class ApplicationController < ActionController::Base
     helper :all
-    layout 'koi/admin_crud'
+    # layout 'koi/admin_crud'
     before_filter :authenticate_admin!, :except => :login
     before_filter :load_google_analytics_session
 

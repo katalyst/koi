@@ -1,0 +1,24 @@
+<% content_for :body do %>
+
+  <header>
+    <% if content_for?(:title) %>
+      <h1 class="space-b-2"><%= yield :title %></h1>
+    <% end %>
+    <% if content_for?(:breadcrumbs) %>
+      <h4 class="subheading"><%= yield :breadcrumbs %></h4>
+    <% end %>
+  </header>
+
+  <div class="row">
+    <div class="span17">
+      <%= render "koi/shared/flash_messages" %>
+      <%= yield %>
+    </div>  
+    <div class="span6 offset1">
+      <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
+    </div>
+  </div>
+
+<% end %>
+
+<%= render :file => 'layouts/koi/body' %>
