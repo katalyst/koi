@@ -1,5 +1,6 @@
 //= require ./lib/jquery
 //= require ./lib/shim
+//= require ./lib/bootstrap
 //= require ./lib/highcharts
 //= require_tree ./application
 //= require ./assets
