@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git@github.com:katalyst/bowerbird_v2.git
-  revision: 49beae6bc1e7198003c12f241aea313f4726a945
+  revision: 74dc03c7a5d9637d501b02ea7d60127e4fe53aa2
   specs:
     bowerbird_v2 (2.0.0)
       bootstrap-sass (~> 2.0)
