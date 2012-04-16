@@ -72,6 +72,4 @@ $ (function () {
         $body.delay(75).animate ({ backgroundColor:"rgba(0, 0, 0, 0)" }, 50);
       });
   });
-
-  $ ("#modal-for-nav-item").modal ({ backdrop: true, keyboard: true });
 });
