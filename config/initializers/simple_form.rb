@@ -51,7 +51,7 @@ SimpleForm.setup do |config|
       ba.use :input
       ba.use :label, :wrap_with => { :class => 'pad-l-1 space-l-1 control-label' }
     end
-    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline pad-l-1 as-iblk' }
+    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-block pad-l-1 as-iblk' }
     b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
   end
 
@@ -61,7 +61,7 @@ SimpleForm.setup do |config|
     b.use :label
     b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
@@ -75,7 +75,7 @@ SimpleForm.setup do |config|
         prepend.use :input
       end
       input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
-      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
     end
   end
 
@@ -88,7 +88,7 @@ SimpleForm.setup do |config|
         append.use :input
       end
       input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
-      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
     end
   end
 
