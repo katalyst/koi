@@ -3,11 +3,11 @@
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
   <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :email, required: true, autofocus: true, input_html: { class: "w-510" } %>
   </div>
   <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
     <%= f.button :submit, "Reset", class: "btn btn-primary" %>
-    <%= link_to "Back", koi_engine.new_admin_session_path, class: "btn" %>
+    <%= link_to "Back", koi_engine.new_admin_session_path, class: "btn space-l-1" %>
   </div>
 <% end %>
 
