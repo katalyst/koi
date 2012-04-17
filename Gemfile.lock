@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git@github.com:katalyst/bowerbird_v2.git
-  revision: 74dc03c7a5d9637d501b02ea7d60127e4fe53aa2
+  revision: d0eb339f08de7640bf2c7bc2615340fbb83706ba
   specs:
     bowerbird_v2 (2.0.0)
       bootstrap-sass (~> 2.0)
@@ -163,7 +163,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.7.1)
     mime-types (1.18)
-    multi_json (1.2.0)
+    multi_json (1.3.1)
     mysql2 (0.3.11)
     nested_set (1.7.0)
       activerecord (>= 3.0.0)

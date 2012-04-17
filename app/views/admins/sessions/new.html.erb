@@ -13,16 +13,17 @@
       <p class="error"><%= flash[:alert] %></p>
     <% end %>
 
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :email, required: true, autofocus: true, input_html: { class: "w-510" } %>
 
-    <%= f.input :password, required: true %>
+    <%= f.input :password, required: true, input_html: { class: "w-510" } %>
+
     <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "checkbox" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
   </div>
 
   <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
     <%= f.button :submit, "Sign in", class: "btn btn-primary" %>
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-      <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "btn" %>
+      <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "btn space-l-1" %>
     <% end -%>
       <%#= render "devise/shared/links" %>
     </ul>
