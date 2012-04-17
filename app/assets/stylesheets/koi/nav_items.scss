@@ -7,7 +7,8 @@
 
   &.level-0 {
     padding-left:0;
-    > .nav_items > .nav-item, > .nav_items > .nav-item > .nav_items > .nav-item {border-top: 1px solid #f4f4f4;}
+    > .nav-items > .nav-item,
+    > .nav-items > .nav-item > .nav_items > .nav-item {border-top: 1px solid #f4f4f4;}
   }
 
   .zone {
