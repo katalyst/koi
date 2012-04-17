@@ -26,7 +26,6 @@ $navbarLinkColor: #FFF;
 @import "application";
 @import "nav_items";
 
-
 // elements ///////////////////////////////////////////////////////////////////
 
 body { font-family: "proxima-nova",sans-serif; }
@@ -68,7 +67,7 @@ a.font-orange:hover { color: $orange; text-decoration: none }
 // general ////////////////////////////////////////////////////////////////////
 
 .cursor-move { cursor: move; }
-.margin-center { margin: 0 auto; }
+.container.center, .margin-center { margin: 0 auto; }
 
 .logo-header { padding-top: 8px; float: left; }
 
