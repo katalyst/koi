@@ -7,8 +7,8 @@
   <%= f.full_error :reset_password_token %>
 
   <div class="inputs">
-    <%= f.input :password, :label => "New password", :required => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+    <%= f.input :password, :label => "New password", :required => true, input_html: { class: "w-510" } %>
+    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true, input_html: { class: "w-510" } %>
   </div>
 
   <div class="actions">
