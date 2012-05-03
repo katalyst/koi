@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     resources :news_items
   end
 
+  constraints :subdomain => "mobile" do
+    scope :module => "mobile", :as => "mobile" do
+      root to: "application#index"
+    end
+  end
+
   root to: "super_heros#index"
 
   mount Koi::Engine => "/admin", as: "koi_engine"
