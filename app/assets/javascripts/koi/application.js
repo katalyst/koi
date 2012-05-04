@@ -1,5 +1,6 @@
 //= require ./lib/jquery
 //= require ./lib/shim
+//= require ./lib/ckeditor
 //= require ./lib/bootstrap
 //= require ./lib/highcharts
 //= require_tree ./application
