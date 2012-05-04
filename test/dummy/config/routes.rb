@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  constraints :subdomain => "mobile" do
+    scope :module => "mobile", :as => "mobile" do
+      resources :pages
+      root to: "application#index"
+    end
+  end
+
   devise_for :users
 
   resources :users, path: :members

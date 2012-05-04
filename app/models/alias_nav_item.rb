@@ -3,7 +3,7 @@ class AliasNavItem < NavItem
 
   crud.config do
     config :admin do
-      form fields: [:title, :is_hidden, :alias_id, :parent_id]
+      form fields: [:title, :is_hidden, :is_mobile, :alias_id, :parent_id]
     end
   end
 
