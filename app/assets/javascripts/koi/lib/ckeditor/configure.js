@@ -1,8 +1,3 @@
-var CKEDITOR_BASEPATH = '/assets/ckeditor/';
-
-//= require ckeditor/ckeditor
-//= require ckeditor/adapters/jquery
-
 CKEDITOR.replaceByClassEnabled = false;
 
 CKEDITOR.on ('dialogDefinition', function (ev) {
