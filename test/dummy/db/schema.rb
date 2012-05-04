@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120303011314) do
+ActiveRecord::Schema.define(:version => 20120503063452) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -74,8 +74,9 @@ ActiveRecord::Schema.define(:version => 20120303011314) do
     t.text     "content_block"
     t.integer  "navigable_id"
     t.string   "navigable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "is_mobile",      :default => false
   end
 
   add_index "nav_items", ["navigable_id"], :name => "index_nav_items_on_navigable_id"
