@@ -87,9 +87,20 @@ class NavItem < ActiveRecord::Base
     true
   end
 
-  def self.navigation(key=nil, get_binding=binding(), show_options = {})
+  def navigation(get_binding=binding())
     @@binding = get_binding
-    start = NavItem.find_by_key(key) || RootNavItem.root
-    start.children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact.flatten
+    children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
   end
+
+  def self.navigation(arg=nil, get_binding=binding())
+    self.for(arg).navigation(get_binding)
+  end
+
+  def self.for(arg = nil)
+    case arg
+    when NavItem        then arg
+    when Symbol, String then find_by_key arg.to_s
+    end or RootNavItem.root
+  end
+
 end
