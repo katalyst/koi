@@ -55,4 +55,24 @@ module Koi::ApplicationHelper
     ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem"].include? klass.name
   end
+
+  def ancestor_controllers
+    controller.class.ancestors.select { |klass| klass < ActionController::Base }
+  end
+
+  def ancestor_controller_names
+    ancestor_controllers.map(&:controller_name)
+  end
+
+  def ancestor_controller_paths
+    ancestor_controllers.map(&:name).map(&:underscore)
+  end
+
+  def ancestor_paths
+    ancestor_controller_paths.map { |path| path.match(/(.*)_controller/).to_a[1] }
+  end
+
+  def active_item_cascade
+    "ba"
+  end
 end

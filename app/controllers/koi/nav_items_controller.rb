@@ -45,7 +45,7 @@ module Koi
         prev_item = dbitem
       end
       NavItem.rebuild!
-      render partial: "nav_item_root", locals: { nav_item: RootNavItem.root, level: 0 }
+      render partial: "nav_item", locals: { nav_item: RootNavItem.root, level: 0 }
     end
 
     def sort_children(element,dbitem)
