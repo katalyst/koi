@@ -1,16 +1,23 @@
-<div class="bg-grey-60 rd-t-3px pd-tb-1 pd-lr-1u5 br-lr br-grey-d8 as-clr">
-  <div class="flt-l">
-    <ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 tx-12px">
-      <% if respond_to? :parent %>
-        <li><%= link_to "Back", [:admin, parent.class] %></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="flt-r tx-r">
-    <ul class="hoverable rounded-3px padded-1 spaced-1 inline solid orange buttons h-2 ln-h-2 tx-12px">
-      <%- if is_allowed?(:new) %>
-        <li><%= link_to "Add new #{resource_class.to_s.singularize.titleize}", new_resource_path %></li>
-      <% end %>
-    </ul>
+<div class="row">
+  <div class="span17 bg-darkgrey">
+    <div class="row">
+      <div class="span9 ">
+        <div class="space-half">
+          <% if respond_to? :parent %>
+            <li><%= link_to "Back", [:admin, parent.class] %></li>
+          <% end %>
+        </div>
+      </div>
+      <div class="span8 color-darkgrey">
+        <div class="space-half pull-right">
+          <%- if is_allowed?(:new) %>
+            <%= link_to "Add new #{resource_class.to_s.singularize.titleize}", new_resource_path, :class => "btn btn-small btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
