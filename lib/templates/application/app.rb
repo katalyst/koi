@@ -12,8 +12,8 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 
-# Bootstrap SASS
-gem 'bootstrap-sass'            , '~> 2.0.1', :group => :assets
+# Bowerbird
+gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
