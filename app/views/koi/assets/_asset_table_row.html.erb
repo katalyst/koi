@@ -1,21 +1,17 @@
-<% selected = "color:#fb6900;" %>
-
-<tr class="horizontal hoverable grey text button h-23px ln-h-23px tx-grey-80 <%= "bg-grey-e4" if i.even? %>" style="<%= selected if asset == resource %>">
-  <td class="rd-l-5px w-3 pd-l-u5">
+<tr>
+  <td>
     <%= link_to resource_path asset do %>
-      <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pd-t-4px") %>
+      <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
     <% end %>
   </td>
-  <td class="tx-bold pd-r-u5">
+  <td>
     <%= link_to resource_path asset do %>
       <%= asset.data_name %>
     <% end %>
   </td>
-  <td class="rd-r-5px pd-r-u5">
+  <td>
     <%= link_to resource_path asset do %>
       <%= date_d_Month_yyyy asset.created_at %>
     <% end %>
   </td>
 </tr>
-
-<tr><td colspan="3" class="h-2px"></td></tr>
