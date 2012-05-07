@@ -1,7 +1,4 @@
 <div class="insert asset application">
-  <ul class="padded-1 spaced-1 hoverable hover-shadow rounded-3px solid grey inline buttons ln-h-2 h-2 fonted-11px">
-    <li class="solid orange"><%= link_to "Add to Page", resource.url, class: "insert asset link" %></li>
-    <li class=""><%= link_to "Delete", url_for(:action => 'delete'), :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?", :method => 'delete' %>
-    </li>
-  </ul>
+  <%= link_to "Add to Page", resource.url, class: "btn btn-primary btn-small insert asset link" %>
+  <%= link_to "Delete", url_for(:action => 'delete'), :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?", :method => 'delete', class: "btn btn-small" %>
 </div>
