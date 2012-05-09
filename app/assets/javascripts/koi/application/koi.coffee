@@ -44,7 +44,6 @@ $.extend $.fn,
     [ f ] = args
 
     fStar = -> $( @ ).each ( i, e ) -> $.application.call( e, $(e), f )
-    $ => @livequery fStar
     $ => if live then @livequery fStar else fStar.call @
     @
 
