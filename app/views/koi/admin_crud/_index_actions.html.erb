@@ -4,7 +4,7 @@
       <div class="span9 ">
         <div class="space-half">
           <% if respond_to? :parent %>
-            <li><%= link_to "Back", [:admin, parent.class] %></li>
+            <%= link_to "❮ Back", [:admin, parent.class], :style => "color:white; line-height:22px;" %>
           <% end %>
         </div>
       </div>
