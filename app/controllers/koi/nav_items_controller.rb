@@ -36,15 +36,17 @@ module Koi
     end
 
     def savesort
-      nodes = JSON.parse params[:set]                                  # get list of nodes
-      nodes.map! &:symbolize_keys                                      # symbolize keys for % format
-      nodes.map! { |node| node.merge!(node) { |key, val| val.to_i } }  # sanitize everything as int
-      nodes.each { |node| node[:parent_id] ||= "NULL" }                # default parent for root
+      nodes = JSON.parse params[:set]
       
+      nodes.map! do |node|
+        node.each_with_object ({}) do |(key, val), hash|
+          hash[key.to_sym] = ActiveRecord::Base.connection.quote val
+        end.reverse_merge parent_id: 'NULL' # in case of `undefined` in which update below will fail
+      end
+
       ids = nodes.map { |node| node[:id] }
 
       # mass update (should be abstracted)
-      # better than for loop as we get a free transaction i think?
       NavItem.connection.execute <<-eos
         UPDATE nav_items
           SET lft = CASE id
