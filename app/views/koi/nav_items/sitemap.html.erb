@@ -1,7 +1,7 @@
 <% content_for :title, "Sitemap" %>
 
 <div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
-  <ol class="nav-items">
+  <ol>
     <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
   </ol>
 </div>
