@@ -36,16 +36,29 @@ module Koi
     end
 
     def savesort
-      neworder = JSON.parse(params[:set])
-      prev_item = nil
-      neworder.each do |item|
-        dbitem = NavItem.find(item['id'])
-        prev_item.nil? ? dbitem.move_to_root : dbitem.move_to_right_of(prev_item)
-        sort_children(item, dbitem) unless item['children'].nil?
-        prev_item = dbitem
-      end
-      NavItem.rebuild!
-      render partial: "nav_item_root", locals: { nav_item: RootNavItem.root, level: 0 }
+      nodes = JSON.parse params[:set]                                  # get list of nodes
+      nodes.map! &:symbolize_keys                                      # symbolize keys for % format
+      nodes.map! { |node| node.merge!(node) { |key, val| val.to_i } }  # sanitize everything as int
+      nodes.each { |node| node[:parent_id] ||= "NULL" }                # default parent for root
+      
+      ids = nodes.map { |node| node[:id] }
+
+      # mass update (should be abstracted)
+      # better than for loop as we get a free transaction i think?
+      NavItem.connection.execute <<-eos
+        UPDATE nav_items
+          SET lft = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{lft}" % node }.join "\n" }
+                    END,
+              rgt = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{rgt}" % node }.join "\n" }
+                    END,
+              parent_id = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{parent_id}" % node }.join "\n" }
+                    END                    
+        WHERE id in (#{ ids.join ',' })
+      eos
+      render partial: "nav_item", locals: { nav_item: RootNavItem.root, level: 0 }
     end
 
     def sort_children(element,dbitem)
