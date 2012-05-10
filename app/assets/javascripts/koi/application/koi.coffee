@@ -29,6 +29,11 @@ $.extend $,
 
 $.extend $.fn,
 
+  reverse: [].reverse
+
+  call: (f) ->
+    f.call @get 0
+
   or: (x) ->
     return @ if @length
     $ if typeof x is 'function' then x() else x
