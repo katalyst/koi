@@ -6,7 +6,9 @@
            <%= "sortable cursor-move" if nav_item.draggable? %>
            level-<%= level %>"
     data-type="<%= nav_item_type %>"
-    data-id="<%= nav_item_id %>">
+    data-id="<%= nav_item_id %>"
+    data-left-ordinal="<%= nav_item.lft %>"
+    data-right-ordinal="<%= nav_item.rgt %>">
 
   <!-- zone provides hoverable space between elements so there are no dead-spots -->
   <div class="zone">

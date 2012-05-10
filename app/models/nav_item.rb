@@ -6,7 +6,7 @@ class NavItem < ActiveRecord::Base
 
   crud.config do
     fields parent_id:     { type: :hidden },
-             is_hidden:     { type: :boolean },
+           is_hidden:     { type: :boolean },
            alias_id:      { type: :tree },
            if:            { type: :code },
            unless:        { type: :code },
