@@ -1,38 +1,40 @@
 $ (function () {
 
-  $ (".sitemap ol").livequery (function () {
-    $ (this).addClass ('nav-items');
-  });
+  function $toNestedSet ()
+  {
+    var nodes = [];
+    var n = 1;
 
-  $ (".sitemap.application").application (function ($sitemap) {
+    ! function ()
+    {
+      var $this = $ (this);
+      var node = { id: $this.data ('id'), parent_id: $this.componentOf ().data ('id') };
 
-    var $navItems = $sitemap.component ('.nav-items')
-    ,   $undo     = $sitemap.component ('.undo.button')
-    ,   path      = $sitemap.data ('uri-save')
-    ;
+      node.lft = n ++;
+      $ (this).components ('.nav-item.application').each (arguments.callee);
+      node.rgt = n ++;
 
-    $sitemap.components ('ol', function ($ol) {
-      $ol.addClass ('nav-items');
-    });
+      nodes.push (node);
+    }.call (this);
 
-    function save (data, cb) {
-      $.post (path, { set: data }, cb);
+    return nodes;
+  }
+
+  $ (".sitemap.application").application (function ($sitemap)
+  {
+    var path      = $sitemap.data ('uri-save');
+    var $rootList = $sitemap.component ('ol');
+    var $rootItem = $sitemap.component ('.nav-item');
+
+    function save (cb) {
+      $.post (path, { set: render () }, cb);
     }
 
-    function refresh (data) {
-      $navItems.load (path, { set: data });
+    function render () {
+      return JSON.stringify ($rootItem.call ($toNestedSet));
     }
 
-    function toString () {
-      return JSON.stringify (toJSON ());
-    }
-
-    function toJSON () {
-      return $navItems.nestedSortable ('toHierarchy', { startDepthCount: 0 });
-    }
-
-    $navItems
-    .nestedSortable({
+    $rootList.nestedSortable ({
       forcePlaceholderSize: true
     , handle: 'div'
     , helper: 'clone'
@@ -44,20 +46,15 @@ $ (function () {
     , tolerance: 'pointer'
     , toleranceElement: '> div'
     })
-    .on ("sortupdate", function () {
-      $undo.removeClass ("disabled");
-      save (toString ());
-    })
-    ;
+    .on ("sortupdate", save);
   });
 
-  $ (".nav-item.application").application (true, function ($item) {
-
+  $ (".nav-item.application").application (true, function ($item)
+  {
     var $zone = $item.component (".zone");
     var $body = $item.component (".body");
     var $link = $item.component (".pop-up");
     var $menu = $item.component (".controls");
-    var $kids = $item.component (".nav-items");
 
     $link.click (function () { $.getScript (this.href); return false; });
 
