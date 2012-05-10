@@ -1,34 +1,38 @@
-!function ($) {
+//= require bootstrap-wysihtml5-all
+
+! function ($) {
 
   $.fn.koiEditor = function () {
+    this.wysihtml5();
 
-    this.ckeditor ({
-      language: 'en',
 
-      // height: '400px',
-      // width: '650px',
+    // this.ckeditor ({
+    //   language: 'en',
 
-      filebrowserBrowseUrl: '/admin/documents',
-      filebrowserUploadUrl: '/admin/documents',
+    //   // height: '400px',
+    //   // width: '650px',
 
-      filebrowserImageBrowseUrl: '/admin/images',
-      filebrowserImageUploadUrl: '/admin/images',
+    //   filebrowserBrowseUrl: '/admin/documents',
+    //   filebrowserUploadUrl: '/admin/documents',
 
-      filebrowserWindowWidth: 950, // 930,
-      filebrowserWindowHeight: 780, // 684,
+    //   filebrowserImageBrowseUrl: '/admin/images',
+    //   filebrowserImageUploadUrl: '/admin/images',
 
-      toolbar: [
-        ['Source'],
-        ['PasteText'],
-        ['Undo', 'Redo'],
-        ['Format'],
-        ['Bold','Italic', 'Strike'],
-        ['NumberedList', 'BulletedList'],
-        ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
-        ['Link', 'Unlink'],
-        ['Image','Table', 'HorizontalRule', 'SpecialChar']
-      ]
-    });
+    //   filebrowserWindowWidth: 950, // 930,
+    //   filebrowserWindowHeight: 780, // 684,
+
+    //   toolbar: [
+    //     ['Source'],
+    //     ['PasteText'],
+    //     ['Undo', 'Redo'],
+    //     ['Format'],
+    //     ['Bold','Italic', 'Strike'],
+    //     ['NumberedList', 'BulletedList'],
+    //     ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
+    //     ['Link', 'Unlink'],
+    //     ['Image','Table', 'HorizontalRule', 'SpecialChar']
+    //   ]
+    // });
   }
 
 } (jQuery);
