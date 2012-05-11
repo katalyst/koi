@@ -79,7 +79,7 @@ a.font-orange:hover { color: $orange; text-decoration: none }
 
 .asset-manager-bg-darkgrey { background-color: #C8C8C8; }
 
-.titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px; }
+.titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px 5px; }
 .titlebar h1 { font-size: 22px; border: none; line-height: 22px; }
 
 .h-600 { height: 600px; }
@@ -119,7 +119,7 @@ a:hover { color: $orange; text-decoration: underline; }
 .wysihtml5-toolbar .btn { height:18px; }
 .wysihtml5-toolbar [class^="icon-"], .wysihtml5-toolbar [class*=" icon-"] { line-height: 18px; }
 
-.simple_form input.date, .simple_form input[type=text], .simple_form input[type=tel], .simple_form input[type=password] { width: 298px; }
-.simple_form textarea { width:498px; }
+.action.view input.date, .action.view input[type=text], .action.view input[type=tel], .action.view input[type=url], .action.view input[type=password] { width: 298px; }
+.action.view textarea { width:498px; }
 
-#modal-for-asset-manager.modal.fade.in { top:35%; width:980px; }
+#modal-for-asset-manager.modal.fade.in { top:35%; width:980px; height:740px; border:none; }

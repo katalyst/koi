@@ -1,7 +1,20 @@
 //= require bootstrap-wysihtml5-all
 
-$.fn.iload
+$.fn.iframe = function ()
+{
+  var sig = [].slice.call (arguments), src, opt;
 
+  if (typeof sig [0] === 'string') src = sig.shift ();
+  if (typeof sig [0] === 'object') opt = sig.shift ();
+  
+  if (opt        == null) opt = {};
+  if (opt.src    == null) opt.src = src;
+  if (opt.width  == null) opt.width = this.width ();
+  if (opt.height == null) opt.height = this.innerHeight ();
+
+  this.html ($ ('<iframe>').attr (opt));
+  return this;
+}
 
 <% url = Koi::Engine.routes.url_helpers %>
 
@@ -11,7 +24,7 @@ $.fn.wysihtml5.Constructor.prototype.initInsertImage = function ($toolbar)
 
   $button.click (function()
   {
-    $ ('#modal-for-asset-manager').load ("<%= url.new_image_path %>").modal ('show');
+    $ ('#modal-for-asset-manager').modal ('show').iframe ("<%= url.new_image_path %>");
     return false;
   });
 
