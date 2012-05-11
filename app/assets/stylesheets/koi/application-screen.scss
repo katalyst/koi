@@ -103,3 +103,23 @@ a:hover { color: $orange; text-decoration: underline; }
 .simple_form input.check_boxes { margin-right: 5px; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
+
+
+[class^="icon-"], [class*=" icon-"]
+{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url(/assets/glyphicons-halflings-white.png);
+  background-repeat: no-repeat;
+}
+
+.wysihtml5-toolbar .btn { height:18px; }
+.wysihtml5-toolbar [class^="icon-"], .wysihtml5-toolbar [class*=" icon-"] { line-height: 18px; }
+
+.simple_form input.date, .simple_form input[type=text], .simple_form input[type=tel], .simple_form input[type=password] { width: 298px; }
+.simple_form textarea { width:498px; }
+
+#modal-for-asset-manager.modal.fade.in { top:35%; width:980px; }
