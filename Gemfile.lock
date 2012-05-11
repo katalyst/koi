@@ -29,7 +29,7 @@ GIT
 PATH
   remote: .
   specs:
-    koi (1.0.0.alpha)
+    koi (1.0.0.beta)
       acts-as-taggable-on (~> 2.2.0)
       cancan (~> 1.6.7)
       devise (~> 2.0.1)

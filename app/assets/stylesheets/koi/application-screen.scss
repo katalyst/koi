@@ -1,6 +1,7 @@
 // initialization /////////////////////////////////////////////////////////////
 
 // colors
+$textColor: #000;
 $orange:         #ff5700;
 $orangeDark:     #ee3700;
 $linkColor:      #fc6b02;
@@ -36,6 +37,7 @@ th { background-color: #ececec; font-size: 11px; }
 textarea { height: 200px; width: 400px; }
 legend.small { font-size: 13px; border-bottom: 1px solid $grayLighter; margin-bottom: 120px; }
 abbr[title='required'] { color: $orange; font-weight: bold; }
+ol, ul { list-style-type:none; margin-left:0; padding-right:0; }
 
 // bootstrap-on ///////////////////////////////////////////////////////////////
 
@@ -53,6 +55,9 @@ abbr[title='required'] { color: $orange; font-weight: bold; }
 
 a { color: $orange; }
 a:hover { color: $orange; text-decoration: underline; }
+
+a.nohover {color: $textColor; }
+a.nohover:hover {color: $textColor; text-decoration:none; }
 
 .font-orange { color: $orange; }
 a.font-orange { color: $orange; }
