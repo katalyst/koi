@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , "~> 3.2.1"
+  s.add_dependency 'rails'                         , "3.2.3"
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -56,9 +56,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'squeel'                        , '~> 0.9.3'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.3.0'
+  s.add_dependency 'inherited_resources'           , '~> 1.3.1'
   s.add_dependency 'has_scope'                     , '~> 0.5.1'
-  s.add_dependency 'responders'                    , '~> 0.6.4'
+  s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
   s.add_dependency 'simple-navigation'             , '~> 3.6.0'
