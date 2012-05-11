@@ -1,14 +1,10 @@
-.nav_items {
-  list-style-type:none; margin-left:0;
-}
-
 .nav-item {
   clear: both; margin-top: 4px; padding-left:20px; font-size:13px; font-weight:bold;
 
   &.level-0 {
     padding-left:0;
-    > .nav-items > .nav-item,
-    > .nav-items > .nav-item > .nav_items > .nav-item {border-top: 1px solid #f4f4f4;}
+    > ol > .nav-item {border-top: 1px solid #f4f4f4; }
+    > ol > .nav-item .nav-item {font-weight:normal;}
   }
 
   .zone {
