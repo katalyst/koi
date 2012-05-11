@@ -29,6 +29,11 @@ $.extend $,
 
 $.extend $.fn,
 
+  reverse: [].reverse
+
+  call: (f) ->
+    f.call @get 0
+
   or: (x) ->
     return @ if @length
     $ if typeof x is 'function' then x() else x
@@ -44,7 +49,6 @@ $.extend $.fn,
     [ f ] = args
 
     fStar = -> $( @ ).each ( i, e ) -> $.application.call( e, $(e), f )
-    $ => @livequery fStar
     $ => if live then @livequery fStar else fStar.call @
     @
 
