@@ -79,7 +79,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Fixture replacement
-  s.add_dependency 'factory_girl_rails'            , '1.2.0'
+  s.add_dependency 'factory_girl_rails'
 
   # Console Replacement
   s.add_development_dependency 'pry'
