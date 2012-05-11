@@ -1,0 +1,57 @@
+//= require bootstrap-wysihtml5-all
+
+$.fn.iload
+
+
+<% url = Koi::Engine.routes.url_helpers %>
+
+$.fn.wysihtml5.Constructor.prototype.initInsertImage = function ($toolbar)
+{
+  var $button = $toolbar.find ('a[data-wysihtml5-command=insertImage]');
+
+  $button.click (function()
+  {
+    $ ('#modal-for-asset-manager').load ("<%= url.new_image_path %>").modal ('show');
+    return false;
+  });
+
+  // var self = this;
+  // var insertImageModal = $toolbar.find('.bootstrap-wysihtml5-insert-image-modal');
+  // var urlInput = insertImageModal.find('.bootstrap-wysihtml5-insert-image-url');
+  // var insertButton = insertImageModal.find('a.btn-primary');
+  // var initialValue = urlInput.val();
+
+  // var insertImage = function() { 
+  //   var url = urlInput.val();
+  //   urlInput.val(initialValue);
+  //   self.editor.composer.commands.exec("insertImage", url);
+  // };
+
+  // urlInput.keypress(function(e) {
+  //   if(e.which == 13) {
+  //     insertImage();
+  //     insertImageModal.modal('hide');
+  //   }
+  // });
+
+  // insertButton.click(insertImage);
+
+  // insertImageModal.on('shown', function() {
+  //   urlInput.focus();
+  // });
+
+  // insertImageModal.on('hide', function() { 
+  //   self.editor.currentView.element.focus();
+  // });
+
+  // $toolbar.find('a[data-wysihtml5-command=insertImage]').click(function() {
+  //   insertImageModal.modal('show');
+  //   return false;
+  // });
+}
+
+! function ($)
+{
+  $.fn.koiEditor = function () { this.wysihtml5 () };
+}
+(jQuery);
