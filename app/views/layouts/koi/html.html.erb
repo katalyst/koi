@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- meta -->
+    <meta charset="UTF-8" />
+    <%= csrf_meta_tags %>
+    <%= yield(:meta) %>
+
+    <!-- title -->
+    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+
+    <!-- data -->
+    <%= js_data if defined?(js_data) %><!-- FIXME: helper isn't loaded by DeviseController -->
+
+    <!-- style -->
+    <link href="http://fast.fonts.com/cssapi/e0715776-9606-47b7-93c0-721a8906e16b.css" rel="stylesheet" type="text/css" />
+    <%= stylesheet_link_tag "koi/application-screen" %>
+    <%= stylesheet_link_tag "koi/application-print", media: "print" %>
+    <%= yield(:stylesheets) %>
+
+    <!-- script -->
+    <script type="text/javascript" src="http://use.typekit.com/zhc5yzn.js"></script>
+    <script type="text/javascript">try { Typekit.load(); } catch (e) {}</script>
+    <%= javascript_include_tag "koi/application" %>
+    <%= yield(:javascripts) %>
+
+    <!-- etc -->
+    <%= yield(:head) %>
+    <%= raw t("site.fonts", default: "") %>
+  
+  </head>
+  <%= yield :html %>
+</html>
+

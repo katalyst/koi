@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , "~> 3.2.1"
+  s.add_dependency 'rails'                         , "3.2.3"
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -32,10 +32,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
-  s.add_dependency 'simple_form'                   , '~> 1.5.2'
+  s.add_dependency 'simple_form'                   , '~> 2.0.1'
 
   # Tree
-  s.add_dependency 'nested_set'                    , '~> 1.6.8'
+  s.add_dependency 'nested_set'                    , '~> 1.7.0'
 
   # Mailer
   s.add_dependency 'sendgrid'                      , '~> 1.0.1'
@@ -56,9 +56,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'squeel'                        , '~> 0.9.3'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.3.0'
+  s.add_dependency 'inherited_resources'           , '~> 1.3.1'
   s.add_dependency 'has_scope'                     , '~> 0.5.1'
-  s.add_dependency 'responders'                    , '~> 0.6.4'
+  s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
   s.add_dependency 'simple-navigation'             , '~> 3.6.0'
@@ -72,9 +72,6 @@ Gem::Specification.new do |s|
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
 
-  # i18n ActiveRecord backend
-  s.add_dependency 'i18n-active_record'
-
   # Unique ID generation
   s.add_dependency 'uuidtools'                     , '~> 2.1.2'
 
@@ -82,10 +79,16 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Fixture replacement
-  s.add_dependency 'factory_girl_rails'            , '1.2.0'
+  s.add_dependency 'factory_girl_rails'
 
   # Console Replacement
   s.add_development_dependency 'pry'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-doc'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-git'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'
