@@ -13,10 +13,7 @@ class SuperHero < ActiveRecord::Base
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
             "WEATHER CONTROL", "FORCE FIELDS", "UNDERWATER BREATHING", "SUPER STRENGTH"]
 
-  validates :name, presence: true
-
-  validates_presence_of :description, :gender, :is_alive, :url,
-                        :telephone, :image, :file, :powers
+  validates :name, :description, presence: true
 
   crud.config do
     map image_uid: :image
