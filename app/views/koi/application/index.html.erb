@@ -1,11 +1,41 @@
 <% content_for :title, "Dashboard" %>
 
-<h3>Site Analytics</h3>
+<div class="row">
+  <div class="span24"><h2><small>Site traffic from 22 February 2012 to 10 May 2012</small></h2></div>
+</div>
+
+
+<div class="row space-b-2">
+  <div class="widget span4">
+    <div class="title">Page views</div>
+    <div class="info">2,773</div>
+    <div class="change increase">18.3% increase</div>  
+  </div>
+  <div class="widget span4">
+    <div class="title">Unique Visitors</div>
+    <div class="info">1,291</div>
+    <div class="change decrease">18.3% decrease</div>  
+  </div>
+  <div class="widget span4">
+    <div class="title">Page views</div>
+    <div class="info">2,773</div>
+    <div class="change increase">18.3% increase</div>  
+  </div>
+  <div class="widget span4">
+    <div class="title">Unique Visitors</div>
+    <div class="info">1,291</div>
+    <div class="change decrease">18.3% decrease</div>  
+  </div>
+</div>
+
+<div class="row  space-b-2">
+  <div class="span10"><i class="icon-refresh"></i><%= link_to "Click here", "?analytics=true" %> Refresh data</div>
+</div>
+
 
 <% unless Translation.find_by_key('site.show.dashboard.analytics').try(:value).eql?("true") %>
   <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
 <% else %>
-  <p><%= link_to "Click here", "?analytics=true" %> to hard reset the analytics.</p>
   <table class="table padded-sides ruled br br-grey-d8 round-b-5px ln-h-3">
     <thead>
       <tr class="control txt-11px txt-grey-54 bg-grey-f4">
