@@ -13,7 +13,8 @@ $gridColumnWidth: 30px;
 $gridGutterWidth: 10px;
 
 // icons
-$iconSpritePath:      image-path('glyphicons-halflings.png');
+// $iconSpritePath:      image-path('koi/application/glyphicons-halflings.png');
+$iconSpritePath: asset-url("koi/application/glyphicons-halflings.png", image) ;
 $iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
 
 // navbar
@@ -71,6 +72,16 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .media .pull-right { margin-left: 10px; }
 .media .media-object { display: block; }
 
+// dashboard widgets /////////////////////////////////////////////////////////
+
+.widget { background-color: #ececec; position:relative; @include border-radius(5px); font-weight: bold;}
+.widget .title { padding:5px 5px;  text-align:center; @include border-radius(5px 5px 0 0); font-size: 13px;
+                      color:#FFF;background-color: #7b7b7b;color:#FFF;}
+.widget .info { font-size:40px; line-height: 70px;text-align:center;color: #464646;font-weight: bold;}
+.widget .change { padding:3px 5px; text-align:center;@include border-radius(0 0 5px 5px ); font-size: 11px; }
+.widget .change.increase {background-color:#bfe9d3; color: #00a34e; }
+.widget .change.decrease {background-color:#ffbfbf; color: #f11a29; }
+
 // general ////////////////////////////////////////////////////////////////////
 
 .cursor-move { cursor: move; }
@@ -101,3 +112,8 @@ p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat;
 .simple_form input.check_boxes { margin-right: 5px; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
+
+.tweet_odd, .tweet_even {padding-top: 110px;}
+.tweet_avatar { float:left; width: 50px; display:block; margin:0; padding: 0; }
+.tweet_text { float:right; width:180px;display:block; margin:0; padding: 0; }
+.tweet_time {display:none;}
