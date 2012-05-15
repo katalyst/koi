@@ -75,11 +75,11 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 // dashboard widgets /////////////////////////////////////////////////////////
 
 .widget { background-color: #ececec; position:relative; @include border-radius(5px); font-weight: bold; }
-.widget .header { padding:5px 5px; text-align:center; @include border-radius(5px 5px 0 0); font-size: 13px; color:#FFF; background-color: #7b7b7b;color:#FFF; }
-.widget .body { font-size:40px; line-height: 70px;text-align:center;color: #464646;font-weight: bold; }
-.widget .footer { padding:3px 5px; text-align:center;@include border-radius(0 0 5px 5px ); font-size: 11px; }
-.widget .footer.increase {background-color:#bfe9d3; color: #00a34e; }
-.widget .footer.decrease {background-color:#ffbfbf; color: #f11a29; }
+.widget-header { padding:5px 5px; text-align:center; @include border-radius(5px 5px 0 0); font-size: 13px; color:#FFF; background-color: #7b7b7b;color:#FFF; }
+.widget-body { font-size:40px; line-height: 70px;text-align:center;color: #464646;font-weight: bold; }
+.widget-footer { padding:3px 5px; text-align:center;@include border-radius(0 0 5px 5px ); font-size: 11px; }
+.widget-footer-increase {background-color:#bfe9d3; color: #00a34e; }
+.widget-footer-decrease {background-color:#ffbfbf; color: #f11a29; }
 
 // general ////////////////////////////////////////////////////////////////////
 
