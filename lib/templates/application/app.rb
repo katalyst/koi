@@ -12,6 +12,14 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
 
+# Bowerbird
+gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
+
+# i18n ActiveRecord backend
+gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
+                                  :branch => 'rails-3.2',
+                                  :require => 'i18n/active_record'
+
 gem_group :development do
   # Ruby debugger
   gem 'ruby-debug19'            , :require => 'ruby-debug'
@@ -65,8 +73,8 @@ run 'rm app/controllers/application_controller.rb'
 create_file 'app/controllers/application_controller.rb', <<-END
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
   layout :layout_by_resource
+  helper Koi::NavigationHelper
 
 protected
 
@@ -140,7 +148,7 @@ END
 
 create_file 'config/Initializers/koi.rb', <<-END
 # FIXME: Explicity require all main app controllers
-Dir.glob("app/controllers/admin/**/*.rb").each { |c| require c }
+Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
 
 Koi::Menu.items = {
   'Pages' => '/admin/pages',

@@ -1,15 +1,11 @@
-<div>
-  <span class="orange links">
-    <ol class="inline elements spaced-1 sp-r-1">
-      <% if is_allowed? :edit %>
-        <li><%= link_to "Edit", edit_resource_path(object) %></li>
-      <% end %>
-      <% (resource_class.crud.find(:admin, :index, :relations) || []).each do |child| %>
-        <li><%= link_to "#{child.to_s.titleize}", [:admin, object, child] %></li>
-      <% end %>
-    </ol>
-  </span>
-  <% if is_orderable? %>
-    <%= image_tag "koi/icon/index/sortable.png", class: "aln-m" %>
+<ul class="unmarked-list floated-l-list spaced-r-list space-l-0">
+  <% if is_allowed? :edit %>
+    <li><%= link_to "Edit", edit_resource_path(object) %></li>
   <% end %>
-</div>
+  <% (resource_class.crud.find(:admin, :index, :relations) || []).each do |child| %>
+    <li><%= link_to "#{child.to_s.titleize}", [:admin, object, child] %></li>
+  <% end %>
+</ul>
+<% if is_orderable? %>
+  <%= image_tag "koi/icon/index/sortable.png", class: "aln-m" %>
+<% end %>
