@@ -8,5 +8,9 @@ class Product < ActiveRecord::Base
       form fields: [:name, :description]
     end
   end
+
+  def to_s
+    name
+  end
 end
 
