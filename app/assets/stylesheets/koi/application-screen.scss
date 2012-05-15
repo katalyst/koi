@@ -1,6 +1,7 @@
 // initialization /////////////////////////////////////////////////////////////
 
 // colors
+$textColor: #000;
 $orange:         #ff5700;
 $orangeDark:     #ee3700;
 $linkColor:      #fc6b02;
@@ -12,7 +13,8 @@ $gridColumnWidth: 30px;
 $gridGutterWidth: 10px;
 
 // icons
-$iconSpritePath:      image-path('glyphicons-halflings.png');
+// $iconSpritePath:      image-path('koi/application/glyphicons-halflings.png');
+$iconSpritePath: asset-url("koi/application/glyphicons-halflings.png", image) ;
 $iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
 
 // navbar
@@ -36,6 +38,7 @@ th { background-color: #ececec; font-size: 11px; }
 textarea { height: 200px; width: 400px; }
 legend.small { font-size: 13px; border-bottom: 1px solid $grayLighter; margin-bottom: 120px; }
 abbr[title='required'] { color: $orange; font-weight: bold; }
+ol, ul { list-style-type:none; margin-left:0; padding-right:0; }
 
 // bootstrap-on ///////////////////////////////////////////////////////////////
 
@@ -54,6 +57,9 @@ abbr[title='required'] { color: $orange; font-weight: bold; }
 a { color: $orange; }
 a:hover { color: $orange; text-decoration: underline; }
 
+a.nohover {color: $textColor; }
+a.nohover:hover {color: $textColor; text-decoration:none; }
+
 .font-orange { color: $orange; }
 a.font-orange { color: $orange; }
 a.font-orange:hover { color: $orange; text-decoration: none; }
@@ -65,6 +71,15 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .media .pull-left { margin-right: 10px; }
 .media .pull-right { margin-left: 10px; }
 .media .media-object { display: block; }
+
+// dashboard widgets /////////////////////////////////////////////////////////
+
+.widget { background-color: #ececec; position:relative; @include border-radius(5px); font-weight: bold; }
+.widget .header { padding:5px 5px; text-align:center; @include border-radius(5px 5px 0 0); font-size: 13px; color:#FFF; background-color: #7b7b7b;color:#FFF; }
+.widget .body { font-size:40px; line-height: 70px;text-align:center;color: #464646;font-weight: bold; }
+.widget .footer { padding:3px 5px; text-align:center;@include border-radius(0 0 5px 5px ); font-size: 11px; }
+.widget .footer.increase {background-color:#bfe9d3; color: #00a34e; }
+.widget .footer.decrease {background-color:#ffbfbf; color: #f11a29; }
 
 // general ////////////////////////////////////////////////////////////////////
 
@@ -96,3 +111,8 @@ p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat;
 .simple_form input.check_boxes { margin-right: 5px; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
+
+.tweet_odd, .tweet_even { margin-top: 5px; float:left; }
+.tweet_avatar { float:left; width: 50px; display:block; margin:0; padding: 0; }
+.tweet_text { float:right; width:180px; display:block; margin:0; padding: 0; }
+.tweet_time { display:none; }
