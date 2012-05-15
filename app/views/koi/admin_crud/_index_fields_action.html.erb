@@ -1,4 +1,4 @@
-<ul class="unmarked-list floated-l-list spaced-r-list space-l-0">
+<ul class="unmarked-list floated-l-list spaced-r-list space-l-0 space-b-0 ">
   <% if is_allowed? :edit %>
     <li><%= link_to "Edit", edit_resource_path(object) %></li>
   <% end %>
@@ -7,5 +7,5 @@
   <% end %>
 </ul>
 <% if is_orderable? %>
-  <%= image_tag "koi/icon/index/sortable.png", class: "aln-m" %>
+  <%= image_tag "koi/application/icon-sortable.png", :class => "space-half" %>
 <% end %>
