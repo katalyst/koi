@@ -68,7 +68,6 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 
 // general ////////////////////////////////////////////////////////////////////
 
-.aln-m { vertical-align:middle; }
 .cursor-move { cursor: move; }
 .container.center, .margin-center { margin: 0 auto; }
 .logo-header { padding-top: 8px; float: left; }
@@ -97,3 +96,6 @@ p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat;
 .simple_form input.check_boxes { margin-right: 5px; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
+
+
+// .foo {padding: 4px 5px;}
