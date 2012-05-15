@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :users, path: :members
     resources :super_heros
     resources :news_items
+    resources :categories do
+      collection { put 'sort' }
+      resources :products 
+    end
   end
 
   root to: "super_heros#index"
