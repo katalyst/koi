@@ -8,5 +8,8 @@ class Category < ActiveRecord::Base
             relations: [:products]
     end
   end
-end
 
+  def to_s
+    name
+  end
+end
