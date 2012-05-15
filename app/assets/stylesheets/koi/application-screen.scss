@@ -28,9 +28,9 @@ $navbarLinkColor: #FFF;
 
 // elements ///////////////////////////////////////////////////////////////////
 
-body { font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
-h1 { font-size: 44px; font-weight: normal; line-height: 64px; border-bottom: 1px solid #CCC; }
-h2 { font-size: 24px; font-weight: 400; }
+body, p { font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
+h1 { font-size: 44px; font-weight: 300; line-height: 64px; border-bottom: 1px solid #CCC;}
+h2 { font-size: 24px; font-weight: 600; }
 table { border: 1px solid #CCC; }
 th { background-color: #ececec; font-size: 11px; }
 textarea { height: 200px; width: 400px; }
@@ -44,7 +44,7 @@ abbr[title='required'] { color: $orange; font-weight: bold; }
 .btn-mini { padding: 3px 10px 4px 10px; font-size: 12px; }
 .btn-primary { border: none; background-image: none; background-color: $orange; text-shadow: none; }
 .navbar-fixed-top { border-bottom: 4px solid #f60; }
-.navbar .nav li a { font-weight: 800; text-transform: uppercase; }
+.navbar .nav li a, { font-size:14px; font-weight: 700; text-transform: uppercase; font-family: 'Open Sans Condensed', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
 .pagination ul { @include box-shadow(none); }
 .btn:hover { background-color: darken($grayLight, 10%); color: #FFF; }
 .btn-primary:hover { background-color: $orangeDark; text-shadow: none; }
