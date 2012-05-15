@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120503063452) do
+ActiveRecord::Schema.define(:version => 20120514063822) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(:version => 20120503063452) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "ordinal"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
   create_table "exits", :force => true do |t|
     t.text     "page_path"
@@ -101,6 +111,17 @@ ActiveRecord::Schema.define(:version => 20120503063452) do
   end
 
   add_index "pages", ["slug"], :name => "index_pages_on_slug", :unique => true
+
+  create_table "products", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "slug"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "settings", :force => true do |t|
     t.string   "url"
