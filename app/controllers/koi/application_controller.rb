@@ -4,8 +4,8 @@ module Koi
   class ApplicationController < ActionController::Base
     helper :all
     # layout 'koi/admin_crud'
-    before_filter :authenticate_admin!, :except => :login
-    before_filter :load_google_analytics_session
+    before_filter :authenticate_admin, except: :login
+    before_filter :load_google_analytics_session, only: :index
 
     def login
       if admin_signed_in?
@@ -21,6 +21,10 @@ module Koi
       rescue Garb::AuthenticationRequest::AuthError
         @result = false
       end
+    end
+
+    def authenticate_admin
+      redirect_to koi_engine.new_admin_session_path unless admin_signed_in?
     end
   end
 end
