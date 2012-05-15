@@ -5,7 +5,7 @@
       document.onselectstart = function () { return false; }
 
       $(function() {
-        var notice = $('<p class="pd-1 background-light-green">Saving...</p>').hide();
+        var notice = $('<p class="pad-1 background-light-green">Saving...</p>').hide();
         $("#sortable").sortable({
           placeholder: 'ui-state-placeholder',
           // Return a helper with preserved width of cells
@@ -28,9 +28,9 @@
 <% end %>
 
 <div id="index-fields">
-  <table class="table padded-sides ruled br br-grey-d8 rd-b-5px ln-h-3">
+  <table class="table space-b-0">
     <thead>
-      <tr class="control tx-11px tx-grey-54 bg-grey-f4">
+      <tr class="contro txt-grey ">
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
           <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
           <% if is_sortable? %>
@@ -39,23 +39,22 @@
             <th><%= label %></th>
           <% end %>
         <% end %>
-        <th class="w-15">Actions</th>
+        <th class="w-100">Actions</th>
       </tr>
     </thead>
     <%- if is_orderable? -%>
     <tbody id="sortable" class="">
     <%- else -%>
-    <tbody class="">
+    <tbody>
     <%- end -%>
       <% collection.each_with_index do |object, i| %>
         <%- if is_orderable? -%>
         <tr id="<%= "#{singular_name}_#{object.id}" %>">
         <%- else -%>
-        <tr class="<%= i.odd? ? "odd" : "even" %>">
+        <tr>
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
-            <td class="tx-12px">
-              <div class="br-grey-d8 bg-white">
+            <td>
                 <%=
                 begin
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
@@ -63,13 +62,10 @@
                   render "index_field_default", { :attr => attr, :object => object }
                 end
                 %>
-              </div>
             </td>
           <% end %>
-          <td class="w-15 tx-12px">
-            <div class="br-grey-d8 bg-white">
-              <%= render "index_fields_action", { :object => object } %>
-            </div>
+          <td class="nowrap">
+            <%= render "index_fields_action", { :object => object } %>
           </td>
         </tr>
       <% end %>

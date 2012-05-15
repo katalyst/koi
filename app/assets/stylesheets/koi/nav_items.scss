@@ -1,0 +1,53 @@
+.nav-item {
+  clear: both; margin-top: 4px; padding-left:20px; font-size:13px; font-weight:bold;
+
+  &.level-0 {
+    padding-left:0;
+    > ol > .nav-item {border-top: 1px solid #f4f4f4; }
+    > ol > .nav-item .nav-item {font-weight:normal;}
+  }
+
+  .zone {
+    padding-top: 4px;
+
+    .body {
+      height:22px; line-height:22px; padding-left:30px;
+      -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
+
+      .information {
+        float:left;
+      }
+
+      .controls {
+        float:right; height:22px; line-height:22px; visibility: hidden;
+
+        .icon {
+
+        }
+
+        .menu {
+          text-transform: uppercase; height:22px; line-height:22px;
+          li {height:22px; line-height:22px;}
+          .has-menu { width: 70px; }
+          .menu { width: 70px; }
+        }
+      }
+    }
+  }
+
+}
+
+.icon {
+  &.sitemap {
+    background-position: 5px center; min-width: 16px; min-height: 16px;
+    &.settings { background-image: url(/assets/koi/nav_items/icon-nav-item-settings.png); }
+    &.folder { background-image: url(/assets/koi/nav_items/icon-nav-item-folder.png); }
+    &.module { background-image: url(/assets/koi/nav_items/icon-nav-item-module.png); }
+    &.alias { background-image: url(/assets/koi/nav_items/icon-nav-item-alias.png); }
+    &.home { background-image: url(/assets/koi/nav_items/icon-nav-item-home.png); }
+    &.page { background-image: url(/assets/koi/nav_items/icon-nav-item-page.png); }
+    &.move { background-image: url(/assets/koi/nav_items/icon-nav-item-move.png); }
+    &.sort { background-image: url(/assets/koi/nav_items/icon-nav-item-sortable.png); }
+    &.sort > a { height:22px; padding-right:15px; }
+  }
+}

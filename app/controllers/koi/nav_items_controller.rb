@@ -36,16 +36,31 @@ module Koi
     end
 
     def savesort
-      neworder = JSON.parse(params[:set])
-      prev_item = nil
-      neworder.each do |item|
-        dbitem = NavItem.find(item['id'])
-        prev_item.nil? ? dbitem.move_to_root : dbitem.move_to_right_of(prev_item)
-        sort_children(item, dbitem) unless item['children'].nil?
-        prev_item = dbitem
+      nodes = JSON.parse params[:set]
+      
+      nodes.map! do |node|
+        node.each_with_object ({}) do |(key, val), hash|
+          hash[key.to_sym] = ActiveRecord::Base.connection.quote val
+        end.reverse_merge parent_id: 'NULL' # in case of `undefined` in which update below will fail
       end
-      NavItem.rebuild!
-      render partial: "nav_item_root", locals: { nav_item: RootNavItem.root, level: 0 }
+
+      ids = nodes.map { |node| node[:id] }
+
+      # mass update (should be abstracted)
+      NavItem.connection.execute <<-eos
+        UPDATE nav_items
+          SET lft = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{lft}" % node }.join "\n" }
+                    END,
+              rgt = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{rgt}" % node }.join "\n" }
+                    END,
+              parent_id = CASE id
+                      #{ nodes.map { |node| "WHEN %{id} THEN %{parent_id}" % node }.join "\n" }
+                    END                    
+        WHERE id in (#{ ids.join ',' })
+      eos
+      render partial: "nav_item", locals: { nav_item: RootNavItem.root, level: 0 }
     end
 
     def sort_children(element,dbitem)
