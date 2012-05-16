@@ -1,13 +1,16 @@
 <% unless Translation.find_by_key('site.show.dashboard.analytics').try(:value).eql?("true") %>
   <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
 <% else %>
+  <% Report.analytics.destroy if params[:analytics].eql?("true") %>
+  <% report = Report.analytics %>
+
   <div class="row">
-    <div class="span17"><h2><small>Site traffic from 22 February 2012 to 10 May 2012</small></h2></div>
+    <div class="span17">
+      <h2><small>Site traffic from <%= report.start_date %> to <%= report.end_date %></small></h2>
+    </div>
   </div>
 
   <div class="row space-b-2">
-    <% Report.analytics.destroy if params[:analytics].eql?("true") %>
-    <% report = Report.analytics %>
     <% Report.metrics.elements.each do |metric| %>
       <% value  = report.send("#{metric}") %>
       <% value  = value.round(2) if value.kind_of?(Float) %>
