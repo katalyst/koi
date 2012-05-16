@@ -11,6 +11,17 @@ class Report < ActiveRecord::Base
           :visit_bounce_rate,
           :new_visits
 
+  Humanize = {
+    visits: "Visits",
+    unique_pageviews: "Unique page views",
+    pageviews: "Page views",
+    pageviews_per_visit: "Page views per visit",
+    avg_time_on_site: "Avg time on site",
+    visit_bounce_rate: "Bounce rate (%)",
+    new_visits: "New visits"
+
+  }
+
   def self.profile
     return @profile if @profile
     Garb::Session.login(Translation.find_by_key('site.google_analytics.username').try(:value),
