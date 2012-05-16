@@ -31,4 +31,24 @@ class Report < ActiveRecord::Base
 
     create(analytics.first.marshal_dump.merge(options))
   end
+
+  def previous_month
+    @previous_month ||= self.class.analytics(start_date: start_date - 1.month, end_date: start_date)
+  end
+
+  def method_missing(method_sym, *arguments, &block)
+    if method_sym.to_s =~ /^(.*)_diff$/ && self.class.metrics.elements.include?($1.to_sym)
+      change_from_last_month(read_attribute($1.to_sym), previous_month[$1.to_sym])
+    elsif method_sym.to_s =~ /^(.*)_last_month$/ && self.class.metrics.elements.include?($1.to_sym)
+      previous_month[$1.to_sym]
+    else
+      super
+    end
+  end
+
+  private
+
+  def change_from_last_month(value_now, value_last_month)
+    ((value_now - value_last_month) / value_now.to_f * 100).round(1)
+  end
 end

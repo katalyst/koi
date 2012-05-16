@@ -124,17 +124,17 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "reports", :force => true do |t|
-    t.decimal  "visits",              :precision => 8, :scale => 2
-    t.decimal  "unique_pageviews",    :precision => 8, :scale => 2
-    t.decimal  "pageviews",           :precision => 8, :scale => 2
-    t.decimal  "pageviews_per_visit", :precision => 8, :scale => 2
-    t.decimal  "avg_time_on_site",    :precision => 8, :scale => 2
-    t.decimal  "visit_bounce_rate",   :precision => 8, :scale => 2
-    t.decimal  "new_visits",          :precision => 8, :scale => 2
+    t.integer  "visits"
+    t.integer  "unique_pageviews"
+    t.integer  "pageviews"
+    t.float    "pageviews_per_visit"
+    t.float    "avg_time_on_site"
+    t.float    "visit_bounce_rate"
+    t.integer  "new_visits"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "settings", :force => true do |t|
