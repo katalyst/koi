@@ -20,7 +20,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Encryptable
-      # t.string :password_salt
+      t.string :password_salt
 
       ## Confirmable
       # t.string   :confirmation_token

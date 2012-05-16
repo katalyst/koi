@@ -104,7 +104,6 @@ a:hover { color: $orange; text-decoration: underline; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
 
-
 [class^="icon-"], [class*=" icon-"]
 {
   display: inline-block;
@@ -122,4 +121,5 @@ a:hover { color: $orange; text-decoration: underline; }
 .action.view input.date, .action.view input[type=text], .action.view input[type=tel], .action.view input[type=url], .action.view input[type=password] { width: 298px; }
 .action.view textarea { width:498px; }
 
-#modal-for-asset-manager.modal.fade.in { top:35%; width:980px; height:740px; border:none; }
+#modal-for-asset-manager.modal.fade.in { top:35%; left:35%; width:950px; height:741px; border:none; overflow:hidden; }
+#modal-for-asset-manager > iframe { @include border-radius(4px 4px 0 0 ); }
