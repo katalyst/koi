@@ -78,6 +78,5 @@ module Koi::ApplicationHelper
 
   def crud_heading(value, plural=false)
     value = plural ? "#{value}".pluralize : "#{value}"
-    value.upcase
   end
 end
