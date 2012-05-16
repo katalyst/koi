@@ -75,4 +75,9 @@ module Koi::ApplicationHelper
   def active_item_cascade
     "ba"
   end
+
+  def crud_heading(value, plural=false)
+    value = plural ? "#{value}".pluralize : "#{value}"
+    value.upcase
+  end
 end
