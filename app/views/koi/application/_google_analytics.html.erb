@@ -6,26 +6,19 @@
   </div>
 
   <div class="row space-b-2">
-    <div class="widget span4">
-      <div class="widget-header">Page views</div>
-      <div class="widget-body">2,773</div>
-      <div class="widget-footer widget-footer-increase">18.3% increase</div>
-    </div>
-    <div class="widget span4">
-      <div class="widget-header">Unique Visitors</div>
-      <div class="widget-body">1,291</div>
-      <div class="widget-footer widget-footer-decrease">18.3% decrease</div>
-    </div>
-    <div class="widget span4">
-      <div class="widget-header">Page views</div>
-      <div class="widget-body">2,773</div>
-      <div class="widget-footer widget-footer-increase">18.3% increase</div>
-    </div>
-    <div class="widget span4">
-      <div class="widget-header">Unique Visitors</div>
-      <div class="widget-body">1,291</div>
-      <div class="widget-footer widget-footer-decrease">18.3% decrease</div>
-    </div>
+    <% Report.analytics.destroy if params[:analytics].eql?("true") %>
+    <% report = Report.analytics %>
+    <% Report.metrics.elements.each do |metric| %>
+      <% value  = report.send("#{metric}") %>
+      <% value  = value.round(2) if value.kind_of?(Float) %>
+      <% change = report.send("#{metric}_diff") %>
+      <% change_text = change > 0 ? "increase" : "decrease" %>
+      <div class="widget span4">
+        <div class="widget-header"><%= metric.to_s.humanize.capitalize %></div>
+        <div class="widget-body"><%= value %></div>
+        <div class="widget-footer widget-footer-<%= change_text %>"><%= change.abs %>% <%= change_text %></div>
+      </div>
+    <% end %>
   </div>
 
   <div class="row  space-b-2">
@@ -33,22 +26,3 @@
     <div class="3"><i class="icon-signal"></i> <strong><a href="http://www.google.com/analytics/" target="_blank">Full analytics</a></strong></div>
   </div>
 <% end %>
-
-  <table class="table padded-sides ruled br br-grey-d8 round-b-5px ln-h-3">
-    <thead>
-      <tr class="control txt-11px txt-grey-54 bg-grey-f4">
-        <th>Path</th>
-        <th>Pageviews</th>
-        <th>Unique Pageviews</th>
-        <th>Exits</th>
-      </tr>
-    </thead>
-    <% @result.each do |r| %>
-    <tr>
-      <td><%= truncate r.page_path, length: 50 %></td>
-      <td><%= r.pageviews %></td>
-      <td><%= r.unique_pageviews %></td>
-      <td><%= r.exits %></td>
-    </tr>
-    <% end %>
-  </table>
