@@ -1,32 +1,38 @@
-<% unless params[:CKEditorFuncNum].blank? %>
-  <% js_data :ck_editor_func_num, params[:CKEditorFuncNum] %>
-  <% content_for :head do %>
-    <script type="text/javascript">
-      $ (function() {
+<% content_for :head do %>
 
-        $ ('.insert.asset.application').application (function ($insert)
+  <script type="text/javascript">
+    $ (function() {
+
+      $ ('.insert.asset.application').application (function ($insert)
+      {
+        var $link = $insert.component ('.insert.asset.link');
+
+        function getHref (arg)
         {
-          var $link = $insert.component ('.insert.asset.link');
+          return 'http://' + window.location.hostname + $link.attr ('href');
+        }
 
-          $insert.find ('input[type=radio]').each (function ()
-          {
-            var $radio = $ (this);
-            $radio.change (function () { $link.attr ('href', $radio.data ('href')); });
-          });
+        function setHref (arg)
+        {
+          $link.attr ('href', arg);
+        }
 
-          $link.click (function() {
-            var href = $(this).attr ("href");
-            try {
-              window.opener.CKEDITOR.tools.callFunction (jsData.ckEditorFuncNum, href);
-              window.close();
-              return false;
-            } catch (e) {}
-          });
-
+        $insert.find ('input[type=radio]').each (function ()
+        {
+          var $radio = $ (this);
+          $radio.change (function () { setHref ($radio.data ('href')) });
         });
+
+        $link.click (function ()
+        {
+          window.parent.assetManager.insertImage ({ src: getHref (), style: 'float:left;' });
+          return false;
+        });
+
       });
-    </script>
-  <% end %>
+    });
+  </script>
+
 <% end %>
 
 <header class="pad-1">
