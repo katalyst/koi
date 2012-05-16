@@ -1,36 +1,39 @@
-<% content_for :javascripts do %>
-  <%= javascript_include_tag "koi/admin/assets" %>
-<% end %>
+<% content_for :html do %>
+  <body>
 
-<% content_for :global do %>
+    <div class="row h-400">
+      <header class="titlebar span24">
+        <%= render "title_bar" %>
+      </header>
 
-  <div class="center container w-93 tx-grey-68 tk-proxima-nova">
-
-    <header class="katalyst titlebar border-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-26px">
-      <%= render "title_bar" %>
-    </header>
-
-    <nav class="bg-grey-e8 h-55px br-b br-grey-dc ln-h-55px pd-lr-2 as-bbox">
-      <%= render "tag_bar" %>
-    </nav>
-
-    <div class="br-t br-white"></div>
-
-    <div class="main left column w-17col bg-grey-f4 h-57 rd-bl-5px pd-lbr-2 as-bbox ovr-auto">
-      <nav class="search h-55px ln-h-55px">
-        <%= render "tool_bar" %>
+      <nav class="bg-mediumgrey pad-t-2 pad-b-1 span24">
+        <div class="space-l-2">
+          <%= render "tag_bar" %>
+        </div>
       </nav>
-
-      <%= render "asset_table" %>
     </div>
 
-    <div class="side right column w-26 bg-grey-c8 h-57 rd-br-5px as-bbox ln-h-16px tx-11px">
-      <%= content_for?(:assets) ? yield(:assets) : yield %>
+    <div class="row">
+      <div class="span24 bg-lightgrey">
+        
+        <div class="row">
+          <div class="span18 h-600">
+            <nav>
+              <%= render "tool_bar" %>
+            </nav>
+            <div class=" pad-1">
+              <%= render "asset_table" %>
+            </div>
+          </div>
+          <div class="asset-manager-bg-darkgrey span6 h-600">
+            <%= content_for?(:assets) ? yield(:assets) : yield %>
+          </div>
+        </div>
+      </div>
     </div>
 
-  </div>
-
+  </body>
 <% end %>
 
-<%= render :file => 'layouts/koi/global' %>
+<%= render :file => 'layouts/koi/html' %>
 

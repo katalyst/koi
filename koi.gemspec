@@ -32,10 +32,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
-  s.add_dependency 'simple_form'                   , '~> 1.5.2'
+  s.add_dependency 'simple_form'                   , '~> 2.0.1'
 
   # Tree
-  s.add_dependency 'nested_set'                    , '~> 1.6.8'
+  s.add_dependency 'nested_set'                    , '~> 1.7.0'
 
   # Mailer
   s.add_dependency 'sendgrid'                      , '~> 1.0.1'
@@ -71,9 +71,6 @@ Gem::Specification.new do |s|
 
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
-
-  # i18n ActiveRecord backend
-  s.add_dependency 'i18n-active_record'
 
   # Unique ID generation
   s.add_dependency 'uuidtools'                     , '~> 2.1.2'

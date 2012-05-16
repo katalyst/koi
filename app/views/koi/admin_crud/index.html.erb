@@ -9,14 +9,12 @@
 <% end %>
 
 <% if is_searchable? || is_paginated? %>
-  <div class="ln-h-3 h-3">
+  <div class="row space-b-1">
     <% if is_searchable? %>
       <%= render 'index_search' %>
     <% end %>
     <% if is_paginated? %>
-      <div id="index-pagination-options" class="flt-r h-3">
-        <%= render 'index_pagination_options' %>
-      </div>
+      <%= render 'index_pagination_options' %>
     <% end %>
   </div>
 <% end %>

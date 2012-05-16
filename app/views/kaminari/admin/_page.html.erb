@@ -7,6 +7,6 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<div class="hoverable rounded-3px padded-1 solid orange page button as-iblk ln-h-2 <%= "disabled" if page.current? %>">
-  <%= link_to  page, "#{ url unless page.current? }", opts = { :remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, :data => { :get_script => true } } %>
-</div>
+
+  <%= link_to  page, "#{ url unless page.current? }", opts = { :remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, :data => { :get_script => true }, class: "btn btn-primary btn-mini #{'disabled' if page.current? }" } %>
+

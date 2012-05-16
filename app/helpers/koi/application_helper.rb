@@ -44,7 +44,8 @@ module Koi::ApplicationHelper
   #   placeholder_image_tag("No Image", width: 100, height: 100) # => "<img src='/example.png' width='100' height='100' />"
   #
   def placeholder_image_tag(text, args={})
-    image_tag(placeholder_image(text, args).url, args)
+    image_tag('koi/application/placeholder-image-none.png', args)
+#    image_tag(placeholder_image(text, args).url, args)
   end
 
   def new_uuid
@@ -54,5 +55,25 @@ module Koi::ApplicationHelper
   def is_koi_core_class?(klass)
     ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem"].include? klass.name
+  end
+
+  def ancestor_controllers
+    controller.class.ancestors.select { |klass| klass < ActionController::Base }
+  end
+
+  def ancestor_controller_names
+    ancestor_controllers.map(&:controller_name)
+  end
+
+  def ancestor_controller_paths
+    ancestor_controllers.map(&:name).map(&:underscore)
+  end
+
+  def ancestor_paths
+    ancestor_controller_paths.map { |path| path.match(/(.*)_controller/).to_a[1] }
+  end
+
+  def active_item_cascade
+    "ba"
   end
 end

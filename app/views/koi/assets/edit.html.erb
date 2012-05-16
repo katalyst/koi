@@ -18,43 +18,30 @@
 
 <%= render "tagify" %>
 
-<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
-  <h2 class="heading tx-16px"><%= resource_class.name %> Details</h2>
+<header class="pad-1">
+  <h4><%= resource_class.name %> Details</h4>
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
-
-<section class="assets section pd-lr-2 sp-b-1">
+<section class="pad-1 space-b-1">
 
   <%= render "preview" %>
 
 </section>
 
-<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
-  <h2 class="heading tx-16px">Edit <%= resource_class.name %></h2>
+<header class="pad-1">
+  <h4>Edit <%= resource_class.name %></h4>
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1"></div>
-
-<section class="assets section pd-lr-2 sp-b-1">
+<section class="pad-1 space-b-1">
 
   <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
     <%= f.error_notification %>
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
-
-    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1 sp-t-2">
-      <% if resource.new_record? %>
-        <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
-        <li class="solid disabled" id="upload-button-upload"><%= f.submit value: "Upload", disabled: "disabled" %></li>
-      <% else %>
-        <li class="solid orange">
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue" %>
-        </li>
-        <li><%= link_to "Cancel", collection_path %></li>
-      <% end %>
-    </ul>
-
+      <div>
+        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "btn btn-primary btn-small" %>
+        <%= link_to "Cancel", collection_path, class: "btn btn-small" %>
+      </div>
   <% end %>
 
 </section>
