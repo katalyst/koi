@@ -11,7 +11,7 @@ module Koi::ApplicationHelper
     link_opt.merge! data: { get_script: true }
     if column == sort_column
       link_params.merge! direction: (sort_direction == "asc" ? "desc" : "asc")
-      link_opt.merge_html! class: "sort icon pad-l-1 bg-x-l bg-y-c #{ sort_direction }"
+      link_opt.merge_html! class: "sort icon pad-l-1 #{ sort_direction }"
     end
     link_to title, link_params, link_opt
   end

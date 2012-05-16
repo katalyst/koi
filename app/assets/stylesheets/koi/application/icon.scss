@@ -7,7 +7,7 @@
     }
   }
 
-  &.sort {
+  &.sort, &.sort:hover {
     min-height: 16px; min-width: 16px; background-position:right center;
     &.ascending, &.asc { background-image:   url(/assets/koi/application/icon-index-sort-ascending.png); }
     &.descending, &.desc { background-image: url(/assets/koi/application/icon-index-sort-descending.png); }
