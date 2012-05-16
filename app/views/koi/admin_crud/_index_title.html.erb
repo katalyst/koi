@@ -1,1 +1,1 @@
-<%= kt(default: resource_class.crud.find(:admin, :index, :title) || resource_class.titleize) %>
+<%= kt(default: resource_class.crud.find(:admin, :index, :title) || "ALL #{crud_heading(resource_class, :plural)}") %>
