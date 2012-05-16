@@ -11,14 +11,14 @@
   </div>
 
   <div class="row space-b-2">
-    <% Report.metrics.elements.each do |metric| %>
-      <% value  = report.send("#{metric}") %>
+    <% Report::Humanize.each do |key, name| %>
+      <% value  = report.send("#{key}") %>
       <% value  = value.round(2) if value.kind_of?(Float) %>
-      <% change = report.send("#{metric}_diff") %>
+      <% change = report.send("#{key}_diff") %>
       <% change_text = change > 0 ? "increase" : "decrease" %>
-      <div class="widget span4">
-        <div class="widget-header"><%= metric.to_s.humanize.capitalize %></div>
-        <div class="widget-body"><%= value %></div>
+      <div class="widget span4 space-b-1">
+        <div class="widget-header"><%= name %></div>
+        <div class="widget-body"><%= number_with_delimiter value %></div>
         <div class="widget-footer widget-footer-<%= change_text %>"><%= change.abs %>% <%= change_text %></div>
       </div>
     <% end %>
