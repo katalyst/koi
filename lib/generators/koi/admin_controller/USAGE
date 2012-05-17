@@ -22,5 +22,5 @@ Usage:
 
 Examples
     To add a ordarable property to a model
-    rails g koi:controller post name:string content:text --orderable
+    rails g koi:admin_controller post name:string content:text --orderable
 

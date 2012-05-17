@@ -1,6 +1,7 @@
 // initialization /////////////////////////////////////////////////////////////
 
 // colors
+$textColor: #000;
 $orange:         #ff5700;
 $orangeDark:     #ee3700;
 $linkColor:      #fc6b02;
@@ -12,7 +13,8 @@ $gridColumnWidth: 30px;
 $gridGutterWidth: 10px;
 
 // icons
-$iconSpritePath:      image-path('glyphicons-halflings.png');
+// $iconSpritePath:      image-path('koi/application/glyphicons-halflings.png');
+$iconSpritePath: asset-url("koi/application/glyphicons-halflings.png", image) ;
 $iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
 
 // navbar
@@ -28,9 +30,9 @@ $navbarLinkColor: #FFF;
 
 // elements ///////////////////////////////////////////////////////////////////
 
-body { font-family: "proxima-nova",sans-serif; }
-h1 { font-size: 44px; font-weight: normal; line-height: 64px; border-bottom: 1px solid #CCC; }
-h2 { font-size: 24px; font-weight: 400; }
+body, p { font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
+h1 { font-size: 44px; font-weight: 300; line-height: 64px; border-bottom: 1px solid #CCC;}
+h2 { font-size: 24px; font-weight: 600; }
 table { border: 1px solid #CCC; }
 th { background-color: #ececec; font-size: 11px; }
 textarea { height: 200px; width: 400px; }
@@ -40,21 +42,27 @@ ol, ul { list-style-type:none; margin-left:0; padding-right:0; }
 
 // bootstrap-on ///////////////////////////////////////////////////////////////
 
-.btn { text-shadow: none; @include buttonBackground($orange, $gray); @include box-shadow(none); background-image: none; border: none; font-weight: 500; background-color: $grayLight; color: #FFF; }
+.btn { text-shadow: none; @include buttonBackground($orange, $gray); @include box-shadow(none); background-image: none; border: none; font-weight: 600; background-color: $grayLight; color: #FFF; }
 .btn-small { padding: 4px 10px 3px 10px; font-size: 12px; }
 .btn-mini { padding: 3px 10px 4px 10px; font-size: 12px; }
 .btn-primary { border: none; background-image: none; background-color: $orange; text-shadow: none; }
 .navbar-fixed-top { border-bottom: 4px solid #f60; }
-.navbar .nav li a { font-weight: 800; text-transform: uppercase; }
+.navbar .nav li a, { font-size:14px; font-weight: 700; text-transform: uppercase; font-family: 'Open Sans Condensed', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
 .pagination ul { @include box-shadow(none); }
 .btn:hover { background-color: darken($grayLight, 10%); color: #FFF; }
 .btn-primary:hover { background-color: $orangeDark; text-shadow: none; }
 
 // typography /////////////////////////////////////////////////////////////////
 
+a { color: $orange; }
+a:hover { color: $orange; text-decoration: underline; }
+
+a.nohover {color: $textColor; }
+a.nohover:hover {color: $textColor; text-decoration:none; }
+
 .font-orange { color: $orange; }
 a.font-orange { color: $orange; }
-a.font-orange:hover { color: $orange; text-decoration: none }
+a.font-orange:hover { color: $orange; text-decoration: none; }
 
 // media (from giusi.org/bootstrap-media/media.html) //////////////////////////
 
@@ -64,19 +72,25 @@ a.font-orange:hover { color: $orange; text-decoration: none }
 .media .pull-right { margin-left: 10px; }
 .media .media-object { display: block; }
 
+// dashboard widgets /////////////////////////////////////////////////////////
+
+.widget { background-color: #ececec; position:relative; @include border-radius(5px); font-weight: bold; }
+.widget-header { padding:5px 5px; text-align:center; @include border-radius(5px 5px 0 0); font-size: 13px; color:#FFF; background-color: #7b7b7b;color:#FFF; }
+.widget-body { font-size:40px; line-height: 70px;text-align:center;color: #464646;font-weight: bold; }
+.widget-footer { padding:3px 5px; text-align:center;@include border-radius(0 0 5px 5px ); font-size: 11px; }
+.widget-footer-increase {background-color:#bfe9d3; color: #00a34e; }
+.widget-footer-decrease {background-color:#ffbfbf; color: #f11a29; }
+
 // general ////////////////////////////////////////////////////////////////////
 
 .cursor-move { cursor: move; }
 .container.center, .margin-center { margin: 0 auto; }
-
 .logo-header { padding-top: 8px; float: left; }
-
 .bg-darkgrey { background-color: #666; }
-.bg-lightgrey { background-color: #f4f4f4; }
 .bg-mediumgrey { background-color: #E8E8E8; }
+.bg-lightgrey { background-color: #f4f4f4; }
 .bg-light-red { background-color: #ffdede; }
 .bg-light-green, .bg-notice { background-color: #ceeed2; }
-
 .asset-manager-bg-darkgrey { background-color: #C8C8C8; }
 
 .titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px 5px; }
@@ -92,11 +106,6 @@ a.font-orange:hover { color: $orange; text-decoration: none }
 .font-12px { font-size: 12px; }
 
 p.error { background: url(/assets/koi/application/icon-form-error.png) 5px center no-repeat; min-height: 16px; min-width: 16px; padding-left: 27px; color: #e53a3a; margin-top: 5px; }
-
-abbr[title=required] { color: $orange; }
-
-a { color: $orange; }
-a:hover { color: $orange; text-decoration: underline; }
 
 .h6 { font-size: 13px; margin-bottom: 5px; color: #555; }
 
@@ -123,3 +132,8 @@ a:hover { color: $orange; text-decoration: underline; }
 
 #modal-for-asset-manager.modal.fade.in { top:35%; left:35%; width:950px; height:741px; border:none; overflow:hidden; }
 #modal-for-asset-manager > iframe { @include border-radius(4px 4px 0 0 ); }
+
+.tweet_odd, .tweet_even { margin-top: 5px; float:left; }
+.tweet_avatar { float:left; width: 50px; display:block; margin:0; padding: 0; }
+.tweet_text { float:right; width:180px; display:block; margin:0; padding: 0; }
+.tweet_time { display:none; }
