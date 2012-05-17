@@ -147,17 +147,24 @@ module HasCrud
           %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
         end
 
+        def kt(args={})
+          interpolation = (params[:controller] + "/" + params[:action]).gsub("/", ".")
+          args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
+          args.merge!(klass: resource_class.name) if respond_to? :resource_class
+          t(interpolation, args)
+        end
+
         def parent_title
           respond_to?(:parent) ? "#{humanized(parent)}: " : ""
         end
 
         def index_title
-          parent_title << t(".index_title", default: resource_class.crud.find(:admin, :index, :title)\
+          parent_title << kt(default: resource_class.crud.find(:admin, :index, :title)\
            || "All #{humanized_plural_name}")
         end
 
         def action_new_title
-          t(".new_title", default: resource_class.crud.find(:admin, :form, :title, :new)\
+          kt(default: resource_class.crud.find(:admin, :form, :title, :new)\
            || "Add #{humanized_singular_name}")
         end
 
@@ -166,7 +173,7 @@ module HasCrud
         end
 
         def edit_title
-          parent_title << t(".edit_title", default: resource_class.crud.find(:admin, :form, :title, :edit)\
+          parent_title << kt(default: resource_class.crud.find(:admin, :form, :title, :edit)\
            || "Edit #{resource}")
         end
 
