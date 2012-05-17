@@ -8,4 +8,5 @@ test/dummy/tmp
 test/dummy/.sass-cache
 test/dummy/public/system
 test/dummy/public/assets
+test/dummy/.powenv
 .DS_Store
