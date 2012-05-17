@@ -41,8 +41,4 @@ private
   def set_default_values
     self.role ||= "Admin"
   end
-
-  def password_required?
-    new_record? || destroyed? || password.present? || password_confirmation.present?
-  end
 end
