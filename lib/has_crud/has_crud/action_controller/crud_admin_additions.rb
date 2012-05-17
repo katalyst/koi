@@ -6,7 +6,7 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :per_page
+                  :per_page, :title_for
         base.send :respond_to, :html, :js
       end
 
@@ -60,6 +60,18 @@ module HasCrud
         def plural_name(to_sym=false)
           name = singular_name(:symbol).pluralize
           to_sym ? name : name.to_sym
+        end
+
+        def humanized(value=nil)
+          value.to_s.gsub("_", " ").capitalize
+        end
+
+        def humanized_singular_name
+          humanized singular_name
+        end
+
+        def humanized_plural_name
+          humanized plural_name
         end
 
         def is_allowed?(action)
@@ -134,8 +146,39 @@ module HasCrud
         def sort_direction
           %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
         end
+
+        def parent_title
+          respond_to?(:parent) ? "#{humanized(parent)}: " : ""
+        end
+
+        def index_title
+          parent_title << t(".index_title", default: resource_class.crud.find(:admin, :index, :title)\
+           || "All #{humanized_plural_name}")
+        end
+
+        def action_new_title
+          t(".new_title", default: resource_class.crud.find(:admin, :form, :title, :new)\
+           || "Add #{humanized_singular_name}")
+        end
+
+        def new_title
+          parent_title << action_new_title
+        end
+
+        def edit_title
+          parent_title << t(".edit_title", default: resource_class.crud.find(:admin, :form, :title, :edit)\
+           || "Edit #{resource}")
+        end
+
+        def title_for(symbol=nil)
+          method_name = "#{symbol}_title".to_sym
+          if respond_to? method_name
+            send(method_name)
+          else
+            "No title defined for #{symbol}"
+          end
+        end
       end
     end
   end
 end
-
