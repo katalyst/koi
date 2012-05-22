@@ -6,7 +6,7 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :per_page
+                  :is_settable?, :per_page
         base.send :respond_to, :html, :js
       end
 
@@ -91,6 +91,10 @@ module HasCrud
 
         def is_ajaxable?
           resource_class.options[:ajaxable]
+        end
+
+        def is_settable?
+          resource_class.options[:settings]
         end
 
         def collection
