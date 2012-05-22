@@ -1,35 +1,5 @@
-<% unless params[:CKEditorFuncNum].blank? %>
-  <% js_data :ck_editor_func_num, params[:CKEditorFuncNum] %>
-  <% content_for :head do %>
-    <script type="text/javascript">
-      $(function() {
-        var CKEditorFuncNum = '#{}';
-
-        $('.insert.asset.application').application (function ($insert) {
-          var $link = $insert.component ('.insert.asset.link');
-
-          $insert.find ('.option').each (function () {
-            var $option = $ (this);
-            var $radio = $option.find ('input[type=radio]');
-
-            $radio.change (function () {
-              $link.attr ('href', $radio.data ('href'));
-            });
-          });
-
-          $link.click (function() {
-            var href = $(this).attr ("href");
-            try {
-              window.opener.CKEDITOR.tools.callFunction (jsData.ckEditorFuncNum, href);
-              window.close();
-              return false;
-            } catch (e) {}
-          });
-
-        });
-      });
-    </script>
-  <% end %>
+<% content_for :head do %>
+    <%= render 'script' %>
 <% end %>
 
 <header class="pad-1">

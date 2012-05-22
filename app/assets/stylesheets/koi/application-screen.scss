@@ -92,7 +92,8 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .bg-light-red { background-color: #ffdede; }
 .bg-light-green, .bg-notice { background-color: #ceeed2; }
 .asset-manager-bg-darkgrey { background-color: #C8C8C8; }
-.titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px; }
+
+.titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px 5px; }
 .titlebar h1 { font-size: 22px; border: none; line-height: 22px; }
 
 .h-600 { height: 600px; }
@@ -104,13 +105,33 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .space-t-10 { margin-top: 100px; }
 .font-12px { font-size: 12px; }
 
-p.error { background: url(/assets/koi/icon/form/error.png) 5px center no-repeat; min-height: 16px; min-width: 16px; padding-left: 27px; color: #e53a3a; margin-top: 5px; }
+p.error { background: url(/assets/koi/application/icon-form-error.png) 5px center no-repeat; min-height: 16px; min-width: 16px; padding-left: 27px; color: #e53a3a; margin-top: 5px; }
 
 .h6 { font-size: 13px; margin-bottom: 5px; color: #555; }
 
 .simple_form input.check_boxes { margin-right: 5px; }
 .simple_form input.radio { margin-right: 5px; }
 .simple_form input.date { width: 249px; }
+
+[class^="icon-"], [class*=" icon-"]
+{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url(/assets/glyphicons-halflings-white.png);
+  background-repeat: no-repeat;
+}
+
+.wysihtml5-toolbar .btn { height:18px; }
+.wysihtml5-toolbar [class^="icon-"], .wysihtml5-toolbar [class*=" icon-"] { line-height: 18px; }
+
+.action.view input.date, .action.view input[type=text], .action.view input[type=tel], .action.view input[type=url], .action.view input[type=password] { width: 298px; }
+.action.view textarea { width:498px; }
+
+#modal-for-asset-manager.modal.fade.in { top:35%; left:35%; width:950px; height:741px; border:none; overflow:hidden; }
+#modal-for-asset-manager > iframe { @include border-radius(4px 4px 0 0 ); }
 
 .tweet_odd, .tweet_even { margin-top: 5px; float:left; }
 .tweet_avatar { float:left; width: 50px; display:block; margin:0; padding: 0; }
