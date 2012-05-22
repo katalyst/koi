@@ -4,7 +4,7 @@ module Koi
   module Asset
     # Image incase no icon cannot be found
     mattr_accessor :unknown_image
-    @@unknown_image = '/assets/koi/icon/file/unknown.png'
+    @@unknown_image = '/assets/koi/application/icon-file-unknown.png'
 
     # Default file upload size limit
     mattr_accessor :size_limit

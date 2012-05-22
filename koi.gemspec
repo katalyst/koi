@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 2.0.1'
+  s.add_dependency 'devise'                        , '~> 2.1.0'
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
