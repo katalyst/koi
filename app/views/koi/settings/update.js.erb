@@ -1,6 +1,0 @@
-<% if @setting.set %>
-  $("#settings").html("<%= escape_javascript render("resource_settings") %>");
-<% else %>
-  $("#settings").html("<%= escape_javascript render("collection_settings") %>");
-<% end %>
-

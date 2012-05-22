@@ -15,7 +15,6 @@ module HasCrud
         self.crud = KoiConfig::Config.new
 
         #FIXME: refactor
-        has_settings   if options[:settings].eql?(true)
         has_navigation if options[:navigation].eql?(true)
 
         if options[:orderable]
@@ -27,6 +26,7 @@ module HasCrud
 
         scope :ordered, :order => 'ordinal ASC' if options[:orderable]
 
+        options[:settings] = true unless options[:settings].eql?(false)
         options[:sortable] = true if options[:sortable].eql?(nil)
         options[:ajaxable] = true unless options[:ajaxable].eql?(false)
 
@@ -51,6 +51,18 @@ module HasCrud
           paginates_per options[:paginate]
         end
 
+        def singular_name
+          to_s.underscore
+        end
+
+        def settings
+          Translation.where("`key` LIKE ?", "#{singular_name}.%")
+        end
+
+        def setting(key, default=nil)
+          Translation.find_by_key("#{singular_name}.#{key}").try(:value) || default
+        end
+
         self.options = options
       end
 
@@ -58,6 +70,17 @@ module HasCrud
         false
       end
     end
+
+    def singular_name
+      self.class.singular_name
+    end
+
+    def settings
+      Translation.where("`key` LIKE ?", "#{id}.#{singular_name}.%")
+    end
+
+    def setting(key, default=nil)
+      Translation.find_by_key("#{id}.#{singular_name}.#{key}").try(:value) || default
+    end
   end
 end
-
