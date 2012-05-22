@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514063822) do
+ActiveRecord::Schema.define(:version => 20120516035141) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -122,6 +122,20 @@ ActiveRecord::Schema.define(:version => 20120514063822) do
   end
 
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
+
+  create_table "reports", :force => true do |t|
+    t.integer  "visits"
+    t.integer  "unique_pageviews"
+    t.integer  "pageviews"
+    t.float    "pageviews_per_visit"
+    t.float    "avg_time_on_site"
+    t.float    "visit_bounce_rate"
+    t.integer  "new_visits"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "settings", :force => true do |t|
     t.string   "url"
