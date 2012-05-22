@@ -32,5 +32,9 @@
 <% end %>
 
 <% content_for :side do %>
-  <%= render 'new_side' %>
+  <% if is_settable? %>
+    <%= render 'koi/settings/settings' %>
+  <% else %>
+    <%= render 'new_side' %>
+  <% end %>
 <% end %>

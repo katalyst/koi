@@ -1,0 +1,9 @@
+<% settings = resource_class.settings  %>
+<% if settings.blank? %>
+  No Settings found
+<% else %>
+  <%= settings.count %> Settings Found
+  <% settings.each do |setting| %>
+    <%= render "koi/settings/setting", setting: setting %>
+  <% end %>
+<% end %>
