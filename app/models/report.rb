@@ -3,14 +3,6 @@ require 'garb'
 class Report < ActiveRecord::Base
   extend Garb::Model
 
-  metrics :visits,
-          :unique_pageviews,
-          :pageviews,
-          :pageviews_per_visit,
-          :avg_time_on_site,
-          :visit_bounce_rate,
-          :new_visits
-
   Humanize = {
     visits: "Visits",
     unique_pageviews: "Unique page views",
@@ -18,9 +10,11 @@ class Report < ActiveRecord::Base
     pageviews_per_visit: "Page views per visit",
     avg_time_on_site: "Avg time on site",
     visit_bounce_rate: "Bounce rate (%)",
-    new_visits: "New visits"
-
+    new_visits: "New visits",
+    organic_searches: "Organic Searches"
   }
+
+  metrics Humanize.keys
 
   def self.profile
     return @profile if @profile
