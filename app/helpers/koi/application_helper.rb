@@ -11,7 +11,7 @@ module Koi::ApplicationHelper
     link_opt.merge! data: { get_script: true }
     if column == sort_column
       link_params.merge! direction: (sort_direction == "asc" ? "desc" : "asc")
-      link_opt.merge_html! class: "sort icon pad-l-1 bg-x-l bg-y-c #{ sort_direction }"
+      link_opt.merge_html! class: "sort icon pad-r-15px #{ sort_direction }"
     end
     link_to title, link_params, link_opt
   end
@@ -44,7 +44,8 @@ module Koi::ApplicationHelper
   #   placeholder_image_tag("No Image", width: 100, height: 100) # => "<img src='/example.png' width='100' height='100' />"
   #
   def placeholder_image_tag(text, args={})
-    image_tag(placeholder_image(text, args).url, args)
+    image_tag('koi/application/placeholder-image-none.png', args)
+#    image_tag(placeholder_image(text, args).url, args)
   end
 
   def new_uuid
