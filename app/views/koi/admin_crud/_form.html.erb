@@ -3,9 +3,9 @@
   # NOTE: admin namespace is not needed for koi core classes server from the railtie
   #       as they live in engine namespace
 %>
-<% form_path.insert(0, :admin) unless is_koi_core_class?(resource_class) %>
+<% form_path.insert(0, :admin) unless is_koi_core_class? resource_class %>
 <% # FIXME: Need to check if admin exists before inserting into 1 position %>
-<% form_path.insert(1, parent) if respond_to?(:parent) && !parent.nil? %>
+<% form_path.insert(1, parent) unless parent.nil? if respond_to? :parent %>
 
 <%= simple_form_for form_path, html: { multipart: true , class: 'form-vertical' }  do |f| %>
   <%= render "form_parent",  { :f => f } %>
@@ -13,3 +13,5 @@
   <%= render "form_fields",  { :f => f } %>
   <%= render "form_buttons", { :f => f } %>
 <% end %>
+
+<div id="modal-for-asset-manager" class="modal fade hide-element as-clr">&nbsp;</div>
