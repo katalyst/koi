@@ -1,4 +1,5 @@
-<div class="background-error-light round pd-t-2 pd-b-half pd-l-2 bad-r-2 sp-b-2">
+<div class="alert alert-error alert-block">
+  <a href="" class="close" data-dismiss="alert">x</a>
   <p><strong><%= t('simple_form.error_notification.default_message') %></strong></p>
   <ul>
     <% errors.each do |error| %>
@@ -6,4 +7,3 @@
     <% end %>
   </ul>
 </div>
-

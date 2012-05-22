@@ -7,18 +7,18 @@
     paginator:     the paginator that renders the pagination tags inside
 -%>
 <%= paginator.render do -%>
-  <nav class="tx-c tx-11px">
-    <div class="spaced-3px inline elements flt-l">
+  <nav>
+    <div class="pull-left">
       <%= first_page_tag %>
       <%= prev_page_tag %>
     </div>
 
-    <div class="spaced-3px inline elements flt-r">
+    <div class="pull-right">
       <%= next_page_tag %>
       <%= last_page_tag %>
     </div>
 
-    <div class="spaced-3px inline elements">
+    <div class="align-center">
       <% each_page do |page| -%>
         <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
           <%= page_tag page %>

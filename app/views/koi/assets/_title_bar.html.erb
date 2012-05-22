@@ -1,10 +1,22 @@
-<h1 class="h-55px ln-h-55px flt-l tx-25px">
-  Select <%= resource_class.name %>
-</h1>
+<% content_for :head do %>
 
-<div class="hoverable grey text button flt-r tx-10px tx-uc tx-grey-c0">
-  <%= link_to collection_path, class: "h-2 ln-h-2" do %>
-    <span>Upload New <%= resource_class.name %></span>
-    <span class="overlay add icon as-iblk sp-l-4px w-16px h-16px ln-h-16px pull-d-3px"></span>
-  <% end %>
+  <script type="text/javascript">
+  $ (function ()
+  {
+    $ ('a[href=#close]').click (function (e)
+    {
+      e.preventDefault ();
+      window.parent.assetManager.close ();
+    });
+  });
+  </script>
+
+<% end %>
+
+<div class="pad-t-1 space-l-1 ">
+  <h2 class="pull-left">Select <%= resource_class.name %></h2>
+  <div class="pull-right space-t-half pad-r-2">
+    <%= link_to "Upload New #{resource_class.name}", collection_path, class: "btn btn-small space-r-2" %>
+    <%= link_to "×", "#close", style: "font-size:20px;line-height:0px;" %>
+  </div>
 </div>
