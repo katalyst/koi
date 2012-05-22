@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
     t.float    "avg_time_on_site"
     t.float    "visit_bounce_rate"
     t.integer  "new_visits"
+    t.integer  "organic_searches"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",          :null => false
