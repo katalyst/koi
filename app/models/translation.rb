@@ -4,6 +4,8 @@ class Translation < ActiveRecord::Base
   validates :locale, :label, :key, :value, :field_type, :role, presence: true
   validates :key, :uniqueness => true
 
+  before_validation :set_default_values
+
   default_scope order("`key` ASC")
 
   FieldTypes = {
@@ -25,5 +27,11 @@ class Translation < ActiveRecord::Base
       form  fields: [:label, :field_type, :key, :value, :hint, :role, :is_proc],
             title: { new: "Create new setting", edit: "Edit setting" }
     end
+  end
+
+  private
+
+  def set_default_values
+    self.role ||= Admin.god
   end
 end
