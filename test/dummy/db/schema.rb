@@ -57,15 +57,6 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
 
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
-  create_table "exits", :force => true do |t|
-    t.text     "page_path"
-    t.integer  "pageviews"
-    t.integer  "unique_pageviews"
-    t.integer  "exits"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
   create_table "nav_items", :force => true do |t|
     t.string   "type"
     t.string   "title"
