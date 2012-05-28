@@ -119,6 +119,12 @@ rake 'db:create'
 # Generate Devise Config
 generate('devise:install')
 
+# Change scoped views
+gsub_file 'config/initializers/devise.rb', 'config.scoped_views = false', 'config.scoped_views = true'
+
+# Disable Whitelist Attribute
+gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
+
 route "root to: 'pages#index'"
 
 route 'resources :pages'
