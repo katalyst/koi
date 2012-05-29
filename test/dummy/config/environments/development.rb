@@ -37,4 +37,7 @@ Dummy::Application.configure do
 
   # Mailer
   config.action_mailer.default_url_options = { :host => 'dummy.dev' }
+
+  # Turn Caching On
+  config.action_controller.perform_caching = true
 end
