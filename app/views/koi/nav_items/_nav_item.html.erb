@@ -1,4 +1,4 @@
-<% cache nav_item, expires_in: 7.days do %>
+<% cache "nav_item/admin/#{nav_item.id}-#{nav_item.updated_at}/sitemap", expires_in: 7.days do %>
 
   <% nav_item_type = nav_item.class.name.underscore.dasherize %>
   <% nav_item_id = nav_item.id %>
