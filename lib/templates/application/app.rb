@@ -10,7 +10,8 @@ gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nes
 gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Koi CMS
-gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
+gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
+                                  :branch => 'v1.0.0.beta'
 
 # Bowerbird
 gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
@@ -113,11 +114,18 @@ route "mount Koi::Engine => '/admin', as: 'koi_engine'"
 
 run 'rm public/index.html'
 
+# Disable Whitelist Attribute
+gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
+
 rake 'db:drop'
 rake 'db:create'
+rake 'db:migrate'
 
 # Generate Devise Config
 generate('devise:install')
+
+# Change scoped views
+gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
 route "root to: 'pages#index'"
 
@@ -160,9 +168,6 @@ Koi::Menu.items = {
 }
 END
 
-rake 'db:migrate'
-rake 'db:seed'
-
 # Setup up Git
 run 'rm .gitignore'
 file '.gitignore', <<-END
@@ -195,3 +200,5 @@ END
 git :init
 git :add => '.'
 git :commit => "-m 'Initial Commit'"
+
+rake 'db:seed'
