@@ -1,5 +1,7 @@
 class NavItem < ActiveRecord::Base
-  before_save :raise_abstract_error
+  before_save  :raise_abstract_error
+  after_save   :touch_parent
+  after_touch  :touch_parent
 
   acts_as_nested_set
   has_crud searchable: [:id, :title, :url], settings: false
@@ -90,8 +92,10 @@ class NavItem < ActiveRecord::Base
   end
 
   def navigation(get_binding=binding())
-    @@binding = get_binding
-    children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
+    @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
+      @@binding = get_binding
+      children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
+    end
   end
 
   def self.navigation(arg=nil, get_binding=binding())
@@ -105,4 +109,9 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
+  private
+
+  def touch_parent
+    ancestors.each { |a| a.touch }
+  end
 end
