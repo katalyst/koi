@@ -112,6 +112,6 @@ class NavItem < ActiveRecord::Base
   private
 
   def touch_parent
-    ancestors.each { |a| a.touch }
+    parent.touch if parent
   end
 end
