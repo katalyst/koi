@@ -1,6 +1,7 @@
 Koi::Engine.routes.draw do
   devise_for :admins,
              :class_name => "Admin",
+             controllers: { passwords: "Koi::Passwords" },
              module: "Devise"
 
   resources :assets do
@@ -43,7 +44,6 @@ Koi::Engine.routes.draw do
     end
   end
   match 'help' => 'application#help', :as => :help
-  match 'dashboard'   => 'application#index',       :as => :dashboard
-  match 'screencasts' => 'application#screencasts', :as => :screencasts
+  match 'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
 end
