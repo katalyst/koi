@@ -3,6 +3,8 @@ class Asset < ActiveRecord::Base
 
   scoped_search :on => [:data_name]
 
+  scope :unassociated, where(attributable_type: nil)
+
   acts_as_taggable
 
   belongs_to :attributable, polymorphic: true
