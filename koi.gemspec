@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 2.0.1'
+  s.add_dependency 'devise'                        , '~> 2.1.0'
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
@@ -48,12 +48,6 @@ Gem::Specification.new do |s|
 
   # Pagination
   s.add_dependency 'kaminari'                      , '~> 0.13.0'
-
-  # Data Seeding
-  s.add_dependency 'seedbank'                      , '~> 0.0.7'
-
-  # Easier SQL Queries
-  s.add_dependency 'squeel'                        , '~> 0.9.3'
 
   # Inherited Resources
   s.add_dependency 'inherited_resources'           , '~> 1.3.1'
@@ -78,9 +72,6 @@ Gem::Specification.new do |s|
   # Google Analytics
   s.add_dependency 'garb'
 
-  # Fixture replacement
-  s.add_dependency 'factory_girl_rails'
-
   # Console Replacement
   s.add_development_dependency 'pry'
 
@@ -95,6 +86,12 @@ Gem::Specification.new do |s|
 
   # Clever Data Generator
   s.add_development_dependency 'forgery'
+
+  # Data Seeding
+  s.add_development_dependency 'seedbank'          , '~> 0.0.7'
+
+  # Fixture replacement
+  s.add_development_dependency 'factory_girl_rails'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'
