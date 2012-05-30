@@ -1,6 +1,6 @@
 ! function ($)
 {
-  $.fn.koiFrame = function ()
+  $.fn.htmlIframe = function ()
   {
     var sig = [].slice.call (arguments), src, opt;
 
