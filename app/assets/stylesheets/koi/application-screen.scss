@@ -130,7 +130,7 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
 .action.view input.date, .action.view input[type=text], .action.view input[type=tel], .action.view input[type=url], .action.view input[type=password] { width: 298px; }
 .action.view textarea { width:498px; }
 
-#modal-for-asset-manager.modal.fade.in { top:35%; left:35%; width:950px; height:741px; border:none; overflow:hidden; }
+#modal-for-asset-manager.modal.fade.in { top:35%; left:35%; width:950px; height:742px; border:none; overflow:hidden; }
 #modal-for-asset-manager > iframe { @include border-radius(4px 4px 0 0 ); }
 
 .tweet_odd, .tweet_even { margin-top: 5px; float:left; }
