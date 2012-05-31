@@ -1,0 +1,18 @@
+<% settings.try(:each_with_index) do |object, i| %>
+  <tr>
+    <% Translation.admin_attributes(:index).each_with_index do |attr,index| %>
+      <td>
+          <%=
+          begin
+            render crud_partial(attr, :index), { :attr => attr, :object => object }
+          rescue ActionView::MissingTemplate
+            render "index_field_default", { :attr => attr, :object => object }
+          end
+          %>
+      </td>
+    <% end %>
+    <td class="nowrap">
+      <%= render "index_fields_action", { :object => object } %>
+    </td>
+  </tr>
+<% end %>
