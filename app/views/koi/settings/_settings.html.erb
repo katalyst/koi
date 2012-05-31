@@ -1,2 +1,54 @@
-<%= render "/koi/settings/list" %>
-<%= render "/koi/settings/new" %>
+<div class="settings">
+  <div class="row">
+    <div class="span17 bg-darkgrey">
+      <div class="row">
+        <div class="span9 ">&nbsp;</div>
+        <div class="span8 color-darkgrey">
+          <div class="space-half pull-right">
+            <%= link_to "Add Setting", koi_engine.new_setting_path, remote: true, class: "btn btn-small btn-primary" if current_admin.god? %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="index-fields">
+    <table class="table space-b-0">
+      <thead>
+        <tr>
+          <% Translation.admin_attributes(:index).each_with_index do |attr,i| %>
+            <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
+            <% if is_sortable? %>
+              <th class="sort-icon"><%= sortable attr.to_s, label, :class => "nohover" %></th>
+            <% else %>
+              <th><%= label %></th>
+            <% end %>
+          <% end %>
+          <th class="span4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% settings.try(:each_with_index) do |object, i| %>
+          <tr>
+            <% Translation.admin_attributes(:index).each_with_index do |attr,index| %>
+              <td>
+                  <%=
+                  begin
+                    render crud_partial(attr, :index), { :attr => attr, :object => object }
+                  rescue ActionView::MissingTemplate
+                    render "index_field_default", { :attr => attr, :object => object }
+                  end
+                  %>
+              </td>
+            <% end %>
+            <td class="nowrap">
+              <%= render "index_fields_action", { :object => object } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="modal-for-setting" class="modal fade hide-element as-clr">&nbsp;</div>
