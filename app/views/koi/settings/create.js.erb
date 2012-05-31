@@ -1,0 +1,6 @@
+<% if resource.errors.any? -%>
+  $("#modal-for-setting").html("<%= escape_javascript render("modal_setting") %>");
+<% else %>
+  $("#modal-for-setting").modal('hide');
+  $("#settings-list").html("<%= escape_javascript render("settings_list") %>");
+<% end %>
