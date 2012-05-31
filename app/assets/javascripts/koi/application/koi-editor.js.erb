@@ -49,13 +49,6 @@
     }    
   }
 
-  window.assetManager = new Object; // somewhere for the AM callbacks to go...
-
-  window.assetManager.close = function ()
-  {
-    $ ('#modal-for-asset-manager').modal ('hide');
-  }
-
   var templates = {
     
     "font-styles":
@@ -89,22 +82,38 @@
     +   "</div>" 
     + "</li>",
 
-    "link":
+    "links":
       "<li>"             
-    +   "<div class='bootstrap-wysihtml5-insert-link-modal modal hide fade'>"
-    +     "<div class='modal-header'>"
-    +       "<a class='close' data-dismiss='modal'>&times;</a>"
-    +       "<h3>Insert Link</h3>"
-    +     "</div>"
-    +     "<div class='modal-body'>"
-    +       "<input value='http://' class='bootstrap-wysihtml5-insert-link-url input-xlarge'>"
-    +     "</div>"
-    +     "<div class='modal-footer'>"
-    +       "<a href='#' class='btn close' data-dismiss='modal'>Cancel</a>"
-    +       "<a href='#' class='space-r-1 btn btn-primary' data-dismiss='modal'>Insert link</a>"
-    +     "</div>"
+    +   "<div class='btn-group'>"
+    +    "<a class='btn' data-wysihtml5-command='createLink' title='Link'><i class='icon-share'></i></a>" 
+    +    "<div class='bootstrap-wysihtml5-insert-link-modal modal hide fade'>"
+    +      "<div class='modal-header'>"
+    +        "<a class='close' data-dismiss='modal'>&times;</a>"
+    +        "<h3>Insert Link</h3>"
+    +      "</div>"
+    +      "<div class='modal-body'>"
+    +        "<input value='http://' class='bootstrap-wysihtml5-insert-link-url input-xlarge'>"
+    +      "</div>"
+    +      "<div class='modal-footer'>"
+    +        "<a href='#' class='btn close' data-dismiss='modal'>Cancel</a>"
+    +        "<a href='#' class='space-r-1 btn btn-primary' data-dismiss='modal'>Insert link</a>"
+    +      "</div>"
+    +    "</div>"
+    +    "<div class='bootstrap-wysihtml5-insert-email-link-modal modal hide fade'>"
+    +      "<div class='modal-header'>"
+    +        "<a class='close' data-dismiss='modal'>&times;</a>"
+    +        "<h3>Insert Email Link</h3>"
+    +      "</div>"
+    +      "<div class='modal-body'>"
+    +        "<input class='bootstrap-wysihtml5-insert-email-link-url input-xlarge'>"
+    +      "</div>"
+    +      "<div class='modal-footer'>"
+    +        "<a href='#' class='btn close' data-dismiss='modal'>Cancel</a>"
+    +        "<a href='#' class='space-r-1 btn btn-primary' data-dismiss='modal'>Insert email link</a>"
+    +      "</div>"
+    +    "</div>"
+    +    "<a class='btn' data-wysihtml5-command='createEmailLink' title='Email Link'>@</a>"
     +   "</div>"
-    +   "<a class='btn' data-wysihtml5-command='createLink' title='Link'><i class='icon-share'></i></a>" 
     + "</li>",
 
     "assets":
@@ -128,7 +137,7 @@
     "font-styles": true,
     "emphasis": true,
     "lists": true,
-    "link": true,
+    "links": true,
     "assets": true,
     "html": true,
     
@@ -240,7 +249,11 @@
           toolbar.append (templates[key]);
 
           if (key == "html") this.initHtml (toolbar);
-          if (key == "link") this.initInsertLink (toolbar);
+          if (key == "links")
+          {
+            this.initInsertLink (toolbar);
+            this.initInsertEmailLink (toolbar);
+          }
           if (key == "assets")
           {
             this.initInsertImage (toolbar);
@@ -273,50 +286,73 @@
 
     initInsertDocument: function (toolbar)
     {
-      var $this = this;
-      var $button = toolbar.find ('a[data-wysihtml5-command=insertDocument]');
+      var wysihtml5 = this, assetManager = $ ('#modal-for-asset-manager');
 
-      $button.click (function ()
+      function insert (arg)
       {
-        $ ('#modal-for-asset-manager').modal ('show').koiFrame ("<%= url.new_document_path %>");
-        return false;
-      });
-
-      window.assetManager.insertDocument = function (arg)
-      {
-        var composer = $this.editor.composer;
-        
-        $ (composer.doc.getElementsByTagName ('body')).focus ();
-        composer.commands.exec ('createLink', arg);
-        
-        window.assetManager.close ();
+        var composer = wysihtml5.editor.composer
+        ,   commands = composer.commands
+        ,   doc = composer.doc
+        ,   body = doc.getElementsByTagName ('body')
+        ;
+        $ (body).focus ();
+        commands.exec ('createLink', arg);
       }
+
+      function close ()
+      {
+        assetManager.modal ('hide'); return false;
+      }
+
+      function open ()
+      {
+        assetManager.modal ('show')
+        .htmlIframe ("<%= url.new_document_path %>")
+        .firstChild ()
+        .data ({ insert: insert, close: close, open: open })
+        ;
+        return false;
+      }
+
+      toolbar.find ('a[data-wysihtml5-command=insertDocument]').click (open);
     },
 
     initInsertImage: function (toolbar)
     {
-      var $this = this;
-      var $button = toolbar.find ('a[data-wysihtml5-command=insertImage]');
+      var wysihtml5 = this, assetManager = $ ('#modal-for-asset-manager');
 
-      $button.click (function ()
+      function insert (arg)
       {
-        $ ('#modal-for-asset-manager').modal ('show').koiFrame ("<%= url.new_image_path %>");
-        return false;
-      });
-
-      window.assetManager.insertImage = function (arg)
-      {
-        var composer = $this.editor.composer;
-        
-        $ (composer.doc.getElementsByTagName ('body')).focus ();
-        composer.commands.exec ('insertImage', arg);
-        
-        window.assetManager.close ();
+        var composer = wysihtml5.editor.composer
+        ,   commands = composer.commands
+        ,   doc = composer.doc
+        ,   body = doc.getElementsByTagName ('body')
+        ;
+        $ (body).focus ();
+        commands.exec ('insertImage', arg);
       }
+
+      function close ()
+      {
+        assetManager.modal ('hide'); return false;
+      }
+
+      function open ()
+      {
+        assetManager.modal ('show')
+        .htmlIframe ("<%= url.new_image_path %>")
+        .firstChild ()
+        .data ({ insert: insert, close: close, open: open })
+        ;
+        return false;
+      }
+
+      toolbar.find ('a[data-wysihtml5-command=insertImage]').click (open);
     },
 
     initInsertLink: function (toolbar)
     {
+
       var self = this;
       var insertLinkModal = toolbar.find ('.bootstrap-wysihtml5-insert-link-modal');
       var urlInput = insertLinkModal.find ('.bootstrap-wysihtml5-insert-link-url');
@@ -325,6 +361,9 @@
 
       var insertLink = function ()
       { 
+        var composer = self.editor.composer;        
+        $ (composer.doc.getElementsByTagName ('body')).focus ();
+
         var url = urlInput.val ();
         urlInput.val (initialValue);
         self.editor.composer.commands.exec ("createLink",
@@ -333,6 +372,7 @@
           target: "_blank", 
           rel: "nofollow" 
         });
+        insertLinkModal.modal ('hide');
       };
       var pressedEnter = false;
 
@@ -351,6 +391,52 @@
       insertLinkModal.on ('hide', function () { self.editor.currentView.element.focus (); });
 
       toolbar.find ('a[data-wysihtml5-command=createLink]').click (function ()
+      {
+        insertLinkModal.modal ('show');
+        return false;
+      });
+    },
+
+    initInsertEmailLink: function (toolbar)
+    {
+      var self = this;
+      var insertLinkModal = toolbar.find ('.bootstrap-wysihtml5-insert-email-link-modal');
+      var urlInput = insertLinkModal.find ('.bootstrap-wysihtml5-insert-email-link-url');
+      var insertButton = insertLinkModal.find ('a.btn-primary');
+      var initialValue = urlInput.val ();
+
+      var insertLink = function ()
+      { 
+        var composer = self.editor.composer;        
+        $ (composer.doc.getElementsByTagName ('body')).focus ();
+
+        var url = urlInput.val ();
+        urlInput.val (initialValue);
+        self.editor.composer.commands.exec ("createLink",
+        { 
+          href: 'mailto:' + url,
+          target: "_blank",
+          rel: "nofollow" 
+        });
+        insertLinkModal.modal ('hide');
+      };
+      var pressedEnter = false;
+
+      urlInput.keypress (function (e)
+      {
+        if (e.which == 13)
+        {
+          insertLink ();
+          insertLinkModal.modal ('hide');
+        }
+      });
+
+      insertButton.click (insertLink);
+
+      insertLinkModal.on ('shown', function () { urlInput.focus (); });
+      insertLinkModal.on ('hide', function () { self.editor.currentView.element.focus (); });
+
+      toolbar.find ('a[data-wysihtml5-command=createEmailLink]').click (function ()
       {
         insertLinkModal.modal ('show');
         return false;
