@@ -1,19 +1,5 @@
-<% unless params[:CKEditorFuncNum].blank? %>
-  <% js_data :ck_editor_func_num, params[:CKEditorFuncNum] %>
-  <% content_for :head do %>
-    <script type="text/javascript">
-      $(function() {
-        var CKEditorFuncNum = '#{}';
-        $('.insert.asset.button').click(function() {
-          try {
-            window.opener.CKEDITOR.tools.callFunction(jsData.ckEditorFuncNum, $(this).attr("href"));
-            window.close();
-            return false;
-          } catch (e) {}
-        });
-      });
-    </script>
-  <% end %>
+<% content_for :head do %>
+    <%= render 'script' %>
 <% end %>
 
 <%= render "tagify" %>
