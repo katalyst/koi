@@ -13,14 +13,14 @@ module HasSettings
         to_s.underscore
       end
 
-      def prefix
+      def settings_prefix
         "#{singular_name}"
       end
 
       include SharedMethods
     end
 
-    def prefix
+    def settings_prefix
       "#{id}.#{self.class.singular_name}"
     end
 
