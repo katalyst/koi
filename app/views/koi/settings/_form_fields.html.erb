@@ -1,0 +1,12 @@
+<% klass = f.object.class %>
+<% resource.field_type ||= "string" %>
+<% resource.role ||= "Admin" %>
+<%- klass.admin_attributes(:form).each do |attr| -%>
+  <%- next if !current_admin.god? && [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
+  <%=
+    assoc    = klass.reflect_on_association(attr)
+    partial  = 'form_field'
+    partial += '_nested' if assoc && !assoc.belongs_to? && assoc.is_nested?
+    render partial, :f => f, :attr => attr
+  %>
+<%- end -%>
