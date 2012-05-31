@@ -6,7 +6,7 @@
     $ ('a[href=#close]').click (function (e)
     {
       e.preventDefault ();
-      window.parent.assetManager.close ();
+      $ (window).env ('close') ();
     });
   });
   </script>
