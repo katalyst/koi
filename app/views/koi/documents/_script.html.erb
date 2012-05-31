@@ -1,4 +1,5 @@
 <script type="text/javascript">
+
   $ (function() {
 
     $ ('.insert.asset.application').application (function ($insert)
@@ -23,8 +24,8 @@
 
       $link.click (function ()
       {
-        window.parent.assetManager.insertDocument ({ href: getHref (), target: '_blank' });
-        return false;
+        $ (window).env ('insert') ({ href: getHref (), target: '_blank' });
+        $ (window).env ('close') ();
       });
 
     });

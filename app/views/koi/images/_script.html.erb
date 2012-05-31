@@ -23,7 +23,8 @@
 
       $link.click (function ()
       {
-        window.parent.assetManager.insertImage ({ src: getHref (), style: 'float:left;' });
+        $ (window).env ('insert') ({ src: getHref (), style: 'float:left;' });
+        $ (window).env ('close') ();
         return false;
       });
 
