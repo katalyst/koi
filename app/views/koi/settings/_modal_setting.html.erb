@@ -8,13 +8,13 @@
   </h2>
 </header>
 
-<%= simple_form_for resource, url: koi_engine.settings_path, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
   <div class="span9">
     <div class="tabbable space-1">
       <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
       <%= render "form_fields", { f: f } %>
       <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
-      <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn" unless resource.new_record? %>
+      <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn" if current_admin.god? unless resource.new_record? %>
     </div>
   </div>
 <% end %>
