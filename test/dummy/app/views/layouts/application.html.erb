@@ -16,11 +16,11 @@
     <%= render_navigation renderer: :sf_menu, items: NavItem.navigation("header_navigation", binding()), level: 1..2, expand_all: true, :dom_id => "nav-one", :dom_class => 'nav' , :link => {:class => 'subsection' } %>
   </header>
 
-  <h2>Active Item: <%= active_navigation_item %>, <%= active_navigation_item_name %>, <%= active_navigation_item_key %></h2>
-  <h2>Active Item Cascade:</h2>
+  <h3>Active Item: <%= active_navigation_item %>, <%= active_navigation_item_name %>, <%= active_navigation_item_key %></h2>
+  <h3>Active Item Cascade:</h2>
   <p><%#= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
 
-  <%= settings.collect { |s| s.label }.join(", ") %>
+  <h3>Settings: <%= settings.collect { |s| s.label }.join(", ") %></h3>
 
   <h3><%= render_navigation :renderer => :breadcrumbs, :join_with => ' &raquo; ' %></h3>
 
