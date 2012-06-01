@@ -1,7 +1,7 @@
 class SuperHero < ActiveRecord::Base
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
-           orderable: false, settings: true
+           orderable: false
 
   has :many, attributed: :images, orderable: true
 
