@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516035141) do
+ActiveRecord::Schema.define(:version => 20120601005503) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
     t.boolean  "is_required",    :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "prefix"
   end
 
   add_index "translations", ["key"], :name => "index_translations_on_key", :unique => true
