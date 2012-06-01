@@ -16,9 +16,10 @@
     <table class="table space-b-0">
       <thead>
         <tr>
-          <% Translation.admin_attributes(:index).each_with_index do |attr,i| %>
-            <th><%= t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %></th>
+          <% Setting.admin_attributes(:index).each_with_index do |attr,i| %>
+            <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
           <% end %>
+          <%= content_tag :th, "Key" if current_admin.god? %>
           <th class="span4">Actions</th>
         </tr>
       </thead>
