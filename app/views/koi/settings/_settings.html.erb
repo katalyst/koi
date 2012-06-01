@@ -1,17 +1,18 @@
 <div class="settings">
-  <div class="row">
-    <div class="span17 bg-darkgrey">
-      <div class="row">
-        <div class="span9 ">&nbsp;</div>
-        <div class="span8 color-darkgrey">
-          <div class="space-half pull-right">
-            <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary" if current_admin.god? %>
+ <% if current_admin.god? %>
+   <div class="row">
+      <div class="span17 bg-darkgrey">
+        <div class="row">
+          <div class="span9 ">&nbsp;</div>
+          <div class="span8 color-darkgrey">
+            <div class="space-half pull-right">
+              <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary" %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
+  <% end %>
   <div id="index-fields">
     <table class="table space-b-0">
       <thead>

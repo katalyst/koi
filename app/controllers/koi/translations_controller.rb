@@ -22,5 +22,9 @@ module Koi
       @translations ||= (current_admin.god? ?
         end_of_association_chain.non_prefixed : end_of_association_chain.non_prefixed.admin)
     end
+
+    def is_settable?
+      false
+    end
   end
 end
