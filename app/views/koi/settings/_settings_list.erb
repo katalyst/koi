@@ -1,4 +1,4 @@
-<% settings.try(:each_with_index) do |object, i| %>
+<% settings.each_with_index do |object, i| %>
   <tr id="setting-row-<%= object.id %>">
     <% Setting.admin_attributes(:index).each_with_index do |attr,index| %>
       <td>

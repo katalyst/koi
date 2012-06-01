@@ -20,7 +20,9 @@
   <h3>Active Item Cascade:</h2>
   <p><%#= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
 
-  <h3>Settings: <%= settings.collect { |s| s.label }.join(", ") %></h3>
+  <% if is_settable? %>
+    <h3>Settings: <%= settings.collect { |s| s.label }.join(", ") %></h3>
+  <% end %>
 
   <h3><%= render_navigation :renderer => :breadcrumbs, :join_with => ' &raquo; ' %></h3>
 

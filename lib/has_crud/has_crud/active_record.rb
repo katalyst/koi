@@ -16,7 +16,11 @@ module HasCrud
 
         #FIXME: refactor
         has_navigation if options[:navigation].eql?(true)
-        has_settings unless options[:settings].eql?(false)
+
+        unless options[:settings].eql?(false)
+          options[:settings] = true
+          has_settings
+        end
 
         if options[:orderable]
           options[:ajaxable]   = false if options[:ajaxable].nil?
