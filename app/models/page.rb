@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  has_crud :paginate => false, navigation: true
+  has_crud paginate: false, navigation: true
 
   validates_presence_of :title
 
