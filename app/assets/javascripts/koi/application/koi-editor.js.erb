@@ -286,14 +286,13 @@
 
     initInsertDocument: function (toolbar)
     {
-      var wysihtml5 = this, assetManager = $ ('#modal-for-asset-manager');
+      var wysihtml5 = this, assetManager;
 
       function insert (arg)
       {
         var composer = wysihtml5.editor.composer
         ,   commands = composer.commands
-        ,   doc = composer.doc
-        ,   body = doc.getElementsByTagName ('body')
+        ,   body = composer.doc.getElementsByTagName ('body')
         ;
         $ (body).focus ();
         commands.exec ('createLink', arg);
@@ -301,16 +300,14 @@
 
       function close ()
       {
-        assetManager.modal ('hide'); return false;
+        assetManager.close ();
+        return false;
       }
 
       function open ()
       {
-        assetManager.modal ('show')
-        .htmlIframe ("<%= url.new_document_path %>")
-        .firstChild ()
-        .data ({ insert: insert, close: close, open: open })
-        ;
+        window.assetManager = assetManager = $.factory.documentManager ();
+        assetManager.open ().data ({ insert: insert, close: close, open: open });
         return false;
       }
 
@@ -319,14 +316,13 @@
 
     initInsertImage: function (toolbar)
     {
-      var wysihtml5 = this, assetManager = $ ('#modal-for-asset-manager');
+      var wysihtml5 = this, assetManager;
 
       function insert (arg)
       {
         var composer = wysihtml5.editor.composer
         ,   commands = composer.commands
-        ,   doc = composer.doc
-        ,   body = doc.getElementsByTagName ('body')
+        ,   body = composer.doc.getElementsByTagName ('body')
         ;
         $ (body).focus ();
         commands.exec ('insertImage', arg);
@@ -334,16 +330,14 @@
 
       function close ()
       {
-        assetManager.modal ('hide'); return false;
+        assetManager.close ();
+        return false;
       }
 
       function open ()
       {
-        assetManager.modal ('show')
-        .htmlIframe ("<%= url.new_image_path %>")
-        .firstChild ()
-        .data ({ insert: insert, close: close, open: open })
-        ;
+        window.assetManager = assetManager = $.factory.imageManager ();
+        assetManager.open ().data ({ insert: insert, close: close, open: open });
         return false;
       }
 
