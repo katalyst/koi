@@ -1,6 +1,6 @@
 module Koi
-  class SettingsController < AdminCrudController
-    defaults route_prefix: ''
+  class SettingsController < TranslationsController
+    defaults :resource_class => Setting
 
     def new
       @setting = Setting.new(prefix: params[:prefix])
