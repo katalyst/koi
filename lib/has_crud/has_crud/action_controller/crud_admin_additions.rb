@@ -110,7 +110,7 @@ module HasCrud
         end
 
         def settings
-          return nil unless is_settable?
+          return [] unless is_settable?
           return @settings if @settings
 
           begin
