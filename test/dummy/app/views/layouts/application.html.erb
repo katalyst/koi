@@ -20,6 +20,8 @@
   <h2>Active Item Cascade:</h2>
   <p><%#= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
 
+  <%= settings.collect { |s| s.label }.join(", ") %>
+
   <h3><%= render_navigation :renderer => :breadcrumbs, :join_with => ' &raquo; ' %></h3>
 
   <%= yield :title if content_for?(:title) %>
