@@ -1,21 +1,20 @@
 module HasSettings
   module SharedMethods
     def settings
-      Translation.where("`key` LIKE ?", "#{settings_prefix}.%")
+      Setting.where(prefix: settings_prefix)
     end
 
     def setting(key, default=nil)
-      Translation.find_by_key("#{settings_prefix}.#{key}").try(:value) || default
+      Setting.find_by_prefix_and_key(settings_prefix, key).try(:value) || default
     end
 
-    def find_or_create_setting(options={})
-      options[:key] = "#{settings_prefix}.#{options[:key]}"
-      Translation.find_or_create_by_key(options)
+    def find_or_create_setting(key)
+      Setting.find_or_create_by_prefix_and_key(settings_prefix, options[:key])
     end
 
     def create_setting(options={})
-      options[:key] = "#{settings_prefix}.#{options[:key]}"
-      Translation.create(options)
+      options[:prefix] = settings_prefix
+      Setting.create(options)
     end
   end
 end
