@@ -4,7 +4,7 @@ class Setting < Translation
   validates :locale, :label, :key, :value, :field_type,
             :prefix, :role, presence: true
 
-  validates_uniqueness_of :key, :scope => :prefix
+  validates_uniqueness_of :key, scope: :prefix, allow_blank: true
 
   default_scope order("`key` ASC")
 
