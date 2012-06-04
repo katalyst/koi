@@ -1,3 +1,4 @@
+# This migration comes from koi (originally 20120601005318)
 class AddPrefixToTranslation < ActiveRecord::Migration
   def up
     add_column   :translations, :prefix, :string
