@@ -23,11 +23,19 @@ module Koi::ApplicationHelper
     nil
   end
 
-  def resource_settings_record
-  #   resource.to_setting if !resource.new_record? && resource.respond_to?(:to_setting)
-  # rescue NoMethodError
-  #   logger.info "Settings: No route found for #{resource_class} show"
-    nil
+  def is_settable?
+    defined?(:resource_class) && resource_class.options[:settings]
+  end
+
+  def settings
+    return [] unless is_settable?
+    return @settings if @settings
+
+    begin
+      @settings = resource.settings
+    rescue ::ActiveRecord::RecordNotFound
+      @settings = resource_class.settings
+    end
   end
 
   # Example:

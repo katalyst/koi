@@ -163,7 +163,6 @@ create_file 'config/Initializers/koi.rb', <<-END
 Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
 
 Koi::Menu.items = {
-  'Pages' => '/admin/pages',
   'Admins' => '/admin/site_users'
 }
 END
