@@ -31,4 +31,3 @@
     (true, function ($this) { $this.superfish ({ delay:100 }); });
 
 } (jQuery);
-
