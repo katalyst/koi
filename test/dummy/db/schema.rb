@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516035141) do
+ActiveRecord::Schema.define(:version => 20120604003426) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -129,20 +129,6 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
     t.datetime "updated_at",          :null => false
   end
 
-  create_table "settings", :force => true do |t|
-    t.string   "url"
-    t.string   "meta_title"
-    t.text     "meta_description"
-    t.integer  "set_id"
-    t.string   "set_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "settings", ["set_id"], :name => "index_settings_on_set_id"
-  add_index "settings", ["set_type"], :name => "index_settings_on_set_type"
-  add_index "settings", ["url"], :name => "index_settings_on_url"
-
   create_table "super_heros", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -195,9 +181,10 @@ ActiveRecord::Schema.define(:version => 20120516035141) do
     t.boolean  "is_required",    :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "prefix"
   end
 
-  add_index "translations", ["key"], :name => "index_translations_on_key", :unique => true
+  add_index "translations", ["locale", "prefix", "key"], :name => "index_translations_on_locale_and_prefix_and_key", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

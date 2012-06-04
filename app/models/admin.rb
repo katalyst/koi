@@ -32,8 +32,12 @@ class Admin < ActiveRecord::Base
     role.eql?(value)
   end
 
+  def self.god
+    "Super"
+  end
+
   def god?
-    is?("Super")
+    is? self.class.god
   end
 
 private

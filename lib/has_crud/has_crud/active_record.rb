@@ -15,8 +15,12 @@ module HasCrud
         self.crud = KoiConfig::Config.new
 
         #FIXME: refactor
-        has_settings   if options[:settings].eql?(true)
         has_navigation if options[:navigation].eql?(true)
+
+        unless options[:settings].eql?(false)
+          options[:settings] = true
+          has_settings
+        end
 
         if options[:orderable]
           options[:ajaxable]   = false if options[:ajaxable].nil?
@@ -60,4 +64,3 @@ module HasCrud
     end
   end
 end
-
