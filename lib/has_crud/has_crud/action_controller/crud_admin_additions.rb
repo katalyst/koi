@@ -6,7 +6,7 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :per_page, :title_for
+                  :is_settable?, :title_for, :per_page, :settings, :settings_prefix
         base.send :respond_to, :html, :js
       end
 
@@ -103,6 +103,32 @@ module HasCrud
 
         def is_ajaxable?
           resource_class.options[:ajaxable]
+        end
+
+        def is_settable?
+          resource_class.options[:settings]
+        end
+
+        def settings
+          return [] unless is_settable?
+          return @settings if @settings
+
+          begin
+            @settings = resource.settings
+          rescue ::ActiveRecord::RecordNotFound
+            @settings = resource_class.settings
+          end
+        end
+
+        def settings_prefix
+          return nil unless is_settable?
+          return @settings_prefix if @settings_prefix
+
+          begin
+            @settings_prefix = resource.settings_prefix
+          rescue ::ActiveRecord::RecordNotFound
+            @settings_prefix = resource_class.settings_prefix
+          end
         end
 
         def collection
