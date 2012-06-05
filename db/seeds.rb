@@ -13,6 +13,7 @@ header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.r
 footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation")
 
 # Few Header Pages
+index_page      = ModuleNavItem.create!(title: "Home Page", parent_id: header.id, url: "/", admin_url: "/admin/super_heros")
 about_us_page   = Page.create!(title: "About Us").to_navigator!(parent_id: header.id)
 contact_us_page = Page.create!(title: "Contact Us").to_navigator!(parent_id: header.id)
 
