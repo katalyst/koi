@@ -59,6 +59,7 @@ class NavItem < ActiveRecord::Base
     hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
     hash[:method] = method unless method.blank?
     hash[:highlights_on] = Proc.new { eval(highlights_on, @@binding) } unless highlights_on.blank?
+    hash[:setting_prefix] = setting_prefix
     hash
   end
 
@@ -92,10 +93,10 @@ class NavItem < ActiveRecord::Base
   end
 
   def navigation(get_binding=binding())
-    @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
+    # @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
       @@binding = get_binding
       children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
-    end
+    # end
   end
 
   def self.navigation(arg=nil, get_binding=binding())

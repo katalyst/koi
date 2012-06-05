@@ -35,4 +35,3 @@ class Asset < ActiveRecord::Base
   end
 
 end
-
