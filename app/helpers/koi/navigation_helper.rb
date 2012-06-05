@@ -1,6 +1,9 @@
 module Koi::NavigationHelper
   def cascaded_setting(key)
-    active_item_prefixes ||= render_navigation renderer: :active_items
+    active_item_prefixes = render_navigation renderer: :active_items
+    active_item_prefixes << settings_prefix
+    active_item_prefixes.uniq.compact!
+
     setting = nil
 
     if is_settable?

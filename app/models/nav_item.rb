@@ -59,7 +59,6 @@ class NavItem < ActiveRecord::Base
     hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
     hash[:method] = method unless method.blank?
     hash[:highlights_on] = Proc.new { eval(highlights_on, @@binding) } unless highlights_on.blank?
-    hash[:setting_prefix] = setting_prefix
     hash
   end
 
