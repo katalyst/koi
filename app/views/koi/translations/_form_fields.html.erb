@@ -2,6 +2,8 @@
 <% resource.field_type ||= "string" %>
 <% resource.role ||= "Admin" %>
 <%- klass.admin_attributes(:form).each do |attr| -%>
+  <%- next if attr.eql?(:value) && resource.field_type.eql?("images") -%>
+  <%- next if attr.eql?(:images) && !resource.field_type.eql?("images") -%>
   <%- next if !current_admin.god? && [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
   <%=
     assoc    = klass.reflect_on_association(attr)
