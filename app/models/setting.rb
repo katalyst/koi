@@ -1,21 +1,10 @@
 class Setting < Translation
   has_crud paginate: false, searchable: false, orderable: false
 
-  validates :locale, :label, :key, :value, :field_type,
+  validates :locale, :label, :key, :field_type,
             :prefix, :role, presence: true
 
   validates_uniqueness_of :key, scope: :prefix
-
-  default_scope order("`key` ASC")
-
-  FieldTypes = {
-                 "String"    => "string",
-                 "Boolean"   => "boolean",
-                 "Text"      => "text",
-                 "Rich Text" => "rich_text"
-               }
-
-  scope :admin, where(role: "Admin")
 
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },
@@ -25,7 +14,7 @@ class Setting < Translation
     config :admin do
       index fields: [:label],
             title: "Settings"
-      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc],
+      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc, :images],
             title: { new: "Create new setting", edit: "Edit setting" }
     end
   end
