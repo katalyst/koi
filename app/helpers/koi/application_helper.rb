@@ -16,13 +16,6 @@ module Koi::ApplicationHelper
     link_to title, link_params, link_opt
   end
 
-  def collection_settings_record
-    Setting.find_by_url(polymorphic_path(resource_class)) || Setting.new(url: polymorphic_path(resource_class)) if resource_class.new.respond_to?(:to_setting)
-  rescue NoMethodError
-    logger.info "Setting: No route found for #{resource_class} index"
-    nil
-  end
-
   def is_settable?
     defined?(:resource_class) && resource_class.options[:settings]
   end

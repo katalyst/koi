@@ -18,14 +18,7 @@
 
   <p><%= render_navigation renderer: :breadcrumbs, join_with: ' &raquo; ' %></p>
   <p><%= render_navigation renderer: :active_items %></p>
-
-  <% if is_settable? %>
-    <p><strong>Settings:</strong> <%= labels = settings.collect { |s| s.label }.join(", ") %></p>
-    <% settings.select { |s| s.field_type.eql?("images") }.try(:first).try(:images).try(:each) do |image| %>
-      <%= link_to image_tag(image.url(size: "100x")), image.url, target: "_blank" %>
-    <% end %>
-    <p></p>
-  <% end %>
+  <p><%= raw cascaded_banners %></p>
 
   <%= yield :title if content_for?(:title) %>
   <%= yield %>
