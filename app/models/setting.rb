@@ -1,5 +1,6 @@
 class Setting < Translation
-  has_crud paginate: false, searchable: false, orderable: false
+  has_crud paginate: false, searchable: false,
+           orderable: false, settings: false
 
   validates :locale, :label, :key, :field_type,
             :prefix, :role, presence: true
