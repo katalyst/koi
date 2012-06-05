@@ -18,7 +18,7 @@
 
   <h3>Active Item: <%= active_navigation_item %>, <%= active_navigation_item_name %>, <%= active_navigation_item_key %></h2>
   <h3>Active Item Cascade:</h2>
-  <p><%#= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
+  <p><%= active_item_cascade.collect { |n| [n.id, n.title, n.url, (n.try(:navigable) if n.respond_to? :navigable)] } %></p>
 
   <% if is_settable? %>
     <h3>Settings: <%= settings.collect { |s| s.label }.join(", ") %></h3>
