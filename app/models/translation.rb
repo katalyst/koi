@@ -38,6 +38,10 @@ class Translation < ActiveRecord::Base
     end
   end
 
+  def value
+    field_type.eql?("images") ? images : value
+  end
+
   private
 
   def set_default_values
