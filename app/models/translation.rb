@@ -39,7 +39,7 @@ class Translation < ActiveRecord::Base
   end
 
   def value
-    field_type.eql?("images") ? images : value
+    field_type.eql?("images") ? images : read_attribute(:value)
   end
 
   private
