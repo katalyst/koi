@@ -13,9 +13,12 @@ header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.r
 footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation")
 
 # Few Header Pages
-index_page      = ModuleNavItem.create!(title: "Home Page", parent_id: header.id, url: "/", admin_url: "/admin/super_heros")
-about_us_page   = Page.create!(title: "About Us").to_navigator!(parent_id: header.id)
-contact_us_page = Page.create!(title: "Contact Us").to_navigator!(parent_id: header.id)
+home_page        = Page.create!(title: "Home Page").to_navigator!(parent_id: header.id)
+super_heros_page = ModuleNavItem.create!(title: "Super Heros", parent_id: home_page.id,
+                                         url: "/super_heros", admin_url: "/admin/super_heros",
+                                         setting_prefix: SuperHero.settings_prefix)
+about_us_page    = Page.create!(title: "About Super Herors").to_navigator!(parent_id: super_heros_page.id)
+contact_us_page  = Page.create!(title: "Contact Us").to_navigator!(parent_id: home_page.id)
 
 # Few Aliases
 AliasNavItem.create!(title: "About Us", alias_id: about_us_page.id, parent: footer)
@@ -25,7 +28,6 @@ AliasNavItem.create!(title: "Contact Us", alias_id: contact_us_page.id, parent: 
 privacy_policy_page = Page.create!(title: "Privacy Policy").to_navigator!(parent_id: footer.id)
 
 # Settings
-Translation.create!(label: "Site Fonts", key: "site.fonts", value: "<script></script>", field_type: "text", role: "Super")
 Translation.create!(label: "Site Title", key: "site.title", value: "Site Title", field_type: "string", role: "Admin")
 Translation.create!(label: "Site Meta Description", key: "site.meta_description", value: "Meta Description", field_type: "text", role: "Admin")
 Translation.create!(label: "Site Meta Keywords", key: "site.meta_keywords", value: "Meta Keywords", field_type: "text", role: "Admin")
