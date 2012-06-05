@@ -1,5 +1,5 @@
 class Asset < ActiveRecord::Base
-  has_crud paginate: false
+  has_crud paginate: false, settings: false
 
   scoped_search :on => [:data_name]
 
