@@ -19,11 +19,11 @@ Rails.application.routes.draw do
     resources :news_items
     resources :categories do
       collection { put 'sort' }
-      resources :products 
+      resources :products
     end
   end
 
-  root to: "super_heros#index"
+  root to: "pages#index"
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 end
