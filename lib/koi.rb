@@ -20,6 +20,7 @@ require 'koi/menu'
 require 'koi/asset'
 require 'koi/assets/image'
 require 'koi/assets/document'
+require 'koi/settings'
 require 'koi/engine'
 
 module Koi

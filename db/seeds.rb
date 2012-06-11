@@ -25,7 +25,6 @@ AliasNavItem.create!(title: "Contact Us", alias_id: contact_us_page.id, parent: 
 privacy_policy_page = Page.create!(title: "Privacy Policy").to_navigator!(parent_id: footer.id)
 
 # Settings
-Translation.create!(label: "Site Fonts", key: "site.fonts", value: "<script></script>", field_type: "text", role: "Super")
 Translation.create!(label: "Site Title", key: "site.title", value: "Site Title", field_type: "string", role: "Admin")
 Translation.create!(label: "Site Meta Description", key: "site.meta_description", value: "Meta Description", field_type: "text", role: "Admin")
 Translation.create!(label: "Site Meta Keywords", key: "site.meta_keywords", value: "Meta Keywords", field_type: "text", role: "Admin")

@@ -22,6 +22,14 @@ module HasCrud
           has_settings
         end
 
+        if options[:settings] && table_exists?
+          Koi::Settings.collection.each do |key, values|
+            unless Setting.find_by_prefix_and_key(settings_prefix, key)
+              Setting.create(values.merge(key: key, prefix: settings_prefix))
+            end
+          end
+        end
+
         if options[:orderable]
           options[:ajaxable]   = false if options[:ajaxable].nil?
           options[:searchable] = false if options[:searchable].nil?

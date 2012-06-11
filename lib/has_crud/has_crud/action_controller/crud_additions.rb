@@ -6,11 +6,14 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :inherit_resources
         base.send :attr_accessor, :path
-        base.send :helper_method, :is_allowed?, :is_orderable?, :is_paginated?, :singular_name, :plural_name, :path, :crud_partial
-        base.send :has_scope, :page, :default => 1, :if => :is_paginated?, :except => [ :create, :update, :destroy ] do |controller, scope, value|
+        base.send :helper_method, :is_allowed?, :is_orderable?, :is_settable?, :is_paginated?,
+                  :singular_name, :plural_name, :path, :crud_partial, :settings, :settings_prefix
+        base.send :has_scope, :page, :default => 1, :if => :is_paginated?,
+                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
           scope.page(value).per(controller.per_page)
         end
-        base.send :has_scope, :per, :if => :is_paginated?, :except => [ :create, :update, :destroy ] do |controller, scope, value|
+        base.send :has_scope, :per, :if => :is_paginated?,
+                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
           value.to_i.eql?(0) ? scope.per(controller.per_page) : scope.per(value)
         end
       end
@@ -61,6 +64,32 @@ module HasCrud
         def crud_partial(attr, path, klass = resource_class)
           partial = klass.crud.find(:fields, attr, :type)
           "#{path}_field_#{partial}"
+        end
+
+        def is_settable?
+          defined?(:resource_class) && resource_class.options[:settings]
+        end
+
+        def settings
+          return [] unless is_settable?
+          return @settings if @settings
+
+          begin
+            @settings = resource.settings
+          rescue ::ActiveRecord::RecordNotFound
+            @settings = resource_class.settings
+          end
+        end
+
+        def settings_prefix
+          return nil unless is_settable?
+          return @settings_prefix if @settings_prefix
+
+          begin
+            @settings_prefix = resource.settings_prefix
+          rescue ::ActiveRecord::RecordNotFound
+            @settings_prefix = resource_class.settings_prefix
+          end
         end
       end
     end
