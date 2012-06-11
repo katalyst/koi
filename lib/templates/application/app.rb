@@ -135,6 +135,7 @@ create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
 # Configures your navigation
 SimpleNavigation.register_renderer :sf_menu => SfMenuRenderer
+SimpleNavigation.register_renderer :active_items => ActiveItemsRenderer
 SimpleNavigation::Configuration.run do |navigation|
 end
 END
@@ -146,6 +147,28 @@ class SfMenuRenderer < SimpleNavigation::Renderer::List
     item_container.dom_id = options.delete(:dom_id) if options.has_key?(:dom_id)
     item_container.items.each { |i| p i.html_options = { link: options[:link] } } if options.has_key?(:link)
     super
+  end
+end
+END
+
+create_file 'app/renderers/active_items_renderer.rb', <<-END
+class ActiveItemsRenderer < SimpleNavigation::Renderer::Breadcrumbs
+  def render(item_container)
+    collect(item_container)
+  end
+
+  protected
+
+  def collect(item_container)
+    item_container.items.inject([]) do |list, item|
+      if item.selected?
+        list << NavItem.find_by_id(item.key.gsub("key_", "")).setting_prefix if item.selected?
+        if include_sub_navigation?(item)
+          list.concat collect(item.sub_navigation)
+        end
+      end
+      list
+    end
   end
 end
 END
