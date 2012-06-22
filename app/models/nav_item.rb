@@ -54,11 +54,11 @@ class NavItem < ActiveRecord::Base
   end
 
   def options
-    hash = {}
-    hash[:if] = Proc.new { eval(self.if, @@binding) } unless self.if.blank?
-    hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
-    hash[:method] = method unless method.blank?
-    hash[:highlights_on] = Proc.new { eval(highlights_on, @@binding) } unless highlights_on.blank?
+    hash                 = {}
+    hash[:method]        = method                                           unless method.blank?
+    hash[:if]            = Proc.new { eval(self.if, @@binding) }            unless self.if.blank?
+    hash[:unless]        = Proc.new { eval(self.unless, @@binding) }        unless self.unless.blank?
+    hash[:highlights_on] = Proc.new { eval(self.highlights_on, @@binding) } unless self.highlights_on.blank?
     hash
   end
 
@@ -110,26 +110,36 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
-  def self.tree_as_hash
-    RootNavItem.root.subtree_as_hash
+  def self.to_navigation opt = {}
+    RootNavItem.root.to_navigation opt
   end
 
-  def subtree_as_hash
+  def to_navigation opt = {}
     map = {}
-    descendants.each do |item|
-      child = map[item.id] = item.to_hashish
-      if ! item.is_hidden? and item.parent_id and parent = map[item.parent_id]
-        parent[:items] ||= [] << child
-      end
+    self_and_descendants.each do |item|
+      child = map[item.id] = item.to_hashish(opt)
+      map[item.parent_id][:items] << child if item.is_navigable?(opt) and item.parent_id
     end
     map.first.second
   end
 
-  def to_hashish
-    attributes.symbolize_keys!.slice :key, :url, :title
+  def to_hashish opt = {}
+    if content_block.blank?
+      { key: nav_key, name: title, url: url, items: [] }.merge options
+    else
+      eval(content_block, @@binding)
+    end
   end
 
-  private
+  def is_navigable? opt = {}
+    is_visible? && (is_mobile? ? opt[:mobile] == true : opt[:mobile] != true)
+  end
+
+  def is_visible?
+    ! is_hidden?
+  end
+
+private
 
   def touch_parent
     parent.touch if parent
