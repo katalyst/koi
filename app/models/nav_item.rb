@@ -110,6 +110,25 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
+  def self.tree_as_hash
+    RootNavItem.root.subtree_as_hash
+  end
+
+  def subtree_as_hash
+    map = {}
+    descendants.each do |item|
+      child = map[item.id] = item.to_hashish
+      if ! item.is_hidden? and item.parent_id and parent = map[item.parent_id]
+        parent[:items] ||= [] << child
+      end
+    end
+    map.first.second
+  end
+
+  def to_hashish
+    attributes.symbolize_keys!.slice :key, :url, :title
+  end
+
   private
 
   def touch_parent
