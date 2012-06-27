@@ -87,6 +87,14 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
+  def to_hashish
+    if content_block.blank?
+      as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at ]
+    else
+      eval content_block, @@binding
+    end.merge options
+  end
+
   def draggable?
     true
   end
@@ -108,35 +116,6 @@ class NavItem < ActiveRecord::Base
     when NavItem        then arg
     when Symbol, String then find_by_key arg.to_s
     end or RootNavItem.root
-  end
-
-  def self.to_navigation opt = {}
-    RootNavItem.root.to_navigation opt
-  end
-
-  def to_navigation opt = {}
-    map = {}
-    self_and_descendants.each do |item|
-      child = map[item.id] = item.to_hashish(opt)
-      map[item.parent_id][:items] << child if item.is_navigable?(opt) and item.parent_id
-    end
-    map.first.second
-  end
-
-  def to_hashish opt = {}
-    if content_block.blank?
-      { key: nav_key, name: title, url: url, items: [] }.merge options
-    else
-      eval(content_block, @@binding)
-    end
-  end
-
-  def is_navigable? opt = {}
-    is_visible? && (is_mobile? ? opt[:mobile] == true : opt[:mobile] != true)
-  end
-
-  def is_visible?
-    ! is_hidden?
   end
 
 private
