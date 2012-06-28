@@ -32,20 +32,16 @@ module Koi::NavigationHelper
     image_tags
   end
 
-  def sitemap root = nil
-    nav(root).self_and_descendants
-  end
-
   def breadcrumbs
     @breadcrumbs ||= breadcrumb.self_and_ancestors
   end
 
   def breadcrumb
-    @breadcrumb ||= navs_by_id.values.sort_by(&:negative_highlight).first
+    @breadcrumb ||= nav.self_and_descendants.compact.sort_by(&:negative_highlight).first
   end
 
   def nav nav_item = nil
-    nav_by_id[ NavItem.for(nav_item).id ]
+    navs_by_id[ NavItem.for(nav_item).id ]
   end
 
   def navs_by_id
@@ -76,6 +72,17 @@ module Koi::NavigationHelper
       self.filter   ||= filter || -> { true }
       self.template ||= etc.shift
       self.children ||= []
+
+      self.children = children.map do |child|
+        case child
+        when Navigator
+          child
+        when Hash
+          n = Navigator.new template, child, &filter
+          n.parent = self
+          n
+        end
+      end unless children.empty?
     end
 
     def request
@@ -108,7 +115,7 @@ module Koi::NavigationHelper
     end
 
     def descendants
-      @descendants ||= self.children.map(&:descendants).flatten
+      @descendants ||= children + children.map(&:descendants).flatten
     end
 
     def highlight
@@ -183,10 +190,15 @@ module Koi::NavigationHelper
       @depth ||= - level
     end
 
+    def you_are_elle
+      return url unless url.blank? || url == "#"
+      return children.first.you_are_elle unless children.empty?
+    end
+
     def link_to opt = {}
       opt.keys.grep(/\!$/).each { |key| o = opt.delete(key) and send key.to_s.gsub /!$/, "?" and opt.merge! o }
       opt.keys.grep(/\?$/).each { |key| o = opt.delete(key) and send key and opt.merge_html! o }      
-      template.link_to title, url, opt
+      template.link_to title, you_are_elle, opt
     end
 
   end
