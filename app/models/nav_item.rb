@@ -88,11 +88,11 @@ class NavItem < ActiveRecord::Base
   end
 
   def to_hashish env = binding()
-    @to_hashish ||= if content_block.blank?
-      as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at ]
-    else
-      eval content_block, env
-    end.merge options
+    @to_hashish ||= begin
+      hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at ]
+      hash[:children] = eval content_block, env unless content_block.blank?
+      hash.merge! options
+    end
   end
 
   def draggable?
