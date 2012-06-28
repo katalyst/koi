@@ -30,8 +30,9 @@ class Asset < ActiveRecord::Base
 
   def url(*args)
     opt = args.extract_options!
-    return data.url if opt[:size].blank?
-    return data.thumb(opt[:size]).url
+    size = opt.delete :size
+    size = args.shift if args.length
+    size.blank? ? data.url : data.thumb(size).url
   end
 
 end
