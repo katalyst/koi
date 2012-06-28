@@ -32,24 +32,24 @@ module Koi::NavigationHelper
     image_tags
   end
 
-  def highlighted_nav root = nil, &filter
-    navs(root, &filter).sort_by(&:negative_highlight).first
+  def sitemap root = nil
+    nav(root).self_and_descendants
   end
 
-  def navs root = nil, &filter
-    nav(root, &filter).self_and_descendants
+  def breadcrumbs
+    @breadcrumbs ||= breadcrumb.self_and_ancestors
   end
 
-  def nav nav_item = nil, &filter
-    nav_for_id NavItem.for(nav_item).id, &filter
+  def breadcrumb
+    @breadcrumb ||= navs_by_id.values.sort_by(&:negative_highlight).first
   end
 
-  def nav_for_id id, &filter
-    navs_by_id(&filter)[id]
+  def nav nav_item = nil
+    nav_by_id[ NavItem.for(nav_item).id ]
   end
 
-  def navs_by_id &filter
-    @navs_by_id ||= navs_by_id!(&filter).each do |id, nav|
+  def navs_by_id
+    @navs_by_id ||= navs_by_id!.each do |id, nav|
       if nav.parent_id
         nav.parent = navs_by_id![nav.parent_id]
         nav.parent.children << nav
@@ -57,20 +57,16 @@ module Koi::NavigationHelper
     end
   end
 
-  def navs_by_id! &filter
-    @navs_by_id ||= Hash[ nav_items.map { |nav_item| [nav_item.id, Navigator.new(self, nav_hash_for_id(nav_item.id), &filter) ] }]
-  end
-
-  def nav_hash_for_id id
-    nav_hashes_by_id[id]
-  end
-
-  def nav_hashes_by_id
-    @nav_hashes_by_id ||= Hash[ nav_items.map { |nav_item| [nav_item.id, nav_item.to_hashish] }]
+  def navs_by_id!
+    @navs_by_id ||= Hash[ nav_items.map { |nav_item| [nav_item.id, nav_from(nav_item) ] }]
   end
 
   def nav_items
     @nav_items ||= NavItem.order :lft
+  end
+
+  def nav_from nav_item
+    Navigator.new self, nav_item.to_hashish(binding()) #, &filter
   end
 
   class Navigator < OpenStruct
@@ -80,16 +76,23 @@ module Koi::NavigationHelper
       self.filter   ||= filter || -> { true }
       self.template ||= etc.shift
       self.children ||= []
-      self.highlight!
     end
 
     def request
       template.request
     end
 
+    def root
+      ancestors.first
+    end
+
     def children
       return super
       super.select &:is_navigable? if super
+    end
+
+    def self_and_children
+      @self_and_children ||= [self] + children
     end
 
     def ancestors
@@ -108,26 +111,25 @@ module Koi::NavigationHelper
       @descendants ||= self.children.map(&:descendants).flatten
     end
 
-    def highlight!
-      if @highlight.nil? 
-        @highlight  = 00000
-        @highlight += 10000 if instance_exec url, &highlights_on if highlights_on
-        @highlight += 00100 if url == request.fullpath
-        @highlight += 00001 if url == request.path
-        @highlight *= depth
-      end
+    def highlight
+      @highlight ||= highlight!
     end
 
-    def highlight
+    def highlight!
+      @highlight  = 00000
+      @highlight += 10000 if instance_exec url, &highlights_on if highlights_on
+      @highlight += 00100 if url == request.fullpath
+      @highlight += 00001 if url == request.path
+      @highlight *= level
       @highlight
     end
 
     def path_highlight
-      @path_highlight ||= highlight || children.max(&:path_highlight)
+      @path_highlight ||= ([highlight] + children.map(&:path_highlight)).max
     end
 
     def negative_highlight
-      -@highlight
+      - highlight
     end
 
     def is_highlighted?
@@ -137,6 +139,8 @@ module Koi::NavigationHelper
     def is_path_highlighted?
       @is_path_highlighted ||= path_highlight > 0
     end
+
+    alias_method :on?, :is_path_highlighted?
 
     def is_mobile?
       @is_mobile
@@ -176,19 +180,12 @@ module Koi::NavigationHelper
     end
 
     def depth
-      @depth ||= -level
+      @depth ||= - level
     end
 
     def link_to opt = {}
-      keys = opt.keys.map &:to_s
-      keys.grep(/!$/).each do |key|
-        o = opt.delete key
-        opt.merge! o if send key.gsub /!$/, "?"
-      end
-      keys.grep(/\?$/).each do |key|
-        o = opt.delete key
-        opt.merge_html! o if send key
-      end
+      opt.keys.grep(/\!$/).each { |key| o = opt.delete(key) and send key.to_s.gsub /!$/, "?" and opt.merge! o }
+      opt.keys.grep(/\?$/).each { |key| o = opt.delete(key) and send key and opt.merge_html! o }      
       template.link_to title, url, opt
     end
 
