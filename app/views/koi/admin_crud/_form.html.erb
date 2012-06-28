@@ -7,6 +7,11 @@
 <% # FIXME: Need to check if admin exists before inserting into 1 position %>
 <% form_path.insert(1, parent) unless parent.nil? if respond_to? :parent %>
 
+<%#= is_koi_core_class? resource_class %>
+<%#= resource_class %>
+<%#= form_path.length %>
+<%#= form_path %>
+
 <%= simple_form_for form_path, html: { multipart: true , class: 'form-vertical' }  do |f| %>
   <%= render "form_parent",  { :f => f } %>
   <%= render "form_errors",  { :f => f } %>

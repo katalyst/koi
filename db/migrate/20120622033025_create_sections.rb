@@ -1,7 +1,8 @@
 class CreateSections < ActiveRecord::Migration
   def change
     create_table :sections do |t|
-      t.string  :heading
+      t.string  :type
+      t.string  :title
       t.text    :description
       t.integer :attribute_ordinal
       t.string  :attribute_name

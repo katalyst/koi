@@ -62,9 +62,9 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
-  def is_mobile?
-    is_mobile || children.collect { |c| c.is_mobile? }.include?(true)
-  end
+  #def is_mobile?
+  #  is_mobile || children.collect { |c| c.is_mobile? }.include?(true)
+  #end
 
   def to_hash(show_options = {})
     { mobile: false }.merge(show_options)
@@ -87,11 +87,11 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
-  def to_hashish
-    if content_block.blank?
+  def to_hashish env = binding()
+    @to_hashish ||= if content_block.blank?
       as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at ]
     else
-      eval content_block, @@binding
+      eval content_block, env
     end.merge options
   end
 

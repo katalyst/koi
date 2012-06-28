@@ -3,6 +3,7 @@
   klass       = f.object.class
   association = klass.reflect_on_association attr
   html        = "class-#{klass.name} attribute-#{attr}"
+  one        = attr.to_s.singularize.gsub "_", " "
 %>
 
 <div class="<%= html %> nested-fields simple wrapper"
@@ -47,6 +48,6 @@
     </div>
   </fieldset>
   
-  <div class="border-t pad-t-1 space-b-2 align-right"><a href="#" class="<%= html %> nested-fields-add btn btn-primary btn-small">Add new</a></div>
+  <div class="border-t pad-t-1 space-b-2 align-right"><a href="#" class="<%= html %> nested-fields-add btn btn-primary btn-small">Add <%= one %></a></div>
 </div>
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
