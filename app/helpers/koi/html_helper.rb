@@ -22,8 +22,8 @@ module Koi::HtmlHelper
   def rich_text *sig, &blk
     opt = sig.extract_options!.merge_html! class: "koi-rich-text"
     tag = Symbol === sig.first ? sig.shift : :div
-    txt = String === sig.first ? sig.shift : capture(&blk)
-    txt = simple_format?(txt)  ? simple_format(txt) : sterilize(txt)
+    txt = block_given? ? capture(&blk) : sig.shift
+    txt = simple_format?(txt)  ? simple_format(txt) : sanitize(txt)
     content_tag tag, txt, opt
   end
 
