@@ -124,7 +124,7 @@ module Koi::NavigationHelper
 
     def highlight!
       @highlight  = 00000
-      @highlight += 10000 if instance_exec url, &highlights_on if highlights_on
+      @highlight += 10000 if instance_exec url, &highlights_on if Proc === highlights_on
       @highlight += 00100 if url == request.fullpath
       @highlight += 00001 if url == request.path
       @highlight *= level
