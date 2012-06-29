@@ -24,23 +24,16 @@
         
         <div class="<%= html %> nested-fields-item">
         
-            <div class="row border-t space-t-1 space-b-1 pad-t-1">
+            <div class="border-t space-t-1 space-b-1 pad-t-1">
 
-              <div class="span13">
-                <%= g.hidden_field :id %>
-                <%= g.hidden_field :_destroy %>
-                <%= render "form_fields", { :f => g } %>
-              </div>
+              <%= g.hidden_field :id %>
+              <%= g.hidden_field :_destroy %>
+              <%= render "form_fields", { :f => g } %>
 
-              <div class="span2 pad-t-3">
-                <a href="#" class="<%= html %> nested-fields-remove">&#x2716; delete</a>
-              </div>
-            
-              <div class="span2 pad-t-3">
+                <a href="#" class="<%= html %> nested-fields-remove block float-r pad-t-1">&#x2716; delete <%= one %></a>
                 <% if association.is_orderable? %>
-                  <a class="cursor-move" href="#"><%= image_tag "koi/application/icon-sortable.png" %></a>
+                  <a class="cursor-move block float-r" href="#"><%= image_tag "koi/application/icon-sortable.png" %></a>
                 <% end %>
-              </div>
 
             </div>
         </div>

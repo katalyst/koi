@@ -140,3 +140,9 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
 .tweet_time { display:none; }
 
 body { background-color:transparent; }
+
+.nested-fields .nested-fields h4 { font-size:13px; }
+.nested-fields-container .nested-fields-container { padding-left:15px; }
+
+.control-group.boolean { @include clearfix; }
+
