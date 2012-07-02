@@ -31,7 +31,7 @@ module Koi::HtmlHelper
     txt == strip_tags(txt)
   end
 
-  def sterilize? txt
+  def sanitize? txt
     ! simple_format? txt
   end
 
