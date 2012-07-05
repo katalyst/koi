@@ -21,9 +21,11 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
                                   :branch => 'rails-3.2',
                                   :require => 'i18n/active_record'
 
-# wysiwyg editor
+# WYSIWYG editor
 gem 'bootstrap-wysihtml5-rails' , :require => 'bootstrap-wysihtml5-rails',
                                   :git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
+
+gem 'unicorn'
 
 gem_group :development do
   # Ruby debugger
@@ -116,6 +118,10 @@ run 'rm public/index.html'
 
 # Disable Whitelist Attribute
 gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
+
+# Compile Assets on Server
+# gsub_file 'config/environments/staging.rb', 'config.assets.compile = false', 'config.assets.compile = true'
+# gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
 rake 'db:drop'
 rake 'db:create'
