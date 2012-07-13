@@ -1,13 +1,15 @@
 <%
-  object = f.object
-  klass = object.class
-  attribute = object.send attr
-  is_required = klass.validates_presence_of? attr
-  is_association = object.respond_to? :reflect_on_association
-  is_serialized = true
-  is_empty = is_association && attribute.empty? || is_serialized && attribute.all?(&:blank?)
+  object                      = f.object
+  attribute                   = object.send attr
+  association                 = object.class.reflect_on_association attr
+  serialization               = object.class.serialized_attributes.symbolize_keys[attr]
+  is_required                 = object.class.validates_presence_of? attr
+  is_has_many_association     = association && association.macro == :has_many
+  is_enumerable_serialization = serialization && serialization.object_class < Enumerable
+  is_empty                    = (is_has_many_association || is_enumerable_serialization) && attribute.all?(&:blank?)
+  is_error                    = ! object.errors.empty?
 %>
 
-<% if !object.errors.empty? && is_required && is_empty %>
+<% if is_error && is_required && is_empty %>
   <span class="help-inline">A value is required</span>
 <% end %>
