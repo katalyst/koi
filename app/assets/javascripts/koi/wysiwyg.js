@@ -137,10 +137,13 @@
              +' wbr'
              ).match (/\S+/g);
   
-  for (var i = 0; i < tags.length; i ++) parserRules.tags [tags [i]] = {};
+  for (var i = 0; i < tags.length; i ++)
+    parserRules.tags [tags [i]] = {
+      check_attributes: { 'class': 'any', 'style': 'any' }
+    };
 
-  parserRules.tags.a   = { check_attributes: { href: "href", style: "any" } };
-  parserRules.tags.img = { check_attributes: { src:  "href", style: "any"  } };
+  parserRules.tags.a.check_attributes.href = 'href';
+  parserRules.tags.img.check_attributes.href = 'href';
 
   $ ('[koi=wysiwyg]').livequery (function ()
   {
@@ -150,7 +153,9 @@
     var form     = app.closest ('form');
 
     var editor = new wysihtml5.Editor (textarea [0],
-      { toolbar: toolbar [0], stylesheets: ['/assets/koi/wysiwyg.css'], parserRules: parserRules });
+      { toolbar: toolbar [0]
+      , parserRules: parserRules 
+      , stylesheets: ['/assets/koi/wysiwyg.css'] });
 
     editor.on ('load', function ()
     {
