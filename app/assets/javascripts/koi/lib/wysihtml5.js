@@ -5063,66 +5063,44 @@ wysihtml5.dom.parse = (function() {
   
   
   // ------------ attribute checks ------------ \\
+
+  function _identity (x)
+  {
+    return x;
+  }
+
+  function _attrChecker (expr, coerce)
+  {
+    return function (attr)
+    {
+      return attr && expr.test (attr) && (coerce || _identity) (attr);
+    };
+  }
+
+  function _urlChecker (expr)
+  {
+    return _attrChecker(expr, function (attr)
+    {
+      return attr.replace(/^\w+:/, function (protocol) { return protocol.toLowerCase(); });
+    });
+  }
+
   var attributeCheckMethods = {
 
-    url: (function() {
-      var REG_EXP = /^https?:\/\//i;
-      return function(attributeValue) {
-        if (!attributeValue || !attributeValue.match(REG_EXP)) {
-          return null;
-        }
-        return attributeValue.replace(REG_EXP, function(match) {
-          return match.toLowerCase();
-        });
-      };
-    })(),
-
-    absolute_path: (function() {
-      var REG_EXP = /^\/.*/i;
-      return function(attributeValue) {
-        if (!attributeValue || !attributeValue.match(REG_EXP)) {
-          return null;
-        }
-        return attributeValue.replace(REG_EXP, function(match) {
-          return match.toLowerCase();
-        });
-      };
-    })(),
-
-    href: (function() {
-      var PROTOCOL_REG_EXP = /^\w+:/;
-      var SAFE_PROTOCOL_REG_EXP = /^(https?:\/\/|mailto:)/i;
-
-      return function(attributeValue) {
-        if (attributeValue)
-          if (attributeValue.match(PROTOCOL_REG_EXP))
-          {
-            if (attributeValue.match(SAFE_PROTOCOL_REG_EXP))
-              return attributeValue.replace(PROTOCOL_REG_EXP, function(match) { return match.toLowerCase(); });
-          }
-          else return attributeValue;
-      };
-    })(),
-    
-    alt: (function() {
-      var REG_EXP = /[^ a-z0-9_\-]/gi;
-      return function(attributeValue) {
-        if (!attributeValue) {
-          return "";
-        }
-        return attributeValue.replace(REG_EXP, "");
-      };
-    })(),
-    
-    numbers: (function() {
-      var REG_EXP = /\D/g;
-      return function(attributeValue) {
-        attributeValue = (attributeValue || "").replace(REG_EXP, "");
-        return attributeValue || null;
-      };
-    })()
+    any:           _identity
+  , url:           _urlChecker  (/^https?:\/\//i)
+  , http:          _urlChecker  (/^https?:\/\//i)
+  , mailto:        _urlChecker  (/^mailto:/i)
+  , email:         _urlChecker  (/@/)
+  , href:          _urlChecker  (/^(https?:\/\/.*)|(mailto:.*)|([^:]*)$/i)
+  , src:           _urlChecker  (/^(https?:\/\/.*)|([^:]*)$/i)
+  , path:          _urlChecker  (/^\.*\//)
+  , absolute_path: _urlChecker  (/^\//)
+  , relative_path: _urlChecker  (/^\.+\//)
+  , alt:           _attrChecker (/[\w-]/)
+  , numbers:       _attrChecker (/[\d]/, function (attr) { return attr.replace (/[\D]/, ''); })
   };
-  
+
   // ------------ class converter (converts an html attribute to a class name) ------------ \\
   var addClassMethods = {
     align_img: (function() {
@@ -6902,13 +6880,22 @@ wysihtml5.Commands = Base.extend(
 
       // if <a> contains url-like text content, rename it to <code> to prevent re-autolinking
       // else replace <a> with its childNodes
-      if (textContent.match(dom.autoLink.URL_REG_EXP) && !codeElement) {
+      if (textContent && textContent.match(dom.autoLink.URL_REG_EXP) && !codeElement) {
         // <code> element is used to prevent later auto-linking of the content
         codeElement = dom.renameElement(anchor, "code");
       } else {
         dom.replaceWithChildNodes(anchor);
       }
     }
+  }
+
+  function _reformat(composer, attributes, anchors) {
+    var length  = anchors.length,
+        i       = 0,
+        j;
+    for (; i<length; i++)
+      for (j in attributes)
+        anchors[i].setAttribute (j, attributes[j]);
   }
 
   function _format(composer, attributes) {
@@ -6952,6 +6939,15 @@ wysihtml5.Commands = Base.extend(
     composer.selection.setAfter(elementToSetCaretAfter);
   }
   
+  function _createLinkAttributes (value)
+  {
+    switch (typeof value)
+    {
+      case 'string': if (/\w/.test (value)) return { href: value };
+      case 'object': if (/\w/.test (value.href)) return value;
+    }
+  }
+
   wysihtml5.commands.createLink = {
     /**
      * TODO: Use HTMLApplier or formatInline here
@@ -6967,16 +6963,15 @@ wysihtml5.Commands = Base.extend(
      *    wysihtml5.commands.createLink.exec(composer, "createLink", { href: "http://www.google.de", target: "_blank" });
      */
     exec: function(composer, command, value) {
+      var attributes = _createLinkAttributes (value);
       var anchors = this.state(composer, command);
-      if (anchors) {
-        // Selection contains links
-        composer.selection.executeAndRestore(function() {
-          _removeFormat(composer, anchors);
-        });
-      } else {
-        // Create links
-        value = typeof(value) === "object" ? value : { href: value };
-        _format(composer, value);
+      var length = anchors ? anchors.length : 0;
+
+      if (attributes) {
+        anchors ? _reformat(composer, attributes, anchors) : _format(composer, attributes);
+      }
+      else if (anchors) {
+        composer.selection.executeAndRestore(function() { _removeFormat(composer, anchors); });
       }
     },
 

@@ -19,3 +19,13 @@ body
   word-spacing:     0px;
 }
 
+body:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+* html body             { zoom: 1; } /* IE6 */
+*:first-child+html body { zoom: 1; } /* IE7 */
