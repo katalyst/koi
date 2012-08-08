@@ -41,11 +41,10 @@
 
     exec: function (composer, command)
     {
-      var anchors = this.state (composer, command);
+      var anchors = $ (this.state (composer, command));
+      var href = anchors.attr ('href');
 
-      if (anchors) composer.commands.exec ('createLink'); // will destroy the link
-
-      else ask ({ question: 'Insert Link', answer: '' }, function (href)
+      ask ({ question: 'Insert Link', answer: href }, function (href)
       {
         composer.commands.exec ('createLink', href);
       });
@@ -61,11 +60,10 @@
 
     exec: function (composer, command)
     {
-      var anchors = this.state (composer, command);
+      var anchors = $ (this.state (composer, command));
+      var href = anchors.attr ('href').match (/(mailto:)?(.*)/) [2];
 
-      if (anchors) composer.commands.exec ('createLink'); // will destroy the link
-
-      else ask ({ question: 'Insert Mail', answer: '' }, function (href)
+      ask ({ question: 'Insert Mail', answer: href }, function (href)
       {
         composer.commands.exec ('createLink', 'mailto:' + href);
       });
@@ -141,7 +139,8 @@
   
   for (var i = 0; i < tags.length; i ++) parserRules.tags [tags [i]] = {};
 
-  parserRules.tags.a = { check_attributes: { href: "href" } };
+  parserRules.tags.a   = { check_attributes: { href: "href", style: "any" } };
+  parserRules.tags.img = { check_attributes: { src:  "href", style: "any"  } };
 
   $ ('[koi=wysiwyg]').livequery (function ()
   {
@@ -150,7 +149,21 @@
     var textarea = app.find ('[koi\\:name=textarea]');
     var form     = app.closest ('form');
 
-    var editor = new wysihtml5.Editor (textarea [0], { toolbar: toolbar [0], stylesheets: ['/assets/koi/wysiwyg.css'], parserRules: parserRules });
+    var editor = new wysihtml5.Editor (textarea [0],
+      { toolbar: toolbar [0], stylesheets: ['/assets/koi/wysiwyg.css'], parserRules: parserRules });
+
+    editor.on ('load', function ()
+    {
+      var editable = $ ([editor.currentView.doc.body, editor.currentView.textarea]);
+      var viewable = $ ([editor.currentView.iframe,   editor.currentView.textarea]);
+      var initialHeight = viewable.height ();
+
+      editable.css ('overflow', 'hidden');
+
+      editable.on ('focus keyup paste', function () { viewable.animate ({ height: editable.height () }); });
+      editable.on ('blur', function () { viewable.animate ({ height: initialHeight }); });
+    });
   });
 
 } (jQuery, wysihtml5);
+
