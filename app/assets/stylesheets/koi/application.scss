@@ -133,7 +133,7 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
 
 body { background-color:transparent; }
 
-[koi=wysiwyg] [name=toolbar]
+[koi=wysiwyg] [koi\:name=toolbar]
 {
   > li
   {
@@ -145,7 +145,7 @@ body { background-color:transparent; }
 
 #void { display:none; }
 
-.wysihtml5-sandbox
+[koi=wysiwyg] textarea, [koi=wysiwyg] iframe
 {
   background-color: rgb(255, 255, 255);
   border-collapse: separate;
@@ -173,7 +173,10 @@ body { background-color:transparent; }
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
   width: 498px;
-  height: 200px;
+  height: 400px;
 }
 
-
+[koi=wysiwyg] iframe
+{
+  background-color: rgb(245, 245, 255);
+}
