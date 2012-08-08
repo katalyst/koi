@@ -1,4 +1,5 @@
 class Translation < ActiveRecord::Base
+
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 

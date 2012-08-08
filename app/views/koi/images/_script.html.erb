@@ -1,31 +1,29 @@
 <script type="text/javascript">
   $ (function() {
 
-    $ ('.insert.asset.application').application (function ($insert)
+    $ ('.insert.asset.application').application (function (insertion)
     {
-      var $link = $insert.component ('.insert.asset.link');
+      var link = insertion.component ('.insert.asset.link');
 
       function getHref (arg)
       {
-        return 'http://' + window.location.hostname + $link.attr ('href');
+        return 'http://' + window.location.hostname + link.attr ('href');
       }
 
       function setHref (arg)
       {
-        $link.attr ('href', arg);
+        link.attr ('href', arg);
       }
 
-      $insert.find ('input[type=radio]').each (function ()
+      insertion.find ('input[type=radio]').each (function ()
       {
-        var $radio = $ (this);
-        $radio.change (function () { setHref ($radio.data ('href')) });
+        var radio = $ (this);
+        radio.change (function () { setHref (radio.data ('href')) });
       });
 
-      $link.click (function ()
+      link.click (function ()
       {
-        $ (window).env ('insert') ({ src: getHref (), style: 'float:left;' });
-        $ (window).env ('close') ();
-        return false;
+        window.close ({ src: getHref (), style: 'float:left;', command: 'insertImage' }); return false;
       });
 
     });
