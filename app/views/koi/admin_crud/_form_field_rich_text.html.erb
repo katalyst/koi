@@ -1,8 +1,8 @@
 <div koi="wysiwyg">
 
-  <label class="text required control-label"><abbr title="required">*</abbr> Description</label>
+  <label class="text required control-label"><abbr title="required">*</abbr> <%= attr.to_s.titleize %></label>
 
-  <ul name="toolbar">
+  <ul koi:name="toolbar">
 
     <li class="dropdown">
 
@@ -90,6 +90,6 @@
 
   </ul>
 
-  <%= f.input attr, as: :text, label: false, input_html: { name: "textarea" } %>
+  <%= f.input attr, as: :text, label: false, input_html: { "koi:name" => "textarea" } %>
 
 </div>
