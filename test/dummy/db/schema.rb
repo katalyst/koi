@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(:version => 20120605013611) do
 
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
 
+  create_table "exits", :force => true do |t|
+    t.text     "page_path"
+    t.integer  "pageviews"
+    t.integer  "unique_pageviews"
+    t.integer  "exits"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "nav_items", :force => true do |t|
     t.string   "type"
     t.string   "title"
@@ -129,6 +138,20 @@ ActiveRecord::Schema.define(:version => 20120605013611) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "url"
+    t.string   "meta_title"
+    t.text     "meta_description"
+    t.integer  "set_id"
+    t.string   "set_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "settings", ["set_id"], :name => "index_settings_on_set_id"
+  add_index "settings", ["set_type"], :name => "index_settings_on_set_type"
+  add_index "settings", ["url"], :name => "index_settings_on_url"
 
   create_table "super_heros", :force => true do |t|
     t.string   "name"
