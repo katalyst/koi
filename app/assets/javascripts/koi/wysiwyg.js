@@ -114,30 +114,43 @@
     }
   }
 
+  var parserRules = { tags: {} };
+
+  var tags = (' a abbr address area article aside audio'
+             +' b base bdi bdo blockquote body br button'
+             +' canvas caption cite code col colgroup command'
+             +' data datalist dd del details dfn div dl dt'
+             +' em'
+             +' fieldset figcaption figure footer form'
+             +' h1 h2 h3 h4 h5 h6 head header hgroup hr html'
+             +' i iframe img input ins'
+             +' kbd keygen'
+             +' label legend li link'
+             +' map mark math menu meta meter'
+             +' nav noscript'
+             +' object ol optgroup option output'
+             +' p param pre progress'
+             +' q'
+             +' rp rt ruby'
+             +' s samp script section select small source span strong style sub summary sup svg'
+             +' table tbody td textarea tfoot th thead time title tr track'
+             +' u ul'
+             +' var video'
+             +' wbr'
+             ).match (/\S+/g);
+  
+  for (var i = 0; i < tags.length; i ++) parserRules.tags [tags [i]] = {};
+
+  parserRules.tags.a = { check_attributes: { href: "href" } };
+
   $ ('[koi=wysiwyg]').livequery (function ()
   {
     var app      = $ (this);
-    var toolbar  = app.find ('[name=toolbar]');
-    var textarea = app.find ('[name=textarea]');
+    var toolbar  = app.find ('[koi\\:name=toolbar]');
+    var textarea = app.find ('[koi\\:name=textarea]');
+    var form     = app.closest ('form');
 
-    var parserRules = { tags: { a:      { check_attributes: { href: "href" } }
-                              , b:      {}
-                              , br:     {}
-                              , div:    {}
-                              , em:     {}
-                              , h1:     {}
-                              , h2:     {}
-                              , i:      {}
-                              , img:    {}
-                              , li:     {}
-                              , ol:     {}
-                              , p:      {}
-                              , span:   {}
-                              , strong: {}
-                              , ul:     {}
-                              }
-                      };
-    new wysihtml5.Editor (textarea [0], { toolbar: toolbar [0], stylesheets: ['/assets/koi/wysiwyg.css'], parserRules: parserRules });
+    var editor = new wysihtml5.Editor (textarea [0], { toolbar: toolbar [0], stylesheets: ['/assets/koi/wysiwyg.css'], parserRules: parserRules });
   });
 
 } (jQuery, wysihtml5);
