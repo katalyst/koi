@@ -187,12 +187,7 @@
       }
 
       var toolbarOffset = toolbar.offset ();
-      toolbarOffset.right = toolbarOffset.left + toolbar.width ();
-      toolbarOffset.bottom = toolbarOffset.top + toolbar.height ();
-
-      var appOffset = app.offset ();
-      appOffset.right = appOffset.left + app.width ();
-      appOffset.bottom = appOffset.top + app.height ();
+      var appOffset;
 
       var fixed = {
         top: 300
@@ -224,11 +219,13 @@
       {
         if (toolbar.css ('opacity') > 0.1) return;
 
-        $ ('[koi=wysiwyg] [koi\\:name=toolbar]').animate ({ opacity: 0 });
+        $ ('[koi=wysiwyg] [koi\\:name=toolbar]').not (toolbar).animate ({ opacity: 0 });
 
         viewable.animate ({ height: editable.height () }, function ()
         {
           toolbar.css (absoluteTop);
+
+          toolbar.animate ({ opacity: 1 });
 
           toolbarOffset = toolbar.offset ();
           toolbarOffset.right = toolbarOffset.left + toolbar.width ();
@@ -238,14 +235,7 @@
           appOffset.right = appOffset.left + app.width ();
           appOffset.bottom = appOffset.top + app.height ();
 
-          fixed = {
-            top: 300
-          , left: toolbarOffset.left
-          , position: 'fixed'
-          }
-
           comeHither (); win.bind ('scroll', comeHither);
-          toolbar.animate ({ opacity: 1 });
         });
       });
       
