@@ -2,9 +2,11 @@
 //= require ./lib/shim
 //= require ./lib/bootstrap
 //= require ./lib/highcharts
+//= require ./lib/highcharts
 //= require_tree ./application
 //= require ./assets
 //= require ./nav_items
+//= require ./wysiwyg
 
 ! function () {
 
@@ -18,8 +20,8 @@
   $('.date.input').application
     (true, function ($this) { $this.koiDatePicker () });
 
-  $('.rich.text.input').application
-    (true, function ($this) { $this.koiEditor () });
+  // $('.rich.text.input').application
+  //   (true, function ($this) { $this.koiEditor () });
 
   $('.sortable.fields').application
     (true, function ($this) { $this.koiSortable () });
