@@ -137,7 +137,6 @@ body { background-color:transparent; }
 {
   > li
   {
-    display:inline-block; * display:inline;
     .btn { padding:3px 6px; background-color:#777; display:inline-block; * display:inline; }
     .btn-group { display:inline-block; * display:inline; }
   }
@@ -145,7 +144,7 @@ body { background-color:transparent; }
 
 #void { display:none; }
 
-[koi=wysiwyg] textarea, [koi=wysiwyg] iframe
+.action.view [koi=wysiwyg] textarea, .action.view [koi=wysiwyg] iframe
 {
   background-color: rgb(255, 255, 255);
   border-collapse: separate;
@@ -172,7 +171,7 @@ body { background-color:transparent; }
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
-  width: 498px;
+  width: 530px;
   height: 200px;
 }
 
