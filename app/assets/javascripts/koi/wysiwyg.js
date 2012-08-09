@@ -33,8 +33,11 @@
     {
       app.unbind ('keypress', press); sub.unbind ('click', click);
     });
-
-    app.modal ('show'); ans.focus ();
+    app.bind ('shown', function ()
+    {
+      ans.focus ();
+    });
+    app.modal ('show');
   }
 
   wysihtml5.commands.chooseLink = {
@@ -143,7 +146,7 @@
     };
 
   parserRules.tags.a.check_attributes.href = 'href';
-  parserRules.tags.img.check_attributes.href = 'href';
+  parserRules.tags.img.check_attributes.src = 'href';
 
   $ ('[koi=wysiwyg]').livequery (function ()
   {
@@ -159,14 +162,94 @@
 
     editor.on ('load', function ()
     {
-      var editable = $ ([editor.currentView.doc.body, editor.currentView.textarea]);
-      var viewable = $ ([editor.currentView.iframe,   editor.currentView.textarea]);
+      var editable = $ ([editor.currentView.doc.body, editor.currentView.textarea.element]);
+      var viewable = $ ([editor.currentView.iframe,   editor.currentView.textarea.element]);
       var initialHeight = viewable.height ();
 
-      editable.css ('overflow', 'hidden');
+      $ (editor.currentView.doc.body).css ('overflow', 'hidden');
 
-      editable.on ('focus keyup paste', function () { viewable.animate ({ height: editable.height () }); });
-      editable.on ('blur', function () { viewable.animate ({ height: initialHeight }); });
+      var win = $ (window);
+
+      var absoluteTop = {
+        top: toolbar.css ('top')
+      , left: toolbar.css ('left')
+      , right: toolbar.css ('right')
+      , bottom: toolbar.css ('bottom')
+      , position: 'absolute'
+      }
+
+      var absoluteBottom = {
+        top: absoluteTop + editable.height () - toolbar.height ()
+      , left: 'auto'
+      , right: toolbar.css ('right')
+      , bottom: 'auto'
+      , position: 'absolute'
+      }
+
+      var toolbarOffset = toolbar.offset ();
+      toolbarOffset.right = toolbarOffset.left + toolbar.width ();
+      toolbarOffset.bottom = toolbarOffset.top + toolbar.height ();
+
+      var appOffset = app.offset ();
+      appOffset.right = appOffset.left + app.width ();
+      appOffset.bottom = appOffset.top + app.height ();
+
+      var fixed = {
+        top: 300
+      , left: toolbarOffset.left
+      , position: 'fixed'
+      }
+
+      toolbar.css ({ opacity: 0 });
+
+      function comeHither ()
+      {
+        var scroll = {
+          top: win.scrollTop ()
+        , bottom: win.scrollTop () + win.height ()
+        }
+
+        var top    = fixed.top + scroll.top;
+        var bottom = top + toolbar.height ();
+
+        var isAbove = top < toolbarOffset.top;
+        var isBelow = bottom > app.offset ().top + app.height ();
+
+        absoluteBottom.top = parseInt (absoluteTop.top) + editable.height () - toolbar.height ();
+
+        toolbar.css (isAbove ? absoluteTop : isBelow ? absoluteBottom : fixed);
+      }
+
+      editable.on ('click focus keyup paste', function ()
+      {
+        viewable.animate ({ height: editable.height () }, function ()
+        {
+          toolbar.css (absoluteTop);
+
+          toolbarOffset = toolbar.offset ();
+          toolbarOffset.right = toolbarOffset.left + toolbar.width ();
+          toolbarOffset.bottom = toolbarOffset.top + toolbar.height ();
+
+          appOffset = app.offset ();
+          appOffset.right = appOffset.left + app.width ();
+          appOffset.bottom = appOffset.top + app.height ();
+
+          fixed = {
+            top: 300
+          , left: toolbarOffset.left
+          , position: 'fixed'
+          }
+
+          comeHither (); win.bind ('scroll', comeHither);
+          toolbar.animate ({ opacity: 1 });
+        });
+      });
+      
+      editable.on ('blur', function ()
+      {
+        win.unbind ('scroll', comeHither);
+        toolbar.animate ({ opacity: 0 });
+      });
     });
   });
 
