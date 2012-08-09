@@ -1,1 +1,121 @@
-<%= f.input attr, :input_html => { :class => "ckeditor" } %>
+<div class="wysiwyg application">
+  <ul class="wysiwyg toolbar">
+
+    <li class="dropdown">
+
+      <button class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="icon-font"></i>&nbsp;<span class="current-font">p</span>&nbsp;<b class="caret">
+        </b>
+      </button>
+
+      <ul class="dropdown-menu">
+        <li>
+          <button data-wysihtml5-command="formatBlock" name-value="div">p</button>
+        </li>
+        <li>
+          <button data-wysihtml5-command="formatBlock" name-value="h1">h1</button>
+        </li>
+        <li>
+          <button data-wysihtml5-command="formatBlock" name-value="h2">h2</button>
+        </li>
+      </ul>
+
+    </li>
+
+    <li>
+
+      <div class="btn-group">
+        <button class="btn" data-wysihtml5-command="bold" title="CTRL+B">b</button>
+        <button class="btn" data-wysihtml5-command="italic" title="CTRL+I">i</button>
+        <button class="btn" data-wysihtml5-command="underline" title="CTRL+U">u</button>
+      </div>
+
+    </li>
+
+    <li>
+
+      <div class="btn-group">
+        <button class="btn" data-wysihtml5-command="insertUnorderedList" title="Unordered List">
+          <i class="icon-list"></i>
+        </button>
+        <button class="btn" data-wysihtml5-command="insertOrderedList" title="Ordered List">
+          <i class="icon-th-list"></i>
+        </button>
+        <button class="btn" data-wysihtml5-command="Outdent" title="Outdent">
+          <i class="icon-indent-right"></i>
+        </button>
+        <button class="btn" data-wysihtml5-command="Indent" title="Indent">
+          <i class="icon-indent-left"></i>
+        </button>
+      </div>
+
+    </li>
+
+    <li>
+
+      <div class="btn-group">
+        <button class="btn" data-wysihtml5-command="createLink" title="Link">
+          <i class="icon-share"></i>
+        </button>
+
+        <div class="bootstrap-wysihtml5-insert-link-modal modal hide fade">
+          <div class="modal-header">
+            <button class="close" data-dismiss="modal">×</button>
+            <h3>Insert Link</h3>
+          </div>
+          <div class="modal-body">
+            <input value="http://" class="bootstrap-wysihtml5-insert-link-url input-xlarge">
+          </div>
+          <div class="modal-footer">
+            <button href="#" class="btn close" data-dismiss="modal">Cancel</button>
+            <button href="#" class="space-r-1 btn btn-primary" data-dismiss="modal">Insert link</button>
+          </div>
+        </div>
+
+        <div class="bootstrap-wysihtml5-insert-email-link-modal modal hide fade">
+          <div class="modal-header">
+            <button class="close" data-dismiss="modal">×</button>
+            <h3>Insert Email Link</h3>
+          </div>
+          <div class="modal-body">
+            <input class="bootstrap-wysihtml5-insert-email-link-url input-xlarge">
+          </div>
+          <div class="modal-footer">
+            <button href="#" class="btn close" data-dismiss="modal">Cancel</button>
+            <button href="#" class="space-r-1 btn btn-primary" data-dismiss="modal">Insert email link</button>
+          </div>
+        </div>
+        
+        <button class="btn" data-wysihtml5-command="createEmailLink" title="Email Link">@</button>
+      </div>
+
+    </li>
+
+    <li>
+
+      <div class="btn-group">
+        <button class="btn" data-wysihtml5-command="insertImage" title="Insert image">
+          <i class="icon-picture"></i>
+        </button>
+        <button class="btn" data-wysihtml5-command="insertDocument" title="Insert document">
+          <i class="icon-file"></i>
+        </button>
+      </div>
+   
+    </li>
+
+    <li>
+   
+      <div class="btn-group">
+        <button class="btn" data-wysihtml5-action="change_view" title="Edit HTML">
+          <i class="icon-pencil"></i>
+        </button>
+      </div>
+
+    </li>
+
+  </ul>
+
+  <%= f.input attr, as: :text, input_html: { class: "wysiwyg textarea" } %>
+
+</div>

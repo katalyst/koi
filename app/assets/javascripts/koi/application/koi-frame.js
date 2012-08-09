@@ -1,5 +1,3 @@
-<% url = Koi::Engine.routes.url_helpers %>
-
 ! function ($)
 {
   $.fn.pop = Array.prototype.pop;
@@ -51,36 +49,6 @@
         ;
         $iframe.width (contentWidth).height (contentHeight);
       })
-    }
-
-  , assetManager: function (src)
-    {
-      return $ ('<div class="asset-manager modal fade hide-element as-clr">').extend ({
-
-        open: function ()
-        {
-          this.appendTo ('body').modal ({ backdrop: true }).modal ('show').html ($.factory.iframe (src));
-          return this;
-        }
-
-      , close: function ()
-        {
-          var $this = this;
-          $this.modal ('hide');
-          setTimeout (function () { $this.remove (); }, 1000);
-          return this;
-        }
-      })
-    }
-
-  , imageManager: function ()
-    {
-      return this.assetManager ("<%= url.new_image_path %>");
-    }
-
-  , documentManager: function ()
-    {
-      return this.assetManager ("<%= url.new_document_path %>");
     }
   }
 
