@@ -1,0 +1,31 @@
+body
+{
+  background-color: #fdfdfd;
+  color:            #555555;
+  cursor:           auto;
+  font-family:      'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:        13px;
+  font-style:       normal;
+  font-variant:     normal;
+  font-weight:      normal;
+  line-height:      18px;
+  letter-spacing:   normal;
+  text-align:       start;
+  text-decoration:  none;
+  text-indent:      0px;
+  text-rendering:   auto;
+  word-break:       normal;
+  word-wrap:        break-word;
+  word-spacing:     0px;
+}
+
+body:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+* html body             { zoom: 1; } /* IE6 */
+*:first-child+html body { zoom: 1; } /* IE7 */
