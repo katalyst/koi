@@ -222,6 +222,10 @@
 
       editable.on ('click focus keyup paste', function ()
       {
+        if (toolbar.css ('opacity') > 0.1) return;
+
+        $ ('[koi=wysiwyg] [koi\\:name=toolbar]').animate ({ opacity: 0 });
+
         viewable.animate ({ height: editable.height () }, function ()
         {
           toolbar.css (absoluteTop);
@@ -245,11 +249,11 @@
         });
       });
       
-      editable.on ('blur', function ()
-      {
-        win.unbind ('scroll', comeHither);
-        toolbar.animate ({ opacity: 0 });
-      });
+      // editable.on ('blur', function ()
+      // {
+      //   win.unbind ('scroll', comeHither);
+      //   toolbar.animate ({ opacity: 0 });
+      // });
     });
   });
 
