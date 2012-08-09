@@ -7,7 +7,7 @@
       class="nav-item application id-<%= nav_item_id %>
              <%= "sortable cursor-move" if nav_item.draggable? %>
              level-<%= level %>
-             <%= 'is-hidden' if nav_item.is_hidden? %>"
+             <%= 'is-hidden' if nav_item.read_attribute(:is_hidden) == true %>"
       data-type="<%= nav_item_type %>"
       data-id="<%= nav_item_id %>"
       data-left-ordinal="<%= nav_item.lft %>"
