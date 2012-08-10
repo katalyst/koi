@@ -139,14 +139,18 @@
              +' var video'
              +' wbr'
              ).match (/\S+/g);
-  
-  for (var i = 0; i < tags.length; i ++)
-    parserRules.tags [tags [i]] = {
-      check_attributes: { 'class': 'any', 'style': 'any' }
-    };
 
-  parserRules.tags.a.check_attributes.href = 'href';
-  parserRules.tags.img.check_attributes.src = 'href';
+  for (var i = 0; i < tags.length; i ++)
+    parserRules.tags [tags [i]] = { check_attributes: { 'class': 'any', 'style': 'any' }, set_attributes: {} };
+
+  parserRules .tags .a      .check_attributes .href         = 'href';
+  parserRules .tags .img    .check_attributes .src          = 'href';
+  parserRules .tags .iframe .check_attributes .src          = 'href';
+  parserRules .tags .iframe .check_attributes .width        = 'numbers';
+  parserRules .tags .iframe .check_attributes .height       = 'numbers';
+  parserRules .tags .iframe .check_attributes .frameborder  = 0;
+  parserRules .tags .iframe .check_attributes .marginwidth  = 0;
+  parserRules .tags .iframe .check_attributes .marginheight = 0;
 
   $ ('[koi=wysiwyg]').livequery (function ()
   {
