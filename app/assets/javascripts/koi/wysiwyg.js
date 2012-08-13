@@ -142,8 +142,7 @@
 
   for (var i = 0; i < tags.length; i ++)
     parserRules.tags [tags [i]] = {
-      check_attributes: { 'class': 'any', 'style': 'any' }
-    , set_attributes: {}
+      check_attributes: { 'class': 'any', 'style': 'any', 'id': 'any' }, set_attributes: {}
     }
 
   parserRules .tags .a      .check_attributes .href         = 'href'
