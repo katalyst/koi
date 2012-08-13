@@ -141,28 +141,34 @@
              ).match (/\S+/g);
 
   for (var i = 0; i < tags.length; i ++)
-    parserRules.tags [tags [i]] = { check_attributes: { 'class': 'any', 'style': 'any' }, set_attributes: {} };
+    parserRules.tags [tags [i]] = {
+      check_attributes: { 'class': 'any', 'style': 'any' }
+    , set_attributes: {}
+    }
 
-  parserRules .tags .a      .check_attributes .href         = 'href';
-  parserRules .tags .img    .check_attributes .src          = 'href';
-  parserRules .tags .iframe .check_attributes .src          = 'href';
-  parserRules .tags .iframe .check_attributes .width        = 'numbers';
-  parserRules .tags .iframe .check_attributes .height       = 'numbers';
-  parserRules .tags .iframe .check_attributes .frameborder  = 0;
-  parserRules .tags .iframe .check_attributes .marginwidth  = 0;
-  parserRules .tags .iframe .check_attributes .marginheight = 0;
+  parserRules .tags .a      .check_attributes .href         = 'href'
+  parserRules .tags .img    .check_attributes .src          = 'href'
+  parserRules .tags .iframe .check_attributes .src          = 'href'
+  parserRules .tags .iframe .check_attributes .width        = 'numbers'
+  parserRules .tags .iframe .check_attributes .height       = 'numbers'
+  parserRules .tags .iframe .set_attributes   .frameborder  = 0
+  parserRules .tags .iframe .set_attributes   .marginwidth  = 0
+  parserRules .tags .iframe .set_attributes   .marginheight = 0
+  parserRules .tags .table  .set_attributes   .cellspacing  = 0
+  parserRules .tags .table  .set_attributes   .cellpadding  = 0
+  parserRules .tags .table  .set_attributes   .border       = 0
 
   $ ('[koi=wysiwyg]').livequery (function ()
   {
-    var app      = $ (this);
-    var toolbar  = app.find ('[koi\\:name=toolbar]');
-    var textarea = app.find ('[koi\\:name=textarea]');
-    var form     = app.closest ('form');
+    var app      = $ (this)
+    var toolbar  = app.find ('[koi\\:name=toolbar]')
+    var textarea = app.find ('[koi\\:name=textarea]')
+    var form     = app.closest ('form')
 
     var editor = new wysihtml5.Editor (textarea [0],
       { toolbar: toolbar [0]
       , parserRules: parserRules 
-      , stylesheets: ['/assets/koi/wysiwyg.css'] });
+      , stylesheets: ['/assets/koi/wysiwyg.css'] })
 
     editor.on ('load', function ()
     {
@@ -219,13 +225,11 @@
         toolbar.css (isAbove ? absoluteTop : isBelow ? absoluteBottom : fixed);
       }
 
-      editable.on ('click focus keyup paste', function ()
+      editable.on ('click focus paste keyup', function ()
       {
-        if (toolbar.css ('opacity') > 0.1) return;
-
         $ ('[koi=wysiwyg] [koi\\:name=toolbar]').not (toolbar).animate ({ opacity: 0 });
 
-        viewable.animate ({ height: editable.height () }, function ()
+        viewable.animate ({ height: editable.height () }, 100, function ()
         {
           toolbar.css (absoluteTop);
 
