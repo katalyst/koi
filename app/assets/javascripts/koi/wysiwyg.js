@@ -140,23 +140,37 @@
              +' wbr'
              ).match (/\S+/g);
 
-  for (var i = 0; i < tags.length; i ++)
-    parserRules.tags [tags [i]] = {
-      check_attributes: { 'class': 'any', 'style': 'any', 'id': 'any' }, set_attributes: {}
+  for (var i = 0; i < tags.length; i ++) parserRules.tags [tags [i]] = {
+
+    check_attributes:
+    {
+      'class': 'any', 'style': 'any', 'id': 'any', 'title': 'any'
     }
 
+  , set_attributes:
+    {
+    }
+  }
+
   parserRules .tags .a      .check_attributes .href         = 'href'
+  parserRules .tags .a      .check_attributes .rel          = 'any'
+  parserRules .tags .a      .check_attributes .target       = 'any'
+  parserRules .tags .img    .check_attributes .alt          = 'any'
   parserRules .tags .img    .check_attributes .src          = 'href'
   parserRules .tags .iframe .check_attributes .src          = 'href'
   parserRules .tags .iframe .check_attributes .width        = 'numbers'
   parserRules .tags .iframe .check_attributes .height       = 'numbers'
-  parserRules .tags .iframe .set_attributes   .frameborder  = 0
-  parserRules .tags .iframe .set_attributes   .marginwidth  = 0
-  parserRules .tags .iframe .set_attributes   .marginheight = 0
-  parserRules .tags .table  .set_attributes   .cellspacing  = 0
-  parserRules .tags .table  .set_attributes   .cellpadding  = 0
-  parserRules .tags .table  .set_attributes   .border       = 0
-
+  parserRules .tags .iframe   .set_attributes .frameborder  = 0
+  parserRules .tags .iframe   .set_attributes .marginwidth  = 0
+  parserRules .tags .iframe   .set_attributes .marginheight = 0
+  parserRules .tags .table    .set_attributes .cellspacing  = 0
+  parserRules .tags .table    .set_attributes .cellpadding  = 0
+  parserRules .tags .table    .set_attributes .border       = 0
+  parserRules .tags .th     .check_attributes .colspan      = 'any'
+  parserRules .tags .th     .check_attributes .rowspan      = 'any'
+  parserRules .tags .td     .check_attributes .colspan      = 'any'
+  parserRules .tags .td     .check_attributes .rowspan      = 'any'
+  
   $ ('[koi=wysiwyg]').livequery (function ()
   {
     var app      = $ (this)
