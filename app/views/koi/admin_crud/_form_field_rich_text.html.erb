@@ -1,14 +1,1 @@
-<% content_for :head do %>
-  <script type="text/javascript">
-    $(document).ready(
-      function()
-      {
-        $('.redactor_textarea').redactor({
-          autoresize: false
-        });
-      }
-    );
-  </script>
-<% end %>
-
-<%= f.input attr, as: :text, label: false, input_html: { class: "redactor_textarea" } %>
+<%= f.input attr, as: :text, input_html: { "koi" => "wysiwyg" } %>
