@@ -10,7 +10,7 @@ $gridGutterWidth:      10px;
 $iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", image);
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
-@import 'bootstrap-wysihtml5';
+@import 'redactor';
 @import 'bowerbird';
 @import "./legacy/button";
 @import "./legacy/icon";
