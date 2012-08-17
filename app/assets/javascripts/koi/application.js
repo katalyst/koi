@@ -6,7 +6,7 @@
 //= require_tree ./application
 //= require ./assets
 //= require ./nav_items
-//= require ./redactor
+//= require ./wysiwyg
 
 ! function () {
 
