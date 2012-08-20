@@ -31,7 +31,6 @@ $ (function () // [koi=wysiwyg]
     {
       launchAssetManager ('/admin/images/new', function (asset)
       {
-        console.log (asset)
         this._imageSet ($ ('<img>', asset).outerHTML (), true)
       })
     }
@@ -53,7 +52,7 @@ $ (function () // [koi=wysiwyg]
       var iframe  = $.factory.iframe (path)
       var imodal  = $ ('<div class="asset-manager modal fade hide">')
 
-      imodal.appendTo ('body').modal ({ backdrop: true }).modal ('show').html (iframe)
+      imodal.appendTo ('body').modal ({ backdrop: true }).modal ('show').removeClass ('hide').addClass ('in').html (iframe)
 
       iframe.load (function ()
       {
@@ -63,6 +62,8 @@ $ (function () // [koi=wysiwyg]
         {
           if (asset) ok.call (app, asset)
 
+          $ ('.modal-backdrop').remove ()
+          
           imodal.modal ('hide', function ()
           {
             imodal.remove ()
