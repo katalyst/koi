@@ -49,10 +49,13 @@ $ (function () // [koi=wysiwyg]
 
     function launchAssetManager (path, ok)
     {
-      var iframe  = $.factory.iframe (path)
-      var imodal  = $ ('<div class="asset-manager modal fade hide">')
-
-      imodal.appendTo ('body').modal ({ backdrop: true }).modal ('show').removeClass ('hide').addClass ('in').html (iframe)
+      var iframe    = $.factory.iframe (path)
+      var imodal    = $ ('<div class="asset-manager modal fade in">')
+                      .html (iframe)
+                      .appendTo ('body')
+                      .modal ({ backdrop : true })
+                      .modal ('show')
+      var ibackdrop = imodal.next ('.modal-backdrop')
 
       iframe.load (function ()
       {
@@ -61,16 +64,11 @@ $ (function () // [koi=wysiwyg]
         iwindow.close = function (asset)
         {
           if (asset) ok.call (app, asset)
-
-          $ ('.modal-backdrop').remove ()
-
-        imodal.remove ()
-        iclose.call (iwindow)
-
-          imodal.modal ('hide', function ()
+          imodal.modal ('hide').on ('hidden', function ()
           {
-            imodal.remove ()
             iclose.call (iwindow)
+            imodal.remove ()
+            ibackdrop.remove ()
           })
         }
       })
