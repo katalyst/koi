@@ -66,8 +66,6 @@ $ (function () // [koi=wysiwyg]
         var iclose  = iwindow.close
         iwindow.close = function (asset)
         {
-          console.log (asset)
-
           if (asset) ok.call (app, asset)
           imodal.modal ('hide').on ('hidden', function ()
           {
