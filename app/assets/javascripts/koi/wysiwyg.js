@@ -31,6 +31,8 @@ $ (function () // [koi=wysiwyg]
     {
       launchAssetManager ('/admin/images/new', function (asset)
       {
+        console.log ('goo', asset, $ ('<img>', asset).outerHTML ())
+
         this._imageSet ($ ('<img>', asset).outerHTML (), true)
       })
     }
@@ -43,7 +45,7 @@ $ (function () // [koi=wysiwyg]
       {
         var fileName = asset.href.match (/[^\/]+$/).toString ()
         this.execCommand ('inserthtml', $ ('<a>', asset).text (fileName).outerHTML ())
-        this.showLink ()
+        //this.showLink ()
       })
     }
 
@@ -63,10 +65,12 @@ $ (function () // [koi=wysiwyg]
         var iclose  = iwindow.close
         iwindow.close = function (asset)
         {
+          console.log (asset)
+
           if (asset) ok.call (app, asset)
           imodal.modal ('hide').on ('hidden', function ()
           {
-            iclose.call (iwindow)
+            iclose ()
             imodal.remove ()
             ibackdrop.remove ()
           })
