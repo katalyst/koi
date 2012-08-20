@@ -32,8 +32,6 @@ $ (function () // [koi=wysiwyg]
       this.saveSelection ()
       launchAssetManager ('/admin/images/new', function (asset)
       {
-        console.log ('goo', asset, $ ('<img>', asset).outerHTML ())
-
         this._imageSet ($ ('<img>', asset).outerHTML (), true)
       })
     }
