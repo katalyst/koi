@@ -11,7 +11,7 @@ $iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", ima
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
 @import "redactor";
-@import "bowerbird";
+@import "bowerbird.scss";
 @import "./legacy/button";
 @import "./legacy/icon";
 @import "./legacy/menu";
