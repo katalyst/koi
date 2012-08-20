@@ -29,6 +29,7 @@ $ (function () // [koi=wysiwyg]
 
     app.showImage = function ()
     {
+      this.saveSelection ()
       launchAssetManager ('/admin/images/new', function (asset)
       {
         console.log ('goo', asset, $ ('<img>', asset).outerHTML ())
@@ -45,7 +46,7 @@ $ (function () // [koi=wysiwyg]
       {
         var fileName = asset.href.match (/[^\/]+$/).toString ()
         this.execCommand ('inserthtml', $ ('<a>', asset).text (fileName).outerHTML ())
-        //this.showLink ()
+        this.showLink ()
       })
     }
 
