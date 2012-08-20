@@ -63,7 +63,10 @@ $ (function () // [koi=wysiwyg]
           if (asset) ok.call (app, asset)
 
           $ ('.modal-backdrop').remove ()
-          
+
+        imodal.remove ()
+        iclose.call (iwindow)
+
           imodal.modal ('hide', function ()
           {
             imodal.remove ()
