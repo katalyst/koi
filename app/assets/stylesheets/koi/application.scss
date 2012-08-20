@@ -179,3 +179,8 @@ body { background-color:transparent; }
 {
   background-color: rgb(245, 245, 255);
 }
+
+[contenteditable=true]
+{
+  ul { list-style-type:disc }
+}
