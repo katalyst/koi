@@ -33,10 +33,6 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
                                   :branch => 'rails-3.2',
                                   :require => 'i18n/active_record'
 
-# wysiwyg editor
-gem 'bootstrap-wysihtml5-rails' , :require => 'bootstrap-wysihtml5-rails',
-                                  :git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
