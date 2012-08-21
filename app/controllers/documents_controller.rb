@@ -1,0 +1,2 @@
+class DocumentsController < AssetsController
+end

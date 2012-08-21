@@ -7,7 +7,7 @@
 
       function getHref (arg)
       {
-        return 'http://' + window.location.hostname + link.attr ('href');
+        return link.attr ('href');
       }
 
       function setHref (arg)
@@ -23,7 +23,7 @@
 
       link.click (function ()
       {
-        window.close ({ href: getHref (), target: '_blank', command: 'createLink' }); return false;
+        window.close (getHref ()); return false;
       });
 
     });
