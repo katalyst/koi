@@ -1980,7 +1980,6 @@ Redactor.prototype = {
     {
       clicked = false;
       this.syncCode();
-      
     }, this));
     
     $(resize).click($.proxy(function(e)
