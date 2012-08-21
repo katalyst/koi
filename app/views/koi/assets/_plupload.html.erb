@@ -1,4 +1,5 @@
 <% content_for :head do %>
+
   <!-- Replace the standard HTML for with Plupload. -->
   <script type="text/javascript">
     $ (function () {
@@ -20,19 +21,20 @@
 
       // Init the uploader.
       uploader = new plupload.Uploader ({
-        runtimes: 'html5,flash',
-        url: jsData.createAssetUrl,
-        max_file_size: '10mb',
-        unique_names: false,
-        browse_button : 'upload-button-browse',
-        container : 'upload-form',
-        flash_swf_url : '/flash/admin/plupload.swf',
-        filters : [ { title: "Assets", extensions: '*' } ]
+        runtimes       : 'html5,flash'
+      , url            : jsData.createAssetUrl
+      , max_file_size  : '10mb'
+      , unique_names   : false
+      , browse_button  : 'upload-button-browse'
+      , container      : 'upload-form'
+      , flash_swf_url  : '/assets/moxiecode/plupload.swf'
+      , filters        : [ { title: "Assets", extensions: '*' } ]
       });
       uploader.init ();
 
       // Hijack the upload button.
-      $buttonUpload.closest ('form').submit (function (e) {
+      $buttonUpload.closest ('form').submit (function (e)
+      {
         uploader.start ();
         e.preventDefault ();
         return false;
@@ -85,13 +87,12 @@
         $ ('#' + file.id + " b").html ("100%");
         // ajax server response
         // $ ('.asset-list ul').prepend (response.response);
-        console.log (response);
-
         if (up.total.uploaded == up.files.length) {
           $fileList.empty ();
           location.reload ();
         }
       });
+
     });
   </script>
 <% end %>
