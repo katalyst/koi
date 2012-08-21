@@ -2,8 +2,6 @@ module Koi
   class AssetsController < AdminCrudController
     before_filter :init
 
-    layout "koi/assets"
-
     def new
       params[:asset] = { :tag_list => [ @tags ] }
       super
