@@ -4,7 +4,6 @@
 //= require ./lib/highcharts
 //= require ./lib/highcharts
 //= require_tree ./application
-//= require ./assets
 //= require ./nav_items
 //= require ./wysiwyg
 
