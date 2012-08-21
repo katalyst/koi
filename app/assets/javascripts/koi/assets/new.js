@@ -25,9 +25,9 @@ $ (function ()
   , browse_button  : 'upload-button-browse'
   , container      : 'upload-form'
   , flash_swf_url  : '/assets/moxiecode/plupload.swf'
-  , filters        : [ { title: "Assets", extensions: '*' } ]
+  , filters        : [ { title: "Assets", extensions: jsData.accecptedExtensions } ]
   })
-  
+
   uploader.init ()
 
   $buttonUpload.closest ('form').submit (function (e)
