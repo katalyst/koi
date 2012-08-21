@@ -1,4 +1,0 @@
-  <% html_id = new_uuid %>
-  <% checked = defined?(checked) && checked  %>
-  <%= radio_button_tag "size", title, checked, :"data-href" => resource.url(:size => size), id: html_id, class: "pull-left" %>
-  <%= label_tag html_id, title, class: "pull-left pad-l-1" %>

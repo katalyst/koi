@@ -30,8 +30,10 @@ class Asset < ActiveRecord::Base
 
   def url(*args)
     opt = args.extract_options!
+    opt[:size] = args.shift if String === args.first
     return data.url if opt[:size].blank?
-    return data.thumb(opt[:size]).url
+    width, height = opt[:size].match(/([0-9]+)x([0-9]+)/).to_a.drop 1
+    return "/#{ self.class.to_s.tableize }/#{ id }.#{ data.format }?width=#{ width }&height=#{ height }"
   end
 
 end
