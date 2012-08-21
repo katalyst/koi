@@ -2,49 +2,36 @@
 
 $ (function () // [koi=wysiwyg]
 {
-  $.fn.outerHTML || ($.fn.outerHTML = function ()
-  {
-    return $ ('<div>').append (this.clone ()).html ()
-  })
-
   $ ('[koi=wysiwyg]').livequery (function ()
   {
     var app = $ (this).redactor
       ({ fileUpload: '#show-me-the-attachment-button' }).data ().redactor
 
-    function nodeName (el)
-    {
-      return el [$.browser.msie ? 'nodeName' : 'tagName']
-    }
-
-    app.getCurrentNodeName = function ()
-    {
-      return nodeName (this.getCurrentNode ())
-    }
-
-    app.getParentNodeName = function ()
-    {
-      return nodeName (this.getParentNode ())
-    }
-
     app.showImage = function ()
     {
+      var goo = this
       this.saveSelection ()
-      launchAssetManager ('/admin/images/new', function (asset)
+      launchAssetManager ('/admin/images/new', function (url)
       {
-        this._imageSet ($ ('<img>', asset).outerHTML (), true)
+        console.log (url, "<img src='" + url + "' style='float:right;'></img>", 'gak')
+
+        this._imageSet ("<img src='" + url + "' style='float:right;'></img>", true)
+        goo.restoreSelection ()
       })
     }
 
     app.showFile = function ()
     {
-      if (this.getParentNodeName () == 'A') this.showLink ()
+      this.saveSelection();
 
-      else launchAssetManager ('/admin/documents/new', function (asset)
+      if ($ (this.getParentNode ()).is ('a')) this.showLink ()
+
+      else launchAssetManager ('/admin/documents/new', function (url)
       {
-        var fileName = asset.href.match (/[^\/]+$/).toString ()
-        this.execCommand ('inserthtml', $ ('<a>', asset).text (fileName).outerHTML ())
-        this.showLink ()
+        var fileName = url.match (/[^\/]+$/).toString () || '...'
+        if ($.browser.msie) this.restoreSelection()
+        this.execCommand ('inserthtml', "<a href='" + url + "' target='_blank'>" + fileName + "</a>")
+        if (! $.browser.msie) this.showLink ()
       })
     }
 
