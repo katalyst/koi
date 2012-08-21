@@ -10,8 +10,8 @@ $gridGutterWidth:      10px;
 $iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", image);
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
-@import 'bowerbird';
-@import "bootstrap";
+@import "redactor";
+@import "bowerbird.scss";
 @import "./legacy/button";
 @import "./legacy/icon";
 @import "./legacy/menu";
@@ -178,4 +178,9 @@ body { background-color:transparent; }
 [koi=wysiwyg] iframe
 {
   background-color: rgb(245, 245, 255);
+}
+
+[contenteditable=true]
+{
+  ul { list-style-type:disc }
 }
