@@ -1,5 +1,10 @@
 //= require ./lib/redactor
 
+$.fn.outerHTML || ($.fn.outerHTML = function ()
+{
+  return $ ('<div>').append (this.clone ()).html ()
+})
+
 $ (function () // [koi=wysiwyg]
 {
   $ ('[koi=wysiwyg]').livequery (function ()
