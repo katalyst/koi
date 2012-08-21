@@ -4,19 +4,35 @@ $ (function () // [koi=wysiwyg]
 {
   $ ('[koi=wysiwyg]').livequery (function ()
   {
-    var app = $ (this).redactor
-      ({ fileUpload: '#show-me-the-attachment-button' }).data ().redactor
+    var opt = { fileUpload: '#show-me-the-attachment-button' }
+
+    var app = $ (this).redactor (opt).data ().redactor
+
+    $ (this.form).submit (function ()
+    {
+      app.$editor.find ('img').each (function ()
+      {
+        var img = $ (this)
+        var src = img.attr ('src').split ('?')
+        var path = src [0]
+        var params = src [1]
+        var deparams = params ? $.deparam (params) : {}
+        for (var k in { width:true, height:true })
+        {
+          var kay = parseInt (img.css (k))
+          deparams [k] = kay
+        }
+        img.attr ('src', path + '?' + $.param (deparams))
+      })
+      app.syncCode ()
+    })
 
     app.showImage = function ()
     {
-      var goo = this
       this.saveSelection ()
       launchAssetManager ('/admin/images/new', function (url)
       {
-        console.log (url, "<img src='" + url + "' style='float:right;'></img>", 'gak')
-
         this._imageSet ("<img src='" + url + "' style='float:right;'></img>", true)
-        goo.restoreSelection ()
       })
     }
 
