@@ -8,20 +8,21 @@
         return string.length < 20 ? string : string.substr (0, 20)+"&hellip;";
       }
 
-      var $form             = $ ("#upload-form");
-      var $fileList         = $ ('#upload-files');
-      var $buttonUpload     = $ ('#upload-button-upload');
-      var $tagFieldContents = $ ("#tag-field *");
-      var $tagInput         = $tagFieldContents.filter ("input").first ();
+      var $form             = $ ("#upload-form")
+      var $fileList         = $ ('#upload-files')
+      var $buttonUpload     = $ ('#upload-button-upload')
+      var $tagFieldContents = $ ("#tag-field *")
+      var $tagInput         = $tagFieldContents.filter ("input").first ()
       var uploader;
 
       // Prepare the DOM.
-      $tagFieldContents.show ();
+      $tagFieldContents.show ()
 //      $form.append ('<h6>Files</h6>', $fileList, $tagFieldContents);
 
       // Init the uploader.
-      uploader = new plupload.Uploader ({
-        runtimes       : 'html5,flash'
+      uploader = new plupload.Uploader
+      ({
+        runtimes       : 'html5,flash,html4'
       , url            : jsData.createAssetUrl
       , max_file_size  : '10mb'
       , unique_names   : false
@@ -29,8 +30,9 @@
       , container      : 'upload-form'
       , flash_swf_url  : '/assets/moxiecode/plupload.swf'
       , filters        : [ { title: "Assets", extensions: '*' } ]
-      });
-      uploader.init ();
+      })
+      
+      uploader.init ()
 
       // Hijack the upload button.
       $buttonUpload.closest ('form').submit (function (e)
