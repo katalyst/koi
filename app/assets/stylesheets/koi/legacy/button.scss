@@ -20,7 +20,6 @@
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    behavior: url("/assets/lib/shim/box-sizing.htc");
     font-size: inherit;
     color: inherit;
     font-style: inherit;
@@ -58,8 +57,7 @@
   -khtml-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
-  box-sizing: border-box;
-  behavior: url("/assets/lib/shim/box-sizing.htc"); }
+  box-sizing: border-box; }
   .button.rounded-3px, .buttons.rounded-3px > *, .buttons > .rounded-3px {
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;

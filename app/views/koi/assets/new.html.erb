@@ -8,14 +8,14 @@
 
 <section class="pad-1 space-b-1">
 
-  <%= simple_form_for(resource, html: { id: 'upload-form', class: 'simple_form', multipart: true }) do |f| %>
+  <%= simple_form_for resource, html: { id: 'upload-form', class: 'simple_form', multipart: true } do |f| %>
     <%= f.error_notification %>
 
     <p>Select file/s:</p>
 
     <div id="upload-files"></div>
 
-    <div id="upload-button-browse"><%= f.submit value: "Add files...", class: "btn btn-primary btn-small space-b-1" %></div>
+    <%= f.submit value: "Add files...", class: "btn btn-primary btn-small space-b-1", id: 'upload-button-browse' %>
   
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
