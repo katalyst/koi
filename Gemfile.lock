@@ -43,7 +43,7 @@ PATH
       kaminari (~> 0.13.0)
       mysql2 (~> 0.3.11)
       nested_set (~> 1.7.0)
-      rails (= 3.2.3)
+      rails (~> 3.2.3)
       responders (~> 0.9.1)
       scoped_search (~> 2.3.6)
       sendgrid (~> 1.0.1)

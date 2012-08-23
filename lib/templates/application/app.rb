@@ -136,6 +136,9 @@ gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'con
 route "root to: 'pages#index'"
 
 route 'resources :pages'
+route 'resources :assets'
+route 'resources :images'
+route 'resources :documents'
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-

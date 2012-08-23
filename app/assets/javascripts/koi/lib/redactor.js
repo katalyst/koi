@@ -1,6 +1,6 @@
 /*
-  Redactor v8.0.1
-  Updated: August 14, 2012
+  Redactor v8.0.2
+  Updated: August 18, 2012
   
   http://redactorjs.com/
   
@@ -10,7 +10,7 @@
   Usage: $('#content').redactor();
 */
 
-// selection
+// selection mechanism
 var _0xf6db=["(6(){11 49=24;11 14={50:6(8,10){5 10.58(8)\x2692},57:6(8,10){7(8.58!=12){5 8.58(10)\x2616}46{5 8.57(10)}},55:6(8,18,10,20){7(8===10){5 18\x3C=20}7(14.29(8)\x26\x2614.29(10)){5 14.50(8,10)}7(14.29(8)\x26\x26!14.29(10)){5!14.55(10,20,8,18)}7(!14.57(8,10)){5 14.50(8,10)}7(8.47.85\x3C=18){5 40}7(8.47[18]===10){5 0\x3C=20}5 14.50(8.47[18],10)},29:6(61){5(61!=12?61.93==3:40)},81:6(41){11 62=0;88(41=41.59){62++}5 62}};11 4=49.4=(6(){6 4(2){24.2=2}4.34.31=6(){5 4.31(24.2)};4.34.37=6(){5 4.37(24.2)};4.34.38=6(){5 4.38(24.2)};4.34.45=6(){5 4.45(24.2)};4.34.44=6(){5 4.44(24.2)};4.34.52=6(25,26,23,22){5 4.52(24.2,25,26,23,22)};4.34.51=6(){5 4.51(24.2)};5 4})();7(49.35){4.67=43;4.31=6(2){11 9;5(9=2.35())\x26\x26(9.63!=12)\x26\x26(9.36!=12)};4.37=6(2){11 9;7(!((9=2.35())\x26\x26(9.36!=12))){5 12}5[9.36,9.97]};4.38=6(2){11 9;7(!((9=2.35())\x26\x26(9.63!=12))){5 12}5[9.63,9.91]};4.45=6(2){11 8,10,18,20,27,28;7(!4.31(2)){5 12}27=4.37(2),8=27[0],18=27[1];28=4.38(2),10=28[0],20=28[1];7(14.55(8,18,10,20)){5[8,18]}5[10,20]};4.44=6(2){11 8,10,18,20,27,28;7(!4.31(2)){5 12}27=4.37(2),8=27[0],18=27[1];28=4.38(2),10=28[0],20=28[1];7(14.55(8,18,10,20)){5[10,20]}5[8,18]};4.52=6(2,25,26,23,22){11 9=2.35();7(!9){5}7(23==12){23=25}7(22==12){22=26}7(9.60\x26\x269.79){9.60(25,26);9.79(23,22)}46{54=2.15.56();54.106(25,26);54.107(23,22);71{9.73()}80(41){}9.98(54)}};4.51=6(2){71{11 9=2.35();7(!9){5}9.73()}80(41){}}}46 7(49.15.39){11 69=6(42,32,30){11 19,13,21,33,64;13=42.90(\x2789\x27);19=32.103();19.60(30);64=19.77();88(43){64.86(13,13.59);19.82(13);7(!(19.87((30?\x2766\x27:\x2783\x27),32)\x3E0\x26\x26(13.59!=12))){99}}7(19.87((30?\x2766\x27:\x2783\x27),32)===-1\x26\x2613.84){19.74((30?\x27100\x27:\x2778\x27),32);21=13.84;33=19.101.85}46{21=13.48;33=14.81(13)}13.48.72(13);5[21,33]};11 68=6(42,32,30,21,33){11 36,65,19,13,53;53=0;36=14.29(21)?21:21.47[33];65=14.29(21)?21.48:21;7(14.29(21)){53=33}13=42.90(\x2789\x27);65.86(13,36||12);19=42.76.75();19.82(13);13.48.72(13);32.74((30?\x2766\x27:\x2778\x27),19);5 32[30?\x27105\x27:\x27104\x27](\x27102\x27,53)};4.67=43;4.31=6(2){11 17;2.70();7(!2.15.39){5 40}17=2.15.39.56();5 17\x26\x2617.77().15===2.15};4.45=6(2){11 17;2.70();7(!4.31(2)){5 12}17=2.15.39.56();5 69(2.15,17,43)};4.44=6(2){11 17;2.70();7(!4.31(2)){5 12}17=2.15.39.56();5 69(2.15,17,40)};4.37=6(2){5 4.45(2)};4.38=6(2){5 4.44(2)};4.52=6(2,25,26,23,22){7(23==12){23=25}7(22==12){22=26}11 17=2.15.76.75();68(2.15,17,40,23,22);68(2.15,17,43,25,26);5 17.96()};4.51=6(2){5 2.15.39.95()}}46{4.67=40}}).94(24);","|","split","||win||Selection|return|function|if|n1|sel|n2|var|null|cursorNode|Dom|document||range|o1|cursor|o2|node|foco|focn|this|orgn|orgo|_ref|_ref2|isText|bStart|hasSelection|textRange|offset|prototype|getSelection|anchorNode|getOrigin|getFocus|selection|false|e|doc|true|getEnd|getStart|else|childNodes|parentNode|root|isPreceding|clearSelection|setSelection|textOffset|r|isCursorPreceding|createRange|contains|compareDocumentPosition|previousSibling|collapse|d|k|focusNode|parent|anchorParent|StartToStart|supported|moveBoundary|getBoundary|focus|try|removeChild|removeAllRanges|setEndPoint|createTextRange|body|parentElement|EndToEnd|extend|catch|getChildIndex|moveToElementText|StartToEnd|nextSibling|length|insertBefore|compareEndPoints|while|a|createElement|focusOffset|0x02|nodeType|call|empty|select|anchorOffset|addRange|break|EndToStart|text|character|duplicate|moveEnd|moveStart|setStart|setEnd","replace","","\x5Cw+","\x5Cb","g"];eval(function (p,a,c,k,e,d){e=function (c){return c;} ;if(!_0xf6db[5][_0xf6db[4]](/^/,String)){while(c--){d[c]=k[c]||c;} ;k=[function (e){return d[e];} ];e=function (){return _0xf6db[6];} ;c=1;} ;while(c--){if(k[c]){p=p[_0xf6db[4]]( new RegExp(_0xf6db[7]+e(c)+_0xf6db[7],_0xf6db[8]),k[c]);} ;} ;return p;} (_0xf6db[0],10,108,_0xf6db[3][_0xf6db[2]](_0xf6db[1]),0,{}));
 
 if (typeof RELANG === 'undefined')
@@ -132,7 +132,7 @@ var Redactor = function(element, options)
     air: false,
     wym: false,
     convertLinks: true,
-    convertDivs: false,
+    convertDivs: true,
 
     autosave: false, // false or url
     interval: 60, // seconds
@@ -244,7 +244,7 @@ var Redactor = function(element, options)
         '<div class="redactor_tab" id="redactor_tab1">' +
           '<label>URL</label><input id="redactor_link_url" class="redactor_input"  />' +
           '<label>' + RLANG.text + '</label><input class="redactor_input redactor_link_text" id="redactor_link_url_text" />' +
-          '<label><input type="checkbox" id="redactor_link_blank"> Open link in new tab' +
+          '<label><input type="checkbox" id="redactor_link_blank"> ' + RLANG.link_new_tab + 
         '</div>' +
         '<div class="redactor_tab" id="redactor_tab2" style="display: none;">' +
           '<label>Email</label><input id="redactor_link_mailto" class="redactor_input" />' +
@@ -529,6 +529,7 @@ var Redactor = function(element, options)
 // Functionality
 Redactor.prototype = {
 
+
   // Initialization
   init: function()
   { 
@@ -585,9 +586,18 @@ Redactor.prototype = {
       this.$editor.bind('paste', $.proxy(function(e)
       { 
         this.setBuffer();
+
+        if (this.opts.autoresize === true)
+        {
+          this.saveScroll = document.body.scrollTop;
+        }
+        else
+        {
+          this.saveScroll = this.$editor.scrollTop();
+        }
   
         var frag = this.extractContent();
-  
+        
         setTimeout($.proxy(function()
         {       
           var pastedFrag = this.extractContent();
@@ -1095,6 +1105,11 @@ Redactor.prototype = {
         document.execCommand(cmd, false, param);
       } 
       
+      if (cmd === 'inserthorizontalrule')
+      {
+        this.$editor.find('hr').removeAttr('id');
+      }
+      
       this.syncCode();
       
       if (this.oldIE())
@@ -1244,7 +1259,7 @@ Redactor.prototype = {
     // block elements
     var blocks = '(table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|style|script|object|input|param|p|h[1-6])';
   
-    str = '<p>' + str; // first paragraph fix 8.0.1   
+    //str = '<p>' + str;    
     str += '\n';
 
     R('<br />\\s*<br />', '\n\n');
@@ -1343,6 +1358,25 @@ Redactor.prototype = {
     html = html.replace(/<\/p><\/p>/g, '</p>'); 
   
     this.execCommand('inserthtml', html); 
+    
+    if ($.browser.webkit || $.browser.chrome || $.browser.safari)
+    {
+      var $parent = $ (this.getParentNode ());
+      var $grandparent = $parent.parent ();
+      if ($parent.is ('p') && $grandparent.is ('p'))
+      {
+        $parent.unwrap ();
+      }
+    }
+
+    if (this.opts.autoresize === true)
+    {
+      $(document.body).scrollTop(this.saveScroll);
+    }
+    else
+    {
+      this.$editor.scrollTop(this.saveScroll);
+    }
     
   },  
   
@@ -1817,7 +1851,7 @@ Redactor.prototype = {
   },
   restoreSelection: function()
   { 
-    if (this.savedSel != null && this.savedSelObj != null && this.savedSel[0].tagName !== 'BODY')
+    if (this.savedSel !== null && this.savedSelObj !== null && this.savedSel[0].tagName !== 'BODY')
     {
       window.Selection.setSelection(window, this.savedSel[0], this.savedSel[1], this.savedSelObj[0], this.savedSelObj[1]);
     }
@@ -1980,6 +2014,7 @@ Redactor.prototype = {
     {
       clicked = false;
       this.syncCode();
+      
     }, this));
     
     $(resize).click($.proxy(function(e)
@@ -2308,13 +2343,68 @@ Redactor.prototype = {
       {
         $.getJSON(this.opts.imageGetJson, $.proxy(function(data) {
           
+          var folders = {};
+          var z = 0;
+          
+          // folders
           $.each(data, $.proxy(function(key, val)
           {
-            var img = $('<img src="' + val.thumb + '" rel="' + val.image + '" />');
+            if (typeof val.folder !== 'undefined')
+            {
+              z++;
+              folders[val.folder] = z;              
+            }
+                      
+          }, this));
+          
+          var folderclass = false;
+          $.each(data, $.proxy(function(key, val)
+          {
+            // title
+            var thumbtitle = '';
+            if (typeof val.title !== 'undefined')
+            {
+              thumbtitle = val.title;
+            }
+            
+            var folderkey = 0;            
+            if (!$.isEmptyObject(folders) && typeof val.folder !== 'undefined')
+            {
+              folderkey = folders[val.folder];
+              if (folderclass === false)
+              {
+                folderclass = '.redactorfolder' + folderkey;
+              }
+            }
+            
+            var img = $('<img src="' + val.thumb + '" class="redactorfolder redactorfolder' + folderkey + '" rel="' + val.image + '" title="' + thumbtitle + '" />');
             $('#redactor_image_box').append(img);
             $(img).click($.proxy(this.imageSetThumb, this));
             
+            
           }, this));
+          
+          // folders
+          if (!$.isEmptyObject(folders))
+          {
+            $('.redactorfolder').hide();
+            $(folderclass).show();
+                      
+            var onchangeFunc = function(e)
+            {
+              $('.redactorfolder').hide();
+              $('.redactorfolder' + $(e.target).val()).show();
+            }
+          
+            var select = $('<select id="redactor_image_box_select">');
+            $.each(folders, function(k,v)
+            {
+              select.append($('<option value="' + v + '">' + k + '</option>'));
+            });
+            
+            $('#redactor_image_box').before(select);
+            select.change(onchangeFunc);
+          }
 
         }, this));
       }
@@ -2378,7 +2468,7 @@ Redactor.prototype = {
   },
   imageSetThumb: function(e)
   {
-    this._imageSet('<img alt="" src="' + $(e.target).attr('rel') + '" />', true);
+    this._imageSet('<img src="' + $(e.target).attr('rel') + '" alt="' + $(e.target).attr('title') + '" />', true);
   },
   imageUploadCallbackLink: function()
   {
@@ -2657,7 +2747,7 @@ Redactor.prototype = {
   
   
   // MODAL
-  modalInit: function(title, url, width, handler, endCallback, scroll)
+  modalInit: function(title, url, width, handler, endCallback)
   {
     // modal overlay
     if ($('#redactor_modal_overlay').size() === 0)
@@ -2687,7 +2777,7 @@ Redactor.prototype = {
 
     $('#redactor_modal_inner').html(this.opts['modal_' + url]);
     $('#redactor_modal_header').html(title);
-            
+    
     // tabs
     if ($('#redactor_tabs').size() !== 0)
     {
@@ -2724,8 +2814,11 @@ Redactor.prototype = {
     var height = $('#redactor_modal').outerHeight();
 
     if (this.isMobile() === false)
-    {
+    {   
       $('#redactor_modal').css({ position: 'fixed', top: '50%', left: '50%', width: width + 'px', height: 'auto', minHeight: 'auto', marginTop: '-' + (height+10)/2 + 'px', marginLeft: '-' + (width+60)/2 + 'px' }).fadeIn('fast');
+      
+      this.modalSaveBodyOveflow = $(document.body).css('overflow');
+      $(document.body).css('overflow', 'hidden');     
     }
     else
     {
@@ -2736,11 +2829,6 @@ Redactor.prototype = {
     if (typeof(endCallback) === 'function')
     {
       endCallback();
-    }
-
-    if (scroll === true)
-    {
-      $('#redactor_image_box').height(300).css('overflow', 'auto');
     }
 
   },
@@ -2762,6 +2850,11 @@ Redactor.prototype = {
       this.$editor.unbind('keyup', this.hdlModalClose);
 
     }, this));
+    
+    if (this.isMobile() === false)
+    {
+      $(document.body).css('overflow', this.modalSaveBodyOveflow);  
+    }
 
   },
   setModalTab: function(num)
