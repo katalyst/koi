@@ -9,7 +9,7 @@ $ (function () // [koi=wysiwyg]
 {
   $ ('[koi=wysiwyg]').livequery (function ()
   {
-    var opt = { fileUpload: '#show-me-the-attachment-button' }
+    var opt = { fileUpload: '#show-me-the-attachment-button', convertDivs: true }
 
     var app = $ (this).redactor (opt).data ().redactor
 
