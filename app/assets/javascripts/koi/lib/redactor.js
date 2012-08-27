@@ -1035,14 +1035,32 @@ Redactor.prototype = {
     this.opts.buffer = false;
   },
 
+  currentBlock: function ()
+  {
+    var $this = $ (this.getCurrentNode());
+    while (! $this.is ('p, h1, h2, h3, h4, h5, h6, div, ul, ol, dl, table, .redactor_editor')) $this = $this.parent ();
+    if (! $this.is ('.redactor_editor')) return $this [0];
+  },
+
   // EXECCOMMAND
   execCommand: function(cmd, param)
   {
     try
     {
       var parent;
+      var $block = $ (this.currentBlock ());
 
-      if (cmd === 'inserthtml' && $.browser.msie)
+      if (cmd == 'indent')
+      {
+        var paddingLeft = parseInt ($block.css ('padding-left'));
+        $block.css ('padding-left', paddingLeft > 0 ? paddingLeft + 20 : 20);
+      }
+      else if (cmd == 'outdent')
+      {
+        var paddingLeft = parseInt ($block.css ('padding-left'));
+        $block.css ('padding-left', paddingLeft > 20 ? paddingLeft - 20 : '');
+      }
+      else if (cmd === 'inserthtml' && $.browser.msie)
       {
         document.selection.createRange().pasteHTML(param);          
       }
@@ -1422,7 +1440,7 @@ Redactor.prototype = {
     html = html.replace(/<tr/g, "\t<tr");
     html = html.replace(/<td/g, "\t\t<td");
     html = html.replace(/<\/tr>/g, "\t</tr>");  
-    
+   
     return html;  
   },
   formattingEmptyTags: function(html)   
