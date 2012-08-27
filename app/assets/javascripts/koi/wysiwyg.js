@@ -9,9 +9,47 @@ $ (function () // [koi=wysiwyg]
 {
   $ ('[koi=wysiwyg]').livequery (function ()
   {
-    var opt = { fileUpload: '#show-me-the-attachment-button', convertDivs: true, air: true }
+    var opt =
+    {
+      fileUpload: '#show-me-the-attachment-button'
+    , convertDivs: true
+    , buttons:
+      [ 'html'
+      , '|'
+      , 'formatting'
+      , '|'
+      , 'bold'
+      , 'italic'
+//    , 'deleted'
+      , '|'
+      , 'unorderedlist'
+      , 'orderedlist'
+      , '|'
+      , 'outdent'
+      , 'indent'
+      , '|'
+      , 'video'
+      , 'image'
+      , 'file'
+      , 'link'
+      , 'table'
+//    , '|'
+//    , 'fontcolor'
+//    , 'backcolor'
+      , '|'
+      , 'alignleft'
+      , 'aligncenter'
+      , 'alignright'
+      , 'justify'
+      , '|'
+      , 'horizontalrule'
+      ]
+    }
 
     var app = $ (this).redactor (opt).data ().redactor
+    var box = app.$box
+    var bar = app.$toolbar
+    var win = $ (window)
 
     $ (this.form).submit (function ()
     {
@@ -82,5 +120,21 @@ $ (function () // [koi=wysiwyg]
         }
       })
     }
+
+    box.css ({ position: 'relative' })
+    app.$editor.css ({ minHeight: 250 })
+
+    var fixed = { position: 'fixed', top: 44, left: box.offset ().left + 1, zIndex: 1, width: box.width () }
+    var absolute = { position: 'absolute', top: 0, left: 0, zIndex: 1, width: box.width () }
+
+    bar.before ($ ('<div>', { height: bar.height () })).css (absolute)
+
+    $ (window).on ('resize scroll', function ()
+    {
+      var scrollTop = win.scrollTop ()
+      var boxTop = box.offset ().top
+      var boxBot = boxTop + box.height ()
+      bar.css (boxTop < scrollTop + 44 && scrollTop + 44 + bar.height () < boxBot ? fixed : absolute)
+    })
   })
 })
