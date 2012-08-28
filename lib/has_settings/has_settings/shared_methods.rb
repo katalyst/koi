@@ -12,7 +12,8 @@ module HasSettings
         value:  default
       }
 
-      Setting.find_by_prefix_and_key(settings_prefix, key) || Setting.create(options)
+      setting = Setting.find_by_prefix_and_key(settings_prefix, key) || Setting.create(options)
+      setting.value
     end
   end
 end
