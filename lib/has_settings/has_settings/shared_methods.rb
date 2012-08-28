@@ -9,6 +9,7 @@ module HasSettings
         key:    key.to_s,
         label:  key.to_s.titleize,
         prefix: settings_prefix,
+        field_type: "rich_text",
         value:  default
       }
 
