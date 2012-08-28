@@ -191,6 +191,8 @@ GEM
       diffy
       grit
       pry (>= 0.9.8)
+    pry-rails (0.2.1)
+      pry (>= 0.9.10)
     pry-remote (0.1.6)
       pry (~> 0.9)
       slop (~> 3.0)
@@ -293,6 +295,7 @@ DEPENDENCIES
   pry
   pry-doc
   pry-git
+  pry-rails
   pry-remote
   ruby-debug19
   ruby_gntp

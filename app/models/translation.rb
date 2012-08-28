@@ -8,7 +8,7 @@ class Translation < ActiveRecord::Base
   validates :locale, :label, :key, :field_type,
             :role, presence: true
 
-  validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
+  # validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
 
   validates_uniqueness_of :key, scope: :prefix
 
