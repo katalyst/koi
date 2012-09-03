@@ -33,11 +33,6 @@
   $ ('.superfish').application
     (true, function ($this) { $this.superfish ({ delay:100 }); });
 
-  $ ('.modal').livequery (function ()
-    {
-      $ (this).on ('shown', function () { console.log ('foo')  })
-    })
-
   var fnModal = $.fn.modal
 
   $.fn.modal = function ()
