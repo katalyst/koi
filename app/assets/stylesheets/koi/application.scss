@@ -184,3 +184,6 @@ body { background-color:transparent; }
 {
   ul { list-style-type:disc }
 }
+
+.modal { position:absolute; margin-top:0; }
+.modal.fade.in { top:20%; }
