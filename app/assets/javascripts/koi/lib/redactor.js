@@ -36,6 +36,7 @@ var RLANG = {
   header4: 'Header 4',
   bold:  'Bold',
   italic: 'Italic',
+  underline: 'Underline',
   fontcolor: 'Font Color',
   backcolor: 'Back Color',
   unorderedlist: 'Unordered List',
@@ -159,11 +160,11 @@ var Redactor = function(element, options)
     
     buttonsCustom: {},
     buttonsAdd: [],
-    buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+    buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'underline', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
         'image', 'video', 'file', 'table', 'link', '|',
         'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify', '|', 'horizontalrule'],
 
-    airButtons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'fontcolor', 'backcolor'],
+    airButtons: ['formatting', '|', 'bold', 'italic', 'underline', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'fontcolor', 'backcolor'],
 
     colors: [
       '#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd', '#c0504d', '#9bbb59', '#8064a2', '#4bacc6', '#f79646', '#ffff00',
@@ -351,6 +352,11 @@ var Redactor = function(element, options)
       {
         title: RLANG.italic,
         exec: 'italic'
+      },
+      underline:
+      {
+        title: RLANG.underline,
+        exec: 'underline'
       },
       deleted:
       {

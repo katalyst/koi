@@ -20,6 +20,7 @@ $ (function () // [koi=wysiwyg]
       , '|'
       , 'bold'
       , 'italic'
+      , 'underline'
 //    , 'deleted'
       , '|'
       , 'unorderedlist'
