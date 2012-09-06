@@ -38,7 +38,7 @@ class Asset < ActiveRecord::Base
     size = args.shift if String === args.first
     path = "/#{ self.class.to_s.tableize }/#{ to_param }.#{ data.format }"
     return path if size.blank?
-    width, height = size.match(/([0-9]+)x([0-9]+)/).to_a.drop 1
+    width, height = size.match(/([0-9]*)x([0-9]*)/).to_a.drop 1
     return "#{ path }/?width=#{ width }&height=#{ height }"
   end
 
