@@ -14,12 +14,26 @@
 
   $.livequery.registerPlugin ("html");
 
+  $.fn.modal.defaults = {
+        backdrop: 'static'
+      , keyboard: true
+      , show: true
+    }
+
   $ (document).on ('click', '.redactor_editor', function ()
   {
-    var range = rangy.createRange();
-    range.setStart (this, 0);
-    range.collapse (true);
-    rangy.getSelection ().setSingleRange (range);
+    var it = $ (this)
+    var textarea = it.siblings ('textarea')
+    var redactor = textarea.data ('redactor')
+
+    try { redactor.getCurrentNode () }
+    catch (ex)
+    {
+      var range = rangy.createRange();
+      range.setStart (this, 0);
+      range.collapse (true);
+      rangy.getSelection ().setSingleRange (range);
+    }
   })
 
   $.application.debug = true;
