@@ -1,5 +1,6 @@
-//= require ./lib/jquery
 //= require ./lib/shim
+//= require ./lib/rangy
+//= require ./lib/jquery
 //= require ./lib/bootstrap
 //= require ./lib/highcharts
 //= require ./lib/highcharts
@@ -12,6 +13,14 @@
   var $window = $ (window)
 
   $.livequery.registerPlugin ("html");
+
+  $ (document).on ('click', '.redactor_editor', function ()
+  {
+    var range = rangy.createRange();
+    range.setStart (this, 0);
+    range.collapse (true);
+    rangy.getSelection ().setSingleRange (range);
+  })
 
   $.application.debug = true;
 
