@@ -12,7 +12,7 @@ $ (function () // [koi=wysiwyg]
     var opt =
     {
       fileUpload: '#show-me-the-attachment-button'
-    , convertDivs: true
+//  , convertDivs: true
     , buttons:
       [ 'html'
       , '|'
