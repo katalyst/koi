@@ -1,9 +1,9 @@
 <% id = "koi-#{ new_uuid }" %>
 
 <% content_for :head do %>
-  
+
   <script type="text/javascript" charset="utf-8">
-  
+
     $ (document).ready (function ()
     {
       var input = $ ('#<%= id %>')
@@ -12,12 +12,11 @@
 
       input.tagify ('inputField').autocomplete ({
 
-        source: <%= raw resource_class.tag_counts_on(attr).collect { |t| t.name } %>
-      
+        source: <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list').pluralize).collect { |t| t.name } %>
+
       , position: { of: input.tagify ('containerDiv') }
       
-      , close: function (event, ui) { input.tagify ('add') }
-      
+    //, close: function (event, ui) { input.tagify ('add') }
       })
 
       input.closest ('form').submit (function (e)
@@ -29,8 +28,19 @@
   </script>
 
   <style type="text/css" media="all">
-    .ui-autocomplete { width : 296px; }
+
+      .ui-autocomplete { width : 296px; }
+
+      .ui-autocomplete-input
+    {
+      position : absolute; bottom: 0; left:0;
+    }
+      .tagify-container
+    {
+      position : relative;
+    }
+
   </style>
 <% end %>
 
-<%= f.input attr, as: :text, input_html: { id: id } %>
+<%= f.input attr, as: :string, input_html: { id: id } %>
