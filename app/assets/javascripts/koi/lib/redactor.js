@@ -133,7 +133,7 @@ var Redactor = function(element, options)
     air: false,
     wym: false,
     convertLinks: true,
-    convertDivs: true,
+    convertDivs: false,
 
     autosave: false, // false or url
     interval: 60, // seconds
