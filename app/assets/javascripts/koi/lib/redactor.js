@@ -1385,12 +1385,16 @@ Redactor.prototype = {
     
     if ($.browser.webkit || $.browser.chrome || $.browser.safari)
     {
-      var $parent = $ (this.getParentNode ());
-      var $grandparent = $parent.parent ();
-      if ($parent.is ('p') && $grandparent.is ('p'))
+      var $parent = $ (this.getParentNode ()).closest ('div')
+      var $grandparent
+
+      while ($parent.is ('div') && $.isEmptyObject ($parent.attr ()))
       {
-        $parent.unwrap ();
+        $grandparent = $parent.parent ();
+        $parent.children ().unwrap ();
+        $parent = $grandparent;
       }
+      if ($parent.is ('p') && $.isEmptyObject ($parent.attr ())) $parent.children ().unwrap ()
     }
 
     if (this.opts.autoresize === true)
