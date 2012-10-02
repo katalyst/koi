@@ -1,18 +1,11 @@
-//= require ./lib/shim
-//= require ./lib/rangy
-//= require ./lib/jquery
-//= require ./lib/bootstrap
-//= require ./lib/highcharts
-//= require ./lib/highcharts
-//= require_tree ./application
-//= require ./nav_items
-//= require ./wysiwyg
+//= require ./common
+//= require bootstrap
 
 ! function () {
 
   var $window = $ (window)
 
-  $.livequery.registerPlugin ("html");
+  $.liveQuery.registerPlugin ("html");
 
   $.fn.modal.defaults = {
         backdrop: 'static'

@@ -1,4 +1,4 @@
-//= require koi/lib/plupload
+//= require_tree ./plupload
 
 $ (function () 
 {
