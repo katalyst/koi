@@ -46,7 +46,7 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
 
   }
 
-  $ (function () { $ ('[koi-wysiwyg]').livequery (run) })
+  $ (function () { $ ('[koi-wysiwyg]').liveQuery (run) })
 
   function run ()
   {
@@ -55,7 +55,7 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
     textArea = $ (this).hide ()
     form = textArea.closest ('form').submit (submit_form)
     box = $ ('<div class="foo">').insertAfter (textArea).css ({ relative: true })
-    iFrame = $ ('<iframe>', { src         : '/wysiwyg.html'
+    iFrame = $ ('<iframe>', { src         : '/wysiwyg.html?' + Math.random ()
                             , width       : '100%'
                             , height      : '100%'
                             , frameborder : '0'
@@ -79,7 +79,7 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      textArea.val (iTextArea.val ().replace (/&nbsp;/, ''))
+      textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, '&nbsp;'))
     }
 
     function resize_iBody ()

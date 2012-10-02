@@ -1,5 +1,3 @@
-#= require koi/lib/jquery/livequery
-
 $ = jQuery
 
 isGlobalConstructor = (X) ->
@@ -49,7 +47,7 @@ $.extend $.fn,
     [ f ] = args
 
     fStar = -> $( @ ).each ( i, e ) -> $.application.call( e, $(e), f )
-    $ => if live then @livequery fStar else fStar.call @
+    $ => if live then @liveQuery fStar else fStar.call @
     @
 
   components: ( args... ) ->
