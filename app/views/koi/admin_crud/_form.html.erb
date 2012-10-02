@@ -8,6 +8,7 @@
 <% form_path.insert(1, parent) unless parent.nil? if respond_to? :parent %>
 
 <%= simple_form_for form_path, html: { multipart: true , class: 'form-vertical' }  do |f| %>
+  <div class="float-r"><%= render "form_buttons", { :f => f } %></div>
   <%= render "form_parent",  { :f => f } %>
   <%= render "form_errors",  { :f => f } %>
   <%= render "form_fields",  { :f => f } %>

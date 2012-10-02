@@ -829,6 +829,7 @@ Redactor.prototype = {
         this.$el = $('<textarea name="' + this.$editor.attr('id') + '"></textarea>').css('height', this.height);
       }
       
+      this.$editor.addClass(this.$el.data('class'))
       this.$editor.addClass('redactor_editor').attr('contenteditable', true).attr('dir', this.opts.direction);
 
       if (this.opts.wym === true)
@@ -1051,6 +1052,8 @@ Redactor.prototype = {
   // EXECCOMMAND
   execCommand: function(cmd, param)
   {
+    console.log (window.foo = document)
+
     try
     {
       var parent;
