@@ -84,8 +84,8 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
 
     function resize_iBody ()
     {
-      iFrame.height (iBody.outerHeight ())
       iTextArea.height (app.$editor.innerHeight ())
+      iFrame.height (iBody.outerHeight ())
     }
 
     function load_iFrame ()
@@ -96,8 +96,8 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
       iHead     = iQuery (iDocument.getElementsByTagName ('head'))
       iBody     = iQuery (iFrame.contentDocument ().body)
       iTextArea = iQuery ('<textarea>').appendTo (iBody).val (textArea.val ())
-      // iScript   = iQuery ('<script>', { src: '/assets/koi/lib/redactor.js' }).appendTo (iHead)
-      // iStyle    = iQuery ('<link>', { src: '/assets/koi/redactor.css' }).appendTo (iHead)
+      // iScript   = iQuery ('<script>', { src: '/assets/koi/jquery/redactor.js' }).appendTo (iHead)
+      // iStyle    = iQuery ('<link>', { src: '/assets/koi/jquery/redactor.css' }).appendTo (iHead)
 
       iBody.on ('click keydown', resize_iBody)
       // iScript [0].onload = (load_iScript)
