@@ -11,12 +11,12 @@ $iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", ima
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
 @import "bowerbird";
-@import "redactor";
 @import "./legacy/button";
 @import "./legacy/icon";
 @import "./legacy/menu";
-@import "./lib/jquery/ui";
-@import "./lib/jquery/tagify";
+@import "./jquery/ui";
+@import "./jquery/tagify";
+@import "./jquery/redactor";
 @import "./nav_items";
 
 // elements ///////////////////////////////////////////////////////////////////
