@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "koi/nav_items" %>
+<% end %>
+
 <% content_for :title, "Sitemap" %>
 
 <div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
