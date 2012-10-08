@@ -93,11 +93,12 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
       iWindow   = iFrame.contentWindow ()
       iDocument = iFrame.contentDocument ()
       iQuery    = iWindow.$
+
       iHead     = iQuery (iDocument.getElementsByTagName ('head'))
       iBody     = iQuery (iFrame.contentDocument ().body)
       iTextArea = iQuery ('<textarea>').appendTo (iBody).val (textArea.val ())
       // iScript   = iQuery ('<script>', { src: '/assets/koi/jquery/redactor.js' }).appendTo (iHead)
-      // iStyle    = iQuery ('<link>', { src: '/assets/koi/jquery/redactor.css' }).appendTo (iHead)
+      iStyle    = iQuery ('<link>', { src: '/assets/koi/jquery/redactor.css' }).appendTo (iHead)
 
       iBody.on ('click keydown', resize_iBody)
       // iScript [0].onload = (load_iScript)
