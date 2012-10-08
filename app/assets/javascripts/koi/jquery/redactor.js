@@ -1617,7 +1617,7 @@ Redactor.prototype = {
             dropdown = this.buildDropdown(dropdown, s.dropdown);
           }
 
-          this.dropdowns.push(dropdown.appendTo($(document.body)));
+          this.dropdowns.push(dropdown.appendTo($(parent.document.body)));
 
           // observing dropdown
           this.hdlHideDropDown = $.proxy(function(e) { this.hideDropDown(e, dropdown, key); }, this);
@@ -1821,7 +1821,7 @@ Redactor.prototype = {
   hideAllDropDown: function()
   {
     this.$toolbar.find('a.dropact').removeClass('act').removeClass('dropact');
-    $('.redactor_dropdown').hide();
+    parent.$('.redactor_dropdown').hide();
   },
   hideDropDown: function(e, dropdown, key)
   {
