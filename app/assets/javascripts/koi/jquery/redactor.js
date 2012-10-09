@@ -1052,8 +1052,6 @@ Redactor.prototype = {
   // EXECCOMMAND
   execCommand: function(cmd, param)
   {
-    console.log (window.foo = document)
-
     try
     {
       var parent;
@@ -1581,7 +1579,7 @@ Redactor.prototype = {
     if (this.opts.air)
     {
       $(this.air).append(this.$toolbar);
-      parent.$('body').prepend(this.air);
+      $('body').prepend(this.air);
     }
     else
     {
@@ -1617,7 +1615,7 @@ Redactor.prototype = {
             dropdown = this.buildDropdown(dropdown, s.dropdown);
           }
 
-          this.dropdowns.push(dropdown.appendTo($(parent.document.body)));
+          this.dropdowns.push(dropdown.appendTo($(document.body)));
 
           // observing dropdown
           this.hdlHideDropDown = $.proxy(function(e) { this.hideDropDown(e, dropdown, key); }, this);
@@ -1821,7 +1819,7 @@ Redactor.prototype = {
   hideAllDropDown: function()
   {
     this.$toolbar.find('a.dropact').removeClass('act').removeClass('dropact');
-    parent.$('.redactor_dropdown').hide();
+    $('.redactor_dropdown').hide();
   },
   hideDropDown: function(e, dropdown, key)
   {
@@ -2552,7 +2550,7 @@ Redactor.prototype = {
   {
     this.saveSelection();
 
-    var handler = parent.$.proxy(function()
+    var handler = $.proxy(function()
     {     
       this.insert_link_node = false;
       var sel = this.getSelection();
@@ -2599,7 +2597,7 @@ Redactor.prototype = {
         }
       }
       
-      parent.$('.redactor_link_text').val(text);
+      $('.redactor_link_text').val(text);
       
       var turl = url.replace(self.location.href, '');
       
@@ -2607,27 +2605,27 @@ Redactor.prototype = {
       {
         this.setModalTab(2);
 
-        parent.$('#redactor_tab_selected').val(2);
-        parent.$('#redactor_link_mailto').val(url.replace('mailto:', ''));
+        $('#redactor_tab_selected').val(2);
+        $('#redactor_link_mailto').val(url.replace('mailto:', ''));
       }
       else if (turl.search(/^#/gi) === 0)
       {
         this.setModalTab(3);  
         
-        parent.$('#redactor_tab_selected').val(3);
-        parent.$('#redactor_link_anchor').val(turl.replace(/^#/gi, ''));
+        $('#redactor_tab_selected').val(3);
+        $('#redactor_link_anchor').val(turl.replace(/^#/gi, ''));
       }
       else
       {
-        parent.$('#redactor_link_url').val(url);
+        $('#redactor_link_url').val(url);
       }
       
       if (target === '_blank')
       {
-        parent.$('#redactor_link_blank').attr('checked', true);
+        $('#redactor_link_blank').attr('checked', true);
       }
       
-      parent.$('#redactor_insert_link_btn').click($.proxy(this.insertLink, this));
+      $('#redactor_insert_link_btn').click($.proxy(this.insertLink, this));
 
     }, this);
     
@@ -2640,27 +2638,27 @@ Redactor.prototype = {
   },
   insertLink: function()
   {
-    var tab_selected = parent.$('#redactor_tab_selected').val();
+    var tab_selected = $('#redactor_tab_selected').val();
     var link = '', text = '', target = '';
     
     if (tab_selected === '1') // url
     {
-      link = parent.$('#redactor_link_url').val();
-      text = parent.$('#redactor_link_url_text').val();
-      if (parent.$('#redactor_link_blank').attr('checked'))
+      link = $('#redactor_link_url').val();
+      text = $('#redactor_link_url_text').val();
+      if ($('#redactor_link_blank').attr('checked'))
       {
         target = '_blank';
       }
     }
     else if (tab_selected === '2') // mailto
     {
-      link = 'mailto:' + parent.$('#redactor_link_mailto').val();
-      text = parent.$('#redactor_link_mailto_text').val();
+      link = 'mailto:' + $('#redactor_link_mailto').val();
+      text = $('#redactor_link_mailto_text').val();
     }
     else if (tab_selected === '3') // anchor
     {
-      link = '#' + parent.$('#redactor_link_anchor').val();
-      text = parent.$('#redactor_link_anchor_text').val();
+      link = '#' + $('#redactor_link_anchor').val();
+      text = $('#redactor_link_anchor_text').val();
     }     
 
     this._insertLink('<a href="' + link + '" target="' + target + '">' +  text + '</a>&nbsp;', $.trim(text), link, target);
@@ -2778,59 +2776,59 @@ Redactor.prototype = {
   modalInit: function(title, url, width, handler, endCallback)
   {
     // modal overlay
-    if (parent.$('#redactor_modal_overlay').size() === 0)
+    if ($('#redactor_modal_overlay').size() === 0)
     {
-      this.overlay = parent.$('<div id="redactor_modal_overlay" style="display: none;"></div>');
-      parent.$('body').prepend(this.overlay);
+      this.overlay = $('<div id="redactor_modal_overlay" style="display: none;"></div>');
+      $('body').prepend(this.overlay);
     }
 
     if (this.opts.overlay)
     {
-      parent.$('#redactor_modal_overlay').show();
-      parent.$('#redactor_modal_overlay').click(parent.$.proxy(this.modalClose, this));
+      $('#redactor_modal_overlay').show();
+      $('#redactor_modal_overlay').click($.proxy(this.modalClose, this));
     }
 
-    if (parent.$('#redactor_modal').size() === 0)
+    if ($('#redactor_modal').size() === 0)
     {
-      this.modal = parent.$('<div id="redactor_modal" style="display: none;"><div id="redactor_modal_close">&times;</div><div id="redactor_modal_header"></div><div id="redactor_modal_inner"></div></div>');
-      parent.$('body').append(this.modal);
+      this.modal = $('<div id="redactor_modal" style="display: none;"><div id="redactor_modal_close">&times;</div><div id="redactor_modal_header"></div><div id="redactor_modal_inner"></div></div>');
+      $('body').append(this.modal);
     }
 
-    parent.$('#redactor_modal_close').click(parent.$.proxy(this.modalClose, this));
+    $('#redactor_modal_close').click($.proxy(this.modalClose, this));
 
-    this.hdlModalClose = parent.$.proxy(function(e) { if (e.keyCode === 27) { this.modalClose(); } }, this);
+    this.hdlModalClose = $.proxy(function(e) { if (e.keyCode === 27) { this.modalClose(); } }, this);
     
-    parent.$(document).keyup(this.hdlModalClose);
+    $(document).keyup(this.hdlModalClose);
     this.$editor.keyup(this.hdlModalClose);
 
-    parent.$('#redactor_modal_inner').html(this.opts['modal_' + url]);
-    parent.$('#redactor_modal_header').html(title);
+    $('#redactor_modal_inner').html(this.opts['modal_' + url]);
+    $('#redactor_modal_header').html(title);
     
     // tabs
-    if (parent.$('#redactor_tabs').size() !== 0)
+    if ($('#redactor_tabs').size() !== 0)
     {
       var that = this;
-      parent.$('#redactor_tabs a').each(function(i,s)
+      $('#redactor_tabs a').each(function(i,s)
       {
         i++;
-        parent.$(s).click(function()
+        $(s).click(function()
         {
-          parent.$('#redactor_tabs a').removeClass('redactor_tabs_act');
-          parent.$(this).addClass('redactor_tabs_act');
-          parent.$('.redactor_tab').hide();
-          parent.$('#redactor_tab' + i).show();
-          parent.$('#redactor_tab_selected').val(i);
+          $('#redactor_tabs a').removeClass('redactor_tabs_act');
+          $(this).addClass('redactor_tabs_act');
+          $('.redactor_tab').hide();
+          $('#redactor_tab' + i).show();
+          $('#redactor_tab_selected').val(i);
           
           if (that.isMobile() === false)
           {
-            var height = parent.$('#redactor_modal').outerHeight();
-            parent.$('#redactor_modal').css('margin-top', '-' + (height+10)/2 + 'px');
+            var height = $('#redactor_modal').outerHeight();
+            $('#redactor_modal').css('margin-top', '-' + (height+10)/2 + 'px');
           }
         });
       });
     }
 
-    parent.$('#redactor_btn_modal_close').click($.proxy(this.modalClose, this));
+    $('#redactor_btn_modal_close').click($.proxy(this.modalClose, this));
     
     // callback
     if (typeof(handler) === 'function')
@@ -2839,18 +2837,23 @@ Redactor.prototype = {
     }
     
     // setup
-    var height = parent.$('#redactor_modal').outerHeight();
+    var height = $('#redactor_modal').outerHeight();
 
     if (this.isMobile() === false)
     {   
-      parent.$('#redactor_modal').css({ position: 'fixed', top: '50%', left: '50%', width: width + 'px', height: 'auto', minHeight: 'auto', marginTop: '-' + (height+10)/2 + 'px', marginLeft: '-' + (width+60)/2 + 'px' }).fadeIn('fast');
+      $('#redactor_modal').css({ position  : 'absolute'
+                               , top       : (this.$toolbar.css ('top') + 50) + 'px'
+                               , left      : ($ ('body').width () - width + 10) / 2 + 'px'
+                               , width     : width + 'px'
+                               , height    : 'auto'
+                               , minHeight : 'auto' }).fadeIn('fast');
       
-      this.modalSaveBodyOveflow = parent.$(document.body).css('overflow');
-      parent.$(document.body).css('overflow', 'hidden');     
+      this.modalSaveBodyOveflow = $(document.body).css('overflow');
+      $(document.body).css('overflow', 'hidden');     
     }
     else
     {
-      parent.$('#redactor_modal').css({ position: 'fixed', width: '100%', height: '100%', top: '0', left: '0', margin: '0', minHeight: '300px' }).show();      
+      $('#redactor_modal').css({ position: 'fixed', width: '100%', height: '100%', top: '0', left: '0', margin: '0', minHeight: '300px' }).show();      
     }
 
     // end callback
@@ -2863,35 +2866,35 @@ Redactor.prototype = {
   modalClose: function()
   {
 
-    parent.$('#redactor_modal_close').unbind('click', this.modalClose);
-    parent.$('#redactor_modal').fadeOut('fast', parent.$.proxy(function()
+    $('#redactor_modal_close').unbind('click', this.modalClose);
+    $('#redactor_modal').fadeOut('fast', $.proxy(function()
     {
-      parent.$('#redactor_modal_inner').html('');
+      $('#redactor_modal_inner').html('');
 
       if (this.opts.overlay)
       {
-        parent.$('#redactor_modal_overlay').hide();
-        parent.$('#redactor_modal_overlay').unbind('click', this.modalClose);
+        $('#redactor_modal_overlay').hide();
+        $('#redactor_modal_overlay').unbind('click', this.modalClose);
       }
       
-      parent.$(document).unbind('keyup', this.hdlModalClose);
+      $(document).unbind('keyup', this.hdlModalClose);
       this.$editor.unbind('keyup', this.hdlModalClose);
 
     }, this));
     
     if (this.isMobile() === false)
     {
-      parent.$(document.body).css('overflow', this.modalSaveBodyOveflow);  
+      $(document.body).css('overflow', this.modalSaveBodyOveflow);  
     }
 
   },
   setModalTab: function(num)
   {
-    parent.$('.redactor_tab').hide();
-    var tabs = parent.$('#redactor_tabs a');
+    $('.redactor_tab').hide();
+    var tabs = $('#redactor_tabs a');
     tabs.removeClass('redactor_tabs_act');
     tabs.eq(num-1).addClass('redactor_tabs_act');
-    parent.$('#redactor_tab' + num).show();      
+    $('#redactor_tab' + num).show();      
   },
 
   // UPLOAD
@@ -2948,7 +2951,7 @@ Redactor.prototype = {
     var d = document.createElement('div');
     var iframe = '<iframe style="display:none" id="'+this.id+'" name="'+this.id+'"></iframe>';
     d.innerHTML = iframe;
-    parent.document.body.appendChild(d);
+    document.body.appendChild(d);
   
     // Start
     if (this.uploadOptions.start)
@@ -2992,7 +2995,7 @@ Redactor.prototype = {
       $(this.form).css('position', 'absolute');
       $(this.form).css('top', '-2000px');
       $(this.form).css('left', '-2000px');
-      parent.$(this.form).appendTo('body');  
+      $(this.form).appendTo('body');  
 
       this.form.submit();
     }
