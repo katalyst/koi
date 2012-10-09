@@ -1,130 +1,137 @@
-if (! $.fn.outerHTML) $.fn.outerHTML = function ()
-{
-  return $ ('<div>').append (this.clone ()).html ()
-}
-
 ! function ()
 {
-  var opt = {
-    
-    fileUpload: '#show-me-the-attachment-button'
+  var opt = { fileUpload: '#show-me-the-attachment-button', buttons: ['html'] }
 
-  //  , convertDivs: true
-
-  , buttons:
-    [ 'html'
-    , '|'
-    , 'formatting'
-    , '|'
-    , 'bold'
-    , 'italic'
-    , 'underline'
-  //    , 'deleted'
-    , '|'
-    , 'unorderedlist'
-    , 'orderedlist'
-    , '|'
-    , 'outdent'
-    , 'indent'
-    , '|'
-    , 'video'
-    , 'image'
-    , 'file'
-    , 'link'
-    , 'table'
-  //    , '|'
-  //    , 'fontcolor'
-  //    , 'backcolor'
-    , '|'
-    , 'alignleft'
-    , 'aligncenter'
-    , 'alignright'
-    , 'justify'
-    , '|'
-    , 'horizontalrule'
-    ]
-
+  opt.buttons.add = function (split)
+  {
+    this.push ('|')
+    this.push.apply (this, split.split (' '))
+    return this
   }
+  opt.buttons
+  .add ('formatting')
+  .add ('bold italic underline')
+  .add ('unorderedlist orderedlist')
+  .add ('outdent indent')
+  .add ('video image file link table')
+  .add ('alignleft aligncenter alignright justify')
+  .add ('horizontalrule')
 
   $ (function () { $ ('[koi-wysiwyg]').liveQuery (run) })
 
   function run ()
   {
-    var textArea, form, box, iFrame, iQuery, iWindow, iDocument, iHead, iScript, iStyle, iBody, iTextArea, app
+    var app, $editor, $toolBar
+    var $win = $ (window), $textArea = $ (this), $form = $textArea.closest ('form')
+    var iFrame, iQuery, iWindow, iDocument, iHead, iScript, iStyle, iBody, iTextArea
 
-    textArea = $ (this).hide ()
-    form = textArea.closest ('form').submit (submit_form)
-    box = $ ('<div class="foo">').insertAfter (textArea).css ({ relative: true })
-    iFrame = $ ('<iframe>', { src         : '/wysiwyg.html?' + Math.random ()
-                            , width       : '100%'
-                            , height      : '100%'
-                            , frameborder : '0'
-    }).appendTo (box).load (load_iFrame)
+    $textArea.hide ().closest ('form').on ('submit', submit)
 
-    function submit_form ()
+    iFrame = $ ('<iframe>').insertAfter ($textArea).load (loadFrame)
+    .attr ('src', '/wysiwyg.html?' + Math.random ())
+    .attr ('width', '100%')
+    .attr ('height', '100%')
+    .attr ('frameborder', '0')
+
+    function submit ()
     {
-      app.$editor.find ('img').each (function ()
+      $editor.find ('img').each (function ()
       {
-        var img = $ (this)
-        var src = img.attr ('src').split ('?')
+        var $img = $ (this)
+        var src = $img.attr ('src').split ('?')
         var path = src [0]
         var params = src [1]
         var deparams = params ? $.deparam (params) : {}
-        for (var k in { width:true, height:true })
+        if (params)
         {
-          var kay = parseInt (img.css (k))
-          deparams [k] = kay
+          for (var dim in { width:true, height:true }) deparams [dim] = parseInt ($img.css (dim))
+          $img.attr ('src', path + '?' + $.param (deparams))
         }
-        img.attr ('src', path + '?' + $.param (deparams))
+        else $img.attr ('style', '');
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, '&nbsp;'))
+      $textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, '&nbsp;'))
     }
 
-    function resize_iBody ()
+    function resize ()
     {
-      iTextArea.height (app.$editor.innerHeight ())
-      iFrame.height (iBody.outerHeight ())
+      var height = iBody.outerHeight () + $toolBar.outerHeight () + 37
+      iTextArea.height (height)
+      iFrame.height (height)
     }
 
-    function load_iFrame ()
+    function loadFrame ()
     {
       iWindow   = iFrame.contentWindow ()
       iDocument = iFrame.contentDocument ()
       iQuery    = iWindow.$
 
       iHead     = iQuery (iDocument.getElementsByTagName ('head'))
-      iBody     = iQuery (iFrame.contentDocument ().body)
-      iTextArea = iQuery ('<textarea>').appendTo (iBody).val (textArea.val ())
+      iBody     = iQuery (iDocument.getElementsByTagName ('body'))
+      iTextArea = iQuery ('<textarea>').appendTo (iBody).val ($textArea.val ())
       // iScript   = iQuery ('<script>', { src: '/assets/koi/jquery/redactor.js' }).appendTo (iHead)
       iStyle    = iQuery ('<link>', { src: '/assets/koi/jquery/redactor.css' }).appendTo (iHead)
 
-      iBody.on ('click keydown', resize_iBody)
-      // iScript [0].onload = (load_iScript)
+      iBody.css ({ padding:0, margin:0 })
 
-      load_iScript ()
+      iBody.on ('click keydown', resize)
+      loadScript ()
     }
 
-    function load_iScript ()
+    function loadScript ()
     {
+      // iScript [0].onload = (load_iScript)
+
       app = iTextArea.redactor (opt).data ().redactor
 
-      setTimeout (resize_iBody)
+      $box = iFrame
+      $editor = app.$editor.css ({ minHeight: 200, padding:0, margin:0 })
+      $toolBar = app.$toolbar
 
-      //var box = app.$box
-      var bar = app.$toolbar
+      var sushiBar = $toolBar.sushi ('css')
 
-      bar.detach ().insertBefore (iFrame)
+      sushiBar.stopScrolling = function ()
+      {
+        var boxWidth  = $editor.outerWidth ()
+        this.set ({ position:'absolute', zIndex:1, left:0, top:0, width:boxWidth - 2 })
+      }
 
-      var snoggle = app.toggle
+      sushiBar.startScrolling = function ()
+      {
+        var boxTop    = $box.offset ().top
+        var scrollTop = $win.scrollTop ()
+        this.set ({ top: scrollTop - boxTop + 44 })
+      }
+
+      sushiBar.isScrolling = function ()
+      {
+        var boxTop    = $box.offset ().top
+        var boxHeight = $box.height ()
+        var boxBottom = boxHeight + boxTop
+        var scrollTop = $win.scrollTop ()
+        var top       = scrollTop + $toolBar.height ()
+        return boxTop < top && top < boxBottom
+      }
+
+      function reposition ()
+      {
+        sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] ()
+      }
+
+      setTimeout (resize)
+      setTimeout (reposition)
+
+      $ (window).on ('resize scroll', reposition)
+
+      var __toggle = app.toggle
 
       app.toggle = function ()
       {
-        this.saveScroll = $ (window).scrollTop ()
-        snoggle.apply (this, arguments)
-        setTimeout (resize_iBody)
-        $ (window).scrollTop (this.saveScroll)
+        var scrollTop = $win.scrollTop ()
+        __toggle.apply (this, arguments)
+        setTimeout (resize)
+        $win.scrollTop (scrollTop)
       }
 
       app.showImage = function ()
@@ -178,22 +185,9 @@ if (! $.fn.outerHTML) $.fn.outerHTML = function ()
         })
       }
 
-      box.css ({ position: 'relative' })
-      app.$editor.css ({ minHeight: 200 })
-
-      var fixed = { position: 'fixed', top: 44, left: iFrame.offset ().left + 1, zIndex: 1, width: iFrame.width () - 2 }
-      var absolute = { position: 'absolute', top: 0, left: 0, zIndex: 1, width: iFrame.width () - 2 }
-
-      bar.before ($ ('<div>', { height: bar.height () })).css (absolute)
-
-      $ (window).on ('resize scroll', function ()
-      {
-        var scrollTop = $ (window).scrollTop ()
-        var boxTop = iFrame.offset ().top
-        var boxBot = boxTop + iFrame.height ()
-        bar.css (boxTop < scrollTop + 44 && scrollTop + 44 + bar.height () < boxBot ? fixed : absolute)
-      })
+      $toolBar.before ($ ('<div>', { height: $toolBar.height () }))
     }
   }
 
 } ()
+
