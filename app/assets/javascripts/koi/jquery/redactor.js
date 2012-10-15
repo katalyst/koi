@@ -1044,7 +1044,16 @@ Redactor.prototype = {
 
   currentBlock: function ()
   {
-    var $this = $ (this.getCurrentNode());
+    var node = this.getCurrentNode()
+
+    if (node.nodeType !== 1)
+      node = node.parentNode || node.parentElement()
+
+    if (node.nodeType !== 1)
+      throw 'Argh.'
+
+    var $this = $ (node);
+
     while (! $this.is ('p, h1, h2, h3, h4, h5, h6, div, ul, ol, dl, table, .redactor_editor')) $this = $this.parent ();
     if (! $this.is ('.redactor_editor')) return $this [0];
   },
@@ -1650,7 +1659,6 @@ Redactor.prototype = {
     else if (s.func !== 'show')
     {
       button.click($.proxy(function(e) {
-      
         this[s.func](e); 
         
       }, this));

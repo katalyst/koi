@@ -23,7 +23,7 @@
   {
     var app, $editor, $toolBar
     var $win = $ (window), $textArea = $ (this), $form = $textArea.closest ('form')
-    var iFrame, iQuery, iWindow, iDocument, iHead, iScript, iStyle, iBody, iTextArea
+    var iFrame, iQuery, iWindow, iDocument, iHead, iBody, iScript, iStyle, iTextArea
 
     $textArea.hide ().closest ('form').on ('submit', submit)
 
@@ -51,7 +51,7 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      $textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, '&nbsp;'))
+      $textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, ' '))
     }
 
     function resize ()
@@ -65,22 +65,52 @@
     {
       iWindow   = iFrame.contentWindow ()
       iDocument = iFrame.contentDocument ()
-      iQuery    = iWindow.$
 
-      iHead     = iQuery (iDocument.getElementsByTagName ('head'))
-      iBody     = iQuery (iDocument.getElementsByTagName ('body'))
-      iTextArea = iQuery ('<textarea>').appendTo (iBody).val ($textArea.val ())
-      // iScript   = iQuery ('<script>', { src: '/assets/koi/jquery/redactor.js' }).appendTo (iHead)
-      iStyle    = iQuery ('<link>', { src: '/assets/koi/jquery/redactor.css' }).appendTo (iHead)
+      iHead     = iDocument.getElementsByTagName ('head') [0]
+      iBody     = iDocument.getElementsByTagName ('body') [0]
 
-      iBody.css ({ padding:0, margin:0 })
+      iTextArea = iDocument.createElement ('textarea')
+      iTextArea.value = $textArea.val ()
+      iBody.appendChild (iTextArea)
 
-      iBody.on ('click keydown', resize)
-      loadScript ()
+      iStyle       = iDocument.createElement ('link')
+      iStyle.rel   = 'stylesheet'
+      iStyle.type  = 'text/css'
+      iStyle.media = 'screen'
+      iStyle.href  = '/assets/koi/jquery/redactor.css'
+      iHead.appendChild (iStyle)
+
+      iScript      = iDocument.createElement ('script')
+      iScript.type = 'text/javascript'
+      iScript.src  = '/assets/koi.js'
+
+      // Handle Script loading
+      var done = false;
+
+      // Attach handlers for all browsers
+      iScript.onload = iScript.onreadystatechange = function ()
+      {
+        if (! done && (! this.readyState || this.readyState == 'loaded' || this.readyState == 'complete'))
+        {
+          done = true
+          loadScript ()
+
+          // Handle memory leak in IE:
+          iScript.onload = iScript.onreadystatechange = null
+          if (iHead && iScript.parentNode) iHead.removeChild (iScript)
+        }
+      };
+
+      iHead.appendChild (iScript)
+
+      $ (iBody).css ({ padding:0, margin:0 }).on ('click keydown', resize)
+      //$ (iScript).load (loadScript)
     }
 
     function loadScript ()
     {
+      iBody = iWindow.$ (iBody)
+      iTextArea = iWindow.$ (iTextArea)
       // iScript [0].onload = (load_iScript)
 
       app = iTextArea.redactor (opt).data ().redactor
@@ -161,7 +191,8 @@
       function launchAssetManager (path, ok)
       {
         var iframe    = $.factory.iframe (path)
-        var imodal    = $ ('<div class="asset-manager modal fade in">')
+        var imodal    = $ ('<div>')
+                        .addClass ('asset-manager modal fade in')
                         .html (iframe)
                         .appendTo ('body')
                         .modal ({ backdrop : true })
@@ -185,7 +216,7 @@
         })
       }
 
-      $toolBar.before ($ ('<div>', { height: $toolBar.height () }))
+      $toolBar.before ($ ('<div>', { height: '33px' }))
     }
   }
 
