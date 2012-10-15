@@ -64,9 +64,10 @@ $ (function ()
 
   uploader.bind ('Error', function (up, err) 
 	{
-    $filelist.append
+    $fileList.append
       ("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>")
     uploader.refresh ()
+    location.reload () // for IE... hopefully the upload worked!
   })
 
   uploader.bind ('FileUploaded', function (up, file, response) 
