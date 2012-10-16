@@ -1,4 +1,7 @@
-//= require_tree ./plupload
+//= require ./etc/plupload.js
+//= require ./etc/plupload.html4.js
+//= require ./etc/plupload.html5.js
+//= require ./etc/plupload.flash.js
 
 $ (function () 
 {
@@ -24,7 +27,7 @@ $ (function ()
   , unique_names   : false
   , browse_button  : 'upload-button-browse'
   , container      : 'upload-form'
-  , flash_swf_url  : '/assets/moxiecode/plupload.swf'
+  , flash_swf_url  : '/assets/etc/plupload.swf'
   , filters        : [ { title: "Assets", extensions: jsData.accecptedExtensions } ]
   })
 
