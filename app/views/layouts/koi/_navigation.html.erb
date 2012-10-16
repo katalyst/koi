@@ -12,8 +12,8 @@
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b> </a>
     <ul class="dropdown-menu">
-      <li><%= link_to "Images", koi_engine.images_path %></li>
-      <li><%= link_to "Documents", koi_engine.documents_path %></li>
+      <li><%= link_to "Images", koi_engine.images_path, target: '_overlay' %></li>
+      <li><%= link_to "Documents", koi_engine.documents_path, target: '_overlay' %></li>
     </ul>
   </li>
   <li><%= link_to "Settings", koi_engine.translations_path %></li>
