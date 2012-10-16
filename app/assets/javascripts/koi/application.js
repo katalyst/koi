@@ -63,13 +63,41 @@
     return this
   }
 
+  $ (document).on ('click', 'a[target=_overlay]', function ()
+  {
+    var it = $ (this)
+    $.modal (it.attr ('href'))
+    return false
+  })
 
+  $.modal = function (path, ok)
+  {
+    ok || (ok = function () {})
+    var it = this
+    var iframe    = $.factory.iframe (path)
+    var imodal    = $ ('<div>')
+                    .addClass ('asset-manager modal fade in')
+                    .html (iframe)
+                    .appendTo ('body')
+                    .modal ({ backdrop : true })
+                    .modal ('show')
+    var ibackdrop = imodal.next ('.modal-backdrop')
 
-
-
-
-
-
-
+    iframe.load (function ()
+    {
+      var iwindow = iframe.contentWindow ()
+      var iclose  = iwindow.close
+      iwindow.close = function (asset)
+      {
+        if (asset) ok.call (it, asset)
+        imodal.modal ('hide').on ('hidden', function ()
+        {
+          iclose ()
+          imodal.remove ()
+          ibackdrop.remove ()
+        })
+      }
+    })
+  }
 
 } (jQuery);

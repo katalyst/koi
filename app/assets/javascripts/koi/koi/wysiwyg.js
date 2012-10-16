@@ -167,7 +167,7 @@
       app.showImage = function ()
       {
         this.saveSelection ()
-        launchAssetManager ('/admin/images/new', function (url)
+        $.modal.call (this, '/admin/images/new', function (url)
         {
           this._imageSet ("<img src='" + url + "' style='float:right;'></img>", true)
         })
@@ -179,40 +179,12 @@
 
         if ($ (this.getParentNode ()).is ('a')) this.showLink ()
 
-        else launchAssetManager ('/admin/documents/new', function (url)
+        else $.modal.call (this, '/admin/documents/new', function (url)
         {
           var fileName = url.match (/[^\/]+$/).toString () || '...'
           if ($.browser.msie) this.restoreSelection()
           this.execCommand ('inserthtml', "<a href='" + url + "' target='_blank'>" + fileName + "</a>")
           if (! $.browser.msie) this.showLink ()
-        })
-      }
-
-      function launchAssetManager (path, ok)
-      {
-        var iframe    = $.factory.iframe (path)
-        var imodal    = $ ('<div>')
-                        .addClass ('asset-manager modal fade in')
-                        .html (iframe)
-                        .appendTo ('body')
-                        .modal ({ backdrop : true })
-                        .modal ('show')
-        var ibackdrop = imodal.next ('.modal-backdrop')
-
-        iframe.load (function ()
-        {
-          var iwindow = iframe.contentWindow ()
-          var iclose  = iwindow.close
-          iwindow.close = function (asset)
-          {
-            if (asset) ok.call (app, asset)
-            imodal.modal ('hide').on ('hidden', function ()
-            {
-              iclose ()
-              imodal.remove ()
-              ibackdrop.remove ()
-            })
-          }
         })
       }
 
