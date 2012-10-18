@@ -21,10 +21,6 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
                                   :branch => 'rails-3.2',
                                   :require => 'i18n/active_record'
 
-# WYSIWYG editor
-gem 'bootstrap-wysihtml5-rails' , :require => 'bootstrap-wysihtml5-rails',
-                                  :git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
-
 gem 'unicorn'
 
 gem_group :development do
