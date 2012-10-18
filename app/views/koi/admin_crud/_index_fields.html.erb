@@ -32,7 +32,7 @@
     <thead>
       <tr>
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
-          <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
+          <% label = raw t("simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize) %>
           <% if is_sortable? %>
             <th class="sort-icon"><%= sortable attr.to_s, label, :class => "nohover" %></th>
           <% else %>
