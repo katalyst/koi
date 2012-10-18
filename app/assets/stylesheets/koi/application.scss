@@ -189,7 +189,7 @@ body { background-color:transparent; }
 .redactor_toolbar li a.redactor_btn_underline { background:none; border-bottom:1px solid black; }
 
 .control-group { margin-bottom:19px; }
-.tagify-container { width:310px; height:auto; }
+.tagify-container { width:310px; height:auto; padding-bottom:26px; }
 span + .ui-autocomplete-input { margin-top:10px; }
 .ui-autocomplete-input { margin-bottom:0; width:302px !important; border:none; outline:none;}
 .ui-autocomplete-input:focus { outline:0; -webkit-box-shadow:none; box-shadow:none;  }
