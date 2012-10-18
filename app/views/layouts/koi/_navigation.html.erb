@@ -2,14 +2,20 @@
   <li><%= link_to "Dashboard", koi_engine.dashboard_path %></li>
   <li><%= link_to "Sitemap", koi_engine.sitemap_nav_items_path %></li>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">  Module <b class="caret"></b> </a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Module <b class="caret"></b> </a>
     <ul class="dropdown-menu">
       <% Koi::Menu.items.each do |key, value| %>
         <%= content_tag :li, link_to(key, value) %>
       <% end %>
     </ul>
   </li>
-  <li><a href="#">Reports</a></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b> </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Images", koi_engine.images_path, target: '_overlay' %></li>
+      <li><%= link_to "Documents", koi_engine.documents_path, target: '_overlay' %></li>
+    </ul>
+  </li>
   <li><%= link_to "Settings", koi_engine.translations_path %></li>
   <li><%= link_to "Help", koi_engine.help_path %></li>
   <li><%= link_to "Logout", koi_engine.destroy_admin_session_path, method: :delete %></li>
