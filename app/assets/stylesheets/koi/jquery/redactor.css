@@ -138,6 +138,7 @@ body .redactor_air {
   border-top: 1px solid #ccc;
 }
 
+/*
 .redactor_editor h1, 
 .redactor_editor h2, 
 .redactor_editor h3, 
@@ -175,7 +176,7 @@ body .redactor_air {
 	font-size: 1em !important;
 	margin-bottom: 10px !important;
 }
-
+*/
 .redactor_editor.redactor_editor_wym {
 	background: #f6f6f6 !important;
 	padding: 5px 15px !important;

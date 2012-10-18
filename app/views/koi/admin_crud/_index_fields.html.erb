@@ -1,27 +1,57 @@
 <% if is_orderable? %>
-  <% js_data "sort_admin_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
   <% content_for :head do %>
     <script type="text/javascript">
-      document.onselectstart = function () { return false; }
+      
+      $ (function ()
+      {
+        var sortPath = "<%= url_for(:action => :sort) %>"
+        var sortable = $ ('#sortable')
+        var notice   = $ ('<p>').addClass ('pad-half background-light-green').prependTo ('#tab-main').html ('&nbsp;')
 
-      $(function() {
-        var notice = $('<p class="pad-1 background-light-green">Saving...</p>').hide();
-        $("#sortable").sortable({
-          placeholder: 'ui-state-placeholder',
-          // Return a helper with preserved width of cells
-          helper: function(e, ui) {
-            ui.children().each(function() {
-              $(this).width($(this).width());
-            });
-            return ui;
-          },
-          update: function() {
-            notice.stop(true, true).removeClass('success').addClass('notice').text("Saving...").show();
-            $.post(jsData.sortAdmin<%= resource_class.to_s.pluralize %>Path, '_method=put&'+$(this).sortable('serialize'), function() {
-              notice.removeClass('notice').addClass('success').text("Save successful.").delay(1000).fadeOut();
-            });
+        var savingMessage = "Saving..."
+        var successMessage = 'Save successful...'
+
+        function showNotice (f)
+        {
+          notice
+            .stop (true, true)
+            .addClass ('notice').removeClass ('success')
+            .text (savingMessage)
+            .animate ({ opacity:1 }, f)
+        }
+
+        function hideNotice ()
+        {
+          notice
+            .removeClass ('notice').addClass ('success')
+            .text (successMessage)
+            .delay (1000)
+            .animate ({ opacity:0 })
+        }
+
+        $ ('#sortable').sortable ({
+          
+          placeholder: 'ui-state-placeholder'
+        
+        , helper: function (e, ui) // preserves width of cells...
+          { 
+            ui.children().each (function () { $ (this).width ($ (this).width()) })
+            return ui
           }
-        }).disableSelection().parent().next().prepend(notice);
+
+        , update: function ()
+          {
+            showNotice (function ()
+            {
+              $.post (sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice)
+            })
+          }
+        
+        })
+
+        .disableSelection()
+
+        .on ('selectstart', function () { return false })
       });
     </script>
   <% end %>

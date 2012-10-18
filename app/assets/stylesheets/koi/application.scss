@@ -10,13 +10,13 @@ $gridGutterWidth:      10px;
 $iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", image);
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
-@import "redactor";
-@import "bowerbird.scss";
+@import "bowerbird";
 @import "./legacy/button";
 @import "./legacy/icon";
 @import "./legacy/menu";
-@import "./lib/jquery/ui";
-@import "./lib/jquery/tagify";
+@import "./jquery/ui";
+@import "./jquery/tagify";
+@import "./jquery/redactor";
 @import "./nav_items";
 
 // elements ///////////////////////////////////////////////////////////////////
@@ -26,14 +26,15 @@ h1 { font-size: 44px; font-weight: 300; line-height: 64px; border-bottom: 1px so
 h2 { font-size: 24px; font-weight: 600; }
 table { border: 1px solid #CCC; }
 th { background-color: #ececec; font-size: 11px; }
-textarea { height: 200px; width: 400px; }
+textarea { height: 200px; width: 100%; }
 legend.small { font-size: 13px; border-bottom: 1px solid $grayLighter; margin-bottom: 120px; }
 abbr[title='required'] { color: $orange; font-weight: bold; }
 ol, ul { list-style-type:none; margin-left:0; padding-right:0; }
 
 // bootstrap-on ///////////////////////////////////////////////////////////////
 
-.btn { text-shadow: none; @include buttonBackground($orange, $gray); @include box-shadow(none); background-image: none; border: none; font-weight: 600; background-color: $grayLight; color: #FFF; }
+.btn { text-shadow: none; @include buttonBackground($orange, $gray); @include box-shadow(none); background-image: none; border: none; background-color: $grayLight; color: #FFF; }
+.btn { padding: 3px 8px 3px; font-size:13px; }
 .btn-small { padding: 4px 10px 3px 10px; font-size: 12px; }
 .btn-mini { padding: 3px 10px 4px 10px; font-size: 12px; }
 .btn-primary { border: none; background-image: none; background-color: $orange; text-shadow: none; }
@@ -120,7 +121,7 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
 .wysihtml5-toolbar [class^="icon-"], .wysihtml5-toolbar [class*=" icon-"] { line-height: 18px; }
 
 .action.view input.date, .action.view input[type=text], .action.view input[type=tel], .action.view input[type=url], .action.view input[type=password] { width: 298px; }
-.action.view textarea { width:498px; }
+.action.view textarea { width:98.5%; }
 
 .asset-manager.modal.fade.in { top:35%; left:32%; width:950px; height:742px; border:none; overflow:hidden; }
 .asset-manager.modal > iframe { @include border-radius(4px 4px 0 0 ); background-color:transparent; }
@@ -133,7 +134,7 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
 
 body { background-color:transparent; }
 
-[koi=wysiwyg] [koi\:name=toolbar]
+[koi-wysiwyg] [koi\:name=toolbar]
 {
   > li
   {
@@ -144,7 +145,7 @@ body { background-color:transparent; }
 
 #void { display:none; }
 
-.action.view [koi=wysiwyg] textarea, .action.view [koi=wysiwyg] iframe
+.action.view [koi-wysiwyg] textarea, .action.view [koi-wysiwyg] iframe
 {
   background-color: rgb(255, 255, 255);
   border-collapse: separate;
@@ -175,7 +176,7 @@ body { background-color:transparent; }
   height: 200px;
 }
 
-[koi=wysiwyg] iframe
+[koi-wysiwyg] iframe
 {
   background-color: rgb(245, 245, 255);
 }
@@ -189,3 +190,9 @@ body { background-color:transparent; }
 .modal.fade.in { top:20%; }
 
 .redactor_toolbar li a.redactor_btn_underline { background:none; border-bottom:1px solid black; }
+
+.control-group { margin-bottom:19px; }
+.tagify-container { width:310px; height:auto; }
+span + .ui-autocomplete-input { margin-top:10px; }
+.ui-autocomplete-input { margin-bottom:0; width:302px !important; border:none; outline:none;}
+.ui-autocomplete-input:focus { outline:0; -webkit-box-shadow:none; box-shadow:none;  }
