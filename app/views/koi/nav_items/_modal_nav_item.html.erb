@@ -12,7 +12,6 @@
 
 <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
 
-<div class="span9">
   <div class="tabbable space-1">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
@@ -39,7 +38,6 @@
     <%- unless resource.new_record? -%>
       <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn"  %>
       <%- end -%>
-  </div>
   </div>
 
 </div>

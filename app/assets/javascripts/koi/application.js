@@ -1,17 +1,33 @@
-//= require ./lib/jquery
-//= require ./lib/shim
-//= require ./lib/bootstrap
-//= require ./lib/highcharts
-//= require ./lib/highcharts
-//= require_tree ./application
-//= require ./nav_items
-//= require ./wysiwyg
+//= require ./common
+//= require bootstrap
 
 ! function () {
 
   var $window = $ (window)
 
-  $.livequery.registerPlugin ("html");
+  $.liveQuery.registerPlugin ("html");
+
+  $.fn.modal.defaults = {
+        backdrop: 'static'
+      , keyboard: true
+      , show: true
+    }
+
+  $ (document).on ('click', '.redactor_editor', function ()
+  {
+    var it = $ (this)
+    var textarea = it.siblings ('textarea')
+    var redactor = textarea.data ('redactor')
+
+    try { redactor.getCurrentNode () }
+    catch (ex)
+    {
+      var range = rangy.createRange();
+      range.setStart (this, 0);
+      range.collapse (true);
+      rangy.getSelection ().setSingleRange (range);
+    }
+  })
 
   $.application.debug = true;
 
@@ -45,6 +61,43 @@
 
     if (it.hasClass ('fade')) it.on ('show', function () { it.css ('top', $window.scrollTop () + 100) })
     return this
+  }
+
+  $ (document).on ('click', 'a[target=_overlay]', function ()
+  {
+    var it = $ (this)
+    $.modal (it.attr ('href'))
+    return false
+  })
+
+  $.modal = function (path, ok)
+  {
+    ok || (ok = function () {})
+    var it = this
+    var iframe    = $.factory.iframe (path)
+    var imodal    = $ ('<div>')
+                    .addClass ('asset-manager modal fade in')
+                    .html (iframe)
+                    .appendTo ('body')
+                    .modal ({ backdrop : true })
+                    .modal ('show')
+    var ibackdrop = imodal.next ('.modal-backdrop')
+
+    iframe.load (function ()
+    {
+      var iwindow = iframe.contentWindow ()
+      var iclose  = iwindow.close
+      iwindow.close = function (asset)
+      {
+        if (asset) ok.call (it, asset)
+        imodal.modal ('hide').on ('hidden', function ()
+        {
+          iclose ()
+          imodal.remove ()
+          ibackdrop.remove ()
+        })
+      }
+    })
   }
 
 } (jQuery);

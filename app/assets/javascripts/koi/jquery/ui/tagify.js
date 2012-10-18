@@ -44,13 +44,16 @@
 					    pressed = e.which;
 
 					// if backspace is hit with no input, remove the last tag
-					if (pressed == 8) { // backspace
-						if ( self.keyDownValue == '' ) {
-							self.remove();
-							return false;
-						}
-						return;
-					}
+					//
+					// UMMM... DON'T DO THAT.
+					//
+					// if (pressed == 8) { // backspace
+					// 	if ( self.keyDownValue == '' ) {
+					// 		self.remove();
+					// 		return false;
+					// 	}
+					// 	return;
+					// }
 				});
 				
 			this.tagDiv = $("<div></div>")
