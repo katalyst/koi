@@ -1,4 +1,7 @@
-//= require koi/lib/plupload
+//= require ./etc/plupload.js
+//= require ./etc/plupload.html4.js
+//= require ./etc/plupload.html5.js
+//= require ./etc/plupload.flash.js
 
 $ (function () 
 {
@@ -24,7 +27,7 @@ $ (function ()
   , unique_names   : false
   , browse_button  : 'upload-button-browse'
   , container      : 'upload-form'
-  , flash_swf_url  : '/assets/moxiecode/plupload.swf'
+  , flash_swf_url  : '/assets/etc/plupload.swf'
   , filters        : [ { title: "Assets", extensions: jsData.accecptedExtensions } ]
   })
 
@@ -64,9 +67,10 @@ $ (function ()
 
   uploader.bind ('Error', function (up, err) 
 	{
-    $filelist.append
+    $fileList.append
       ("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>")
     uploader.refresh ()
+    location.reload () // for IE... hopefully the upload worked!
   })
 
   uploader.bind ('FileUploaded', function (up, file, response) 

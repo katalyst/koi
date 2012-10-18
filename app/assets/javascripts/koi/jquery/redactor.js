@@ -133,7 +133,7 @@ var Redactor = function(element, options)
     air: false,
     wym: false,
     convertLinks: true,
-    convertDivs: true,
+    convertDivs: false,
 
     autosave: false, // false or url
     interval: 60, // seconds
@@ -829,6 +829,7 @@ Redactor.prototype = {
         this.$el = $('<textarea name="' + this.$editor.attr('id') + '"></textarea>').css('height', this.height);
       }
       
+      this.$editor.addClass(this.$el.data('class'))
       this.$editor.addClass('redactor_editor').attr('contenteditable', true).attr('dir', this.opts.direction);
 
       if (this.opts.wym === true)
@@ -1043,7 +1044,16 @@ Redactor.prototype = {
 
   currentBlock: function ()
   {
-    var $this = $ (this.getCurrentNode());
+    var node = this.getCurrentNode()
+
+    if (node.nodeType !== 1)
+      node = node.parentNode || node.parentElement()
+
+    if (node.nodeType !== 1)
+      throw 'Argh.'
+
+    var $this = $ (node);
+
     while (! $this.is ('p, h1, h2, h3, h4, h5, h6, div, ul, ol, dl, table, .redactor_editor')) $this = $this.parent ();
     if (! $this.is ('.redactor_editor')) return $this [0];
   },
@@ -1385,12 +1395,16 @@ Redactor.prototype = {
     
     if ($.browser.webkit || $.browser.chrome || $.browser.safari)
     {
-      var $parent = $ (this.getParentNode ());
-      var $grandparent = $parent.parent ();
-      if ($parent.is ('p') && $grandparent.is ('p'))
+      var $parent = $ (this.getParentNode ()).closest ('div')
+      var $grandparent
+
+      while ($parent.is ('div') && $.isEmptyObject ($parent.attr ()))
       {
-        $parent.unwrap ();
+        $grandparent = $parent.parent ();
+        $parent.children ().unwrap ();
+        $parent = $grandparent;
       }
+      if ($parent.is ('p') && $.isEmptyObject ($parent.attr ())) $parent.children ().unwrap ()
     }
 
     if (this.opts.autoresize === true)
@@ -1645,7 +1659,6 @@ Redactor.prototype = {
     else if (s.func !== 'show')
     {
       button.click($.proxy(function(e) {
-      
         this[s.func](e); 
         
       }, this));
@@ -2553,10 +2566,10 @@ Redactor.prototype = {
       
       if ($.browser.msie)
       {
-        var parent = this.getParentNode();
-        if (parent.nodeName === 'A')
+        var parentNode = this.getParentNode();
+        if (parentNode.nodeName === 'A')
         {
-          this.insert_link_node = $(parent);
+          this.insert_link_node = $(parentNode);
           text = this.insert_link_node.text();
           url = this.insert_link_node.attr('href');
           target = this.insert_link_node.attr('target');
@@ -2621,7 +2634,6 @@ Redactor.prototype = {
       }
       
       $('#redactor_insert_link_btn').click($.proxy(this.insertLink, this));
-      
 
     }, this);
     
@@ -2630,9 +2642,7 @@ Redactor.prototype = {
       $('#redactor_link_url').focus();
     };
 
-
     this.modalInit(RLANG.link, 'link', 460, handler, endCallback);
-
   },
   insertLink: function()
   {
@@ -2794,7 +2804,7 @@ Redactor.prototype = {
 
     $('#redactor_modal_close').click($.proxy(this.modalClose, this));
 
-    this.hdlModalClose = $.proxy(function(e) { if ( e.keyCode === 27) { this.modalClose(); } }, this);
+    this.hdlModalClose = $.proxy(function(e) { if (e.keyCode === 27) { this.modalClose(); } }, this);
     
     $(document).keyup(this.hdlModalClose);
     this.$editor.keyup(this.hdlModalClose);
@@ -2839,7 +2849,12 @@ Redactor.prototype = {
 
     if (this.isMobile() === false)
     {   
-      $('#redactor_modal').css({ position: 'fixed', top: '50%', left: '50%', width: width + 'px', height: 'auto', minHeight: 'auto', marginTop: '-' + (height+10)/2 + 'px', marginLeft: '-' + (width+60)/2 + 'px' }).fadeIn('fast');
+      $('#redactor_modal').css({ position  : 'absolute'
+                               , top       : (this.$toolbar.css ('top') + 50) + 'px'
+                               , left      : ($ ('body').width () - width + 10) / 2 + 'px'
+                               , width     : width + 'px'
+                               , height    : 'auto'
+                               , minHeight : 'auto' }).fadeIn('fast');
       
       this.modalSaveBodyOveflow = $(document.body).css('overflow');
       $(document.body).css('overflow', 'hidden');     
