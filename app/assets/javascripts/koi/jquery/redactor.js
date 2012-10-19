@@ -1538,7 +1538,8 @@ Redactor.prototype = {
     {
       this.$el.hide();
       
-      this.$editor.html(this.$el.val());
+      this.$editor.html(this.$el.val().replace (/\u00A0/g, ' '));
+
       this.$editor.show();
 
       if (this.$editor.html() === '')
