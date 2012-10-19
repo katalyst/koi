@@ -4,9 +4,7 @@
 
   opt.buttons.add = function (split)
   {
-    this.push ('|')
-    this.push.apply (this, split.split (' '))
-    return this
+    this.push ('|'); this.push.apply (this, split.split (' ')); return this
   }
   opt.buttons
   .add ('formatting')
@@ -21,7 +19,7 @@
 
   function run ()
   {
-    var app, $editor, $toolBar
+    var app, $box, $editor, $toolBar
     var $win = $ (window), $textArea = $ (this), $form = $textArea.closest ('form')
     var iFrame, iQuery, iWindow, iDocument, iHead, iBody, iScript, iStyle, iTextArea
 
@@ -51,13 +49,12 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      $textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/, ' '))
+      //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
     function resize ()
     {
-      var height = iBody.outerHeight () + $toolBar.outerHeight () + 37
-      iTextArea.height (height)
+      var height = iBody.outerHeight () //+ $toolBar.outerHeight ()
       iFrame.height (height)
     }
 
@@ -121,10 +118,12 @@
 
       var sushiBar = $toolBar.sushi ('css')
 
+      sushiBar.set ({ boxSizing: 'border-box', width:'100%' })
+
       sushiBar.stopScrolling = function ()
       {
         var boxWidth  = $editor.outerWidth ()
-        this.set ({ position:'absolute', zIndex:1, left:0, top:0, width:boxWidth - 2 })
+        this.set ({ position:'absolute', zIndex:1, left:0, top:0, width:'100%' })
       }
 
       sushiBar.startScrolling = function ()
@@ -138,11 +137,14 @@
       {
         var boxTop    = $box.offset ().top
         var boxHeight = $box.height ()
-        var boxBottom = boxHeight + boxTop
+        var boxBottom = boxHeight + boxTop - 44 - 32
         var scrollTop = $win.scrollTop ()
         var top       = scrollTop + $toolBar.height ()
+        console.log (top, boxTop, $editor [0].innerHTML [1])
         return boxTop < top && top < boxBottom
       }
+      sushiBar.stopScrolling ()
+      sushiBar.startScrolling ()
 
       function reposition ()
       {
