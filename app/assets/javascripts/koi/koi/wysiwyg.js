@@ -49,6 +49,7 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
+      $textArea.val ($editor[0].innerHTML)
       //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
@@ -140,7 +141,6 @@
         var boxBottom = boxHeight + boxTop - 44 - 32
         var scrollTop = $win.scrollTop ()
         var top       = scrollTop + $toolBar.height ()
-        console.log (top, boxTop, $editor [0].innerHTML [1])
         return boxTop < top && top < boxBottom
       }
       sushiBar.stopScrolling ()

@@ -1349,7 +1349,7 @@ Redactor.prototype = {
     html = html.replace(/<b\sid="internal-source-marker(.*?)">([\w\W]*?)<\/b>/gi, "$2");    
   
     // strip tags
-    html = this.stripTags(html);
+    // html = this.stripTags(html);
       
     // prevert
     html = html.replace(/<td><br><\/td>/gi, '[td]');
