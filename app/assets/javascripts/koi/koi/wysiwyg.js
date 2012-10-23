@@ -26,7 +26,7 @@
     $textArea.hide ().closest ('form').on ('submit', submit)
 
     iFrame = $ ('<iframe>').insertAfter ($textArea).load (loadFrame)
-    .attr ('src', '/wysiwyg.html?' + Math.random ())
+    .attr ('src', '/wysiwyg.html')
     .attr ('width', '100%')
     .attr ('height', '100%')
     .attr ('frameborder', '0')
