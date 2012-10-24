@@ -2858,9 +2858,16 @@ Redactor.prototype = {
                                , height    : 'auto'
                                , minHeight : 'auto' }).fadeIn('fast');
 
-      setTimeout (function () // fadeIn erases the height
+      console.log ($ (parent).scrollTop (), 'fu')
+
+      var scrollTop    = $ (parent).scrollTop ()
+      var offsetTop    = $ (window.frameElement).offset ().top
+      var top          = Math.max (0, scrollTop - offsetTop) + 69
+
+      setTimeout (function () // fadeIn erases `top`
       {
-        $modal.css ({ top: Math.max (0, $body.height () - $modal.height ()) / 2 })
+        $ (parent).scrollTop (scrollTop)
+        $modal.css ({ top:top })
       })
       
       this.modalSaveBodyOveflow = $(document.body).css('overflow');

@@ -75,12 +75,12 @@
       iStyle.rel   = 'stylesheet'
       iStyle.type  = 'text/css'
       iStyle.media = 'screen'
-      iStyle.href  = '/assets/koi/jquery/redactor.css?' + Math.random ()
+      iStyle.href  = '/assets/koi/jquery/redactor.css'
       iHead.appendChild (iStyle)
 
       iScript      = iDocument.createElement ('script')
       iScript.type = 'text/javascript'
-      iScript.src  = '/assets/koi.js?' + Math.random ()
+      iScript.src  = '/assets/koi.js'
 
       // Handle Script loading
       var done = false;
@@ -102,6 +102,7 @@
       iHead.appendChild (iScript)
 
       $ (iBody).css ({ padding:0, margin:0 }).on ('click keydown', resize)
+
       //$ (iScript).load (loadScript)
     }
 
@@ -151,8 +152,8 @@
         sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] ()
       }
 
-      setTimeout (resize)
-      setTimeout (reposition)
+      setTimeout (resize, 500)
+      setTimeout (reposition, 500)
 
       $ (window).on ('resize scroll', reposition)
 
