@@ -55,7 +55,7 @@
 
     function resize ()
     {
-      var height = iBody.outerHeight () //+ $toolBar.outerHeight ()
+      var height = iBody.outerHeight () + 39//+ $toolBar.outerHeight ()
       iFrame.height (height)
     }
 
@@ -75,12 +75,12 @@
       iStyle.rel   = 'stylesheet'
       iStyle.type  = 'text/css'
       iStyle.media = 'screen'
-      iStyle.href  = '/assets/koi/jquery/redactor.css'
+      iStyle.href  = '/assets/koi/jquery/redactor.css?' + Math.random ()
       iHead.appendChild (iStyle)
 
       iScript      = iDocument.createElement ('script')
       iScript.type = 'text/javascript'
-      iScript.src  = '/assets/koi.js'
+      iScript.src  = '/assets/koi.js?' + Math.random ()
 
       // Handle Script loading
       var done = false;
@@ -114,7 +114,7 @@
       app = iTextArea.redactor (opt).data ().redactor
 
       $box = iFrame
-      $editor = app.$editor.css ({ minHeight: 200, padding:0, margin:0 })
+      $editor = app.$editor.css ({ minHeight: 300, padding:0, margin:0 })
       $toolBar = app.$toolbar
 
       var sushiBar = $toolBar.sushi ('css')
