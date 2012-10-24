@@ -2831,7 +2831,7 @@ Redactor.prototype = {
           if (that.isMobile() === false)
           {
             var height = $('#redactor_modal').outerHeight();
-            $('#redactor_modal').css('margin-top', '-' + (height+10)/2 + 'px');
+            //$('#redactor_modal').css('margin-top', '-' + (height+10)/2 + 'px');
           }
         });
       });
@@ -2846,16 +2846,22 @@ Redactor.prototype = {
     }
     
     // setup
-    var height = $('#redactor_modal').outerHeight();
+    var $body = $ (document.body)
+    var $modal = $('#redactor_modal')
+    var $editor = this.$editor
 
     if (this.isMobile() === false)
     {   
       $('#redactor_modal').css({ position  : 'absolute'
-                               , top       : (this.$toolbar.css ('top') + 50) + 'px'
                                , left      : ($ ('body').width () - width + 10) / 2 + 'px'
                                , width     : width + 'px'
                                , height    : 'auto'
                                , minHeight : 'auto' }).fadeIn('fast');
+
+      setTimeout (function () // fadeIn erases the height
+      {
+        $modal.css ({ top: Math.max (0, $body.height () - $modal.height ()) / 2 })
+      })
       
       this.modalSaveBodyOveflow = $(document.body).css('overflow');
       $(document.body).css('overflow', 'hidden');     
