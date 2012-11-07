@@ -34,6 +34,8 @@ var RLANG = {
   header2: 'Header 2',
   header3: 'Header 3',
   header4: 'Header 4',
+  header5: 'Header 5',
+  header6: 'Header 6',
   bold:  'Bold',
   italic: 'Italic',
   underline: 'Underline',
@@ -340,6 +342,18 @@ var Redactor = function(element, options)
             title: RLANG.header4,
             exec: 'formatblock',
             className: 'redactor_format_h4'
+          },
+          h5:
+          {
+            title: RLANG.header5,
+            exec: 'formatblock',
+            className: 'redactor_format_h5'
+          },
+          h6:
+          {
+            title: RLANG.header6,
+            exec: 'formatblock',
+            className: 'redactor_format_h6'
           }
         }
       },
