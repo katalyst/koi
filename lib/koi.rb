@@ -1,3 +1,4 @@
+require 'csv'
 require 'devise'
 require 'dragonfly'
 require 'scoped_search'
