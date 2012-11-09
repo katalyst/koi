@@ -17,9 +17,10 @@ module HasCrud
         #FIXME: refactor
         has_navigation if options[:navigation].eql?(true)
 
-        unless options[:settings].eql?(false)
-          options[:settings] = true
+        if options[:settings].eql?(true)
           has_settings
+        else
+          options[:settings] = false
         end
 
         if options[:settings] && table_exists?
