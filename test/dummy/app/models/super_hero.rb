@@ -22,7 +22,7 @@ class SuperHero < ActiveRecord::Base
     fields image:    { type: :image },
            file:     { type: :file  },
            gender:   { type: :select, data: Gender },
-           is_alive: { type: :radio },
+           is_alive: { type: :boolean },
            powers:   { type: :check_boxes, data: Powers },
            published_at: { type: :date }
 
@@ -30,6 +30,8 @@ class SuperHero < ActiveRecord::Base
                     :telephone]
 
     config :admin do
+      exportable true
+      csv     except: [:image_name, :file_name]
       index   fields: [:name]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
