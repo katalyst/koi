@@ -25,20 +25,23 @@
 
     $textArea.hide ().closest ('form').on ('submit', submit)
 
-    iFrame = $ ('<iframe>').insertAfter ($textArea).load (loadFrame)
-    .attr ('src', '/wysiwyg.html')
-    .attr ('width', '100%')
-    .attr ('height', '100%')
-    .attr ('frameborder', '0')
+    iFrame = $ ('<iframe frameBorder="0">').insertAfter ($textArea).load (loadFrame)
+    .attr ('src'          , '/wysiwyg.html')
+    .attr ('width'        , '100%')
+    .attr ('height'       , '100%')
+    .attr ('marginheight' , '0')
+    .attr ('marginheight' , '0')
+    .css  ('borderWidth'  , '0')
+    .css  ('borderStyle'  , 'none')
 
     function submit ()
     {
       $editor.find ('img').each (function ()
       {
-        var $img = $ (this)
-        var src = $img.attr ('src').split ('?')
-        var path = src [0]
-        var params = src [1]
+        var $img     = $ (this)
+        var src      = $img.attr ('src').split ('?')
+        var path     = src [0]
+        var params   = src [1]
         var deparams = params ? $.deparam (params) : {}
         if (params)
         {
@@ -49,14 +52,28 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      $textArea.val ($editor[0].innerHTML)
+      $textArea.val ($editor[0].innerHTML.replace (/(<[^\/][^>]*>)<br\/?>/, function ($0, $1) { return $1 }))
       //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
-    function resize ()
+    function resize_body ()
     {
-      var height = iBody.outerHeight () + 39//+ $toolBar.outerHeight ()
-      iFrame.height (height)
+      iFrame.height ($ (iBody).outerHeight () + $toolBar.outerHeight ())
+    }
+
+    function resize_document ()
+    {
+      iFrame.height ($ (iDocument).outerHeight ())
+    }
+
+    function resizer ()
+    {
+      resize_body (); resizer = resize_document;
+    }
+
+    function resize (e)
+    {
+      resizer (); setTimeout (function () { resizer () })
     }
 
     function loadFrame ()
@@ -97,7 +114,7 @@
           iScript.onload = iScript.onreadystatechange = null
           if (iHead && iScript.parentNode) iHead.removeChild (iScript)
         }
-      };
+      }
 
       iHead.appendChild (iScript)
 
@@ -132,7 +149,7 @@
       {
         var boxTop    = $box.offset ().top
         var scrollTop = $win.scrollTop ()
-        this.set ({ top: scrollTop - boxTop + 44 })
+        this.set ({ top: scrollTop - boxTop + 43 })
       }
 
       sushiBar.isScrolling = function ()
@@ -152,8 +169,10 @@
         sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] ()
       }
 
-      setTimeout (resize, 500)
-      setTimeout (reposition, 500)
+      $ (window).ready (function (e)
+      {
+        resize (e); reposition (e);
+      })
 
       $ (window).on ('resize scroll', reposition)
 
@@ -191,7 +210,7 @@
         })
       }
 
-      $toolBar.before ($ ('<div>', { height: '33px' }))
+      $toolBar.before ($ ('<div>&nbsp;</div>').css ({ height:'32px' }))
     }
   }
 
