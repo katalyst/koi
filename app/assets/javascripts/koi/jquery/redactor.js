@@ -1541,6 +1541,7 @@ Redactor.prototype = {
       this.$editor.hide();
       
       html = this.$editor.html();
+      
       // html = $.trim(this.formatting(html));
         
       this.$el.height(this.$editor.innerHeight()).val(html).show().focus();
