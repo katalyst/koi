@@ -13,6 +13,25 @@
     <div class="container space-t-10 ">
       <%= content_for?(:body) ? yield(:body) : yield %>
     </div>
+
+    <div id="void">
+
+      <div koi="ask" class="modal hide fade">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 koi:bind="question">What?</h3>
+        </div>
+        <div class="modal-body">
+          <input class="input-xlarge" name="answer" koi:bind="answer" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="cancel" class="btn close" data-dismiss="modal">Cancel</button>
+          <button type="button" name="submit" class="space-r-1 btn btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+
+    </div>
+
   </body>
 <% end %>
 

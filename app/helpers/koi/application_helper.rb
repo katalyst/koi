@@ -17,7 +17,7 @@ module Koi::ApplicationHelper
   end
 
   def is_settable?
-    defined?(:resource_class) && resource_class.options[:settings]
+    defined?(resource_class) && resource_class.options[:settings]
   end
 
   def settings

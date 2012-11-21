@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   resources :users, path: :members
   resources :pages
+  resources :assets
+  resources :images
+  resources :documents
   resources :news_items
   resources :super_heros
 
