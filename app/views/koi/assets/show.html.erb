@@ -14,7 +14,7 @@
 
     <ul class="unmarked-list floated-l-list clearfix">
       <% resource.tags.each do |tag| %>
-        <li class="space-r-1"><a><%= tag %></a></li>
+        <li class="space-r-1"><a><%= tag.name %></a></li>
       <% end %>
     </ul>
   <% end %>
@@ -24,7 +24,7 @@
     <%= link_to "Edit tags", { action: :edit }, class: "txt-grey" %>
   </div>
 
-  <%= render "links" %>
+  <%= render "links" %><%#= unless what? %>
 </section>
 
 <%# Maybe? %>

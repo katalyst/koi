@@ -6,8 +6,9 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :is_settable?, :title_for, :per_page, :settings, :settings_prefix
-        base.send :respond_to, :html, :js
+                  :is_settable?, :is_exportable?, :title_for, :per_page, :settings,
+                  :settings_prefix
+        base.send :respond_to, :html, :js, :csv
       end
 
       module ClassMethods
@@ -99,6 +100,10 @@ module HasCrud
 
         def is_searchable?
           !!search_fields
+        end
+
+        def is_exportable?
+          !!resource_class.crud.find(:admin, :exportable)
         end
 
         def is_ajaxable?
@@ -201,6 +206,11 @@ module HasCrud
         def edit_title
           parent_title << kt(default: resource_class.crud.find(:admin, :form, :title, :edit)\
            || "Edit #{resource}")
+        end
+
+        def action_csv_title
+          parent_title << kt(default: resource_class.crud.find(:admin, :index, :title, :csv)\
+           || "Download CSV")
         end
 
         def title_for(symbol=nil)

@@ -11,7 +11,7 @@ module Koi
       argument :scaffold_name, :type => :string, :required => true, :banner => 'ModelName'
       argument :args_for_c_m, :type => :array, :default => [], :banner => 'model:attributes'
 
-      class_option :skip_views, :desc => 'Don\'t generate views.', :type => :boolean, :default => true
+      class_option :skip_views, :desc => 'Don\'t generate views.', :type => :boolean, :default => false
       class_option :skip_model, :desc => 'Don\'t generate a model or migration file.', :type => :boolean
       class_option :skip_migration, :desc => 'Dont generate migration file for model.', :type => :boolean
 
