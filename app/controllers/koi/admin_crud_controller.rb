@@ -1,5 +1,5 @@
 module Koi
-  class AdminCrudController < ApplicationController
+  class AdminCrudController < Koi::ApplicationController
     helper :all
     has_crud :admin => true
     defaults :route_prefix => 'admin'
