@@ -4,7 +4,6 @@ module Koi
       # Default Image sizes for asset manager
       mattr_accessor :sizes
       @@sizes = [
-        { :title => 'Original', :size => '' },
         { :title => '200 x 200px', :size => '200x200' }
       ]
 

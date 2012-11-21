@@ -10,6 +10,9 @@
       </div>
       <div class="span8 color-darkgrey">
         <div class="space-half pull-right">
+          <%- if is_exportable? %>
+            <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "btn btn-small btn-primary" %>
+          <% end %>
           <%- if is_allowed?(:new) %>
             <%= link_to title_for(:action_new), new_resource_path, :class => "btn btn-small btn-primary" %>
           <% end %>

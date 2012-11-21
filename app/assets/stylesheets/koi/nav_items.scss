@@ -1,6 +1,8 @@
 .nav-item {
   clear: both; margin-top: 4px; padding-left:20px; font-size:13px; font-weight:bold;
 
+  &.is-hidden > div > div > div > div > a { color: #aaa; }
+
   &.level-0 {
     padding-left:0;
     > ol > .nav-item {border-top: 1px solid #f4f4f4; }
