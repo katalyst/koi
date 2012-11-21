@@ -55,7 +55,7 @@ module HasCrud
 
         if !options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
-          friendly_id (options[:slugged] || :titleize), :use => :slugged
+          friendly_id (options[:slugged] || :to_s), :use => :slugged
         end
 
         unless options[:paginate].eql?(false)

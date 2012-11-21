@@ -75,7 +75,6 @@ Gem::Specification.new do |s|
   # Console Replacement
   s.add_development_dependency 'pry'
 
-
   # Console Replacement
   s.add_development_dependency 'pry-doc'
 
@@ -87,6 +86,9 @@ Gem::Specification.new do |s|
 
   # Console Replacement
   s.add_development_dependency 'pry-remote'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-theme'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'
