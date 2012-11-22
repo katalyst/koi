@@ -22,14 +22,8 @@ module Koi::NavigationHelper
 
   def cascaded_banners
     images = cascaded_setting(:banners)
-
-    images.try(:map)
-
-    image_tags = ""
-    images.try(:each) do |image|
-      image_tags << image_tag(image.url(size: "100x"))
-    end
-    image_tags
+    images = [] unless Enumerable === images
+    images.sum { |image| image_tag image.url(size: "100x") }
   end
 
   def breadcrumbs
