@@ -55,6 +55,7 @@ class NavItem < ActiveRecord::Base
 
   def options
     hash = {}
+    hash[:container_class] = self.key unless self.key.blank?
     hash[:if] = Proc.new { eval(self.if, @@binding) } unless self.if.blank?
     hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
     hash[:method] = method unless method.blank?
