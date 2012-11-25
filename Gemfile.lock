@@ -47,7 +47,7 @@ PATH
       responders (~> 0.9.1)
       scoped_search (~> 2.3.6)
       sendgrid (~> 1.0.1)
-      simple-navigation (~> 3.7.0)
+      simple-navigation (~> 3.9.0)
       simple_form (~> 2.0.1)
       uuidtools (~> 2.1.2)
 
@@ -246,7 +246,7 @@ GEM
     sendgrid (1.0.1)
       json
       json
-    simple-navigation (3.7.0)
+    simple-navigation (3.9.0)
       activesupport (>= 2.3.2)
     simple_form (2.0.4)
       actionpack (~> 3.0)
