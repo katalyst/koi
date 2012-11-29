@@ -72,6 +72,16 @@ Gem::Specification.new do |s|
   # Google Analytics
   s.add_dependency 'garb'
 
+  # Redis
+  s.add_dependency 'redis'
+
+  # Sidekiq (Background Server)
+  s.add_dependency 'sidekiq'
+
+  # Required by Sidekiq Web
+  s.add_dependency 'sinatra'
+  s.add_dependency 'slim'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
