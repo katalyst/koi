@@ -18,7 +18,7 @@
 
   <p><%= render_navigation renderer: :breadcrumbs, join_with: ' &raquo; ' %></p>
   <p><%= render_navigation renderer: :active_items %></p>
-  <p><%= raw cascaded_banners %></p>
+  <p><%#= raw cascaded_banners %></p>
 
   <%= yield :title if content_for?(:title) %>
   <%= yield %>
