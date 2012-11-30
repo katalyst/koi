@@ -28,7 +28,7 @@ privacy_policy_page = Page.create!(title: "Privacy Policy").to_navigator!(parent
 Translation.create!(label: "Site Title", key: "site.title", value: "Site Title", field_type: "string", role: "Admin")
 Translation.create!(label: "Site Meta Description", key: "site.meta_description", value: "Meta Description", field_type: "text", role: "Admin")
 Translation.create!(label: "Site Meta Keywords", key: "site.meta_keywords", value: "Meta Keywords", field_type: "text", role: "Admin")
-Translation.create!(label: "Google Analytics", key: "site.google_analytics", value: "<script></script>", field_type: "text", role: "Admin")
+Translation.create!(label: "Google Analytics", key: "site.google_analytics_embed", value: "<script></script>", field_type: "text", role: "Admin")
 Translation.create!(label: "Google Analytics Username", key: "site.google_analytics.username", value: "admin@katalyst.com.au", field_type: "string", role: "Admin")
 Translation.create!(label: "Google Analytics Password", key: "site.google_analytics.password", value: "yAw7c9rV", field_type: "string", role: "Admin")
 Translation.create!(label: "Google Analytics Profile ID", key: "site.google_analytics.profile_id", value: "UA-2161859-1", field_type: "string", role: "Admin")
