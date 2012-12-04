@@ -75,6 +75,9 @@ Gem::Specification.new do |s|
   # Validators
   s.add_dependency 'activevalidators'              , '~> 2.0.1'
 
+  # Scope Generator
+  s.add_dependency 'pacecar'
+
   # Redis
   s.add_dependency 'redis'
 
