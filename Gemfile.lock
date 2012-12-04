@@ -30,6 +30,7 @@ PATH
   remote: .
   specs:
     koi (1.0.0.beta)
+      activevalidators
       acts-as-taggable-on (~> 2.2.0)
       cancan (~> 1.6.7)
       devise (~> 2.1.0)
@@ -85,6 +86,13 @@ GEM
     activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    activevalidators (2.0.2)
+      activemodel (>= 3.0.0)
+      countries (~> 0.8.2)
+      date_validator
+      mail
+      phony (~> 1.7.4)
+      rake (>= 0.8.7)
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
     addressable (2.3.2)
@@ -107,7 +115,12 @@ GEM
     coffee-script-source (1.4.0)
     columnize (0.3.6)
     connection_pool (0.9.2)
+    countries (0.8.4)
+      currencies (>= 0.4.0)
     crack (0.3.1)
+    currencies (0.4.0)
+    date_validator (0.6.3)
+      activemodel (~> 3.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -124,7 +137,7 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    facter (1.6.15)
+    facter (1.6.16)
     factory_girl (4.1.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.1.0)
@@ -184,6 +197,7 @@ GEM
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
     orm_adapter (0.4.0)
+    phony (1.7.12)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     powder (0.1.8)

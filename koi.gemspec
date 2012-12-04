@@ -72,6 +72,9 @@ Gem::Specification.new do |s|
   # Google Analytics
   s.add_dependency 'garb'
 
+  # Validators
+  s.add_dependency 'activevalidators'
+
   # Redis
   s.add_dependency 'redis'
 
