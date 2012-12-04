@@ -73,7 +73,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators'
+  s.add_dependency 'activevalidators'              , '~> 2.0.1'
 
   # Redis
   s.add_dependency 'redis'
