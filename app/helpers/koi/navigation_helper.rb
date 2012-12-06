@@ -61,6 +61,18 @@ module Koi::NavigationHelper
 
   class Navigator < OpenStruct
 
+    def to_s
+      title
+    end
+
+    def to_str
+      title
+    end
+
+    def to_string
+      title
+    end
+
     def initialize *etc, &filter
       super etc.extract_options! while Hash === etc.last
       self.filter   ||= filter || -> { true }
@@ -189,10 +201,18 @@ module Koi::NavigationHelper
       return children.first.you_are_elle unless children.empty?
     end
 
-    def link_to opt = {}
+    def link_to *sig
+      opt = sig.extract_options!
       opt.keys.grep(/\!$/).each { |key| o = opt.delete(key) and send key.to_s.gsub /!$/, "?" and opt.merge! o }
       opt.keys.grep(/\?$/).each { |key| o = opt.delete(key) and send key and opt.merge_html! o }      
       template.link_to title, you_are_elle, opt
+    end
+
+    def content_tag *sig, &blk
+      opt = sig.extract_options!
+      opt.keys.grep(/\!$/).each { |key| o = opt.delete(key) and send key.to_s.gsub /!$/, "?" and opt.merge! o }
+      opt.keys.grep(/\?$/).each { |key| o = opt.delete(key) and send key and opt.merge_html! o }      
+      template.content_tag *sig, opt, &blk
     end
 
   end
