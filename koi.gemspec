@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation'             , '~> 3.7.0'
+  s.add_dependency 'simple-navigation'             , '~> 3.9.0'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on'           , '~> 2.2.0'
@@ -72,9 +72,24 @@ Gem::Specification.new do |s|
   # Google Analytics
   s.add_dependency 'garb'
 
+  # Validators
+  s.add_dependency 'activevalidators'              , '~> 2.0.1'
+
+  # Scope Generator
+  s.add_dependency 'pacecar'
+
+  # Redis
+  s.add_dependency 'redis'
+
+  # Sidekiq (Background Server)
+  s.add_dependency 'sidekiq'
+
+  # Required by Sidekiq Web
+  s.add_dependency 'sinatra'
+  s.add_dependency 'slim'
+
   # Console Replacement
   s.add_development_dependency 'pry'
-
 
   # Console Replacement
   s.add_development_dependency 'pry-doc'
@@ -87,6 +102,9 @@ Gem::Specification.new do |s|
 
   # Console Replacement
   s.add_development_dependency 'pry-remote'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-theme'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'
