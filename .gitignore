@@ -9,4 +9,5 @@ test/dummy/.sass-cache
 test/dummy/public/system
 test/dummy/public/assets
 test/dummy/.powenv
+spec
 .DS_Store
