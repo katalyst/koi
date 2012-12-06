@@ -38,9 +38,7 @@ class SuperHero < ActiveRecord::Base
     end
   end
 
-  def titleize
+  def to_s
     name
   end
-
-  alias :to_s :titleize
 end

@@ -179,11 +179,22 @@ end
 END
 
 # Setup Date Time formats
-create_file 'config/Initializers/datetime_formats.rb', <<-END
+create_file 'config/initializers/datetime_formats.rb', <<-END
 Time::DATE_FORMATS[:pretty] = lambda { |time| time.strftime("%a, %b %e at %l:%M") + time.strftime("%p").downcase }
 Date::DATE_FORMATS[:default] = "%d %b %Y"
 Time::DATE_FORMATS[:default] = "%a, %b %e at %l:%M %p"
 Time::DATE_FORMATS[:short] = "%d.%m.%Y"
+END
+
+# Setup sidekiq passenger hack
+create_file 'config/initializers/sidekiq.rb', <<-END
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    Sidekiq.configure_client do |config|
+      config.redis = { :size => 1 }
+    end if forked
+  end
+end
 END
 
 create_file 'config/Initializers/koi.rb', <<-END
