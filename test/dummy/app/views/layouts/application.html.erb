@@ -8,7 +8,7 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <%= raw t("site.google_analytics", default: "") %>
+    <%= raw t("site.google_analytics_embed", default: "") %>
   </head>
   <body>
 
@@ -18,7 +18,7 @@
 
   <p><%= render_navigation renderer: :breadcrumbs, join_with: ' &raquo; ' %></p>
   <p><%= render_navigation renderer: :active_items %></p>
-  <p><%= raw cascaded_banners %></p>
+  <p><%#= raw cascaded_banners %></p>
 
   <%= yield :title if content_for?(:title) %>
   <%= yield %>

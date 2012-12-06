@@ -13,9 +13,6 @@ gemspec
 # jQuery
 gem 'jquery-rails'
 
-# Inherited Resources
-# gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
-
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
@@ -32,6 +29,10 @@ gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.
 gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
                                   :branch => 'rails-3.2',
                                   :require => 'i18n/active_record'
+
+group :development do
+  gem 'pry'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

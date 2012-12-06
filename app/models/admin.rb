@@ -9,6 +9,8 @@ class Admin < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :role, presence: true
 
+  validates :email, email: true
+
   ROLES = ["Super", "Admin"]
 
   has_crud searchable: [:id, :first_name, :last_name, :email, :role],

@@ -46,4 +46,9 @@ Koi::Engine.routes.draw do
   match 'help' => 'application#help', :as => :help
   match 'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
+
+  constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.god? }
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
+  end
 end
