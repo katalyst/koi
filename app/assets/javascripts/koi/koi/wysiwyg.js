@@ -52,8 +52,10 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      $textArea.val ($editor[0].innerHTML.replace (/(<[^\/][^>]*>)<br\/?>/, function ($0, $1) { return $1 })
-                                         .replace (/cursor\s*:\s*default;?/, ''))
+      $textArea.val ($editor[0].innerHTML.replace (/(<\w[^>]*>)\s*<br\/?>/gi, function ($0, $1) { return $1 + ' ' })
+                                         .replace (/(<\/[^>]*>)\s*&nbsp;/gi, function ($0, $1) { return $1 + ' ' })
+                                         .replace (/<p>\s*<\/p>/gi, '')
+                                         .replace (/cursor\s*:\s*default;?/gi, ''))
       //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
