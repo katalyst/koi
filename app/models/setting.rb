@@ -11,6 +11,7 @@ class Setting < Translation
     fields field_type: { type: :select, data: FieldTypes },
            value:      { type: :dynamic },
            prefix:     { type: :hidden },
+           label:      { writable_method: :god? },
            role:       { type: :select, data: Admin::ROLES }
     config :admin do
       index fields: [:label],
