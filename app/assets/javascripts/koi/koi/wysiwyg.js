@@ -53,7 +53,7 @@
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
       $textArea.val ($editor[0].innerHTML.replace (/(<\w[^>]*>)\s*<br\/?>/gi, function ($0, $1) { return $1 + ' ' })
-                                         .replace (/(<\/[^>]*>)\s*&nbsp;/gi, function ($0, $1) { return $1 + ' ' })
+                                         .replace (/(<\/[^>]*>)\s*&nbsp;/gi,  function ($0, $1) { return $1 + ' ' })
                                          .replace (/<p>\s*<\/p>/gi, '')
                                          .replace (/cursor\s*:\s*default;?/gi, ''))
       //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
@@ -78,7 +78,7 @@
       resize_body (); resizer = resize_document;
     }
 
-    function resize (e)
+    function resize ()
     {
       resizer (); setTimeout (function () { resizer () })
     }
@@ -137,6 +137,7 @@
       // iScript [0].onload = (load_iScript)
 
       app = iTextArea.redactor (opt).data ().redactor
+      app.modalex = $.modal
 
       $box = iFrame
       $editor = app.$editor.css ({ minHeight: 300, padding:0, margin:0 })
@@ -177,10 +178,15 @@
         setTimeout (function () { sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] () })
       }
 
-      $ (window).ready (function (e)
+      function slappy ()
       {
-        resize (e); reposition (e);
-        setTimeout (function () { resize (e); reposition (e); })
+        resize (); reposition ();
+      }
+
+      $ (window).ready (function ()
+      {
+        slappy (); setTimeout (slappy)
+        $editor.find ('img').load (slappy)
       })
 
       $ (window).on ('resize scroll', reposition)
@@ -198,9 +204,22 @@
       app.showImage = function ()
       {
         this.saveSelection ()
-        $.modal.call (this, '/admin/images/new', function (url)
+        $.modal.call (this, '/admin/images/new', function (opt)
         {
-          this._imageSet ("<img src='" + url + "' style='float:right;'></img>", true)
+          var url = opt.url + '?'
+          var style = "float:right;"
+          if (typeof opt.width  == 'string')
+          {
+            style += "width:"  + opt.width  + ";"
+            if (/^[0-9]+px$/.test (opt.width)) url += 'width=' + opt.width  + '&'
+          }
+          if (typeof opt.height == 'string')
+          {
+            style += "height:" + opt.height + ";"
+            if (/^[0-9]+px$/.test (opt.height)) url += 'height=' + opt.height + '&'
+          }
+          this._imageSet ("<img src='" + url + "' style='" + style + "'></img>", true)
+          slappy ()
         })
       }
 
@@ -210,13 +229,18 @@
 
         if ($ (this.getParentNode ()).is ('a')) this.showLink ()
 
-        else $.modal.call (this, '/admin/documents/new', function (url)
+        else $.modal.call (this, '/admin/documents/new', function (opt)
         {
+          var url = opt.url
           var fileName = url.match (/[^\/]+$/).toString () || '...'
+          var text = app.getSelection ()
+          if (! text || ! /\S/.test (text)) text = fileName
           if ($.browser.msie) this.restoreSelection()
-          this.execCommand ('inserthtml', "<a href='" + url + "' target='_blank'>" + fileName + "</a>")
+          this.execCommand ('inserthtml', "<a href='" + url + "' target='_blank'>" + text + "</a>")
           if (! $.browser.msie) this.showLink ()
         })
+
+        slappy ()
       }
 
       $toolBar.before ($ ('<div>&nbsp;</div>').css ({ height:'32px' }))
