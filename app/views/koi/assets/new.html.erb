@@ -1,8 +1,3 @@
-<%= render 'js_data' %>
-<%= render "tagify" %>
-
-<% content_for :head, javascript_include_tag("koi/assets") %>
-
 <header class="pad-1">
   <h4>Upload New <%= resource_class.name %></h4>
 </header>
@@ -18,10 +13,7 @@
 
     <%= f.submit value: "Add files...", class: "btn btn-primary btn-small space-b-1", id: 'upload-button-browse' %>
   
-
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
-
-    <!-- <div class="h-2u5"></div> -->
 
     <div>
       <div id="upload-button-upload" class="pull-left space-r-1"><%= f.submit value: "Upload", disabled: "disabled", class: "btn btn-primary btn-small disabled" %></div>
