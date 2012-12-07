@@ -59,6 +59,8 @@
       $textArea.val ($editor[0].innerHTML.replace (/(<\w[^>]*>)\s*<br\/?>/gi, function ($0, $1) { return $1 + ' ' })
                                          .replace (/(<\/[^>]*>)\s*&nbsp;/gi,  function ($0, $1) { return $1 + ' ' })
                                          .replace (/<p>\s*<\/p>/gi, '')
+                                         .replace (new RegExp ('href="' + location.protocol + '//' + location.host, 'g'), 'href="')
+                                         .replace (new RegExp ("href='" + location.protocol + '//' + location.host, 'g'), "href='")
                                          .replace (/cursor\s*:\s*default;?/gi, ''))
     }
 
