@@ -62,9 +62,13 @@
       iFrame.height ($ (iBody).outerHeight () + $toolBar.outerHeight ())
     }
 
+    var diffo
+
     function resize_document ()
     {
-      iFrame.height ($ (iDocument).outerHeight ())
+      if (diffo == null) diffo = $ (iDocument).outerHeight () - $ (iBody).outerHeight ()
+      iTextArea.height (app.opts.visual ? $editor.height () : iTextArea [0].scrollHeight)
+      iFrame.height ($ (iBody).outerHeight () + diffo)
     }
 
     function resizer ()
@@ -168,11 +172,13 @@
       function reposition ()
       {
         sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] ()
+        setTimeout (function () { sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] () })
       }
 
       $ (window).ready (function (e)
       {
         resize (e); reposition (e);
+        setTimeout (function () { resize (e); reposition (e); })
       })
 
       $ (window).on ('resize scroll', reposition)
