@@ -45,10 +45,14 @@
         var deparams = params ? $.deparam (params) : {}
         if (params)
         {
-          for (var dim in { width:true, height:true }) deparams [dim] = parseInt ($img.css (dim))
+          for (var dim in { width:true, height:true })
+          {
+            $img.css (dim, $img [dim] ())
+            deparams [dim] = parseInt ($img.css (dim))
+          }
           $img.attr ('src', path + '?' + $.param (deparams))
         }
-        else $img.attr ('style', '');
+        // else $img.attr ('style', '');
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
@@ -56,7 +60,6 @@
                                          .replace (/(<\/[^>]*>)\s*&nbsp;/gi,  function ($0, $1) { return $1 + ' ' })
                                          .replace (/<p>\s*<\/p>/gi, '')
                                          .replace (/cursor\s*:\s*default;?/gi, ''))
-      //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
     function resize_body ()
