@@ -197,7 +197,7 @@ var Redactor = function(element, options)
       '<input id="redactor_file_alt" class="redactor_input" />' +
       '<label>' + RLANG.link + '</label>' +
       '<input id="redactor_file_link" class="redactor_input" />' +
-      '<button id="fooey">Upload a File</button>' +
+  //  '<button id="fooey">Upload a File</button>' +
       '<label>' + RLANG.image_position + '</label>' +
       '<select id="redactor_form_image_align">' +
         '<option value="none">' + RLANG.none + '</option>' +
