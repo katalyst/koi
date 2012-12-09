@@ -5,10 +5,9 @@ module Koi
       mattr_accessor :sizes
       @@sizes = [
         { width:    '100%' , title: '1 / 1 (100%)' },
+        { width:     '67%' , title: '2 / 3 (67%)'  },
         { width:     '50%' , title: '1 / 2 (50%)'  },
-        { width:     '20%' , title: '1 / 5 (20%)'  },
-        { width:     '33%' , title: '1 / 3 (33%)'  },
-        { width:     '25%' , title: '1 / 4 (25%)'  }
+        { width:     '33%' , title: '1 / 3 (33%)'  }
       ]
 
       # Image file upload size limit
