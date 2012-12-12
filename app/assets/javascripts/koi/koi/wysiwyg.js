@@ -52,8 +52,10 @@
       })
       if (iTextArea.is (':hidden')) app.syncCode ()
       else app.toggle ()
-      $textArea.val ($editor[0].innerHTML.replace (/(<[^\/][^>]*>)<br\/?>/, function ($0, $1) { return $1 })
-                                         .replace (/cursor\s*:\s*default;?/, ''))
+      $textArea.val ($editor[0].innerHTML.replace (/(<\w[^>]*>)\s*<br\/?>/gi, function ($0, $1) { return $1 + ' ' })
+                                         .replace (/(<\/[^>]*>)\s*&nbsp;/gi, function ($0, $1) { return $1 + ' ' })
+                                         .replace (/<p>\s*<\/p>/gi, '')
+                                         .replace (/cursor\s*:\s*default;?/gi, ''))
       //$textArea.val (iTextArea.val ().replace (/(\s*&nbsp;\s*)+/g, ' '))
     }
 
@@ -62,9 +64,13 @@
       iFrame.height ($ (iBody).outerHeight () + $toolBar.outerHeight ())
     }
 
+    var diffo
+
     function resize_document ()
     {
-      iFrame.height ($ (iDocument).outerHeight ())
+      if (diffo == null) diffo = $ (iDocument).outerHeight () - $ (iBody).outerHeight ()
+      iTextArea.height (app.opts.visual ? $editor.height () : iTextArea [0].scrollHeight)
+      iFrame.height ($ (iBody).outerHeight () + diffo)
     }
 
     function resizer ()
@@ -168,11 +174,13 @@
       function reposition ()
       {
         sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] ()
+        setTimeout (function () { sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] () })
       }
 
       $ (window).ready (function (e)
       {
         resize (e); reposition (e);
+        setTimeout (function () { resize (e); reposition (e); })
       })
 
       $ (window).on ('resize scroll', reposition)
