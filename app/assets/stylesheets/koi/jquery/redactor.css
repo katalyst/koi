@@ -29,6 +29,10 @@ body .redactor_air {
 	white-space: normal;	
 }
 
+.redactor_editor img {
+	max-width:100% !important;
+}
+
 .redactor_editor, .redactor_editor:focus {
 	position: relative;
 	outline: none;
