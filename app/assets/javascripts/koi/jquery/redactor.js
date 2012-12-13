@@ -197,6 +197,7 @@ var Redactor = function(element, options)
       '<input id="redactor_file_alt" class="redactor_input" />' +
       '<label>' + RLANG.link + '</label>' +
       '<input id="redactor_file_link" class="redactor_input" />' +
+  //  '<button id="fooey">Upload a File</button>' +
       '<label>' + RLANG.image_position + '</label>' +
       '<select id="redactor_form_image_align">' +
         '<option value="none">' + RLANG.none + '</option>' +
@@ -2313,8 +2314,24 @@ Redactor.prototype = {
     var $el = $(e.target);
     var parent = $el.parent();
 
+    var it = this
+
     var handler = $.proxy(function()
     {
+      $ ('#fooey').click (function ()
+      {
+        it.saveSelection()
+
+        it.modalex ('/admin/documents/new', function (url)
+        {
+          var fileName = url.match (/[^\/]+$/).toString () || '...'
+          if ($.browser.msie) it.restoreSelection()
+          $('#redactor_file_link').val(url)
+          //this.execCommand ('inserthtml', "<a href='" + url + "' target='_blank'>" + fileName + "</a>")
+          //if (! $.browser.msie) this.showLink ()
+        })
+      })
+
       $('#redactor_file_alt').val($el.attr('alt'));
       $('#redactor_image_edit_src').attr('href', $el.attr('src'));
       $('#redactor_form_image_align').val($el.css('float'));
@@ -2794,8 +2811,6 @@ Redactor.prototype = {
     this.modalClose();
   },  
 
-  
-  
   // MODAL
   modalInit: function(title, url, width, handler, endCallback)
   {
@@ -2872,8 +2887,6 @@ Redactor.prototype = {
                                , width     : width + 'px'
                                , height    : 'auto'
                                , minHeight : 'auto' }).fadeIn('fast');
-
-      console.log ($ (parent).scrollTop (), 'fu')
 
       var scrollTop    = $ (parent).scrollTop ()
       var offsetTop    = $ (window.frameElement).offset ().top
