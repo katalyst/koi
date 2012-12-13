@@ -1,9 +1,3 @@
-<% content_for :head do %>
-  <%= render 'script' %>
-<% end %>
-
-<%= render "tagify" %>
-
 <header class="pad-1">
   <h4><%= resource_class.name %> Details</h4>
 </header>
@@ -31,53 +25,3 @@
   <% end %>
 
 </section>
-
-<%# Maybe? %>
-<%
-=begin
-%>
-<script type="text/javascript">
-  $(function() {
-    var $all = $("#edit, #info");
-    $all.each(function() {
-      var $this = $(this);
-      var $heading = $this.prev("h1, h2, h3, h4, h5, h6").first();
-      var $toggle = $('<span class="small right" />');
-
-      $this.data("show", function() {
-        $this.show();
-        $toggle.text("Hide");
-      });
-
-      $this.data("hide", function() {
-        $this.hide();
-        $toggle.text("Show");
-      });
-
-      $this.data("toggle", function() {
-        if ($this.is(":visible")) {
-          $this.data("hide")();
-        } else {
-          $this.data("show")();
-        }
-      });
-
-      $this.data("hide")();
-
-      $toggle.css({ lineHeight: $heading.css("line-height") });
-
-      $heading.css({ cursor: 'pointer' }).hover(function() {
-        $heading.add($toggle).css({ color: 'red' })
-      }, function() {
-        $heading.add($toggle).css({ color: 'black' })
-      });
-
-      $heading.append($toggle).click($this.data("toggle"));
-    });
-
-    $all.first().data("show")();
-  });
-</script>
-<%
-=end
-%>

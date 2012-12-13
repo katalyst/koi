@@ -1,1 +1,7 @@
-<%= f.input attr, input_html: { class: "" } %>
+<% writable_method = resource_class.crud.find :fields, attr, :writable_method %>
+
+<% opt = {} %>
+
+<% opt.merge! disabled: true unless current_admin.send writable_method if writable_method %>
+
+<%= f.input attr, input_html: opt %>
