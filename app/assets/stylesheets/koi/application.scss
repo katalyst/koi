@@ -193,3 +193,19 @@ span + .ui-autocomplete-input { margin-top:10px; }
 .ui-autocomplete-input { margin-bottom:0; width:302px !important; border:none; outline:none;}
 .ui-autocomplete-input:focus { outline:0; -webkit-box-shadow:none; box-shadow:none;  }
 
+.insert.asset.application *
+{
+  font-size:12px; line-height:1.0em;
+}
+.insert.asset.application input
+{
+  margin:0; width:10px; height:10px;
+}
+.insert.asset.application ul
+{
+  padding-top:5px; padding-bottom:10px;
+}
+.insert.asset.application li
+{
+  padding-top:5px;
+}
