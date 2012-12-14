@@ -73,9 +73,12 @@
 
     function resize_document ()
     {
-      if (diffo == null) diffo = $ (iDocument).outerHeight () - $ (iBody).outerHeight ()
-      iTextArea.height (app.opts.visual ? $editor.height () : iTextArea [0].scrollHeight)
-      iFrame.height ($ (iBody).outerHeight () + diffo)
+      if (diffo == null) diffo = $ (iDocument).outerHeight () - $editor.outerHeight ()
+
+      var height = Math.max ($editor.outerHeight (), iTextArea [0].scrollHeight)
+
+      iTextArea.height (height - 10).css ('overflow', 'hidden')
+      iFrame.height (height + diffo)
     }
 
     function resizer ()
@@ -183,18 +186,25 @@
         setTimeout (function () { sushiBar [sushiBar.isScrolling () ? 'startScrolling' : 'stopScrolling'] () })
       }
 
-      function slappy ()
+      function resize_and_reposition ()
       {
         resize (); reposition ();
       }
 
+      function resize_and_reposition_blanket ()
+      {
+        resize_and_reposition (); setTimeout (resize_and_reposition)
+      }
+
       $ (window).ready (function ()
       {
-        slappy (); setTimeout (slappy)
-        $editor.find ('img').load (slappy)
+        resize_and_reposition_blanket ()
+        $editor.find ('img').load (resize_and_reposition_blanket)
       })
 
       $ (window).on ('resize scroll', reposition)
+
+      setInterval (resize_and_reposition_blanket, 1000)
 
       var __toggle = app.toggle
 
@@ -224,7 +234,7 @@
             if (/^[0-9]+px$/.test (opt.height)) url += 'height=' + opt.height + '&'
           }
           this._imageSet ("<img src='" + url + "' style='" + style + "'></img>", true)
-          slappy ()
+          resize_and_reposition ()
         })
       }
 
@@ -245,7 +255,7 @@
           if (! $.browser.msie) this.showLink ()
         })
 
-        slappy ()
+        resize_and_reposition ()
       }
 
       $toolBar.before ($ ('<div>&nbsp;</div>').css ({ height:'32px' }))
