@@ -1,7 +1,7 @@
 class SuperHero < ActiveRecord::Base
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
-           orderable: false
+           orderable: false, settings: true
 
   has :many, attributed: :images, orderable: true
 
@@ -13,10 +13,7 @@ class SuperHero < ActiveRecord::Base
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
             "WEATHER CONTROL", "FORCE FIELDS", "UNDERWATER BREATHING", "SUPER STRENGTH"]
 
-  validates :name, presence: true
-
-  validates_presence_of :description, :gender, :is_alive, :url,
-                        :telephone, :image, :file, :powers
+  validates :name, :description, presence: true
 
   crud.config do
     map image_uid: :image
@@ -25,7 +22,7 @@ class SuperHero < ActiveRecord::Base
     fields image:    { type: :image },
            file:     { type: :file  },
            gender:   { type: :select, data: Gender },
-           is_alive: { type: :radio },
+           is_alive: { type: :boolean },
            powers:   { type: :check_boxes, data: Powers },
            published_at: { type: :date }
 
@@ -33,15 +30,15 @@ class SuperHero < ActiveRecord::Base
                     :telephone]
 
     config :admin do
+      exportable true
+      csv     except: [:image_name, :file_name]
       index   fields: [:name]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
     end
   end
 
-  def titleize
+  def to_s
     name
   end
-
-  alias :to_s :titleize
 end

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , "~> 3.2.1"
+  s.add_dependency 'rails'                         , '~> 3.2.3'
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -28,14 +28,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 2.0.1'
+  s.add_dependency 'devise'                        , '~> 2.1.0'
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
-  s.add_dependency 'simple_form'                   , '~> 1.5.2'
+  s.add_dependency 'simple_form'                   , '~> 2.0.1'
 
   # Tree
-  s.add_dependency 'nested_set'                    , '~> 1.6.8'
+  s.add_dependency 'nested_set'                    , '~> 1.7.0'
 
   # Mailer
   s.add_dependency 'sendgrid'                      , '~> 1.0.1'
@@ -49,19 +49,13 @@ Gem::Specification.new do |s|
   # Pagination
   s.add_dependency 'kaminari'                      , '~> 0.13.0'
 
-  # Data Seeding
-  s.add_dependency 'seedbank'                      , '~> 0.0.7'
-
-  # Easier SQL Queries
-  s.add_dependency 'squeel'                        , '~> 0.9.3'
-
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.3.0'
+  s.add_dependency 'inherited_resources'           , '~> 1.3.1'
   s.add_dependency 'has_scope'                     , '~> 0.5.1'
-  s.add_dependency 'responders'                    , '~> 0.6.4'
+  s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation'             , '~> 3.6.0'
+  s.add_dependency 'simple-navigation'             , '~> 3.9.0'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on'           , '~> 2.2.0'
@@ -72,26 +66,54 @@ Gem::Specification.new do |s|
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
 
-  # i18n ActiveRecord backend
-  s.add_dependency 'i18n-active_record'
-
   # Unique ID generation
   s.add_dependency 'uuidtools'                     , '~> 2.1.2'
 
   # Google Analytics
   s.add_dependency 'garb'
 
-  # Fixture replacement
-  s.add_dependency 'factory_girl_rails'            , '1.2.0'
+  # Validators
+  s.add_dependency 'activevalidators'              , '~> 2.0.1'
+
+  # Redis
+  s.add_dependency 'redis'
+
+  # Sidekiq (Background Server)
+  s.add_dependency 'sidekiq'
+
+  # Required by Sidekiq Web
+  s.add_dependency 'sinatra'
+  s.add_dependency 'slim'
 
   # Console Replacement
   s.add_development_dependency 'pry'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-doc'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-git'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-rails'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-remote'
+
+  # Console Replacement
+  s.add_development_dependency 'pry-theme'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'
 
   # Clever Data Generator
   s.add_development_dependency 'forgery'
+
+  # Data Seeding
+  s.add_development_dependency 'seedbank'          , '~> 0.0.7'
+
+  # Fixture replacement
+  s.add_development_dependency 'factory_girl_rails'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'

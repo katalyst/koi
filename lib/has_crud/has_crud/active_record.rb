@@ -15,8 +15,21 @@ module HasCrud
         self.crud = KoiConfig::Config.new
 
         #FIXME: refactor
-        has_settings   if options[:settings].eql?(true)
         has_navigation if options[:navigation].eql?(true)
+
+        if options[:settings].eql?(true)
+          has_settings
+        else
+          options[:settings] = false
+        end
+
+        if options[:settings] && table_exists?
+          Koi::Settings.collection.each do |key, values|
+            unless Setting.find_by_prefix_and_key(settings_prefix, key)
+              Setting.create(values.merge(key: key, prefix: settings_prefix))
+            end
+          end
+        end
 
         if options[:orderable]
           options[:ajaxable]   = false if options[:ajaxable].nil?
@@ -42,7 +55,7 @@ module HasCrud
 
         if !options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
-          friendly_id (options[:slugged] || :titleize), :use => :slugged
+          friendly_id (options[:slugged] || :to_s), :use => :slugged
         end
 
         unless options[:paginate].eql?(false)
@@ -60,4 +73,3 @@ module HasCrud
     end
   end
 end
-

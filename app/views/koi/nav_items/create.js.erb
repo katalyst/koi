@@ -9,9 +9,9 @@
   var rendered = "<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>";
   
   var $parent = $ ("#nav-item-<%= resource.parent.id %>");
-  var $children = $parent.component (".children");
+  var $children = $parent.component ("ol");
 
-  if (! $children.length) $children = $parent.append ("<ol class='children'>").slideDown ();
+  if (! $children.length) $children = $parent.append ("<ol>");
 
   $children.append (rendered);
 

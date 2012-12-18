@@ -1,35 +1,32 @@
 <%= render 'js_data' %>
 <%= render "tagify" %>
-<%= render 'plupload' %>
 
-<header class="assets header pd-t-1u5 pd-lr-2 pull-d-2px">
-  <h2 class="heading tx-16px">Upload New <%= resource_class.name %></h2>
+<% content_for :head, javascript_include_tag("koi/assets") %>
+
+<header class="pad-1">
+  <h4>Upload New <%= resource_class.name %></h4>
 </header>
 
-<div class="br-t br-t-grey-b4 br-b br-b-grey-d4 sp-t-1 sp-b-1u5"></div>
+<section class="pad-1 space-b-1">
 
-<section class="assets section pd-lr-2 sp-b-1">
-
-  <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+  <%= simple_form_for resource, html: { id: 'upload-form', class: 'simple_form', multipart: true } do |f| %>
     <%= f.error_notification %>
 
-    <p class="sp-b-2px">Select file/s:</p>
+    <p>Select file/s:</p>
 
     <div id="upload-files"></div>
 
-    <ul class="padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1 sp-t-5px">
-      <li class="solid orange" id="upload-button-browse"><%= f.submit value: "Add files..." %></li>
-    </ul>
+    <%= f.submit value: "Add files...", class: "btn btn-primary btn-small space-b-1", id: 'upload-button-browse' %>
+  
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
 
-    <div class="h-2u5"></div>
+    <!-- <div class="h-2u5"></div> -->
 
-    <ul class="fonted-11px padded-1 rounded-3px spaced-1 hoverable solid grey inline buttons ln-h-22px h-22px sp-b-1">
-      <li class="solid disabled" id="upload-button-upload"><%= f.submit value: "Upload", disabled: "disabled" %></li>
-      <li><%= link_to "Cancel", collection_path %></li>
-    </ul>
-
+    <div>
+      <div id="upload-button-upload" class="pull-left space-r-1"><%= f.submit value: "Upload", disabled: "disabled", class: "btn btn-primary btn-small disabled" %></div>
+      <%= link_to "Cancel", collection_path, class: "btn btn-small" %>
+    </div>
   <% end %>
 
 </section>

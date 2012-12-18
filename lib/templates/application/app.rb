@@ -10,7 +10,18 @@ gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nes
 gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Koi CMS
-gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git'
+gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
+                                  :branch => 'v1.0.0.beta'
+
+# Bowerbird
+gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
+
+# i18n ActiveRecord backend
+gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
+                                  :branch => 'rails-3.2',
+                                  :require => 'i18n/active_record'
+
+gem 'unicorn'
 
 gem_group :development do
   # Ruby debugger
@@ -65,8 +76,8 @@ run 'rm app/controllers/application_controller.rb'
 create_file 'app/controllers/application_controller.rb', <<-END
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
   layout :layout_by_resource
+  helper Koi::NavigationHelper
 
 protected
 
@@ -101,20 +112,35 @@ route "mount Koi::Engine => '/admin', as: 'koi_engine'"
 
 run 'rm public/index.html'
 
+# Disable Whitelist Attribute
+gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
+
+# Compile Assets on Server
+# gsub_file 'config/environments/staging.rb', 'config.assets.compile = false', 'config.assets.compile = true'
+# gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
+
 rake 'db:drop'
 rake 'db:create'
+rake 'db:migrate'
 
 # Generate Devise Config
 generate('devise:install')
 
+# Change scoped views
+gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
+
 route "root to: 'pages#index'"
 
 route 'resources :pages'
+route 'resources :assets'
+route 'resources :images'
+route 'resources :documents'
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
 # Configures your navigation
 SimpleNavigation.register_renderer :sf_menu => SfMenuRenderer
+SimpleNavigation.register_renderer :active_items => ActiveItemsRenderer
 SimpleNavigation::Configuration.run do |navigation|
 end
 END
@@ -130,26 +156,55 @@ class SfMenuRenderer < SimpleNavigation::Renderer::List
 end
 END
 
+create_file 'app/renderers/active_items_renderer.rb', <<-END
+class ActiveItemsRenderer < SimpleNavigation::Renderer::Breadcrumbs
+  def render(item_container)
+    collect(item_container)
+  end
+
+  protected
+
+  def collect(item_container)
+    item_container.items.inject([]) do |list, item|
+      if item.selected?
+        list << NavItem.find_by_id(item.key.gsub("key_", "")).setting_prefix if item.selected?
+        if include_sub_navigation?(item)
+          list.concat collect(item.sub_navigation)
+        end
+      end
+      list
+    end
+  end
+end
+END
+
 # Setup Date Time formats
-create_file 'config/Initializers/datetime_formats.rb', <<-END
+create_file 'config/initializers/datetime_formats.rb', <<-END
 Time::DATE_FORMATS[:pretty] = lambda { |time| time.strftime("%a, %b %e at %l:%M") + time.strftime("%p").downcase }
 Date::DATE_FORMATS[:default] = "%d %b %Y"
 Time::DATE_FORMATS[:default] = "%a, %b %e at %l:%M %p"
 Time::DATE_FORMATS[:short] = "%d.%m.%Y"
 END
 
+# Setup sidekiq passenger hack
+create_file 'config/initializers/sidekiq.rb', <<-END
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    Sidekiq.configure_client do |config|
+      config.redis = { :size => 1 }
+    end if forked
+  end
+end
+END
+
 create_file 'config/Initializers/koi.rb', <<-END
 # FIXME: Explicity require all main app controllers
-Dir.glob("app/controllers/admin/**/*.rb").each { |c| require c }
+Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
 
 Koi::Menu.items = {
-  'Pages' => '/admin/pages',
   'Admins' => '/admin/site_users'
 }
 END
-
-rake 'db:migrate'
-rake 'db:seed'
 
 # Setup up Git
 run 'rm .gitignore'
@@ -183,3 +238,5 @@ END
 git :init
 git :add => '.'
 git :commit => "-m 'Initial Commit'"
+
+rake 'db:seed'

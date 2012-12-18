@@ -1,21 +1,9 @@
 module Koi
-  class SettingsController < AdminCrudController
-    respond_to :html, :js
+  class SettingsController < TranslationsController
+    defaults resource_class: Setting
 
-    def create
-      create! do |success, failure|
-        success.html { redirect_to :back }
-        success.js
-        failure.js
-      end
-    end
-
-    def update
-      update! do |success, failure|
-        success.html { redirect_to :back }
-        success.js
-        failure.js
-      end
+    def new
+      @setting = Setting.new(prefix: params[:prefix])
     end
   end
 end

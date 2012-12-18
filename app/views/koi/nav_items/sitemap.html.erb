@@ -1,127 +1,27 @@
 <% content_for :head do %>
-  <script type="text/javascript">
-
-    $ (function () {
-
-      $ (".sitemap ol").livequery (function () {
-        $ (this).addClass ('children sp-l-2');
-      });
-
-      $ (".sitemap.application").application (function ($sitemap) {
-
-        var $children = $sitemap.component ('.children')
-        ,   $undo     = $sitemap.component ('.undo.button')
-        ,   path      = "<%= koi_engine.savesort_nav_items_path %>"
-        ;
-
-        $sitemap.components ('ol', function ($ol) {
-          $ol.addClass ('children sp-l-2');
-        });
-
-        function save (data, cb) {
-          $.post (path, { set: data }, cb);
-        }
-
-        function refresh (data) {
-          $children.load (path, { set: data });
-        }
-
-        function toString () {
-          return JSON.stringify (toJSON ());
-        }
-
-        function toJSON () {
-          return $children.nestedSortable ('toHierarchy', { startDepthCount: 0 });
-        }
-
-        $children
-          .nestedSortable({
-            forcePlaceholderSize: true
-          , handle: 'div'
-          , helper: 'clone'
-          , items: '.sortable'
-          , opacity: .6
-          , placeholder: 'placeholder'
-          , revert: 250
-          , tabSize: 25
-          , tolerance: 'pointer'
-          , toleranceElement: '> div'
-          })
-
-          .on ("sortupdate", function () {
-            $undo.removeClass ("disabled");
-            save (toString ());
-          });
-
-        var undo = toString ();
-
-        $undo
-          .click (function () {
-            $undo.addClass ("disabled");
-            refresh (undo);
-            return false;
-          });
-      });
-
-      $ (".nav-item.application").application (true, function ($item) {
-
-        var
-        $zone = $item.component (".zone"),
-        $main = $item.component (".main"),
-        $link = $item.component (".pop-up"),
-        $menu = $item.component (".controls");
-        $kids = $item.component (".children");
-
-        $link.click (function () { $.getScript (this.href); return false; });
-
-        $zone.koiHover (25,
-          function () {
-            $menu.css ({ visibility: "visible" }).fadeIn (75);
-            $main.animate ({ backgroundColor:"#e8e8e8" }, 75);
-          },
-          function () {
-            $menu.delay(75).fadeOut (50);
-            $main.delay(75).animate ({ backgroundColor:"rgba(0, 0, 0, 0)" }, 50);
-          });
-      });
-
-      $ ("#modal-for-nav-item").modal ({ backdrop: true, keyboard: true });
-    });
-  </script>
+  <%= javascript_include_tag "koi/nav_items" %>
 <% end %>
 
 <% content_for :title, "Sitemap" %>
 
-<div class="sitemap application">
-  <div class="as-hidden">
-    <div class="adjusted disabled hoverable hover-shadow padded-2 rounded-3px inline solid orange undo button h-25px ln-h-25px sp-b-1 aln-m flt-r sp-r-3 pull-d-3px">
-      <a href="#" id='serialize' class="body tx-c">Revert</a>
-    </div>
-  </div>
-
-  <ol class="children bsp-l-2 w-14col">
-    <%= render 'nav_item_root', nav_item: RootNavItem.root, level: 0 %>
+<div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
+  <ol>
+    <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
   </ol>
-
-  <div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
 </div>
+
+<div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
 
 <% content_for :side do %>
 
   <header class="right side header">
-    <h2 class="heading">Site Structure</h2>
+    <h2 class="heading">Adding a page</h2>
   </header>
 
   <section class="right side section">
-    <header>
-      <h3 class="heading">Add a new page</h3>
-    </header>
-
     <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
     <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
-
-
-    <p>More information can be found in the <a href="#">help section</a>.</p>
+    <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
   </section>
 
 <% end %>

@@ -1,34 +1,13 @@
-<div class="center container w-56 pd-t-8">
-
-  <div class="tx-c pd-b-3 devise-katalyst-logo">
-  </div>
-  <h1 class="katalyst titlebar br-b-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-25px">Password reset</h1>
-
-  <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { :method => :post }) do |f| %>
-
-    <%#= f.error_notification %>
-
-    <div class="bg-grey-f0 pd-lr-2 pd-b-15px br-b br-b-grey-c0 br-t br-t-grey-f0">
-
-      <div class="spaced-15px vertical list tx-grey-70 tx-1u3 ln-h-2">
-        <%= f.input :email, required: true, autofocus: true, input_html: { class: "tx-1u3 ln-h-2 display-block" } %>
-      </div>
-
-    </div>
-
-    <div class="bg-grey-e0 pd-l-2 h-55px rd-b-5px br-grey-fc br-t-u1 tx-1u1">
-
-      <ul class="hoverable hollow grey rounded-5px padded-1 spaced-1 inline middle-aligned buttons sp-t-12px">
-
-        <li class="solid orange hover-shadow ln-h-3 h-3 padded-15px sp-r-25px">
-          <%= f.button :submit, "Reset" %>
-        </li>
-
-        <li class="vis-hidden"></li>
-        <%#= render "devise/shared/links" %>
-      </ul>
-    </div>
-
-  <% end %>
-
+<div class="titlebar">
+  <h1>Password Reset</h1>
 </div>
+<%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
+  <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
+    <%= f.input :email, required: true, autofocus: true, input_html: { class: "w-510" } %>
+  </div>
+  <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
+    <%= f.button :submit, "Reset", class: "btn btn-primary" %>
+    <%= link_to "Back", koi_engine.new_admin_session_path, class: "btn space-l-1" %>
+  </div>
+<% end %>
+

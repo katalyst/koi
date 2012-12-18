@@ -1,59 +1,51 @@
-<h1 class="katalyst titlebar border-3px rd-t-5px pd-lr-2 h-55px ln-h-55px tx-25px">
-  <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-  <span class="control tx-orange flt-r">
-    <a href="#" class="close">&times;</a>
-  </span>
-</h1>
+<header class="titlebar">
 
-<%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
+  <h2 class="pad-t-1">
+    <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
 
-  <div class="bg-white br-b br-grey-c0 pd-b-1 as-clr h-40 ovr-auto">
-    <div class="flt-l pd-ltr-2 w-33 sp-r-1">
+    <!-- ALEX: originally had a close class which clashes with bootstrap -->
+    <!-- FIXME: Move the onclick modal close code to javascript file -->
+    <a href="#" onclick="$('#modal-for-nav-item').modal('hide');" class="txt-orange pull-right space-r-2">&times;</a>
+  </h2>
 
-      <div class="tab-encloser">
-        <ul id="setting-tabs" class="tabs">
-          <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
-          <% if current_admin.god? %>
-            <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
-            <li><a href="#god_settings" data-toggle="tab">God</a></li>
-          <% end %>
-        </ul>
+</header>
 
-        <div id="setting-tab-content" class="tab-content">
-          <div class="active tab-pane tx-grey-70 tx-13px ln-h-2" id="basic_settings">
-            <%= render "form_fields", { f: f } %>
-          </div>
-          <% if current_admin.god? %>
-            <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="advanced_settings">
-              <%= render "advanced_form_fields", { f: f } %>
-            </div>
-            <div class="tab-pane txt-grey-70 txt-13px ln-h-2" id="god_settings">
-              <%= render "god_form_fields", { f: f } %>
-            </div>
-          <% end %>
-        </div>
+<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
 
+  <div class="tabbable space-1">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
+      <% if current_admin.god? %>
+        <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
+        <li><a href="#god_settings" data-toggle="tab">God</a></li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="basic_settings">
+        <%= render "form_fields", { f: f } %>
       </div>
+      <% if current_admin.god? %>
+        <div class="tab-pane" id="advanced_settings">
+          <%= render "advanced_form_fields", { f: f } %>
+        </div>
+        <div class="tab-pane" id="god_settings">
+          <%= render "god_form_fields", { f: f } %>
+        </div>
+      <% end %>
     </div>
-
-    <div class="left column w-15 pd-t-2 pd-r-1">
-      <h6 class="sp-b-5px">Please note:</h6>
-      <p>Fields marked with an asterisk are required.</p>
-    </div>
+    <div>
+    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
+    <%- unless resource.new_record? -%>
+      <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn"  %>
+      <%- end -%>
   </div>
 
-  <div class="bg-grey-e0 pd-l-2 h-55px ln-h-55px rd-b-5px br-t br-grey-fc tx-11px">
+</div>
 
-    <ul class="adjusted hoverable solid grey rounded-5px padded-2 spaced-1 inline middle-aligned buttons ln-h-3 sp-t-12px">
-      <li class="solid orange">
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" %>
-      </li>
-      <%- unless resource.new_record? -%>
-      <li class="">
-        <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true %>
-      </li>
-      <%- end -%>
-    </ul>
+    <div class="span5 pad-t-1">
+      <h6>Please note:</h6>
+      <p>Fields marked with an asterisk are required.</p>
+    </div>
   </div>
 
 <% end %>
