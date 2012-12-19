@@ -75,7 +75,9 @@ module Koi::NavigationHelper
 
     def initialize *etc, &filter
       super etc.extract_options! while Hash === etc.last
-      self.filter   ||= filter || -> { true }
+      filter_if       = Proc === self.if     ? self.if     : proc { |arg| true  }
+      filter_unless   = Proc === self.unless ? self.unless : proc { |arg| false }
+      self.filter   ||= proc { |arg| filter_if[arg] && ! filter_unless[arg] } # doesn't work for some reason...
       self.template ||= etc.shift
       self.children ||= []
 
@@ -100,8 +102,7 @@ module Koi::NavigationHelper
     end
 
     def children
-      return super
-      super.select &:is_navigable? if super
+      @children ||= super.select &:is_navigable? if super
     end
 
     def self_and_children
@@ -173,7 +174,7 @@ module Koi::NavigationHelper
     end
 
     def is_hidden?
-      @is_hidden
+      !! is_hidden
     end
 
     def is_visible?
