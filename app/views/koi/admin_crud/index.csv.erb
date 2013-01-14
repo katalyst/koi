@@ -12,9 +12,9 @@
 <%-
     resource_class.all.each do |object|
       data_row = resource_class.admin_attributes(:csv).collect do |attr|
-        begin
+        if lookup_context.template_exists?(crud_partial(attr, :index), [], true)
           render crud_partial(attr, :index), { :attr => attr, :object => object }
-        rescue ActionView::MissingTemplate
+        else
           render "index_field_default", { :attr => attr, :object => object }
         end
       end
