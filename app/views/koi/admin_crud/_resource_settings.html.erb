@@ -1,6 +1,6 @@
 <% if @setting %>
   <%= render "koi/shared/flash_messages" %>
-  <%= simple_form_for @setting, remote: true, html: { multipart: true, class: "koi-admin-crud-form" } do |f| %>
+  <%= simple_form_for @setting, remote: true, html: { multipart: true, class: "form-vertical" } do |f| %>
     <%= f.input :set_type, as: :hidden %>
     <%= f.input :set_id, as: :hidden %>
     <%= f.input :url, as: :hidden %>
@@ -8,7 +8,7 @@
     <%= f.input :meta_description %>
     <ol class="unmarked-list floated-l-list spaced-r-1-list">
       <li>
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" %>
+        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "btn btn-primary" %>
       </li>
     </ol>
   <% end %>

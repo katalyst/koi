@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120303011314) do
+ActiveRecord::Schema.define(:version => 20120605013611) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(:version => 20120303011314) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "ordinal"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
+
   create_table "exits", :force => true do |t|
     t.text     "page_path"
     t.integer  "pageviews"
@@ -74,8 +84,10 @@ ActiveRecord::Schema.define(:version => 20120303011314) do
     t.text     "content_block"
     t.integer  "navigable_id"
     t.string   "navigable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "is_mobile",      :default => false
+    t.string   "setting_prefix"
   end
 
   add_index "nav_items", ["navigable_id"], :name => "index_nav_items_on_navigable_id"
@@ -100,6 +112,32 @@ ActiveRecord::Schema.define(:version => 20120303011314) do
   end
 
   add_index "pages", ["slug"], :name => "index_pages_on_slug", :unique => true
+
+  create_table "products", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "slug"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
+
+  create_table "reports", :force => true do |t|
+    t.integer  "visits"
+    t.integer  "unique_pageviews"
+    t.integer  "pageviews"
+    t.float    "pageviews_per_visit"
+    t.float    "avg_time_on_site"
+    t.float    "visit_bounce_rate"
+    t.integer  "new_visits"
+    t.integer  "organic_searches"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "settings", :force => true do |t|
     t.string   "url"
@@ -167,9 +205,10 @@ ActiveRecord::Schema.define(:version => 20120303011314) do
     t.boolean  "is_required",    :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "prefix"
   end
 
-  add_index "translations", ["key"], :name => "index_translations_on_key", :unique => true
+  add_index "translations", ["locale", "prefix", "key"], :name => "index_translations_on_locale_and_prefix_and_key", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

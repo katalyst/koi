@@ -1,6 +1,7 @@
-<% if @setting.set %>
-  $("#settings").html("<%= escape_javascript render("resource_settings") %>");
+<% if resource.errors.any? -%>
+  $("#modal-for-setting").html("<%= escape_javascript render("modal_setting") %>");
 <% else %>
-  $("#settings").html("<%= escape_javascript render("collection_settings") %>");
+  $("#modal-for-setting").modal('hide');
+  $("#settings-list").html("<%= escape_javascript render("/koi/settings/settings_list",
+                                        { settings: Setting.where(prefix: resource.prefix) }) %>");
 <% end %>
-

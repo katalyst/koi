@@ -1,1 +1,1 @@
-<% content_for :title, kt(default: resource_class.crud.find(:admin, :form, :title, :new) || ('Create a new ' + resource_class.titleize)) -%>
+<% content_for :title, title_for(:new) -%>
