@@ -11,12 +11,13 @@
     <tr>
       <%- resource_class.attributes(:index).each do |attr| -%>
       <td>
-      <%= begin
+        <%=
+          if lookup_context.template_exists?(crud_partial(attr, :index), [], true)
             render crud_partial(attr, :index), { :attr => attr, :object => object }
-          rescue ActionView::MissingTemplate
+          else
             render "index_field_default", { :attr => attr, :object => object }
           end
-      %>
+        %>
       </td>
       <%- end -%>
       <td>
