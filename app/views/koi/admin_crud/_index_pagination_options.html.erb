@@ -1,9 +1,8 @@
-<span class="tx-bold sp-r-5px">Item per page</span>
-<ol class="hoverable padded-1 spaced-3px rounded-3px separate solid grey inline separated buttons as-iblk h-2 ln-h-2 tx-1u1 tx-11px">
-  <% params[:per] = per_page.to_s if params[:per].blank? %>
-  <% page_list.each do |per| %>
-    <li class="<%= "orange" if params[:per] == per.to_s %>">
-      <%= link_to per.to_s.titleize, params.merge(:per => per), data: { get_script: true } %>
-    </li>
-  <% end %>
-</ol>
+<div class="span7">
+  <p class="pull-right"><strong>Items per page:</strong>
+    <% params[:per] = per_page.to_s if params[:per].blank? %>
+    <% page_list.each do |per| %>
+        <%= link_to per.to_s.titleize, params.merge(:per => per), data: { get_script: true }, :class => "btn btn-mini #{'btn-primary' if params[:per] == per.to_s}" %>
+    <% end %>
+  </p>
+</div>

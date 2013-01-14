@@ -1,22 +1,27 @@
-<%= render 'edit_title' %>
+<div class="action view">
+  <%= render 'edit_title' %>
 
-  <ul class="tabs">
-    <li class="active h6"><a href="#edit" data-toggle="tab">Edit</a></li>
-    <% if @setting ||= resource_settings_record %>
-      <li class="h6"><a href="#meta-data" data-toggle="tab">Meta data</a></li>
+  <% if is_settable? %>
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab-edit" data-toggle="tab">Edit</a></li>
+      <li><a href="#tab-settings" data-toggle="tab">Settings</a></li>
+    </ul>
+  <% end %>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab-edit">
+      <%= render 'edit_form' %>
+      <%= render 'edit_form_actions' %>
+    </div>
+
+    <% if is_settable? %>
+      <div class="tab-pane" id="tab-settings">
+        <%= render 'koi/settings/settings' %>
+      </div>
     <% end %>
-  </ul>
-
-<div id="myTabContent" class="tab-content">
-  <div class="active tab-pane" id="edit">
-    <%= render 'edit_form' %>
-    <%= render 'edit_form_actions' %>
-  </div>
-  <div class="tab-pane" id="meta-data">
-     <%= render 'resource_settings' %>
   </div>
 </div>
 
 <% content_for :side do %>
-  <%= render 'new_side' %>
+  <%= render 'side' %>
 <% end %>

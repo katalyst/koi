@@ -18,7 +18,9 @@ module HasNavigation
       options.merge!(:navigable => self)
       resource_nav_item = self.resource_nav_item.blank? ? ResourceNavItem.new : self.resource_nav_item
       resource_nav_item.attributes = options.merge(title: (self.try(:title) || "#{self.class} - #{self.id}"),
-                                                 url: polymorphic_path(self), admin_url: "/admin#{edit_polymorphic_path(self)}")
+                                                   url: polymorphic_path(self),
+                                                   admin_url: "/admin#{edit_polymorphic_path(self)}",
+                                                   setting_prefix: respond_to?(:settings_prefix) ? settings_prefix : nil)
       resource_nav_item
     end
 

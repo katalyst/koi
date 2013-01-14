@@ -1,0 +1,18 @@
+<h6>Sizes Available:</h6>
+
+<ul class="unmarked-list clearfix space-0">
+
+  <li class="clear">
+    <input type="radio" name="asset[width]" id="asset[width][0]" value="<%= resource.width.to_json %>" class="pull-left" checked />
+    <label for="asset[width][0]" class="pull-left pad-l-1"><%= resource.title_options %> (Original)</label>
+  </li>
+  
+  <% Koi::Asset::Image.sizes.each_with_index do |opt, i| %><% i += 1 %>
+    <li class="clear">
+
+      <input type="radio" name="asset[width]" id="asset[width][<%= i %>]" value="<%= opt[:width].to_json %>" class="pull-left" />
+      <label for="asset[width][<%= i %>]" class="pull-left pad-l-1"><%= opt[:title] %></label>
+
+    </li>
+  <% end %>
+</ul>

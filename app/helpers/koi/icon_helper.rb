@@ -14,7 +14,7 @@ module Koi::IconHelper
   #
   # Example:
   #
-  #     document_icon(file) # => /assets/koi/icon/file/pdf.png
+  #     document_icon(file) # => /assets/koi/application/icon-file-pdf.png
   #
   def document_icon(document)
     ext = File.extname(document.name).gsub('.', '')
@@ -30,7 +30,7 @@ module Koi::IconHelper
   #
   def attachment_image_tag(attachment, options={})
     options.reverse_merge!(width: 100, height: 100)
-    image_tag((attachment.image? ? image_thumbnail(attachment, options) : document_icon(attachment)), options)
+    image_tag((attachment.document? ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
   end
 
   # Return a unique ID.

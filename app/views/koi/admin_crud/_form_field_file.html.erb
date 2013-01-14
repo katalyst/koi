@@ -9,31 +9,28 @@
   html_id       = new_uuid
 %>
 
-<div class="simple wrapper as-clr">
   <%= f.hidden_field "retained_#{attr}" %>
   <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
-  <div class="rd-3px br br-grey-d8 pd-5px as-iblk flt-l sp-r-5px">
+
+<div class="media">
     <% unless is_nil_or_new %>
-      <%= attachment_image_tag(value) %>
+      <%= attachment_image_tag(value, class: "media-object pull-left") %>
     <% else %>
-      <%= placeholder_image_tag("No File", size: "100x100") %>
+      <%= placeholder_image_tag("No File", size: "100x100", class: "media-object pull-left") %>
     <% end %>
-  </div>
-  <div class="flt-l">
+  <div class="media-body">
     <% if value.respond_to?(:name) %>
-      <p><%= link_to value.name, value.url %></p>
+      <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
     <% end %>
-    <ol>
+      <div class="controls">
       <% unless is_nil_or_new %>
-        <li>
-          <label><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
-        </li>
+          <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
       <% end %>
       <% unless is_required %>
-        <li><label><%= f.radio_button remove, true %> No <%= kind %></label></li>
+        <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
       <% end %>
-      <li><label><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label></li>
-      <li><%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %></li>
-    </ol>
+      <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
+      <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+    </div>
   </div>
 </div>
