@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta -->
+    <meta charset="UTF-8" />
+    <%= csrf_meta_tags %>
+    <%= yield(:meta) %>
+
+    <!-- title -->
+    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+
+    <!-- data -->
+    <%= js_data if defined?(js_data) %><!-- FIXME: helper isn't loaded by DeviseController -->
+
+    <!-- style -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "koi/application" %>
+    <%= yield(:stylesheets) %>
+
+    <!-- script -->
+    <%= javascript_include_tag "koi/application" %>
+    <%= yield(:javascripts) %>
+
+    <!-- etc -->
+    <%= yield(:head) %>
+  </head>
+  <%= yield :html %>
+</html>

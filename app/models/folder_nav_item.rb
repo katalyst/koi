@@ -5,9 +5,9 @@ class FolderNavItem < NavItem
     "folder"
   end
 
-  def draggable?
-    parent.eql?(root) ? false : true
-  end
+  # def draggable?
+  #   parent.eql?(root) ? false : true
+  # end
 
   def self.title
     "Folder"
