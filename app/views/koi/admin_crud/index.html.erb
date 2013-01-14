@@ -8,29 +8,47 @@
   <%= render "index_title" %>
 <% end %>
 
-<% if is_searchable? || is_paginated? %>
-  <div class="ln-h-3 h-3">
-    <% if is_searchable? %>
-      <%= render 'index_search' %>
+<% if is_settable? %>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
+    <li><a href="#tab-settings" data-toggle="tab">Settings</a></li>
+  </ul>
+<% end %>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="tab-main">
+    <% if is_searchable? || is_paginated? %>
+      <div class="row space-b-1">
+        <% if is_searchable? %>
+          <%= render 'index_search' %>
+        <% end %>
+        <% if is_paginated? %>
+          <div id="index-pagination-options">
+            <%= render 'index_pagination_options' %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
-    <% if is_paginated? %>
-      <div id="index-pagination-options" class="flt-r h-3">
-        <%= render 'index_pagination_options' %>
+
+    <%= render 'index_actions' %>
+    <%= render 'index_fields' %>
+
+    <% if is_paginated? && collection.num_pages != 0 %>
+      <br />
+      <div id="index-pagination">
+        <%= render 'index_pagination' %>
       </div>
     <% end %>
   </div>
-<% end %>
 
-<%= render 'index_actions' %>
-<%= render 'index_fields' %>
+  <% if is_settable? %>
+    <div class="tab-pane" id="tab-settings">
+      <%= render 'koi/settings/settings' %>
+    </div>
+  <% end %>
+</div>
 
-<% if is_paginated? && collection.num_pages != 0 %>
-  <br />
-  <div id="index-pagination">
-    <%= render 'index_pagination' %>
-  </div>
-<% end %>
 
 <% content_for :side do %>
-  <%= render 'new_side' %>
+  <%= render 'side' %>
 <% end %>

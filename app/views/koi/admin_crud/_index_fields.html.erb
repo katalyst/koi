@@ -1,75 +1,101 @@
 <% if is_orderable? %>
-  <% js_data "sort_admin_#{plural_name}_path".to_sym, url_for(:action => :sort) %>
   <% content_for :head do %>
     <script type="text/javascript">
-      document.onselectstart = function () { return false; }
 
-      $(function() {
-        var notice = $('<p class="pd-1 background-light-green">Saving...</p>').hide();
-        $("#sortable").sortable({
-          placeholder: 'ui-state-placeholder',
-          // Return a helper with preserved width of cells
-          helper: function(e, ui) {
-            ui.children().each(function() {
-              $(this).width($(this).width());
-            });
-            return ui;
-          },
-          update: function() {
-            notice.stop(true, true).removeClass('success').addClass('notice').text("Saving...").show();
-            $.post(jsData.sortAdmin<%= resource_class.to_s.pluralize %>Path, '_method=put&'+$(this).sortable('serialize'), function() {
-              notice.removeClass('notice').addClass('success').text("Save successful.").delay(1000).fadeOut();
-            });
+      $ (function ()
+      {
+        var sortPath = "<%= url_for(:action => :sort) %>"
+        var sortable = $ ('#sortable')
+        var notice   = $ ('<p>').addClass ('pad-half background-light-green').prependTo ('#tab-main').html ('&nbsp;')
+
+        var savingMessage = "Saving..."
+        var successMessage = 'Save successful...'
+
+        function showNotice (f)
+        {
+          notice
+            .stop (true, true)
+            .addClass ('notice').removeClass ('success')
+            .text (savingMessage)
+            .animate ({ opacity:1 }, f)
+        }
+
+        function hideNotice ()
+        {
+          notice
+            .removeClass ('notice').addClass ('success')
+            .text (successMessage)
+            .delay (1000)
+            .animate ({ opacity:0 })
+        }
+
+        $ ('#sortable').sortable ({
+
+          placeholder: 'ui-state-placeholder'
+
+        , helper: function (e, ui) // preserves width of cells...
+          {
+            ui.children().each (function () { $ (this).width ($ (this).width()) })
+            return ui
           }
-        }).disableSelection().parent().next().prepend(notice);
+
+        , update: function ()
+          {
+            showNotice (function ()
+            {
+              $.post (sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice)
+            })
+          }
+
+        })
+
+        .disableSelection()
+
+        .on ('selectstart', function () { return false })
       });
     </script>
   <% end %>
 <% end %>
 
 <div id="index-fields">
-  <table class="table padded-sides ruled br br-grey-d8 rd-b-5px ln-h-3">
+  <table class="table space-b-0">
     <thead>
-      <tr class="control tx-11px tx-grey-54 bg-grey-f4">
+      <tr>
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
-          <% label = t "simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize %>
+          <% label = raw t("simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize) %>
           <% if is_sortable? %>
-            <th class="sort-icon"><%= sortable attr.to_s, label %></th>
+            <th class="sort-icon"><%= sortable attr.to_s, label, :class => "nohover" %></th>
           <% else %>
             <th><%= label %></th>
           <% end %>
         <% end %>
-        <th class="w-15">Actions</th>
+        <th class="span4">Actions</th>
       </tr>
     </thead>
     <%- if is_orderable? -%>
     <tbody id="sortable" class="">
     <%- else -%>
-    <tbody class="">
+    <tbody>
     <%- end -%>
       <% collection.each_with_index do |object, i| %>
         <%- if is_orderable? -%>
         <tr id="<%= "#{singular_name}_#{object.id}" %>">
         <%- else -%>
-        <tr class="<%= i.odd? ? "odd" : "even" %>">
+        <tr>
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
-            <td class="tx-12px">
-              <div class="br-grey-d8 bg-white">
-                <%=
-                begin
+            <td>
+              <%=
+                if lookup_context.template_exists?(crud_partial(attr, :index), [], true)
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
-                rescue ActionView::MissingTemplate
+                else
                   render "index_field_default", { :attr => attr, :object => object }
                 end
-                %>
-              </div>
+              %>
             </td>
           <% end %>
-          <td class="w-15 tx-12px">
-            <div class="br-grey-d8 bg-white">
-              <%= render "index_fields_action", { :object => object } %>
-            </div>
+          <td class="nowrap">
+            <%= render "index_fields_action", { :object => object } %>
           </td>
         </tr>
       <% end %>

@@ -1,23 +1,46 @@
+<% id = "koi-#{ new_uuid }" %>
+
 <% content_for :head do %>
+
   <script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-      var myTextArea = $('textarea.tagme').tagify();
 
-      myTextArea.tagify('inputField').autocomplete({
-        source: <%= raw resource_class.tag_counts.collect { |t| t.name } %>,
-        position: { of: myTextArea.tagify('containerDiv') },
-        close: function(event, ui) { myTextArea.tagify('add'); },
-      });
+    $ (document).ready (function ()
+    {
+      var input = $ ('#<%= id %>')
 
-      $('textarea.tagme').closest("form").submit( function() {
-        $('textarea').tagify('serialize');
-      });
-    });
+      input.tagify ()
+
+      input.tagify ('inputField').autocomplete ({
+
+        source: <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list').pluralize).collect { |t| t.name } %>
+
+      , position: { of: input.tagify ('containerDiv') }
+      
+    //, close: function (event, ui) { input.tagify ('add') }
+      })
+
+      input.closest ('form').submit (function (e)
+      {
+        input.tagify ('serialize')
+      })
+
+    })
   </script>
+
   <style type="text/css" media="all">
-    .ui-autocomplete {width:296px;}
+
+      .ui-autocomplete { width : 296px; }
+
+      .ui-autocomplete-input
+    {
+      position : absolute; bottom: 0; left:0;
+    }
+      .tagify-container
+    {
+      position : relative;
+    }
+
   </style>
 <% end %>
 
-<%= f.input :tag_list, as: :text, input_html: { class: "tagme" } %>
-
+<%= f.input attr, as: :string, input_html: { id: id } %>

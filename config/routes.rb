@@ -1,6 +1,7 @@
 Koi::Engine.routes.draw do
   devise_for :admins,
              :class_name => "Admin",
+             controllers: { passwords: "Koi::Passwords" },
              module: "Devise"
 
   resources :assets do
@@ -25,7 +26,9 @@ Koi::Engine.routes.draw do
     end
   end
 
-  resources :translations, path: :site_settings
+  resources :translations, path: :site_settings do
+    get :seed, on: :collection
+  end
   resources :settings
   resources :pages
   resources :admins, path: :site_users
@@ -43,4 +46,9 @@ Koi::Engine.routes.draw do
   match 'help' => 'application#help', :as => :help
   match 'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
+
+  constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.god? }
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
+  end
 end
