@@ -3,6 +3,14 @@ create_file '.rvmrc', <<-END
 rvm use ruby-1.9.2-p290@koi-gem --create
 END
 
+# Setup pow
+create_file '.powrc', <<-END
+if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".rvmrc" ]; then
+  source "$rvm_path/scripts/rvm"
+  source ".rvmrc"
+fi
+END
+
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
