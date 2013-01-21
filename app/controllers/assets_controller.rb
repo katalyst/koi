@@ -9,8 +9,11 @@ class AssetsController < Koi::CrudController
 
   def data_path data
     return data.url unless data.image?
-    data = data.thumb "#{ params[:width] }x#{ params[:height] }" unless params[:width].blank? && params[:height].blank?
-    data = data.encode params[:format]
+    width, height, format = params.values_at :width, :height, :format
+    width  =  width.match(/[0-9]+/).to_s if width.present?
+    height = height.match(/[0-9]+/).to_s if height.present?
+    data = data.thumb "#{ width }x#{ height }" unless width.blank? && height.blank?
+    data = data.encode format
     data.url
   end
 
