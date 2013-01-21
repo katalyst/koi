@@ -93,7 +93,10 @@ $ (function ()
       var params = $.deparam (insertion.serialize ()).asset
       for (var key in params) if (params.hasOwnProperty (key)) try { params [key] = eval (params [key]) } catch (ex) {}
 
-      window.close (params)
+      var CKEditorFuncNum = location.href.match (/[?&]CKEditorFuncNum=([^&]+)/i) [1]
+
+      window.opener.CKEDITOR.tools.callFunction (CKEditorFuncNum, params.url)
+      window.close ()
 
       return false
     });
