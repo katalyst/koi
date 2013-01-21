@@ -4,8 +4,7 @@ jQuery (function ($)
 
   $ ('.wysiwyg.source').liveQuery (function ()
   {
-    CKEDITOR.replace (this, { language: 'en'
-                            , filebrowserBrowseUrl      : '/admin/documents'
+    CKEDITOR.replace (this, { filebrowserBrowseUrl      : '/admin/documents'
                             , filebrowserUploadUrl      : '/admin/documents'
                             , filebrowserImageBrowseUrl : '/admin/images'
                             , filebrowserImageUploadUrl : '/admin/images'
