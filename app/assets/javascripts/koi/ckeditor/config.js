@@ -30,6 +30,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'insert'      , items : [ 'Image','oembed','Table','HorizontalRule'                         ] }
 	];
 
+	config.format_tags = 'h1;h2;h3;h4;h5;h6;p';
+
 	// Considering that the basic setup doesn't provide pasting cleanup features,
 	// it's recommended to force everything to be plain text.
 	config.forcePasteAsPlainText = true;
