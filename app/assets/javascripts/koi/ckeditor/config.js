@@ -17,28 +17,18 @@ CKEDITOR.editorConfig = function( config ) {
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	// The toolbar groups arrangement, optimized for a single toolbar row.
-	config.toolbarGroups = [
-		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
-		// On the basic preset, clipboard and undo is handled by keyboard.
-		// Uncomment the following line to enable them on the toolbar as well.
-		// { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-		{ name: 'forms' },
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align' ] },
-		{ name: 'links' },
-		{ name: 'insert' },
-		{ name: 'styles' },
-		{ name: 'colors' },
-		{ name: 'tools' },
-		{ name: 'others' },
-		{ name: 'about' }
+	config.toolbar = 'Custom';
+	 
+	config.toolbar_Custom =
+	[
+		{ name: 'document'    , items : [ 'Source', 'ShowBlocks'                                           ] },
+		{ name: 'format'      , items : [ 'Format', '-', 'NumberedList', 'BulletedList', '-', 'Blockquote' ] },
+		{ name: 'paragraph'   , items : [ 'Outdent', 'Indent'                                              ] },
+		{ name: 'alignment'   , items : [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight'                   ] },
+		{ name: 'styles'      , items : [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat'               ] },
+		{ name: 'links'       , items : [ 'Link', 'Unlink'                                                 ] },
+		{ name: 'insert'      , items : [ 'Image','oembed','Table','HorizontalRule'                         ] }
 	];
-
-	// The default plugins included in the basic setup define some buttons that
-	// we don't want too have in a basic editor. We remove them here.
-	config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
 
 	// Considering that the basic setup doesn't provide pasting cleanup features,
 	// it's recommended to force everything to be plain text.
