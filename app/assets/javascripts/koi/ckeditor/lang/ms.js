@@ -35,7 +35,7 @@ CKEDITOR.lang[ 'ms' ] = {
 		// of reading non-English words. So be careful while translating it.
 		editorHelp: 'Press ALT 0 for help', // MISSING
 
-		browseServer: 'Browse Server',
+		browseServer: 'Open Asset Manager',
 		url: 'URL',
 		protocol: 'Protokol',
 		upload: 'Muat Naik',
