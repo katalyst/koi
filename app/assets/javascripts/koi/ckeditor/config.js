@@ -3,39 +3,60 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
-CKEDITOR.editorConfig = function( config ) {
-	
+CKEDITOR.editorConfig = function (config)
+{
 	// %REMOVE_START%
+	
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'basicstyles,dialogui,dialog,clipboard,button,toolbar,list,indent,enterkey,entities,wysiwygarea,fakeobjects,link,pastetext,undo,table,panel,floatpanel,menu,contextmenu,tabletools,tableresize,tab,sourcearea,showborders,showblocks,removeformat,image,horizontalrule,listblock,richcombo,format,blockquote,autogrow,oembed,popup,filebrowser';
-	config.skin = 'moono';
+	config.plugins = 'basicstyles,devtools,dialogui,dialog,clipboard,button,toolbar,list,indent,enterkey,entities,wysiwygarea,fakeobjects,link,pastetext,undo,pastefromword,autogrow,popup,filebrowser,panel,floatpanel,listblock,richcombo,format,image,mediaembed,showblocks,showborders,sourcearea,tab,table,menu,contextmenu,tabletools,tableresize';
+	config.skin    = 'moono';
+	
 	// %REMOVE_END%
 
-	config.autoGrow_onStartup = true;
+	// For the complete reference of configuration changes available see: http://docs.ckeditor.com/#!/api/CKEDITOR.config.
 
-	// Define changes to default configuration here.
-	// For the complete reference:
-	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+	config.autoGrow_onStartup    = true;
+	config.forcePasteAsPlainText = true;
 
 	config.toolbar = 'Custom';
 	 
 	config.toolbar_Custom =
 	[
 		{ name: 'document'    , items : [ 'Source', 'ShowBlocks'                                           ] },
+		{ name: 'paste'       , items : [ 'Paste', 'PasteText', 'PasteFromWord'                            ] },
 		{ name: 'format'      , items : [ 'Format', '-', 'NumberedList', 'BulletedList', '-', 'Blockquote' ] },
 		{ name: 'paragraph'   , items : [ 'Outdent', 'Indent'                                              ] },
 		{ name: 'alignment'   , items : [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight'                   ] },
-		{ name: 'styles'      , items : [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat'               ] },
-		{ name: 'links'       , items : [ 'Link', 'Unlink'                                                 ] },
-		{ name: 'insert'      , items : [ 'Image','oembed','Table','HorizontalRule'                         ] }
+		{ name: 'styles'      , items : [ 'Bold', 'Italic'                                                 ] },
+		{ name: 'insert'      , items : [ 'Unlink', 'Link', 'Image','MediaEmbed','Table'                   ] }
 	];
 
 	config.format_tags = 'h1;h2;h3;h4;h5;h6;p';
 
-	// Considering that the basic setup doesn't provide pasting cleanup features,
-	// it's recommended to force everything to be plain text.
-	config.forcePasteAsPlainText = true;
+	CKEDITOR.on ('dialogDefinition', function (event)
+	{
+		var data = event.data, name = data.name, definition = data.definition;
 
-	// Let's have it basic on dialogs as well.
-	config.removeDialogTabs = 'link:upload;link:target;link:advanced;image:Upload;image:advanced'
+		// Add "devtools" to config.plugins above to determine UI component identifiers.
+		// Details including IDs will be displayed for each component on hover.
+
+		switch (name)
+		{
+			case 'link':
+			var info   = definition.getContents ('info')
+			var target = definition.getContents ('target')
+
+			if (target && ! info.get ('linkTargetType')) info.add (target.get ('linkTargetType'))
+
+			for (var id in { upload:1, target:1, advanced:1 }) definition.removeContents (id)
+			break;
+
+			case 'image':
+			var info = definition.getContents ('info')
+			
+			for (var id in { txtWidth:1, txtHeight:1, txtBorder:1, txtHSpace:1, txtVSpace:1, ratioLock:1 }) info.remove (id)
+			for (var id in { Upload:1, advanced:1 }) definition.removeContents (id)
+			break;
+		}
+	});
 };

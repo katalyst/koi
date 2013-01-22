@@ -34,7 +34,7 @@ CKEDITOR.lang[ 'mk' ] = {
 		// of reading non-English words. So be careful while translating it.
 		editorHelp: 'Press ALT 0 for help', // MISSING
 
-		browseServer: 'Browse Server', // MISSING
+		browseServer: 'Open Asset Manager', // MISSING
 		url: 'URL', // MISSING
 		protocol: 'Protocol', // MISSING
 		upload: 'Upload', // MISSING
