@@ -37,7 +37,7 @@ jQuery (function ($)
     $bar.insertBefore ($toolbar)
 
     $window.on ('scroll', balance)
-    $containerWindow.ready (balance)
+    $containerWindow.ready (balance).load (balance)
 
     function balance ()
     {
