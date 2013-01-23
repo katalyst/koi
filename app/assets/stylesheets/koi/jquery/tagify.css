@@ -34,3 +34,5 @@ Author: Alicia Liu
 .tagify-container > input:focus {
     outline: none;
 }
+.tagify-container > span > a { display:inline; }
+.tagify-container, .tagify-container .ui-autocomplete-input { max-width:100%; }
