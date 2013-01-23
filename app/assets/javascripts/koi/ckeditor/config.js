@@ -43,12 +43,12 @@ CKEDITOR.editorConfig = function (config)
 		switch (name)
 		{
 			case 'link':
-			var info   = definition.getContents ('info')
-			var target = definition.getContents ('target')
+//		var info   = definition.getContents ('info')
+//		var target = definition.getContents ('target')
+//
+//		if (target && ! info.get ('linkTargetType')) info.add (target.get ('linkTargetType'))
 
-			if (target && ! info.get ('linkTargetType')) info.add (target.get ('linkTargetType'))
-
-			for (var id in { upload:1, target:1, advanced:1 }) definition.removeContents (id)
+			for (var id in { upload:1, advanced:1 }) definition.removeContents (id)
 			break;
 
 			case 'image':
