@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function (config)
 	// %REMOVE_START%
 	
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'basicstyles,dialogui,dialog,clipboard,button,toolbar,list,indent,enterkey,entities,wysiwygarea,fakeobjects,link,pastetext,undo,pastefromword,autogrow,popup,filebrowser,panel,floatpanel,listblock,richcombo,format,image,mediaembed,showblocks,showborders,sourcearea,tab,table,menu,contextmenu,tabletools,tableresize';
+	config.plugins = 'basicstyles,dialogui,dialog,clipboard,button,toolbar,list,indent,enterkey,entities,wysiwygarea,fakeobjects,link,pastetext,undo,pastefromword,autogrow,popup,filebrowser,panel,floatpanel,listblock,richcombo,format,image,oembed,showblocks,showborders,sourcearea,tab,table,menu,contextmenu,tabletools,tableresize';
 	config.skin    = 'moono';
 	
 	// %REMOVE_END%
@@ -28,7 +28,7 @@ CKEDITOR.editorConfig = function (config)
 		{ name: 'paragraph'   , items : [ 'Outdent', 'Indent'                                              ] },
 		{ name: 'alignment'   , items : [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight'                   ] },
 		{ name: 'styles'      , items : [ 'Bold', 'Italic'                                                 ] },
-		{ name: 'insert'      , items : [ 'Unlink', 'Link', 'Image','MediaEmbed','Table'                   ] }
+		{ name: 'insert'      , items : [ 'Unlink', 'Link', 'Image', 'oembed','Table'                      ] }
 	];
 
 	config.format_tags = 'h1;h2;h3;h4;h5;h6;p';
