@@ -1,7 +1,7 @@
 <%=
-  begin
+  if lookup_context.template_exists?(crud_partial(attr, :form, f.object.class), [], true)
     render crud_partial(attr, :form, f.object.class), :f => f, :attr => attr
-  rescue ActionView::MissingTemplate
+  else
     render "form_field_default", :f => f, :attr => attr
   end
 %>
