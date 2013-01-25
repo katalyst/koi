@@ -1,7 +1,7 @@
 <%=
-  begin
+  if lookup_context.template_exists?("form_field_#{f.object.field_type}", [], true)
     render "form_field_#{f.object.field_type}", :f => f, :attr => attr
-  rescue ActionView::MissingTemplate
+  else
     render "form_field_default", :f => f, :attr => attr
   end
 %>
