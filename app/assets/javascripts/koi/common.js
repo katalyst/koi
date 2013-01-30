@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require      ./jquery/browser
 //= require_tree ./jquery
 //= require_tree ./koi
 //= require ./etc/ZeroClipboard
