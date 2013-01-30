@@ -11,7 +11,7 @@ gemspec
 # your gem to rubygems.org.
 
 # jQuery
-gem 'jquery-rails'
+gem 'jquery-rails', '2.0.1'
 
 # Inherited Resources
 # gem 'inherited_resources'       , :git => 'git://github.com/marcelloma/inherited_resources.git'
