@@ -2890,7 +2890,7 @@ Redactor.prototype = {
 
       var scrollTop    = $ (parent).scrollTop ()
       var offsetTop    = $ (window.frameElement).offset ().top
-      var top          = Math.max (0, scrollTop - offsetTop) + 69
+      var top          = Math.max (0, scrollTop - offsetTop) + 39
 
       setTimeout (function () // fadeIn erases `top`
       {

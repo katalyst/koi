@@ -15,8 +15,28 @@ module Koi::HtmlHelper
     return @page_types
   end
 
-  def divs(*cs, &b)
+  def divs *cs, &b
     cs.empty? ? capture(&b) : with(cs.shift) { |c| content_tag :div, divs(*cs, &b), class: c }
+  end
+
+  def rich_text *sig, &blk
+    opt = sig.extract_options!.merge_html! class: "koi-rich-text"
+    tag = Symbol === sig.first ? sig.shift : :div
+    txt = block_given? ? capture(&blk) : sig.shift
+    txt = simple_format?(txt)  ? simple_format(txt) : sanitize(txt)
+    content_tag tag, txt, opt
+  end
+
+  def simple_format? txt
+    txt == strip_tags(txt)
+  end
+
+  def sanitize? txt
+    ! simple_format? txt
+  end
+
+  def raw? txt
+    ! simple_format? txt
   end
 
 end
