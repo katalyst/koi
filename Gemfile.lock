@@ -21,10 +21,10 @@ GIT
 
 GIT
   remote: git@github.com:katalyst/bowerbird_v2.git
-  revision: 853768388038b3eb5641065c7b63e087b305e804
+  revision: d03dfa3737a1bb970096bae016c0a5ad3a7ef407
   specs:
-    bowerbird_v2 (2.0.5)
-      bootstrap-sass (= 2.0.2)
+    bowerbird_v2 (2.0.6)
+      bootstrap-sass (= 2.0.4.2)
 
 PATH
   remote: .
@@ -99,7 +99,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.0.2)
+    bootstrap-sass (2.0.4.2)
     builder (3.0.4)
     cancan (1.6.8)
     celluloid (0.12.4)
