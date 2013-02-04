@@ -148,7 +148,7 @@
       app.modalex = $.modal
 
       $box = iFrame
-      $editor = app.$editor.css ({ minHeight: 300, padding:0, margin:0 })
+      $editor = app.$editor.css ({ minHeight: 400, padding:0, margin:0 })
       $toolBar = app.$toolbar
 
       var sushiBar = $toolBar.sushi ('css')
