@@ -63,9 +63,9 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
-# def is_mobile?
-#   is_mobile || children.collect { |c| c.is_mobile? }.include?(true)
-# end
+  def is_mobile?
+    is_mobile || children.collect { |c| c.is_mobile? }.include?(true)
+  end
 
   def to_hash(show_options = {})
     { mobile: false }.merge(show_options)
@@ -91,7 +91,8 @@ class NavItem < ActiveRecord::Base
   def to_hashish env = binding()
     @@binding ||= env
     @to_hashish ||= begin
-      hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at ]
+      hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
+      hash[:is_mobile] = read_attribute :is_mobile # is_mobile method is recursive, which we don't want
       hash[:children] = eval content_block, env unless content_block.blank?
       hash.merge! options(env)
     end
