@@ -8,6 +8,10 @@ class ResourceNavItem < NavItem
   end
 
   def title
-    read_attribute(:title) || "Title #{id}"
+    write_attribute :title, navigable.try((TITLE & navigable.methods).first) and save if read_attribute(:title).blank?
+    read_attribute :title
   end
+
+  TITLE = [:title, :name, :heading, :to_s]
+
 end
