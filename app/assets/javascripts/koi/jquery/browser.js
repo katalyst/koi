@@ -1,4 +1,4 @@
-if (jQuery && ! jQuery.browser) ! function ($)
+if (! (typeof jQuery == 'undefined' || jQuery.browser)) ! function ($)
 {
   $.uaMatch = function( ua ) {
     ua = ua.toLowerCase();
