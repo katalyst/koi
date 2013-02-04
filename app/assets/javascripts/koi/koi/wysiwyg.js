@@ -204,8 +204,6 @@
 
       $ (window).on ('resize scroll', reposition)
 
-      setInterval (resize_and_reposition_blanket, 1000)
-
       var __toggle = app.toggle
 
       app.toggle = function ()
