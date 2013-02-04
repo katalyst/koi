@@ -53,13 +53,13 @@ class NavItem < ActiveRecord::Base
     "key_#{id}"
   end
 
-  def options
-    hash = {}
-    hash[:container_class] = self.key unless self.key.blank?
-    hash[:if] = Proc.new { eval(self.if, @@binding) } unless self.if.blank?
-    hash[:unless] = Proc.new { eval(self.unless, @@binding) } unless self.unless.blank?
-    hash[:method] = method unless method.blank?
-    hash[:highlights_on] = Proc.new { eval(highlights_on, @@binding) } unless highlights_on.blank?
+  def options env = binding()
+    hash                   = {}
+    hash[:if]              = Proc.new { eval self.if                                                     , env  } if self.if.present?
+    hash[:unless]          = Proc.new { eval self.unless                                                 , env  } if self.unless.present?
+    hash[:highlights_on]   = Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on , env) } if self.highlights_on.present?
+    hash[:container_class] = self.key                                                                             if self.key.present?
+    hash[:method]          = method                                                                               if self.method.present?
     hash
   end
 
@@ -88,6 +88,16 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
+  def to_hashish env = binding()
+    @@binding ||= env
+    @to_hashish ||= begin
+      hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
+      hash[:is_mobile] = read_attribute :is_mobile # is_mobile method is recursive, which we don't want
+      hash[:children] = eval content_block, env unless content_block.blank?
+      hash.merge! options(env)
+    end
+  end
+
   def draggable?
     true
   end
@@ -111,7 +121,7 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
-  private
+private
 
   def touch_parent
     parent.touch if parent
