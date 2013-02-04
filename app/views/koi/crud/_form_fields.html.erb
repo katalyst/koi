@@ -1,10 +1,9 @@
 <%- resource_class.attributes(:form).each do |attr| -%>
-  <%=
-    if lookup_context.template_exists?(crud_partial(attr, :form), [], true)
-      render crud_partial(attr, :form), { :f => f, :attr => attr }
-    else
-      render "form_field_default", { :f => f, :attr => attr }
-    end
+  <%= begin
+        render crud_partial(attr, :form), { :f => f, :attr => attr }
+      rescue ActionView::MissingTemplate
+        render "form_field_default", { :f => f, :attr => attr }
+      end
   %>
 <%- end -%>
 
