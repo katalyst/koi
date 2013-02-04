@@ -1,7 +1,7 @@
 <% if is_orderable? %>
   <% content_for :head do %>
     <script type="text/javascript">
-      
+
       $ (function ()
       {
         var sortPath = "<%= url_for(:action => :sort) %>"
@@ -30,11 +30,11 @@
         }
 
         $ ('#sortable').sortable ({
-          
+
           placeholder: 'ui-state-placeholder'
-        
+
         , helper: function (e, ui) // preserves width of cells...
-          { 
+          {
             ui.children().each (function () { $ (this).width ($ (this).width()) })
             return ui
           }
@@ -46,7 +46,7 @@
               $.post (sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice)
             })
           }
-        
+
         })
 
         .disableSelection()
@@ -85,13 +85,13 @@
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
             <td>
-                <%=
-                begin
+              <%=
+                if lookup_context.template_exists?(crud_partial(attr, :index), [], true)
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
-                rescue ActionView::MissingTemplate
+                else
                   render "index_field_default", { :attr => attr, :object => object }
                 end
-                %>
+              %>
             </td>
           <% end %>
           <td class="nowrap">
