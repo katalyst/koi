@@ -59,9 +59,9 @@ jQuery (function ($)
 
   // Tidy Source //////////////////////////////////////////////////////////////
 
-  function either (left, right)
+  function either ()
   {
-    return left + '|' + right
+    return [].join.call (arguments, '|')
   }
 
   function opening (pattern)
@@ -96,12 +96,17 @@ jQuery (function ($)
 
   function expression (pattern)
   {
-    return new RegExp (pattern, 'g')
+    return new RegExp (pattern, 'gi')
   }
 
   function indent (number)
   {
     return INDENTS.substring (0, number * 2)
+  }
+
+  function style (name)
+  {
+    return '\\s*\\b(' + name + '):\\s*[^;]+;\\s*'
   }
 
   var INLINE  = 'a|abbr|b|bdi|bdo|cite|del|dfn|em|i|ins|kbd|mark|q|rp|rt|samp|small|span|strong|sub|sup|time|var|wbr'
@@ -116,10 +121,13 @@ jQuery (function ($)
   {
     var data = toDataFormat_super.call (this, html)
     data = data.replace (expression (left_spaced  (opening (INLINE))), ' $1')
-    data = data.replace (expression (right_spaced (closing (INLINE))), '$1 ')
-    data = data.replace (expression (maybe_spaced (opening_or_closing (either (BLOCK, VOID)))),'\n$1\n')
-    data = data.replace (expression (right_spaced (opening (ANY)) + TAGLESS + left_spaced (closing (ANY))), function (match, $1, $2, $3, $4) { return $2 == $4 ? match.replace (/[\n\r]/g, '') : match })
-    data = data.replace (/\r/g, '\n').replace (/\n+/g, '\n').replace (/^\s+/g, '').replace (/\s+$/g, '')
+               .replace (expression (right_spaced (closing (INLINE))), '$1 ')
+               .replace (expression (maybe_spaced (opening_or_closing (either (BLOCK, VOID)))),'\n$1\n')
+               .replace (expression (right_spaced (opening (ANY)) + TAGLESS + left_spaced (closing (ANY))), function (match, $1, $2, $3, $4) { return $2 == $4 ? match.replace (/[\n\r]/g, '') : match })
+               .replace (/\r/g, '\n').replace (/\n+/g, '\n').replace (/^\s+/g, '').replace (/\s+$/g, '')
+               .replace (expression (style (either ('line-height', 'font-size', 'font-family', 'color'))), '')
+               .replace (/\sstyle=['"]\s*['"]/ig, '')
+
     data = data.split ('\n')
     for (var n = 0, i = 0; i < data.length; i ++)
     {
