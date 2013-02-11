@@ -19,9 +19,6 @@ gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nes
 # Koi
 gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
-# Ruby debugger
-gem 'ruby-debug19'              , :require => 'ruby-debug'
-
 # Bowerbird
 gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
 
