@@ -42,4 +42,8 @@ class Asset < ActiveRecord::Base
     return "#{ path }/?width=#{ width }&height=#{ height }"
   end
 
+  def to_s
+    File.basename data.name, File.extname(data.name)
+  end
+
 end
