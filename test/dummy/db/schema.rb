@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120605013611) do
+ActiveRecord::Schema.define(:version => 20130211061119) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -118,8 +118,21 @@ ActiveRecord::Schema.define(:version => 20120605013611) do
     t.string   "name"
     t.text     "description"
     t.string   "slug"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.text     "short_description"
+    t.date     "publish_date"
+    t.date     "launch_date"
+    t.text     "genre"
+    t.string   "banner_uid"
+    t.string   "banner_name"
+    t.string   "manual_uid"
+    t.string   "manual_name"
+    t.string   "size"
+    t.text     "countries"
+    t.string   "colour"
+    t.boolean  "active",            :default => true
+    t.integer  "ordinal"
   end
 
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
