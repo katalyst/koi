@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     resources :news_items
     resources :categories do
       collection { put 'sort' }
-      resources :products
+      resources :products do
+        collection { put 'sort' }
+      end
     end
   end
 
