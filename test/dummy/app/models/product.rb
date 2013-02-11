@@ -23,8 +23,8 @@ class Product < ActiveRecord::Base
            size: { type: :select, data: Size },
            countries: { type: :check_boxes, data: Countries },
            colour: { type: :radio, data: Colours },
-           banner: { type: :image }
-           # manual: { type: :file }
+           banner: { type: :image },
+           manual: { type: :file }
 
     config :admin do
       index fields: [:name]
