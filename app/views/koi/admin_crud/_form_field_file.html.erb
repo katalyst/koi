@@ -3,7 +3,7 @@
   klass         = object.class
   value         = object.send attr
   remove        = "remove_#{attr}"
-  is_nil_or_new = value.nil? || object.new_record?
+  is_nil_or_new = (value.nil? || object.new_record?)
   is_required   = klass.validates_presence_of? attr
   kind          = klass.crud.find(:fields, attr, :type)
   html_id       = new_uuid
