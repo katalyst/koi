@@ -1,0 +1,2 @@
+class CategoriesController < CrudController
+end
