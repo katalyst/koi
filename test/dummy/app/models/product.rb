@@ -22,8 +22,8 @@ class Product < ActiveRecord::Base
            active: { type: :boolean },
            size: { type: :select, data: Size },
            countries: { type: :check_boxes, data: Countries },
-           colour: { type: :radio, data: Colours }
-           # banner: { type: :image },
+           colour: { type: :radio, data: Colours },
+           banner: { type: :image }
            # manual: { type: :file }
 
     config :admin do
