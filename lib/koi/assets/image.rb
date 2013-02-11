@@ -4,10 +4,12 @@ module Koi
       # Default Image sizes for asset manager
       mattr_accessor :sizes
       @@sizes = [
-        { width:    '100%' , title: '1 / 1 (100%)' },
-        { width:     '67%' , title: '2 / 3 (67%)'  },
-        { width:     '50%' , title: '1 / 2 (50%)'  },
-        { width:     '33%' , title: '1 / 3 (33%)'  }
+        { width:    '600' , title: '600 pixels wide' },
+        { width:    '500' , title: '500 pixels wide' },
+        { width:    '400' , title: '400 pixels wide' },
+        { width:    '300' , title: '300 pixels wide' },
+        { width:    '200' , title: '200 pixels wide' },
+        { width:    '100' , title: '100 pixels wide' }
       ]
 
       # Image file upload size limit

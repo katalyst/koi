@@ -1,4 +1,5 @@
 //= require ./common
+//= require ./ckeditor
 //= require bootstrap
 
 ! function () {
