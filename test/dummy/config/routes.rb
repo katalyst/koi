@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :categories do
+    resources :products
+  end
+
   resources :users, path: :members
   resources :pages
   resources :assets
