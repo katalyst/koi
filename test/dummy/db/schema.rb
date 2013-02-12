@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211061119) do
+ActiveRecord::Schema.define(:version => 20130212061828) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(:version => 20130211061119) do
   end
 
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
+
+  create_table "exits", :force => true do |t|
+    t.text     "page_path"
+    t.integer  "pageviews"
+    t.integer  "unique_pageviews"
+    t.integer  "exits"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "nav_items", :force => true do |t|
     t.string   "type"
@@ -128,6 +137,13 @@ ActiveRecord::Schema.define(:version => 20130211061119) do
 
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
+  create_table "related_products", :id => false, :force => true do |t|
+    t.integer  "product_a_id", :null => false
+    t.integer  "product_b_id", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "reports", :force => true do |t|
     t.integer  "visits"
     t.integer  "unique_pageviews"
@@ -142,6 +158,20 @@ ActiveRecord::Schema.define(:version => 20130211061119) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "url"
+    t.string   "meta_title"
+    t.text     "meta_description"
+    t.integer  "set_id"
+    t.string   "set_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "settings", ["set_id"], :name => "index_settings_on_set_id"
+  add_index "settings", ["set_type"], :name => "index_settings_on_set_type"
+  add_index "settings", ["url"], :name => "index_settings_on_url"
 
   create_table "super_heros", :force => true do |t|
     t.string   "name"
