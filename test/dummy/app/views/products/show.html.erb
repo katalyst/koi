@@ -48,8 +48,10 @@
   <strong>Colour</strong>
   <%= @product.colour %>
 </p>
-
+<p>
+  <strong>Related Products</strong>
+  <%= raw @product.products.collect { |p| link_to(p, category_product_path(@category, p)) }.to_sentence %>
+</p>
 <p>
   <%= link_to "View All", category_products_path(@category) %>
 </p>
-
