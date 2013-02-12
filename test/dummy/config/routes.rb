@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :products
+
   constraints :subdomain => "mobile" do
     scope :module => "mobile", :as => "mobile" do
       resources :pages
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :categories do
-    resources :products
+    resources :products, except: [:new, :create, :edit, :update, :destroy]
   end
 
   resources :users, path: :members
