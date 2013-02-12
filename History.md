@@ -1,7 +1,26 @@
 
-1.0.0 / 2013-02-05
+1.1.0 / 13-02-2013
 ==================
 
+  * Merge branch 'v1.0.0.beta' into v1.0.0
+  * Added related products to product
+  * Added views for product index and show
+  * Added validation to almost all fields for products
+  * Changed Assets image sizes, disabled orderable on category
+  * Updated schema
+  * Updated rails and rack versions due to a security fix
+  * Updated rails and rack versions due to a security fix
+  * Fixed form field partial
+  * Added categories and products frontend
+  * Modified products page
+  * Updated category model formatting
+  * Changed ruby 1.9.2 to 1.9.3
+  * Added gemfile lock
+  * Merge branch '1.0.0/ckeditor' into v1.0.0
+  * Style properties surgery for CKEditor.
+  * Merge pull request #50 from katalyst/1.0.0.beta/hotfix/nestedFields
+  * Trim for HTML else jQ treats as expr.
+  * Added basic changelog
   * Merge branch 'v1.0.0.beta' of github.com:katalyst/koi into v1.0.0.beta
   * Merge branch '1.0.0.beta/navigator' into v1.0.0.beta
   * Tifying up navigator.
@@ -11,10 +30,24 @@
   * Revert "Replace partial lookup rescue blocks."
   * Merge branch 'v1.0.0.beta' of github.com:katalyst/koi into v1.0.0.beta
   * Merge branch 'v1.0.0.beta' into 1.0.0.beta/navigator
+  * Updated things.
   * Merge pull request #46 from katalyst/change/pow
   * Added browser shim.
   * Added version file
   * Merge pull request #47 from katalyst/change/partial-lookups
+  * Quick fix for link target.
+  * Replaced media embedder.
+  * Fixed tagify styles.
+  * Fixed problem with nestedFields.
+  * Source tidying.
+  * Wysiwyg updates.
+  * Tweaks.
+  * CKEditor updates based on feedback.
+  * Asset manager tweaks.
+  * Editor tweaks.
+  * Editor tweaks.
+  * Merge branch '1.0.0.beta/jquery/1.9' into 1.0.0.beta/ckeditor
+  * Added CKEditor back in.
   * Updated bbq.
   * Updated bowerbird_v2.
   * More space for wysiwyg dialogz.
