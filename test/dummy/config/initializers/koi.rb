@@ -15,3 +15,9 @@ Koi::Settings.collection = {
 Koi::Settings.resource = {
   banners: { label: "Banners", field_type: "images" }
 }
+
+Koi::Asset::Image.sizes = [
+  { width:    '200' , title: '200 pixels wide' },
+  { width:    '400' , title: '400 pixels wide' },
+  { width:    '600' , title: '600 pixels wide' }
+]
