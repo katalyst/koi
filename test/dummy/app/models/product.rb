@@ -1,3 +1,5 @@
+require 'pry'
+
 class Product < ActiveRecord::Base
 
   has_crud orderable: true
@@ -13,7 +15,16 @@ class Product < ActiveRecord::Base
   Countries = ["Australia", "France", "Germany", "Greece"]
   Colours = ["Red", "Blue", "Green"]
 
-  validates :name, presence: true
+  validates :name, :short_description, :description,
+            :publish_date, :launch_date, :genre_list,
+            :banner, :manual, :size, :colour,
+            presence: true
+
+  validate :at_least_one_country
+
+  def at_least_one_country
+    errors.add :countries, "Please select at least one country" if countries.blank? || countries.reject(&:blank?).compact.empty?
+  end
 
   crud.config do
     fields launch_date: { type: :date },
