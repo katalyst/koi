@@ -1,10 +1,15 @@
-require 'pry'
-
 class Product < ActiveRecord::Base
 
   has_crud orderable: true
+
   belongs_to :category
+
   has :many, attributed: :images, orderable: true
+  has_and_belongs_to_many :products,
+    join_table: "related_products",
+    foreign_key: "product_a_id",
+    association_foreign_key: "product_b_id"
+
   acts_as_taggable_on :genre
   serialize :countries
 
@@ -35,14 +40,15 @@ class Product < ActiveRecord::Base
            countries: { type: :check_boxes, data: Countries },
            colour: { type: :radio, data: Colours },
            banner: { type: :image },
-           manual: { type: :file }
+           manual: { type: :file },
+           products: { type: :association, as: :check_boxes }
 
     config :admin do
       index fields: [:name]
       form  fields: [:name, :short_description, :description,
                      :publish_date, :launch_date, :genre_list,
                      :banner, :manual, :size, :countries,
-                     :colour, :active, :images]
+                     :colour, :active, :products, :images]
     end
   end
 
@@ -51,4 +57,3 @@ class Product < ActiveRecord::Base
   end
 
 end
-
