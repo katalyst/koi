@@ -32,8 +32,6 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
 gem 'unicorn'
 
 gem_group :development do
-  # Ruby debugger
-  gem 'ruby-debug19'            , :require => 'ruby-debug'
   # Engineyard
   gem 'engineyard'
   # Console
