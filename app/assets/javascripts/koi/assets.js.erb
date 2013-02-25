@@ -29,7 +29,7 @@ $ (function ()
     , unique_names   : false
     , browse_button  : 'upload-button-browse'
     , container      : 'upload-form'
-    , flash_swf_url  : '/assets/etc/plupload.swf'
+    , flash_swf_url  : '/assets/koi/etc/plupload.flash.swf'
     , filters        : [ { title: "Assets", extensions: jsData.acceptedExtensions } ]
     })
 
@@ -52,7 +52,7 @@ $ (function ()
       $.each (files, function (i, file) 
      {
         $fileList.append
-          ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +'</div>')
+          ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
       })
       uploader.refresh ()
     })
@@ -72,7 +72,6 @@ $ (function ()
       $fileList.append
         ("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>")
       uploader.refresh ()
-      location.reload () // for IE... hopefully the upload worked!
     })
 
     uploader.bind ('FileUploaded', function (up, file, response) 
