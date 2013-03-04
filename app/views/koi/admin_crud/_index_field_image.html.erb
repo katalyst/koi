@@ -1,1 +1,2 @@
-<%= image_tag object.send(attr).thumb('x80').url %>
+<% image = object.send attr %>
+<%= image_tag image.thumb('x80').url if image %>
