@@ -1,3 +1,8 @@
-<%= f.association attr.to_sym, as: resource_class.crud.find(:fields, attr, :as) unless resource.new_record? %>
+<% unless resource.new_record? %>
 
-<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+  <%= f.association attr.to_sym, as: (resource_class.crud.find :fields, attr, :as),
+                       label_method: (resource_class.crud.find :fields, attr, :as or :to_s) %>
+
+  <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+
+<% end %>
