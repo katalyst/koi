@@ -53,7 +53,7 @@ class NavItem < ActiveRecord::Base
     "key_#{id}"
   end
 
-  def options env = binding()
+  def options env = @@binding
     hash                   = {}
     hash[:if]              = Proc.new { eval self.if                                                     , env  } if self.if.present?
     hash[:unless]          = Proc.new { eval self.unless                                                 , env  } if self.unless.present?
