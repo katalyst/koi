@@ -122,7 +122,7 @@
       contents = unescape_html_tags(contents);
     }
 
-    var newItem = $(contents.replace(regexp, newId));
+    var newItem = $(contents.replace(regexp, newId).trim ());
     newItem.attr('data-new-record', true);
     newItem.attr('data-record-id', newId);
 
@@ -132,6 +132,7 @@
   }
 
   function insertItemWithCallbacks(onInsertCallback, options) {
+
     var newItem = prepareTemplate(options);
 
     function insert() {
