@@ -12,7 +12,7 @@
 <%#= form_path.length %>
 <%#= form_path %>
 
-<%= simple_form_for form_path, html: { multipart: true , class: 'form-vertical' }  do |f| %>
+<%= simple_form_for form_path, html: { multipart: true, autocomplete: 'off', class: 'form-vertical' }  do |f| %>
   <%= render "form_parent",  { :f => f } %>
   <%= render "form_errors",  { :f => f } %>
   <%= render "form_fields",  { :f => f } %>
