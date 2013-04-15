@@ -1,13 +1,13 @@
-# Setup rvm
-create_file '.rvmrc', <<-END
-rvm use ruby-1.9.2-p290@koi-gem --create
+# Add .ruby-version for RVM/RBENV.
+create_file '.ruby-version', <<-END
+1.9.2-p290@koi-gem
 END
 
-# Setup pow
+# Add .powrc for RVM users.
 create_file '.powrc', <<-END
-if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".rvmrc" ]; then
+if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".ruby-version" ]; then
   source "$rvm_path/scripts/rvm"
-  source ".rvmrc"
+  rvm use `cat .ruby-version`
 fi
 END
 
