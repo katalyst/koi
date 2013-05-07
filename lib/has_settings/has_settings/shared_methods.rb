@@ -4,6 +4,12 @@ module HasSettings
       Setting.where(prefix: settings_prefix)
     end
 
+    def settings_hash
+      settings.each_with_object Hash.new do |setting, hash|
+        hash[setting.key.to_sym] = setting.value unless setting.value.blank?
+      end
+    end
+
     def setting(key, default=nil)
       options = {
         key:    key.to_s,

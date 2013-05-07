@@ -5,6 +5,26 @@ module Koi::NavigationHelper
 
   class Navigator < OpenStruct
 
+    class Settings < OpenStruct
+
+      def initialize navigator, *properties
+        super properties.pop until properties.empty?
+        @navigator = navigator
+      end
+
+      attr_accessor :navigator
+
+      def parent
+        navigator.parent.settings if navigator.parent
+      end
+
+      def method_missing key, *sig, &blk
+        return super if /=$/ === key
+        return send :"#{ key }=", parent.send(key, *sig, &blk) if parent
+      end
+
+    end
+
     def to_s
       title
     end
@@ -17,12 +37,15 @@ module Koi::NavigationHelper
       title
     end
 
-    def initialize *etc, &filter
-      super etc.extract_options! while Hash === etc.last
-      filter_if       = Proc === self.if     ? self.if     : proc { |arg| true  }
-      filter_unless   = Proc === self.unless ? self.unless : proc { |arg| false }
-      self.filter   ||= proc { |arg| filter_if[arg] && ! filter_unless[arg] } # doesn't work for some reason...
-      self.template ||= etc.shift
+    def initialize template, *properties
+      super properties.pop until properties.empty? # shift (which is more desirable) doesn't work for some reason...
+      @template ||= template
+    end
+
+    attr_accessor :template
+
+    def settings
+      @settings ||= Settings.new self, super
     end
 
     def request
@@ -33,98 +56,120 @@ module Koi::NavigationHelper
       ancestors.first
     end
 
+    def root?
+      parent.nil?
+    end
+
     def children
-      @children ||= case super
-      when Array
-        super.map do |child|
-          case child
-          when Navigator
-            child
-          when Hash
-            nav = Navigator.new template, child, &filter
-            nav.parent = self
-            nav
-          end
-        end.select &:is_navigable?
-      else
-        []
-      end
+       @children ||= case super
+       
+       when Array
+         super.map do |child|
+           case child
+           when Navigator then child
+           when Hash then Navigator.new template, child.merge(parent: self)
+           end
+         end
+       
+       else []
+       end
+    end
+
+    def visible_children
+      @visible_children ||= children.select &:is_visible?
     end
 
     def self_and_children
       @self_and_children ||= [self] + children
     end
 
+    def self_and_visible_children
+      @self_and_visible_children ||= [self] + visible_children
+    end
+
     def ancestors
-      @ancestors ||= (parent ? parent.ancestors + [parent] : []).drop_while(&:isnt_navigable?)
+      @ancestors ||= parent ? parent.ancestors + [parent] : []
     end
 
-    def self_and_ancestors
-      @self_and_ancestors ||= ancestors + [self]
+    def visible_ancestors
+      @visible_ancestors ||= ancestors.drop_while &:is_hidden?
     end
 
-    def self_and_descendants
-      @self_and_descendants ||= [self] + descendants
+    def ancestors_and_self
+      @ancestors_and_self ||= ancestors + [self]
+    end
+
+    def self_and_visible_ancestors
+      @self_and_visible_ancestors ||= visible_ancestors + [self]
     end
 
     def descendants
       @descendants ||= children + children.map(&:descendants).flatten
     end
 
-    def highlight
-      @highlight ||= highlight!
+    def visible_descendants
+      @visible_descendants ||= visible_children + visible_children.map(&:descendants).flatten
     end
 
-    def highlight!
-      @highlight  = 00000
-      @highlight += 10000 if instance_exec url, &highlights_on if Proc === highlights_on
-      @highlight += 00100 if url == request.fullpath
-      @highlight += 00001 if url == request.path
-      @highlight *= level
-      @highlight
+    def self_and_descendants
+      @self_and_descendants ||= [self] + descendants
+    end
+
+    def self_and_visible_descendants
+      @self_and_visible_descendants ||= [self] + visible_descendants
+    end
+
+    def negative_highlight
+      @negative_highlight ||= -highlight
+    end
+
+    def highlight
+      @highlight ||= begin
+        score  = 00000
+        score += 10000 if instance_exec url, &highlights_on if Proc === highlights_on
+        score += 00100 if url == request.fullpath
+        score += 00001 if url == request.path
+        score *= level
+        score
+      end
+    end
+
+    def is_highlighted?
+      highlight > 0
     end
 
     def path_highlight
       @path_highlight ||= ([highlight] + children.map(&:path_highlight)).max
     end
 
-    def negative_highlight
-      - highlight
-    end
-
-    def is_highlighted?
-      @is_highlighted ||= highlight > 0
-    end
-
     def is_path_highlighted?
-      @is_path_highlighted ||= path_highlight > 0
+      path_highlight > 0 && (root? || path_highlight == root.path_highlight)
     end
 
     alias_method :on?, :is_path_highlighted?
 
     def is_mobile?
-      @is_mobile
+      !!@is_mobile
     end
 
     def is_path_mobile?
-      @is_path_mobile = is_mobile? || parent && parent.is_path_mobile? if @is_path_mobile.nil?
-      @is_path_mobile
+      is_mobile? || children.any?(&:is_path_mobile?)
     end
 
     def is_hidden?
-      !! is_hidden
+      !is_visible?
     end
 
     def is_visible?
-      ! is_hidden?
+      !is_hidden && if? && !unless? && (!template.is_mobile_agent? || is_path_mobile?)
     end
 
-    def is_navigable?
-      is_visible? && instance_exec(&filter)
+    def if?
+      Proc === self.if ? template.instance_eval(&self.if) : true
     end
 
-    def isnt_navigable?
-      ! is_navigable?
+    def unless?
+      Proc === self.unless ? template.instance_eval(&self.unless) : false
     end
 
     def level
@@ -132,19 +177,19 @@ module Koi::NavigationHelper
     end
 
     def depth
-      @depth ||= - level
+      @depth ||= -level
     end
 
-    def you_are_elle
+    def path_url
       return url unless url.blank? || url == "#"
-      return children.first.you_are_elle unless children.empty?
+      return children.first.path_url unless children.empty?
     end
 
     def link_to *sig
       opt = sig.extract_options!
       opt.keys.grep(/\!$/).each { |key| o = opt.delete(key) and send key.to_s.gsub /!$/, "?" and opt.merge! o }
       opt.keys.grep(/\?$/).each { |key| o = opt.delete(key) and send key and opt.merge_html! o }      
-      template.link_to title, you_are_elle, opt
+      template.link_to title, path_url, opt
     end
 
     def content_tag *sig, &blk
@@ -156,4 +201,3 @@ module Koi::NavigationHelper
 
   end
 end
-

@@ -81,6 +81,12 @@ module HasCrud
           end
         end
 
+        def settings_hash
+          settings.each_with_object Hash.new do |setting, hash|
+            hash[setting.key.to_sym] = setting.value unless setting.value.blank?
+          end
+        end
+
         def settings_prefix
           return nil unless is_settable?
           return @settings_prefix if @settings_prefix

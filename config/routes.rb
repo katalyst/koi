@@ -32,6 +32,7 @@ Koi::Engine.routes.draw do
   resources :settings
   resources :pages
   resources :admins, path: :site_users
+  resources :root_nav_items
   resources :module_nav_items
   resources :folder_nav_items
   resources :alias_nav_items
