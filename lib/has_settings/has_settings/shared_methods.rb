@@ -5,9 +5,11 @@ module HasSettings
     end
 
     def settings_hash
-      settings.each_with_object Hash.new do |setting, hash|
+      hash = settings.each_with_object Hash.new do |setting, hash|
         hash[setting.key.to_sym] = setting.value unless setting.value.blank?
       end
+      hash.reverse_merge! self.class.settings_hash if self.class.respond_to? :settings_hash
+      hash
     end
 
     def setting(key, default=nil)

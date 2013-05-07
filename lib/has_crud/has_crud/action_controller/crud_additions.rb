@@ -82,8 +82,13 @@ module HasCrud
         end
 
         def settings_hash
-          settings.each_with_object Hash.new do |setting, hash|
-            hash[setting.key.to_sym] = setting.value unless setting.value.blank?
+          return {} unless is_settable?
+          return @settings_hash if @settings_hash
+
+          begin
+            @settings_hash = resource.settings_hash
+          rescue ::ActiveRecord::RecordNotFound
+            @settings_hash = resource_class.settings_hash
           end
         end
 
