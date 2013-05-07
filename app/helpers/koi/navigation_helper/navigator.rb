@@ -99,7 +99,7 @@ module Koi::NavigationHelper
       @ancestors_and_self ||= ancestors + [self]
     end
 
-    def self_and_visible_ancestors
+    def visible_ancestors_and_self
       @self_and_visible_ancestors ||= visible_ancestors + [self]
     end
 

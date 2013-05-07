@@ -34,7 +34,7 @@ module Koi::NavigationHelper
   # breadcrumbs is the trail from the root node leading up to the highlighted breadcrumb
   # 
   def breadcrumbs
-    @breadcrumbs ||= breadcrumb.ancestors_and_self
+    @breadcrumbs ||= breadcrumb.visible_ancestors_and_self
   end
 
   # breadcrumb is the most highlighted NavItem in the sitemap, which is determined heuristally
