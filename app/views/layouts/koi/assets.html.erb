@@ -17,20 +17,23 @@
         </div>
       </header>
 
-      <nav class="bg-mediumgrey pad-t-2 pad-b-1 span24">
-        <div class="space-l-2">
-          <p class="pull-left">Filter:</p>
+      <nav class="bg-mediumgrey pad-t-2 span24">
+        <div class="space-l-2 space-r-2">
           <ul class="unmarked-list floated-l-list spaced-l-list pull-left space-l-0">
 
-            <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
             <li>
+              Filter:
+            </li>
+
+            <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
+            <li class="space-b-1">
               <%= link_to "All", { tags: nil }, class: "#{"black" if @tags.empty?} btn btn-mini" %>
             </li>
 
             <% @all_tags.each do |tag| %>
 
               <% selected = @tags.include? tag %>
-              <li>
+              <li class="space-b-1">
                 <%= link_to tag.to_s, params.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: "#{"black" if selected} btn btn-mini" %>
               </li>
 
@@ -44,7 +47,7 @@
       <div class="span24 bg-lightgrey">
 
         <div class="row">
-          <div class="span18 h-600" style="padding-right:10px;overflow:auto;">
+          <div class="span18 h-700" style="padding-right:10px;overflow:auto;">
             <nav>
               <div class ="pad-1 clearfix">
                 <div class="pull-left space-l-1"><%= pluralize collection.size, resource_class.name %></div>
@@ -117,7 +120,7 @@
               </table>
             </div>
           </div>
-          <div class="asset-manager-bg-darkgrey span6 h-600" style="margin-left:0;">
+          <div class="asset-manager-bg-darkgrey span6 h-700" style="margin-left:0;overflow:auto;">
             <%= content_for?(:assets) ? yield(:assets) : yield %>
           </div>
         </div>
