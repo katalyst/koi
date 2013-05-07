@@ -65,7 +65,7 @@ module Koi::NavigationHelper
       navs = nav_items.map do |nav_item|
         hash = nav_item.to_hashish binding()
         hash[:settings] ||= {}
-        hash[:settings].merge! controller.settings_hash
+        hash[:settings].merge! controller.settings_hash if controller.respond_to? :settings_hash
         Navigator.new self, hash
       end
       
