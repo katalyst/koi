@@ -521,7 +521,7 @@
 					},
 						{
 						id: 'txtAlt',
-						type: 'text',
+						type: 'textarea',
 						label: editor.lang.image.alt,
 						accessKey: 'T',
 						'default': '',
