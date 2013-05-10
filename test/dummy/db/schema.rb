@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509064024) do
+ActiveRecord::Schema.define(:version => 20130510003025) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -241,6 +241,14 @@ ActiveRecord::Schema.define(:version => 20130509064024) do
   end
 
   add_index "translations", ["locale", "prefix", "key"], :name => "index_translations_on_locale_and_prefix_and_key", :unique => true
+
+  create_table "url_rewrites", :force => true do |t|
+    t.text     "from"
+    t.text     "to"
+    t.boolean  "active",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

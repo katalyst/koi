@@ -37,4 +37,5 @@ Rails.application.routes.draw do
   root to: "pages#index"
 
   mount Koi::Engine => "/admin", as: "koi_engine"
+  match '*path' => 'url_rewrites#redirect'
 end
