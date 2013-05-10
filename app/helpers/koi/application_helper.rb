@@ -56,7 +56,7 @@ module Koi::ApplicationHelper
   def is_koi_core_class?(klass)
     ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem",
-     "FriendlyIdSlug"].include? klass.name
+     "FriendlyIdSlug", "UrlRewrite"].include? klass.name
   end
 
   def ancestor_controllers
