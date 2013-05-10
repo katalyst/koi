@@ -5,7 +5,8 @@ Koi::Menu.items = {
   "Admins" => "/admin/site_users",
   "News" => "/admin/news_items",
   "Categories" => "/admin/categories",
-  "URL History" => "/admin/friendly_id_slugs"
+  "URL History" => "/admin/friendly_id_slugs",
+  "URL Rewriter" => "/admin/url_rewrites"
 }
 
 Koi::Settings.collection = {
