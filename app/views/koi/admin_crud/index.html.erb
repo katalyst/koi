@@ -43,7 +43,37 @@
 
   <% if is_settable? %>
     <div class="tab-pane" id="tab-settings">
-      <%= render 'koi/settings/settings' %>
+
+      <% 
+
+      ActiveRecord::Relation.class_eval do
+
+        def to_key
+          ['daewoo']
+        end
+
+      end
+
+
+        class << ActiveRecord::Relation
+
+          def model_name
+            @model_name ||= ActiveModel::Name.new self, nil, attr
+          end
+
+        end
+
+
+
+
+
+
+       %>
+
+      <%= simple_form_for collection, url: collection_path do |f| %>
+        <%= render 'koi/settings/settings_fields', f: f %>
+      <% end %>
+
     </div>
   <% end %>
 </div>

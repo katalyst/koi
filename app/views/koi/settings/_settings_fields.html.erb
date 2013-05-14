@@ -1,0 +1,17 @@
+<% settings.each_with_index do |setting, i| %>
+  <%= f.fields_for :settings_attributes, setting do |f| %>
+    
+    <% f.object_name << "[#{ i }]" %>
+    <%#= ^ A hack, but neither `index` or `child_index`
+         are propogated down through other nested fields... %>
+    
+    <h3><%= f.object.label %></h3>
+    <hr>
+
+    <%= render "koi/translations/form_fields", f: f %>
+
+    <div class="space-b-3"></div>
+
+
+  <% end %>
+<% end %>

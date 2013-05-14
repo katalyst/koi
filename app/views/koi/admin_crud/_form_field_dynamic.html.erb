@@ -1,0 +1,12 @@
+<% resource = f.object %>
+
+<%=
+  begin
+    render "form_field_#{ resource.field_type }", :f => f, :attr => attr
+  rescue ActionView::MissingTemplate
+    render "form_field_default", :f => f, :attr => attr
+  end
+%>
+<% if !current_admin.god? && !f.object.hint.blank? %>
+  <p><%= f.object.hint %></p>
+<% end %>

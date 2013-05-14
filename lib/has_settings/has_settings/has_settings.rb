@@ -33,6 +33,12 @@ module HasSettings
       end
     end
 
+    def settings_attributes= hash
+      hash.each do |idx, val|
+        settings[idx.to_i].update_attributes hash[idx] rescue nil
+      end
+    end
+
     include SharedMethods
   end
 end
