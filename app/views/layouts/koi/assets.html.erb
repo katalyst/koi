@@ -47,7 +47,7 @@
       <div class="span24 bg-lightgrey">
 
         <div class="row">
-          <div class="span18 h-700" style="padding-right:10px;overflow:auto;">
+          <div class="span18 h-550" style="padding-right:10px;overflow:auto;">
             <nav>
               <div class ="pad-1 clearfix">
                 <div class="pull-left space-l-1"><%= pluralize collection.size, resource_class.name %></div>
@@ -120,7 +120,7 @@
               </table>
             </div>
           </div>
-          <div class="asset-manager-bg-darkgrey span6 h-700" style="margin-left:0;overflow:auto;">
+          <div class="asset-manager-bg-darkgrey span6 h-550" style="margin-left:0;overflow-x:none;">
             <%= content_for?(:assets) ? yield(:assets) : yield %>
           </div>
         </div>
