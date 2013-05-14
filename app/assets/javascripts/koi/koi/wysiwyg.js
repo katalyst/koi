@@ -11,7 +11,7 @@ jQuery (function ($)
                             , filebrowserImageBrowseLinkUrl : '/admin/documents'
                             , filebrowserImageUploadLinkUrl : '/admin/documents'
                             , filebrowserWindowWidth        : 950
-                            , filebrowserWindowHeight       : 780
+                            , filebrowserWindowHeight       : 750
                             })
   }
 
