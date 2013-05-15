@@ -13,8 +13,9 @@ module HasSettings
     end
 
     def settings_attributes= hash
-      hash.each do |idx, val|
-        settings[idx.to_i].update_attributes hash[idx] rescue nil
+      hash.values.each do |val|
+        id = val.delete :id
+        Setting.find(id.to_i).update_attributes! val
       end
     end
 

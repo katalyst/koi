@@ -4,10 +4,11 @@
     <% f.object_name << "[#{ i }]" %>
     <%#= ^ A hack, but neither `index` or `child_index`
          are propogated down through other nested fields... %>
-    
-    <h3><%= f.object.label %></h3>
+    <br>
+    <h4><%= f.object.label %></h4>
     <hr>
 
+    <%= f.input :id, as: :hidden %>
     <%= render "koi/translations/form_fields", f: f %>
 
     <div class="space-b-3"></div>

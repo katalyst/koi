@@ -29,7 +29,9 @@ Koi::Engine.routes.draw do
   resources :translations, path: :site_settings do
     get :seed, on: :collection
   end
-  resources :settings
+  resources :settings do
+    collection { post 'bulk_create_or_update' }
+  end
   resources :pages
   resources :admins, path: :site_users
   resources :root_nav_items

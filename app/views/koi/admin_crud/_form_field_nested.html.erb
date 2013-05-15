@@ -14,7 +14,7 @@
     data-attribute="<%= attr %>">
 
   <fieldset>
-    <h4><%= attr.to_s.gsub("_", " ").titleize %></h4>
+    <label class="string optional control-label"><%= attr.to_s.gsub("_", " ").titleize %></label>
 
     <div class="<%= html %> <%= "sortable fields" if association.is_orderable? %> nested-fields-container space-t-2">
       <%= f.nested_fields_for attr,

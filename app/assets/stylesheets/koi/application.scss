@@ -217,3 +217,6 @@ span + .ui-autocomplete-input { margin-top:10px; }
 }
 
 .cke_button__source_label { display:none !important; }
+
+.tab-content > .tab-pane { display:block; position:absolute; left:-99999px; }
+.tab-content > .tab-pane.active { position:static; }

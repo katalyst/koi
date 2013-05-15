@@ -19,9 +19,10 @@
         <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
         <li><a href="#god_settings" data-toggle="tab">God</a></li>
       <% end %>
+      <li><a href="#settings" data-toggle="tab">Settings</a></li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane active" id="basic_settings">
+      <div class="tab-pane" id="basic_settings">
         <%= render "form_fields", { f: f } %>
       </div>
       <% if current_admin.god? %>
@@ -32,6 +33,9 @@
           <%= render "god_form_fields", { f: f } %>
         </div>
       <% end %>
+      <div class="tab-pane active" id="settings">
+        <%= render "koi/settings/settings_fields", { f: f } %>
+      </div>
     </div>
     <div>
     <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
@@ -49,4 +53,3 @@
   </div>
 
 <% end %>
-

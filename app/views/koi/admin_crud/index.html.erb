@@ -44,7 +44,9 @@
   <% if is_settable? %>
     <div class="tab-pane" id="tab-settings">
 
-      <%= simple_form_for collection, url: [:set, :admin, resource_class] do |f| %>
+      <%= simple_form_for Setting.new, url: koi_engine.bulk_create_or_update_settings_path do |f| %>
+        <% f.object_name = f.object_name.pluralize %>
+
         <%= render 'koi/settings/settings_fields', f: f %>
         <%= f.submit "Save", class: "btn btn-primary" %>
       <% end %>

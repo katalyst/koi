@@ -15,15 +15,20 @@ module HasCrud
       end
 
       module InstanceMethods
-        
-        def set
-          resource_class.settings_attributes = params[:class][:settings_attributes]
-          if resource_class.settings.all? { |setting| setting.errors.empty? }
-            redirect_to action: :index
-          else
-            render action: :index 
-          end
-        end
+
+        # The collection action `set` has been moved to the settings_controller
+        # as `bulk_create_or_update`. It's slightly more convenient this way
+        # since collection { post :set } doesn't need to be added to each
+        # controller.
+        #                
+        # def set
+        #   resource_class.settings_attributes = params[:class][:settings_attributes]
+        #   if resource_class.settings.all? { |setting| setting.errors.empty? }
+        #     redirect_to action: :index
+        #   else
+        #     render action: :index 
+        #   end
+        # end
 
         def sort
           order = params[singular_name(:symbol)]
