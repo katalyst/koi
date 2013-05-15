@@ -15,6 +15,16 @@ module HasCrud
       end
 
       module InstanceMethods
+        
+        def set
+          resource_class.settings_attributes = params[:class][:settings_attributes]
+          if resource_class.settings.all? { |setting| setting.errors.empty? }
+            redirect_to action: :index
+          else
+            render action: :index 
+          end
+        end
+
         def sort
           order = params[singular_name(:symbol)]
           resource_class.orderable(order)
