@@ -7,7 +7,11 @@ module Koi
     end
 
     def create
-      create! { resource.prefix.present? ? request.referer : { action: :index } }
+      create! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
+    end
+
+    def update
+      update! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
     end
 
     def bulk_create_or_update
@@ -19,7 +23,7 @@ module Koi
         Setting.find(id.to_i).update_attributes! hash
       end
       
-      return redirect_to :back
+      return redirect_to :back + '#tab-settings'
     end
 
   end
