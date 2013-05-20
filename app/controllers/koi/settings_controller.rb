@@ -7,11 +7,11 @@ module Koi
     end
 
     def create
-      create! { resource.prefix.present? ? request.referer : { action: :index } }
+      create! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
     end
 
     def update
-      update! { resource.prefix.present? ? request.referer : { action: :index } }
+      update! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
     end
 
   end
