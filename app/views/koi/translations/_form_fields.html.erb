@@ -1,14 +1,26 @@
 <% resource = f.object %>
-<% resource_class = resource.class %>
 
-<% resource.field_type ||= "string" %>
-<% resource.role ||= "Admin" %>
-<%- resource_class.admin_attributes(:form).each do |attr| -%>
-  <%- next if attr.eql?(:value) && resource.field_type.eql?("images") -%>
-  <%- next if attr.eql?(:images) && !resource.field_type.eql?("images") -%>
-  <%- next if !current_admin.god? && [:key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include?(attr) -%>
+<% if Translation === resource %>
+  <% resource.field_type ||= "string" %>
+  <% resource.role ||= "Admin" %>
+<% end %>
+
+<%- resource.class.admin_attributes(:form).each do |attr| -%>
+
+  <% if Translation === resource %>
+    <% if resource.field_type == "images" %>
+      <% next if attr == :value %>
+    <% else %>
+      <% next if attr == :images %>
+    <% end %>
+
+    <% unless current_admin.god? %>
+      <% next if [:label, :key, :interpolations, :role, :field_type, :is_proc, :is_required, :hint].include? attr %>
+    <% end %>
+  <% end %>
+
   <%=
-    assoc    = resource_class.reflect_on_association(attr)
+    assoc    = resource.class.reflect_on_association(attr)
     partial  = 'form_field'
     partial += '_nested' if assoc && !assoc.belongs_to? && assoc.is_nested?
     render partial, :f => f, :attr => attr

@@ -1,14 +1,11 @@
 <header class="titlebar">
   <h2 class="pad-t-1">
     <%= "#{resource.new_record? ? "Add" : "Edit"} Setting" %>
-
-    <!-- ALEX: originally had a close class which clashes with bootstrap -->
-    <!-- FIXME: Move the onclick modal close code to javascript file -->
     <a href="#" onclick="$('#modal-for-setting').modal('hide');" class="txt-orange pull-right space-r-2">&times;</a>
   </h2>
 </header>
 
-<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+<%= simple_form_for resource, html: { multipart: true, class: 'form-vertical' } do |f| %>
   <div class="tabbable space-1">
     <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
     <%= render "form_fields", { f: f } %>

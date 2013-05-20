@@ -220,3 +220,11 @@ span + .ui-autocomplete-input { margin-top:10px; }
 
 .tab-content > .tab-pane { display:block; position:absolute; left:-99999px; }
 .tab-content > .tab-pane.active { position:static; }
+
+.settings.fields.for-admin
+{
+  fieldset, .control-group
+  {
+    > label:first-child { display:none; }
+  }
+}

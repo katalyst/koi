@@ -3,7 +3,11 @@ module Koi
     defaults resource_class: Setting
 
     def new
-      @setting = Setting.new(prefix: params[:prefix])
+      @setting = Setting.new prefix: params[:prefix]
+    end
+
+    def create
+      create! { resource.prefix.present? ? request.referer : { action: :index } }
     end
 
     def bulk_create_or_update

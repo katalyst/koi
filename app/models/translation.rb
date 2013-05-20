@@ -1,12 +1,10 @@
 class Translation < ActiveRecord::Base
 
-  has_crud paginate: false, searchable: false,
-           orderable: false, settings: false
+  has_crud paginate: false, searchable: false, orderable: false, settings: false
 
   has :many, attributed: :images, orderable: true
 
-  validates :locale, :label, :key, :field_type,
-            :role, presence: true
+  validates :locale, :label, :key, :field_type, :role, presence: true
 
   # validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
 
@@ -15,7 +13,6 @@ class Translation < ActiveRecord::Base
   before_validation :set_default_values
 
   default_scope order("`key` ASC")
-  scope :non_prefixed, where("prefix IS NULL OR prefix = ''")
 
   FieldTypes = {
                  "String"    => "string",
@@ -46,6 +43,17 @@ class Translation < ActiveRecord::Base
   private
 
   def set_default_values
-    self.role ||= Admin.god
+    write_attribute :role, Admin.god if role.blank?
   end
+end
+class << Translation
+
+  def non_prefixed
+    where "translations.prefix IS NULL OR translations.prefix = ''"
+  end
+
+  def global
+    non_prefixed
+  end
+
 end

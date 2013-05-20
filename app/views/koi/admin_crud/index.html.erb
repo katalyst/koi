@@ -48,6 +48,7 @@
         <% f.object_name = f.object_name.pluralize %>
 
         <%= render 'koi/settings/settings_fields', f: f %>
+        <br>
         <%= f.submit "Save", class: "btn btn-primary" %>
       <% end %>
 
