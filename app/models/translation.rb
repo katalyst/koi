@@ -4,6 +4,14 @@ class Translation < ActiveRecord::Base
 
   has :many, attributed: :images, orderable: true
 
+  attr_reader :_destroy
+  
+  def _destroy= value
+    @_destroy = ActiveRecord::ConnectionAdapters::Column.value_to_boolean value
+  end
+
+  after_save :delete, if: :_destroy
+
   validates :locale, :label, :key, :field_type, :role, presence: true
 
   # validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
@@ -40,7 +48,7 @@ class Translation < ActiveRecord::Base
     field_type.eql?("images") ? images : read_attribute(:value)
   end
 
-  private
+private
 
   def set_default_values
     write_attribute :role, Admin.god      if role.blank?

@@ -6,25 +6,28 @@
 
   <% settings.each_with_index do |setting, i| %>
     <%= f.fields_for :settings_attributes, setting do |f| %>
-      
-      <% f.object_name << "[#{ i }]" %>
-      <%#= ^ A hack, but neither `index` or `child_index`
-           are propogated down through other nested fields... %>
-      <br>
-      
-      <% if current_admin.god? %>
-        <hr>
-        <h4><%= f.object.label %></h4>
+      <div role="fields wrapper">
+        <% f.object_name << "[#{ i }]" %>
+        <%#= ^ A hack, but neither `index` or `child_index`
+             are propogated down through other nested fields... %>
         <br>
-      <% else %>
-        <label class="control-label space-b-1"><%= f.object.label %></label>
-      <% end %>
+        
+        <% if current_admin.god? %>
+          <hr>
+          <a href="#" class="pull-right" rel="remove fields" style="">✖ delete</a>
+          <h4><%= f.object.label %></h4>
+          <br>
+        <% else %>
+          <label class="control-label space-b-1"><%= f.object.label %></label>
+        <% end %>
 
-      <%= f.input :id, as: :hidden %>
-      <%= render "koi/translations/form_fields", f: f %>
+        <%= f.input :_destroy, as: :hidden %>
+        <%= f.input :id, as: :hidden %>
+        <%= render "koi/translations/form_fields", f: f %>
 
-      <div></div>
+        <div></div>
 
+      </div>
     <% end %>
   <% end %>
 </div>
