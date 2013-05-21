@@ -2,16 +2,20 @@ module Koi
   class SettingsController < TranslationsController
     defaults resource_class: Setting
 
+    def back_path
+      resource.prefix.present? ? request.referer + '#tab-settings' : collection_path
+    end
+
     def new
       @setting = Setting.new prefix: params[:prefix]
     end
 
     def create
-      create! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
+      create! { back_path }
     end
 
     def update
-      update! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
+      update! { back_path }
     end
 
     def bulk_create_or_update
@@ -23,7 +27,7 @@ module Koi
         Setting.find(id.to_i).update_attributes! hash
       end
       
-      return redirect_to :back + '#tab-settings'
+      return redirect_to back_path
     end
 
   end
