@@ -3,7 +3,7 @@ module Koi
     defaults resource_class: Setting
 
     def back_path
-      resource.prefix.present? ? request.referer + '#tab-settings' : collection_path
+      request.referer + '#tab-settings'
     end
 
     def new
@@ -11,11 +11,11 @@ module Koi
     end
 
     def create
-      create! { back_path }
+      create! { resource.prefix.present? ? back_path : collection_path }
     end
 
     def update
-      update! { back_path }
+      update! { resource.prefix.present? ? back_path : collection_path }
     end
 
     def bulk_create_or_update

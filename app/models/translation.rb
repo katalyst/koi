@@ -43,8 +43,10 @@ class Translation < ActiveRecord::Base
   private
 
   def set_default_values
-    write_attribute :role, Admin.god if role.blank?
+    write_attribute :role, Admin.god      if role.blank?
+    write_attribute :field_type, 'string' if field_type.blank?
   end
+
 end
 class << Translation
 
