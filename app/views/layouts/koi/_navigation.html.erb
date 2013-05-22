@@ -5,7 +5,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Module <b class="caret"></b> </a>
     <ul class="dropdown-menu">
       <% Koi::Menu.items.each do |key, value| %>
-        <%= content_tag :li, link_to(key, value) %>
+        <%= content_tag :li, link_to(raw(key), value) %>
       <% end %>
     </ul>
   </li>
