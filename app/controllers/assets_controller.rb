@@ -1,10 +1,9 @@
 class AssetsController < Koi::CrudController
 
   def show
-    respond_to do |format|
-      format.html { super }
-      format.all { redirect_to data_path resource.data }
-    end
+    return super if params[:format].blank?
+    return super if /(x|ht)ml?|js/i === params[:format]
+    return redirect_to data_path resource.data
   end
 
   def data_path data
