@@ -4,7 +4,7 @@ class NavItem < ActiveRecord::Base
   after_touch  :touch_parent
 
   acts_as_nested_set
-  has_crud searchable: [:id, :title, :url], settings: true
+  has_crud searchable: [:id, :title, :url], settings: false
 
   crud.config do
     fields parent_id:     { type: :hidden },
