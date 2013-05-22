@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509064024) do
+ActiveRecord::Schema.define(:version => 20130510003025) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -57,15 +57,6 @@ ActiveRecord::Schema.define(:version => 20130509064024) do
   end
 
   add_index "categories", ["slug"], :name => "index_categories_on_slug", :unique => true
-
-  create_table "exits", :force => true do |t|
-    t.text     "page_path"
-    t.integer  "pageviews"
-    t.integer  "unique_pageviews"
-    t.integer  "exits"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -171,20 +162,6 @@ ActiveRecord::Schema.define(:version => 20130509064024) do
     t.datetime "updated_at",          :null => false
   end
 
-  create_table "settings", :force => true do |t|
-    t.string   "url"
-    t.string   "meta_title"
-    t.text     "meta_description"
-    t.integer  "set_id"
-    t.string   "set_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "settings", ["set_id"], :name => "index_settings_on_set_id"
-  add_index "settings", ["set_type"], :name => "index_settings_on_set_type"
-  add_index "settings", ["url"], :name => "index_settings_on_url"
-
   create_table "super_heros", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -241,6 +218,14 @@ ActiveRecord::Schema.define(:version => 20130509064024) do
   end
 
   add_index "translations", ["locale", "prefix", "key"], :name => "index_translations_on_locale_and_prefix_and_key", :unique => true
+
+  create_table "url_rewrites", :force => true do |t|
+    t.text     "from"
+    t.text     "to"
+    t.boolean  "active",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
