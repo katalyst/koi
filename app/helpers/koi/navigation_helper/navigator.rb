@@ -125,10 +125,11 @@ module Koi::NavigationHelper
 
     def highlight
       @highlight ||= begin
-        score  = 00000
-        score += 10000 if instance_exec url, &highlights_on if Proc === highlights_on
-        score += 00100 if url == request.fullpath
-        score += 00001 if url == request.path
+        score  =          0
+        score += 1000000000 if instance_exec url, &highlights_on if Proc === highlights_on
+        score +=    1000000 if url == request.fullpath
+        score +=       1000 if url == request.path
+        score += url.length if request.path.start_with? url
         score *= level
         score
       end
