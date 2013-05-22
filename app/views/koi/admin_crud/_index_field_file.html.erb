@@ -1,0 +1,11 @@
+<%
+  klass         = object.class
+  value         = object.send attr
+  kind          = klass.crud.find(:fields, attr, :type)
+%>
+
+<% unless value.nil? %>
+  <%= link_to attachment_image_tag(value, class: "media-object pull-left", width: 25, height: 25), value.url, :target => "_blank" %>
+<% else %>
+  No attached <%= kind %>
+<% end %>
