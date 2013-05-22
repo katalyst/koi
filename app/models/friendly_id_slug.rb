@@ -5,7 +5,7 @@ class FriendlyIdSlug < ActiveRecord::Base
   crud.config do
     config :admin do
       index fields: [:slug, :sluggable_id, :sluggable_type]
-      form  fields: [:slug]
+      form fields: [:slug, :sluggable_id, :sluggable_type]
     end
   end
 
