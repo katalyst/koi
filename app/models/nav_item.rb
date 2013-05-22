@@ -4,7 +4,7 @@ class NavItem < ActiveRecord::Base
   after_touch  :touch_parent
 
   acts_as_nested_set
-  has_crud searchable: [:id, :title, :url], settings: false
+  has_crud searchable: [:id, :title, :url], settings: true
 
   crud.config do
     fields parent_id:     { type: :hidden },
@@ -53,7 +53,7 @@ class NavItem < ActiveRecord::Base
     "key_#{id}"
   end
 
-  def options env = binding()
+  def options env = @@binding
     hash                   = {}
     hash[:if]              = Proc.new { eval self.if                                                     , env  } if self.if.present?
     hash[:unless]          = Proc.new { eval self.unless                                                 , env  } if self.unless.present?
@@ -88,7 +88,7 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
-  def to_hashish env = binding()
+  def to_hashish env = @@binding
     @@binding ||= env
     @to_hashish ||= begin
       hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
