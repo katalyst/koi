@@ -88,7 +88,7 @@ class NavItem < ActiveRecord::Base
     hash
   end
 
-  def to_hashish env = binding()
+  def to_hashish env = @@binding
     @@binding ||= env
     @to_hashish ||= begin
       hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
