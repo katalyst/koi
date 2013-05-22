@@ -32,7 +32,7 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       exportable true
       csv     except: [:image_name, :file_name]
-      index   fields: [:name]
+      index   fields: [:name, :image, :file]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
     end
