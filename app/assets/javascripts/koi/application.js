@@ -61,11 +61,10 @@
     return this
   }
 
-  on ('click', 'a[target=_overlay]', function ()
+  on ('click', 'a[target=_overlay]', function (event)
   {
-    var it = $ (this)
-    $.modal (it.attr ('href'))
-    return false
+    event.preventDefault ()
+    $.modal (this.href)
   })
 
   $.modal = function (path, ok)

@@ -1,4 +1,5 @@
 class Setting < Translation
+
   has_crud paginate: false, searchable: false, orderable: false, settings: false
 
   validates :locale, :label, :key, :field_type, :role, presence: true # , :prefix
@@ -19,4 +20,5 @@ class Setting < Translation
             title: { new: "Create new setting", edit: "Edit setting" }
     end
   end
+
 end
