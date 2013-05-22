@@ -1,1 +1,2 @@
-<%= render "form_field_file", :f => f, :attr => attr %>
+<% image = object.send attr %>
+<%= image_tag image.thumb('x80').url if image %>
