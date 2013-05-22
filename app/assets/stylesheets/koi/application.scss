@@ -88,7 +88,13 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .titlebar { background-color: #000; @include border-radius(4px 4px 0 0 ); border-bottom: 5px solid $orange; color: #FFF; margin: 0; padding: 15px 5px; }
 .titlebar h1 { font-size: 22px; border: none; line-height: 22px; }
 
+.h-800 { height: 800px; }
+.h-700 { height: 700px; }
+.h-610 { height: 610px; }
+.h-608 { height: 608px; }
 .h-600 { height: 600px; }
+.h-590 { height: 590px; }
+.h-550 { height: 550px; }
 .w-100 { width: 100px; }
 .w-560 { width: 560px; }
 .w-510 { width: 510px; }

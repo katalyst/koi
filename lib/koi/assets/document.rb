@@ -11,9 +11,14 @@ module Koi
 
       # Document mime types allowed for upload
       mattr_accessor :mime_types
-      @@mime_types = %w(application/pdf  application/doc
-                        application/docx application/xls
-                        application/xlsx application/ppt application/zip) + Image.mime_types
+      @@mime_types = %w(application/pdf
+                        application/doc
+                        application/docx
+                        application/xls
+                        application/xlsx
+                        application/msword
+                        application/ppt
+                        application/zip) + Image.mime_types
 
       mattr_accessor :icons
       @@icons = {
