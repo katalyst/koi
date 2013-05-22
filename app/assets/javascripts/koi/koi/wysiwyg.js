@@ -2,7 +2,7 @@ jQuery (function ($)
 {
   // Configuration ////////////////////////////////////////////////////////////
 
-  $ ('.wysiwyg.source').liveQuery (function ()
+  function wysiwyg ()
   {
     CKEDITOR.replace (this, { filebrowserBrowseUrl          : '/admin/documents'
                             , filebrowserUploadUrl          : '/admin/documents'
@@ -11,9 +11,16 @@ jQuery (function ($)
                             , filebrowserImageBrowseLinkUrl : '/admin/documents'
                             , filebrowserImageUploadLinkUrl : '/admin/documents'
                             , filebrowserWindowWidth        : 950
-                            , filebrowserWindowHeight       : 780
+                            , filebrowserWindowHeight       : 750
                             })
-  })
+  }
+
+  $.fn.wysiwyg = function ()
+  {
+    return this.each (wysiwyg)
+  }
+
+  $ ('.wysiwyg.source').liveQuery (wysiwyg)
 
   //////////////////////////////////////////////////////////// Configuration //
 

@@ -5,5 +5,14 @@ module Koi
     def new
       @setting = Setting.new(prefix: params[:prefix])
     end
+
+    def create
+      create! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
+    end
+
+    def update
+      update! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
+    end
+
   end
 end
