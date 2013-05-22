@@ -114,6 +114,7 @@ run 'bundle install'
 # Install Migrations
 rake 'koi:install:migrations'
 
+route "match '*path' => 'url_rewrites#redirect'"
 route "mount Koi::Engine => '/admin', as: 'koi_engine'"
 
 run 'rm public/index.html'
