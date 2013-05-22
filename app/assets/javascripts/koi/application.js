@@ -101,4 +101,12 @@
     })
   }
 
+  $ (function ()
+  {
+    switch (document.location.hash)
+    {
+      case '#tab-settings': $ ('[href=#tab-settings]').click ()
+    }
+  })
+
 } (jQuery);
