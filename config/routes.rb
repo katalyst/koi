@@ -31,6 +31,7 @@ Koi::Engine.routes.draw do
   end
   resources :settings
   resources :pages
+  resources :friendly_id_slugs
   resources :admins, path: :site_users
   resources :module_nav_items
   resources :folder_nav_items
