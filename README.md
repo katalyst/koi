@@ -5,7 +5,7 @@
 Run this to create a new app:
 
 ```bash
-  rails new my_app -d mysql -m https://raw.github.com/katalyst/koi/master/lib/templates/application/app.rb
+rails new my_app -d mysql -m https://raw.github.com/katalyst/koi/master/lib/templates/application/app.rb
 ```
 
 ## License
