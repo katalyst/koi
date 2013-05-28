@@ -75,7 +75,7 @@ class << Translation
     where "translations.prefix IS NULL OR translations.prefix = ''"
   end
 
-  def global
+  def globals
     non_prefixed
   end
 

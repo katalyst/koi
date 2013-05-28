@@ -4,11 +4,18 @@ module HasSettings
       Setting.where(prefix: settings_prefix)
     end
 
-    def settings_hash
+    def settings_hash_for settings
       hash = settings.each_with_object Hash.new do |setting, hash|
         hash[setting.key.to_sym] = setting.value unless setting.value.blank?
       end
       hash.reverse_merge! self.class.settings_hash if self.class.respond_to? :settings_hash
+      hash
+    end
+
+    def settings_hash
+      hash = settings_hash_for settings
+      hash.reverse_merge! self.class.settings_hash if self.class.respond_to? :settings_hash
+      hash.reverse_merge! settings_hash_for(Setting.globals)
       hash
     end
 
