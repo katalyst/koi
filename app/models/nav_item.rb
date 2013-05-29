@@ -92,18 +92,7 @@ class NavItem < ActiveRecord::Base
       return nil
     end
 
-    hash = {}
-
-    if content_block.blank?
-      hash = {
-        key:   nav_key,
-        name:  title,
-        url:   url,
-        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact
-      }
-    else
-      hash = eval(content_block, @@binding)
-    end
+    hash = setup_content(show_options)
 
     options.delete(:mobile)
 
@@ -148,6 +137,23 @@ class NavItem < ActiveRecord::Base
   end
 
   private
+
+  def setup_content(show_options)
+    hash = {}
+
+    if content_block.blank?
+      hash = {
+        key:   nav_key,
+        name:  title,
+        url:   url,
+        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact
+      }
+    else
+      hash = eval(content_block, @@binding)
+    end
+
+    hash
+  end
 
   def touch_parent
     parent.touch if parent
