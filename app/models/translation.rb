@@ -75,10 +75,6 @@ class << Translation
     where "translations.prefix IS NULL OR translations.prefix = ''"
   end
 
-  def globals
-    non_prefixed
-  end
-
   def admin
     where role: 'Admin'
   end

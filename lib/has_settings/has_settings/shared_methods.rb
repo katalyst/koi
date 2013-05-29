@@ -15,7 +15,7 @@ module HasSettings
     def settings_hash
       hash = settings_hash_for settings
       hash.reverse_merge! self.class.settings_hash if self.class.respond_to? :settings_hash
-      hash.reverse_merge! settings_hash_for(Setting.globals)
+      hash.reverse_merge! settings_hash_for(Setting.non_prefixed)
       hash
     end
 
