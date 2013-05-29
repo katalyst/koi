@@ -68,16 +68,6 @@ module HasCrud
           "#{path}_field_#{partial}"
         end
 
-        def settings_prefix
-          return nil unless is_settable?
-          return @settings_prefix if @settings_prefix
-
-          begin
-            @settings_prefix = resource.settings_prefix
-          rescue ::ActiveRecord::RecordNotFound
-            @settings_prefix = resource_class.settings_prefix
-          end
-        end
       end
     end
   end
