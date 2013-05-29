@@ -43,10 +43,25 @@ module HasCrud
 
       def setup_orderable
         if self.options[:orderable]
-          self.options[:ajaxable]   = false if self.options[:ajaxable].nil?
-          self.options[:searchable] = false if self.options[:searchable].nil?
-          self.options[:paginate]   = false if self.options[:paginate].nil?
-          self.options[:sortable]   = false if self.options[:sortable].nil?
+          # Disable search, pagination and sort by default
+          # as in order for orderable to work we need to
+          # show all records on one page
+          if self.options[:ajaxable].nil?
+            self.options[:ajaxable] = false
+          end
+
+          if self.options[:searchable].nil?
+            self.options[:searchable] = false
+          end
+
+          if self.options[:paginate].nil?
+            self.options[:paginate] = false
+          end
+
+          if self.options[:sortable].nil?
+            self.options[:sortable] = false
+          end
+
           scope :ordered, :order => 'ordinal ASC'
         end
       end
@@ -75,12 +90,17 @@ module HasCrud
 
       def setup_searchable
         if !self.options[:searchable].eql?(false) && table_exists?
-          ignore_fields = [:created_at, :updated_at, :slug]
           if self.options[:searchable].eql?(true) || self.options[:searchable].eql?(nil)
-            self.options[:searchable] = column_names.collect { |c| c.to_sym } - ignore_fields
+            setup_default_searchable
           end
+
           scoped_search :on => self.options[:searchable]
         end
+      end
+
+      def setup_default_searchable
+        ignore_fields = [:created_at, :updated_at, :slug]
+        self.options[:searchable] = column_names.collect { |c| c.to_sym } - ignore_fields
       end
 
       def setup_scope
@@ -98,9 +118,18 @@ module HasCrud
 
       def setup_pagination
         unless self.options[:paginate].eql?(false)
-          self.options[:paginate] = 10 if self.options[:paginate].nil? || self.options[:paginate].eql?(true)
-          self.options[:page_list] = [10, 20, 50, 100] if self.options[:page_list].nil?
+          setup_default_pagination
           paginates_per self.options[:paginate]
+        end
+      end
+
+      def setup_default_pagination
+        if self.options[:paginate].nil? || self.options[:paginate].eql?(true)
+          self.options[:paginate] = 10
+        end
+
+        if self.options[:page_list].nil?
+          self.options[:page_list] = [10, 20, 50, 100]
         end
       end
 
