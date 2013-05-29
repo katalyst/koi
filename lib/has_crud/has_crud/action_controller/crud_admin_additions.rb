@@ -4,10 +4,10 @@ module HasCrud
       def self.included(base)
         base.send :extend, ClassMethods
         base.send :include, InstanceMethods
+        base.send :include, Koi::ApplicationHelper
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :is_settable?, :is_exportable?, :title_for, :per_page, :settings,
-                  :settings_prefix
+                  :is_exportable?, :title_for, :per_page, :settings_prefix
         base.send :respond_to, :html, :js, :csv
       end
 
@@ -108,21 +108,6 @@ module HasCrud
 
         def is_ajaxable?
           resource_class.options[:ajaxable]
-        end
-
-        def is_settable?
-          resource_class.options[:settings]
-        end
-
-        def settings
-          return [] unless is_settable?
-          return @settings if @settings
-
-          begin
-            @settings = resource.settings
-          rescue ::ActiveRecord::RecordNotFound
-            @settings = resource_class.settings
-          end
         end
 
         def settings_prefix

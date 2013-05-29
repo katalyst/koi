@@ -2,12 +2,14 @@ module HasCrud
   module ActionController
     module CrudAdditions
       def self.included(base)
-        base.send :extend, ClassMethods
+        base.send :extend,  ClassMethods
         base.send :include, InstanceMethods
+        base.send :include, Koi::ApplicationHelper
         base.send :inherit_resources
         base.send :attr_accessor, :path
-        base.send :helper_method, :is_allowed?, :is_orderable?, :is_settable?, :is_paginated?,
-                  :singular_name, :plural_name, :path, :crud_partial, :settings, :settings_prefix
+        base.send :helper_method, :is_allowed?, :is_orderable?, :is_paginated?,
+                  :singular_name, :plural_name, :path, :crud_partial,
+                  :settings_prefix
         base.send :has_scope, :page, :default => 1, :if => :is_paginated?,
                   :except => [ :create, :update, :destroy ] do |controller, scope, value|
           scope.page(value).per(controller.per_page)
@@ -64,10 +66,6 @@ module HasCrud
         def crud_partial(attr, path, klass = resource_class)
           partial = klass.crud.find(:fields, attr, :type)
           "#{path}_field_#{partial}"
-        end
-
-        def is_settable?
-          defined?(resource_class) && resource_class.options[:settings]
         end
 
         def settings
