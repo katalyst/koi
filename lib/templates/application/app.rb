@@ -19,7 +19,7 @@ gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.
 
 # Koi CMS
 gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
-                                  :branch => 'v1.0.0.beta'
+                                  :branch => 'v1.0.0'
 
 # Bowerbird
 gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
@@ -114,6 +114,7 @@ run 'bundle install'
 # Install Migrations
 rake 'koi:install:migrations'
 
+route "match '*path' => 'url_rewrites#redirect'"
 route "mount Koi::Engine => '/admin', as: 'koi_engine'"
 
 run 'rm public/index.html'

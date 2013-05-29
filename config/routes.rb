@@ -1,4 +1,5 @@
 Koi::Engine.routes.draw do
+
   devise_for :admins,
              :class_name => "Admin",
              controllers: { passwords: "Koi::Passwords" },
@@ -33,6 +34,8 @@ Koi::Engine.routes.draw do
     collection { post 'bulk_create_or_update' }
   end
   resources :pages
+  resources :url_rewrites
+  resources :friendly_id_slugs
   resources :admins, path: :site_users
   resources :module_nav_items
   resources :folder_nav_items
@@ -53,4 +56,5 @@ Koi::Engine.routes.draw do
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq', as: :sidekiq
   end
+
 end
