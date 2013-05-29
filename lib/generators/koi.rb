@@ -3,6 +3,7 @@ require 'rails/generators/base'
 module Koi
   module Generators
     class Base < Rails::Generators::Base #:nodoc:
+
       def self.source_root
         @_koi_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'koi', generator_name, 'templates'))
       end
@@ -23,6 +24,15 @@ module Koi
         self.class.help(Thor::Base.shell.new)
         exit
       end
+
+      def process_attributes
+        args_for_c_m.each do |arg|
+          if arg.include?(':')
+            @model_attributes << Rails::Generators::GeneratedAttribute.new(*arg.split(':'))
+          end
+        end
+      end
+
     end
   end
 end
