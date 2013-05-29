@@ -1,4 +1,5 @@
 .bundle/
+tmp
 log/*.log
 pkg
 test/dummy/config/database.yml

@@ -55,29 +55,27 @@ class NavItem < ActiveRecord::Base
   end
 
   def options env = @@binding
-    hash = setup_block_hash(env)
+    hash = {}
+
+    # Process if any procs in the database if, unless, highlights_on columns
+    if self.if.present?
+      hash[:if] = Proc.new { eval(self.if, env) }
+    end
+
+    if self.unless.present?
+      hash[:unless] = Proc.new { eval(self.unless, env) }
+    end
+
+    if self.highlights_on.present?
+      hash[:highlights_on] = Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on, env) }
+    end
 
     if self.key.present?
       hash[:container_class] = self.key
     end
 
-    hash
-  end
-
-  def setup_block_hash(env = @@binding)
-    hash = {}
-
-    blocks = {
-      if: Proc.new { eval(self.if, env) },
-      unless: Proc.new { eval(self.unless, env) },
-      highlights_on: Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on, env) },
-      method: method
-    }
-
-    blocks.each do |key, value|
-      if self.send(key).present?
-        hash[key] = value
-      end
+    if self.method.present?
+      hash[:method] = method
     end
 
     hash
