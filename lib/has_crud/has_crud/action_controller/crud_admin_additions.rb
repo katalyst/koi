@@ -110,17 +110,6 @@ module HasCrud
           resource_class.options[:ajaxable]
         end
 
-        def settings_prefix
-          return nil unless is_settable?
-          return @settings_prefix if @settings_prefix
-
-          begin
-            @settings_prefix = resource.settings_prefix
-          rescue ::ActiveRecord::RecordNotFound
-            @settings_prefix = resource_class.settings_prefix
-          end
-        end
-
         def collection
           return get_collection_ivar if get_collection_ivar
           if is_orderable?
