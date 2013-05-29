@@ -22,7 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails'                         , '~> 3.2.12'
 
   # Overwrite for default rails
-  s.add_dependency 'jquery-rails'
+  s.add_dependency 'jquery-rails'                  , '~> 3.0'
+  s.add_dependency 'jquery-ui-rails'               , '~> 3.0'
 
   # Database
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
