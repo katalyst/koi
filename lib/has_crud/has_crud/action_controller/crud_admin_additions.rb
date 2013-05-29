@@ -5,6 +5,7 @@ module HasCrud
         base.send :extend, ClassMethods
         base.send :include, InstanceMethods
         base.send :include, Koi::ApplicationHelper
+        base.send :include, ActionView::Helpers::OutputSafetyHelper
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
                   :is_exportable?, :title_for, :per_page, :settings_prefix
@@ -152,13 +153,6 @@ module HasCrud
           %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
         end
 
-        def kt(args={})
-          interpolation = (params[:controller] + "/" + params[:action]).gsub("/", ".")
-          args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
-          args.merge!(klass: resource_class.name) if respond_to? :resource_class
-          t(interpolation, args)
-        end
-
         def parent_title
           respond_to?(:parent) ? "#{humanized(parent)}: " : ""
         end
@@ -183,8 +177,7 @@ module HasCrud
         end
 
         def action_csv_title
-          parent_title << kt(default: resource_class.crud.find(:admin, :index, :title, :csv)\
-           || "Download CSV")
+          parent_title << kt(default: resource_class.crud.find(:admin, :csv, :title) || "Download CSV")
         end
 
         def title_for(symbol=nil)
