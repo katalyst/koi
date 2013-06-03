@@ -1,4 +1,4 @@
-# Koi [![Code Climate](https://codeclimate.com/github/rahult/koi.png)](https://codeclimate.com/github/rahult/koi)
+# Koi [![Code Climate](https://codeclimate.com/github/rahult/koi.png)](https://codeclimate.com/github/rahult/koi) [![Dependency Status](https://gemnasium.com/rahult/koi.png)](https://gemnasium.com/rahult/koi)
 
 ## Creating a Koi App
 
