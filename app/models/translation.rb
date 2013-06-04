@@ -10,7 +10,7 @@ class Translation < ActiveRecord::Base
   alias_method :was_images_attributes=, :images_attributes=
 
   def images_attributes= params
-    params.values.each { |hash| hash[:_destroy] = true if hash[:data].blank? }
+    params.values.each { |hash| hash[:_destroy] = true if hash[:data].blank? && hash[:id].blank? }
     self.was_images_attributes = params
   end
 
