@@ -12,6 +12,7 @@ gemspec
 
 # jQuery
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
