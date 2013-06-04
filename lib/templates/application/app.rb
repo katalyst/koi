@@ -11,6 +11,9 @@ if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".ruby-version" ]; then
 fi
 END
 
+# jQuery UI
+gem 'jquery-ui-rails'
+
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 
