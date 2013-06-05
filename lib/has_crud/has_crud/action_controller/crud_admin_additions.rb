@@ -6,8 +6,8 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :is_settable?, :is_exportable?, :title_for, :per_page,
-                  :settings, :settings_hash, :settings_prefix
+                  :is_settable?, :is_exportable?, :title_for, :per_page, :settings,
+                  :settings_hash, :settings_prefix
         base.send :respond_to, :html, :js, :csv
       end
 
@@ -15,20 +15,6 @@ module HasCrud
       end
 
       module InstanceMethods
-
-        # The collection action `set` has been moved to the settings_controller
-        # as `bulk_create_or_update`. It's slightly more convenient this way
-        # since collection { post :set } doesn't need to be added to each
-        # controller.
-        #                
-        # def set
-        #   resource_class.settings_attributes = params[:class][:settings_attributes]
-        #   if resource_class.settings.all? { |setting| setting.errors.empty? }
-        #     redirect_to action: :index
-        #   else
-        #     render action: :index 
-        #   end
-        # end
 
         def sort
           order = params[singular_name(:symbol)]
