@@ -99,6 +99,8 @@ module Koi::NavigationHelper
       @ancestors_and_self ||= ancestors + [self]
     end
 
+    alias_method :self_and_ancestors, :ancestors_and_self # deprecated usage
+
     def visible_ancestors_and_self
       @self_and_visible_ancestors ||= visible_ancestors + [self]
     end
