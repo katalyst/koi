@@ -7,7 +7,7 @@ module HasCrud
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
                   :is_settable?, :is_exportable?, :title_for, :per_page, :settings,
-                  :settings_prefix
+                  :settings_hash, :settings_prefix
         base.send :respond_to, :html, :js, :csv
       end
 
@@ -15,6 +15,7 @@ module HasCrud
       end
 
       module InstanceMethods
+
         def sort
           order = params[singular_name(:symbol)]
           resource_class.orderable(order)

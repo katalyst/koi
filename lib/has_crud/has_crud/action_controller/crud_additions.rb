@@ -7,7 +7,7 @@ module HasCrud
         base.send :inherit_resources
         base.send :attr_accessor, :path
         base.send :helper_method, :is_allowed?, :is_orderable?, :is_settable?, :is_paginated?,
-                  :singular_name, :plural_name, :path, :crud_partial, :settings, :settings_prefix
+                  :singular_name, :plural_name, :path, :crud_partial, :settings, :settings_hash, :settings_prefix
         base.send :has_scope, :page, :default => 1, :if => :is_paginated?,
                   :except => [ :create, :update, :destroy ] do |controller, scope, value|
           scope.page(value).per(controller.per_page)
@@ -78,6 +78,17 @@ module HasCrud
             @settings = resource.settings
           rescue ::ActiveRecord::RecordNotFound
             @settings = resource_class.settings
+          end
+        end
+
+        def settings_hash
+          return {} unless is_settable?
+          return @settings_hash if @settings_hash
+
+          begin
+            @settings_hash = resource.settings_hash
+          rescue ::ActiveRecord::RecordNotFound
+            @settings_hash = resource_class.settings_hash
           end
         end
 

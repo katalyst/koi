@@ -2,53 +2,47 @@
 //= require ./ckeditor
 //= require bootstrap
 
-! function () {
+! function ($)
+{
+  // helpers //////////////////////////////////////////////////////////////////
 
-  var $window = $ (window)
+  var $win = $window   = $.window   = $ (window)
+  var $doc = $document = $.document = $ (document)
 
-  $.liveQuery.registerPlugin ("html");
-
-  $.fn.modal.defaults = {
-        backdrop: 'static'
-      , keyboard: true
-      , show: true
-    }
-
-  $ (document).on ('click', '.redactor_editor', function ()
+  function on ()
   {
-    var it = $ (this)
-    var textarea = it.siblings ('textarea')
-    var redactor = textarea.data ('redactor')
+    return $.fn.on.apply ($doc, arguments)
+  }
 
-    try { redactor.getCurrentNode () }
-    catch (ex)
-    {
-      var range = rangy.createRange();
-      range.setStart (this, 0);
-      range.collapse (true);
-      rangy.getSelection ().setSingleRange (range);
-    }
-  })
+  ////////////////////////////////////////////////////////////////// helpers //
+
+  // default options //////////////////////////////////////////////////////////
+
+  $.liveQuery.registerPlugin ('html')
+
+  $.fn.modal.defaults = { backdrop: 'static', keyboard: true, show: true }
 
   $.application.debug = true;
 
-  // $('.tab-content').application
-  //   (function ($this) { $this.children ().maximise ('height'); });
+  ////////////////////////////////////////////////////////// default options //
+
+  // default widgetry /////////////////////////////////////////////////////////
 
   $ ('.date.input').application
-    (true, function ($this) { $this.koiDatePicker () });
-
-  // $('.rich.text.input').application
-  //   (true, function ($this) { $this.koiEditor () });
+    (true, function ($this) { $this.koiDatePicker () })
 
   $ ('.sortable.fields').application
-    (true, function ($this) { $this.koiSortable () });
+    (true, function ($this) { $this.koiSortable () })
 
   $ ('.nested-fields').application
-    (true, function ($this) { $this.koiNestedFields () });
+    (true, function ($this) { $this.koiNestedFields () })
 
   $ ('.superfish').application
-    (true, function ($this) { $this.superfish ({ delay:100 }); });
+    (true, function ($this) { $this.superfish ({ delay:100 }) })
+
+  ///////////////////////////////////////////////////////// default widgetry //
+
+  // bootstrap modal //////////////////////////////////////////////////////////
 
   var fnModal = $.fn.modal
 
@@ -56,19 +50,21 @@
   {
     var it = $ (this)
 
-    if (it.data ('modal')) return fnModal.apply (this, arguments)
+    if (it.data ('modal'))
+      return fnModal.apply (this, arguments)
     
     fnModal.apply (this, arguments)
 
-    if (it.hasClass ('fade')) it.on ('show', function () { it.css ('top', $window.scrollTop () + 100) })
+    if (it.hasClass ('fade'))
+      it.on ('show', function () { it.css ('top', $window.scrollTop () + 100) })
+    
     return this
   }
 
-  $ (document).on ('click', 'a[target=_overlay]', function ()
+  on ('click', 'a[target=_overlay]', function (event)
   {
-    var it = $ (this)
-    $.modal (it.attr ('href'))
-    return false
+    event.preventDefault ()
+    $.modal (this.href)
   })
 
   $.modal = function (path, ok)
@@ -101,12 +97,28 @@
     })
   }
 
+  ////////////////////////////////////////////////////////// bootstrap modal //
+
+  // targetable tabs //////////////////////////////////////////////////////////
+
   $ (function ()
   {
-    switch (document.location.hash)
-    {
-      case '#tab-settings': $ ('[href=#tab-settings]').click ()
-    }
+    var hash = document.location.hash
+    if (/^#tab-/.test (hash)) $ ('[href=' + hash + ']').click ()
   })
 
-} (jQuery);
+  ////////////////////////////////////////////////////////// targetable tabs //
+
+  // dynamically removable fieldsets //////////////////////////////////////////
+
+  on ('click', '[rel~=remove][rel~=fields]', function (event)
+  {
+    event.preventDefault ()
+
+    $ (this).closest ('[role~=fields][role~=wrapper]').hide ()
+            .find ('[id$=_destroy]').val (1)
+  })
+
+  ////////////////////////////////////////// dynamically removable fieldsets //
+
+} (jQuery)

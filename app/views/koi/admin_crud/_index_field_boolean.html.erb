@@ -1,1 +1,2 @@
-<%= object.send(attr) ? "Yes" : "No" %>
+<% boolean = ActiveRecord::ConnectionAdapters::Column.value_to_boolean object.send attr %>
+<%= boolean ? "Yes" : "No" %>

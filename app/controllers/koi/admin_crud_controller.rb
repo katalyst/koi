@@ -20,6 +20,6 @@ module Koi
         super
       end
     end
-       
+
   end
 end

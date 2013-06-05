@@ -1,0 +1,37 @@
+<div class="settings fields for-<%= current_admin.role.underscore %>">
+
+  <% if current_admin.god? %>
+    <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary pull-right" %>
+  <% end %>
+
+  <% settings.each_with_index do |setting, i| %>
+    <%= f.fields_for :settings_attributes, setting do |f| %>
+      <div role="fields wrapper">
+        <% f.object_name << "[#{ i }]" %>
+        <%#= ^ A hack, but neither `index` or `child_index`
+             are propogated down through other nested fields... %>
+        <br>
+        
+        <% if current_admin.god? %>
+          <hr>
+          <a href="#" class="pull-right" rel="remove fields" style="">✖ delete</a>
+          <h4><%= f.object.label %></h4>
+          <br>
+        <% else %>
+          <label class="control-label space-b-1"><%= f.object.label %></label>
+        <% end %>
+
+        <%= f.input :_destroy, as: :hidden %>
+        <%= f.input :id, as: :hidden %>
+        <%= render "koi/translations/form_fields", f: f %>
+
+        <div></div>
+
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% content_for :body do %>
+  <div id="modal-for-setting" class="modal fade hide-element as-clr">&nbsp;</div>
+<% end %>

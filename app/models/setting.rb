@@ -1,9 +1,8 @@
 class Setting < Translation
-  has_crud paginate: false, searchable: false,
-           orderable: false, settings: false
 
-  validates :locale, :label, :key, :field_type,
-            :prefix, :role, presence: true
+  has_crud paginate: false, searchable: false, orderable: false, settings: false
+
+  validates :locale, :label, :key, :field_type, :role, presence: true # , :prefix
 
   validates_uniqueness_of :key, scope: :prefix
 
@@ -12,12 +11,14 @@ class Setting < Translation
            value:      { type: :dynamic },
            prefix:     { type: :hidden },
            label:      { writable_method: :god? },
-           role:       { type: :select, data: Admin::ROLES }
+           role:       { type: :select, data: Admin::ROLES },
+           is_proc:    { type: :boolean }
     config :admin do
       index fields: [:label],
             title: "Settings"
-      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc, :images],
+      form  fields: [:label, :key, :field_type, :prefix, :value, :hint, :role, :is_proc, :images],
             title: { new: "Create new setting", edit: "Edit setting" }
     end
   end
+
 end

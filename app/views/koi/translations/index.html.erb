@@ -1,0 +1,21 @@
+<% if is_ajaxable? %>
+  <% content_for :head do %>
+    <%= render "index_ajax" %>
+  <% end %>
+<% end %>
+
+<% content_for :title do %>
+  <%= render "index_title" %>
+<% end %>
+
+<%= simple_form_for Setting.new, url: koi_engine.bulk_create_or_update_settings_path do |f| %>
+  <% f.object_name = f.object_name.pluralize %>
+
+  <%= render 'koi/settings/settings_fields', f: f, settings: Translation.non_prefixed %>
+  <br>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
+
+<% content_for :side do %>
+  <%= render 'side' %>
+<% end %>

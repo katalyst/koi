@@ -1,12 +1,31 @@
 class Translation < ActiveRecord::Base
 
-  has_crud paginate: false, searchable: false,
-           orderable: false, settings: false
+  has_crud paginate: false, searchable: false, orderable: false, settings: false
 
   has :many, attributed: :images, orderable: true
 
-  validates :locale, :label, :key, :field_type,
-            :role, presence: true
+  # images_attributes= filters out invalid images in advance,
+  # so we don't have to worry about validation
+  #
+  alias_method :was_images_attributes=, :images_attributes=
+
+  def images_attributes= params
+    params.values.each { |hash| hash[:_destroy] = true if hash[:data].blank? && hash[:id].blank? }
+    self.was_images_attributes = params
+  end
+
+  # _destroy is the mark-of-death, used in a similar way to nested_fields
+  # TODO: bypass validations if _destroy is checked
+  #
+  attr_reader :_destroy
+  
+  def _destroy= value
+    @_destroy = ActiveRecord::ConnectionAdapters::Column.value_to_boolean value
+  end
+
+  after_save :delete, if: :_destroy
+
+  validates :locale, :label, :key, :field_type, :role, presence: true
 
   # validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
 
@@ -15,7 +34,6 @@ class Translation < ActiveRecord::Base
   before_validation :set_default_values
 
   default_scope order("`key` ASC")
-  scope :non_prefixed, where("prefix IS NULL OR prefix = ''")
 
   FieldTypes = {
                  "String"    => "string",
@@ -24,8 +42,6 @@ class Translation < ActiveRecord::Base
                  "Rich Text" => "rich_text",
                  "Images"    => "images"
                }
-
-  scope :admin, where(role: "Admin")
 
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },
@@ -43,9 +59,24 @@ class Translation < ActiveRecord::Base
     field_type.eql?("images") ? images : read_attribute(:value)
   end
 
-  private
+private
 
   def set_default_values
-    self.role ||= Admin.god
+    write_attribute :field_type, 'string'  if field_type.blank?
+    write_attribute :label, key.titleize   if label.blank? && key.present?
+    write_attribute :key, label.underscore if key.blank? && label.present?
+    write_attribute :role, Admin.god       if role.blank?
   end
+
+end
+class << Translation
+
+  def non_prefixed
+    where "translations.prefix IS NULL OR translations.prefix = ''"
+  end
+
+  def admin
+    where role: 'Admin'
+  end
+
 end

@@ -4,7 +4,7 @@ class NavItem < ActiveRecord::Base
   after_touch  :touch_parent
 
   acts_as_nested_set
-  has_crud searchable: [:id, :title, :url], settings: false
+  has_crud searchable: [:id, :title, :url], settings: true
 
   crud.config do
     fields parent_id:     { type: :hidden },
@@ -94,6 +94,10 @@ class NavItem < ActiveRecord::Base
       hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
       hash[:is_mobile] = read_attribute :is_mobile # is_mobile method is recursive, which we don't want
       hash[:children] = eval content_block, env unless content_block.blank?
+      hash[:id] = id
+      hash[:if] = nil if hash[:if].blank?
+      hash[:unless] = nil if hash[:unless].blank?
+      hash[:settings] = settings_hash
       hash.merge! options(env)
     end
   end
