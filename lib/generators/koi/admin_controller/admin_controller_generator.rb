@@ -1,10 +1,11 @@
 require 'generators/koi'
 require 'rails/generators/migration'
+require 'rails/generators/active_record'
 require 'rails/generators/generated_attribute'
-
 module Koi
   module Generators
     class AdminControllerGenerator < Base
+
       include Rails::Generators::Migration
       no_tasks { attr_accessor :scaffold_name, :model_attributes }
 
@@ -28,23 +29,12 @@ module Koi
         @versioned = options.versioned?
         @orderable = options.orderable?
 
-        args_for_c_m.each do |arg|
-          if arg.include?(':')
-            @model_attributes << Rails::Generators::GeneratedAttribute.new(*arg.split(':'))
-          end
-        end
+        process_attributes
 
         @model_attributes.uniq!
 
         if @model_attributes.empty?
           @skip_model = true # skip model if no attributes
-          # if model_exists?
-          #   model_columns_for_attributes.each do |column|
-          #     @model_attributes << Rails::Generators::GeneratedAttribute.new(column.name.to_s, column.type.to_s)
-          #   end
-          # else
-          #   @model_attributes << Rails::Generators::GeneratedAttribute.new('name', 'string')
-          # end
         end
       end
 
@@ -144,15 +134,10 @@ module Koi
         File.join(destination_root, path)
       end
 
-      # FIXME: Should be proxied to ActiveRecord::Generators::Base
-      # Implement the required interface for Rails::Generators::Migration.
-      def self.next_migration_number(dirname) #:nodoc:
-        if ActiveRecord::Base.timestamped_migrations
-          Time.now.utc.strftime("%Y%m%d%H%M%S")
-        else
-          "%.3d" % (current_migration_number(dirname) + 1)
-        end
+      def self.next_migration_number(dirname)
+        ActiveRecord::Generators::Base.next_migration_number(dirname)
       end
+
     end
   end
 end

@@ -1,9 +1,15 @@
 module Koi::ApplicationHelper
+
   def kt(args={})
-    interpolation = (params[:controller] + "/" + params[:action]).gsub("/", ".")
-    args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
-    args.merge!(klass: resource_class.name) if respond_to? :resource_class
-    raw(t(interpolation, args))
+    if params[:id].present? && respond_to?(:resource)
+      args.merge!(resource.attributes.symbolize_keys)
+    end
+
+    if respond_to?(:resource_class)
+      args.merge!(klass: resource_class.name)
+    end
+
+    raw t(current_url, args)
   end
 
   def sortable(column, title = column.titleize, link_opt = {})
@@ -28,6 +34,17 @@ module Koi::ApplicationHelper
       @settings = resource.settings
     rescue ::ActiveRecord::RecordNotFound
       @settings = resource_class.settings
+    end
+  end
+
+  def settings_prefix
+    return nil unless is_settable?
+    return @settings_prefix if @settings_prefix
+
+    begin
+      @settings_prefix = resource.settings_prefix
+    rescue ::ActiveRecord::RecordNotFound
+      @settings_prefix = resource_class.settings_prefix
     end
   end
 
@@ -74,4 +91,11 @@ module Koi::ApplicationHelper
   def ancestor_paths
     ancestor_controller_paths.map { |path| path.match(/(.*)_controller/).to_a[1] }
   end
+
+  private
+
+  def current_url
+    (params[:controller] + "/" + params[:action]).gsub("/", ".")
+  end
+
 end

@@ -16,5 +16,12 @@ module HasSettings
       setting = Setting.find_by_prefix_and_key(settings_prefix, key) || Setting.create(options)
       setting.value
     end
+
+    def create_setting(key, values)
+      unless Setting.find_by_prefix_and_key(settings_prefix, key)
+        Setting.create(values.merge(key: key, prefix: settings_prefix))
+      end
+    end
+
   end
 end
