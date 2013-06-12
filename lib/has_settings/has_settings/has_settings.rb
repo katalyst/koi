@@ -27,9 +27,7 @@ module HasSettings
 
     def create_settings
       Koi::Settings.resource.each do |key, values|
-        unless Setting.find_by_prefix_and_key(settings_prefix, key)
-          Setting.create(values.merge(key: key, prefix: settings_prefix))
-        end
+        create_setting(key, values)
       end
     end
 
