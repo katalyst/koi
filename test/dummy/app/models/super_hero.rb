@@ -9,6 +9,10 @@ class SuperHero < ActiveRecord::Base
   file_accessor  :file
   serialize :powers, Array
 
+  scope :alphabetical, order("name DESC")
+
+  default_scope alphabetical
+
   Gender = ["Male", "Female", "Robot"]
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
             "WEATHER CONTROL", "FORCE FIELDS", "UNDERWATER BREATHING", "SUPER STRENGTH"]
@@ -32,7 +36,7 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       exportable true
       csv     except: [:image_name, :file_name]
-      index   fields: [:name, :image, :file]
+      index   fields: [:id, :name, :image, :file]
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
     end
