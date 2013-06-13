@@ -321,6 +321,8 @@ DEPENDENCIES
   guard-livereload
   guard-test
   i18n-active_record!
+  jquery-rails
+  jquery-ui-rails
   koi!
   koi_config!
   powder
