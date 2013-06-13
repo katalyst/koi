@@ -13,7 +13,7 @@
     <div class="span17">
       <%= render "koi/shared/flash_messages" %>
       <%= yield %>
-    </div>  
+    </div>
     <div class="span6 offset1">
       <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
     </div>
