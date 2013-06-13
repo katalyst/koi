@@ -14,20 +14,50 @@ module HasNavigation
     module ClassMethods
     end
 
+    def get_admin_url
+      begin
+      edit_polymorphic_path [:admin, self]
+      rescue
+        Koi::Engine.routes.url_helpers.send :"edit_#{ self.class.name.singularize.parameterize '_' }_path", self
+      end
+    end
+
+    def get_url
+      polymorphic_path(self)
+    end
+
+    def get_title
+      respond_to?(:title) ? title : "#{self.class} - #{self.id}"
+    end
+
+    def get_setting_prefix
+      respond_to?(:settings_prefix) ? settings_prefix : nil
+    end
+
+    def get_nav_item
+      self.resource_nav_item.blank? ? ResourceNavItem.new : self.resource_nav_item
+    end
+
     def to_navigator(options={})
-      options.merge!(:navigable => self)
-      resource_nav_item = self.resource_nav_item.blank? ? ResourceNavItem.new : self.resource_nav_item
-      resource_nav_item.attributes = options.merge(title: (self.try(:title) || "#{self.class} - #{self.id}"),
-                                                   url: polymorphic_path(self),
-                                                   admin_url: edit_polymorphic_path([:admin, self]),
-                                                   setting_prefix: respond_to?(:settings_prefix) ? settings_prefix : nil)
+      resource_nav_item = get_nav_item
+      resource_nav_item.attributes = options.reverse_merge(title: get_title, url: get_url,
+                                                           admin_url: get_admin_url,
+                                                           setting_prefix: get_setting_prefix,
+                                                           navigable: self)
       resource_nav_item
     end
 
     def to_navigator!(options={})
       navigator = to_navigator(options)
-      return true if navigator.parent_id.blank?
-      navigator.save ? navigator : false
+
+      if navigator.parent_id.blank?
+        return true
+      elsif navigator.save
+        navigator
+      else
+        false
+      end
     end
+
   end
 end
