@@ -58,13 +58,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation'             , '~> 3.10.0'
+  s.add_dependency 'simple-navigation'             , '~> 3.11.0'
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on'           , '~> 2.2.0'
+  s.add_dependency 'acts-as-taggable-on'           , '~> 2.4.1'
 
   # Scoped Search
-  s.add_dependency 'scoped_search'                 , '~> 2.3.6'
+  s.add_dependency 'scoped_search'                 , '~> 2.5.1'
 
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
@@ -113,7 +113,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'forgery'
 
   # Data Seeding
-  s.add_development_dependency 'seedbank'          , '~> 0.0.7'
+  s.add_development_dependency 'seedbank'          , '~> 0.2.1'
 
   # Fixture replacement
   s.add_development_dependency 'factory_girl_rails'
