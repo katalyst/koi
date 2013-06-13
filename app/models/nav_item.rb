@@ -1,4 +1,5 @@
 class NavItem < ActiveRecord::Base
+
   before_save  :raise_abstract_error
   after_save   :touch_parent
   after_touch  :touch_parent
@@ -54,12 +55,29 @@ class NavItem < ActiveRecord::Base
   end
 
   def options env = @@binding
-    hash                   = {}
-    hash[:if]              = Proc.new { eval self.if                                                     , env  } if self.if.present?
-    hash[:unless]          = Proc.new { eval self.unless                                                 , env  } if self.unless.present?
-    hash[:highlights_on]   = Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on , env) } if self.highlights_on.present?
-    hash[:container_class] = self.key                                                                             if self.key.present?
-    hash[:method]          = method                                                                               if self.method.present?
+    hash = {}
+
+    # Process if any procs in the database if, unless, highlights_on columns
+    if self.if.present?
+      hash[:if] = Proc.new { eval(self.if, env) }
+    end
+
+    if self.unless.present?
+      hash[:unless] = Proc.new { eval(self.unless, env) }
+    end
+
+    if self.highlights_on.present?
+      hash[:highlights_on] = Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on, env) }
+    end
+
+    if self.key.present?
+      hash[:container_class] = self.key
+    end
+
+    if self.method.present?
+      hash[:method] = method
+    end
+
     hash
   end
 
@@ -69,22 +87,19 @@ class NavItem < ActiveRecord::Base
 
   def to_hash(show_options = {})
     { mobile: false }.merge(show_options)
-    return nil if show_options[:mobile] && !is_mobile?
 
-    hash = {}
-    if content_block.blank?
-      hash = {
-        key:   nav_key,
-        name:  title,
-        url:   url,
-        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact
-      }
-    else
-      hash = eval(content_block, @@binding)
+    if show_options[:mobile] && !is_mobile?
+      return nil
     end
 
+    hash = setup_content(show_options)
+
     options.delete(:mobile)
-    hash[:options] = options unless options.blank?
+
+    unless options.blank?
+      hash[:options] = options
+    end
+
     hash
   end
 
@@ -121,9 +136,27 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
-private
+  private
+
+  def setup_content(show_options)
+    hash = {}
+
+    if content_block.blank?
+      hash = {
+        key:   nav_key,
+        name:  title,
+        url:   url,
+        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact
+      }
+    else
+      hash = eval(content_block, @@binding)
+    end
+
+    hash
+  end
 
   def touch_parent
     parent.touch if parent
   end
+
 end
