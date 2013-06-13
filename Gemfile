@@ -10,6 +10,10 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# jQuery
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
 

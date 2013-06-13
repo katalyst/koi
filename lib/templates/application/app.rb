@@ -23,8 +23,9 @@ gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nes
 gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
 
 # Koi CMS
-gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
-                                  :branch => 'v1.0.0'
+gem 'koi', path: "/Users/rahult/Development/katalyst/rails/koi/koi"
+# gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
+#                                   :branch => 'v1.0.0'
 
 # Bowerbird
 gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
