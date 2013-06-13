@@ -20,31 +20,33 @@ END
 gem "jquery-ui-rails"
 
 # Nested fields
-gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
+gem 'awesome_nested_fields'     , git: 'git://github.com/katalyst/awesome_nested_fields.git'
 
 # Koi Config
-gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
+gem 'koi_config'                , git: 'git://github.com/katalyst/koi_config.git'
 
 # Koi CMS
-gem 'koi'                       , :git => 'git://github.com/katalyst/koi.git',
-                                  :branch => 'v1.0.0'
+gem 'koi'                       , git: 'git://github.com/katalyst/koi.git',
+                                  branch: 'v1.0.0'
 
 # Bowerbird
-gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
+gem 'bowerbird_v2'              , git: 'git@github.com:katalyst/bowerbird_v2.git'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
-                                  :branch => 'rails-3.2',
-                                  :require => 'i18n/active_record'
+gem 'i18n-active_record'        , git: 'git://github.com/svenfuchs/i18n-active_record.git',
+                                  branch: 'rails-3.2',
+                                  require: 'i18n/active_record'
 
 gem 'unicorn'
 
 gem_group :development do
   gem 'engineyard'
+  gem "ornament", git: "git@github.com:ketchup/ornament.git"
 end
 
+# Setup mailer host
 application(nil, :env => 'development') do
-  "config.action_mailer.default_url_options = { :host => 'localhost:3000' }"
+  "config.action_mailer.asset_host = \"http://localhost:3000\""
 end
 
 # Create Version File
@@ -83,6 +85,11 @@ Koi::Engine.load_seed
 END
 
 # Setup seed
+run 'rm db/seeds.rb'
+create_file 'db/seeds.rb', <<-END
+Koi::Engine.load_seed
+END
+
 # Crud Controller that can be extended per project
 create_file 'app/controllers/common_controller_actions.rb', <<-END
 module CommonControllerActions
@@ -153,8 +160,7 @@ run 'rm public/index.html'
 gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
 
 # Compile Assets on Server
-# gsub_file 'config/environments/staging.rb', 'config.assets.compile = false', 'config.assets.compile = true'
-# gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
+gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
 rake 'db:drop'
 rake 'db:create'
@@ -168,7 +174,7 @@ gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'con
 
 route "root to: 'pages#index'"
 
-route 'resources :pages'
+route 'resources :pages, only: [:index, :show]'
 route 'resources :assets'
 route 'resources :images'
 route 'resources :documents'
@@ -234,13 +240,36 @@ if defined?(PhusionPassenger)
 end
 END
 
-create_file 'config/Initializers/koi.rb', <<-END
+# Setup koi initializer to define admin menu and other koi related settings
+create_file 'config/initializers/koi.rb', <<-END
 # FIXME: Explicity require all main app controllers
 Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
 
 Koi::Menu.items = {
   'Admins' => '/admin/site_users'
 }
+END
+
+# Setup sendgrid initializer
+create_file 'config/initializers/setup_sendgrid.rb', <<-END
+mock_smtp_indicator = Rails.root + 'tmp/mock_smtp.txt'
+
+if mock_smtp_indicator.exist?
+  ActionMailer::Base.smtp_settings = {
+    :address => "localhost",
+    :port => 1025,
+    :domain => "katalyst.com.au"
+  }
+else
+  ActionMailer::Base.smtp_settings = {
+    :address => "smtp.sendgrid.net",
+    :port => '25',
+    :domain => "katalyst.com.au",
+    :authentication => :plain,
+    :user_name => "jason@katalyst.com.au",
+    :password => "i9XypcTh2GOptAvK"
+  }
+end
 END
 
 # Setup up Git
@@ -273,7 +302,7 @@ public/system/**/*
 END
 
 git :init
-git :add => '.'
-git :commit => "-m 'Initial Commit'"
+git add: '.'
+git commit: "-m 'Initial Commit'"
 
 rake 'db:seed'
