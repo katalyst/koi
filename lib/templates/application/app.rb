@@ -17,7 +17,7 @@ fi
 END
 
 # jQuery UI
-gem 'jquery-ui-rails'
+gem "jquery-ui-rails"
 
 # Nested fields
 gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
@@ -40,10 +40,7 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
 gem 'unicorn'
 
 gem_group :development do
-  # Engineyard
   gem 'engineyard'
-  # Console
-  gem 'powder'
 end
 
 application(nil, :env => 'development') do
@@ -86,14 +83,20 @@ Koi::Engine.load_seed
 END
 
 # Setup seed
-run 'rm app/controllers/application_controller.rb'
-create_file 'app/controllers/application_controller.rb', <<-END
-class ApplicationController < ActionController::Base
-  protect_from_forgery
-  layout :layout_by_resource
-  helper Koi::NavigationHelper
+# Crud Controller that can be extended per project
+create_file 'app/controllers/common_controller_actions.rb', <<-END
+module CommonControllerActions
 
-protected
+  extend ActiveSupport::Concern
+
+  included do
+    protect_from_forgery
+    layout :layout_by_resource
+    helper :all
+    helper Koi::NavigationHelper
+  end
+
+  protected
 
   # FIXME: Hack to set layout for admin devise resources
   def layout_by_resource
@@ -113,11 +116,30 @@ protected
   def after_sign_out_path_for(resource_or_scope)
     resource_or_scope == :admin ? koi_engine.root_path : super
   end
+
+end
+END
+
+# Including common controller methods into application controller
+run 'rm app/controllers/application_controller.rb'
+create_file 'app/controllers/application_controller.rb', <<-END
+class ApplicationController < ActionController::Base
+
+  include CommonControllerActions
+
+end
+END
+
+# Crud Controller that can be extended per project
+create_file 'app/controllers/crud_controller.rb', <<-END
+class CrudController < Koi::CrudController
+
+  include CommonControllerActions
+
 end
 END
 
 run 'bundle install'
-
 
 # Install Migrations
 rake 'koi:install:migrations'
