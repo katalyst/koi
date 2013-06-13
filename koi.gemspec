@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , '~> 3.2.12'
+  s.add_dependency 'rails'                         , '~> 3.2.13'
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -31,17 +31,17 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 2.1.0'
+  s.add_dependency 'devise'                        , '~> 2.2.0'
   s.add_dependency 'cancan'                        , '~> 1.6.7'
 
   # Form
-  s.add_dependency 'simple_form'                   , '~> 2.0.1'
+  s.add_dependency 'simple_form'                   , '~> 2.1.0'
 
   # Tree
   s.add_dependency 'nested_set'                    , '~> 1.7.0'
 
   # Mailer
-  s.add_dependency 'sendgrid'                      , '~> 1.0.1'
+  s.add_dependency 'sendgrid'                      , '~> 1.2.0'
 
   # File Handling
   s.add_dependency 'dragonfly'                     , '~> 0.9.9'
@@ -50,15 +50,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id'                   , '~> 4.0.0'
 
   # Pagination
-  s.add_dependency 'kaminari'                      , '~> 0.13.0'
+  s.add_dependency 'kaminari'                      , '~> 0.14.0'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.3.1'
+  s.add_dependency 'inherited_resources'           , '~> 1.4.0'
   s.add_dependency 'has_scope'                     , '~> 0.5.1'
   s.add_dependency 'responders'                    , '~> 0.9.1'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation'             , '~> 3.9.0'
+  s.add_dependency 'simple-navigation'             , '~> 3.10.0'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on'           , '~> 2.2.0'
