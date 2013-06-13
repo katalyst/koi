@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
 
-  # Added jquery-ui
+  # jQuery UI
   s.add_dependency 'jquery-ui-rails'
 
   # Database
