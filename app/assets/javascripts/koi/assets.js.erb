@@ -3,9 +3,9 @@
 //= require ./etc/plupload.html5.js
 //= require ./etc/plupload.flash.js
 
-$ (function () 
+$ (function ()
 {
-  function truncate (string) 
+  function truncate (string)
 	{
     return string.length < 20 ? string : string.substr (0, 20) + "&hellip;"
   }
@@ -42,14 +42,14 @@ $ (function ()
       return false
     });
 
-    uploader.bind ('FilesAdded', function (up, files) 
+    uploader.bind ('FilesAdded', function (up, files)
     {
       $buttonUpload
         .removeClass ('disabled')
         .find ('input')
           .attr ("disabled", null)
 
-      $.each (files, function (i, file) 
+      $.each (files, function (i, file)
      {
         $fileList.append
           ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
@@ -57,27 +57,27 @@ $ (function ()
       uploader.refresh ()
     })
 
-    uploader.bind ('BeforeUpload', function (up, file) 
+    uploader.bind ('BeforeUpload', function (up, file)
     {
       uploader.settings.multipart_params = { tag_list: $('textarea.tagify').tagify('serialize') }
     })
 
-    uploader.bind ('UploadProgress', function (up, file) 
+    uploader.bind ('UploadProgress', function (up, file)
     {
       $ ('#' + file.id + " b").html (file.percent + "%")
     })
 
-    uploader.bind ('Error', function (up, err) 
+    uploader.bind ('Error', function (up, err)
     {
       $fileList.append
         ("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>")
       uploader.refresh ()
     })
 
-    uploader.bind ('FileUploaded', function (up, file, response) 
+    uploader.bind ('FileUploaded', function (up, file, response)
     {
       $ ('#' + file.id + " b").html ("100%")
-      if (uploader.total.uploaded == uploader.files.length) 
+      if (uploader.total.uploaded == uploader.files.length)
       {
         $fileList.empty ()
         location.reload ()
