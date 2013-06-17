@@ -1,0 +1,12 @@
+<% settings.each_with_index do |object, i| %>
+  <tr>
+    <td>
+      <td><%= object.label %></td>
+      <td>
+        <%= fields_for "setting[]", object do |setting_fields| %>
+          <%= setting_fields.text_field :value %>
+        <%- end -%>
+      </td>
+    </td>
+  </tr>
+<% end %>
