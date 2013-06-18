@@ -107,23 +107,23 @@ $ (function ()
 
   });
 
-  var myTextArea = $('textarea.tagify').tagify({
-    addTagPrompt: "e.g. accounting",
-    cssClass: "tagify buttons tagify-container"
-  })
+  // var myTextArea = $('textarea.tagify').tagify({
+  //   addTagPrompt: "e.g. accounting",
+  //   cssClass: "tagify buttons tagify-container"
+  // })
 
-  myTextArea.tagify('inputField').autocomplete({
-    source: <%= Asset.tag_counts.collect { |t| t.name } %>,
-    position: { of: myTextArea.tagify('containerDiv') },
-    close: function(event, ui) { myTextArea.tagify('add'); },
-  });
+  // myTextArea.tagify('inputField').autocomplete({
+  //   source: <%= Asset.tag_counts.collect { |t| t.name } %>,
+  //   position: { of: myTextArea.tagify('containerDiv') },
+  //   close: function(event, ui) { myTextArea.tagify('add'); },
+  // });
 
-  window.myTextArea = myTextArea;
+  // window.myTextArea = myTextArea;
 
-  myTextArea.closest("form").submit( function() {
-    myTextArea.tagify('add');
-    myTextArea.tagify('serialize');
-  });
+  // myTextArea.closest("form").submit( function() {
+  //   myTextArea.tagify('add');
+  //   myTextArea.tagify('serialize');
+  // });
 
   $ ('.asset-manager[name=close]').click (function () { window.close (); });
 
