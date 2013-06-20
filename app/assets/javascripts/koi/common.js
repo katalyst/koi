@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require select2
 //= require      ./jquery/browser
 //= require_tree ./jquery
 //= require_tree ./koi
