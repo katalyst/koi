@@ -1,0 +1,16 @@
+<%- id = "koi-#{ new_uuid }" -%>
+<%= f.association attr.to_sym,
+  collection: attr.to_s.classify.constantize.scoped,
+  include_blank: true,
+  input_html: { id: id, class: 'chzn-select', style: 'width:550px' } %>
+
+<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+
+<script type='text/javascript'>
+  $(document).ready(function() {$("#<%= id %>").select2(); });
+</script>
+
+<% content_for :head do %>
+  <link href="/assets/select2.css?body=1" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/assets/select2.js?body=1" type="text/javascript"></script>
+<% end %>

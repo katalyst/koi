@@ -38,4 +38,5 @@ group :assets do
   gem 'sass-rails'              , '~> 3.1'
   gem 'uglifier'                , '>= 1.0.3'
   gem 'coffee-rails'
+  gem 'select2-rails'
 end
