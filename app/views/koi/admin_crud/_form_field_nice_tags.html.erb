@@ -1,10 +1,10 @@
 <%- id = "koi-#{ new_uuid }" -%>
-<%= f.input attr, as: :string, input_html: { id: id, class: 'chzn-select', style: 'width:550px' } %>
+<%= f.input attr, as: :string, input_html: { id: id, style: 'width:550px' } %>
+
+<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
 <script type='text/javascript'>
   $("#<%= id %>").select2({tags:
     <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list').pluralize).collect { |t| t.name } %>
   });
 </script>
-
-<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
