@@ -2,7 +2,7 @@
 <%= f.association attr.to_sym,
   collection: attr.to_s.classify.constantize.scoped,
   include_blank: true,
-  input_html: { id: id, class: 'chzn-select', style: 'width:550px' } %>
+  input_html: { id: id, style: 'width:550px' } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
