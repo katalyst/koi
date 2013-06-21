@@ -7,7 +7,11 @@ END
 create_file '.powrc', <<-END
 if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".ruby-version" ]; then
   source "$rvm_path/scripts/rvm"
-  rvm use `cat .ruby-version`
+  if [ -f ".ruby-gemset" ]; then
+    rvm use `cat .ruby-version`@`cat .ruby-gemset`
+  else
+    rvm use `cat .ruby-version`
+  fi
 fi
 END
 
