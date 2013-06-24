@@ -4,7 +4,8 @@
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
 <script type='text/javascript'>
-  $("#<%= id %>").select2({tags:
-    <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list').pluralize).collect { |t| t.name } %>
+  $("#<%= id %>").select2({
+  	tags: <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list')).collect { |t| t.name } %>,
+    tokenSeparators: [","]
   });
 </script>
