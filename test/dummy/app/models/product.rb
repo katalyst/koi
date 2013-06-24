@@ -34,14 +34,14 @@ class Product < ActiveRecord::Base
   crud.config do
     fields launch_date: { type: :date },
            short_description: { type: :text },
-           genre_list: { type: :tags },
+           genre_list: { type: :nice_tags },
            active: { type: :boolean },
            size: { type: :select, data: Size },
            countries: { type: :check_boxes, data: Countries },
            colour: { type: :radio, data: Colours },
            banner: { type: :image },
            manual: { type: :file },
-           products: { type: :association, as: :check_boxes }
+           products: { type: :multiselect_association }
 
     config :admin do
       index fields: [:name]

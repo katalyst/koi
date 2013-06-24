@@ -88,6 +88,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'sinatra'
   s.add_dependency 'slim'
 
+  # Nice Multi Select
+  s.add_dependency 'select2-rails'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
