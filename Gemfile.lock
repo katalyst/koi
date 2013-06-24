@@ -49,6 +49,7 @@ PATH
       redis
       responders (~> 0.9.1)
       scoped_search (~> 2.5.1)
+      select2-rails
       sendgrid (~> 1.2.0)
       sidekiq
       simple-navigation (~> 3.11.0)
@@ -271,6 +272,9 @@ GEM
     scoped_search (2.5.1)
       activerecord (>= 2.1.0)
     seedbank (0.2.1)
+    select2-rails (3.4.2)
+      sass-rails
+      thor (~> 0.14)
     sendgrid (1.2.0)
       json
       json
