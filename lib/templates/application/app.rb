@@ -8,6 +8,11 @@ create_file '.ruby-gemset', <<-END
 koi-gem
 END
 
+# Add .rbenv-gemsets for RBENV
+create_file '.rbenv-gemsets', <<-END
+koi-gem
+END
+
 # Add .powrc for RVM users.
 create_file '.powrc', <<-END
 if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".ruby-version" ]; then
@@ -18,6 +23,9 @@ END
 
 # jQuery UI
 gem "jquery-ui-rails"
+
+# Airbrake
+gem "airbrake"
 
 # Nested fields
 gem 'awesome_nested_fields'     , git: 'git://github.com/katalyst/awesome_nested_fields.git'
@@ -40,6 +48,7 @@ gem 'i18n-active_record'        , git: 'git://github.com/svenfuchs/i18n-active_r
 gem 'unicorn'
 
 gem_group :development do
+  gem 'karo'
   gem 'engineyard'
   gem "ornament", git: "git@github.com:ketchup/ornament.git"
 end
@@ -148,6 +157,9 @@ END
 
 run 'bundle install'
 
+# Generate .karo.yml file
+run 'bundle exec karo generate'
+
 # Install Migrations
 rake 'koi:install:migrations'
 
@@ -229,6 +241,16 @@ Time::DATE_FORMATS[:default] = "%a, %b %e at %l:%M %p"
 Time::DATE_FORMATS[:short] = "%d.%m.%Y"
 END
 
+# Setup Airbrake
+create_file 'config/initializers/airbrake.rb', <<-END
+Airbrake.configure do |config|
+  config.api_key = ''
+  config.host    = 'errbit.katalyst.com.au'
+  config.port    = 80
+  config.secure  = config.port == 443
+end
+END
+
 # Setup sidekiq passenger hack
 create_file 'config/initializers/sidekiq.rb', <<-END
 if defined?(PhusionPassenger)
@@ -253,12 +275,21 @@ END
 # Setup sendgrid initializer
 create_file 'config/initializers/setup_sendgrid.rb', <<-END
 mock_smtp_indicator = Rails.root + 'tmp/mock_smtp.txt'
+mailtrap_smtp_indicator = Rails.root + 'tmp/mailtrap_smtp.txt'
 
 if mock_smtp_indicator.exist?
   ActionMailer::Base.smtp_settings = {
     :address => "localhost",
     :port => 1025,
     :domain => "katalyst.com.au"
+  }
+elsif mailtrap_smtp_indicator.exist?
+  ActionMailer::Base.smtp_settings = {
+    :user_name => 'katalyst',
+    :password => 'e9c7131e96f783f2',
+    :address => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :plain
   }
 else
   ActionMailer::Base.smtp_settings = {
