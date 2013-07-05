@@ -17,7 +17,7 @@
 
     <%= f.input :password, required: true, input_html: { class: "w-510" } %>
 
-    <%= f.input :remember_me, as: :boolean, wrapper: :inline, input_html: { class: "checkbox" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
+    <%= f.input :remember_me, as: :boolean, wrapper: :checkbox, input_html: { class: "checkbox" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
   </div>
 
   <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
