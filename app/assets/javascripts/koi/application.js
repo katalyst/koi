@@ -57,7 +57,7 @@
     var it = $ (this)
 
     if (it.data ('modal')) return fnModal.apply (this, arguments)
-    
+
     fnModal.apply (this, arguments)
 
     if (it.hasClass ('fade')) it.on ('show', function () { it.css ('top', $window.scrollTop () + 100) })
@@ -106,6 +106,7 @@
     switch (document.location.hash)
     {
       case '#tab-settings': $ ('[href=#tab-settings]').click ()
+      case '#tab-extra':    $ ('[href=#tab-extra]').click ()
     }
   })
 
