@@ -12,3 +12,4 @@ test/dummy/public/assets
 test/dummy/.powenv
 spec
 .DS_Store
+.rspec
