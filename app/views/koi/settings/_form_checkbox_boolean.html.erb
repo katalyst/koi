@@ -1,0 +1,5 @@
+<%= fields_for "setting[#{object.id}]" do |setting| %>
+  <label><%= object.label %>
+    <%= setting.text_field :value, label: false, value: object.value, class: "wysiwyg source" %>
+  </label>
+<% end %>
