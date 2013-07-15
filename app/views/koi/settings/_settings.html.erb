@@ -1,14 +1,14 @@
 <div class="settings">
   <div id="index-fields">
-    <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { method: :put } do |f| %>
+    <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>
       <table class="table space-b-0">
         <tbody>
-          
           <%= render "koi/settings/settings_form", f: f %>
         </tbody>
       </table>
-      <div class="actions">
-        <%= f.submit "Submit" %>
+
+      <div class="form-action">
+        <button class="btn btn-primary" name="commit" type="submit" value="Save">Save</button>
       </div>
     <%- end -%>
   </div>

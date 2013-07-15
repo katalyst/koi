@@ -16,9 +16,9 @@ module Koi
 
     # TODO: Get me supporting files, images etc.
     def update_multiple
-      params['setting'].keys.each do |id|
+      params['setting']['setting'].each do |id, value|
         @setting = Setting.find(id.to_i)
-        @setting.update_attributes(params['setting'][id])
+        @setting.update_attributes(params['setting']['setting'][id])
       end
       redirect_to(request.referer + '#tab-settings')
     end
