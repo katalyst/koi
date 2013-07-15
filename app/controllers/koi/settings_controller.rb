@@ -14,6 +14,7 @@ module Koi
       update! { resource.prefix.present? ? request.referer + '#tab-settings' : { action: :index } }
     end
 
+    # TODO: Get me supporting files, images etc.
     def update_multiple
       params['setting'].keys.each do |id|
         @setting = Setting.find(id.to_i)

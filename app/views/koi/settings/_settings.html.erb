@@ -3,6 +3,7 @@
     <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { method: :put } do |f| %>
       <table class="table space-b-0">
         <tbody>
+          
           <%= render "koi/settings/settings_form", f: f %>
         </tbody>
       </table>

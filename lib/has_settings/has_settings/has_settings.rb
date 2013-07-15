@@ -27,6 +27,9 @@ module HasSettings
 
     def create_settings
       Koi::Settings.resource.each do |key, values|
+        puts '~~~~~~'
+        puts key
+        puts value
         create_setting(key, values)
       end
     end
