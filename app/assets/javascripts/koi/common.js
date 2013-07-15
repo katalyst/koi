@@ -14,3 +14,9 @@ $ (document).on ('click', 'a[target=_clipboard]', function ()
 {
   // return false
 })
+
+// hide settings modals
+$ (document).on ('click', '#close-settings-modal', function ()
+{
+   $('#modal-for-extra').modal('hide');
+})
