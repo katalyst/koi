@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
 
-  has_crud orderable: true
+  has_crud orderable: true, settings: true
   has_many :products
 
   crud.config do
