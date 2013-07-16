@@ -9,20 +9,27 @@ Koi::Menu.items = {
   "URL Rewriter" => "/admin/url_rewrites"
 }
 
+# Look at FieldTypes in app/models/settings.rb for supported types
 
-# Look at FieldTypes in app/models/translation.rb for supported types
+SettingOptions = {
+  'Option 1' => 1,
+  'Option 2' => 2
+}
 
 Koi::Settings.collection = {
   title:       { label: "Title",       value: "title", field_type: 'text' },
-  description: { label: "Description", value: "title", field_type: 'rich_text' }
+  description: { label: "Description", value: "title", field_type: 'rich_text' },
+  category:    { label: "Category",    field_type: "select", data_source: Proc.new { Category.all } },
+  options:     { label: "Options",     field_type: "select", data_source: Proc.new { SettingOptions }}
 }
 
 Koi::Settings.resource = {
-  string:    { label: "Banners",  field_type: "string", value: 'Test' },
+  string:    { label: "String",   field_type: "string", value: 'Test' },
   title:     { label: "Title",    field_type: "text",   value: 'Test' },
   rich_text: { label: "RichText", field_type: "rich_text" },
   images:    { label: "Images",   field_type: "images" },
-  boolean:   { label: "Boolean",  field_type: "boolean" }
+  boolean:   { label: "Boolean",  field_type: "boolean", is_required: true },
+  options:   { label: "Options",  field_type: "select", data_source: Proc.new { SettingOptions }, value: 2 }
 }
 
 Koi::Asset::Image.sizes = [
