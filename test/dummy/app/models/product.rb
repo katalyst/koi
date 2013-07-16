@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  has_crud orderable: true
+  has_crud orderable: true, settings: true
 
   belongs_to :category
 
