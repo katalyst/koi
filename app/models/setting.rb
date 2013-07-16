@@ -4,9 +4,9 @@ class Setting < Translation
   
   CollectionTypes = %Q(checkbox radio select)
   FieldTypes = Translation::FieldTypes.merge({
-                 "Select"   => "select",
-                 "Radio"    => "radio",
-                 "Checkbox" => "checkbox"
+                 "Select"      => "select",
+                 "Radio"       => "radio",
+                 "Check Boxes" => "check_boxes"
                })
 
   has_crud paginate: false, searchable: false,

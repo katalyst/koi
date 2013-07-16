@@ -13,14 +13,17 @@ Koi::Menu.items = {
 
 SettingOptions = {
   'Option 1' => 1,
-  'Option 2' => 2
+  'Option 2' => 2,
+  'Option 3' => 3
 }
 
 Koi::Settings.collection = {
   title:       { label: "Title",       value: "title", field_type: 'text' },
   description: { label: "Description", value: "title", field_type: 'rich_text' },
   category:    { label: "Category",    field_type: "select", data_source: Proc.new { Category.all } },
-  options:     { label: "Options",     field_type: "select", data_source: Proc.new { SettingOptions }}
+  options:     { label: "Options",     field_type: "select", data_source: Proc.new { SettingOptions }},
+  rad_options: { label: "RadOptions",  field_type: "radio",  data_source: Proc.new { SettingOptions }},
+  chk_options: { label: "ChkOptions",  field_type: "check_boxes", data_source: Proc.new { SettingOptions }}
 }
 
 Koi::Settings.resource = {
