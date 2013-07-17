@@ -1,9 +1,9 @@
 <% content_for :title, "Products" %>
 
 <p>
-  <%= Product.setting('intro', 'Hello', 'string') %>
+  <%= Product.setting('intro-text', 'Hello', field_tye: 'string') %>
 
-  <% if Product.setting('preamble', true, 'boolean') %>
+  <% if Product.setting('preamble', true, field_type: 'boolean') %>
     <h3>Would you like to buy one of these products?</h3>
   <% end %>
 </p>
