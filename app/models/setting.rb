@@ -9,6 +9,9 @@ class Setting < Translation
                  "Check Boxes" => "check_boxes"
                })
 
+  file_accessor  :file
+  serialize :serialized_value, Array
+
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
