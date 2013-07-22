@@ -32,7 +32,7 @@ Koi::Settings.resource = {
   rich_text: { label: "RichText", field_type: "rich_text" },
   images:    { label: "Images",   field_type: "images" },
   boolean:   { label: "Boolean",  field_type: "boolean", is_required: true },
-  options:   { label: "Options",  field_type: "select", data_source: Proc.new { SettingOptions }, value: 2 }
+  options:   { label: "Options",  field_type: "check_boxes", data_source: Proc.new { SettingOptions }, value: 2 }
 }
 
 Koi::Asset::Image.sizes = [
