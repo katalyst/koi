@@ -35,7 +35,7 @@ gem 'koi_config'                , git: 'git://github.com/katalyst/koi_config.git
 
 # Koi CMS
 gem 'koi'                       , git: 'git://github.com/katalyst/koi.git',
-                                  branch: 'v1.0.0'
+                                  tag: 'v1.0.0-rc.2'
 
 # Bowerbird
 gem 'bowerbird_v2'              , git: 'git@github.com:katalyst/bowerbird_v2.git'
@@ -46,6 +46,10 @@ gem 'i18n-active_record'        , git: 'git://github.com/svenfuchs/i18n-active_r
                                   require: 'i18n/active_record'
 
 gem 'unicorn'
+
+gem 'newrelic_rpm'
+
+gem 'ey_config'
 
 gem_group :development do
   gem 'karo'
@@ -158,7 +162,22 @@ END
 run 'bundle install'
 
 # Generate .karo.yml file
-run 'bundle exec karo generate'
+create_file '.karo.yml', <<-END
+production:
+  host: koiproduction.engineyard.katalyst.com.au
+  user: deploy
+  path: /data/#{@app_name.gsub("-", "_")}
+  commands:
+    client:
+      deploy: ey deploy -e koiproduction
+staging:
+  host: koistaging.engineyard.katalyst.com.au
+  user: deploy
+  path: /data/#{@app_name.gsub("-", "_")}
+  commands:
+    client:
+      deploy: ey deploy -e koistaging
+END
 
 # Install Migrations
 rake 'koi:install:migrations'
@@ -190,6 +209,39 @@ route 'resources :pages, only: [:index, :show]'
 route 'resources :assets'
 route 'resources :images'
 route 'resources :documents'
+
+create_file 'config/ey.yml', <<-END
+# ey.yml supports many deploy configuration options when committed in an
+# application's repository.
+#
+# Valid locations: REPO_ROOT/ey.yml or REPO_ROOT/config/ey.yml.
+#
+# Examples options (defaults apply to all environments for this application):
+#
+# defaults:
+#   migrate: true                           # Default --migrate choice for ey deploy
+#   migration_command: 'rake migrate'       # Default migrate command to run when migrations are enabled
+#   branch: default_deploy_branch           # Branch/ref to be deployed by default during ey deploy
+#   bundle_without: development test        # The string to pass to bundle install --without ''
+#   maintenance_on_migrate: true            # Enable maintenance page during migrate action (use with caution) (default: true)
+#   maintenance_on_restart: false           # Enable maintanence page during every deploy (default: false for unicorn & passenger)
+#   ignore_database_adapter_warning: false  # Hide the warning shown when the Gemfile does not contain a recognized database adapter (mongodb for example)
+#   your_own_custom_key: 'any attribute you put in ey.yml is available in deploy hooks'
+# environments:
+#   YOUR_ENVIRONMENT_NAME: # All options pertain only to the named environment
+#     any_option: 'override any of the options above with specific options for certain environments'
+#     migrate: false
+#
+# Further information available here:
+# https://support.cloud.engineyard.com/entries/20996661-customize-your-deployment-on-engine-yard-cloud
+#
+# NOTE: Please commit this file into your git repository.
+#
+---
+defaults:
+  migrate: false
+  precompile_assets: true
+END
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
