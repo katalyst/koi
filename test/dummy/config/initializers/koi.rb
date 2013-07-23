@@ -12,9 +12,9 @@ Koi::Menu.items = {
 # Look at FieldTypes in app/models/settings.rb for supported types
 
 SettingOptions = {
-  'Option 1' => 1,
-  'Option 2' => 2,
-  'Option 3' => 3
+  'Option 1' => '1',
+  'Option 2' => '2',
+  'Option 3' => '3'
 }
 
 Koi::Settings.collection = {
