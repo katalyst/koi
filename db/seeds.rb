@@ -1,12 +1,25 @@
+require 'securerandom'
+require 'thor'
+thor = Thor::Shell::Basic.new
+
+password = SecureRandom.hex(8)
+
+if thor.yes?("Do you want me to set your password to #{password} ?", :yellow)
+  thor.say("Your admin@katalyst.com.au password has been set, please update your wiki", :green)
+else
+  password = "katalyst"
+  thor.say("Your admin@katalyst.com.au password has been set to `katalyst`, please update your wiki", :red)
+end
+
 # Default Super admin
 Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
-             role: "Super", password: "katalyst", password_confirmation: "katalyst")
+             role: "Super", password: password, password_confirmation: password)
 
 Admin.create(first_name: "Rahul", last_name: "Trikha", email: "rahul@katalyst.com.au",
-             role: "Admin", password: "katalyst", password_confirmation: "katalyst")
+             role: "Admin", password: password, password_confirmation: password)
 
 Admin.create(first_name: "Jason", last_name: "Sidoryn", email: "jason@katalyst.com.au",
-             role: "Admin", password: "katalyst", password_confirmation: "katalyst")
+             role: "Admin", password: password, password_confirmation: password)
 
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
 header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation")
