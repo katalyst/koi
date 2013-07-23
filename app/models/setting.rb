@@ -2,7 +2,7 @@ class Setting < Translation
 
   after_initialize :derive_data_source
   
-  CollectionTypes = %Q(checkbox radio select)
+  CollectionTypes = %Q(check_boxes radio select)
   FieldTypes = Translation::FieldTypes.merge({
                  "Select"      => "select",
                  "Radio"       => "radio",
