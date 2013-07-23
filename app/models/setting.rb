@@ -6,7 +6,9 @@ class Setting < Translation
   FieldTypes = Translation::FieldTypes.merge({
                  "Select"      => "select",
                  "Radio"       => "radio",
-                 "Check Boxes" => "check_boxes"
+                 "Check Boxes" => "check_boxes",
+                 "File"        => "file",
+                 "Image"       => "image"
                })
 
   file_accessor  :file
