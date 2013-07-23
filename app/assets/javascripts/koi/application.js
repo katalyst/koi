@@ -103,10 +103,11 @@
 
   $ (function ()
   {
-    switch (document.location.hash)
-    {
-      case '#tab-settings': $ ('[href=#tab-settings]').click ()
-      case '#tab-extra':    $ ('[href=#tab-extra]').click ()
+    // FIXME: Needs attention
+    if(document.location.hash == '#tab-settings') {
+      $ ('[href=#tab-settings]').click ();
+    } else if(document.location.hash == '#tab-extra') {
+      $ ('[href=#tab-extra]').click ();
     }
   })
 
