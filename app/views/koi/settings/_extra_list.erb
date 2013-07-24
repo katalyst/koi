@@ -1,5 +1,5 @@
 <% settings.each_with_index do |object, i| %>
-  <tr id="setting-row-<%= object.id %>">
+  <tr id="extra-row-<%= object.id %>">
     <% Setting.admin_attributes(:index).each_with_index do |attr,index| %>
       <td>
           <%=
@@ -11,7 +11,7 @@
           %>
       </td>
     <% end %>
-    <%= content_tag :td, object.value %>
+    <%= content_tag :td, object.key if current_admin.god? %>
     <td class="nowrap">
       <ul class="unmarked-list floated-l-list spaced-r-list space-l-0 space-b-0 ">
         <li><%= link_to "Edit", koi_engine.edit_setting_path(object), remote: true %></li>
