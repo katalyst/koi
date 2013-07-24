@@ -1,0 +1,6 @@
+<% data = object.data_source.call if object.data_source %>
+<% if data.nil? %>
+  <%= f.input attr, as: :string, label: label %>
+<% else %>
+  <%= f.input attr.to_sym, :as => :select, collection: data, label: label %>
+<% end %>

@@ -314,6 +314,18 @@ Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
 Koi::Menu.items = {
   'Admins' => '/admin/site_users'
 }
+
+Koi::Settings.collection = {
+  title:            { label: "Title",            field_type: 'string' },
+  meta_description: { label: "Meta Description", field_type: 'text' },
+  meta_keywords:    { label: "Meta Keywords",    field_type: 'text' }
+}
+
+Koi::Settings.resource = {
+  title:            { label: "Title",            field_type: 'string' },
+  meta_description: { label: "Meta Description", field_type: 'text' },
+  meta_keywords:    { label: "Meta Keywords",    field_type: 'text' }
+}
 END
 
 # Setup sendgrid initializer
