@@ -4,14 +4,15 @@ module HasSettings
       Setting.where(prefix: settings_prefix)
     end
 
-    def setting(key, default=nil)
+    def setting(key, value=nil, opt={})
       options = {
         key:    key.to_s,
         label:  key.to_s.titleize,
-        prefix: settings_prefix,
-        field_type: "rich_text",
-        value:  default
-      }
+        field_type: 'rich_text',
+        value:  value
+      }.merge(opt).merge({
+        prefix: settings_prefix
+      })
 
       setting = Setting.find_by_prefix_and_key(settings_prefix, key) || Setting.create(options)
       setting.value
