@@ -13,14 +13,6 @@ create_file '.rbenv-gemsets', <<-END
 koi-gem
 END
 
-# Add .powrc for RVM users.
-create_file '.powrc', <<-END
-if [ -f "$rvm_path/scripts/rvm" ] && [ -f ".ruby-version" ]; then
-  source "$rvm_path/scripts/rvm"
-  rvm use `cat .ruby-version`
-fi
-END
-
 # jQuery UI
 gem "jquery-ui-rails"
 
