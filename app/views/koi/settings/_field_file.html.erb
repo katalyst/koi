@@ -20,11 +20,12 @@
     <% unless is_nil_or_new %>
       <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
     <% end %>
-      
+
       <%= fields_for "setting[setting[#{object.id}]]" do |setting| %>
         <div class="controls">
         <% if !is_nil_or_new %>
             <label class="radio"><%= setting.radio_button :remove_file, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+            <label class="radio"><%= setting.radio_button :remove_file, true %> Remove this <%= kind %></label>
         <% end %>
 
         <label class="radio"><%= setting.radio_button :remove_file, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>

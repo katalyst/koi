@@ -9,13 +9,7 @@
 <% end %>
 
 <% if is_settable? %>
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
-    <li><a href="#tab-settings" data-toggle="tab">Settings</a></li>
-    <%- if current_admin.god? -%>
-      <li><a href="#tab-extra" data-toggle="tab">Extra</a></li>
-    <%- end -%>
-  </ul>
+  <%= render "index_settings_navigation" %>
 <% end %>
 
 <div class="tab-content">
@@ -45,14 +39,7 @@
   </div>
 
   <% if is_settable? %>
-    <div class="tab-pane" id="tab-settings">
-      <%= render 'koi/settings/settings' %>
-    </div>
-    <%- if current_admin.god? -%>
-      <div class="tab-pane" id="tab-extra">
-        <%= render 'koi/settings/extra' %>
-      </div>
-    <%- end -%>
+    <%= render "index_settings" %>
   <% end %>
 </div>
 
