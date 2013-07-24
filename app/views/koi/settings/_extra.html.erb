@@ -1,32 +1,34 @@
-<div class="extra">
-  <div class="row">
-    <div class="span17 bg-darkgrey">
-      <div class="row">
-        <div class="span9 ">&nbsp;</div>
-        <div class="span8 color-darkgrey">
-          <div class="space-half pull-right">
-            <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary" %>
+<div class="tab-pane" id="tab-extra">
+  <div class="extra">
+    <div class="row">
+      <div class="span17 bg-darkgrey">
+        <div class="row">
+          <div class="span9 ">&nbsp;</div>
+          <div class="span8 color-darkgrey">
+            <div class="space-half pull-right">
+              <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary" %>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div id="index-fields">
+      <table class="table space-b-0">
+        <thead>
+          <tr>
+            <% Setting.admin_attributes(:index).each_with_index do |attr,i| %>
+              <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
+            <% end %>
+            <%= content_tag :th, "Key" if current_admin.god? %>
+            <th class="span4">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="settings-list">
+          <%= render "koi/settings/settings_list" %>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div id="index-fields">
-    <table class="table space-b-0">
-      <thead>
-        <tr>
-          <% Setting.admin_attributes(:index).each_with_index do |attr,i| %>
-            <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
-          <% end %>
-          <%= content_tag :th, "Key" if current_admin.god? %>
-          <th class="span4">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="settings-list">
-        <%= render "koi/settings/settings_list" %>
-      </tbody>
-    </table>
-  </div>
-</div>
 
-<div id="modal-for-extra" class="modal fade hide-element as-clr">&nbsp;</div>
+  <div id="modal-for-extra" class="modal fade hide-element as-clr">&nbsp;</div>
+</div>
