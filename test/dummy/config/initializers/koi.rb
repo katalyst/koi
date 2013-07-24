@@ -18,24 +18,25 @@ SettingOptions = {
 }
 
 Koi::Settings.collection = {
-  title:       { label: "Title",       group: "Group 1", value: "title", field_type: 'text' },
-  description: { label: "Description", group: "Group 1", value: "title", field_type: 'rich_text' },
-  category:    { label: "Category",    group: "Group 2", field_type: "select", data_source: Proc.new { Category.all } },
-  options:     { label: "Options",     group: "Group 2", field_type: "select", data_source: Proc.new { SettingOptions }},
-  rad_options: { label: "RadOptions",  group: "Group 2", field_type: "radio",  data_source: Proc.new { SettingOptions }},
-  chk_options: { label: "ChkOptions",  field_type: "check_boxes", data_source: Proc.new { SettingOptions }},
-  image:       { label: "Image",       field_type: "image" },
-  document:    { label: "Document",    field_type: "file" }
+  options:     { label: "Options",          group: "Group 2", field_type: "select", data_source: Proc.new { SettingOptions }},
+  rad_options: { label: "RadOptions",       group: "Group 2", field_type: "radio",  data_source: Proc.new { SettingOptions }},
+  title:       { label: "Title",            group: "SEO", field_type: 'string' },
+  description: { label: "Meta Description", group: "SEO", field_type: 'text' },
+  keywords:    { label: "Meta Keywords",    group: "SEO", field_type: 'text' },
+  chk_options: { label: "ChkOptions",       group: "Group 3", field_type: "check_boxes", data_source: Proc.new { SettingOptions }},
+  image:       { label: "Image",            field_type: "image" },
+  document:    { label: "Document",         field_type: "file" }
 }
 
 Koi::Settings.resource = {
-  string:    { label: "String",   group: "Group 1", field_type: "string", value: 'Test' },
-  title:     { label: "Title",    group: "Group 1", field_type: "text",   value: 'Test' },
-  rich_text: { label: "RichText", group: "Group 2", field_type: "rich_text" },
-  image:     { label: "Image",    group: "Group 2", field_type: "image" },
-  boolean:   { label: "Boolean",  field_type: "boolean", is_required: true },
-  options:   { label: "Options",  field_type: "check_boxes", data_source: Proc.new { SettingOptions }, value: 2 },
-  document:  { label: "Document", field_type: "file" }
+  title:       { label: "Title",            group: "SEO", field_type: 'string' },
+  description: { label: "Meta Description", group: "SEO", field_type: 'text' },
+  keywords:    { label: "Meta Keywords",    group: "SEO", field_type: 'text' },
+  rich_text:   { label: "RichText",         group: "Group 2", field_type: "rich_text" },
+  image:       { label: "Image",            group: "Group 2", field_type: "image" },
+  boolean:     { label: "Boolean",          field_type: "boolean", is_required: true },
+  options:     { label: "Options",          field_type: "check_boxes", data_source: Proc.new { SettingOptions }, value: 2 },
+  document:    { label: "Document",         field_type: "file" }
 }
 
 Koi::Asset::Image.sizes = [
