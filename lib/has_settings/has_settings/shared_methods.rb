@@ -1,8 +1,5 @@
 module HasSettings
   module SharedMethods
-    def settings
-      Setting.where(prefix: settings_prefix)
-    end
 
     def setting(key, value=nil, opt={})
       options = {
