@@ -316,15 +316,15 @@ Koi::Menu.items = {
 }
 
 Koi::Settings.collection = {
-  title:            { label: "Title",            field_type: 'string' },
-  meta_description: { label: "Meta Description", field_type: 'text' },
-  meta_keywords:    { label: "Meta Keywords",    field_type: 'text' }
+  title:            { label: "Title",            group: "SEO", field_type: 'string' },
+  meta_description: { label: "Meta Description", group: "SEO", field_type: 'text' },
+  meta_keywords:    { label: "Meta Keywords",    group: "SEO", field_type: 'text' }
 }
 
 Koi::Settings.resource = {
-  title:            { label: "Title",            field_type: 'string' },
-  meta_description: { label: "Meta Description", field_type: 'text' },
-  meta_keywords:    { label: "Meta Keywords",    field_type: 'text' }
+  title:            { label: "Title",            group: "SEO", field_type: 'string' },
+  meta_description: { label: "Meta Description", group: "SEO", field_type: 'text' },
+  meta_keywords:    { label: "Meta Keywords",    group: "SEO", field_type: 'text' }
 }
 END
 
