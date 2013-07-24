@@ -1,17 +1,20 @@
-<div class="settings">
-  <div id="index-fields">
-    <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>
-      <table class="table space-b-0">
-        <tbody>
-          <%= render "koi/settings/settings_form", f: f %>
-        </tbody>
-      </table>
+<div class="tab-pane" id="tab-<%= group.parameterize %>">
+  <div class="settings">
+    <div id="index-fields">
+      <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>
+        <table class="table space-b-0">
+          <tbody>
+            <%= render "koi/settings/settings_form", f: f, settings: settings %>
+          </tbody>
+        </table>
 
-      <div class="form-action">
-        <button class="btn btn-primary" name="commit" type="submit" value="Save">Save</button>
-      </div>
-    <%- end -%>
+        <div class="form-action">
+          <input type="hidden" name="group" value="<%= group.parameterize %>" />
+          <button class="btn btn-primary" name="commit" type="submit" value="Save">Save</button>
+        </div>
+      <%- end -%>
+    </div>
   </div>
-</div>
 
-<div id="modal-for-setting" class="modal fade hide-element as-clr">&nbsp;</div>
+  <div id="modal-for-<%= group.parameterize %>" class="modal fade hide-element as-clr">&nbsp;</div>
+</div>
