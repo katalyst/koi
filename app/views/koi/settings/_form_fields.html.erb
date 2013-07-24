@@ -1,0 +1,14 @@
+<% klass = f.object.class %>
+<%- klass.admin_attributes(:form).each do |attr| -%>
+  <% if attr == :value %>
+    <% f.object.derive_data_source(true) %>
+    <%= render "field_#{klass.crud.find(:fields, attr, :type)}", f: f, attr: attr, object: f.object, label: :value %>
+  <% else %>
+    <%=
+      assoc    = klass.reflect_on_association(attr)
+      partial  = 'form_field'
+      partial += '_nested' if assoc && !assoc.belongs_to? && assoc.is_nested?
+      render partial, :f => f, :attr => attr
+    %>
+  <% end %>
+<%- end -%>

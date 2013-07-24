@@ -1,0 +1,7 @@
+<% settings.each_with_index do |object, i| %>
+  <% field = object['field_type'] if Setting::FieldTypes.values.include? object['field_type'] %>
+  <% field ||= 'string' %>
+  <%= f.simple_fields_for "setting[#{object.id}]", object do |setting| %>
+    <%= render "/koi/settings/field_#{field}", object: object, f: setting, attr: :value, label: object.label %>
+  <% end %>
+<% end %>
