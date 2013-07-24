@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624053119) do
+ActiveRecord::Schema.define(:version => 20130722025909) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -202,19 +202,22 @@ ActiveRecord::Schema.define(:version => 20130624053119) do
   end
 
   create_table "translations", :force => true do |t|
-    t.string   "locale",         :default => "en"
+    t.string   "locale",           :default => "en"
     t.string   "label"
     t.string   "key"
     t.text     "value"
     t.text     "interpolations"
     t.string   "role"
-    t.string   "field_type",     :default => "string"
+    t.string   "field_type",       :default => "string"
     t.string   "hint"
-    t.boolean  "is_proc",        :default => false
-    t.boolean  "is_required",    :default => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "is_proc",          :default => false
+    t.boolean  "is_required",      :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "prefix"
+    t.string   "file_uid"
+    t.string   "file_name"
+    t.text     "serialized_value"
   end
 
   add_index "translations", ["locale", "prefix", "key"], :name => "index_translations_on_locale_and_prefix_and_key", :unique => true

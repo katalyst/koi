@@ -14,7 +14,6 @@ class Translation < ActiveRecord::Base
 
   before_validation :set_default_values
 
-  default_scope order("`key` ASC")
   scope :non_prefixed, where("prefix IS NULL OR prefix = ''")
 
   FieldTypes = {
