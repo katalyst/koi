@@ -30,7 +30,9 @@ Koi::Engine.routes.draw do
   resources :translations, path: :site_settings do
     get :seed, on: :collection
   end
-  resources :settings
+  resources :settings do
+    put  :update_multiple, on: :collection
+  end
   resources :pages
   resources :url_rewrites
   resources :friendly_id_slugs
