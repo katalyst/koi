@@ -110,7 +110,26 @@
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
-        window.location.hash = e.target.hash;
+
+      for(k in CKEDITOR.instances) {
+          var instance = CKEDITOR.instances[k];
+          instance.destroy()
+      }
+
+      $ ('.wysiwyg.source').each(function() {
+        // FIXME: Duplicated in wysiwyg.js
+        CKEDITOR.replace (this, { filebrowserBrowseUrl        : '/admin/documents'
+                              , filebrowserUploadUrl          : '/admin/documents'
+                              , filebrowserImageBrowseUrl     : '/admin/images'
+                              , filebrowserImageUploadUrl     : '/admin/images'
+                              , filebrowserImageBrowseLinkUrl : '/admin/documents'
+                              , filebrowserImageUploadLinkUrl : '/admin/documents'
+                              , filebrowserWindowWidth        : 950
+                              , filebrowserWindowHeight       : 750
+                              });
+      });
+
+      window.location.hash = e.target.hash;
     })
   })
 

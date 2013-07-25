@@ -1,7 +1,7 @@
 <%- group_settings = settings.group_by(&:group) -%>
 
 <%- group_settings.each do |group, settings| -%>
-  <%- group = "Remaining" if group.blank? -%>
+  <%- group = "General" if group.blank? -%>
   <%= render 'koi/settings/settings', group: group, settings: settings %>
 <%- end -%>
 
