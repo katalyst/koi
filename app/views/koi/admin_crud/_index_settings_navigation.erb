@@ -2,7 +2,7 @@
   <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
 
   <%- settings.group_by(&:group).each do |group, group_settings| -%>
-    <%- group = "Remaining" if group.blank? -%>
+    <%- group = "General" if group.blank? -%>
     <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
   <%- end -%>
 
