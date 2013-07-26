@@ -26,6 +26,8 @@ module Koi
       end
     end
 
+    private
+
     def find_redirect(path)
       UrlRewrite.active.find_by_from(path).try(:to)
     end
