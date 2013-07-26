@@ -29,7 +29,7 @@ module Koi
     private
 
     def find_redirect(path)
-      UrlRewrite.active.find_by_from(path).try(:to)
+      UrlRewrite.redirect_path_for(path)
     end
 
   end

@@ -18,4 +18,8 @@ class UrlRewrite < ActiveRecord::Base
     end
   end
 
+  def self.redirect_path_for(path)
+    active.find_by_from(path).try(:to)
+  end
+
 end
