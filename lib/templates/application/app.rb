@@ -27,7 +27,7 @@ gem 'koi_config'                , git: 'git://github.com/katalyst/koi_config.git
 
 # Koi CMS
 gem 'koi'                       , git: 'git://github.com/katalyst/koi.git',
-                                  tag: 'v1.0.0-rc.2'
+                                  tag: 'v1.0.0-rc.3'
 
 # Bowerbird
 gem 'bowerbird_v2'              , git: 'git@github.com:katalyst/bowerbird_v2.git'
@@ -44,6 +44,7 @@ gem 'newrelic_rpm'
 gem 'ey_config'
 
 gem_group :development do
+  gem 'pry'
   gem 'karo'
   gem 'engineyard'
   gem "ornament", git: "git@github.com:ketchup/ornament.git"
@@ -174,8 +175,11 @@ END
 # Install Migrations
 rake 'koi:install:migrations'
 
-route "match '*path' => 'url_rewrites#redirect'"
-route "mount Koi::Engine => '/admin', as: 'koi_engine'"
+# Convert url's like this /pages/about-us into /about-us
+route 'match "/:id"  => "pages#show", as: :page'
+
+# Koi Engine route
+route 'mount Koi::Engine => "/admin", as: "koi_engine"'
 
 run 'rm public/index.html'
 
