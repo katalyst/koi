@@ -1,5 +1,6 @@
 <% klass = f.object.class %>
 <%- klass.admin_attributes(:form).each do |attr| -%>
+  <% f.object.init_tags(true);
   <% if attr == :value %>
     <% f.object.derive_data_source(true) %>
     <%= render "field_#{klass.crud.find(:fields, attr, :type)}", f: f, attr: attr, object: f.object, label: :value %>
