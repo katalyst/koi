@@ -19,10 +19,10 @@ module HasSettings
       end
 
       def settings
-        Setting.where(prefix: settings_prefix).collect do |s| 
-          s.derive_data_source(true)
-          s.init_tags(true)
-          s
+        Setting.where(prefix: settings_prefix).collect do |setting|
+          setting.derive_data_source(true)
+          setting.init_tags(true)
+          setting
         end
       end
 
