@@ -1,11 +1,16 @@
 <%- id = "koi-#{ new_uuid }" -%>
-<%= f.input "#{object.key.singularize}_list".to_sym, as: :string, input_html: { id: id, style: 'width:500px' }, label: label %>
 
-<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+<% if object.respond_to?("#{object.key.singularize}_list".to_sym) %>
+  <%= f.input "#{object.key.singularize}_list".to_sym, as: :string, input_html: { id: id, style: 'width:500px' }, label: label %>
 
-<script type='text/javascript'>
-  $("#<%= id %>").select2({
-    tags: <%= raw Setting.tag_counts_on(object.key.to_s.chomp('_list')).collect { |t| t.name } %>,
-    tokenSeparators: [","]
-  });
-</script>
+  <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+
+  <script type='text/javascript'>
+    $("#<%= id %>").select2({
+      tags: <%= raw Setting.tag_counts_on(object.key.to_s.chomp('_list')).collect { |t| t.name } %>,
+      tokenSeparators: [","]
+    });
+  </script>
+<% else %>
+  <%= f.input attr, as: :string, label: label %>
+<% end %>
