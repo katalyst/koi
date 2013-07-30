@@ -5,9 +5,14 @@
 
   <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
+  <%
+  tag_list = Setting.tag_counts_on(object.key.to_s.chomp('_list')).collect { |t| t.name }
+  tag_list = tag_list | object.data_source.call if object.data_source
+  %>
+
   <script type='text/javascript'>
     $("#<%= id %>").select2({
-      tags: <%= raw Setting.tag_counts_on(object.key.to_s.chomp('_list')).collect { |t| t.name } %>,
+      tags: <%= raw tag_list %>,
       tokenSeparators: [","]
     });
   </script>
