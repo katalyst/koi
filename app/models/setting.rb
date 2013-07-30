@@ -39,7 +39,9 @@ class Setting < Translation
     end
   end
 
+  # TODO: Needs work. Correct invocation is difficult.
   def init_tags(collection=false)
+    return unless key
     if collection && ::Koi::Settings.collection[key.to_sym]
       if ::Koi::Settings.collection[key.to_sym][:field_type] == 'tags'
         self.class.send(:acts_as_ordered_taggable_on, key.to_sym)
