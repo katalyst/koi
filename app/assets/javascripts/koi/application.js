@@ -129,7 +129,9 @@
                               });
       });
 
+      var scrollmem = $('body').scrollTop();
       window.location.hash = e.target.hash;
+      $('html,body').scrollTop(scrollmem);
     })
   })
 
