@@ -19,7 +19,10 @@ module HasSettings
       end
 
       def settings
-        Setting.where(prefix: settings_prefix).collect { |s| s.derive_data_source(true); s }
+        Setting.where(prefix: settings_prefix).collect do |setting|
+          setting.derive_data_source(true)
+          setting
+        end
       end
 
       include SharedMethods
