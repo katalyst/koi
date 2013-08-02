@@ -36,5 +36,13 @@ module HasSettings
       end
     end
 
+    def grouped_settings
+      settings.group_by(&:group).reject { |group| except_these_groups.include?(group) }
+    end
+
+    def except_these_groups
+      []
+    end
+
   end
 end

@@ -1,4 +1,5 @@
 class SuperHero < ActiveRecord::Base
+
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true
@@ -42,7 +43,16 @@ class SuperHero < ActiveRecord::Base
     end
   end
 
+  def self.except_these_groups
+    ["Tags", "SEO"]
+  end
+
+  def except_these_groups
+    ["SEO"]
+  end
+
   def to_s
     name
   end
+
 end
