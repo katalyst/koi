@@ -38,9 +38,13 @@ module HasNavigation
       self.resource_nav_item.blank? ? ResourceNavItem.new : self.resource_nav_item
     end
 
+    def new_title
+      get_nav_item.title.blank? ? get_title : get_nav_item.title
+    end
+
     def to_navigator(options={})
       resource_nav_item = get_nav_item
-      resource_nav_item.attributes = options.reverse_merge(title: get_title, url: get_url,
+      resource_nav_item.attributes = options.reverse_merge(title: new_title, url: get_url,
                                                            admin_url: get_admin_url,
                                                            setting_prefix: get_setting_prefix,
                                                            navigable: self)
