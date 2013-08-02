@@ -36,8 +36,15 @@ settings = {
   checkboxes:  { label: "Check Boxes",      field_type: "check_boxes", data_source: Proc.new { SettingOptions } },
   boolean:     { label: "Boolean",          field_type: "boolean", is_required: true },
   image:       { label: "Image",            field_type: "image" },
-  document:    { label: "Document",         field_type: "file" }
+  document:    { label: "Document",         field_type: "file" },
+
+  news_tags:   { label: "News Tags", group: 'Tags', field_type: 'tags', data_source: Proc.new { ActsAsTaggableOn::Tag.all.map(&:name) } },
+  faq_tags:    { label: "FAQ Tags",  group: 'Tags', field_type: 'tags' }
 }
 
+resource_settings = settings.merge({
+  resource_tags: { label: "Resource Tags",  group: 'Tags', field_type: 'tags' }
+})
+
 Koi::Settings.collection = settings
-Koi::Settings.resource = settings
+Koi::Settings.resource = resource_settings
