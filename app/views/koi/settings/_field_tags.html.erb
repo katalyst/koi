@@ -1,21 +1,18 @@
 <%- id = "koi-#{ new_uuid }" -%>
 
-<% if object.respond_to?("#{object.key.singularize}_list".to_sym) %>
-  <%= f.input "#{object.key.singularize}_list".to_sym, as: :string, input_html: { id: id, style: 'width:500px' }, label: label %>
+<%= f.input :tag_list, as: :string, input_html: { id: id, style: 'width:500px' }, label: label %>
 
-  <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
+<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
-  <%
-  tag_list = Setting.tag_counts_on(object.key.to_s.chomp('_list')).collect { |t| t.name }
+<%
+  tag_list = object.tags.collect { |t| t.name }
   tag_list = tag_list | object.data_source.call if object.data_source
-  %>
+  tag_list.sort!
+%>
 
-  <script type='text/javascript'>
-    $("#<%= id %>").select2({
-      tags: <%= raw tag_list %>,
-      tokenSeparators: [","]
-    });
-  </script>
-<% else %>
-  <%= f.input attr, as: :string, label: label %>
-<% end %>
+<script type='text/javascript'>
+  $("#<%= id %>").select2({
+    tags: <%= raw tag_list %>,
+    tokenSeparators: [","]
+  });
+</script>
