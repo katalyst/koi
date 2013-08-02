@@ -15,4 +15,10 @@
     tags: <%= raw tag_list %>,
     tokenSeparators: [","]
   });
+
+  $("#<%= id %>").select2("container").find("ul.select2-choices").sortable({
+    containment: 'parent',
+    start:  function() { $("#<%= id %>").select2("onSortStart"); },
+    update: function() { $("#<%= id %>").select2("onSortEnd"); }
+  });
 </script>
