@@ -38,7 +38,7 @@ settings = {
   image:       { label: "Image",            field_type: "image" },
   document:    { label: "Document",         field_type: "file" },
 
-  news_tags:   { label: "News Tags", group: 'Tags', field_type: 'tags' },
+  news_tags:   { label: "News Tags", group: 'Tags', field_type: 'tags', data_source: Proc.new { ActsAsTaggableOn::Tag.all.map(&:name) } },
   faq_tags:    { label: "FAQ Tags",  group: 'Tags', field_type: 'tags' }
 }
 
