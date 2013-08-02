@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
 
-  <%- settings.group_by(&:group).each do |group, group_settings| -%>
+  <%- group_settings.each do |group, settings| -%>
     <%- group = "General" if group.blank? -%>
     <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
   <%- end -%>

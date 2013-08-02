@@ -37,6 +37,17 @@ module Koi::ApplicationHelper
     end
   end
 
+  def group_settings
+    return [] unless is_settable?
+    return @group_settings if @group_settings
+
+    begin
+      @group_settings = resource.grouped_settings
+    rescue ::ActiveRecord::RecordNotFound
+      @group_settings = resource_class.grouped_settings
+    end
+  end
+
   def settings_prefix
     return nil unless is_settable?
     return @settings_prefix if @settings_prefix

@@ -1,5 +1,3 @@
-<%- group_settings = settings.group_by(&:group) -%>
-
 <%- group_settings.each do |group, settings| -%>
   <%- group = "General" if group.blank? -%>
   <%= render 'koi/settings/settings', group: group, settings: settings %>
