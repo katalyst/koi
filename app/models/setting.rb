@@ -1,14 +1,17 @@
 class Setting < Translation
 
   after_initialize :derive_data_source
-  
-  CollectionTypes = %Q(check_boxes radio select)
+
+  acts_as_ordered_taggable
+
+  CollectionTypes = %Q(check_boxes radio select tags)
   FieldTypes = Translation::FieldTypes.merge({
                  "Select"      => "select",
                  "Radio"       => "radio",
                  "Check Boxes" => "check_boxes",
                  "File"        => "file",
-                 "Image"       => "image"
+                 "Image"       => "image",
+                 "Tags"        => "tags"
                })
 
   file_accessor  :file
