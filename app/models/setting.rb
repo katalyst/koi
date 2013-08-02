@@ -1,7 +1,9 @@
 class Setting < Translation
 
-  after_initialize :derive_data_source, :init_tags
-  
+  after_initialize :derive_data_source
+
+  acts_as_ordered_taggable
+
   CollectionTypes = %Q(check_boxes radio select tags)
   FieldTypes = Translation::FieldTypes.merge({
                  "Select"      => "select",
@@ -36,20 +38,6 @@ class Setting < Translation
             title: "Settings"
       form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc, :images],
             title: { new: "Create new setting", edit: "Edit setting" }
-    end
-  end
-
-  # TODO: Needs work. Correct invocation is difficult.
-  def init_tags(collection=false)
-    return unless key
-    if collection && ::Koi::Settings.collection[key.to_sym]
-      if ::Koi::Settings.collection[key.to_sym][:field_type] == 'tags'
-        self.class.send(:acts_as_ordered_taggable_on, key.to_sym)
-      end
-    elsif ::Koi::Settings.resource[key.to_sym]
-      if ::Koi::Settings.resource[key.to_sym][:field_type] == 'tags'
-        self.class.send(:acts_as_ordered_taggable_on, key.to_sym)
-      end
     end
   end
 

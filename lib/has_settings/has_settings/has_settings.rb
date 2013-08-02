@@ -21,7 +21,6 @@ module HasSettings
       def settings
         Setting.where(prefix: settings_prefix).collect do |setting|
           setting.derive_data_source(true)
-          setting.init_tags(true)
           setting
         end
       end
