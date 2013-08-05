@@ -28,10 +28,11 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
                                   :branch => 'rails-3.2',
                                   :require => 'i18n/active_record'
 
-group :development do
-  gem 'pry'
-  gem 'better_errors'
-end
+gem 'better_errors'
+
+gem "binding_of_caller"
+
+gem 'pry'
 
 # Gems used only for assets and not required
 # in production environments by default.
