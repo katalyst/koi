@@ -69,21 +69,6 @@ module HasCrud
             resource_class.options[:ajaxable]
           end
 
-          # def collection
-          #   return get_collection_ivar if get_collection_ivar
-          #   if is_orderable?
-          #     set_collection_ivar end_of_association_chain.ordered
-          #   elsif is_searchable?
-          #     set_collection_ivar end_of_association_chain.search_for(params[:search])
-          #                                                 .order(sort_column + " " + sort_direction)
-          #                                                 .scoped
-          #   else
-          #     set_collection_ivar end_of_association_chain.order(sort_column + " " + sort_direction)
-          #                                                 .scoped
-          #   end
-          #   get_collection_ivar
-          # end
-
           def collection
             return get_collection_ivar if get_collection_ivar
 
@@ -115,13 +100,13 @@ module HasCrud
           def scope_searchable
             initial_scope
             .search_for(params[:search])
-            .reorder(sort_column + " " + sort_direction)
+            .reorder(sort_order)
             .scoped
           end
 
           def scope_default
             initial_scope
-            .reorder(sort_column + " " + sort_direction)
+            .reorder(sort_order)
             .scoped
           end
 
@@ -144,12 +129,25 @@ module HasCrud
             return result
           end
 
+          # FIXME: Imporve the sorting based on methods
           def sort_column
-            resource_class.column_names.include?(params[:sort]) ? params[:sort] : "id"
+            resource_class.column_names.include?(params[:sort]) ? params[:sort] : default_sort_column
+          end
+
+          def default_sort_column
+            resource_class.crud.find(:admin, :index, :order).try(:keys).try(:first) || "id"
           end
 
           def sort_direction
-            %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+            %w[asc desc].include?(params[:direction]) ? params[:direction] : default_sort_direction
+          end
+
+          def default_sort_direction
+            resource_class.crud.find(:admin, :index, :order).try(:values).try(:first) || "asc"
+          end
+
+          def sort_order
+            "#{sort_column} #{sort_direction}"
           end
 
           def parent_title
