@@ -104,6 +104,10 @@ module HasCrud
       end
 
       def setup_scope
+        logger.warn(<<-EOS
+          DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "id ASC"` is deprecated, please set default scope in the model itself by using `default_scope order("id ASC")`
+          EOS
+        )
         self.options[:scope] ? (default_scope order("id ASC")) : (default_scope order(self.options[:scope]))
       end
 

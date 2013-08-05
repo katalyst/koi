@@ -15,8 +15,8 @@ module Koi::ApplicationHelper
   def sortable(column, title = column.titleize, link_opt = {})
     link_params = params.merge sort: column, direction: "asc", page: nil
     link_opt.merge! data: { get_script: true }
-    if column == sort_column
-      link_params.merge! direction: (sort_direction == "asc" ? "desc" : "asc")
+    if column == sort_column.to_s
+      link_params.merge! direction: (sort_direction.to_s == "asc" ? "desc" : "asc")
       link_opt.merge_html! class: "sort icon pad-r-15px #{ sort_direction }"
     end
     link_to title, link_params, link_opt

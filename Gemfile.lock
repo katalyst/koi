@@ -29,7 +29,7 @@ GIT
 PATH
   remote: .
   specs:
-    koi (1.0.0.beta)
+    koi (1.0.0.rc5)
       activevalidators (~> 2.0.1)
       acts-as-taggable-on (~> 2.4.1)
       cancan (~> 1.6.7)
@@ -45,6 +45,7 @@ PATH
       kaminari (~> 0.14.0)
       mysql2 (~> 0.3.11)
       nested_set (~> 1.7.0)
+      rack-mini-profiler
       rails (~> 3.2.13)
       redis
       responders (~> 0.9.1)
@@ -99,6 +100,11 @@ GEM
       rails (>= 3, < 5)
     arel (3.0.2)
     bcrypt-ruby (3.1.1)
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.0.4.2)
     builder (3.0.4)
     cancan (1.6.10)
@@ -111,7 +117,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
+    coffee-script-source (1.6.3)
     connection_pool (1.1.0)
     countries (0.8.4)
       currencies (>= 0.4.0)
@@ -120,13 +126,14 @@ GEM
     currencies (0.4.2)
     date_validator (0.7.0)
       activemodel (>= 3)
-    devise (2.2.4)
+    debug_inspector (0.0.2)
+    devise (2.2.5)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
-    diffy (2.1.4)
+    diffy (3.0.1)
     dragonfly (0.9.15)
       multi_json (~> 1.0)
       rack
@@ -153,7 +160,7 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    guard (1.8.0)
+    guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
       lumberjack (>= 1.0.2)
@@ -186,17 +193,17 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    listen (1.2.1)
+    listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
-    lumberjack (1.0.3)
+    lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    method_source (0.8.1)
+    method_source (0.8.2)
     mime-types (1.23)
-    multi_json (1.7.7)
+    multi_json (1.7.8)
     mysql2 (0.3.13)
     nested_set (1.7.1)
       activerecord (>= 3.0.0)
@@ -218,7 +225,7 @@ GEM
       diffy
       grit
       pry (>= 0.9.8)
-    pry-rails (0.3.1)
+    pry-rails (0.3.2)
       pry (>= 0.9.10)
     pry-remote (0.1.7)
       pry (~> 0.9)
@@ -228,6 +235,8 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-mini-profiler (0.1.28)
+      rack (>= 1.1.3)
     rack-protection (1.5.0)
       rack
     rack-ssl (1.3.3)
@@ -258,7 +267,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.4)
-    redis-namespace (1.3.0)
+    redis-namespace (1.3.1)
       redis (~> 3.0.0)
     responders (0.9.3)
       railties (~> 3.1)
@@ -272,7 +281,7 @@ GEM
     scoped_search (2.5.1)
       activerecord (>= 2.1.0)
     seedbank (0.2.1)
-    select2-rails (3.4.3)
+    select2-rails (3.4.7)
       sass-rails
       thor (~> 0.14)
     sendgrid (1.2.0)
@@ -296,7 +305,7 @@ GEM
     slim (2.0.1)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
-    slop (3.4.5)
+    slop (3.4.6)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -311,19 +320,21 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    uglifier (2.1.1)
+    uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
-    yard (0.8.6.1)
+    yard (0.8.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   awesome_nested_fields!
+  better_errors
+  binding_of_caller
   bowerbird_v2!
   coffee-rails
   factory_girl_rails
