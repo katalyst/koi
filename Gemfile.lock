@@ -103,6 +103,8 @@ GEM
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.0.4.2)
     builder (3.0.4)
     cancan (1.6.10)
@@ -124,6 +126,7 @@ GEM
     currencies (0.4.2)
     date_validator (0.7.0)
       activemodel (>= 3)
+    debug_inspector (0.0.2)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -331,6 +334,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_nested_fields!
   better_errors
+  binding_of_caller
   bowerbird_v2!
   coffee-rails
   factory_girl_rails
