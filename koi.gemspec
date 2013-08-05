@@ -91,6 +91,9 @@ Gem::Specification.new do |s|
   # Nice Multi Select
   s.add_dependency 'select2-rails'
 
+  # Mini Profiler
+  s.add_dependency 'rack-mini-profiler'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
@@ -120,6 +123,9 @@ Gem::Specification.new do |s|
 
   # Fixture replacement
   s.add_development_dependency 'factory_girl_rails'
+
+  # Error display Replacement
+  s.add_development_dependency 'better_errors'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'
