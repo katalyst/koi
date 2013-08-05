@@ -47,7 +47,9 @@ gem_group :development do
   gem 'pry'
   gem 'karo'
   gem 'engineyard'
-  gem "ornament", git: "git@github.com:ketchup/ornament.git"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'ornament', git: 'git@github.com:ketchup/ornament.git'
 end
 
 # Setup mailer host

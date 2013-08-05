@@ -126,6 +126,7 @@ Gem::Specification.new do |s|
 
   # Error display Replacement
   s.add_development_dependency 'better_errors'
+  s.add_development_dependency 'binding_of_caller'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'
