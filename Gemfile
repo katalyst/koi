@@ -30,6 +30,7 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
 
 group :development do
   gem 'pry'
+  gem 'better_errors'
 end
 
 # Gems used only for assets and not required
