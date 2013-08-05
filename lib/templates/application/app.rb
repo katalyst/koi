@@ -27,7 +27,7 @@ gem 'koi_config'                , git: 'git://github.com/katalyst/koi_config.git
 
 # Koi CMS
 gem 'koi'                       , git: 'git://github.com/katalyst/koi.git',
-                                  tag: 'v1.0.0-rc.3'
+                                  tag: 'v1.0.0.rc5'
 
 # Bowerbird
 gem 'bowerbird_v2'              , git: 'git@github.com:katalyst/bowerbird_v2.git'
