@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , '~> 3.2.13'
+  s.add_dependency 'rails'                         , '~> 3.2.14'
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -31,8 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 2.2.0'
-  s.add_dependency 'cancan'                        , '~> 1.6.7'
+  s.add_dependency 'devise'                        , '~> 3.0.1'
 
   # Form
   s.add_dependency 'simple_form'                   , '~> 2.1.0'
@@ -64,7 +63,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'acts-as-taggable-on'           , '~> 2.4.1'
 
   # Scoped Search
-  s.add_dependency 'scoped_search'                 , '~> 2.5.1'
+  s.add_dependency 'scoped_search'                 , '~> 2.6.0'
 
   # Association Patterns
   s.add_dependency 'has'                           , '~> 1.0.3'
