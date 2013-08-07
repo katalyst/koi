@@ -30,22 +30,14 @@ module Koi::ApplicationHelper
     return [] unless is_settable?
     return @settings if @settings
 
-    begin
-      @settings = resource.settings
-    rescue ::ActiveRecord::RecordNotFound
-      @settings = resource_class.settings
-    end
+    @settings = get_settings_by(:settings)
   end
 
   def group_settings
     return [] unless is_settable?
     return @group_settings if @group_settings
 
-    begin
-      @group_settings = resource.grouped_settings
-    rescue ::ActiveRecord::RecordNotFound
-      @group_settings = resource_class.grouped_settings
-    end
+    @group_settings = get_settings_by(:grouped_settings)
   end
 
   def settings_prefix
@@ -107,6 +99,14 @@ module Koi::ApplicationHelper
 
   def current_url
     (params[:controller] + "/" + params[:action]).gsub("/", ".")
+  end
+
+  def get_settings_by(kind)
+    begin
+      resource.send(kind)
+    rescue ::ActiveRecord::RecordNotFound
+      resource_class.send(kind)
+    end
   end
 
 end
