@@ -1,4 +1,5 @@
-require_relative 'admin/protected_methods'
+require_relative 'admin/collection_methods'
+require_relative 'admin/crud_methods'
 
 module HasCrud
   module ActionController
@@ -6,7 +7,8 @@ module HasCrud
       def self.included(base)
         base.send :extend,  ClassMethods
         base.send :include, InstanceMethods
-        base.send :include, Admin::ProtectedMethods
+        base.send :include, Admin::CollectionMethods
+        base.send :include, Admin::CrudMethods
         base.send :include, Koi::ApplicationHelper
         base.send :include, ActionView::Helpers::OutputSafetyHelper
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
@@ -20,12 +22,6 @@ module HasCrud
 
       module InstanceMethods
 
-        def sort
-          order = params[singular_name(:symbol)]
-          resource_class.orderable(order)
-          render :text => nil
-        end
-
         def create
           create! do |success, failure|
             success.html { redirect_to redirect_path }
@@ -38,23 +34,36 @@ module HasCrud
           end
         end
 
-        def redirect_path
-          if params[:commit].eql?("Continue")
-            edit_resource_path
-          elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
-            sitemap_nav_items_path
-          else
-            collection_path
+        private
+
+          def redirect_path
+            if params[:commit].eql?("Continue")
+              edit_resource_path
+            elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
+              sitemap_nav_items_path
+            else
+              collection_path
+            end
           end
-        end
 
-        def per_page
-          resource_class.crud.find(:admin, :per_page) || resource_class.options[:paginate]
-        end
+          def create_resource(object)
+            @site_parent = params[:site_parent] if params[:site_parent].present?
+            result = object.save
+            if result
+              #FIXME: hacky way to handle associations
+              parent.send(plural_name.to_sym) << object if respond_to? :parent
+              object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
+            end
+            result
+          end
 
-        def page_list
-          resource_class.crud.find(:admin, :page_list) || resource_class.options[:page_list]
-        end
+          def update_resource(object, attributes)
+            result = object.update_attributes(*attributes)
+            if result
+              object.to_navigator! if object.respond_to? :to_navigator
+            end
+            return result
+          end
 
       end
     end
