@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <h3><%= singular_name_humanized %></h3>
+  <div>
+    <%= render "form_fields", f: f %>
+    <%= link_to_remove_association remove_link, f %>
+  </div>
+</div>
