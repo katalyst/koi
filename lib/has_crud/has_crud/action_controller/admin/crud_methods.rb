@@ -1,10 +1,13 @@
+require_relative 'common_methods'
+
 module HasCrud
   module ActionController
     module Admin
-      module ProtectedMethods
+      module CrudMethods
 
         def self.included(base)
           base.send :include, InstanceMethods
+          base.send :include, Admin::CommonMethods
         end
 
         module ClassMethods
@@ -12,33 +15,19 @@ module HasCrud
 
         module InstanceMethods
 
-          def singular_name(to_sym=false)
-            name = resource_class.to_s.underscore
-            to_sym ? name : name.to_sym
-          end
-
-          def plural_name(to_sym=false)
-            name = singular_name(:symbol).pluralize
-            to_sym ? name : name.to_sym
-          end
-
-          def humanized(value=nil)
-            value.to_s.gsub("_", " ").capitalize
-          end
-
-          def humanized_singular_name
-            humanized singular_name
-          end
-
-          def humanized_plural_name
-            humanized plural_name
-          end
-
           def is_allowed?(action)
             actions = [:index, :new, :edit, :destroy]
             actions = (resource_class.crud.find(:admin, :actions, :only) ||
                        (actions - Array(resource_class.crud.find(:admin, :actions, :except)).flatten))
             Array(actions).flatten.include? action
+          end
+
+          def per_page
+            resource_class.crud.find(:admin, :per_page) || resource_class.options[:paginate]
+          end
+
+          def page_list
+            resource_class.crud.find(:admin, :page_list) || resource_class.options[:page_list]
           end
 
           def is_paginated?
@@ -69,64 +58,10 @@ module HasCrud
             resource_class.options[:ajaxable]
           end
 
-          def collection
-            return get_collection_ivar if get_collection_ivar
-
-            set_collection_ivar select_scope
-
-            get_collection_ivar
-          end
-
-          def select_scope
-            if is_orderable?
-              scope_orderable
-            elsif is_searchable?
-              scope_searchable
-            else
-              scope_default
-            end
-          end
-
-          def initial_scope
-            end_of_association_chain
-          end
-
-          def scope_orderable
-            initial_scope
-            .ordered
-            .scoped
-          end
-
-          def scope_searchable
-            initial_scope
-            .search_for(params[:search])
-            .reorder(sort_order)
-            .scoped
-          end
-
-          def scope_default
-            initial_scope
-            .reorder(sort_order)
-            .scoped
-          end
-
-          def create_resource(object)
-            @site_parent = params[:site_parent] if params[:site_parent].present?
-            result = object.save
-            if result
-              #FIXME: hacky way to handle associations
-              parent.send(plural_name.to_sym) << object if respond_to? :parent
-              object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
-            end
-            result
-          end
-
-          def update_resource(object, attributes)
-            result = object.update_attributes(*attributes)
-            if result
-              object.to_navigator! if object.respond_to? :to_navigator
-            end
-            return result
+          def sort
+            order = params[singular_name(:symbol)]
+            resource_class.orderable(order)
+            render :text => nil
           end
 
           # FIXME: Imporve the sorting based on methods
