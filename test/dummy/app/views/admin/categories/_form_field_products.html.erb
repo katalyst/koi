@@ -1,0 +1,31 @@
+<h3>Products</h3>
+<div id="products">
+  <div id="accordion">
+    <%= f.simple_fields_for :products do |product| %>
+      <%= render 'product_fields', f: product %>
+    <%- end -%>
+    <div class="links">
+      <%= link_to_add_association 'add product', f, :products %>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script>
+  $(function() {
+    $( "#accordion" )
+      .accordion({
+        header: "> div > h3"
+      })
+      .sortable({
+        axis: "y",
+        handle: "h3",
+        stop: function( event, ui ) {
+          // IE doesn't register the blur when sorting
+          // so trigger focusout handlers to remove .ui-state-focus
+          ui.item.children( "h3" ).triggerHandler( "focusout" );
+        }
+      });
+  });
+</script>
