@@ -26,6 +26,12 @@ GIT
     bowerbird_v2 (2.0.6)
       bootstrap-sass (= 2.0.4.2)
 
+GIT
+  remote: https://github.com/nathanvda/cocoon.git
+  revision: 7a402fdfb1ca910e3a05da5069f89e252e589cc2
+  specs:
+    cocoon (1.2.0)
+
 PATH
   remote: .
   specs:
@@ -270,7 +276,7 @@ GEM
     responders (0.9.3)
       railties (~> 3.1)
     ruby_gntp (0.3.4)
-    safe_yaml (0.9.4)
+    safe_yaml (0.9.5)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -334,6 +340,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bowerbird_v2!
+  cocoon!
   coffee-rails
   factory_girl_rails
   forgery

@@ -2,9 +2,13 @@ class Category < ActiveRecord::Base
 
   has_crud orderable: true, settings: true
   has_many :products
+  accepts_nested_attributes_for :products, allow_destroy: true
 
   crud.config do
+    fields products: { type: :products }
+
     config :admin do
+      form  fields:    [:name, :products]
       index fields:    [:name],
             relations: [:products]
     end
