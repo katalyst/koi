@@ -47,10 +47,11 @@ class Product < ActiveRecord::Base
 
     config :admin do
       index fields: [:name]
-      form  fields: [:name, :short_description, :description,
-                     :publish_date, :launch_date, :genre_list,
-                     :banner, :manual, :size, :countries,
-                     :colour, :active, :products, :images]
+      form  fields: [:name, :publish_date, :genre_list]
+      # form  fields: [:name, :short_description, :description,
+      #                :publish_date, :launch_date, :genre_list,
+      #                :banner, :manual, :size, :countries,
+      #                :colour, :active, :products, :images]
     end
   end
 
