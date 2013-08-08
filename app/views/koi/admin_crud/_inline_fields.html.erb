@@ -2,6 +2,7 @@
   <h3><%= singular_name_humanized %></h3>
   <div>
     <%= render "form_fields", f: f %>
+    <%= f.input :ordinal, as: :hidden, input_html: { class: ordinal_class } if is_orderable %>
     <%= link_to_remove_association remove_link, f %>
   </div>
 </div>
