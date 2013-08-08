@@ -59,4 +59,8 @@ class Product < ActiveRecord::Base
     name
   end
 
+  def titleize
+    "Custom title - #{name}"
+  end
+
 end
