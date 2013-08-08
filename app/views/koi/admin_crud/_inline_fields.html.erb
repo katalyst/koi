@@ -1,8 +1,7 @@
 <div class="nested-fields">
-  <h3><%= singular_name_humanized %></h3>
-  <div>
+  <h3><span class="collapser"><%= (f.object.respond_to?(:titleize) && !f.object.titleize.blank?) ? f.object.titleize : f.object.to_s %></span> <span class="close-link"><%= link_to_remove_association remove_link, f, confirm: "Are your sure?" %></h3>
+  <div class="nested-inline-fields <%= "hidden" if f.object.errors.blank? %>">
     <%= render "form_fields", f: f %>
     <%= f.input :ordinal, as: :hidden, input_html: { class: ordinal_class } if is_orderable %>
-    <%= link_to_remove_association remove_link, f %>
   </div>
 </div>
