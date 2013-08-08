@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
@@ -6,11 +6,11 @@
 CKEDITOR.editorConfig = function (config)
 {
 	// %REMOVE_START%
-	
+
 	// The configuration options below are needed when running CKEditor from source files.
 	config.plugins = 'basicstyles,dialogui,dialog,clipboard,button,toolbar,list,indent,enterkey,entities,wysiwygarea,fakeobjects,link,pastetext,undo,pastefromword,autogrow,popup,filebrowser,panel,floatpanel,listblock,richcombo,format,image,oembed,showblocks,showborders,sourcearea,tab,table,menu,contextmenu,tabletools,tableresize';
 	config.skin    = 'moono';
-	
+
 	// %REMOVE_END%
 
 	// For the complete reference of configuration changes available see: http://docs.ckeditor.com/#!/api/CKEDITOR.config.
@@ -19,7 +19,7 @@ CKEDITOR.editorConfig = function (config)
 	config.forcePasteAsPlainText = true;
 
 	config.toolbar = 'Custom';
-	 
+
 	config.toolbar_Custom =
 	[
 		{ name: 'document'    , items : [ 'Source', 'ShowBlocks'                                           ] },
@@ -53,7 +53,7 @@ CKEDITOR.editorConfig = function (config)
 
 			case 'image':
 			var info = definition.getContents ('info')
-			
+
 			for (var id in { txtWidth:1, txtHeight:1, txtBorder:1, txtHSpace:1, txtVSpace:1, ratioLock:1 }) info.remove (id)
 			for (var id in { Upload:1, advanced:1 }) definition.removeContents (id)
 			break;
