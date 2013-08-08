@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
 
   has_crud orderable: true, settings: true
+  has_many :product_images
+  accepts_nested_attributes_for :product_images, allow_destroy: true
 
   belongs_to :category
 
@@ -43,15 +45,13 @@ class Product < ActiveRecord::Base
            colour: { type: :radio, data: Colours },
            banner: { type: :image },
            manual: { type: :file },
-           products: { type: :multiselect_association }
+           products: { type: :multiselect_association },
+           product_images: { type: :inline }
 
     config :admin do
       index fields: [:name]
-      form  fields: [:name, :publish_date, :genre_list]
-      # form  fields: [:name, :short_description, :description,
-      #                :publish_date, :launch_date, :genre_list,
-      #                :banner, :manual, :size, :countries,
-      #                :colour, :active, :products, :images]
+#      form  fields: [:name, :publish_date, :genre_list]
+       form  fields: [:name, :products, :product_images]
     end
   end
 
@@ -60,7 +60,11 @@ class Product < ActiveRecord::Base
   end
 
   def inline_titleize
-    "Custom title - #{name}"
+    if new_record?
+      "Product"
+    else
+      to_s
+    end
   end
 
 end
