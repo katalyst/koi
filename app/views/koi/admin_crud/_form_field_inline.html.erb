@@ -1,23 +1,33 @@
 <%-
   partial                 = "inline_fields"
   attr_string             = attr.to_s
+  nested_id               = "#{attr_string.parameterize}-nested"
   header                  = attr_string.humanize
   singular_name           = attr_string.singularize
   singular_name_humanized = singular_name.humanize
   add_link                = "Add #{singular_name_humanized}"
   remove_link             = "Remove #{singular_name_humanized}"
+  ordinal_class           = "#{attr_string}-ordinal"
+  klass                   = singular_name.titlecase.gsub(" ", "").constantize
+  records                 = f.object.send(attr)
+
+  is_orderable            = (klass.has_crud? && klass.options[:orderable]) ? true : false
+  records                 = records.sort_by(&:ordinal) if is_orderable
 
   locals_to_be_passed = {
+    is_orderable: is_orderable,
+    attr_string: attr_string,
     singular_name_humanized: singular_name_humanized,
-    remove_link: remove_link
+    remove_link: remove_link,
+    ordinal_class: ordinal_class
   }
 -%>
 
-<h3><%= header %></h3>
+<h2><%= header %></h2>
 
-<div id="nested">
-  <div id="accordion">
-    <%= f.simple_fields_for attr do |record| %>
+<div id="<%= nested_id %>">
+  <div id="<%= nested_id %>-container">
+    <%= f.simple_fields_for attr, records do |record| %>
       <%= render partial, { f: record }.merge(locals_to_be_passed) %>
     <%- end -%>
     <div class="links">
@@ -27,20 +37,38 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript">
+
+  var update_order = function() {
+    $('.<%= ordinal_class %>').each(function(i, e) {
+      $(e).val(i);
+    });
+  }
+
   $(function() {
-    $( "#accordion" )
-      .accordion({
-        header: "> div > h3"
-      })
-      .sortable({
-        axis: "y",
-        handle: "h3",
-        stop: function( event, ui ) {
-          // IE doesn't register the blur when sorting
-          // so trigger focusout handlers to remove .ui-state-focus
-          ui.item.children( "h3" ).triggerHandler( "focusout" );
-        }
+
+    <%- if is_orderable -%>
+      $('#<%= nested_id %>').bind('cocoon:after-insert', function(e, insertedItem) {
+        update_order();
       });
+
+      $('#<%= nested_id %>').bind('cocoon:after-remove', function(e, insertedItem) {
+        update_order();
+      });
+
+      $( "#<%= nested_id %>-container" )
+        .sortable({
+          axis: "y",
+          handle: "h3",
+          stop: function( event, ui ) {
+            update_order();
+            // IE doesn't register the blur when sorting
+            // so trigger focusout handlers to remove .ui-state-focus
+            ui.item.children( "h3" ).triggerHandler( "focusout" );
+          }
+        });
+    <%- end -%>
+
   });
+
 </script>
