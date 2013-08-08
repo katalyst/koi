@@ -6,7 +6,6 @@
   singular_name           = attr_string.singularize
   singular_name_humanized = singular_name.humanize
   add_link                = "Add #{singular_name_humanized}"
-  remove_link             = "[x]"
   ordinal_class           = "#{attr_string}-ordinal"
   klass                   = singular_name.titlecase.gsub(" ", "").constantize
   records                 = f.object.send(attr)
@@ -18,7 +17,6 @@
     is_orderable: is_orderable,
     attr_string: attr_string,
     singular_name_humanized: singular_name_humanized,
-    remove_link: remove_link,
     ordinal_class: ordinal_class
   }
 -%>
@@ -55,24 +53,24 @@
 
   $(function() {
 
-      $('#<%= nested_id %>').bind('cocoon:after-insert', function(e, insertedItem) {
-        insertedItem.children(".nested-inline-fields").slideToggle("slow");
-        <%- if is_orderable -%>
-          update_order();
-        <%- end -%>
-      });
+    $('#<%= nested_id %>').bind('cocoon:after-insert', function(e, insertedItem) {
+      insertedItem.children(".nested-inline-fields").slideToggle("slow");
+      <%- if is_orderable -%>
+        update_order();
+      <%- end -%>
+    });
 
-      $('#<%= nested_id %>').bind('cocoon:after-remove', function(e, insertedItem) {
-        <%- if is_orderable -%>
-          update_order();
-        <%- end -%>
-      });
+    $('#<%= nested_id %>').bind('cocoon:after-remove', function(e, insertedItem) {
+      <%- if is_orderable -%>
+        update_order();
+      <%- end -%>
+    });
 
     <%- if is_orderable -%>
       $( "#<%= nested_id %>-container" )
         .sortable({
           axis: "y",
-          handle: "h3",
+          handle: ".drag-link",
           stop: function( event, ui ) {
             update_order();
             // IE doesn't register the blur when sorting
