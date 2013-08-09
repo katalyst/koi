@@ -4,15 +4,7 @@ jQuery (function ($)
 
   function wysiwyg ()
   {
-    CKEDITOR.replace (this, { filebrowserBrowseUrl          : '/admin/documents'
-                            , filebrowserUploadUrl          : '/admin/documents'
-                            , filebrowserImageBrowseUrl     : '/admin/images'
-                            , filebrowserImageUploadUrl     : '/admin/images'
-                            , filebrowserImageBrowseLinkUrl : '/admin/documents'
-                            , filebrowserImageUploadLinkUrl : '/admin/documents'
-                            , filebrowserWindowWidth        : 950
-                            , filebrowserWindowHeight       : 750
-                            })
+    CKEDITOR.replace (this)
   }
 
   $.fn.wysiwyg = function ()
