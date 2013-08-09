@@ -6,7 +6,6 @@
   singular_name           = attr_string.singularize
   singular_name_humanized = singular_name.humanize
   add_link                = "Add #{singular_name_humanized}"
-  ordinal_class           = "#{attr_string}-ordinal"
   klass                   = singular_name.titlecase.gsub(" ", "").constantize
   records                 = f.object.send(attr)
 
@@ -17,8 +16,7 @@
     nested_class: nested_class,
     is_orderable: is_orderable,
     attr_string: attr_string,
-    singular_name_humanized: singular_name_humanized,
-    ordinal_class: ordinal_class
+    singular_name_humanized: singular_name_humanized
   }
 -%>
 
@@ -26,7 +24,7 @@
 
   <h2><%= header %></h2>
 
-  <div class="<%= nested_class %>">
+  <div class="<%= nested_class %> nested-wrapper">
 
     <%- if is_orderable -%>
       <div class="inline-actions">
@@ -34,7 +32,7 @@
       </div>
     <%- end -%>
 
-    <div class="<%= nested_class %>-container">
+    <div class="<%= nested_class %>-container nested-container">
       <%= f.simple_fields_for attr, records do |record| %>
         <%= render partial, { f: record }.merge(locals_to_be_passed) %>
       <%- end -%>
@@ -53,14 +51,49 @@
     $(function() {
 
       $("body").on("click", ".collapser", function (event) {
-        console.log(this);
         $(this).closest(".nested-fields").children(".nested-inline-fields").slideToggle("slow");
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
-        console.log(insertedItem);
         insertedItem.children(".nested-inline-fields").slideToggle("slow");
       });
+
+    <%- if is_orderable -%>
+
+      var update_order = function() {
+      }
+
+      $('.show-inline-draggable').change(function(){
+        var parent               = $(this).closest(".nested-wrapper");
+        var nested_container     = parent.children(".nested-container")
+        var nested_fields        = nested_container.children(".nested-fields");
+        var nested_title_fields  = nested_fields.children("h3");
+        var nested_inline_fields = nested_fields.children(".nested-inline-fields");
+        var handlers             = nested_fields.children("h3").children(".drag-handler");
+
+        if (this.checked) {
+
+          nested_inline_fields.slideUp("slow");
+          nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
+          nested_title_fields.children(".drag-handler").show().addClass("drag-me");
+
+          nested_container.sortable({
+            axis: "y",
+            handle: ".drag-me",
+            stop: function( event, ui ) {
+              nested_inline_fields.children(".inline-ordinal-wrapper").find('.inline-ordinal').each(function(i, e) {
+                $(e).val(i);
+              });
+            }
+          });
+
+        } else {
+          nested_fields.children("h3").children(".drag-handler").hide().removeClass("drag-me");
+          nested_fields.children("h3").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
+        }
+      });
+
+    <%- end -%>
 
     });
 

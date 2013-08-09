@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  has_crud orderable: false, settings: true
+  has_crud orderable: true, settings: true
   has_many :product_images
   accepts_nested_attributes_for :product_images, allow_destroy: true
 
@@ -50,7 +50,6 @@ class Product < ActiveRecord::Base
 
     config :admin do
       index fields: [:name]
-#      form  fields: [:name, :publish_date, :genre_list]
        form  fields: [:name, :products, :product_images]
     end
   end
