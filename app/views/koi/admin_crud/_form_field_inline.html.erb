@@ -1,7 +1,6 @@
 <%-
   partial                 = "inline_fields"
   attr_string             = attr.to_s
-  nested_class            = "#{attr_string.parameterize}-nested".gsub("_", "-")
   header                  = attr_string.humanize
   singular_name           = attr_string.singularize
   singular_name_humanized = singular_name.humanize
@@ -13,7 +12,6 @@
   records                 = records.sort_by(&:ordinal) if is_orderable
 
   locals_to_be_passed = {
-    nested_class: nested_class,
     is_orderable: is_orderable,
     attr_string: attr_string,
     singular_name_humanized: singular_name_humanized
@@ -24,7 +22,7 @@
 
   <h2><%= header %></h2>
 
-  <div class="<%= nested_class %> nested-wrapper">
+  <div class="nested-wrapper">
 
     <%- if is_orderable -%>
       <div class="inline-actions">
@@ -32,7 +30,7 @@
       </div>
     <%- end -%>
 
-    <div class="<%= nested_class %>-container nested-container">
+    <div class="nested-container">
       <%= f.simple_fields_for attr, records do |record| %>
         <%= render partial, { f: record }.merge(locals_to_be_passed) %>
       <%- end -%>
