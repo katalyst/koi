@@ -2,7 +2,10 @@ class CreateProductImages < ActiveRecord::Migration
   def change
     create_table :product_images do |t|
       t.integer :product_id
-      t.string :image_uid
+      t.string  :product_type
+      t.string  :title
+      t.string  :description
+      t.string  :image_uid
       t.integer :ordinal
       # Friendly ID
       t.string  :slug
@@ -11,4 +14,3 @@ class CreateProductImages < ActiveRecord::Migration
     add_index :product_images, :slug, :unique => true
   end
 end
-

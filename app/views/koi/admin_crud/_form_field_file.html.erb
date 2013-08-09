@@ -9,10 +9,10 @@
   html_id       = new_uuid
 %>
 
-  <%= f.hidden_field "retained_#{attr}" %>
-  <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
-
 <div class="media">
+    <%= f.hidden_field "retained_#{attr}" %>
+    <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
+
     <% unless is_nil_or_new %>
       <%= attachment_image_tag(value, class: "media-object pull-left") %>
     <% else %>
