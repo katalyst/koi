@@ -24,16 +24,16 @@
 							"liurl.cn", "ln-s.net", "ln-s.ru", "lnk.gd", "lnk.ms", "lnkd.in", "lnkurl.com", "lru.jp", "lt.tl", "lurl.no", "macte.ch", "mash.to", "merky.de", "migre.me", "miniurl.com", 
 							"minurl.fr", "mke.me", "moby.to", "moourl.com", "mrte.ch", "myloc.me", "myurl.in", "n.pr", "nbc.co", "nblo.gs", "nn.nf", "not.my", "notlong.com", "nsfw.in", 
 							"nutshellurl.com", "nxy.in", "nyti.ms", "o-x.fr", "oc1.us", "om.ly", "omf.gd", "omoikane.net", "on.cnn.com", "on.mktw.net", "onforb.es", "orz.se", "ow.ly", "ping.fm", 
-							"pli.gs", "pnt.me", "politi.co", "post.ly", "pp.gg", "profile.to", "ptiturl.com", "pub.vitrue.com", "qlnk.net", "qte.me", "qu.tc", "qy.fi", "r.im", "rb6.me", "read.bi", 
+							"pli.gs", "pnt.me", "politi.co", "post.ly", "pp.gg", "profile.to", "ptiturl.com", "pub.vitrue.com", "qlnk.net", "qte.me", "qu.tc", "qy.fi", "r.ebay.com", "r.im", "rb6.me", "read.bi", 
 							"readthis.ca", "reallytinyurl.com", "redir.ec", "redirects.ca", "redirx.com", "retwt.me", "ri.ms", "rickroll.it", "riz.gd", "rt.nu", "ru.ly", "rubyurl.com", "rurl.org", 
 							"rww.tw", "s4c.in", "s7y.us", "safe.mn", "sameurl.com", "sdut.us", "shar.es", "shink.de", "shorl.com", "short.ie", "short.to", "shortlinks.co.uk", "shorturl.com", 
 							"shout.to", "show.my", "shrinkify.com", "shrinkr.com", "shrt.fr", "shrt.st", "shrten.com", "shrunkin.com", "simurl.com", "slate.me", "smallr.com", "smsh.me", "smurl.name", 
-							"sn.im", "snipr.com", "snipurl.com", "snurl.com", "sp2.ro", "spedr.com", "srnk.net", "srs.li", "starturl.com", "su.pr", "surl.co.uk", "surl.hu", "t.cn", "t.co", "t.lh.com", 
+							"sn.im", "snipr.com", "snipurl.com", "snurl.com", "sp2.ro", "spedr.com", "srnk.net", "srs.li", "starturl.com","stks.co", "su.pr", "surl.co.uk", "surl.hu", "t.cn", "t.co", "t.lh.com", 
 							"ta.gd", "tbd.ly", "tcrn.ch", "tgr.me", "tgr.ph", "tighturl.com", "tiniuri.com", "tiny.cc", "tiny.ly", "tiny.pl", "tinylink.in", "tinyuri.ca", "tinyurl.com", "tk.", "tl.gd", 
 							"tmi.me", "tnij.org", "tnw.to", "tny.com", "to.ly", "togoto.us", "totc.us", "toysr.us", "tpm.ly", "tr.im", "tra.kz", "trunc.it", "twhub.com", "twirl.at", 
 							"twitclicks.com", "twitterurl.net", "twitterurl.org", "twiturl.de", "twurl.cc", "twurl.nl", "u.mavrev.com", "u.nu", "u76.org", "ub0.cc", "ulu.lu", "updating.me", "ur1.ca", 
 							"url.az", "url.co.uk", "url.ie", "url360.me", "url4.eu", "urlborg.com", "urlbrief.com", "urlcover.com", "urlcut.com", "urlenco.de", "urli.nl", "urls.im", 
-							"urlshorteningservicefortwitter.com", "urlx.ie", "urlzen.com", "usat.ly", "use.my", "vb.ly", "vgn.am", "vl.am", "vm.lc", "w55.de", "wapo.st", "wapurl.co.uk", "wipi.es", 
+							"urlshorteningservicefortwitter.com", "urlx.ie", "urlzen.com", "usat.ly", "use.my", "vb.ly", "vevo.ly", "vgn.am", "vl.am", "vm.lc", "w55.de", "wapo.st", "wapurl.co.uk", "wipi.es", 
 							"wp.me", "x.vu", "xr.com", "xrl.in", "xrl.us", "xurl.es", "xurl.jp", "y.ahoo.it", "yatuc.com", "ye.pe", "yep.it", "yfrog.com", "yhoo.it", "yiyd.com", "youtu.be", "yuarel.com", 
 							"z0p.de", "zi.ma", "zi.mu", "zipmyurl.com", "zud.me", "zurl.ws", "zz.gd", "zzang.kr",  "›.ws", "✩.ws", "✿.ws", "❥.ws", "➔.ws", "➞.ws", "➡.ws", "➨.ws", "➯.ws", "➹.ws", "➽.ws"];
 
@@ -54,7 +54,7 @@
                 };
             }
 
-            if (resourceURL !== null) {
+            if (resourceURL !== null && resourceURL !== undefined) {
 				//Check if shorten URL
 				for (var j = 0, l =shortURLList.length; j < l; j++) {
 					var regExp = new RegExp('://'+shortURLList[j]+'/', "i");
@@ -113,6 +113,7 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
+        useResponsiveResize: false,
 		includeHandle: true,
         embedMethod: 'auto',
         // "auto", "append", "fill"		
@@ -121,8 +122,25 @@
         afterEmbed: function() {},
         onEmbed: false,
         onError: function() {},
-        ajaxOptions: {}
+        ajaxOptions: { timeout: 2000 }
     };
+    
+    /*
+        * check protocol
+    * @return The protocol correct.
+    */
+    function checkProtocol() {
+        var protocol = window.location.protocol;
+
+        // fix local
+        if (protocol === "file:") {
+            return "http://";
+        } else {
+            protocol += "//";
+        }
+        
+        return protocol;
+    }
 
     /* Private functions */
     function rand(length,current){ //Found on http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
@@ -178,7 +196,7 @@
             + " and " + (/html/.test(from) ? 'xpath' : 'itemPath') + "='" + (embedProvider.yql.xpath || '/')+"'" ;
         if(from=='html') query += " and compat='html5'";
         var ajaxopts = $.extend({
-          url: "http://query.yahooapis.com/v1/public/yql",
+            url: checkProtocol() + "query.yahooapis.com/v1/public/yql",
           dataType: 'jsonp',
           data: {
             q: query,
@@ -225,7 +243,9 @@
             oembedData.code = result;
             success(oembedData, externalUrl, container);
           },
-          error: settings.onError.call(container, externalUrl, embedProvider)
+          error: function () {
+            settings.onError.call(container, externalUrl, embedProvider);
+          }
         }, settings.ajaxOptions || {});
         
         $.ajax(ajaxopts);
@@ -239,9 +259,48 @@
           var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint);
           if(!embedProvider.nocache) src += '&jqoemcache='+rand(5);
           if (embedProvider.apikey) src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
-          
-           
-          var code = $('<'+tag+'/>')
+            
+          if (settings.maxHeight && settings.maxWidth) {
+
+              if (settings.useResponsiveResize) {
+                  
+                  var ratio = 0; // Used for aspect ratio
+
+                  var newWidth = width;
+                  var newHeight = height;
+
+                  // Check if the current width is larger than the max
+                  if (width > settings.maxWidth) {
+                      ratio = settings.maxWidth / width;
+
+                      newWidth = settings.maxWidth;
+                      newHeight = height * ratio;
+
+                      // reset
+                      height = height * ratio;
+                      width = width * ratio;
+                  }
+
+                  // Check if current height is larger than max
+                  if (height > settings.maxHeight) {
+                      ratio = settings.maxHeight / height;
+
+                      newHeight = settings.maxHeight;
+                      newWidth = width * ratio;
+
+                      // reset
+                      width = width * ratio;
+                  }
+
+                  height = newHeight;
+                  width = newWidth;
+              } else {
+                  height = settings.maxHeight;
+                  width = settings.maxWidth;
+              }
+              
+            }
+            var code = $('<'+tag+'/>')
             .attr('src',src)
             .attr('width',width)
             .attr('height',height)
@@ -256,8 +315,7 @@
           if(tag=='iframe')
             code
               .attr('scrolling',embedProvider.embedtag.scrolling || "no")
-              .attr('frameborder',embedProvider.embedtag.frameborder || "0");
-            
+              .attr('frameborder',embedProvider.embedtag.frameborder || "0");            
             
           var oembedData = {code: code};
           success(oembedData, externalUrl,container);
@@ -272,8 +330,10 @@
               oembedData.code = embedProvider.templateData(data);
               success(oembedData, externalUrl, container);
             },
-            error: settings.onError.call(container, externalUrl, embedProvider)
-            }, settings.ajaxOptions || {});
+            error: function () {
+              settings.onError.call(container, externalUrl, embedProvider);
+            }
+          }, settings.ajaxOptions || {});
             
           $.ajax( ajaxopts );
         }else {
@@ -303,7 +363,9 @@
                     }
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function () {
+                    settings.onError.call(container, externalUrl, embedProvider);
+                }
             }, settings.ajaxOptions || {});
 
         $.ajax(ajaxopts);
@@ -342,19 +404,19 @@
 				  });
 			  }
               oembedContainer.append('<br/>');
-			  try {
-				  oembedData.code.clone().appendTo(oembedContainer);
-			  } catch(e) {
-              oembedContainer.append(oembedData.code);
-			  }			
+              try {
+                  oembedData.code.clone().appendTo(oembedContainer);
+              } catch(e) {
+                  oembedContainer.append(oembedData.code);
+              }
               /* Make videos semi-responsive
               * If parent div width less than embeded iframe video then iframe gets shrunk to fit smaller width
               * If parent div width greater thans embed iframe use the max widht
               * - works on youtubes and vimeo
               */
-              if(settings.maxWidth){
-                  var post_width =  oembedContainer.parent().width();
-                  if(post_width < settings.maxWidth)
+			  /*if (settings.maxWidth) {
+                  var post_width = oembedContainer.parent().width();
+                  if (post_width < settings.maxWidth && settings.useResponsiveResize)
                   {
                       var iframe_width_orig = $('iframe',oembedContainer).width();
                       var iframe_height_orig = $('iframe',oembedContainer).height();
@@ -369,16 +431,23 @@
                           $('iframe',oembedContainer).height(settings.maxHeight);
                       }
                   }
-              }
+              }*/
               break;
         }
     };
 
-    $.fn.oembed.getPhotoCode = function(url, oembedData) {
+    $.fn.oembed.getPhotoCode = function (url, oembedData) {
         var code, alt = oembedData.title ? oembedData.title : '';
         alt += oembedData.author_name ? ' - ' + oembedData.author_name : '';
         alt += oembedData.provider_name ? ' - ' + oembedData.provider_name : '';
-        code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
+        if (oembedData.url) {
+            code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
+        } else if (oembedData.thumbnail_url) {
+            var newURL = oembedData.thumbnail_url.replace('_s', '_b');
+            code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + newURL + '" alt="' + alt + '"/></a></div>';
+        } else {
+            code = '<div>Error loading this picture</div>';
+        }
         if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
         return code;
     };
@@ -419,19 +488,74 @@
           if(extraSettings.useYQL=='xml'){
             extraSettings.yql = {xpath:"//oembed/html", from:'xml'
             , apiendpoint: this.apiendpoint
-            , url: function(externalurl){return this.apiendpoint+'?format=xml&url='+externalurl}
-            , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
+            , url: function(externalurl){return this.apiendpoint+'?format=xml&url='+externalurl; }
+            , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''; }
             };
           }else{
             extraSettings.yql = {from:'json'
               , apiendpoint: this.apiendpoint
-              , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
-              , datareturn:function(results){
-					if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
-						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '" />';
-					}
-					return results.json.html || ''
-				}
+              , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl; }
+              , datareturn: function (results) {
+                 
+                  if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
+						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '"  />';
+                  } else if (results.json.html.indexOf("iframe")) {
+
+                      // Quick fix to handle attribute less html5 properties in ckeditor
+                      if (results.json.html.indexOf("allowfullscreen>")) {
+                          results.json.html = results.json.html.replace('allowfullscreen>', 'allowfullscreen="false">');
+                      }
+                      
+                      var html = $.parseHTML(results.json.html);
+
+                      var width = html[0].width;
+                      var height = html[0].height;
+
+                      if (settings.maxHeight && settings.maxWidth) {
+
+                          if (settings.useResponsiveResize) {
+
+                              var ratio;
+
+                              var newWidth = width;
+                              var newHeight = height;
+
+                              // Check if the current width is larger than the max
+                              if (width > settings.maxWidth) {
+                                  ratio = settings.maxWidth / width;
+
+                                  newWidth = settings.maxWidth;
+                                  newHeight = height * ratio;
+
+                                  // reset
+                                  height = height * ratio;
+                                  width = width * ratio;
+                              }
+
+                              // Check if current height is larger than max
+                              if (height > settings.maxHeight) {
+                                  ratio = settings.maxHeight / height;
+
+                                  newHeight = settings.maxHeight;
+                                  newWidth = width * ratio;
+                              }
+
+                              height = newHeight;
+                              width = newWidth;
+                          } else {
+                              height = settings.maxHeight;
+                              width = settings.maxWidth;
+                          }
+
+                      }
+
+                      html[0].width = width;
+                      html[0].height = height;
+                      
+                      return html[0].outerHTML;
+                  }
+					return results.json.html || '';
+              }
             };
           }
           this.apiendpoint = null;
@@ -448,12 +572,49 @@
 
         
     };
+    
+    /*
+     * Function to update existing providers
+     *
+     * @param  {String}    name             The name of the provider
+     * @param  {String}    type             The type of the provider can be "file", "photo", "video", "rich"
+     * @param  {String}    urlshemesarray   Array of url of the provider
+     * @param  {String}    apiendpoint      The endpoint of the provider
+     * @param  {String}    extraSettings    Extra settings of the provider
+     */
+    $.fn.updateOEmbedProvider = function (name, type, urlschemesarray, apiendpoint, extraSettings) {
+        for (var i = 0; i < $.fn.oembed.providers.length; i++) {
+            if ($.fn.oembed.providers[i].name === name) {
+                if (type !== null) {
+                    $.fn.oembed.providers[i].type = type;
+                }
+                if (urlschemesarray !== null) {
+                    $.fn.oembed.providers[i].urlschemes = urlschemesarray;
+                }
+                if (apiendpoint !== null) {
+                    $.fn.oembed.providers[i].apiendpoint = apiendpoint;
+                }
+                if (extraSettings !== null) {
+                    $.fn.oembed.providers[i].extraSettings = extraSettings;
+                    for (var property in extraSettings) {
+                        if (extraSettings[property] !== null) {
+                            $.fn.oembed.providers[i][property] = extraSettings[property];
+                        }
+                    }
+                }
+            }
+        }
+    };
 
     /* Native & common providers */
     $.fn.oembed.providers = [
     
     //Video
-    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], 'http://www.youtube.com/oembed', {useYQL:'json'}), 
+    //new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed"], checkProtocol() + 'www.youtube.com/embed/$1?wmode=transparent', {
+    //    templateRegex: /.*(?:v\=|be\/|embed\/)([\w\-]+)&?.*/,embedtag: {tag: 'iframe',width: '425',height: '349'}
+    //}),
+    
+    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], checkProtocol() + 'www.youtube.com/oembed', {useYQL:'json'}), 
     new $.fn.oembed.OEmbedProvider("youtubeiframe", "video", ["youtube.com/embed"],  "$1?wmode=transparent",
       {templateRegex:/(.*)/,embedtag : {tag: 'iframe', width:'425',height: '349'}}), 
     new $.fn.oembed.OEmbedProvider("wistia", "video", ["wistia.com/m/.+", "wistia.com/embed/.+","wi.st/m/.+","wi.st/embed/.+"], 'http://fast.wistia.com/oembed', {useYQL:'json'}), 
@@ -486,7 +647,9 @@
       
     new $.fn.oembed.OEmbedProvider("youku", "video", ["v.youku.com/v_show/id_.+"],"http://player.youku.com/player.php/sid/$1/v.swf",
       {templateRegex:/.*id_(.+)\.html.*/, embedtag : {width:480,height:400, nocache:1 }}), 
-      
+    new $.fn.oembed.OEmbedProvider("tudou", "video", ["tudou.com/programs/view/.+\/"],"http://www.tudou.com/v/$1/v.swf",
+      {templateRegex:/.*view\/(.+)\//, embedtag : {width:480,height:400, nocache:1 }}),
+
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],"http://embedr.com/swf/slider/$1/425/520/default/false/std?",
       {templateRegex:/.*playlist\/([^\/]+).*/, embedtag : {width:425,height: 520}}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
@@ -494,8 +657,10 @@
     new $.fn.oembed.OEmbedProvider("animoto", "video", ["animoto.com/play/.+"], "http://animoto.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
     new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], "http://www.ustream.tv/oembed",{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("videojug", "video", ["videojug\\.com/(film|payer|interview).*"], "http://www.videojug.com/oembed.json",{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("sapo", "video", ["videos\\.sapo\\.pt/.*"], "http://videos.sapo.pt/oembed",{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("vodpod", "video", ["vodpod.com/watch/.*"], "http://vodpod.com/oembed.js",{useYQL:'json'}),
-	new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
+	new $.fn.oembed.OEmbedProvider("vimeo", "video", ["www\.vimeo\.com\/groups\/.*\/videos\/.*", "www\.vimeo\.com\/.*", "vimeo\.com\/groups\/.*\/videos\/.*", "vimeo\.com\/.*"], "//vimeo.com/api/oembed.json"),
 	new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
     new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], 'http://api.5min.com/oembed.xml',{useYQL:'xml'}),
     new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"],'http://www.nfb.ca/remote/services/oembed/',{useYQL:'json'}),
@@ -513,31 +678,32 @@
     new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], 'http://official.fm/services/oembed',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], 'http://chirb.it/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("Spotify", "rich", ["open.spotify.com/(track|album|user)/"], "https://embed.spotify.com/oembed/"),
     new $.fn.oembed.OEmbedProvider("shoudio", "rich", ["shoudio.com/.+","shoud.io/.+"], "http://shoudio.com/api/oembed"),
-    new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"],'http://www.mixcloud.com/oembed/',{useYQL:'json'}),
-    new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
-    new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+","snd.sc/.+"], "http://soundcloud.com/oembed",{format:'js'}),
+    new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"], checkProtocol() + 'www.mixcloud.com/oembed/', { useYQL: 'json' }),
+    new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+", "rdio.com"], checkProtocol() + "www.rdio.com/api/oembed/"),
+    new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+", "snd.sc/.+"], checkProtocol() + "soundcloud.com/oembed", { format: 'js' }),
     new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
-      {yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]", from:'html'
-          , datareturn:function(results){
-              return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
-              }
-          }
-      }),
+		{yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]", from:'html'
+		  , datareturn:function(results){
+			  return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
+			  }
+		  }
+		}),
     
      //Photo
 		new $.fn.oembed.OEmbedProvider("deviantart", "photo", ["deviantart.com/.+","fav.me/.+","deviantart.com/.+"], "http://backend.deviantart.com/oembed",{format:'jsonp'}),
 		new $.fn.oembed.OEmbedProvider("skitch", "photo", ["skitch.com/.+"], null,
     {yql:{xpath:"json", from:'json'
-          , url: function(externalurl){return 'http://skitch.com/oembed/?format=json&url='+externalurl}
+          , url: function(externalurl){return 'http://skitch.com/oembed/?format=json&url='+externalurl; }
           , datareturn:function(data){return $.fn.oembed.getPhotoCode( data.json.url, data.json);}
         }
     }),
 		new $.fn.oembed.OEmbedProvider("mobypicture", "photo", ["mobypicture.com/user/.+/view/.+","moby.to/.+"], "http://api.mobypicture.com/oEmbed"),
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/.+"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
-		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
-		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
-		//new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed",{useYQL:"json"}),
+		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], checkProtocol() + "photobucket.com/oembed/"),
+		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], checkProtocol() + "api.instagram.com/oembed"),
+		//new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], checkProtocol() + "www.yfrog.com/api/oembed",{useYQL:"json"}),
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]+/.+"], "http://api.smugmug.com/services/oembed/"),
 		
     new $.fn.oembed.OEmbedProvider("dribbble", "photo", ["dribbble.com/shots/.+"], "http://api.dribbble.com/shots/$1?callback=?",
@@ -548,6 +714,8 @@
       }),
     new $.fn.oembed.OEmbedProvider("chart.ly", "photo", ["chart\\.ly/[a-z0-9]{6,8}"],"http://chart.ly/uploads/large_$1.png",
       {templateRegex:/.*ly\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
+    //new $.fn.oembed.OEmbedProvider("stocktwits.com", "photo", ["stocktwits\\.com/message/.+"], "http://charts.stocktwits.com/production/original_$1.png?",
+	//	{ templateRegex: /.*message\/([^\/]+).*/, embedtag: { tag: 'img'},nocache:1 }),
     new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/",
       {templateRegex:/.*circuit\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}),
     new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],"http://www.23hq.com/23/oembed",{useYQL:"json"}),
@@ -556,7 +724,7 @@
       }), 
     new $.fn.oembed.OEmbedProvider("twitgoo.com", "photo", ["twitgoo\\.com/.+"],"http://twitgoo.com/show/thumb/$1",
       {templateRegex:/.*com\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
-    new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],"http://imgur.com/$1l.jpg",
+    new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"], checkProtocol() + "imgur.com/$1l.jpg",
       {templateRegex:/.*gallery\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
     new $.fn.oembed.OEmbedProvider("visual.ly", "rich", ["visual\\.ly/.+"], null,
       {yql:{xpath:"//a[@id=\\'gc_article_graphic_image\\']/img", from:'htmlstring'}
@@ -570,11 +738,12 @@
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
-    //new $.fn.oembed.OEmbedProvider("gmep", "rich", ["gmep.imeducate.com/.*"], "http://gmep.imeducate.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("gmep", "rich", ["gmep.imeducate.com/.*","gmep.org/.*"], "http://gmep.org/oembed.json"),
     new $.fn.oembed.OEmbedProvider("urtak", "rich", ["urtak.com/(u|clr)/.+"], "http://oembed.urtak.com/1/oembed"),
     new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"),
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
     new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],'http://www.dipity.com/oembed/timeline/',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("sketchfab", "rich", ["sketchfab.com/show/.+"],'http://sketchfab.com/oembed',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],'http://speakerdeck.com/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],"http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1",
       {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), 
@@ -598,8 +767,8 @@
         }
       }),
     
-		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
-    new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
+		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], checkProtocol() + "api.meetup.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"], checkProtocol() + "togo.ebay.com/togo/togo.swf?2008013100",
     {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
         flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
         } 
@@ -607,7 +776,7 @@
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
       templateData : function(data){if(!data.parse)return false;
-          var text = data.parse['text']['*'].replace('href="/wiki','href="http://en.wikipedia.org/wiki');
+          var text = data.parse['text']['*'].replace(/href="\/wiki/g,'href="http://en.wikipedia.org/wiki');
           return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+text+'</div>';
         }
       }),
@@ -653,6 +822,9 @@
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],"http://pastebin.com/embed_iframe.php?i=$1",
       {templateRegex:/.*\/(\S{8}).*/ ,embedtag : {tag: 'iframe', width:'100%',height: 'auto'}
       }),
+      new $.fn.oembed.OEmbedProvider("mixlr", "rich", ["mixlr.com/.+"],"http://mixlr.com/embed/$1?autoplay=ae",
+          {templateRegex:/.*com\/([^\/]+).*/ ,embedtag : {tag: 'iframe', width:'100%',height: 'auto' }
+          }),
     new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,{yql:{xpath:'//pre[@class="textmate-source"]'}}),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["gist.github.com/.+"], "https://github.com/api/oembed"),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
@@ -667,12 +839,21 @@
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
-          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="oembedall-facebookBody"><div>';
-          if(data.picture) out += '<img src="'+data.picture+'" align="left"></div><div>';
-          if(data.category) out += 'Category  <strong>'+data.category+'</strong><br/>';
-          if(data.website) out += 'Website  <strong>'+data.website+'</strong><br/>';
-          if(data.gender) out += 'Gender  <strong>'+data.gender+'</strong><br/>';
-          out += '</div></div></div>';
+          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> ';
+          if(data.from) out += '<a href="http://www.facebook.com/'+data.from.id+'">'+data.from.name+'</a>';
+          else if(data.link) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          else if(data.username) out += '<a href="http://www.facebook.com/'+data.username+'">'+data.name+'</a>';
+          else out += '<a href="http://www.facebook.com/'+data.id+'">'+data.name+'</a>';
+          out += '</div><div class="oembedall-facebookBody"><div class="contents">';
+          if(data.picture) out += '<a href="'+data.link+'"><img src="'+data.picture+'"></a>';
+          else out += '<img src="https://graph.facebook.com/'+data.id+'/picture">';
+          if(data.from) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          if(data.founded) out += 'Founded: <strong>'+data.founded+'</strong><br>';
+          if(data.category) out += 'Category: <strong>'+data.category+'</strong><br>';
+          if(data.website) out += 'Website: <strong><a href="'+data.website+'">'+data.website+'</a></strong><br>';
+          if(data.gender) out += 'Gender: <strong>'+data.gender+'</strong><br>';
+          if(data.description) out += data.description + '<br>';
+          out += '</div></div>';
           return out;
         }
       }),
@@ -705,7 +886,7 @@
       {templateRegex:/.*\/(\d+)\/?.*/,
       embedtag : {tag: 'iframe', width:'100%',height: 400 }
       }), 
-    new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],"http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list",
+    new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"], checkProtocol() + "www.scribd.com/embeds/$1/content?start_page=1&view_mode=list",
       {templateRegex:/.*doc\/([^\/]+).*/ ,
       embedtag : {tag: 'iframe', width:'100%',height: 600}      
       }),
@@ -714,12 +895,12 @@
       embedtag : {tag: 'iframe', width:'220',height: 380}      
       }),
 
-    new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
+    new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+", "amazon.com.*/(B\\S+)($|\\/.*)"], checkProtocol() + "rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
     ,{apikey: true,templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
        embedtag : {tag: 'iframe', width:'120px',height: '240px'}      
       }),
 
-    new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
+    new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], checkProtocol() + "www.slideshare.net/api/oembed/2", { format: 'jsonp' }),
     new $.fn.oembed.OEmbedProvider("roomsharejp", "rich", ["roomshare\\.jp/(en/)?post/.*"], "http://roomshare.jp/oembed.json"),
     
     new $.fn.oembed.OEmbedProvider("lanyard", "rich", ["lanyrd.com/\\d+/.+"], null,
@@ -778,4 +959,13 @@
 })(jQuery);
 
 //This is needed for gravatar :(
-String.prototype.md5=function(){var a=function(a,b){var c=(a&65535)+(b&65535);var d=(a>>16)+(b>>16)+(c>>16);return d<<16|c&65535};var b=function(a,b){return a<<b|a>>>32-b};var c=function(c,d,e,f,g,h){return a(b(a(a(d,c),a(f,h)),g),e)};var d=function(a,b,d,e,f,g,h){return c(b&d|~b&e,a,b,f,g,h)};var e=function(a,b,d,e,f,g,h){return c(b&e|d&~e,a,b,f,g,h)};var f=function(a,b,d,e,f,g,h){return c(b^d^e,a,b,f,g,h)};var g=function(a,b,d,e,f,g,h){return c(d^(b|~e),a,b,f,g,h)};var h=function(b){var c,h,i,j,k,l=b.length;var m=1732584193;var n=-271733879;var o=-1732584194;var p=271733878;for(k=0;k<l;k+=16){c=m;h=n;i=o;j=p;m=d(m,n,o,p,b[k+0],7,-680876936);p=d(p,m,n,o,b[k+1],12,-389564586);o=d(o,p,m,n,b[k+2],17,606105819);n=d(n,o,p,m,b[k+3],22,-1044525330);m=d(m,n,o,p,b[k+4],7,-176418897);p=d(p,m,n,o,b[k+5],12,1200080426);o=d(o,p,m,n,b[k+6],17,-1473231341);n=d(n,o,p,m,b[k+7],22,-45705983);m=d(m,n,o,p,b[k+8],7,1770035416);p=d(p,m,n,o,b[k+9],12,-1958414417);o=d(o,p,m,n,b[k+10],17,-42063);n=d(n,o,p,m,b[k+11],22,-1990404162);m=d(m,n,o,p,b[k+12],7,1804603682);p=d(p,m,n,o,b[k+13],12,-40341101);o=d(o,p,m,n,b[k+14],17,-1502002290);n=d(n,o,p,m,b[k+15],22,1236535329);m=e(m,n,o,p,b[k+1],5,-165796510);p=e(p,m,n,o,b[k+6],9,-1069501632);o=e(o,p,m,n,b[k+11],14,643717713);n=e(n,o,p,m,b[k+0],20,-373897302);m=e(m,n,o,p,b[k+5],5,-701558691);p=e(p,m,n,o,b[k+10],9,38016083);o=e(o,p,m,n,b[k+15],14,-660478335);n=e(n,o,p,m,b[k+4],20,-405537848);m=e(m,n,o,p,b[k+9],5,568446438);p=e(p,m,n,o,b[k+14],9,-1019803690);o=e(o,p,m,n,b[k+3],14,-187363961);n=e(n,o,p,m,b[k+8],20,1163531501);m=e(m,n,o,p,b[k+13],5,-1444681467);p=e(p,m,n,o,b[k+2],9,-51403784);o=e(o,p,m,n,b[k+7],14,1735328473);n=e(n,o,p,m,b[k+12],20,-1926607734);m=f(m,n,o,p,b[k+5],4,-378558);p=f(p,m,n,o,b[k+8],11,-2022574463);o=f(o,p,m,n,b[k+11],16,1839030562);n=f(n,o,p,m,b[k+14],23,-35309556);m=f(m,n,o,p,b[k+1],4,-1530992060);p=f(p,m,n,o,b[k+4],11,1272893353);o=f(o,p,m,n,b[k+7],16,-155497632);n=f(n,o,p,m,b[k+10],23,-1094730640);m=f(m,n,o,p,b[k+13],4,681279174);p=f(p,m,n,o,b[k+0],11,-358537222);o=f(o,p,m,n,b[k+3],16,-722521979);n=f(n,o,p,m,b[k+6],23,76029189);m=f(m,n,o,p,b[k+9],4,-640364487);p=f(p,m,n,o,b[k+12],11,-421815835);o=f(o,p,m,n,b[k+15],16,530742520);n=f(n,o,p,m,b[k+2],23,-995338651);m=g(m,n,o,p,b[k+0],6,-198630844);p=g(p,m,n,o,b[k+7],10,1126891415);o=g(o,p,m,n,b[k+14],15,-1416354905);n=g(n,o,p,m,b[k+5],21,-57434055);m=g(m,n,o,p,b[k+12],6,1700485571);p=g(p,m,n,o,b[k+3],10,-1894986606);o=g(o,p,m,n,b[k+10],15,-1051523);n=g(n,o,p,m,b[k+1],21,-2054922799);m=g(m,n,o,p,b[k+8],6,1873313359);p=g(p,m,n,o,b[k+15],10,-30611744);o=g(o,p,m,n,b[k+6],15,-1560198380);n=g(n,o,p,m,b[k+13],21,1309151649);m=g(m,n,o,p,b[k+4],6,-145523070);p=g(p,m,n,o,b[k+11],10,-1120210379);o=g(o,p,m,n,b[k+2],15,718787259);n=g(n,o,p,m,b[k+9],21,-343485551);m=a(m,c);n=a(n,h);o=a(o,i);p=a(p,j)}return[m,n,o,p]};var i=function(a){var b="0123456789abcdef",c="",d,e=a.length*4;for(d=0;d<e;d++){c+=b.charAt(a[d>>2]>>d%4*8+4&15)+b.charAt(a[d>>2]>>d%4*8&15)}return c};var j=function(a){var b=(a.length+8>>6)+1;var c=[],d,e=b*16,f,g=a.length;for(d=0;d<e;d++){c.push(0)}for(f=0;f<g;f++){c[f>>2]|=(a.charCodeAt(f)&255)<<f%4*8}c[f>>2]|=128<<f%4*8;c[b*16-2]=g*8;return c};return i(h(j(this)))}
+String.prototype.md5=function(){var a=function(a,b){var c=(a&65535)+(b&65535);var d=(a>>16)+(b>>16)+(c>>16);return d<<16|c&65535;
+};var b=function(a,b){return a<<b|a>>>32-b; };var c=function(c,d,e,f,g,h){return a(b(a(a(d,c),a(f,h)),g),e); };var d=function(a,b,d,e,f,g,h){return c(b&d|~b&e,a,b,f,g,h); };var e=function(a,b,d,e,f,g,h){return c(b&e|d&~e,a,b,f,g,h); };var f=function(a,b,d,e,f,g,h){return c(b^d^e,a,b,f,g,h); };var g=function(a,b,d,e,f,g,h){return c(d^(b|~e),a,b,f,g,h); };var h=function(b){var c,h,i,j,k,l=b.length;var m=1732584193;var n=-271733879;var o=-1732584194;var p=271733878;for(k=0;k<l;k+=16){c=m;h=n;i=o;j=p;m=d(m,n,o,p,b[k+0],7,-680876936);p=d(p,m,n,o,b[k+1],12,-389564586);o=d(o,p,m,n,b[k+2],17,606105819);n=d(n,o,p,m,b[k+3],22,-1044525330);m=d(m,n,o,p,b[k+4],7,-176418897);p=d(p,m,n,o,b[k+5],12,1200080426);o=d(o,p,m,n,b[k+6],17,-1473231341);n=d(n,o,p,m,b[k+7],22,-45705983);m=d(m,n,o,p,b[k+8],7,1770035416);p=d(p,m,n,o,b[k+9],12,-1958414417);o=d(o,p,m,n,b[k+10],17,-42063);n=d(n,o,p,m,b[k+11],22,-1990404162);m=d(m,n,o,p,b[k+12],7,1804603682);p=d(p,m,n,o,b[k+13],12,-40341101);o=d(o,p,m,n,b[k+14],17,-1502002290);n=d(n,o,p,m,b[k+15],22,1236535329);m=e(m,n,o,p,b[k+1],5,-165796510);p=e(p,m,n,o,b[k+6],9,-1069501632);o=e(o,p,m,n,b[k+11],14,643717713);n=e(n,o,p,m,b[k+0],20,-373897302);m=e(m,n,o,p,b[k+5],5,-701558691);p=e(p,m,n,o,b[k+10],9,38016083);o=e(o,p,m,n,b[k+15],14,-660478335);n=e(n,o,p,m,b[k+4],20,-405537848);m=e(m,n,o,p,b[k+9],5,568446438);p=e(p,m,n,o,b[k+14],9,-1019803690);o=e(o,p,m,n,b[k+3],14,-187363961);n=e(n,o,p,m,b[k+8],20,1163531501);m=e(m,n,o,p,b[k+13],5,-1444681467);p=e(p,m,n,o,b[k+2],9,-51403784);o=e(o,p,m,n,b[k+7],14,1735328473);n=e(n,o,p,m,b[k+12],20,-1926607734);m=f(m,n,o,p,b[k+5],4,-378558);p=f(p,m,n,o,b[k+8],11,-2022574463);o=f(o,p,m,n,b[k+11],16,1839030562);n=f(n,o,p,m,b[k+14],23,-35309556);m=f(m,n,o,p,b[k+1],4,-1530992060);p=f(p,m,n,o,b[k+4],11,1272893353);o=f(o,p,m,n,b[k+7],16,-155497632);n=f(n,o,p,m,b[k+10],23,-1094730640);m=f(m,n,o,p,b[k+13],4,681279174);p=f(p,m,n,o,b[k+0],11,-358537222);o=f(o,p,m,n,b[k+3],16,-722521979);n=f(n,o,p,m,b[k+6],23,76029189);m=f(m,n,o,p,b[k+9],4,-640364487);p=f(p,m,n,o,b[k+12],11,-421815835);o=f(o,p,m,n,b[k+15],16,530742520);n=f(n,o,p,m,b[k+2],23,-995338651);m=g(m,n,o,p,b[k+0],6,-198630844);p=g(p,m,n,o,b[k+7],10,1126891415);o=g(o,p,m,n,b[k+14],15,-1416354905);n=g(n,o,p,m,b[k+5],21,-57434055);m=g(m,n,o,p,b[k+12],6,1700485571);p=g(p,m,n,o,b[k+3],10,-1894986606);o=g(o,p,m,n,b[k+10],15,-1051523);n=g(n,o,p,m,b[k+1],21,-2054922799);m=g(m,n,o,p,b[k+8],6,1873313359);p=g(p,m,n,o,b[k+15],10,-30611744);o=g(o,p,m,n,b[k+6],15,-1560198380);n=g(n,o,p,m,b[k+13],21,1309151649);m=g(m,n,o,p,b[k+4],6,-145523070);p=g(p,m,n,o,b[k+11],10,-1120210379);o=g(o,p,m,n,b[k+2],15,718787259);n=g(n,o,p,m,b[k+9],21,-343485551);m=a(m,c);n=a(n,h);o=a(o,i);p=a(p,j);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }return[m,n,o,p];
+};var i=function(a){var b="0123456789abcdef",c="",d,e=a.length*4;for(d=0;d<e;d++){c+=b.charAt(a[d>>2]>>d%4*8+4&15)+b.charAt(a[d>>2]>>d%4*8&15);
+                                                                 }return c;
+};var j=function(a){var b=(a.length+8>>6)+1;var c=[],d,e=b*16,f,g=a.length;for(d=0;d<e;d++){c.push(0);
+                                                                           }for(f=0;f<g;f++){c[f>>2]|=(a.charCodeAt(f)&255)<<f%4*8;
+                                                                            }c[f>>2]|=128<<f%4*8;c[b*16-2]=g*8;return c;
+};return i(h(j(this)));
+};
