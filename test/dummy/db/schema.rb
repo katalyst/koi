@@ -118,11 +118,14 @@ ActiveRecord::Schema.define(:version => 20130808225816) do
 
   create_table "product_images", :force => true do |t|
     t.integer  "product_id"
+    t.string   "product_type"
+    t.string   "title"
+    t.string   "description"
     t.string   "image_uid"
     t.integer  "ordinal"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "product_images", ["slug"], :name => "index_product_images_on_slug", :unique => true
