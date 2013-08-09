@@ -50,7 +50,7 @@ class Product < ActiveRecord::Base
 
     config :admin do
       index fields: [:name]
-       form  fields: [:name, :products, :product_images]
+       form  fields: [:name, :description, :products, :product_images]
     end
   end
 
