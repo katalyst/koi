@@ -5,7 +5,7 @@
 
 <script type='text/javascript'>
   $("#<%= id %>").select2({
-  	tags: <%= raw resource_class.tag_counts_on(attr.to_s.chomp('_list')).collect { |t| t.name } %>,
+  	tags: <%= raw f.object.class.tag_counts_on(attr.to_s.chomp('_list')).collect { |t| t.name } %>,
     tokenSeparators: [","]
   });
 </script>
