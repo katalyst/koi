@@ -1,0 +1,110 @@
+<%-
+  partial                 = "inline_fields"
+  attr_string             = attr.to_s
+  nested_id               = "#{attr_string.parameterize}-nested"
+  header                  = attr_string.humanize
+  singular_name           = attr_string.singularize
+  singular_name_humanized = singular_name.humanize
+  add_link                = "Add #{singular_name_humanized}"
+  ordinal_class           = "#{attr_string}-ordinal"
+  klass                   = singular_name.titlecase.gsub(" ", "").constantize
+  records                 = f.object.send(attr)
+
+  is_orderable            = (klass.has_crud? && klass.options[:orderable]) ? true : false
+  records                 = records.sort_by(&:ordinal) if is_orderable
+
+  locals_to_be_passed = {
+    is_orderable: is_orderable,
+    attr_string: attr_string,
+    singular_name_humanized: singular_name_humanized,
+    ordinal_class: ordinal_class
+  }
+-%>
+
+<div class="inline-nested-form">
+
+  <h2><%= header %></h2>
+
+  <div id="<%= nested_id %>">
+
+    <%- if is_orderable -%>
+      <div class="inline-actions">
+        <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" /> Allow Re-Ordering</label>
+      </div>
+    <%- end -%>
+
+    <div id="<%= nested_id %>-container">
+      <%= f.simple_fields_for attr, records do |record| %>
+        <%= render partial, { f: record }.merge(locals_to_be_passed) %>
+      <%- end -%>
+      <div class="links">
+        <%= link_to_add_association add_link, f, attr, partial: partial,
+              render_options: { locals: locals_to_be_passed } %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  $(function() {
+
+    var enable_collapser = function() {
+      $(".inline-nested-form").on("click", ".collapser", function () {
+        $(this).parent().parent().children(".nested-inline-fields").slideToggle("slow");
+      });
+    }
+
+    <%- if is_orderable -%>
+
+      var update_order = function() {
+        $('.<%= ordinal_class %>').each(function(i, e) {
+          $(e).val(i);
+        });
+      }
+
+      $('.show-inline-draggable').change(function(){
+        var parent = $(this).parent().parent().parent();
+
+        if (this.checked) {
+          parent.find(".nested-title.collapser").parent().parent().children(".nested-inline-fields").slideUp("slow");
+          parent.find(".nested-title.collapser").removeClass("collapser");
+          parent.find(".drag-handler").show();
+        } else {
+          parent.find(".drag-handler").hide();
+          parent.find(".nested-title").addClass("collapser");
+        }
+      });
+
+      $( "#<%= nested_id %>-container" ).sortable({
+        axis: "y",
+        handle: ".drag-handler",
+        stop: function( event, ui ) {
+          update_order();
+          // IE doesn't register the blur when sorting
+          // so trigger focusout handlers to remove .ui-state-focus
+          ui.item.children( "h3" ).triggerHandler( "focusout" );
+        }
+      });
+
+    <%- end -%>
+
+    enable_collapser();
+
+    $('#<%= nested_id %>').bind('cocoon:after-insert', function(e, insertedItem) {
+      insertedItem.children(".nested-inline-fields").slideToggle("slow");
+      <%- if is_orderable -%>
+        update_order();
+      <%- end -%>
+    });
+
+    $('#<%= nested_id %>').bind('cocoon:after-remove', function(e, insertedItem) {
+      <%- if is_orderable -%>
+        update_order();
+      <%- end -%>
+    });
+
+  });
+
+</script>
