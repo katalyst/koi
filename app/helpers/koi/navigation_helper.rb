@@ -1,5 +1,16 @@
 module Koi::NavigationHelper
 
+  def cache_render_navigation(cache_key, nav_items_fetch_key=nil, options={})
+    request_path = request.path.parameterize if request.path
+    cache_key = "#{request_path}_#{cache_key}"
+
+    options.merge!(items: get_nav_items(nav_items_fetch_key)) if nav_items_fetch_key
+
+    Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
+      render_navigation options
+    end
+  end
+
   def cascaded_setting key
     active_item_prefixes = render_navigation renderer: :active_items
     active_item_prefixes << settings_prefix
@@ -56,5 +67,21 @@ module Koi::NavigationHelper
   def nav_from nav_item
     Navigator.new self, nav_item.to_hashish(binding()) #, &filter
   end
+
+  private
+
+    def prefix_cache_key(suffix)
+      "#{Rails.application.class.parent_name}_#{suffix}"
+    end
+
+    def cache_expiry
+      60.minutes
+    end
+
+    def get_nav_items(key)
+      Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
+        NavItem.navigation(key, binding())
+      end
+    end
 
 end
