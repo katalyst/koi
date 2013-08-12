@@ -48,3 +48,9 @@ resource_settings = settings.merge({
 
 Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
+
+# Caching enabled by default
+Koi::Caching.enabled = true
+
+# Expiry in 60.minutes by default
+Koi::Caching.expires_in = 5.minutes
