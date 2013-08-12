@@ -4,10 +4,15 @@ module Koi::NavigationHelper
     request_path = request.path.parameterize if request.path
     cache_key = "#{request_path}_#{cache_key}"
 
-    options.merge!(items: get_nav_items(nav_items_fetch_key)) if nav_items_fetch_key
-
     Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
+      options.merge!(items: get_cached_nav_items(nav_items_fetch_key)) if nav_items_fetch_key
       render_navigation options
+    end
+  end
+
+  def get_cached_nav_items(key)
+    Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
+      NavItem.navigation(key, binding())
     end
   end
 
@@ -75,13 +80,7 @@ module Koi::NavigationHelper
     end
 
     def cache_expiry
-      60.minutes
-    end
-
-    def get_nav_items(key)
-      Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
-        NavItem.navigation(key, binding())
-      end
+      Koi::Caching.expires_in
     end
 
 end
