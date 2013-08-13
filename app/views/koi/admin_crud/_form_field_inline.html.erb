@@ -78,7 +78,7 @@
         });
       }
 
-      $('.show-inline-draggable').change(function(){
+      $("body").on("change", ".show-inline-draggable", function() {
         var parent               = $(this).closest(".nested-heading").next(".nested-wrapper");
         var nested_container     = parent.children(".nested-container")
         var nested_fields        = nested_container.children(".nested-fields");
