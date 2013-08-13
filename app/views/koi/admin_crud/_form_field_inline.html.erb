@@ -36,10 +36,8 @@
         <%= render partial, { f: record }.merge(locals_to_be_passed) %>
       <%- end -%>
       <div class="links">
-        <div class="pull-right">
           <%= link_to_add_association add_link, f, attr, partial: partial,
-              render_options: { locals: locals_to_be_passed }, class: "btn btn-small btn-primary" %>
-        </div>
+              render_options: { locals: locals_to_be_passed }, class: "btn btn-small btn-primary pull-right" %>
       </div>
     </div>
   </div>
@@ -92,6 +90,7 @@
           parent.addClass("nested-wrapper-ordering");
           nested_inline_fields.slideUp("slow");
           nested_container.children(".links").hide();
+          nested_title_fields.removeClass("nested-fields-visible");
           nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
           nested_title_fields.children(".drag-handler").show().addClass("drag-me");
 
