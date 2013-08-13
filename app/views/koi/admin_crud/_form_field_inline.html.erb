@@ -20,23 +20,26 @@
 
 <div class="inline-nested-form">
 
-  <h2><%= header %></h2>
-
-  <div class="nested-wrapper">
-
+  <div class="nested-heading">
+    <strong><%= header %></strong>
     <%- if is_orderable -%>
       <div class="inline-actions">
         <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" /> Allow Re-Ordering</label>
       </div>
     <%- end -%>
+  </div>
+
+  <div class="nested-wrapper">
 
     <div class="nested-container">
       <%= f.simple_fields_for attr, records do |record| %>
         <%= render partial, { f: record }.merge(locals_to_be_passed) %>
       <%- end -%>
       <div class="links">
-        <%= link_to_add_association add_link, f, attr, partial: partial,
-              render_options: { locals: locals_to_be_passed } %>
+        <div class="pull-right">
+          <%= link_to_add_association add_link, f, attr, partial: partial,
+              render_options: { locals: locals_to_be_passed }, class: "btn btn-small btn-primary" %>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +52,9 @@
     $(function() {
 
       $("body").on("click", ".collapser", function (event) {
+        $(this).parent("h3").toggleClass("nested-fields-visible");
         $(this).closest(".nested-fields").children(".nested-inline-fields").slideToggle("slow");
+
 
         for(k in CKEDITOR.instances) {
             var instance = CKEDITOR.instances[k];
@@ -75,7 +80,7 @@
       }
 
       $('.show-inline-draggable').change(function(){
-        var parent               = $(this).closest(".nested-wrapper");
+        var parent               = $(this).closest(".nested-heading").next(".nested-wrapper");
         var nested_container     = parent.children(".nested-container")
         var nested_fields        = nested_container.children(".nested-fields");
         var nested_title_fields  = nested_fields.children("h3");
@@ -84,6 +89,7 @@
 
         if (this.checked) {
 
+          parent.addClass("nested-wrapper-ordering");
           nested_inline_fields.slideUp("slow");
           nested_container.children(".links").hide();
           nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
@@ -98,6 +104,8 @@
           });
 
         } else {
+
+          parent.removeClass("nested-wrapper-ordering");
           nested_container.children(".links").show();
           nested_fields.children("h3").children(".drag-handler").hide().removeClass("drag-me");
           nested_fields.children("h3").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
