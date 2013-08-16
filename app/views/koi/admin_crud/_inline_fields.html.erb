@@ -1,5 +1,5 @@
 <div class="nested-fields">
-  <h3 class="nested-fields__heading">
+  <h3 class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>">
     <%- if is_orderable -%>
       <span class="drag-handler hidden">
         [Drag]
