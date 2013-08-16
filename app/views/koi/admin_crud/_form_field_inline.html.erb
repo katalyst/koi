@@ -51,12 +51,12 @@
 
       $("body").on("click", ".collapser", function (event) {
         $(this).parent("h3").toggleClass("nested-fields-visible");
-        $(this).closest(".nested-fields").children(".nested-inline-fields").slideToggle("slow");
-
+        $(this).parent("h3").parent(".nested-fields").siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+        $(this).closest(".nested-fields").children(".nested-inline-fields").toggle();
 
         for(k in CKEDITOR.instances) {
             var instance = CKEDITOR.instances[k];
-            instance.destroy()
+            instance.destroy();
         }
 
         $ ('.wysiwyg.source').each(function() {
@@ -66,7 +66,7 @@
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
-        insertedItem.children(".nested-inline-fields").slideToggle("slow");
+        insertedItem.children(".nested-inline-fields").toggle();
         insertedItem.children("h3").addClass("nested-fields-visible");
       });
 
@@ -89,7 +89,7 @@
         if (this.checked) {
 
           parent.addClass("nested-wrapper-ordering");
-          nested_inline_fields.slideUp("slow");
+          nested_inline_fields.show();
           nested_container.children(".links").hide();
           nested_title_fields.removeClass("nested-fields-visible");
           nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
