@@ -136,10 +136,6 @@ class NavItem < ActiveRecord::Base
     end or RootNavItem.root
   end
 
-  def self.clear_cache
-    Rails.cache.clear
-  end
-
   private
 
   def setup_content(show_options)
