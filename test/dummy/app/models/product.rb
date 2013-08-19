@@ -20,12 +20,14 @@ class Product < ActiveRecord::Base
   Countries = ["Australia", "France", "Germany", "Greece"]
   Colours = ["Red", "Blue", "Green"]
 
-  validates :name, :short_description, :description,
-            :publish_date, :launch_date, :genre_list,
-            :banner, :manual, :size, :colour,
-            presence: true
+  validates :name, presence: true
 
-  validate :at_least_one_country
+  # validates :name, :short_description, :description,
+  #           :publish_date, :launch_date, :genre_list,
+  #           :banner, :manual, :size, :colour,
+  #           presence: true
+
+  # validate :at_least_one_country
 
   def at_least_one_country
     errors.add :countries, "Please select at least one country" if countries.blank? || countries.reject(&:blank?).compact.empty?
@@ -45,15 +47,20 @@ class Product < ActiveRecord::Base
 
     config :admin do
       index fields: [:name]
-      form  fields: [:name, :short_description, :description,
-                     :publish_date, :launch_date, :genre_list,
-                     :banner, :manual, :size, :countries,
-                     :colour, :active, :products, :images]
+      form  fields: [:name, :publish_date, :genre_list]
+      # form  fields: [:name, :short_description, :description,
+      #                :publish_date, :launch_date, :genre_list,
+      #                :banner, :manual, :size, :countries,
+      #                :colour, :active, :products, :images]
     end
   end
 
   def to_s
     name
+  end
+
+  def inline_titleize
+    "Custom title - #{name}"
   end
 
 end
