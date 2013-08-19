@@ -1,16 +1,17 @@
 <div class="nested-fields">
-  <h3>
-    <span class="collapser">
-      <%= (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
-    </span>
-    <span class="close-link">
-      <%= link_to_remove_association "[x]", f, confirm: "Are your sure?" %>
-    </span>
+  <h3 class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>">
     <%- if is_orderable -%>
       <span class="drag-handler hidden">
         [Drag]
       </span>
     <%- end -%>
+    <span class="title">
+      <%= (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
+    </span>
+    <span class="nested-fields__status collapser"></span>
+    <span class="close-link">
+      <%= link_to_remove_association "Delete", f, confirm: "Are your sure?" %>
+    </span>
   </h3>
   <div class="nested-inline-fields <%= "hidden" if f.object.errors.blank? %>">
     <%= render "form_fields", f: f %>
