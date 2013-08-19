@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
 
   has_crud orderable: true, settings: true
+  has_many :product_images
+  accepts_nested_attributes_for :product_images, allow_destroy: true
 
   belongs_to :category
 
@@ -20,12 +22,14 @@ class Product < ActiveRecord::Base
   Countries = ["Australia", "France", "Germany", "Greece"]
   Colours = ["Red", "Blue", "Green"]
 
-  validates :name, :short_description, :description,
-            :publish_date, :launch_date, :genre_list,
-            :banner, :manual, :size, :colour,
-            presence: true
+  validates :name, presence: true
 
-  validate :at_least_one_country
+  # validates :name, :short_description, :description,
+  #           :publish_date, :launch_date, :genre_list,
+  #           :banner, :manual, :size, :colour,
+  #           presence: true
+
+  # validate :at_least_one_country
 
   def at_least_one_country
     errors.add :countries, "Please select at least one country" if countries.blank? || countries.reject(&:blank?).compact.empty?
@@ -41,19 +45,25 @@ class Product < ActiveRecord::Base
            colour: { type: :radio, data: Colours },
            banner: { type: :image },
            manual: { type: :file },
-           products: { type: :multiselect_association }
+           products: { type: :multiselect_association },
+           product_images: { type: :inline }
 
     config :admin do
       index fields: [:name]
-      form  fields: [:name, :short_description, :description,
-                     :publish_date, :launch_date, :genre_list,
-                     :banner, :manual, :size, :countries,
-                     :colour, :active, :products, :images]
+       form  fields: [:name, :description, :products, :product_images]
     end
   end
 
   def to_s
     name
+  end
+
+  def inline_titleize
+    if new_record?
+      "Product"
+    else
+      to_s
+    end
   end
 
 end
