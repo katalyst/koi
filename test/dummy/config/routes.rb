@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  namespace(:admin) { resources :product_images }
+
   resources :products
 
   constraints :subdomain => "mobile" do

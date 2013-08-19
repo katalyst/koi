@@ -1,0 +1,129 @@
+<%-
+  partial                 = "inline_fields"
+  attr_string             = attr.to_s
+  header                  = attr_string.humanize
+  singular_name           = attr_string.singularize
+  singular_name_humanized = singular_name.humanize
+  add_link                = "Add #{singular_name_humanized}"
+  klass                   = singular_name.titlecase.gsub(" ", "").constantize
+  records                 = f.object.send(attr)
+
+  is_orderable            = (klass.has_crud? && klass.options[:orderable]) ? true : false
+  records                 = records.sort_by(&:ordinal) if is_orderable
+
+  locals_to_be_passed = {
+    is_orderable: is_orderable,
+    attr_string: attr_string,
+    singular_name_humanized: singular_name_humanized
+  }
+-%>
+
+<div class="inline-nested-form">
+
+  <h2><%= header %></h2>
+
+  <div class="nested-wrapper">
+
+    <%- if is_orderable -%>
+      <div class="inline-actions">
+        <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" /> Allow Re-Ordering</label>
+      </div>
+    <%- end -%>
+
+    <div class="nested-container">
+      <%= f.simple_fields_for attr, records do |record| %>
+        <%= render partial, { f: record }.merge(locals_to_be_passed) %>
+      <%- end -%>
+      <div class="links">
+        <%= link_to_add_association add_link, f, attr, partial: partial,
+              render_options: { locals: locals_to_be_passed } %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- single_content_for :javascripts do -%>
+  <script type="text/javascript">
+
+    $(function() {
+
+      $("body").on("click", ".collapser", function (event) {
+        $(this).closest(".nested-fields").children(".nested-inline-fields").slideToggle("slow");
+
+        for(k in CKEDITOR.instances) {
+            var instance = CKEDITOR.instances[k];
+            instance.destroy()
+        }
+
+        $ ('.wysiwyg.source').each(function() {
+          // FIXME: Duplicated in wysiwyg.js
+          CKEDITOR.replace (this, { filebrowserBrowseUrl        : '/admin/documents'
+                                , filebrowserUploadUrl          : '/admin/documents'
+                                , filebrowserImageBrowseUrl     : '/admin/images'
+                                , filebrowserImageUploadUrl     : '/admin/images'
+                                , filebrowserImageBrowseLinkUrl : '/admin/documents'
+                                , filebrowserImageUploadLinkUrl : '/admin/documents'
+                                , filebrowserWindowWidth        : 950
+                                , filebrowserWindowHeight       : 750
+                                });
+        });
+
+      });
+
+      $('body').bind('cocoon:after-insert', function(event, insertedItem) {
+        insertedItem.children(".nested-inline-fields").slideToggle("slow");
+      });
+
+    <%- if is_orderable -%>
+
+      var updateOrdinal = function(fields) {
+        fields.children(".inline-ordinal-wrapper").find('.inline-ordinal').each(function(i, e) {
+          $(e).val(i);
+        });
+      }
+
+      $('.show-inline-draggable').change(function(){
+        var parent               = $(this).closest(".nested-wrapper");
+        var nested_container     = parent.children(".nested-container")
+        var nested_fields        = nested_container.children(".nested-fields");
+        var nested_title_fields  = nested_fields.children("h3");
+        var nested_inline_fields = nested_fields.children(".nested-inline-fields");
+        var handlers             = nested_fields.children("h3").children(".drag-handler");
+
+        if (this.checked) {
+
+          nested_inline_fields.slideUp("slow");
+          nested_container.children(".links").hide();
+          nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
+          nested_title_fields.children(".drag-handler").show().addClass("drag-me");
+
+          nested_container.sortable({
+            axis: "y",
+            handle: ".drag-me",
+            stop: function( event, ui ) {
+              updateOrdinal(nested_inline_fields);
+            }
+          });
+
+        } else {
+          nested_container.children(".links").show();
+          nested_fields.children("h3").children(".drag-handler").hide().removeClass("drag-me");
+          nested_fields.children("h3").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
+        }
+      });
+
+      $('body').bind('cocoon:after-insert', function(event, insertedItem) {
+        var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
+        updateOrdinal(nested_inline_fields);
+      });
+
+    <%- end -%>
+
+    });
+
+  </script>
+
+  <%= render "user_inline_javascript" -%>
+
+<%- end -%>
