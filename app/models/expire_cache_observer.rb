@@ -14,7 +14,7 @@ class ExpireCacheObserver < ActiveRecord::Observer
 
     def clear_cache(msg, record)
       Rails.logger.warn("[CACHE CLEAR] - Clearning entire cache after #{msg} #{record.class} #{record.id}")
-      NavItem.clear_cache
+      Rails.cache.clear
     end
 
 end
