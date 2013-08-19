@@ -5,6 +5,8 @@ module Koi
 
     isolate_namespace Koi
 
+    config.active_record.observers = "Koi::ExpireCacheObserver"
+
     initializer 'static assets' do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
       app.middleware.insert_before "Rack::Cache", Koi::UrlRedirect

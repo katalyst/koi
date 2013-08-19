@@ -14,6 +14,12 @@ module Koi
       end
     end
 
+    def clear_cache
+      Rails.logger.warn("[CACHE CLEAR] - Clearning entire cache manually by #{current_admin} request")
+      Rails.cache.clear
+      redirect_to :back
+    end
+
     protected
 
     # FIXME: Hack to set layout for admin devise resources
