@@ -1,0 +1,19 @@
+<div class="nested-fields">
+  <h3>
+    <span class="collapser">
+      <%= (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
+    </span>
+    <span class="close-link">
+      <%= link_to_remove_association "[x]", f, confirm: "Are your sure?" %>
+    </span>
+    <%- if is_orderable -%>
+      <span class="drag-handler hidden">
+        [Drag]
+      </span>
+    <%- end -%>
+  </h3>
+  <div class="nested-inline-fields <%= "hidden" if f.object.errors.blank? %>">
+    <%= render "form_fields", f: f %>
+    <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
+  </div>
+</div>
