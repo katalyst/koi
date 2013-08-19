@@ -1,0 +1,25 @@
+<script type="text/javascript">
+
+  $(function() {
+
+    $("body").on('change', ".category_products_product_images_product_type select", function (event) {
+      var nested_fields = $(this).closest('.nested-inline-fields');
+      var template_type = $(this).val();
+
+      if (template_type === "Title") {
+        nested_fields.children(".category_products_product_images_title").show();
+        nested_fields.children(".media").hide();
+      } else if (template_type === "Image") {
+        nested_fields.children(".category_products_product_images_title").hide();
+        nested_fields.children(".media").show();
+      }
+    });
+
+    $(".category_products_product_images_product_type select").trigger('change');
+
+    $('body').bind('cocoon:after-insert', function(event, insertedItem) {
+      insertedItem.children(".nested-inline-fields").children(".select").find("select").trigger('change');
+    });
+  });
+
+</script>
