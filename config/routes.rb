@@ -48,6 +48,7 @@ Koi::Engine.routes.draw do
       post :savesort
     end
   end
+  match 'clear-cache' => 'application#clear_cache', :as => :clear_cache, via: :post
   match 'help' => 'application#help', :as => :help
   match 'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
