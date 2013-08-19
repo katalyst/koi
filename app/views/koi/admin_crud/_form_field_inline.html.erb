@@ -18,25 +18,26 @@
   }
 -%>
 
-<div class="inline-nested-form">
+<div class="inline-nested-form <%= attr_string %>">
 
-  <h2><%= header %></h2>
-
-  <div class="nested-wrapper">
-
+  <div class="nested-heading">
+    <strong><%= header %></strong>
     <%- if is_orderable -%>
       <div class="inline-actions">
-        <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" /> Allow Re-Ordering</label>
+        <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" /> allow re-ordering</label>
       </div>
     <%- end -%>
+  </div>
+
+  <div class="nested-wrapper">
 
     <div class="nested-container">
       <%= f.simple_fields_for attr, records do |record| %>
         <%= render partial, { f: record }.merge(locals_to_be_passed) %>
       <%- end -%>
       <div class="links">
-        <%= link_to_add_association add_link, f, attr, partial: partial,
-              render_options: { locals: locals_to_be_passed } %>
+          <%= link_to_add_association add_link, f, attr, partial: partial,
+              render_options: { locals: locals_to_be_passed }, class: "btn btn-small btn-primary pull-right" %>
       </div>
     </div>
   </div>
@@ -46,24 +47,29 @@
 <%- single_content_for :javascripts do -%>
   <script type="text/javascript">
 
+    var reInitCkEditor = function() {
+      for(k in CKEDITOR.instances) {
+        var instance = CKEDITOR.instances[k];
+        instance.destroy()
+      }
+
+      $ ('.wysiwyg.source').each(function() {
+        CKEDITOR.replace (this);
+      });
+    }
+
     $(function() {
 
       $("body").on("click", ".collapser", function (event) {
-        $(this).closest(".nested-fields").children(".nested-inline-fields").slideToggle("slow");
-
-        for(k in CKEDITOR.instances) {
-            var instance = CKEDITOR.instances[k];
-            instance.destroy()
-        }
-
-        $ ('.wysiwyg.source').each(function() {
-          CKEDITOR.replace (this);
-        });
-
+        $(this).parent("h3").toggleClass("nested-fields-visible");
+        $(this).parent("h3").parent(".nested-fields").siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+        $(this).closest(".nested-fields").children(".nested-inline-fields").toggle();
+        reInitCkEditor();
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
-        insertedItem.children(".nested-inline-fields").slideToggle("slow");
+        insertedItem.children(".nested-inline-fields").toggle();
+        insertedItem.children("h3").addClass("nested-fields-visible");
       });
 
     <%- if is_orderable -%>
@@ -74,8 +80,8 @@
         });
       }
 
-      $('.show-inline-draggable').change(function(){
-        var parent               = $(this).closest(".nested-wrapper");
+      $("body").on("change", ".show-inline-draggable", function() {
+        var parent               = $(this).closest(".nested-heading").next(".nested-wrapper");
         var nested_container     = parent.children(".nested-container")
         var nested_fields        = nested_container.children(".nested-fields");
         var nested_title_fields  = nested_fields.children("h3");
@@ -84,8 +90,10 @@
 
         if (this.checked) {
 
-          nested_inline_fields.slideUp("slow");
+          parent.addClass("nested-wrapper-ordering");
+          nested_inline_fields.hide();
           nested_container.children(".links").hide();
+          nested_title_fields.removeClass("nested-fields-visible");
           nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
           nested_title_fields.children(".drag-handler").show().addClass("drag-me");
 
@@ -94,10 +102,13 @@
             handle: ".drag-me",
             stop: function( event, ui ) {
               updateOrdinal(nested_inline_fields);
+              reInitCkEditor();
             }
           });
 
         } else {
+
+          parent.removeClass("nested-wrapper-ordering");
           nested_container.children(".links").show();
           nested_fields.children("h3").children(".drag-handler").hide().removeClass("drag-me");
           nested_fields.children("h3").children(".no-collapser").addClass("collapser").removeClass("no-collapser");

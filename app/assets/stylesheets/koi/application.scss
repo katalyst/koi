@@ -18,6 +18,7 @@ $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 @import "./jquery/ui";
 @import "./jquery/tagify";
 @import "./nav_items";
+@import "./inline_forms";
 
 // elements ///////////////////////////////////////////////////////////////////
 
@@ -79,7 +80,7 @@ a.font-orange:hover { color: $orange; text-decoration: none; }
 .cursor-move { cursor: move; }
 .container.center, .margin-center { margin: 0 auto; }
 .logo-header { padding-top: 8px; float: left; }
-.bg-darkgrey { background-color: #666; }
+.bg-darkgrey { background-color: #666; color: #fff; }
 .bg-mediumgrey { background-color: #E8E8E8; }
 .bg-lightgrey { background-color: #f4f4f4; }
 .bg-light-red { background-color: #ffdede; }
