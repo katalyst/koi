@@ -8,7 +8,7 @@ module Koi
     def call(env)
       status, headers, body = @app.call(env)
 
-      current_path = env['PATH_INFO']
+      current_path = env['REQUEST_PATH']
 
       if status == 404 && new_path = find_redirect(current_path)
         request = ActionDispatch::Request.new(env)
