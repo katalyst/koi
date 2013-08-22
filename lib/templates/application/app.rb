@@ -43,6 +43,9 @@ gem 'newrelic_rpm'
 
 gem 'ey_config'
 
+# Nested Forms
+gem 'cocoon'                    , git: "https://github.com/nathanvda/cocoon.git"
+
 gem_group :development do
   gem 'pry'
   gem 'karo'
