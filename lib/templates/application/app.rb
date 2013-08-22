@@ -20,20 +20,20 @@ gem "jquery-ui-rails"
 gem "airbrake"
 
 # Nested fields
-gem 'awesome_nested_fields'     , git: 'git://github.com/katalyst/awesome_nested_fields.git'
+gem 'awesome_nested_fields'     , git: 'https://github.com/katalyst/awesome_nested_fields.git'
 
 # Koi Config
-gem 'koi_config'                , git: 'git://github.com/katalyst/koi_config.git'
+gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
 # Koi CMS
-gem 'koi'                       , git: 'git://github.com/katalyst/koi.git',
+gem 'koi'                       , git: 'https://github.com/katalyst/koi.git',
                                   tag: 'v1.0.0.rc5'
 
 # Bowerbird
-gem 'bowerbird_v2'              , git: 'git@github.com:katalyst/bowerbird_v2.git'
+gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , git: 'git://github.com/svenfuchs/i18n-active_record.git',
+gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
                                   branch: 'rails-3.2',
                                   require: 'i18n/active_record'
 
