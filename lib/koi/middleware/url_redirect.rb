@@ -8,12 +8,12 @@ module Koi
     def call(env)
       status, headers, body = @app.call(env)
 
-      current_path = env['PATH_INFO']
+      current_path = env['REQUEST_PATH']
 
       if status == 404 && new_path = find_redirect(current_path)
         request = ActionDispatch::Request.new(env)
 
-        new_location = request.url.gsub(current_path, new_path)
+        new_location = request.original_url.gsub(current_path, new_path)
 
         # Close the body as we will not use it for a 301 redirect
         body.close
