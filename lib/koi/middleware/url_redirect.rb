@@ -17,7 +17,7 @@ module Koi
         body.close
 
         # Issue a "Moved permanently" response with the redirect location
-        [301, { "Location" => new_location(current_path, new_path) }, ["#{current_path} moved. The document has moved to #{new_path}"]]
+        [301, { "Location" => new_location(current_path, new_path, request) }, ["#{current_path} moved. The document has moved to #{new_path}"]]
       else
         # Not a 404 or no redirect found, just send the response as is
         [status, headers, body]
@@ -26,11 +26,11 @@ module Koi
 
     private
 
-    def new_location(current_path, new_path)
+    def new_location(current_path, new_path, request)
       if new_path =~ /\Ahttp[s]{0,1}:\/\//
         new_path
       else
-        request.url.gsub(current_path, new_path)
+        request.original_url.gsub(current_path, new_path)
       end
     end
 
