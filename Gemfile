@@ -32,7 +32,7 @@ gem 'better_errors'
 
 gem "binding_of_caller"
 
-gem 'pry'
+gem 'pry-rails'
 
 # Nested Forms
 gem 'cocoon'                    , git: "https://github.com/nathanvda/cocoon.git"
