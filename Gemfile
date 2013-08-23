@@ -15,24 +15,24 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # Nested fields
-gem 'awesome_nested_fields'     , :git => 'git://github.com/katalyst/awesome_nested_fields.git'
+gem 'awesome_nested_fields'     , git: 'https://github.com/katalyst/awesome_nested_fields.git'
 
 # Koi
-gem 'koi_config'                , :git => 'git://github.com/katalyst/koi_config.git'
+gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
 # Bowerbird
-gem 'bowerbird_v2'              , :git => 'git@github.com:katalyst/bowerbird_v2.git'
+gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-active_record.git',
-                                  :branch => 'rails-3.2',
-                                  :require => 'i18n/active_record'
+gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
+                                  branch: 'rails-3.2',
+                                  require: 'i18n/active_record'
 
 gem 'better_errors'
 
 gem "binding_of_caller"
 
-gem 'pry'
+gem 'pry-rails'
 
 # Nested Forms
 gem 'cocoon'                    , git: "https://github.com/nathanvda/cocoon.git"
