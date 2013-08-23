@@ -1,36 +1,36 @@
 GIT
-  remote: git://github.com/katalyst/awesome_nested_fields.git
+  remote: https://github.com/katalyst/awesome_nested_fields.git
   revision: bc9c686234c5ebff6f8052d613576cfff159434f
   specs:
     awesome_nested_fields (0.5.3)
       rails (>= 3.0.0)
 
 GIT
-  remote: git://github.com/katalyst/koi_config.git
-  revision: d25a662fce55b794b289250c4d7f5d2f808e0f5d
-  specs:
-    koi_config (0.0.1)
-
-GIT
-  remote: git://github.com/svenfuchs/i18n-active_record.git
-  revision: 4628202f676aecfbc00d404342e61f75078d9439
-  branch: rails-3.2
-  specs:
-    i18n-active_record (0.0.2)
-      i18n (>= 0.6.0)
-
-GIT
-  remote: git@github.com:katalyst/bowerbird_v2.git
+  remote: https://github.com/katalyst/bowerbird_v2.git
   revision: d03dfa3737a1bb970096bae016c0a5ad3a7ef407
   specs:
     bowerbird_v2 (2.0.6)
       bootstrap-sass (= 2.0.4.2)
 
 GIT
+  remote: https://github.com/katalyst/koi_config.git
+  revision: d25a662fce55b794b289250c4d7f5d2f808e0f5d
+  specs:
+    koi_config (0.0.1)
+
+GIT
   remote: https://github.com/nathanvda/cocoon.git
   revision: 7a402fdfb1ca910e3a05da5069f89e252e589cc2
   specs:
     cocoon (1.2.0)
+
+GIT
+  remote: https://github.com/svenfuchs/i18n-active_record.git
+  revision: 4628202f676aecfbc00d404342e61f75078d9439
+  branch: rails-3.2
+  specs:
+    i18n-active_record (0.0.2)
+      i18n (>= 0.6.0)
 
 PATH
   remote: .
