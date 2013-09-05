@@ -1,4 +1,5 @@
 <% settings.each_with_index do |object, i| %>
+  <%- next if object.role.eql?("Super") && !current_admin.god? -%>
   <% field = object['field_type'] if Setting::FieldTypes.values.include? object['field_type'] %>
   <% field ||= 'string' %>
   <%= f.simple_fields_for "setting[#{object.id}]", object do |setting| %>

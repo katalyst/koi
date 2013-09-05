@@ -6,6 +6,7 @@ module CommonControllerActions
     protect_from_forgery
     layout :layout_by_resource
     helper :all
+    helper Koi::NavigationHelper
     before_filter :check_authorization_for_profiling
   end
 
