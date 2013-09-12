@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 3.0.1'
+  s.add_dependency 'devise'                        , '~> 3.1.0'
 
   # Form
   s.add_dependency 'simple_form'                   , '~> 2.1.0'
@@ -52,9 +52,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'                      , '~> 0.14.0'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.4.0'
-  s.add_dependency 'has_scope'                     , '~> 0.5.1'
-  s.add_dependency 'responders'                    , '~> 0.9.1'
+  s.add_dependency 'inherited_resources'           , '~> 1.4.1'
+  s.add_dependency 'has_scope'
+  s.add_dependency 'responders'
 
   # Navigation Rendering
   s.add_dependency 'simple-navigation'             , '~> 3.11.0'
@@ -92,6 +92,9 @@ Gem::Specification.new do |s|
 
   # Mini Profiler
   s.add_dependency 'rack-mini-profiler'
+
+  # Karo Asset Syncer
+  s.add_dependency 'karo'
 
   # Console Replacement
   s.add_development_dependency 'pry'
