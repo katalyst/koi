@@ -1,6 +1,6 @@
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-1.9.3-p385
+2.0.0-p247
 END
 
 # Add .ruby-gemset for RVM

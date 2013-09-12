@@ -2,7 +2,7 @@ class SuperHero < ActiveRecord::Base
 
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
-           orderable: false, settings: true
+           orderable: false, settings: true, scope: "name DESC"
 
   has :many, attributed: :images, orderable: true
 
@@ -37,8 +37,8 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       exportable true
       csv     except: [:image_name, :file_name]
-      index   fields: [:id, :name, :image, :file],
-              order:  { name: :asc }
+      index   fields: [:id, :name, :image, :file]
+              # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
     end
