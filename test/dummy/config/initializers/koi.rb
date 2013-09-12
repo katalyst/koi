@@ -2,9 +2,14 @@
 
 Koi::Menu.items = {
   "Super Heros"  => "/admin/super_heros",
-  "Admins"       => "/admin/site_users",
   "News"         => "/admin/news_items",
   "Categories"   => "/admin/categories",
+  "URL History"  => "/admin/friendly_id_slugs",
+  "URL Rewriter" => "/admin/url_rewrites"
+}
+
+Koi::Menu.advanced = {
+  "Admins"       => "/admin/site_users",
   "URL History"  => "/admin/friendly_id_slugs",
   "URL Rewriter" => "/admin/url_rewrites"
 }
