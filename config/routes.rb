@@ -54,6 +54,7 @@ Koi::Engine.routes.draw do
   root to: 'application#login'
 
   constraints lambda {|request| request.env['warden'].user(:admin) && request.env['warden'].user(:admin).god? } do
+    require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq', as: :sidekiq
   end
 
