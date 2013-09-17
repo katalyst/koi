@@ -84,8 +84,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sidekiq'
 
   # Required by Sidekiq Web
-  s.add_dependency 'sinatra'
-  s.add_dependency 'slim'
+  s.add_dependency 'sinatra'                       , '>= 1.3.0'
 
   # Nice Multi Select
   s.add_dependency 'select2-rails'
