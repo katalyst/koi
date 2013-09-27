@@ -306,12 +306,14 @@ END
 
 # Setup sidekiq passenger hack
 create_file 'config/initializers/sidekiq.rb', <<-END
-if defined?(PhusionPassenger)
-  PhusionPassenger.on_event(:starting_worker_process) do |forked|
-    Sidekiq.configure_client do |config|
-      config.redis = { :size => 1 }
-    end if forked
-  end
+default_config = { namespace: "#{@app_name}" }
+
+Sidekiq.configure_server do |config|
+  config.redis = default_config
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = default_config
 end
 END
 
