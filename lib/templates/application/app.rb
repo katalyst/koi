@@ -67,27 +67,13 @@ END
 
 # Setup database yml
 run 'rm config/database.yml'
-create_file 'config/database.yml', <<-END
-development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
-  pool: 5
-  username: root
-  password: katalyst
 
-test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_test
-  pool: 5
-  username: root
-  password: katalyst
-END
+begin
+  database_template = File.open(File.join(File.dirname(__FILE__), 'databases', "#{@builder.options['database']}.yml")).read
+  create_file 'config/database.yml', instance_eval("\"#{database_template}\"")
+rescue
+  puts "#{@builder.options['database']} database not currently supported, no database.yml generated."
+end
 
 # Setup seed
 run 'rm db/seeds.rb'
