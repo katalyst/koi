@@ -35,7 +35,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Cut,Copy,Styles,Underline,Subscript,Superscript,Strike,Anchor,HorizontalRule,SpecialChar,Save,Print,Preview,NewPage,Font,Iframe,PageBreak,Smiley';
 
 	// Se the most common block elements.
-	config.format_tags = 'h1;h2;h3;h4;h5;h6;p';
+	config.format_tags = 'h2;h3;h4;h5;h6;p';
 
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced,document:advanced;link:advanced';
