@@ -3,7 +3,8 @@ require_relative 'shared_methods'
 module HasSettings
   def has_settings(options={})
     send :include, HasSettings::Model
-    send :after_save, :create_settings
+    send :after_save,     :create_settings
+    send :before_destroy, :remove_settings
   end
 
   module Model
@@ -46,6 +47,10 @@ module HasSettings
       Koi::Settings.resource.each do |key, values|
         create_setting(key, values)
       end
+    end
+
+    def remove_settings
+      settings.destroy_all
     end
 
     include SharedMethods
