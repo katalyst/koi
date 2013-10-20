@@ -36,7 +36,13 @@ module HasSettings
       "#{id}.#{self.class.singular_name}"
     end
 
+    def underscore_class_name
+      self.class.name.underscore.to_sym
+    end
+
     def create_settings
+      return true if Koi::Settings.skip_on_create.include?(underscore_class_name)
+
       Koi::Settings.resource.each do |key, values|
         create_setting(key, values)
       end
