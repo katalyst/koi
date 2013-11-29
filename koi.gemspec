@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 3.1.0'
+  s.add_dependency 'devise'                        , '~> 3.2.0'
 
   # Form
   s.add_dependency 'simple_form'                   , '~> 2.1.0'
