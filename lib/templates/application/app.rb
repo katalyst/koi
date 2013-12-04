@@ -1,6 +1,6 @@
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-2.0.0-p247
+2.0.0-p353
 END
 
 # Add .ruby-gemset for RVM
@@ -44,7 +44,7 @@ gem 'newrelic_rpm'
 gem 'ey_config'
 
 # Nested Forms
-gem 'cocoon'                    , git: "https://github.com/nathanvda/cocoon.git"
+gem 'cocoon'
 
 gem_group :development do
   gem 'pry'
