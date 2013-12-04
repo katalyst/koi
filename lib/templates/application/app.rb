@@ -27,7 +27,7 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 
 # Koi CMS
 gem 'koi'                       , git: 'https://github.com/katalyst/koi.git',
-                                  tag: 'v1.0.0.rc5'
+                                  tag: 'v1.1.0.rc3'
 
 # Bowerbird
 gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
@@ -42,9 +42,6 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 
 gem 'ey_config'
-
-# Nested Forms
-gem 'cocoon'
 
 gem_group :development do
   gem 'pry'

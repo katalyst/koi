@@ -95,6 +95,9 @@ Gem::Specification.new do |s|
   # Karo Asset Syncer
   s.add_dependency 'karo'
 
+  # Nested Forms
+  s.add_dependency 'cocoon'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
