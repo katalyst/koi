@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , '~> 3.2.14'
+  s.add_dependency 'rails'                         , '~> 3.2.16'
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
@@ -94,6 +94,9 @@ Gem::Specification.new do |s|
 
   # Karo Asset Syncer
   s.add_dependency 'karo'
+
+  # Nested Forms
+  s.add_dependency 'cocoon'
 
   # Console Replacement
   s.add_development_dependency 'pry'
