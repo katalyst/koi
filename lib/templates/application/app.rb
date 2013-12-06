@@ -381,11 +381,14 @@ public/system/**/*
 /public/assets
 END
 
+generate('ornament -f') if yes?("Do you want to generate ornament?")
+
 git :init
 git add: '.'
+git commit: "-m 'Initial Commit'"
 
 run 'ey init'
-
-git commit: "-m 'Initial Commit'"
+git add: '.'
+git commit: "-m 'Generated EngineYard Config'"
 
 rake 'db:seed'
