@@ -74,6 +74,7 @@ module Koi
         %w[thanks new].each do |action| # Actions with templates
           template "views/#{action}.html.erb", "app/views/#{plural_name}/#{action}.html.erb"
         end
+        template "views/mailer.html.erb", "app/views/#{singular_name}_mailer/#{singular_name}_created.html.erb"
       end
 
       def singular_name

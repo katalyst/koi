@@ -1,0 +1,8 @@
+<%% content_for :title, "<%= singular_name.titleize %>" %>
+
+<%- for attribute in model_attributes -%>
+<p>
+  <strong><%= attribute.human_name.titleize %>:</strong>
+  <%%= @<%= instance_name %>.<%= attribute.name %> %>
+</p>
+<%- end -%>
