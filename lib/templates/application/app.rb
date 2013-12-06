@@ -84,6 +84,17 @@ test:
   pool: 5
   username: root
   password: katalyst
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  host: localhost
+  database: #{@app_name}_development
+  pool: 5
+  username: root
+  password: katalyst
+
 END
 
 # Setup seed
@@ -191,15 +202,22 @@ gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = 
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
+# HACK: To by pass devise checking for secret key without initialization
+create_file 'config/initializers/devise.rb', <<-END
+Devise.setup do |config|
+  config.secret_key = 'Temporarily created to fix the devise install error'
+end
+END
 
 # Generate Devise Config
-generate('devise:install')
+generate('devise:install -f')
 
 # Change scoped views
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
+
+rake 'db:drop'
+rake 'db:create'
+rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
@@ -207,8 +225,6 @@ route 'resources :pages, only: [:index, :show]'
 route 'resources :assets'
 route 'resources :images'
 route 'resources :documents'
-
-run 'ey init'
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
@@ -367,6 +383,9 @@ END
 
 git :init
 git add: '.'
+
+run 'ey init'
+
 git commit: "-m 'Initial Commit'"
 
 rake 'db:seed'
