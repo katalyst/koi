@@ -64,7 +64,7 @@ module Koi
 
           create_views unless options.skip_views?
 
-          route "resources :#{plural_name}, only: [:index, :new, :thanks] { collection { get 'thanks' } }"
+          route "resources :#{plural_name}, only: [:index, :new, :create, :thanks] { collection { get 'thanks' } }"
         end
       end
 
