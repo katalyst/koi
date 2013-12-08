@@ -16,6 +16,7 @@ module Koi
       class_option :skip_views,     :desc => 'Don\'t generate views.', :type => :boolean, :default => false
       class_option :skip_mailer,    :desc => 'Don\'t generate a mailer file.', :type => :boolean
       class_option :skip_model,     :desc => 'Don\'t generate a model or migration file.', :type => :boolean
+      class_option :skip_sidekiq,   :desc => 'Don\'t use sidekiq.', :type => :boolean, :default => false
       class_option :skip_migration, :desc => 'Dont generate migration file for model.', :type => :boolean
 
       def initialize(*args, &block)
@@ -28,8 +29,7 @@ module Koi
         @model_attributes = []
         @skip_model = options.skip_model?
 
-        @versioned = options.versioned?
-        @orderable = options.orderable?
+        @skip_sidekiq = options.skip_sidekiq?
 
         process_attributes
 
