@@ -61,10 +61,17 @@ module Koi
       def create_controller
         unless options.skip_controller?
           template 'controller_template.rb', "app/controllers/#{plural_name}_controller.rb"
+          template 'admin_controller_template.rb', "app/controllers/admin/#{plural_name}_controller.rb"
 
           create_views unless options.skip_views?
 
           route "resources :#{plural_name}, only: [:index, :new, :create, :thanks] { collection { get 'thanks' } }"
+
+          namespaces = ['admin', plural_name]
+          resource = namespaces.pop
+          route namespaces.reverse.inject("resources :#{resource}") { |acc, namespace|
+            "namespace(:#{namespace}) { #{acc} }"
+          }
         end
       end
 
