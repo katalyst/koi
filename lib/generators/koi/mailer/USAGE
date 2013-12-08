@@ -1,0 +1,24 @@
+Description:
+    Scaffolds an entire resource, from model and migration to controller, views and mailers.
+    The resource is ready to use as a starting point for your restful,
+    resource-oriented application.
+
+Usage:
+    Pass the name of the model, either CamelCased or under_scored, as the first
+    argument along with an optional list of attribute pairs and controller actions.
+
+    IMPORTANT: If no attribute pairs are specified, no model will be generated.
+    It will try to determine the attributes from an existing model.
+
+    Attribute pairs are column_name:sql_type arguments specifying the
+    model's attributes. Timestamps are added by default, so you don't have to
+    specify them by hand as 'created_at:datetime updated_at:datetime'.
+
+    For example, `rails g koi:mailer subscribe name:string content:text`
+    gives you a model with those two attributes, a controller that handles
+    the create/thanks, mailer, forms to create your subscribers, and
+    an thanks page, as well as a map.resources :posts, only: [:new, :thanks]
+    declaration in config/routes.rb.
+
+Examples
+    rails g koi:mailer subscriber name:string content:text
