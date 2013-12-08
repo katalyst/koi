@@ -1,0 +1,6 @@
+<%- if @current_path && !@current_path.title.blank? %>
+  <%= content_tag :h1, @current_path.title -%>
+<%- else %>
+  <%= content_tag :h1, resource_class.crud.find(:admin, :title, :show) || resource -%>
+<%- end %>
+<br />
