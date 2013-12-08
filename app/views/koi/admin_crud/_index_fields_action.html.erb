@@ -1,4 +1,7 @@
 <ul class="unmarked-list floated-l-list spaced-r-list space-l-0 space-b-0 ">
+  <%- if is_allowed? :show %>
+    <li><%= link_to "Show", resource_path(object) %></li>
+  <%- end %>
   <% if is_allowed? :edit %>
     <li><%= link_to "Edit", edit_resource_path(object) %></li>
   <% end %>

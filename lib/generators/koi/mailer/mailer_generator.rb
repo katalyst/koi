@@ -16,6 +16,7 @@ module Koi
       class_option :skip_views,     :desc => 'Don\'t generate views.', :type => :boolean, :default => false
       class_option :skip_mailer,    :desc => 'Don\'t generate a mailer file.', :type => :boolean
       class_option :skip_model,     :desc => 'Don\'t generate a model or migration file.', :type => :boolean
+      class_option :skip_sidekiq,   :desc => 'Don\'t use sidekiq.', :type => :boolean, :default => false
       class_option :skip_migration, :desc => 'Dont generate migration file for model.', :type => :boolean
 
       def initialize(*args, &block)
@@ -28,8 +29,7 @@ module Koi
         @model_attributes = []
         @skip_model = options.skip_model?
 
-        @versioned = options.versioned?
-        @orderable = options.orderable?
+        @skip_sidekiq = options.skip_sidekiq?
 
         process_attributes
 
@@ -61,10 +61,17 @@ module Koi
       def create_controller
         unless options.skip_controller?
           template 'controller_template.rb', "app/controllers/#{plural_name}_controller.rb"
+          template 'admin_controller_template.rb', "app/controllers/admin/#{plural_name}_controller.rb"
 
           create_views unless options.skip_views?
 
           route "resources :#{plural_name}, only: [:index, :new, :create, :thanks] { collection { get 'thanks' } }"
+
+          namespaces = ['admin', plural_name]
+          resource = namespaces.pop
+          route namespaces.reverse.inject("resources :#{resource}") { |acc, namespace|
+            "namespace(:#{namespace}) { #{acc} }"
+          }
         end
       end
 

@@ -1,0 +1,11 @@
+<p>
+<%- if is_allowed?(:index) %>
+  <%= link_to "Back", collection_path %>
+<%- end %>
+<%- if is_allowed?(:edit) %>
+  <%= link_to "Edit", edit_resource_path %>
+<%- end %>
+<%- if is_allowed?(:destroy) %>
+  <%= link_to "Destroy", resource_path, :confirm => 'Are you sure?', :method => :delete %>
+<%- end %>
+</p>
