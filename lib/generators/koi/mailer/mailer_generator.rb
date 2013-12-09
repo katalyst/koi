@@ -134,39 +134,6 @@ module Koi
         File.exist? destination_path("app/models/#{singular_name}.rb")
       end
 
-      def item_resource
-        scaffold_name.underscore.gsub('/','_')
-      end
-
-      def items_path
-        "#{item_resource.pluralize}_path"
-      end
-
-      def item_path(options = {})
-        name = options[:instance_variable] ? "@#{instance_name}" : instance_name
-        suffix = options[:full_url] ? "url" : "path"
-        if options[:action].to_s == "new"
-          "new_#{item_resource}_#{suffix}"
-        elsif options[:action].to_s == "edit"
-          "edit_#{item_resource}_#{suffix}(#{name})"
-        else
-          if scaffold_name.include?('::') && !@namespace_model
-            namespace = singular_name.split('/')[0..-2]
-            "[:#{namespace.join(', :')}, #{name}]"
-          else
-            name
-          end
-        end
-      end
-
-      def item_url
-        items_url
-      end
-
-      def items_url
-        item_resource.pluralize + '_url'
-      end
-
       def read_template(relative_path)
         ERB.new(File.read(find_in_source_paths(relative_path)), nil, '-').result(binding)
       end

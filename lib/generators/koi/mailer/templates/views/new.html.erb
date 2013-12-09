@@ -1,6 +1,6 @@
 <%% content_for :title, "New <%= singular_name.titleize %>" %>
 
-<%%= simple_form_for(<%= item_path :instance_variable => true %>) do |f| %>
+<%%= simple_form_for(@<%= instance_name %>) do |f| %>
   <%%= f.error_notification %>
 
   <div class="inputs">
