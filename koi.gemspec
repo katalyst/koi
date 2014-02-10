@@ -89,9 +89,6 @@ Gem::Specification.new do |s|
   # Nice Multi Select
   s.add_dependency 'select2-rails'
 
-  # Mini Profiler
-  s.add_dependency 'rack-mini-profiler'
-
   # Karo Asset Syncer
   s.add_dependency 'karo'
 
