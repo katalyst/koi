@@ -222,9 +222,9 @@ rake 'db:migrate'
 route "root to: 'pages#index'"
 
 route 'resources :pages, only: [:index, :show]'
-route 'resources :assets'
-route 'resources :images'
-route 'resources :documents'
+route 'resources :assets, only: [:show]'
+route 'resources :images, only: [:show]'
+route 'resources :documents, only: [:show]'
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
