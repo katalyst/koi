@@ -332,7 +332,7 @@ if mock_smtp_indicator.exist?
     :port => 1025,
     :domain => "katalyst.com.au"
   }
-elsif mailtrap_smtp_indicator.exist?
+elsif mailtrap_smtp_indicator.exist? || Rails.env.staging?
   ActionMailer::Base.smtp_settings = {
     :user_name => 'Consult Wiki',
     :password => 'Consult Wiki',
