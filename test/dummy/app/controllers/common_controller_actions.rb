@@ -8,6 +8,7 @@ module CommonControllerActions
     helper :all
     helper Koi::NavigationHelper
     before_filter :check_authorization_for_profiling
+    before_filter :sign_in_as_admin! if Rails.env.development?
   end
 
   protected
@@ -35,6 +36,10 @@ module CommonControllerActions
   # FIXME: Hack to redirect back to admin after admin logout
   def after_sign_out_path_for(resource_or_scope)
     resource_or_scope == :admin ? koi_engine.root_path : super
+  end
+
+  def sign_in_as_admin!
+    sign_in(:admin, Admin.first) unless Admin.scoped.empty?
   end
 
 end
