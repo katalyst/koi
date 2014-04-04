@@ -52,6 +52,12 @@ gem_group :development do
   gem 'ornament', git: 'git@github.com:ketchup/ornament.git'
 end
 
+if @builder.options['database'] == 'postgresql'
+  gem 'pg'
+else
+  gem 'mysql2'
+end
+
 # Setup mailer host
 application(nil, :env => 'development') do
   "config.action_mailer.asset_host = \"http://localhost:3000\""
