@@ -16,6 +16,7 @@ module Koi
                         application/docx
                         application/xls
                         application/xlsx
+                        application/vnd.ms-excel
                         application/msword
                         application/ppt
                         application/zip) + Image.mime_types

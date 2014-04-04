@@ -15,12 +15,6 @@ end
 Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
              role: "Super", password: password, password_confirmation: password)
 
-Admin.create(first_name: "Rahul", last_name: "Trikha", email: "rahul@katalyst.com.au",
-             role: "Admin", password: password, password_confirmation: password)
-
-Admin.create(first_name: "Jason", last_name: "Sidoryn", email: "jason@katalyst.com.au",
-             role: "Admin", password: password, password_confirmation: password)
-
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
 header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation")
 footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation")
