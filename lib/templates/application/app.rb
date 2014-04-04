@@ -52,12 +52,6 @@ gem_group :development do
   gem 'ornament', git: 'git@github.com:ketchup/ornament.git'
 end
 
-if @builder.options['database'] == 'postgresql'
-  gem 'pg'
-else
-  gem 'mysql2'
-end
-
 # Setup mailer host
 application(nil, :env => 'development') do
   "config.action_mailer.asset_host = \"http://localhost:3000\""
@@ -67,16 +61,6 @@ end
 create_file 'VERSION', <<-END
 1.0.0
 END
-
-# Setup database yml
-run 'rm config/database.yml'
-
-begin
-  database_template = File.open(File.join(File.dirname(__FILE__), 'databases', "#{@builder.options['database']}.yml")).read
-  create_file 'config/database.yml', instance_eval("\"#{database_template}\"")
-rescue
-  puts "#{@builder.options['database']} database not currently supported, no database.yml generated."
-end
 
 # Setup seed
 run 'rm db/seeds.rb'
