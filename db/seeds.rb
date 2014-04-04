@@ -15,12 +15,6 @@ end
 Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
              role: "Super", password: password, password_confirmation: password)
 
-Admin.create(first_name: "Rahul", last_name: "Trikha", email: "rahul@katalyst.com.au",
-             role: "Admin", password: password, password_confirmation: password)
-
-Admin.create(first_name: "Jason", last_name: "Sidoryn", email: "jason@katalyst.com.au",
-             role: "Admin", password: password, password_confirmation: password)
-
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
 header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation")
 footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation")
@@ -46,4 +40,4 @@ Translation.create!(label: "Google Analytics Username", key: "site.google_analyt
 Translation.create!(label: "Google Analytics Password", key: "site.google_analytics.password", value: "yAw7c9rV", field_type: "string", role: "Admin")
 Translation.create!(label: "Google Analytics Profile ID", key: "site.google_analytics.profile_id", value: "UA-2161859-1", field_type: "string", role: "Admin")
 Translation.create!(label: "Show Google Analytics", key: "site.show.dashboard.analytics", value: "true", field_type: "boolean", role: "Super")
-Translation.create!(label: "Twitter Search Query", key: "site.twitter.query", value: "from:twitter OR #twitter", field_type: "string", role: "Admin")
+Translation.create!(label: "Twitter Search Query", key: "site.twitter.widget_id", value: "389900838295965696", field_type: "string", role: "Admin")

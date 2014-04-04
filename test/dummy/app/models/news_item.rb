@@ -1,4 +1,5 @@
 class NewsItem < ActiveRecord::Base
+
   has_crud
 
   crud.config do

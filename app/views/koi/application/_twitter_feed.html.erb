@@ -1,40 +1,43 @@
-<% twitter_username = Translation.find_by_key('site.twitter.username').try(:value) %>
-<% twitter_query    = Translation.find_by_key('site.twitter.query').try(:value) %>
+<% twitter_widget_id = Translation.find_by_key('site.twitter.widget_id').try(:value) %>
 
-<% if twitter_username.present? || twitter_query.present? %>
+<% if twitter_widget_id.present? %>
 
   <% content_for :head do %>
     <script type="text/javascript">
       jQuery (function ($)
       {
-        $ ('#twitter-query').tweet ({
-
-          avatar_size   : 32
-        ,  count        : 5
-        
-        <% if twitter_username.present? %>
-        ,  username     : '<%= twitter_username %>'
-        <% end %>
-        
-        <% if twitter_query.present? %>
-        ,  query        : '<%= twitter_query %>'
-        <% end %>
-        
-        ,  loading_text : "searching twitter..."
-        
-        }).bind ('empty', function ()
-        {
-          $ (this).append ('No matching tweets found.<br>Please set your twitter search query <%= link_to "here", translations_path %>')
-        })
+        twitterFetcher.fetch('<%= twitter_widget_id %>', 'twitter-query', 4, true, true, true, "default");
       })
     </script>
+
+    <style>
+      #twitter-query li {
+        margin-bottom: 20px;
+      }
+      #twitter-query .user img {
+        float: left; 
+        margin: 0 5px 5px 0;
+      }
+      #twitter-query .user span {
+        display: block;
+      }
+      #twitter-query .tweet {
+        clear: both;
+      }
+      #twitter-query .timePosted {
+        font-style: italic;
+      }
+      #twitter-query .interact {
+        display: none;
+      }
+    </style>
   <% end %>
 
   
   <% content_for :side do %>
 
     <h3>Latest Tweets</h3>
-    <div id="twitter-query"></div>
+    <div id="twitter-query">searching twitter...</div>
 
   <% end %>
 

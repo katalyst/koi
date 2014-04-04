@@ -1,0 +1,14 @@
+<tr>
+  <td width="300">
+    <div class="br-grey-d8 bg-white">
+      <strong><%= t "simple_form.labels.#{resource_class.name.underscore}.#{attr}",
+                   :default => attr.to_s.titleize %>:</strong>
+    </div>
+  </td>
+  <td>
+    <div class="br-grey-d8 bg-white">
+      <!-- FIXME: Hack to just reflection working temporarily for DCMB -->
+      $<%= resource.send(attr) -%>
+    </div>
+  </td>
+</tr>

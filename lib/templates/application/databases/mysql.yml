@@ -17,3 +17,13 @@ test:
   pool: 5
   username: root
   password: katalyst
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  host: localhost
+  database: #{@app_name}_development
+  pool: 5
+  username: root
+  password: katalyst

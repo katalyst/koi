@@ -10,7 +10,7 @@ module Koi
       Translation.create(label: "Google Analytics Username", key: "site.google_analytics.username", value: "admin@katalyst.com.au", field_type: "string", role: "Admin")
       Translation.create(label: "Google Analytics Password", key: "site.google_analytics.password", value: "yAw7c9rV", field_type: "string", role: "Admin")
       Translation.create(label: "Google Analytics Profile ID", key: "site.google_analytics.profile_id", value: "UA-2161859-1", field_type: "string", role: "Admin")
-      Translation.create(label: "Twitter Search Query", key: "site.twitter.query", value: "from:twitter OR #twitter", field_type: "string", role: "Admin")
+      Translation.create(label: "Twitter Search Query", key: "site.twitter.widget_id", value: "389900838295965696", field_type: "string", role: "Admin")
       Translation.create(label: "Show Google Analytics", key: "site.show.dashboard.analytics", value: "true", field_type: "boolean", role: "Super")
       redirect_to collection_path, notice: "Google Analytics and Twitter settings created."
     end

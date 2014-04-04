@@ -1,0 +1,25 @@
+<%% content_for :title, "New <%= singular_name.titleize %>" %>
+
+<%%= simple_form_for(@<%= instance_name %>) do |f| %>
+
+  <div class="spacing">
+
+    <%% unless f.error_notification.blank? -%>
+      <div class="error">
+        <%%= f.error_notification %>
+      </div>
+    <%%- end -%>
+
+    <div class="inputs">
+    <%- for attribute in model_attributes -%>
+      <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+    <%- end -%>
+    </div>
+
+    <div class="actions">
+      <%%= f.button :submit %>
+    </div>
+
+  </div>
+
+<%% end %>

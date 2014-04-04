@@ -5,10 +5,10 @@ class Translation < ActiveRecord::Base
 
   has :many, attributed: :images, orderable: true
 
+  after_save :reset_memory_store_cache
+
   validates :locale, :label, :key, :field_type,
             :role, presence: true
-
-  # validates :value, presence: true, unless: Proc.new{ |r| r.field_type.eql?("images") }
 
   validates_uniqueness_of :key, scope: :prefix
 
@@ -47,4 +47,10 @@ class Translation < ActiveRecord::Base
   def set_default_values
     self.role ||= Admin.god
   end
+
+  def reset_memory_store_cache
+    I18n.cache_store = nil
+    I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
+  end
+
 end
