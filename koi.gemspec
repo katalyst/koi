@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
-  s.add_dependency 'devise'                        , '~> 3.2.0'
+  s.add_dependency 'devise'                        , '~> 3.2.4'
 
   # Form
   s.add_dependency 'simple_form'                   , '~> 2.1.0'
@@ -94,6 +94,9 @@ Gem::Specification.new do |s|
 
   # Nested Forms
   s.add_dependency 'cocoon'
+
+  # Coffee Script
+  s.add_dependency 'coffee-rails'
 
   # Console Replacement
   s.add_development_dependency 'pry'
