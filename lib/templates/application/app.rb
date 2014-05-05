@@ -305,6 +305,13 @@ Sidekiq.configure_client do |config|
 end
 END
 
+# Setup sidekiq deploy hook
+create_file 'deploy/after_restart.rb', <<-END
+on_app_servers do
+  sudo "monit restart all -g hae_sidekiq"
+end
+END
+
 # Setup koi initializer to define admin menu and other koi related settings
 create_file 'config/initializers/koi.rb', <<-END
 # FIXME: Explicity require all main app controllers
@@ -337,6 +344,13 @@ END
 
 create_file 'config/application.yml.example', application_yml
 create_file 'config/application.yml', application_yml
+
+# Setup fiagro deploy hook
+create_file 'deploy/after_symlink.rb', <<-END
+on_app_servers do
+  run "ln -nfs #{config.shared_path}/config/application.yml #{config.current_path}/config/application.yml"
+end
+END
 
 # Setup sendgrid initializer
 create_file 'config/initializers/setup_smtp.rb', <<-END
