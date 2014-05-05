@@ -98,6 +98,9 @@ Gem::Specification.new do |s|
   # Coffee Script
   s.add_dependency 'coffee-rails'
 
+  # Figaro for using ENV variables
+  s.add_dependency 'figaro'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
