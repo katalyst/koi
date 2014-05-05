@@ -358,8 +358,8 @@ elsif Rails.env.production?
   }
 else
   ActionMailer::Base.smtp_settings = {
-    user_name: 'Figaro.env.mailtrap_username',
-    password: 'Figaro.env.mailtrap_password',
+    user_name: Figaro.env.mailtrap_username,
+    password: Figaro.env.mailtrap_password,
     address: 'mailtrap.io',
     domain: 'mailtrap.io',
     port: '2525',
