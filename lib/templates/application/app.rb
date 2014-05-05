@@ -207,6 +207,9 @@ gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = 
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
+rake 'db:drop'
+rake 'db:create'
+
 # HACK: To by pass devise checking for secret key without initialization
 create_file 'config/initializers/devise.rb', <<-END
 Devise.setup do |config|
@@ -220,8 +223,6 @@ generate('devise:install -f')
 # Change scoped views
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
-rake 'db:drop'
-rake 'db:create'
 rake 'db:migrate'
 
 route "root to: 'pages#index'"
