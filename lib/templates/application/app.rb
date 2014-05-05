@@ -20,20 +20,20 @@ gem "jquery-ui-rails"
 gem "airbrake"
 
 # Nested fields
-gem 'awesome_nested_fields'     , git: 'https://github.com/katalyst/awesome_nested_fields.git'
+gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 
 # Koi Config
-gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
+gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-gem 'koi'                       , git: 'https://github.com/katalyst/koi.git',
-                                  tag: 'v1.1.0.rc3'
+gem 'koi'                       , github: 'katalyst/koi',
+                                  tag: 'v1.1.0.rc6'
 
 # Bowerbird
-gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
+gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
+gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
                                   branch: 'rails-3.2',
                                   require: 'i18n/active_record'
 
@@ -49,7 +49,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', git: 'git@github.com:ketchup/ornament.git', branch: 'feature/development'
+  gem 'ornament', github: 'ketchup/ornament', branch: 'feature/development'
 end
 
 # Setup mailer host
@@ -327,33 +327,44 @@ Koi::Settings.resource = {
 }
 END
 
+# Setup Fiagro application.yml
+application_yml = <<-END
+MANDRILL_USERNAME: ''
+MANDRILL_PASSWORD: ''
+MAILTRAP_USERNAME: ''
+MAILTRAP_PASSWORD: ''
+END
+
+create_file 'config/application.yml.example', application_yml
+create_file 'config/application.yml', application_yml
+
 # Setup sendgrid initializer
-create_file 'config/initializers/setup_sendgrid.rb', <<-END
+create_file 'config/initializers/setup_smtp.rb', <<-END
 mock_smtp_indicator = Rails.root + 'tmp/mock_smtp.txt'
-mailtrap_smtp_indicator = Rails.root + 'tmp/mailtrap_smtp.txt'
 
 if mock_smtp_indicator.exist?
   ActionMailer::Base.smtp_settings = {
-    :address => "localhost",
-    :port => 1025,
-    :domain => "katalyst.com.au"
+    address: 'localhost',
+    port: 1025,
+    domain: 'katalyst.com.au'
   }
-elsif mailtrap_smtp_indicator.exist?
+elsif Rails.env.production?
   ActionMailer::Base.smtp_settings = {
-    :user_name => 'Consult Wiki',
-    :password => 'Consult Wiki',
-    :address => 'mailtrap.io',
-    :port => '2525',
-    :authentication => :plain
+    address: 'smtp.mandrillapp.com',
+    port: '587',
+    authentication: :plain,
+    user_name: Figaro.env.mandrill_username,
+    password: Figaro.env.mandrill_password
   }
 else
   ActionMailer::Base.smtp_settings = {
-    :address => "smtp.sendgrid.net",
-    :port => '25',
-    :domain => "katalyst.com.au",
-    :authentication => :plain,
-    :user_name => "Consult Wiki",
-    :password => "Consult Wiki"
+    user_name: 'Figaro.env.mailtrap_username',
+    password: 'Figaro.env.mailtrap_password',
+    address: 'mailtrap.io',
+    domain: 'mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5,
+    enable_starttls_auto: true
   }
 end
 END
@@ -385,6 +396,9 @@ public/system/**/*
 
 # Ignore compiled assets
 /public/assets
+
+# Ignore application configuration
+/config/application.yml
 END
 
 generate('ornament -f') if yes?("Do you want to generate ornament?")

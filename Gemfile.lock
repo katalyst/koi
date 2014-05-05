@@ -36,6 +36,7 @@ PATH
       coffee-rails
       devise (~> 3.2.4)
       dragonfly (~> 0.9.9)
+      figaro
       friendly_id (~> 4.0.0)
       garb
       has (~> 1.0.3)
@@ -149,6 +150,9 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     ffi (1.9.0)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     forgery (0.5.0)
     formatador (0.2.4)
     friendly_id (4.0.10.1)
