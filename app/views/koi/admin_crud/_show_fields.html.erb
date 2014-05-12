@@ -1,4 +1,4 @@
-<%- resource_class.attributes(:show).each do |attr| -%>
+<%- resource_class.admin_attributes(:show).each do |attr| -%>
 <p>
   <%= begin
         render crud_partial(attr, :show), { :attr => attr }
