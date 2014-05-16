@@ -10,7 +10,7 @@
           element: document.querySelector("#chart"), 
           width: 670, 
           height: 300,
-          renderer: 'bar', 
+          renderer: 'line', 
           series: [
             <% colours = ['rgba(255, 0, 0, 0.4)', 'rgba(255, 127, 0, 0.4)', 'rgba(127, 0, 0, 0.3)'] %>
             <%= @report_data.map do |report| 
