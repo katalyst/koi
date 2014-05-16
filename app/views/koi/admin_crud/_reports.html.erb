@@ -1,0 +1,34 @@
+<div class="tab-pane" id="tab-reports">
+  <div class="settings">
+    <div id="index-fields">
+
+      <div id="chart"></div>
+
+      <script type='text/javascript'>
+
+        var graph = new Rickshaw.Graph( {
+          element: document.querySelector("#chart"), 
+          width: 670, 
+          height: 300,
+          renderer: 'bar', 
+          series: [
+            <% colours = ['rgba(255, 0, 0, 0.4)', 'rgba(255, 127, 0, 0.4)', 'rgba(127, 0, 0, 0.3)'] %>
+            <%= @report_data.map do |report| 
+            "{ color: '#{colours.shuffle.first}',
+                data: #{report.to_json} }"
+            end.join(',').html_safe %>
+          ]
+        });
+
+        var axes = new Rickshaw.Graph.Axis.Time( { graph: graph } );
+
+        graph.render();
+
+      </script>
+
+
+    </div>
+  </div>
+
+  <div id="modal-for-reports" class="modal fade hide-element as-clr">&nbsp;</div>
+</div>

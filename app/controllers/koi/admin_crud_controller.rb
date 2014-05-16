@@ -4,6 +4,11 @@ module Koi
     has_crud :admin => true
     defaults :route_prefix => 'admin'
 
+    def index
+      generate_reports if is_reportable?
+      super
+    end
+
   protected
 
     # Matches missing route methods of the form (action_)?koi_(controller)_path,
@@ -19,6 +24,12 @@ module Koi
       else
         super
       end
+    end
+
+    def generate_reports
+      reports = collection.crud.settings[:admin][:reports]
+      @report_data = Reports::Reporting.generate_report(reports, collection)
+      # @report_data = [{ x: 1, y: 2 }, { x: 2, y: 4 }]
     end
        
   end

@@ -41,6 +41,10 @@
   <% if is_settable? %>
     <%= render "index_settings" %>
   <% end %>
+
+  <% if is_reportable? %>
+    <%= render "reports" %>
+  <% end %>
 </div>
 
 

@@ -32,6 +32,7 @@ require 'koi/assets/document'
 require 'koi/settings'
 require 'koi/caching'
 require 'koi/engine'
+require 'reports/reporting'
 
 module Koi
 end

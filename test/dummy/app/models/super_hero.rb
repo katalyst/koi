@@ -41,6 +41,9 @@ class SuperHero < ActiveRecord::Base
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
+      reportable true
+      reports [{ span: :created_at, field: :id, strategy: :count },
+               { span: :created_at, field: :id, strategy: :sum }]
     end
   end
 
