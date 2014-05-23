@@ -28,8 +28,7 @@ module Koi
 
     def generate_reports
       reports = collection.crud.settings[:admin][:reports]
-      @report_data = Reports::Reporting.generate_report(reports, collection)
-      # @report_data = [{ x: 1, y: 2 }, { x: 2, y: 4 }]
+      @report_data = Reports::Reporting.generate_report(reports, resource_class)
     end
        
   end

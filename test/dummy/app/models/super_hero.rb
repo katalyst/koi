@@ -42,9 +42,23 @@ class SuperHero < ActiveRecord::Base
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
       reportable true
-      reports [{ span: :created_at, field: :id, strategy: :count },
-               { span: :created_at, field: :id, strategy: :sum }]
+      reports [{ span: :created_at,
+                 field: :id,
+                 strategy: :sum,
+                 colour: 'black',
+                 name: 'Sum of Super Heros Created IDs',
+                 scope: :bob },
+                 { span: :created_at,
+                 field: :id,
+                 strategy: :count, 
+                 colour: '#f60', 
+                 name: 'New Super Heros Created',
+                 renderer: 'bar' }]
     end
+  end
+
+  def self.bob
+    where(name: 'Bob')
   end
 
   def self.except_these_groups
