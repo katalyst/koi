@@ -42,18 +42,36 @@ class SuperHero < ActiveRecord::Base
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
       reportable true
-      reports [{ span: :created_at,
-                 field: :id,
-                 strategy: :sum,
-                 colour: 'black',
-                 name: 'Sum of Super Heros Created IDs',
-                 scope: :bob },
-                 { span: :created_at,
-                 field: :id,
-                 strategy: :count, 
-                 colour: '#f60', 
-                 name: 'New Super Heros Created',
-                 renderer: 'bar' }]
+      charts [{
+        span: :created_at,
+        field: :id,
+        strategy: :sum,
+        colour: 'black',
+        name: 'Sum of Super Heros Created IDs',
+        scope: :bob
+      }, {
+        span: :created_at,
+        field: :id,
+        strategy: :count,
+        colour: '#f60',
+        name: 'New Super Heros Created',
+        renderer: 'bar'
+      }]
+
+      overviews [{
+        span:     :created_at,
+        period:   :monthly,
+        field:    :id,
+        strategy: :count,
+        colour:   'black',
+        name:     'Super Heros Created in the Last Month'
+      }, {
+        span:     :created_at,
+        period:   :weekly,
+        field:    :id,
+        strategy: :count,
+        name:     'Super Heros Created in the Last Week'
+      }]
     end
   end
 

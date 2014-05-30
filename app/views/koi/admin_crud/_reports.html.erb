@@ -2,78 +2,21 @@
   <div class="settings">
     <div id="index-fields">
 
-      <div id='chart_container'>
-        <div id="graph"></div>
-        <div id="chart"></div>
-        <div id="timeline"></div><br />
-        <div id="slider"></div>
-      </div>
+      <% overview = @report_data.first[:class] == 'overview' %>
 
-      <script type='text/javascript'>
+      <% if overview %> 
+        <div class="row space-b-2">
+      <% end %>
 
-        var graph = new Rickshaw.Graph( {
-          element: document.querySelector("#chart"), 
-          width: 640,
-          height: 350,
-          stroke: true,
-          renderer: 'multi',
-          series: [
-            <%= @report_data.map do |report| 
-              "{ color: '#{report[:colour]}',
-                  data:  #{report[:values].to_json},
-                  name: '#{report[:name]}',
-              renderer: '#{report[:renderer]}' }"
-            end.join(',').html_safe %>
-          ]
-        });
+      <% @report_data.each_with_index do |report, index| %>
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-            graph: graph
-        } );
+        <% if overview && report[:class] != 'overview' %>
+          </div>
+          <% overview = false %>
+        <% end %>
 
-        var axes = new Rickshaw.Graph.Axis.Time( { graph: graph } );
-
-        var slider = new Rickshaw.Graph.RangeSlider({
-          graph: graph,
-          element: document.querySelector('#slider')
-        });
-
-        var xAxis = new Rickshaw.Graph.Axis.Time({
-          graph: graph
-        });
-
-        xAxis.render();
-
-        var yAxis = new Rickshaw.Graph.Axis.Y( {
-            graph: graph
-        } );
-
-        yAxis.render();
-
-        var legend = new Rickshaw.Graph.Legend({
-            graph: graph,
-            element: document.querySelector('#graph')
-        });
-
-        var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
-            graph: graph,
-            legend: legend
-        });
-
-        var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
-            graph: graph,
-            legend: legend
-        });
-
-        var annotator = new Rickshaw.Graph.Annotate({
-            graph: graph,
-            element: document.getElementById('timeline')
-        });
-
-        graph.render();
-
-      </script>
-
+        <%= render "report_#{report[:class]}", report: report, index: index %>
+      <% end %>
 
     </div>
   </div>

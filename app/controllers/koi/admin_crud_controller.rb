@@ -27,8 +27,10 @@ module Koi
     end
 
     def generate_reports
-      reports = collection.crud.settings[:admin][:reports]
-      @report_data = Reports::Reporting.generate_report(reports, resource_class)
+      overviews = collection.crud.settings[:admin][:overviews]
+      charts    = collection.crud.settings[:admin][:charts]
+
+      @report_data = Reports::Reporting.generate_report(overviews, charts, resource_class)
     end
        
   end
