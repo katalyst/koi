@@ -63,13 +63,15 @@ class SuperHero < ActiveRecord::Base
         period:   :monthly,
         field:    :id,
         strategy: :count,
-        name:     'Super Heros Created in the Last Month'
+        name:     'Super Heros Created in the Last Month',
+        prefix:   '$'
       }, {
         span:     :created_at,
         period:   :weekly,
         field:    :id,
         strategy: :count,
-        name:     'Super Heros Created in the Last Week'
+        name:     'Super Heros Created in the Last Week',
+        prefix:   '$'
       }]
     end
   end

@@ -2,7 +2,8 @@ module Reports
  
   class Overview
 
-    attr_accessor :span, :field, :strategy, :name, :scope, :period, :current_value, :previous_value
+    attr_accessor :span, :field, :strategy, :name, :scope, :period, :current_value, :previous_value,
+                  :prefix, :postfix
 
     def initialize(report, klass)
       @span       = report[:span]
@@ -10,6 +11,8 @@ module Reports
       @strategy   = report[:strategy]
       @period     = report[:period]
       @name       = report[:name]
+      @prefix     = report[:prefix]
+      @postfix    = report[:postfix]
       scope       = report[:scope] || :scoped
 
       time_range =  Hash.new
@@ -22,9 +25,10 @@ module Reports
     def process
       {
         name:            name, 
-        current_value:   @current_value,
+        current_value:   "#{prefix}#{@current_value}#{postfix}",
         previous_value:  @previous_value,
         percent_change:  percent_change,
+        change_type:     change_type,
         class:          'overview'
       }
     end
@@ -49,6 +53,14 @@ module Reports
       @period || :monthly
     end
 
+    def prefix
+      @prefix || ''
+    end
+
+    def postfix
+      @postfix || ''
+    end
+
   private
 
     def calculate(ar_scope)
@@ -64,9 +76,14 @@ module Reports
 
     def percent_change
       change = @current_value - @previous_value
-      change / @previous_value * 100
+      change / @previous_value * 100.0
     rescue
       nil
+    end
+
+    def change_type
+      return '' unless percent_change
+      percent_change >= 0.0 ? 'increase' : 'decrease'
     end
 
     def current_date_range
