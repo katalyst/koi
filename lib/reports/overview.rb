@@ -75,7 +75,7 @@ module Reports
     end
 
     def percent_change
-      change = @current_value - @previous_value
+      change = @current_value - @previous_value * 1.0
       change / @previous_value * 100.0
     rescue
       nil
