@@ -15,7 +15,7 @@ module Reports
       @postfix    = report[:postfix]
       scope       = report[:scope] || :scoped
 
-      time_range =  Hash.new
+      time_range = Hash.new
       time_range[span] = current_date_range
       @current_value   = calculate(klass.send(scope).where(time_range))
       time_range[span] = previous_date_range
@@ -26,7 +26,6 @@ module Reports
       {
         name:            name, 
         current_value:   "#{prefix}#{@current_value}#{postfix}",
-        previous_value:  @previous_value,
         percent_change:  percent_change,
         change_type:     change_type,
         class:          'overview'
