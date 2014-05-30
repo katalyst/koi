@@ -63,7 +63,6 @@ class SuperHero < ActiveRecord::Base
         period:   :monthly,
         field:    :id,
         strategy: :count,
-        colour:   'black',
         name:     'Super Heros Created in the Last Month'
       }, {
         span:     :created_at,
