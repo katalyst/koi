@@ -1,11 +1,11 @@
 <p>
 <%- if is_allowed?(:index) %>
-  <%= link_to "Back", collection_path %>
+  <%= link_to "Back", collection_path, class: "btn btn-primary" %>
 <%- end %>
 <%- if is_allowed?(:edit) %>
-  <%= link_to "Edit", edit_resource_path %>
+  <%= link_to "Edit", edit_resource_path, class: "btn" %>
 <%- end %>
 <%- if is_allowed?(:destroy) %>
-  <%= link_to "Destroy", resource_path, :confirm => 'Are you sure?', :method => :delete %>
+  <%= link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete, class: "btn" %>
 <%- end %>
 </p>
