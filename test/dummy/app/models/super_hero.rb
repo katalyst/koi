@@ -45,33 +45,28 @@ class SuperHero < ActiveRecord::Base
       charts [{
         span: :created_at,
         field: :id,
-        strategy: :sum,
-        colour: 'black',
-        name: 'Sum of Super Heros Created IDs',
-        scope: :bob
-      }, {
-        span: :created_at,
-        field: :id,
         strategy: :count,
         colour: '#f60',
         name: 'New Super Heros Created',
         renderer: 'bar'
+      },{
+        span:     :created_at,
+        field:    :id,
+        strategy: :sum,
+        colour: 'black',
+        name: 'Sum of Super Heros Created IDs with name Bob',
+        scope: :bob
       }]
 
       overviews [{
-        span:     :created_at,
-        period:   :monthly,
         field:    :id,
-        strategy: :count,
         name:     'Super Heros Created in the Last Month',
         prefix:   '$'
       }, {
-        span:     :created_at,
         period:   :weekly,
         field:    :id,
-        strategy: :count,
         name:     'Super Heros Created in the Last Week',
-        prefix:   '$'
+        postfix:  '%'
       }]
     end
   end

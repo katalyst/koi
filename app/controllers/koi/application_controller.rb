@@ -28,7 +28,6 @@ module Koi
         overviews = model.crud.settings[:admin][:overviews]
         @report_data = @report_data | Reports::Reporting.generate_report(overviews, [], model)
       end
-
     end
 
     protected

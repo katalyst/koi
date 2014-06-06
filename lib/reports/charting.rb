@@ -1,5 +1,5 @@
 module Reports
- 
+
   class Charting
 
     attr_accessor :collection, :span, :field, :strategy, :colour, :name, :renderer, :scope
@@ -31,8 +31,16 @@ module Reports
       end
 
       {
-        name:     name, 
+        name:     name,
         values:   dates.sort.map { |k,v| { x: k, y: v} },
+        colour:   colour,
+        renderer: renderer,
+        class:    'charting'
+      }
+    rescue
+      {
+        name:     name,
+        values:   nil,
         colour:   colour,
         renderer: renderer,
         class:    'charting'
