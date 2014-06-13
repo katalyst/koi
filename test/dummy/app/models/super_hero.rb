@@ -41,7 +41,38 @@ class SuperHero < ActiveRecord::Base
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers, :images]
+      reportable true
+      charts [{
+        span: :created_at,
+        field: :id,
+        strategy: :count,
+        colour: '#f60',
+        name: 'New Super Heros Created',
+        renderer: 'bar'
+      },{
+        span:     :created_at,
+        field:    :id,
+        strategy: :sum,
+        colour: 'black',
+        name: 'Sum of Super Heros Created IDs with name Bob',
+        scope: :bob
+      }]
+
+      overviews [{
+        field:    :id,
+        name:     'Super Heros Created in the Last Month',
+        prefix:   '$'
+      }, {
+        period:   :weekly,
+        field:    :id,
+        name:     'Super Heros Created in the Last Week',
+        postfix:  '%'
+      }]
     end
+  end
+
+  def self.bob
+    where(name: 'Bob')
   end
 
   def self.except_these_groups
