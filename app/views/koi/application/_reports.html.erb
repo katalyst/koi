@@ -1,0 +1,18 @@
+<%- unless @report_data.blank? -%>
+  <% overview = @report_data.first[:class] == 'overview' %>
+
+  <% if overview %> 
+    <div class="row space-b-2">
+  <% end %>
+
+  <% @report_data.each_with_index do |report, index| %>
+
+    <% if overview && report[:class] != 'overview' %>
+      </div>
+      <% overview = false %>
+    <% end %>
+
+    <%= render "koi/admin_crud/report_#{report[:class]}", report: report, index: index %>
+
+  <% end %>
+<%- end -%>

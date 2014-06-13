@@ -6,6 +6,10 @@
     <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
   <%- end -%>
 
+  <%- if is_reportable? -%>
+    <li><a href="#tab-reports" data-toggle="tab">Reports</a></li>
+  <%- end -%>
+
   <%- if current_admin.god? -%>
     <li><a href="#tab-extra" data-toggle="tab">Extra</a></li>
   <%- end -%>

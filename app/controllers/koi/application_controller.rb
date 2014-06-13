@@ -20,6 +20,19 @@ module Koi
       redirect_to :back
     end
 
+    def index
+      models = has_crud_models
+        .select { |h| h.crud.settings[:admin][:reportable] }
+        .select { |h| h.crud.settings[:admin][:overviews] }
+
+      @report_data = []
+
+      models.each do |model|
+        overviews = model.crud.settings[:admin][:overviews]
+        @report_data = @report_data | Reports::Reporting.generate_report(overviews, [], model)
+      end
+    end
+
     protected
 
     # FIXME: Hack to set layout for admin devise resources

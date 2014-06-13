@@ -1,0 +1,94 @@
+<h3><%= report[:name] %></h3>
+
+<style>
+  #chart_container_<%= index %> {
+    top:20px;
+    position: relative;
+    bottom: 20px;
+    width:600px;
+  }
+
+  #chart_<%= index %> {
+    width: 600px;
+    height:300px;
+    border-bottom: solid 1px #999;
+    left: 40px;
+    position: relative;
+  }
+
+  #slider_<%= index %> {
+    margin:10px;
+    left: 30px;
+  }
+
+  #y_axis_<%= index %> {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+  }
+
+  #x_axis_<%= index %> {
+    position: relative;
+    left: 40px;
+    height: 20px;
+  }
+  .rickshaw_graph .x_tick .title {
+    bottom: -24px;
+    left: -18px;
+  }
+</style>
+
+<div id='chart_container_<%= index %>'>
+  <div id="y_axis_<%= index %>"></div>
+  <div id="chart_<%= index %>"></div>
+  <div id="x_axis_<%= index %>"></div>
+  <div id="slider_<%= index %>"></div>
+</div>
+
+<script type='text/javascript'>
+
+  var graph = new Rickshaw.Graph( {
+    element: document.querySelector("#chart_<%= index %>"),
+    width:  600,
+    height: 300,
+    stroke: true,
+    renderer: 'multi',
+    series: [{ color: '<%= report[:colour] %>',
+                data:  <%= raw report[:values].to_json %>,
+                name: '<%= report[:name] %>',
+            renderer: '<%= report[:renderer] %>' }]
+  });
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail({
+      graph: graph
+  });
+
+  var xAxis = new Rickshaw.Graph.Axis.Time({
+    graph: graph,
+    tickFormat: Rickshaw.Fixtures.Time.formatTime,
+    element: document.getElementById('x_axis_<%= index %>')
+  });
+
+  xAxis.render();
+
+  var yAxis = new Rickshaw.Graph.Axis.Y({
+    graph: graph,
+    orientation: 'left',
+    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+    element: document.getElementById('y_axis_<%= index %>')
+  });
+
+  yAxis.render();
+
+  graph.render();
+
+  var slider = new Rickshaw.Graph.RangeSlider({
+    graph: graph,
+    element: document.querySelector('#slider_<%= index %>')
+  });
+</script>
+
+<br />
+<br />
+<br />

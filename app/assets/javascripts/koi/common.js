@@ -7,6 +7,7 @@
 //= require_tree ./jquery
 //= require_tree ./koi
 //= require ./etc/ZeroClipboard
+//= require rickshaw_with_d3
 
 ZeroClipboard.setMoviePath ('/assets/ZeroClipboard.swf')
 
