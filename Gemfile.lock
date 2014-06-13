@@ -220,7 +220,6 @@ GEM
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
     orm_adapter (0.5.0)
-    pg (0.17.1)
     phony (1.7.12)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
@@ -354,7 +353,6 @@ DEPENDENCIES
   jquery-ui-rails
   koi!
   koi_config!
-  pg
   powder
   pry
   pry-doc
@@ -362,7 +360,6 @@ DEPENDENCIES
   pry-rails
   pry-remote
   pry-theme
-  rickshaw_rails
   ruby_gntp
   sass-rails (~> 3.1)
   seedbank (~> 0.2.1)

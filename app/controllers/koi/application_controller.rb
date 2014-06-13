@@ -21,7 +21,10 @@ module Koi
     end
 
     def index
-      models = has_crud_models.select { |h| h.crud.settings[:admin][:overviews] }
+      models = has_crud_models
+        .select { |h| h.crud.settings[:admin][:reportable] }
+        .select { |h| h.crud.settings[:admin][:overviews] }
+
       @report_data = []
 
       models.each do |model|
