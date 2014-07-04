@@ -49,7 +49,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'ketchup/ornament', branch: 'feature/development'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
 end
 
 # Setup mailer host
