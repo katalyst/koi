@@ -27,7 +27,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: 'v1.1.0.rc6'
+                                  tag: 'v1.1.0.rc8'
 
 # Bowerbird
 gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
@@ -49,7 +49,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'ketchup/ornament', branch: 'feature/development'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
 end
 
 # Setup mailer host
