@@ -101,6 +101,9 @@ Gem::Specification.new do |s|
   # Figaro for using ENV variables
   s.add_dependency 'figaro'
 
+  # Admin Graphing
+  s.add_dependency 'rickshaw_rails'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 

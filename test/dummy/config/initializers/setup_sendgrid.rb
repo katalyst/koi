@@ -18,7 +18,7 @@ else
     :port => '25',
     :domain => "katalyst.com.au",
     :authentication => :plain,
-    :user_name => "jason@katalyst.com.au",
-    :password => "i9XypcTh2GOptAvK"
+    :user_name => "CONSULT WIKI",
+    :password => "CONSULT WIKI"
   }
 end

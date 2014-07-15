@@ -20,6 +20,8 @@ require 'sidekiq/web'
 require 'select2-rails'
 require 'activevalidators'
 require 'cocoon'
+require 'figaro'
+require 'rickshaw_rails'
 require 'has_crud/has_crud'
 require 'has_navigation/has_navigation'
 require 'has_settings/has_settings'
@@ -31,6 +33,7 @@ require 'koi/assets/document'
 require 'koi/settings'
 require 'koi/caching'
 require 'koi/engine'
+require 'reports/reporting'
 
 module Koi
 end

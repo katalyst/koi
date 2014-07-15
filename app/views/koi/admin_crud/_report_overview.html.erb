@@ -1,0 +1,11 @@
+<div class="widget span4 space-b-1">
+  <div class="widget-header"><%= report[:name] %></div>
+  <div class="widget-body"><%= report[:current_value] %></div>
+  <% if report[:percent_change] %>
+    <div class="widget-footer widget-footer-<%= report[:change_type] %>">
+      <%= number_to_percentage(report[:percent_change].abs, precision: 1) %> <%= report[:change_type] %>
+    </div>
+  <% else %>
+    <div class="widget-footer widget-footer-increase">No Previous Data Yet</div>
+  <% end %>
+</div>
