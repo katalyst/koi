@@ -7,49 +7,13 @@
 
 (function () {
     CKEDITOR.plugins.add('oembed', {
-        requires: ['dialog'],
-        lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
-        afterInit: function (editor) {
-            
-            var dataProcessor = editor.dataProcessor,
-				dataFilter = dataProcessor && dataProcessor.dataFilter;
-            
-            if (editor.config.oembed_ShowIframePreview) {
-                if (dataFilter._.elements.iframe) {
-                    delete dataFilter._.elements.iframe;
-                }
-                return;
-			}
-
-            if (dataFilter && dataFilter._.elements.iframe == 'undefined') {
-				dataFilter.addRules({
-					elements: {
-						iframe: function (element) {
-							return editor.createFakeParserElement(element, 'cke_iframe', 'iframe', true);
-						}
-					}
-				});
-			}
-		},
-        init: function(editor) {
-		    if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
-		        editor.config.oembed_ShowIframePreview = false;
-		    }
-
-		    if (!editor.plugins.iframe && !editor.config.oembed_ShowIframePreview) {
-		        CKEDITOR.addCss('img.cke_iframe' +
-		            '{' +
-		            'background-image: url(' + CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'images/placeholder.png') + ');' +
-		            'background-position: center center;' +
-		            'background-repeat: no-repeat;' +
-		            'border: 1px solid #a9a9a9;' +
-		            'width: 80px;' +
-		            'height: 80px;' +
-		            '}'
-		        );
-		    }
-
-		    // Load jquery?
+        icons: 'oembed',
+        hidpi: true,
+        requires: 'widget,dialog',
+        lang: 'de,en,fr,nl,pl,pt-br,ru,tr', // %REMOVE_LINE_CORE%
+        version: 1.16,
+        init: function (editor) {
+            // Load jquery?
             loadjQueryLibaries();
 
             CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
@@ -58,14 +22,6 @@
                     if (url.length < 1 || url.indexOf('http') < 0) {
                         alert(editor.lang.oembed.invalidUrl);
                         return false;
-                    }
-
-                    if (typeof (jQuery.fn.oembed) === 'undefined') {
-                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function () {
-                            embed();
-                        });
-                    } else {
-                        embed();
                     }
                     
                     function embed() {
@@ -83,16 +39,62 @@
 
                         embedCode(url, editor, false, maxWidth, maxHeight, responsiveResize);
                     }
-                    
+
+                    if (typeof(jQuery.fn.oembed) === 'undefined') {
+                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function() {
+                            embed();
+                        });
+                    } else {
+                        embed();
+                    }
+
                     return true;
                 }
             });
 
-            editor.addCommand('oembed', new CKEDITOR.dialogCommand('oembed'));
+
+            editor.widgets.add('oembed', {
+                draggable: false,
+                mask: true,
+                dialog: 'oembed',
+                allowedContent: {
+                    div: {
+                        styles: 'text-align,float',
+                        attributes: '*',
+                        classes: editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent"
+                    },
+                    'div iframe': {
+                        attributes: '*'
+                    },
+                },
+                template:
+                    '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +
+                        '</div>',
+                upcast: function (element) {
+                    return element.name == 'div' && element.hasClass(editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent");
+                },
+                init: function () {
+                    var data = {
+                        oembed: this.element.data('oembed') || '',
+                        resizeType: this.element.data('resizeType') || 'noresize',
+						maxWidth : this.element.data('maxWidth') || 560,
+						maxHeight: this.element.data('maxHeight') || 315,
+                        align: this.element.data('align') || 'none'
+                        };
+
+                    this.setData(data);
+
+                    this.on('dialog', function (evt) {
+                        evt.data.widget = this;
+                    }, this);
+                }
+            });
+            
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
                 command: 'oembed',
-                icon: this.path + 'images/icon.png'
+                toolbar: 'insert,10',
+                icon: this.path + "icons/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "oembed.png"
             });
 
             var resizeTypeChanged = function () {
@@ -103,96 +105,100 @@
 
                 if (resizetype == 'noresize') {
                     maxSizeBox.hide();
-                    
+
                     sizeBox.hide();
                 } else if (resizetype == "custom") {
                     maxSizeBox.hide();
-                    
+
                     sizeBox.show();
                 } else {
                     maxSizeBox.show();
-                    
+
                     sizeBox.hide();
                 }
 
             };
-            
-            String.prototype.beginsWith = function (string) {
+
+            String.prototype.beginsWith = function(string) {
                 return (this.indexOf(string) === 0);
             };
-            
+
             function loadjQueryLibaries() {
-                if (typeof (jQuery) === 'undefined') {
-                    CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function () {
-                        if (typeof (jQuery.fn.oembed) === 'undefined') {
+                if (typeof(jQuery) === 'undefined') {
+                    CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
+                        jQuery.noConflict();
+                        if (typeof(jQuery.fn.oembed) === 'undefined') {
                             CKEDITOR.scriptLoader.load(
                                 CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js')
                             );
                         }
                     });
 
-                } else if (typeof (jQuery.fn.oembed) === 'undefined') {
+                } else if (typeof(jQuery.fn.oembed) === 'undefined') {
                     CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
                 }
             }
-            
-            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize) {
+
+            function embedCode(url, instance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget) {
                 jQuery('body').oembed(url, {
-                    onEmbed: function (e) {
-                        var divWrapper = new CKEDITOR.dom.element('div'),
-                            codeElement,
-                            codeIframe;
+                    onEmbed: function(e) {
+                        var elementAdded = false;
 						
+						widget.element.data('resizeType', resizeType);
+						if(resizeType == "responsive" || resizeType == "custom")
+						{
+							widget.element.data('maxWidth', maxWidth);
+							widget.element.data('maxHeight', maxHeight);
+						}
+
+						widget.element.data('align', align);
+
+                        // TODO handle align
+						if (align == 'center') {
+						    if (!widget.inline)
+						        widget.element.setStyle('text-align', 'center');
+
+						    widget.element.removeStyle('float');
+						} else {
+						    if (!widget.inline)
+						        widget.element.removeStyle('text-align');
+
+						    if (align == 'none')
+						        widget.element.removeStyle('float');
+						    else
+						        widget.element.setStyle('float', align);
+						}
+                        
 						if (typeof e.code === 'string') {
-                            if (editor.config.oembed_WrapperClass != null) {
-                                divWrapper.addClass(editor.config.oembed_WrapperClass);
+                            if (widget.element.$.firstChild) {
+                                widget.element.$.removeChild(widget.element.$.firstChild);
                             }
 
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
+                            widget.element.appendHtml(e.code);
+                            widget.element.data('oembed', url);
 
-                            if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-								codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-                                codeIframe.appendTo(divWrapper);
-                            } else {
-                                codeElement.appendTo(divWrapper);
-                            }
-
-                            instance.insertElement(divWrapper);
-
-                            if (closeDialog) {
-                                CKEDITOR.dialog.getCurrent().hide();
-                            }
+                            elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
 
-                            if (editor.config.oembed_WrapperClass != null) {
-                                divWrapper.addClass(editor.config.oembed_WrapperClass);
+                            if (widget.element.$.firstChild) {
+                               widget.element.$.removeChild(widget.element.$.firstChild);
                             }
 
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
-							
-							if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-                                codeIframe.appendTo(divWrapper);
-                            } else {
-                                codeElement.appendTo(divWrapper);
-                            }
+                            widget.element.appendHtml(e.code[0].outerHTML);
+                            widget.element.data('oembed', url);
 
-                            instance.insertElement(divWrapper);
-
-                            if (closeDialog) {
-                                CKEDITOR.dialog.getCurrent().hide();
-                            }
+                            elementAdded = true;
                         } else {
                             alert(editor.lang.oembed.noEmbedCode);
                         }
                     },
-                    onError: function (externalUrl) {
+                    onError: function(externalUrl) {
                         if (externalUrl.indexOf("vimeo.com") > 0) {
                             alert(editor.lang.oembed.noVimeo);
                         } else {
                             alert(editor.lang.oembed.Error);
                         }
-                                
+
                     },
                     maxHeight: maxHeight,
                     maxWidth: maxWidth,
@@ -201,16 +207,30 @@
                 });
             }
 
-            CKEDITOR.dialog.add('oembed', function (editor) {
+            CKEDITOR.dialog.add('oembed', function(editor) {
                 return {
                     title: editor.lang.oembed.title,
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
                     minHeight: 155,
-                    onShow: function () {
+                    onShow: function() {
+                        var data = {
+                            oembed: this.widget.element.data('oembed') || '',
+                            resizeType: this.widget.element.data('resizeType') || 'noresize',
+                            maxWidth: this.widget.element.data('maxWidth') || 560,
+                            maxHeight: this.widget.element.data('maxHeight') || 315,
+                            align: this.widget.element.data('align') || 'none',
+                        };
+
+						this.widget.setData(data);
+						
+						this.getContentElement('general', 'resizeType').setValue(data.resizeType);
+
+						this.getContentElement('general', 'align').setValue(data.align);
+						
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
                             sizeBox = this.getContentElement('general', 'sizeBox').getElement();
-
+							
                         if (resizetype == 'noresize') {
                             maxSizeBox.hide();
                             sizeBox.hide();
@@ -224,66 +244,8 @@
                             sizeBox.hide();
                         }
                     },
-                    onOk: function () {
-                        var inputCode = this.getValueOf('general', 'embedCode'),
-                            resizetype = this.getContentElement('general', 'resizeType').
-                                getValue(),
-                            maxWidth = null,
-                            maxHeight = null,
-                            responsiveResize = false,
-                            editorInstance = this.getParentEditor(),
-                            closeDialog = this.getContentElement('general', 'autoCloseDialog').
-                                getValue();
-                        
-                        if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
-                            alert(editor.lang.oembed.invalidUrl);
-                            return false;
-                        }
 
-                        if (resizetype == "noresize") {
-                            responsiveResize = false;
-                        } else {
-                            if (resizetype == "responsive") {
-                                maxWidth = this.getContentElement('general', 'maxWidth').
-                                    getInputElement().
-                                    getValue();
-                                maxHeight = this.getContentElement('general', 'maxHeight').
-                                    getInputElement().
-                                    getValue();
-
-                                responsiveResize = true;
-                            } else if (resizetype == "custom") {
-                                maxWidth = this.getContentElement('general', 'width').
-                                    getInputElement().
-                                    getValue();
-                                maxHeight = this.getContentElement('general', 'height').
-                                    getInputElement().
-                                    getValue();
-
-                                responsiveResize = false;
-                            }
-                        }
-
-                        // support for multiple urls
-                        if (inputCode.indexOf(";") > 0) {
-                            var urls = inputCode.split(";");
-                            for (var i = 0; i < urls.length; i++) {
-                                var url = urls[i];
-
-                                if (url.length > 1 && url.beginsWith('http')) {
-                                    embedCode(url, editorInstance, false, maxWidth, maxHeight, responsiveResize);
-                                }
-                                // close after last
-                                if (i == urls.length -1) {
-                                    CKEDITOR.dialog.getCurrent().hide();
-                                }
-                            }
-                        } else {
-                            // single url
-                            embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize);
-                        }
-                        
-                        return false;
+                    onOk: function() {
                     },
                     contents: [{
                         label: editor.lang.common.generalTab,
@@ -295,11 +257,65 @@
                             }, {
                                 type: 'text',
                                 id: 'embedCode',
-                                focus: function () {
+                                focus: function() {
                                     this.getElement().focus();
                                 },
                                 label: editor.lang.oembed.url,
-                                title: editor.lang.oembed.pasteUrl
+                                title: editor.lang.oembed.pasteUrl,
+                                setup: function(widget) {
+                                    if (widget.data.oembed) {
+                                       this.setValue(widget.data.oembed);
+                                    }
+                                },
+                                commit: function(widget) {
+                                    var dialog = CKEDITOR.dialog.getCurrent(),
+                                        inputCode = dialog.getValueOf('general', 'embedCode').replace(/\s/g, ""),
+                                        resizeType = dialog.getContentElement('general', 'resizeType').
+                                            getValue(),
+                                        align = dialog.getContentElement('general', 'align').
+                                            getValue(),
+                                        maxWidth = null,
+                                        maxHeight = null,
+                                        responsiveResize = false,
+                                        editorInstance = dialog.getParentEditor();
+
+                                    if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
+                                        alert(editor.lang.oembed.invalidUrl);
+                                        return false;
+                                    }
+
+                                    if (resizeType == "noresize") {
+                                        responsiveResize = false;
+                                        maxWidth = null;
+                                        maxHeight = null;
+                                    } else if (resizeType == "responsive") {
+                                        maxWidth = dialog.getContentElement('general', 'maxWidth').
+                                            getInputElement().
+                                            getValue();
+                                        maxHeight = dialog.getContentElement('general', 'maxHeight').
+                                            getInputElement().
+                                            getValue();
+
+                                        responsiveResize = true;
+                                    } else if (resizeType == "custom") {
+                                        maxWidth = dialog.getContentElement('general', 'width').
+                                            getInputElement().
+                                            getValue();
+                                        maxHeight = dialog.getContentElement('general', 'height').
+                                            getInputElement().
+                                            getValue();
+
+                                        responsiveResize = false;
+                                    }
+
+                                    embedCode(inputCode, editorInstance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget);
+
+                                    widget.setData('oembed', inputCode);
+                                    widget.setData('resizeType', resizeType);
+                                    widget.setData('align', align);
+                                    widget.setData('maxWidth', maxWidth);
+                                    widget.setData('maxHeight', maxHeight);
+                                }
                             }, {
                                 type: 'hbox',
                                 widths: ['50%', '50%'],
@@ -308,6 +324,11 @@
                                         type: 'select',
                                         label: editor.lang.oembed.resizeType,
                                         'default': 'noresize',
+										setup: function(widget) {
+											if (widget.data.resizeType) {
+											   this.setValue(widget.data.resizeType);
+											}
+										},
                                         items: [
                                             [editor.lang.oembed.noresize, 'noresize'],
                                             [editor.lang.oembed.responsive, 'responsive'],
@@ -320,19 +341,29 @@
                                         widths: ['120px', '120px'],
                                         style: 'float:left;position:absolute;left:58%;width:200px',
                                         children: [{
-                                            type: 'text',
-                                            width:'100px',
-                                            id: 'maxWidth',
+                                                type: 'text',
+                                                width: '100px',
+                                                id: 'maxWidth',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.maxWidth,
-                                                title: editor.lang.oembed.maxWidthTitle
+                                                title: editor.lang.oembed.maxWidthTitle,
+												setup: function(widget) {
+													if (widget.data.maxWidth) {
+														this.setValue(widget.data.maxWidth);
+													}
+												}
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
                                                 width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
-                                                title: editor.lang.oembed.maxHeightTitle
+                                                title: editor.lang.oembed.maxHeightTitle,
+												setup: function(widget) {
+													if (widget.data.maxHeight) {
+														this.setValue(widget.data.maxHeight);
+													}
+												}
                                             }]
                                     }, {
                                         type: 'hbox',
@@ -345,29 +376,50 @@
                                                 width: '100px',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.width,
-                                                title: editor.lang.oembed.widthTitle
+                                                title: editor.lang.oembed.widthTitle,
+												setup: function(widget) {
+													if (widget.data.maxWidth) {
+													   this.setValue(widget.data.maxWidth);
+													}
+												}
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
                                                 width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
-                                                title: editor.lang.oembed.heightTitle
+                                                title: editor.lang.oembed.heightTitle,
+												setup: function(widget) {
+													if (widget.data.maxHeight) {
+													   this.setValue(widget.data.maxHeight);
+													}
+												}
                                             }]
                                     }]
                             }, {
-                                type: 'checkbox',
-                                id: 'autoCloseDialog',
-                                'default': 'checked',
-                                label: editor.lang.oembed.autoClose,
-                                title: editor.lang.oembed.autoClose
+                                type: 'hbox',
+                                id: 'alignment',
+                                children: [
+                                    {
+                                        id: 'align',
+                                        type: 'radio',
+                                        items: [
+                                            [editor.lang.oembed.none, 'none'],
+                                            [editor.lang.common.alignLeft, 'left'],
+                                            [editor.lang.common.alignCenter, 'center'],
+                                            [editor.lang.common.alignRight, 'right']],
+                                        label: editor.lang.common.align,
+                                        setup: function( widget ) {
+                                            this.setValue(widget.data.align);
+                                        }
+                                    }
+                                ]
                             }]
                     }]
                 };
             });
         }//
     });
-    
-}
 
+}
 )();

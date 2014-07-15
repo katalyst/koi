@@ -10,11 +10,11 @@
   </header>
 
   <div class="row">
-    <div class="span17">
+    <div class="span18">
       <%= render "koi/shared/flash_messages" %>
       <%= yield %>
     </div>
-    <div class="span6 offset1">
+    <div class="span5 offset1">
       <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
     </div>
   </div>
