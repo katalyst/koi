@@ -22,6 +22,8 @@
     <%= javascript_include_tag "koi/application" %>
     <%= yield(:javascripts) %>
 
+    <%= render 'koi/custom_javascripts' %>
+
     <!-- etc -->
     <%= yield(:head) %>
   </head>
