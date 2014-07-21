@@ -50,7 +50,7 @@ module HasCrud
         end
 
         def is_paginated?
-          !!per_page
+          request.format == :csv ? false : !!per_page
         end
 
         def is_orderable?
