@@ -10,7 +10,7 @@
 -%>
 <%= CSV.generate_line(header_row).html_safe -%>
 <%-
-    resource_class.all.each do |object|
+    collection.each do |object|
       data_row = resource_class.admin_attributes(:csv).collect do |attr|
         begin
           render crud_partial(attr, :index), { :attr => attr, :object => object }
