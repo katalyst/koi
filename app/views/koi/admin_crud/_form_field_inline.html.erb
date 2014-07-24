@@ -49,8 +49,10 @@
 
     var reInitCkEditor = function() {
       for(k in CKEDITOR.instances) {
-        var instance = CKEDITOR.instances[k];
-        instance.destroy()
+          var instance = CKEDITOR.instances[k];
+          if(instance) {
+            instance.destroy(true)
+          }
       }
 
       $ ('.wysiwyg.source').each(function() {

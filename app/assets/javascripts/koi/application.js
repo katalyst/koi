@@ -114,7 +114,9 @@
 
       for(k in CKEDITOR.instances) {
           var instance = CKEDITOR.instances[k];
-          instance.destroy()
+          if(instance) {
+            instance.destroy(true)
+          }
       }
 
       $ ('.wysiwyg.source').each(function() {
