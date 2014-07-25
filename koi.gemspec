@@ -27,9 +27,6 @@ Gem::Specification.new do |s|
   # jQuery UI
   s.add_dependency 'jquery-ui-rails'               , '~> 4.2.1'
 
-  # Database
-  s.add_dependency 'mysql2'                        , '~> 0.3.11'
-
   # Authorization
   s.add_dependency 'devise'                        , '~> 3.2.4'
 

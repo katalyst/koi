@@ -62,41 +62,6 @@ create_file 'VERSION', <<-END
 1.0.0
 END
 
-# Setup database yml
-run 'rm config/database.yml'
-create_file 'config/database.yml', <<-END
-development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
-  pool: 5
-  username: root
-  password: katalyst
-
-test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_test
-  pool: 5
-  username: root
-  password: katalyst
-
-production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
-  pool: 5
-  username: root
-  password: katalyst
-
-END
-
 # Setup seed
 run 'rm db/seeds.rb'
 create_file 'db/seeds.rb', <<-END
