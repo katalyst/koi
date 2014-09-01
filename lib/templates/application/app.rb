@@ -30,7 +30,7 @@ gem 'koi'                       , github: 'katalyst/koi',
                                   tag: 'v1.1.0.rc8'
 
 # Bowerbird
-gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
+gem 'bootstrap-sass'            , "2.0.4.2"
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
