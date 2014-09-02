@@ -46,7 +46,6 @@ PATH
       redis
       responders
       rickshaw_rails
-      sass-rails (~> 3.1)
       scoped_search (~> 2.6.0)
       select2-rails
       sendgrid (~> 1.2.0)

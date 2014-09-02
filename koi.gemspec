@@ -18,10 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # SASS Bootstrap
-  s.add_dependency 'sass-rails', '~> 3.1'
-  s.add_dependency 'bootstrap-sass', '2.0.4.2'
-
   # MVC Framework
   s.add_dependency 'rails'                         , '~> 3.2.16'
 
@@ -107,6 +103,9 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
+
+  # SASS Bootstrap
+  s.add_dependency 'bootstrap-sass'                , '2.0.4.2'
 
   # Console Replacement
   s.add_development_dependency 'pry'
