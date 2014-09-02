@@ -25,7 +25,6 @@ PATH
     koi (1.1.0.rc8)
       activevalidators (~> 2.0.1)
       acts-as-taggable-on (~> 2.4.1)
-      bootstrap-sass (= 2.0.4.2)
       cocoon
       coffee-rails
       devise (~> 3.2.4)

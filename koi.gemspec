@@ -104,9 +104,6 @@ Gem::Specification.new do |s|
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
 
-  # SASS Bootstrap
-  s.add_dependency 'bootstrap-sass'                , '2.0.4.2'
-
   # Console Replacement
   s.add_development_dependency 'pry'
 
@@ -146,5 +143,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-test'
   s.add_development_dependency 'guard-livereload'
   s.add_development_dependency 'ruby_gntp'
-
 end
