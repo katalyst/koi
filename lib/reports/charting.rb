@@ -11,7 +11,7 @@ module Reports
       @colour     = report[:colour]
       @name       = report[:name]
       @renderer   = report[:renderer]
-      scope       = report[:scope] || :scoped
+      scope       = report[:scope] || :all
       @collection = klass.send(scope).sort_by(&span)
     end
 

@@ -4,15 +4,15 @@ class SuperHero < ActiveRecord::Base
            searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true
 
-  has :many, attributed: :images, orderable: true
+  # has :many, attributed: :images, orderable: true
 
-  image_accessor :image
-  file_accessor  :file
+  dragonfly_accessor :image
+  dragonfly_accessor  :file
   serialize :powers, Array
 
-  scope :alphabetical, order("name DESC")
+  scope :alphabetical, -> { order("name DESC") }
 
-  default_scope alphabetical
+  default_scope -> { alphabetical }
 
   Gender = ["Male", "Female", "Robot"]
   Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
@@ -40,7 +40,7 @@ class SuperHero < ActiveRecord::Base
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers, :images]
+                       :telephone, :image, :file, :powers]
       reportable true
       charts [{
         span: :created_at,

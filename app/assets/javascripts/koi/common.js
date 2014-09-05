@@ -1,6 +1,6 @@
 //= require_tree ./shim
 //= require jquery
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery_ujs
 //= require select2
 //= require      ./jquery/browser

@@ -7,10 +7,62 @@ $navbarLinkColor:      #ffffff;
 $gridColumns:          24;
 $gridColumnWidth:      30px;
 $gridGutterWidth:      10px;
-$iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", image);
+$iconSpritePath:       image-url("koi/application/glyphicons-halflings.png");
 $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 
-@import "bowerbird";
+@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+@import "bootstrap/mixins";
+
+// CSS Reset
+@import "bootstrap/reset";
+
+// Grid system and page structure
+@import "bootstrap/scaffolding";
+@import "bootstrap/grid";
+@import "bootstrap/layouts";
+
+// Base CSS
+@import "bootstrap/type";
+@import "bootstrap/code";
+@import "bootstrap/forms";
+@import "bootstrap/tables";
+
+// Components: common
+@import "bootstrap/sprites";
+@import "bootstrap/dropdowns";
+@import "bootstrap/wells";
+@import "bootstrap/component-animations";
+@import "bootstrap/close";
+
+// Components: buttons & alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: nav
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/pagination";
+@import "bootstrap/pager";
+
+// Components: popovers
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+// Components: misc
+@import "bootstrap/thumbnails";
+@import "bootstrap/labels-badges";
+@import "bootstrap/progress-bars";
+@import "bootstrap/accordion";
+@import "bootstrap/carousel";
+@import "bootstrap/hero-unit";
+
+// Utilities
+@import "bootstrap/utilities"; // Has to be last to override when necessary
+
+// Bowerbird
 @import "select2";
 @import "./legacy/button";
 @import "./legacy/icon";
@@ -19,7 +71,7 @@ $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 @import "./jquery/tagify";
 @import "./nav_items";
 @import "./inline_forms";
-@import "rickshaw";
+/* @import "rickshaw"; */
 
 // elements ///////////////////////////////////////////////////////////////////
 

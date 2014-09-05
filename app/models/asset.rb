@@ -9,7 +9,7 @@ class Asset < ActiveRecord::Base
 
   belongs_to :attributable, polymorphic: true
 
-  image_accessor :data
+  dragonfly_accessor :data
   validates_presence_of :data
   validates_property :mime_type, of: :data,
     in: Koi::Asset::Document.mime_types

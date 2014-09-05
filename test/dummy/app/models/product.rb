@@ -15,8 +15,8 @@ class Product < ActiveRecord::Base
   acts_as_taggable_on :genre
   serialize :countries
 
-  image_accessor :banner
-  file_accessor  :manual
+  dragonfly_accessor :banner
+  dragonfly_accessor  :manual
 
   Size = ["XL", "L", "M", "S", "XS"]
   Countries = ["Australia", "France", "Germany", "Greece"]

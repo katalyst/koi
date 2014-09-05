@@ -1,10 +1,10 @@
 Koi::Engine.routes.draw do
 
-  devise_for :admins,
-             class_name: "Admin",
-             controllers: { passwords: "Koi::Passwords" },
-             sign_out_via: [:post, :delete],
-             module: "Devise"
+  devise_for :admins, class_name: "Admin",
+             controllers: {
+               passwords: "koi/passwords",
+               sessions:  "koi/sessions"
+             }
 
   resources :assets do
     get 'index', on: :collection, to: 'assets#new'
@@ -49,9 +49,9 @@ Koi::Engine.routes.draw do
       post :savesort
     end
   end
-  match 'clear-cache' => 'application#clear_cache', :as => :clear_cache, via: :post
-  match 'help' => 'application#help', :as => :help
-  match 'dashboard' => 'application#index', :as => :dashboard
+  post 'clear-cache' => 'application#clear_cache', :as => :clear_cache
+  get  'help' => 'application#help', :as => :help
+  get  'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
 
   constraints lambda {|request| request.env['warden'].user(:admin) && request.env['warden'].user(:admin).god? } do

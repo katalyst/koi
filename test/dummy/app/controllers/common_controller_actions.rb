@@ -7,17 +7,10 @@ module CommonControllerActions
     layout :layout_by_resource
     helper :all
     helper Koi::NavigationHelper
-    before_filter :check_authorization_for_profiling
     before_filter :sign_in_as_admin! if Rails.env.development?
   end
 
   protected
-
-  def check_authorization_for_profiling
-    if admin_signed_in? && current_admin.god?
-      Rack::MiniProfiler.authorize_request
-    end
-  end
 
   # FIXME: Hack to set layout for admin devise resources
   def layout_by_resource
@@ -39,7 +32,7 @@ module CommonControllerActions
   end
 
   def sign_in_as_admin!
-    sign_in(:admin, Admin.first) unless Admin.scoped.empty?
+    sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
 end

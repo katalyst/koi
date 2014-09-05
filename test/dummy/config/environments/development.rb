@@ -1,6 +1,12 @@
 Dummy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both threaded web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
+  config.eager_load = false
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -25,10 +31,6 @@ Dummy::Application.configure do
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
-
   # Do not compress assets
   config.assets.compress = false
 
@@ -40,4 +42,6 @@ Dummy::Application.configure do
 
   # Turn Caching On
   config.action_controller.perform_caching = true
+
+  config.active_record.whitelist_attributes = false
 end

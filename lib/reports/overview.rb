@@ -1,5 +1,5 @@
 module Reports
- 
+
   class Overview
 
     attr_accessor :span, :field, :strategy, :name, :scope, :period, :current_value, :previous_value,
@@ -13,7 +13,7 @@ module Reports
       @name       = report[:name]
       @prefix     = report[:prefix]
       @postfix    = report[:postfix]
-      scope       = report[:scope] || :scoped
+      scope       = report[:scope] || :all
 
       time_range = Hash.new
       time_range[span] = current_date_range
@@ -24,7 +24,7 @@ module Reports
 
     def process
       {
-        name:            name, 
+        name:            name,
         current_value:   "#{prefix}#{@current_value}#{postfix}",
         percent_change:  percent_change,
         change_type:     change_type,

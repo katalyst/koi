@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, path: :members
-  resources :pages
+  resources :pages, as: :koi_pages
   resources :assets
   resources :images
   resources :documents
@@ -40,5 +40,5 @@ Rails.application.routes.draw do
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 
-  match '/:id' => 'pages#show', as: :page
+  get '/:id' => 'pages#show', as: :page
 end

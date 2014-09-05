@@ -49,8 +49,8 @@ class Translation < ActiveRecord::Base
   end
 
   def reset_memory_store_cache
-    I18n.cache_store = nil
-    I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
+    # I18n.cache_store = nil
+    # I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
   end
 
 end

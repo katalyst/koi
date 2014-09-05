@@ -1,7 +1,7 @@
 class ProductImage < ActiveRecord::Base
 
   belongs_to :product
-  image_accessor :image
+  dragonfly_accessor :image
   has_crud orderable: true
 
   ProductTypes = ["Image", "Title"]

@@ -14,7 +14,7 @@ class Setting < Translation
                  "Tags"        => "tags"
                })
 
-  file_accessor  :file
+  dragonfly_accessor  :file
   serialize :serialized_value, Array
 
   has_crud paginate: false, searchable: false,

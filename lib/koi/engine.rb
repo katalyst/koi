@@ -5,11 +5,11 @@ module Koi
 
     isolate_namespace Koi
 
-    config.active_record.observers = "ExpireCacheObserver"
+    config.active_record.observers = :expire_cache_observer
 
     initializer 'static assets' do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
-      app.middleware.insert_before "Rack::Cache", Koi::UrlRedirect
+      # app.middleware.insert_before "Rack::Cache", Koi::UrlRedirect
     end
 
   end

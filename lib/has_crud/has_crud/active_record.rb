@@ -113,13 +113,13 @@ module HasCrud
           )
         end
 
-        scope ? (default_scope order("id ASC")) : (default_scope order(scope))
+        scope ? (default_scope { order("id ASC") }) : (default_scope { order(scope) })
       end
 
       def setup_slug
         if !self.options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
-          use = [:slugged]
+          use = [:slugged, :finders]
           use << :history if FriendlyIdSlug.table_exists?
           friendly_id (self.options[:slugged] || :to_s), use: use
         end
