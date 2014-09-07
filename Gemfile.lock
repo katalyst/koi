@@ -101,7 +101,6 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (2.0.4.2)
     builder (3.0.4)
     celluloid (0.15.2)
       timers (~> 1.1.0)
@@ -275,7 +274,7 @@ GEM
     rickshaw_rails (1.4.5)
       railties (>= 3.1.0)
     ruby_gntp (0.3.4)
-    sass (3.2.10)
+    sass (3.4.3)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -333,7 +332,6 @@ DEPENDENCIES
   awesome_nested_fields!
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 2.0.4.2)
   coffee-rails
   factory_girl_rails
   forgery
