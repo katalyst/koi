@@ -1,3 +1,8 @@
+/*
+ *= require select2
+ *= require rickshaw
+ */
+
 $textColor:            #000000;
 $orange:               #ff5700;
 $orangeDark:           #ee3700;
@@ -7,11 +12,10 @@ $navbarLinkColor:      #ffffff;
 $gridColumns:          24;
 $gridColumnWidth:      30px;
 $gridGutterWidth:      10px;
-$iconSpritePath:       asset-url("koi/application/glyphicons-halflings.png", image);
-$iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
+$iconSpritePath:       url("/assets/koi/application/glyphicons-halflings.png");
+$iconWhiteSpritePath:  url("/assets/koi/application/glyphicons-halflings-white.png");
 
 @import "bowerbird";
-@import "select2";
 @import "./legacy/button";
 @import "./legacy/icon";
 @import "./legacy/menu";
@@ -19,7 +23,6 @@ $iconWhiteSpritePath:  image-path('glyphicons-halflings-white.png');
 @import "./jquery/tagify";
 @import "./nav_items";
 @import "./inline_forms";
-@import "rickshaw";
 
 // elements ///////////////////////////////////////////////////////////////////
 
@@ -121,7 +124,7 @@ p.error { background: url(/assets/koi/application/icon-form-error.png) 5px cente
   height: 14px;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url(/assets/glyphicons-halflings-white.png);
+  background-image: $iconSpritePath;
   background-repeat: no-repeat;
 }
 

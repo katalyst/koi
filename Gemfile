@@ -20,9 +20,6 @@ gem 'awesome_nested_fields'     , git: 'https://github.com/katalyst/awesome_nest
 # Koi
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
-# Bowerbird
-gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
-
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
                                   branch: 'rails-3.2',
