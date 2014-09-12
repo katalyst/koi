@@ -4,10 +4,11 @@
 - i18n Active Record Backend Working
 - Rickshaw Stylesheet is not working
 - Has conditions are not working
-- Dragonfly Image and File accessors have been changed to dragonfly_accessor
+- Asset manager not working properly
 - More More........
 
 
 # Fixed
 
+- Dragonfly Image and File accessors have been changed to dragonfly_accessor
 - Pagination is Not working

@@ -7,7 +7,7 @@ module Koi::IconHelper
   #     image_thumbnail(file, width: 200, height: 200) # => /media/gtoZWlnaHRpaQ/example.png
   #
   def image_thumbnail(image, options={})
-    image.process(:resize_and_crop, options).url
+    image.thumb("#{options[:width]}x#{options[:height]}").url
   end
 
   # Gets the icon for a document. This uses the Koi::Asset::Document.icons config.
@@ -30,12 +30,22 @@ module Koi::IconHelper
   #
   def attachment_image_tag(attachment, options={})
     options.reverse_merge!(width: 100, height: 100)
-    image_tag((attachment.document? ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
+    image_tag((document?(attachment.ext) ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
   end
 
   # Return a unique ID.
   def identifier
     SecureRandom.hex(16)
   end
+
+  private
+
+    def document?(ext)
+      /pdf|xlsx?|docx?|txt|rtf/i === ext || ! image?(ext)
+    end
+
+    def image?(ext)
+      /png|jp?g|gif/i === ext
+    end
 
 end

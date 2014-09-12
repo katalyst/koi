@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails', '~> 4.1.5'
+  s.add_dependency 'rails', '~> 4.1.6'
 
   s.add_dependency 'rails-observers'
 
