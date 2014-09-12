@@ -37,9 +37,6 @@ Gem::Specification.new do |s|
   # jQuery UI
   s.add_dependency 'jquery-ui-rails'
 
-  # Database
-  s.add_dependency 'mysql2'
-
   # Authorization
   s.add_dependency 'devise'
 
@@ -63,7 +60,7 @@ Gem::Specification.new do |s|
 
   # Inherited Resources
   s.add_dependency 'inherited_resources'
-  s.add_dependency 'has_scope'
+  s.add_dependency 'has_scope', '0.6.0.rc'
   s.add_dependency 'responders'
 
   # Navigation Rendering

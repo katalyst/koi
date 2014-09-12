@@ -14,7 +14,7 @@ class Translation < ActiveRecord::Base
 
   before_validation :set_default_values
 
-  scope :non_prefixed, where("prefix IS NULL OR prefix = ''")
+  scope :non_prefixed, -> { where("prefix IS NULL OR prefix = ''") }
 
   FieldTypes = {
                  "String"    => "string",
@@ -24,7 +24,7 @@ class Translation < ActiveRecord::Base
                  "Images"    => "images"
                }
 
-  scope :admin, where(role: "Admin")
+  scope :admin, -> { where(role: "Admin") }
 
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },
@@ -49,8 +49,8 @@ class Translation < ActiveRecord::Base
   end
 
   def reset_memory_store_cache
-    # I18n.cache_store = nil
-    # I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
+    I18n.cache_store = nil
+    I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
   end
 
 end

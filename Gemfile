@@ -13,7 +13,9 @@ gemspec
 # Koi
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
-# # i18n ActiveRecord backend
-# gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-#                                   branch: 'rails-3.2',
-#                                   require: 'i18n/active_record'
+# i18n ActiveRecord backend
+gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
+                                  branch: 'rails-3.2',
+                                  require: 'i18n/active_record'
+
+gem 'pg'
