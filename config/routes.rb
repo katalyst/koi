@@ -14,14 +14,16 @@ Koi::Engine.routes.draw do
     end
   end
   resources :images do
-    get 'index', on: :collection, to: 'images#new'
+    get  'index', on: :collection, to: 'images#new'
+    post 'index', on: :collection, to: 'images#create'
     member do
       get 'delete'
       delete 'delete', to: 'images#destroy'
     end
   end
   resources :documents do
-    get 'index', on: :collection, to: 'documents#new'
+    get  'index', on: :collection, to: 'documents#new'
+    post 'index', on: :collection, to: 'documents#create'
     member do
       get 'delete'
       delete 'delete', to: 'documents#destroy'

@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  s.add_dependency 'mime-types', '~> 2.3'
   # MVC Framework
   s.add_dependency 'rails', '~> 4.1.6'
 
@@ -96,9 +97,6 @@ Gem::Specification.new do |s|
   # Nice Multi Select
   s.add_dependency 'select2-rails'
 
-  # Karo Asset Syncer
-  s.add_dependency 'karo'
-
   # Nested Forms
   s.add_dependency 'cocoon'
 
@@ -111,23 +109,11 @@ Gem::Specification.new do |s|
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
 
-  # Console Replacement
-  s.add_development_dependency 'pry'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-doc'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-git'
+  # Karo Asset Syncer
+  s.add_development_dependency 'karo'
 
   # Console Replacement
   s.add_development_dependency 'pry-rails'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-remote'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-theme'
 
   # Powder makes POW easy
   s.add_development_dependency 'powder'

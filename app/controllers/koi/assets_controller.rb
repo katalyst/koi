@@ -74,7 +74,7 @@ module Koi
     end
 
     def create_resource(object)
-      object.data = params[:file].tempfile
+      object.data = params[:file]
       object.data_name = params[:file].original_filename
       object.tag_list = params[:tag_list]
       object.save
