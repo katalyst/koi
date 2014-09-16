@@ -27,7 +27,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: 'v1.1.0.rc8'
+                                  branch: 'v2.0.0'
 
 # Bowerbird
 gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
@@ -66,34 +66,22 @@ END
 run 'rm config/database.yml'
 create_file 'config/database.yml', <<-END
 development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: katalyst
+  database: #{@app_name}_development
 
 test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_test
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: katalyst
+  database: #{@app_name}_test
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: katalyst
+  database: #{@app_name}_production
 
 END
 
@@ -194,12 +182,10 @@ END
 rake 'koi:install:migrations'
 
 # Convert url's like this /pages/about-us into /about-us
-route 'match "/:id"  => "pages#show", as: :page'
+route 'get "/:id"  => "pages#show", as: :page_slug'
 
 # Koi Engine route
 route 'mount Koi::Engine => "/admin", as: "koi_engine"'
-
-run 'rm public/index.html'
 
 # Disable Whitelist Attribute
 gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
@@ -311,15 +297,12 @@ END
 # Setup sidekiq deploy hook
 create_file 'deploy/after_restart.rb', <<-END
 on_app_servers do
-  sudo "monit restart all -g hae_sidekiq"
+  sudo "monit restart all -g "#{@app_name.gsub('-', '_')}"_sidekiq"
 end
 END
 
 # Setup koi initializer to define admin menu and other koi related settings
 create_file 'config/initializers/koi.rb', <<-END
-# FIXME: Explicity require all main app controllers
-Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
-
 Koi::Menu.items = {
   'Admins' => '/admin/site_users'
 }
