@@ -19,3 +19,4 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
                                   require: 'i18n/active_record'
 
 gem 'pg'
+gem 'pry'
