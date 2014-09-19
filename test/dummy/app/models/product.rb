@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :category
 
-  # Refactored from has
+  # FIXME: Refactored from has
   has_many :images
 
   has_and_belongs_to_many :products,
