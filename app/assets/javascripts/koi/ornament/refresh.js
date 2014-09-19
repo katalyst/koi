@@ -13,4 +13,6 @@
     $(document).trigger("ornament:refresh");
   });
 
+  $(document).trigger("ornament:refresh");
+
 }(document, window, jQuery));

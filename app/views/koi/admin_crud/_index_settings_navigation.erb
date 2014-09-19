@@ -1,10 +1,10 @@
 <nav class="tabs-links">
   <ul>
-    <li><a href="#tab-main" data-tab="main" class="tabs--link">Main</a></li>
+    <li><a href="#tab-main" data-tab="tab-main" class="tabs--link">Main</a></li>
 
     <%- group_settings.each do |group, settings| -%>
       <%- group = "General" if group.blank? -%>
-      <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab-<%= group.parameterize -%>" class="tabs--link"><%= group %></a></li>
+      <li><a href="#tab-<%= group.parameterize %>" data-tab="tab-<%= group.parameterize -%>" class="tabs--link"><%= group %></a></li>
     <%- end -%>
 
     <%- if is_reportable? -%>
@@ -12,7 +12,7 @@
     <%- end -%>
 
     <%- if current_admin.god? -%>
-      <li><a href="#tab-extra" data-tab="tabs-extra" class="tabs--link">Extra</a></li>
+      <li><a href="#tab-extra" data-tab="tab-extra" class="tabs--link">Extra</a></li>
     <%- end -%>
   </ul>
 </nav>
