@@ -1,4 +1,4 @@
-# Koi::Asset::Document.extensions = [:pdf, :doc]
+# Koi::KoiAsset::Document.extensions = [:pdf, :doc]
 
 Koi::Menu.items = {
   "Super Heros"  => "/admin/super_heros",
@@ -14,7 +14,7 @@ Koi::Menu.advanced = {
   "URL Rewriter" => "/admin/url_rewrites"
 }
 
-Koi::Asset::Image.sizes = [
+Koi::KoiAsset::Image.sizes = [
   { width: '200', title: '200 pixels wide' },
   { width: '400', title: '400 pixels wide' },
   { width: '600', title: '600 pixels wide' }

@@ -1,5 +1,5 @@
 module Koi
-  module Asset
+  module KoiAsset
     module Image
       # Default Image sizes for asset manager
       mattr_accessor :sizes

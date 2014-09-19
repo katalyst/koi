@@ -1,5 +1,5 @@
 <% js_data :create_asset_url, collection_path %>
-<% js_data :accepted_extensions, Koi::Asset.const_get(resource_class.name).extensions.join(',') %>
+<% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
 
 <% content_for :head, javascript_include_tag("koi/assets") %>
 
@@ -131,4 +131,3 @@
 <% end %>
 
 <%= render :file => 'layouts/koi/html' %>
-

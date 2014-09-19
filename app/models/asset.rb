@@ -12,7 +12,7 @@ class Asset < ActiveRecord::Base
   dragonfly_accessor :data
   validates_presence_of :data
   validates_property :mime_type, of: :data,
-    in: Koi::Asset::Document.mime_types
+    in: Koi::KoiAsset::Document.mime_types
 
   crud.config do
     fields data: { type: :file, label: false }, tag_list: { type: :tags }
@@ -27,9 +27,9 @@ class Asset < ActiveRecord::Base
     # FIXME: For some read mime_type take a long time to compute
     #        Using ext to make the document list faster
     ext = File.extname(data_name).gsub('.', '')
-    return Koi::Asset::Document.icons[ext] if Koi::Asset::Document.icons.has_key?(ext)
-    return url options if Koi::Asset::Image.extensions.include?(ext.to_sym)
-    return Koi::Asset.unknown_image
+    return Koi::KoiAsset::Document.icons[ext] if Koi::KoiAsset::Document.icons.has_key?(ext)
+    return url options if Koi::KoiAsset::Image.extensions.include?(ext.to_sym)
+    return Koi::KoiAsset.unknown_image
   end
 
   def url(*args)

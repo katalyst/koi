@@ -1,7 +1,7 @@
 require 'active_support/core_ext/numeric/bytes'
 
 module Koi
-  module Asset
+  module KoiAsset
     # Image incase no icon cannot be found
     mattr_accessor :unknown_image
     @@unknown_image = '/assets/koi/application/icon-file-unknown.png'
