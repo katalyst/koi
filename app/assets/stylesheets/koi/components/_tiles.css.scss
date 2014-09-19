@@ -1,6 +1,7 @@
 .tiles {
   @include row();
   margin-top: $default-unit;
+  @include content-children;
 }
 
 .tiles__four .tiles--column {

@@ -7,7 +7,6 @@
 //= require koi/components/sticky-header
 //= require koi/components/navigation-mobile
 //= require koi/components/menu-aim
-//= require koi/common.js
 
 //= require koi/components/kat-image-upload
 //= require koi/components/navigation
@@ -18,3 +17,9 @@
 //= require koi/components/map
 //= require koi/components/lightbox
 //= require koi/components/text-limiter
+
+//= require koi/common
+//= require koi/ckeditor
+//= require cocoon
+
+//= require koi/bootstrap/dropdown

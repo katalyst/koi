@@ -2,7 +2,7 @@
   <p class="pull-right"><strong>Items per page:</strong>
     <% params[:per] = per_page.to_s if params[:per].blank? %>
     <% page_list.each do |per| %>
-        <%= link_to per.to_s.titleize, params.merge(:per => per), data: { get_script: true }, :class => "btn btn-mini #{'btn-primary' if params[:per] == per.to_s}" %>
+        <%= link_to per.to_s.titleize, params.merge(:per => per), data: { get_script: true }, :class => "button #{'button__primary' if params[:per] == per.to_s}" %>
     <% end %>
   </p>
 </div>

@@ -1,0 +1,14 @@
+// Koi module listing pages
+
+.listing--pagination {
+  margin-bottom: $small-unit;
+  @include pie-clearfix;
+}
+
+.listing--pagination--search {
+  float: left;
+}
+
+.listing--pagination--options {
+  float: right;
+}

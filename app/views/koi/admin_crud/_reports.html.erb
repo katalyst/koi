@@ -5,7 +5,7 @@
       <% overview = @report_data.first[:class] == 'overview' %>
 
       <% if overview %> 
-        <div class="row space-b-2">
+        <div class="tiles tiles__four">
       <% end %>
 
       <% @report_data.each_with_index do |report, index| %>

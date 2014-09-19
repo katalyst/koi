@@ -1,4 +1,4 @@
-<div class="span10">
+<div class="listing--pagination--search">
 
   <%= form_tag collection_path, :method => 'get', class: "form-search form-inline space-0" do %>
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
@@ -13,7 +13,7 @@
            value="<%= params[:search] %>"
            class="span4" />
 
-        <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "btn btn-primary btn-mini" %>
-        <%= link_to "Reset", collection_path, class: "btn btn-mini" %>
+        <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary" %>
+        <%= link_to "Reset", collection_path, class: "button" %>
   <% end %>
 </div>

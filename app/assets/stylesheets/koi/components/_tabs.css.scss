@@ -20,16 +20,17 @@
 
 .tabs--link {
   display: block;
-  border: 1px solid $grey;
+  border: 1px solid $border;
   border-bottom-width: 0;
   padding: $xxxxx-small-unit $xxx-small-unit;
   cursor: pointer;
   @include transition(border-color .2s);
+  @include color-link($foreground-color, $foreground-color);
   // @include border-radius($border-radius $border-radius 0 0);
 }
 
 .tabs--link__active {
-  border-color: $primary-color;
+  border-color: $dark-grey;
   position: relative;
 
   &:before,
@@ -39,7 +40,7 @@
     position: absolute;
     bottom: 0;
     height: 1px;
-    background: $primary-color;
+    background: $dark-grey;
     width: 99999px;
   }
   &:before {
@@ -54,7 +55,7 @@
 
 .tabs--pane {
   display: none;
-  padding: $xx-small-unit 0;
+  padding: $default-unit 0;
 }
 
 .tabs--pane__active {

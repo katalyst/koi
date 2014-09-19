@@ -15,13 +15,14 @@
 
   <div class="tabs--panes">
     <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
-      <% if is_searchable? || is_paginated? %>
-        <div class="row space-b-1">
+
+      <% if is_searchable? || is_paginated? %>    
+        <div class="listing--pagination listing--pagination__top">
           <% if is_searchable? %>
             <%= render 'index_search' %>
           <% end %>
           <% if is_paginated? %>
-            <div id="index-pagination-options">
+            <div id="index-pagination-options" class="listing--pagination--options">
               <%= render 'index_pagination_options' %>
             </div>
           <% end %>
