@@ -1,7 +1,7 @@
 //= require ./common
 //= require ./ckeditor
 //= require cocoon
-//= require bootstrap
+//= require ./bootstrap
 
 ! function () {
 
