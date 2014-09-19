@@ -4,7 +4,8 @@ class SuperHero < ActiveRecord::Base
            searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true
 
-  # has :many, attributed: :images, orderable: true
+  # Refactored from has
+  has_many :images
 
   dragonfly_accessor :image
   dragonfly_accessor  :file

@@ -3,7 +3,8 @@ class Translation < ActiveRecord::Base
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
-  has :many, attributed: :images, orderable: true
+  # Refactored from has
+  has_many :images
 
   after_save :reset_memory_store_cache
 

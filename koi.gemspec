@@ -73,9 +73,6 @@ Gem::Specification.new do |s|
   # Scoped Search
   s.add_dependency 'scoped_search'
 
-  # Association Patterns
-  s.add_dependency 'has'
-
   # Unique ID generation
   s.add_dependency 'uuidtools'
 

@@ -6,7 +6,9 @@ class Product < ActiveRecord::Base
 
   belongs_to :category
 
-  has :many, attributed: :images, orderable: true
+  # Refactored from has
+  has_many :images
+
   has_and_belongs_to_many :products,
     join_table: "related_products",
     foreign_key: "product_a_id",

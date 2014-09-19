@@ -27,7 +27,6 @@ PATH
       figaro
       friendly_id
       garb
-      has
       has_scope (= 0.6.0.rc)
       inherited_resources
       jquery-rails
@@ -163,8 +162,6 @@ GEM
     guard-test (2.0.5)
       guard (~> 2.0)
       test-unit (~> 2.2)
-    has (1.0.3)
-      rails (>= 3.0.0)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
