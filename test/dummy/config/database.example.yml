@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: koi_development
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: koi_test
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: koi_production
