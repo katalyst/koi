@@ -1,0 +1,42 @@
+.header {
+  background: $black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 5px solid $primary-color;
+  @include pie-clearfix;
+}
+
+.header--logo {
+  float: left;
+  padding-top: 7px;
+
+  img {
+    display: block;
+  }
+}
+
+// Sticky Header
+.sticky-header {
+
+  .csspositionsticky &.sticky-header__stuck {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.sticky-header__fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: auto;
+  }
+}

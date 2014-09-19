@@ -1,20 +1,20 @@
 <% content_for :html do %>
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <%= link_to koi_engine.dashboard_path, class: "logo-header" do %>
-            <%= image_tag "koi/application/logo-katalyst.png", border: 0 %>
-          <% end %>
-          <%= render :partial => "layouts/koi/navigation" %>
-        </div>
+
+    <div class="header">
+      <div class="layout--container">
+        <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
+          <%= image_tag "koi/application/logo-katalyst.png", border: 0 %>
+        <% end %>
+        <%= render :partial => "layouts/koi/navigation" %>
       </div>
     </div>
-    <div class="container space-t-10 space-b-5">
+
+    <div class="layout--container layout--main">
       <%= content_for?(:body) ? yield(:body) : yield %>
     </div>
 
-    <div id="void">
+    <div id="void" class="hidden">
 
       <div koi="ask" class="modal hide fade">
         <div class="modal-header">

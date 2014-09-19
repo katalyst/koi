@@ -1,4 +1,4 @@
-<div class="tab-pane" id="tab-<%= group.parameterize %>">
+<div class="tabs--pane" id="tab-<%= group.parameterize %>" data-tab-for="tab-<%= group.parameterize %>">
   <div class="settings">
     <div id="index-fields">
       <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>

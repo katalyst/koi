@@ -1,0 +1,40 @@
+$table-border: 1px solid #ccc;
+
+table {
+  width: 100%;
+}
+
+.table {
+  margin: $desktop-gutters 0;
+  font-size: $small-font-size;
+  border: 1px solid $border;
+
+  td,
+  th {
+    padding: $xxxxx-small-unit;
+    border-top: 1px solid $border;
+  }
+
+  th {
+    background: $light-grey;
+  }
+
+  tr:first-child th {
+    border-top: 0;
+  }
+
+  a.nohover {
+    @include color-link($foreground-color, $foreground-color);
+  }
+
+}
+
+.table-container {
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scroll: touch;
+}
+
+.table--actions {
+  width: 140px;
+}

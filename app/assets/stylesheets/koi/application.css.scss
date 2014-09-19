@@ -1,0 +1,73 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// This is the base CSS file for your application. Import this into your layout.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// ORNAMENT
+//
+// Apply resets, apply default Ornament styles and import fonts & settings.
+//
+
+@import "ornament/core";
+
+// DEPENDANCIES
+
+@import "select2";
+@import "rickshaw";
+
+// COMPONENTS
+//
+//
+// Import the components this project uses. Instead of importing Compass or
+// Ornament utilities/mixins here, import them directly into your components
+//
+
+@import "components/align";
+@import "components/breakpoint-helper";
+@import "components/button";
+@import "components/clearfix";
+@import "components/content";
+@import "components/environment";
+@import "components/error-page";
+@import "components/footer";
+@import "components/form";
+@import "components/header";
+@import "components/icons";
+@import "components/island";
+@import "components/kat-image-upload";
+@import "components/layout";
+@import "components/lightbox";
+@import "components/map";
+@import "components/menu-aim";
+@import "components/navigation-mobile";
+@import "components/navigation-primary";
+@import "components/pagination";
+@import "components/panel";
+@import "components/skip-link";
+@import "components/spacing";
+@import "components/table";
+@import "components/tabs";
+@import "components/text-limiter";
+@import "components/tiles";
+@import "components/tooltip";
+@import "components/fotorama-custom";
+@import "components/print";
+@import "components/vertre";
+
+// OVERRIDES
+//
+//
+// Add any hacky or temporary styles here.
+//
+
+//  /* Client wanted the logo bigger ASAP... */
+//  .header--logo {
+//    height:200%;
+//    width:200%;
+//  }
+//
+
+.hidden {
+  display: none;
+}

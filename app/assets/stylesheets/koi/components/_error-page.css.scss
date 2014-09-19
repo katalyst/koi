@@ -1,0 +1,9 @@
+.error-page {
+  max-width: $container-width * 0.5;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.error--content {
+  margin-top: $default-unit;
+}

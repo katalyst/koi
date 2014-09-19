@@ -1,5 +1,7 @@
 <% unless Translation.find_by_key('site.show.dashboard.analytics').try(:value).eql?("true") %>
-  <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
+  <div class="island island-notice">
+    <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
+  </div>
 <% else %>
   <% Report.analytics.destroy if params[:analytics].eql?("true") %>
   <% report = Report.analytics %>

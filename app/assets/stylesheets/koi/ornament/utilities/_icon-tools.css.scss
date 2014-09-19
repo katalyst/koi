@@ -1,0 +1,50 @@
+// Extend grunt-icon URIs in to psuedo elements
+@mixin grunticon($icon, $width, $height:$width, $psuedo:before) {
+  position: relative;
+
+  &:#{$psuedo} {
+    @extend .grunticon-#{$icon};
+    content: "";
+    width: $width;
+    height: $height;
+  }
+}
+
+// Block Icons
+// icon-block(40px, 16px) = a 40x40 box with a 16x16 icon inside it.
+@mixin icon-block($block-size, $icon-size:$block-size) {
+  position: relative;
+  display: block;
+  text-indent: -99999px;
+  width: $block-size;
+  height: $block-size;
+  overflow: hidden;
+
+  &:before {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: $icon-size;
+    height: $icon-size;
+    margin-top: -($icon-size)/2;
+    margin-left: -($icon-size)/2;
+  }
+}
+
+// Inline Icons
+// icons that sit next to some text
+// pass in true to set the icon to the right of the text
+@mixin icon-inline($right:false) {
+  &:before {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+
+    @if ($right == true) {
+      float: right;
+      margin-left: $xx-small-unit;
+    } @else {
+      margin-right: $xx-small-unit;
+    }
+  }
+}

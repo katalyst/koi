@@ -1,16 +1,18 @@
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
+<nav class="tabs-links">
+  <ul>
+    <li><a href="#tab-main" data-tab="main" class="tabs--link">Main</a></li>
 
-  <%- group_settings.each do |group, settings| -%>
-    <%- group = "General" if group.blank? -%>
-    <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
-  <%- end -%>
+    <%- group_settings.each do |group, settings| -%>
+      <%- group = "General" if group.blank? -%>
+      <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab-<%= group.parameterize -%>" class="tabs--link"><%= group %></a></li>
+    <%- end -%>
 
-  <%- if is_reportable? -%>
-    <li><a href="#tab-reports" data-toggle="tab">Reports</a></li>
-  <%- end -%>
+    <%- if is_reportable? -%>
+      <li><a href="#tab-reports" data-tab="tab-reports" class="tabs--link">Reports</a></li>
+    <%- end -%>
 
-  <%- if current_admin.god? -%>
-    <li><a href="#tab-extra" data-toggle="tab">Extra</a></li>
-  <%- end -%>
-</ul>
+    <%- if current_admin.god? -%>
+      <li><a href="#tab-extra" data-tab="tabs-extra" class="tabs--link">Extra</a></li>
+    <%- end -%>
+  </ul>
+</nav>

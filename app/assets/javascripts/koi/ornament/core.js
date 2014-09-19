@@ -1,0 +1,14 @@
+//= require jquery
+//= require jquery_ujs
+//= require picturefill
+//= require koi/ornament/defaults
+//= require koi/ornament/settings
+//= require koi/ornament/console
+//= require koi/ornament/window-dimensions
+//= require koi/ornament/debounce
+//= require koi/ornament/accessibility
+//= require koi/ornament/external_links
+//= require koi/ornament/refresh
+//= require velocity
+//= require jquery.touchSwipe
+//= require jquery.placeholder

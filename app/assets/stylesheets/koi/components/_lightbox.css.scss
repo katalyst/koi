@@ -1,0 +1,146 @@
+@import "magnific-popup";
+
+// Content Container 
+.mfp-inline-holder .mfp-content, 
+.mfp-ajax-holder .mfp-content {
+  background: #fff;
+  width: 90%;
+  max-width: 800px;
+
+  .lightbox__small & {
+    max-width: 500px;
+  }
+}
+
+// Lightbox Headings
+.lightbox--heading {
+  padding: $x-small-unit $small-unit;
+  border-bottom: 1px solid $grey;
+
+  .content &,
+  .content-spacing & {
+    margin-bottom: 0;
+  }
+}
+
+// Lightbox Content
+.lightbox--content {
+  padding: $small-unit;
+
+  .lightbox__flush & {
+    padding: 0;
+  }
+}
+
+// Lightbox Buttons
+.lightbox--buttons {
+  padding: $small-unit;
+  padding-top: 0;
+
+  .button + .button {
+    margin-left: $xxxx-small-unit;
+  }
+}
+
+// Lightbox Close Button and Arrows shared styles
+.mfp-inline-holder .mfp-close, 
+.mfp-ajax-holder .mfp-close,
+.mfp-figure .mfp-close,
+.mfp-image-holder .mfp-arrow {
+  background: $primary-color;
+  @include icon-block(44px, 16px);
+  @include border-radius(50%);
+  text-align: left;
+  padding: 0;
+  @include opacity(1);
+  @include transition(background .2s);
+
+  &:hover {
+    background: darken($primary-color, 10);
+  }
+}
+
+// Lightbox Close Button
+.mfp-inline-holder .mfp-close, 
+.mfp-ajax-holder .mfp-close,
+.mfp-figure .mfp-close {
+  @include grunticon("close-16-white", 16px);
+  position: absolute;
+  top: -$xxxxx-small-unit;
+  right: -$xxxxx-small-unit;
+
+  &:active {
+    top: -$xxxxx-small-unit; 
+  }
+
+  .lightbox__flush &,
+  .lightbox__flush &:active {
+    top: -$xxx-small-unit;
+    right: -$xxx-small-unit;
+  }
+}
+
+// Removing Top Padding on Image Lightboxes
+.mfp-figure .mfp-img {
+  padding-top: 0;
+}
+
+// Lightbox Arrows
+.mfp-image-holder .mfp-arrow-left {
+  @include grunticon("chevron-left-16-white", 16px);
+  left: $xxxxx-small-unit;
+  position: absolute;
+}
+
+.mfp-image-holder .mfp-arrow-right {
+  @include grunticon("chevron-right-16-white", 16px);
+  right: $xxxxx-small-unit;
+  position: absolute;
+}
+
+// Removing existing arrows
+.mfp-image-holder .mfp-arrow-left,
+.mfp-image-holder .mfp-arrow-right {
+  &:before {
+    border: 0;
+    @include opacity(1);
+  }
+}
+
+// Animated Lightbox Start
+.lightbox--main .mfp-content,
+.lightbox--main .mfp-arrow {
+  @include opacity(0);
+  @include transition(all 0.2s ease-in-out);
+  @include transform(scale(0.8));
+}
+
+// Animated Lightbox Open
+.lightbox--main.mfp-ready .mfp-content,
+.lightbox--main.mfp-ready .mfp-arrow {
+  @include opacity(1);
+  @include transform(scale(1));
+}
+
+// Animated Lightbox Close
+.lightbox--main.mfp-removing .mfp-content,
+.lightbox--main.mfp-removing .mfp-arrow {
+  @include opacity(0);
+  @include transform(scale(0.8));
+}
+
+// Animated Overlay Start
+.lightbox--main.mfp-bg {
+  @include opacity(0.001); /* Chrome opacity transition bug */
+  @include transition(opacity 0.3s ease-out);
+}
+
+// Animated Overlay Open
+.lightbox--main.mfp-ready.mfp-bg {
+  @include opacity(0.8);
+}
+
+// Animated Overlay Close
+.lightbox--main.mfp-removing.mfp-bg {
+  @include opacity(0);
+}

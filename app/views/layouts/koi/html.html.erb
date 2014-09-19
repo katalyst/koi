@@ -3,29 +3,39 @@
   <head>
     <!-- meta -->
     <meta charset="UTF-8" />
-    <%= csrf_meta_tags %>
-    <%= yield(:meta) %>
 
     <!-- title -->
     <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
 
-    <!-- data -->
+    <!-- META -->
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
+    <% unless Rails.env == "production" %>
+      <meta name="robots" content="noindex,nofollow"/>
+    <% end  %>
+    <%= yield :meta %>
+
+    <!-- DATA -->
     <%= js_data if defined?(js_data) %><!-- FIXME: helper isn't loaded by DeviseController -->
 
-    <!-- style -->
-    <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <!-- WEBFONTS -->
+    <%= render "layouts/koi/webfonts" -%>
+
+    <!-- STYLES -->
     <%= stylesheet_link_tag "koi/application" %>
-    <%= yield(:stylesheets) %>
+    <%= yield :styles %>
+    <%= yield :stylesheets %>
 
-    <!-- script -->
-    <%= javascript_include_tag "koi/application" %>
-    <%= yield(:javascripts) %>
-
+    <!-- SCRIPTS -->
+    <%= javascript_include_tag "modernizr" %>
+    <%= javascript_include_tag "koi" %>
     <%= render 'koi/custom_javascripts' %>
+    <%= yield :javascripts %>
+    <%= yield :scripts %>
 
-    <!-- etc -->
+    <!-- ETC -->
     <%= yield(:head) %>
+
   </head>
   <%= yield :html %>
 </html>

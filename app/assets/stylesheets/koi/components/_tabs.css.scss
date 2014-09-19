@@ -1,0 +1,86 @@
+
+// TABS
+
+.tabs-links {
+  overflow: hidden;
+
+  ul {
+    @include pie-clearfix;
+  }
+
+  li {
+    float: left;
+    vertical-align: top;
+  }
+
+  li + li .tabs--link {
+    margin-left: 2px;
+  }
+}
+
+.tabs--link {
+  display: block;
+  border: 1px solid $grey;
+  border-bottom-width: 0;
+  padding: $xxxxx-small-unit $xxx-small-unit;
+  cursor: pointer;
+  @include transition(border-color .2s);
+  // @include border-radius($border-radius $border-radius 0 0);
+}
+
+.tabs--link__active {
+  border-color: $primary-color;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background: $primary-color;
+    width: 99999px;
+  }
+  &:before {
+    left: 100%;
+  }
+  &:after {
+    right: 100%;
+  }
+}
+
+// PANES
+
+.tabs--pane {
+  display: none;
+  padding: $xx-small-unit 0;
+}
+
+.tabs--pane__active {
+  display: block;
+}
+
+// SWIPABLE TABS
+.tabs[data-tabs-swipable] {
+  position: relative;
+
+  &.shadow-left:before,
+  &.shadow-right:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  &.shadow-left:before {
+    left: 0;
+    @include box-shadow(inset 8px 0px 11px -7px rgba(0,0,0,0.8));
+  }
+  &.shadow-right:after {
+    right: 0;
+    @include box-shadow(inset -8px 0px 11px -7px rgba(0,0,0,0.8));
+  }
+}

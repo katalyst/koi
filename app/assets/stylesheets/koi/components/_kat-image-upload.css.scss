@@ -1,0 +1,193 @@
+$file-upload-thumbnail-width: 200px;
+$file-upload-thumbnail-background: #444;
+$file-upload-breakpoint: 545px;
+
+// dropzone for images/files
+.file-upload--dropzone {
+  @include pie-clearfix;
+  border: 2px dashed $input-border-color;
+  padding: $xxxx-small-unit;
+  margin-top: $xxxx-small-unit;
+  @include transition(border-color .2s);
+
+  &.file-upload--dropzone--over {
+    border-color: $input-border-focus-color;
+  }
+}
+
+.file-upload--thumbnail {
+  float: left;
+  width: $file-upload-thumbnail-width;
+  height: $file-upload-thumbnail-width;
+  background: $file-upload-thumbnail-background;
+  margin-right: 10px;
+
+  .file-upload--image {
+    margin-top: 0;
+    max-height: 100%;
+  }
+
+  @include media-query($file-upload-breakpoint) {
+    float: none;
+    margin: 0 auto;
+  }
+}
+
+.file-upload--image {
+  .file-upload--dropzone--over & {
+    opacity: 0.8;
+  }
+}
+
+// each image (single or gallery) gets a thumbnail-container
+.thumbnail-container {
+  display: block;
+  position: relative;
+
+  .thumb {
+    position: relative;
+  }
+
+  .thumb .file {
+    text-align: center;
+    background: #ccc url("/assets/file-upload/icon_unknown.png") 50% 20px no-repeat;
+    padding: 156px 10px 10px;
+
+    &.file__doc { background-image: url("/assets/file-upload/icon_doc.png"); }
+    &.file__docx { background-image: url("/assets/file-upload/icon_docx.png"); }
+    &.file__mp3 { background-image: url("/assets/file-upload/icon_mp3.png"); }
+    &.file__pdf { background-image: url("/assets/file-upload/icon_pdf.png"); }
+    &.file__csv { background-image: url("/assets/file-upload/icon_csv.png"); }
+    &.file__xls { background-image: url("/assets/file-upload/icon_xls.png"); }
+  }
+
+  .thumb img,
+  .thumb .file {
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .thumbnail--remove {
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: $error-background;
+    cursor: pointer;
+    @include border-radius(50%);
+    @include icon-block(32px, 16px);
+    @include grunticon("close-16-white", 16px);
+    position: absolute;
+    margin-top: -6px;
+    margin-right: -6px;
+    display: none;
+  }
+
+  &:hover .thumbnail--remove {
+    display: block;
+  }
+
+  progress {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    @include transform(translate(-50%, -50%));
+  }
+
+  &.uploading progress {
+    display: block;
+  }
+
+  &.uploading .thumb {
+    @include opacity(0.2);
+  }
+}
+
+// helper text
+.file-upload--text {
+  float: left;
+  padding-left: $default-unit;
+}
+
+.file-upload--message {
+  font-size: $large-font-size;
+  padding: $xxx-small-unit;
+  text-align: center;
+  margin-left: $file-upload-thumbnail-width;
+
+  span {
+    display: block;
+    margin-bottom: $xxx-small-unit;
+  }
+
+  @include media-query($file-upload-breakpoint) {
+    margin-left: 0;
+    clear: both;
+    padding: $xxx-small-unit 0 0 0;
+  }
+}
+
+// Thumbnail container and undo styles
+.file-upload--undo,
+.thumbnail-container {
+  float: left;
+  width: $file-upload-thumbnail-width;
+  height: $file-upload-thumbnail-width;
+  background: #444;
+  margin-right: 10px;
+  position: relative;
+
+  .thumb {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  img,
+  span {
+    @include transform(translate(-50%,-50%));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+}
+
+.file-upload--undo {
+  background: $file-upload-thumbnail-background;
+  color: $white;
+  cursor: pointer;
+  text-align: center;
+}
+
+// gallery zone
+.file-upload--gallery {
+  @include pie-clearfix;
+  margin: $default-unit 0;
+
+  .thumb:hover,
+  .thumb:hover img,
+  .thumb:hover .file {
+    cursor: move;
+  }
+
+  .dragging {
+    border: 2px dashed $input-border-focus-color;
+    background: $file-upload-thumbnail-background;
+
+    .thumb {
+      opacity: 0;
+    }
+  }
+
+  .dragover {
+    opacity: 0.2;
+  }
+}

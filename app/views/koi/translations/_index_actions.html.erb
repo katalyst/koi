@@ -1,9 +1,9 @@
 <div class="pad-b-1">
   <%- if is_allowed?(:new) && current_admin.god? %>
-    <%= link_to "Create", new_resource_path, class: "btn btn-primary" %>
-    <%= link_to "Seed", seed_translations_path, class: "btn" %>
+    <%= link_to "Create", new_resource_path, class: "button__primary" %>
+    <%= link_to "Seed", seed_translations_path, class: "button" %>
   <% end %>
   <% if respond_to? :parent %>
-    <%= link_to "Back", collection_path, class: "btn" %></li>
+    <%= link_to "Back", collection_path, class: "button" %></li>
   <% end %>
 </div>

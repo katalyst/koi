@@ -1,0 +1,43 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// This file carefully imports Ornament files in a very specific order.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+// ORNAMENT SETTINGS
+@import "koi/settings";
+
+// COMPASS UTILITIES
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/inline-block";
+@import "compass/css3/text-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/utilities/general/clearfix";
+@import "compass/typography/links/hover-link";
+@import "compass/css3/opacity";
+
+// UTILITIES AND HELPERS
+@import "koi/ornament/utilities/arrows";
+@import "koi/ornament/utilities/color-link";
+@import "koi/ornament/utilities/decorate-link";
+@import "koi/ornament/utilities/font";
+@import "koi/ornament/utilities/icon-tools";
+@import "koi/ornament/utilities/line-height-padding";
+@import "koi/ornament/utilities/lists";
+@import "koi/ornament/utilities/media-query";
+@import "koi/ornament/utilities/reverse-list";
+@import "koi/ornament/utilities/spang";
+
+// ORNAMENT
+@import "koi/ornament/reset";
+@import "koi/components/typography";
+
+.svg {
+  @import "koi/grunticon/icon-svg";
+}
+.no-svg {
+  @import "koi/grunticon/icon-png";
+}
