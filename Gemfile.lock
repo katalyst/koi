@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    koi (1.1.0.rc8)
+    koi (2.0.0)
       activevalidators
       acts-as-taggable-on
       awesome_nested_set

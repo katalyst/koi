@@ -44,10 +44,14 @@ module HasNavigation
 
     def to_navigator(options={})
       resource_nav_item = get_nav_item
-      resource_nav_item.attributes = options.reverse_merge(title: new_title, url: get_url,
-                                                           admin_url: get_admin_url,
-                                                           setting_prefix: get_setting_prefix,
-                                                           navigable: self)
+
+      options.reverse_merge!(title: new_title, url: get_url,
+                             admin_url: get_admin_url,
+                             setting_prefix: get_setting_prefix,
+                             navigable: self)
+
+      resource_nav_item.assign_attributes(options)
+
       resource_nav_item
     end
 
