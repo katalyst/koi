@@ -20,3 +20,6 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
 
 gem 'pg'
 gem 'pry'
+# gem 'puma'
+gem 'unicorn'
+gem 'passenger'
