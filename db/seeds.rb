@@ -15,18 +15,20 @@ end
 Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
              role: "Super", password: password, password_confirmation: password)
 
+options = { without_protection: true }
+
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
-header = FolderNavItem.create!(title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation")
-footer = FolderNavItem.create!(title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation")
+header = FolderNavItem.create!({ title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation" }, options)
+footer = FolderNavItem.create!({ title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation" }, options)
 
 # Few Header Pages
-home_page        = Page.create!(title: "Home Page").to_navigator!(parent_id: header.id)
-about_us_page    = Page.create!(title: "About Us").to_navigator!(parent_id: header.id)
-contact_us_page  = Page.create!(title: "Contact Us").to_navigator!(parent_id: home_page.id)
+home_page        = Page.create!({ title: "Home Page" }, options).to_navigator!(parent_id: header.id)
+about_us_page    = Page.create!({ title: "About Us" }, options).to_navigator!(parent_id: header.id)
+contact_us_page  = Page.create!({ title: "Contact Us" }, options).to_navigator!(parent_id: home_page.id)
 
 # Few Aliases
-AliasNavItem.create!(title: "About Us", alias_id: about_us_page.id, parent: footer)
-AliasNavItem.create!(title: "Contact Us", alias_id: contact_us_page.id, parent: footer)
+AliasNavItem.create!({ title: "About Us", alias_id: about_us_page.id, parent: footer }, options)
+AliasNavItem.create!({ title: "Contact Us", alias_id: contact_us_page.id, parent: footer }, options)
 
 # One Footer Pages
 privacy_policy_page = Page.create!(title: "Privacy Policy").to_navigator!(parent_id: footer.id)
