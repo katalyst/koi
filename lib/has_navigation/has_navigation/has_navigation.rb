@@ -50,7 +50,9 @@ module HasNavigation
                              setting_prefix: get_setting_prefix,
                              navigable: self)
 
-      resource_nav_item.assign_attributes(options)
+      options.keys.each do |key|
+        resource_nav_item.send("#{key}=", options[key]) if resource_nav_item.respond_to?(key)
+      end
 
       resource_nav_item
     end
