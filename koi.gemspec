@@ -26,6 +26,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'protected_attributes'
 
+  s.add_dependency 'active_model_serializers', '~> 0.8.2'
+
   s.add_dependency 'sass-rails'
 
   s.add_dependency 'uglifier'
