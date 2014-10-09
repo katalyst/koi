@@ -8,7 +8,7 @@
   <%= render "index_title" %>
 <% end %>
 
-<% if is_settable? %>
+<% if is_settable? || is_reportable? %>
   <%= render "index_settings_navigation" %>
 <% end %>
 
