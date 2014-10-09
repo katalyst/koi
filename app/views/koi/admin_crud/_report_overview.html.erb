@@ -6,6 +6,12 @@
       <%= number_to_percentage(report[:percent_change].abs, precision: 1) %> <%= report[:change_type] %>
     </div>
   <% else %>
-    <div class="widget-footer widget-footer-increase">No Previous Data Yet</div>
+    <div class="widget-footer widget-footer-increase">
+      <% if report[:period] == :all_time %>
+        All Time
+      <% else %>
+        No Previous Data Yet
+      <% end %>
+    </div>
   <% end %>
 </div>
