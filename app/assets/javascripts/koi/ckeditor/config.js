@@ -4,7 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.extraPlugins 								 = 'oembed,showblocks';
+	config.extraPlugins 								 = 'oembed,showblocks,image2';
 
  	config.filebrowserBrowseUrl          = '/admin/documents';
   config.filebrowserUploadUrl          = '/admin/documents';
@@ -18,6 +18,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.autoGrow_onStartup    				 = true;
 	config.forcePasteAsPlainText 				 = true;
 	config.allowedContent        				 = true;
+
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
