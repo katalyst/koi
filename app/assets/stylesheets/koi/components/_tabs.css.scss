@@ -64,7 +64,10 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--pane {
   display: none;
-  padding: $xx-small-unit 0;
+
+  .tabs-links + .tabs--panes & {
+    padding: $xx-small-unit 0;
+  }
 
   .tabs__filled & {
     background: $passive-color;

@@ -24,7 +24,6 @@
 
     $ ('.wysiwyg.source').each(function() {
       // FIXME: Duplicated in wysiwyg.js
-      // debugger;
       // CKEDITOR.replace (this);
     });
 

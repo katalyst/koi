@@ -294,7 +294,11 @@
       } else {
         // load first tab
         var pane = $tabset.find("[data-tab]").first().attr("data-tab");
-        loadTab($tabset, pane);
+        if(pane) {
+          loadTab($tabset, pane);
+        } else {
+          $tabset.find("[data-tab-for]").first().addClass("tabs--pane__active");
+        }
       }
     });
 

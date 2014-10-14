@@ -17,12 +17,12 @@
     <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
 
       <% if is_searchable? || is_paginated? %>    
-        <div class="listing--pagination listing--pagination__top">
+        <div class="listing--pagination listing--pagination__top small">
           <% if is_searchable? %>
             <%= render 'index_search' %>
           <% end %>
           <% if is_paginated? %>
-            <div id="index-pagination-options" class="listing--pagination--options">
+            <div id="index-pagination-options" class="listing--pagination--options small">
               <%= render 'index_pagination_options' %>
             </div>
           <% end %>
