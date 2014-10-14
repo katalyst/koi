@@ -1,5 +1,5 @@
 <% unless Translation.find_by_key('site.show.dashboard.analytics').try(:value).eql?("true") %>
-  <div class="island island-notice">
+  <div class="island island__notice">
     <p>Please set your google anlytics credentials <%= link_to "here", translations_path %></p>
   </div>
 <% else %>

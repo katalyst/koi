@@ -72,7 +72,7 @@ $file-upload-breakpoint: 545px;
     top: 0;
     right: 0;
     z-index: 2;
-    background: $error-background;
+    background: $error-color;
     cursor: pointer;
     @include border-radius(50%);
     @include icon-block(32px, 16px);

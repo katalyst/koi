@@ -1,6 +1,7 @@
 // HIGH PRIORITY JAVASCRIPT INCLUDED AT TOP OF PAGE
 
 //= require koi/ornament/core
+//= require koi/components/ckeditor
 //= require koi/components/show
 //= require koi/components/tabs
 //= require koi/components/fotorama

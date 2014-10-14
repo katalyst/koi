@@ -1,15 +1,8 @@
-<div class="tabs--pane" id="tab-extra">
+<div class="tabs--pane" id="tab-extra" data-tab-for="tab-extra">
   <div class="extra">
-    <div class="row">
-      <div class="span17 bg-darkgrey">
-        <div class="row">
-          <div class="span9 ">&nbsp;</div>
-          <div class="span8 color-darkgrey">
-            <div class="space-half pull-right">
-              <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "btn btn-small btn-primary" %>
-            </div>
-          </div>
-        </div>
+    <div class="listing--actions">
+      <div class="align-right">
+        <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "button__primary" %>
       </div>
     </div>
     <div id="index-fields">

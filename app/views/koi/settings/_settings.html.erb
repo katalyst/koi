@@ -2,15 +2,14 @@
   <div class="settings">
     <div id="index-fields">
       <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>
-        <table class="table space-b-0">
-          <tbody>
-            <%= render "koi/settings/settings_form", f: f, settings: settings %>
-          </tbody>
-        </table>
 
-        <div class="form-action">
-          <input type="hidden" name="group" value="<%= group.parameterize %>" />
-          <button class="btn btn-primary" name="commit" type="submit" value="Save">Save</button>
+        <div class="inputs">
+          <%= render "koi/settings/settings_form", f: f, settings: settings %>
+
+          <div class="form-action">
+            <input type="hidden" name="group" value="<%= group.parameterize %>" />
+            <button class="button__primary" name="commit" type="submit" value="Save">Save</button>
+          </div>
         </div>
       <%- end -%>
     </div>

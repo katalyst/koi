@@ -1,10 +1,13 @@
-.header {
+// lots of .headers
+// name spaced to .global-header
+.header.global-header {
   background: $black;
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   border-bottom: 5px solid $primary-color;
+  z-index: 990;
   @include pie-clearfix;
 }
 
@@ -14,29 +17,5 @@
 
   img {
     display: block;
-  }
-}
-
-// Sticky Header
-.sticky-header {
-
-  .csspositionsticky &.sticky-header__stuck {
-    position: -webkit-sticky;
-    position: -moz-sticky;
-    position: -ms-sticky;
-    position: -o-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  &.sticky-header__fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    height: auto;
   }
 }

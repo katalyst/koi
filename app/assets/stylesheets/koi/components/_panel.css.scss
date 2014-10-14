@@ -1,9 +1,24 @@
 $panel-border:          $background-color;
 
+// SINGLE PANELS
+
 .panel {
   @include border-radius($border-radius);
   @include pie-clearfix;
-  background: $grey;
+  display: block;
+  background: $passive-color;
+  overflow: hidden;
+}
+
+a.panel {
+  display: block;
+  @include color-link($foreground-color, $foreground-color);
+  @include decorate-link(none,none);
+}
+
+.panel__default {
+  @extend .panel;
+  @extend .panel--padding;
 }
 
 .panel--padding-border {
@@ -12,8 +27,7 @@ $panel-border:          $background-color;
 
 // COLOUR VARIANTS
 
-.panel__blue {
-  @extend .panel;
+.panel__primary {
   background: $primary-color;
   color: $white;
   a {
@@ -21,7 +35,52 @@ $panel-border:          $background-color;
   }
 }
 
+.panel__error {
+  background: $error-color;
+  color: $white;
+  a {
+    @include color-link($white,$white);
+  }
+}
+
+.panel__warning {
+  background: $warning-color;
+  color: $white;
+  a {
+    @include color-link($white,$white);
+  }
+}
+
+.panel__success {
+  background: $success-color;
+  color: $white;
+  a {
+    @include color-link($white,$white);
+  }
+}
+
+
 // PADDING VARIANTS
+
+@mixin panel-padding {
+  padding: $panel-padding;
+
+  @include media-query($breakpoint-tiny) {
+    padding: $panel-padding-small;
+  }
+}
+
+@mixin panel-padding-large {
+  padding: $panel-padding-large;
+
+  @include media-query($breakpoint-medium) {
+    padding: $panel-padding;
+  }
+
+  @include media-query($breakpoint-tiny) {
+    padding: $panel-padding-small;
+  }
+}
 
 .panel--padding__x-tight {
   padding: $panel-padding-tiny;
@@ -32,23 +91,11 @@ $panel-border:          $background-color;
 }
 
 .panel--padding {
-  padding: $panel-padding;
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
+  @include panel-padding;
 }
 
 .panel--padding__large {
-  padding: $panel-padding-large;
-
-  @include media-query($breakpoint-medium) {
-    padding: $panel-padding;
-  }
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
+  @include panel-padding-large;
 }
 
 // BORDER RADIUS VARIANTS
@@ -61,4 +108,13 @@ $panel-border:          $background-color;
 .panel__no-bottom-radius {
   @include border-bottom-left-radius(0);
   @include border-bottom-right-radius(0);
+}
+
+// THINGS IN PANELS
+
+.panel--avatar {
+  img {
+    display: block;
+    margin: 0 auto;
+  }
 }

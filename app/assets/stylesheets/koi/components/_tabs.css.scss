@@ -1,3 +1,4 @@
+$tab-inactive-color: #ECF0F1;
 
 // TABS
 
@@ -20,18 +21,26 @@
 
 .tabs--link {
   display: block;
-  border: 1px solid $border;
-  border-bottom-width: 0;
-  padding: $xxxxx-small-unit $xxx-small-unit;
+  // border: 1px solid $grey;
+  // border-bottom-width: 0;
+  background: $tab-inactive-color;
+  @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
   cursor: pointer;
-  @include transition(border-color .2s);
+  color: $foreground-color;
   @include color-link($foreground-color, $foreground-color);
-  // @include border-radius($border-radius $border-radius 0 0);
+  padding-left: $x-small-unit;
+  padding-right: $x-small-unit;
+  @include line-height-padding($button-height);
+  @include transition(border-color .2s);
+  @include border-radius($border-radius $border-radius 0 0);
 }
 
 .tabs--link__active {
-  border-color: $dark-grey;
+  background: $primary-color;
+  // border-color: $primary-color;
   position: relative;
+  color: $white;
+  @include color-link($white, $white);
 
   &:before,
   &:after {
@@ -39,8 +48,8 @@
     display: block;
     position: absolute;
     bottom: 0;
-    height: 1px;
-    background: $dark-grey;
+    height: 2px;
+    background: $primary-color;
     width: 99999px;
   }
   &:before {
@@ -55,7 +64,14 @@
 
 .tabs--pane {
   display: none;
-  padding: $default-unit 0;
+  padding: $xx-small-unit 0;
+
+  .tabs__filled & {
+    background: $passive-color;
+    @include panel-padding;
+    @include border-bottom-left-radius($border-radius);
+    @include border-bottom-right-radius($border-radius);
+  }
 }
 
 .tabs--pane__active {

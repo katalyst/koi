@@ -117,16 +117,25 @@ $dark-grey:     #666;
 
 $border:        #ccc;
 
+$error-color: #E74C3C;
+$success-color: #2ECC71;
+$warning-color: #F1C40F;
+$passive-color: #ECF0F1;
+
 $foreground-color: #222;
 $background-color: #fff;
 $link-color: $primary-color;
 $link-hover-color: false;
+
+$input-border-color: #c5cbd4;
+$input-border-focus-color: darken($input-border-color,20);
+
+/*
 $error-color: #990000;
 $error-background: red;
 $notice-color: #ff6600;
 $success-color: green;
-$input-border-color: #c5cbd4;
-$input-border-focus-color: darken($input-border-color,20);
+*/
 
 $white: #fff;
 $facebook: #5e78aa;

@@ -5,15 +5,17 @@
     <%= hidden_field_tag :sort, params[:sort], id: "search_sort" %>
     <%= hidden_field_tag :per, params[:per], id: "search_per" %>
 
-    <span>Search</span>
+    <label for="search">Search</label>
 
     <input type="text"
            name="search"
            placeholder="Enter search criteria"
-           value="<%= params[:search] %>"
-           class="span4" />
+           value="<%= params[:search] %>" 
+           class="input__tight" />
 
-        <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary" %>
-        <%= link_to "Reset", collection_path, class: "button" %>
+    <div class="search--buttons">
+      <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary" %>
+      <%= link_to "Reset", collection_path, class: "button" %>
+    </div>
   <% end %>
 </div>

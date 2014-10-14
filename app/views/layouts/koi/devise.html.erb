@@ -1,11 +1,10 @@
 <% content_for :html do %>
   <body>
-    <div class="center container w-560 pad-t-6">
-      <div class="align-center space-b-2">
+    <div class="layout--container">
+      <div class="align-center">
         <%= image_tag "koi/application/logo-katalyst-devise.png"%>
       </div>
-
-     <%= content_for?(:devise) ? yield(:devise) : yield %>
+      <%= content_for?(:devise) ? yield(:devise) : yield %>
     </div>
   </body>
 <% end %>

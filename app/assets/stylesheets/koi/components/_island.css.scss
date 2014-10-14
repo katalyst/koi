@@ -1,45 +1,76 @@
-$island-background:         #333333;
-$island-color:              #ffffff;
-$island-error-background:   #ffcccc;
-$island-error-color:        $error-color;
-$island-loose-padding:      $default-unit;
-$island-notice-background:  #ffffcc;
-$island-notice-color:       $notice-color;
-$island-padding:            $xxx-small-unit;
-$island-success-background: #ccffcc;
-$island-success-color:      $success-color;
-$island-tight-padding:      $xxxx-small-unit;
+$island-default-background: mix($primary-color, $white, 10);
+$island-warning-background: mix($warning-color, $white, 10);
+$island-success-background: mix($success-color, $white, 10);
+$island-error-background:   mix($error-color, $white, 10);
 
 .island {
-  background: $island-background;
-  color: $island-color;
-  padding: $island-padding;
-  margin-bottom: $default-unit;
+  position: relative;
+  clear: both;
+  background: $island-default-background;
+  padding: $xxx-small-unit;
+  padding-left: $xxxxx-large-unit;
+  margin: $default-unit 0;
+  min-height: 24px;
+  @include box-sizing(content-box);
+  @include border-radius($border-radius);
+  @include pie-clearfix;
+  @include flush-children;
+
+  .close {
+    position: absolute;
+    top: $xxx-small-unit;
+    left: $xxx-small-unit;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    @include border-radius(50%);
+    @include color-link($white, $white);
+    @include decorate-link(none, none);
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: $xxx-small-unit;
+    left: $xxx-small-unit;
+    width: 24px;
+    height: 24px;
+    // background: red;
+  }
+
+  &.island__with-close:before {
+    display: none;
+  }
 }
 
-.island-tight {
-  padding: $island-tight-padding;
+// Colour variations
+.island__warning,
+.island__notice {
+  @extend .island;
+  background: $island-warning-background;
+
+  .close {
+    background: $warning-color;
+  }
 }
 
-.island-loose {
-  padding: $island-loose-padding;
-}
-
-.island-alert,
-.island-error {
+.island__error,
+.island__alert {
+  @extend .island;
   background: $island-error-background;
-  border: 1px solid;
-  color: $island-error-color;
+
+  .close {
+    background: $error-color;
+  }
 }
 
-.island-notice {
-  background: $island-notice-background;
-  border: 1px solid;
-  color: $island-notice-color;
-}
-
-.island-success {
+.island__success {
+  @extend .island;
   background: $island-success-background;
-  border: 1px solid;
-  color: $island-success-color;
+
+  .close {
+    background: $success-color;
+  }
 }

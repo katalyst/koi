@@ -4,4 +4,4 @@
 
 <% opt.merge! disabled: true unless current_admin.send writable_method if writable_method %>
 
-<%= f.input attr, input_html: opt %>
+<%= f.input attr, input_html: opt, input_html: { class: "form--medium" } %>

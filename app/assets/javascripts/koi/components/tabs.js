@@ -26,6 +26,8 @@
       $pane.addClass(activeClass);
       $anchors.removeClass(tabActiveClass);
       $anchor.addClass(tabActiveClass);
+
+      $(document).trigger("ornament:tab-change");
     }
 
     var getWidthOfTabRow = function($tabset) {
