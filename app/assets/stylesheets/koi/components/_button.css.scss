@@ -7,6 +7,8 @@ $button-foreground-color:           $white;
 $button-padding:                    3px $xxxxx-small-unit;
 $button-secondary-background-color: $grey;
 $button-secondary-foreground-color: $white;
+$button-error-background-color:     $error-color;
+$button-error-foreground-color:     $white;
 
 .button__primary {
   @include border-radius($button-border-radius);
@@ -34,6 +36,17 @@ $button-secondary-foreground-color: $white;
 
   &:hover {
     background: darken($button-secondary-background-color,10);
+  }
+}
+
+.button__error {
+  @extend .button;
+  @include color-link($button-error-foreground-color, $button-error-foreground-color);
+  background: $button-error-background-color;
+  color: $button-error-foreground-color;
+
+  &:hover {
+    background: darken($button-error-background-color,10);
   }
 }
 
