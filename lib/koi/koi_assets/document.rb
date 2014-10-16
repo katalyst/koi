@@ -1,5 +1,5 @@
 module Koi
-  module Asset
+  module KoiAsset
     module Document
       # Document file upload size limit
       mattr_accessor :size_limit

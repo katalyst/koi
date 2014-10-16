@@ -10,7 +10,7 @@ module Koi::IconHelper
     image.thumb("#{options[:width]}x#{options[:height]}").url
   end
 
-  # Gets the icon for a document. This uses the Koi::Asset::Document.icons config.
+  # Gets the icon for a document. This uses the Koi::KoiAsset::Document.icons config.
   #
   # Example:
   #
@@ -18,7 +18,7 @@ module Koi::IconHelper
   #
   def document_icon(document)
     ext = File.extname(document.name).gsub('.', '')
-    Koi::Asset::Document.icons.has_key?(ext) ? Koi::Asset::Document.icons[ext] : Koi::Asset.unknown_image
+    Koi::KoiAsset::Document.icons.has_key?(ext) ? Koi::KoiAsset::Document.icons[ext] : Koi::KoiAsset.unknown_image
   end
 
   # Returns an images that represents the given attachment. If it's a images it'll be a cropped

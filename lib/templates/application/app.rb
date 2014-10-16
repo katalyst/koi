@@ -187,9 +187,6 @@ route 'get "/:id"  => "pages#show", as: :page_slug'
 # Koi Engine route
 route 'mount Koi::Engine => "/admin", as: "koi_engine"'
 
-# Disable Whitelist Attribute
-gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
-
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 

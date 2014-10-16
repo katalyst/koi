@@ -2,9 +2,11 @@
   <ul>
     <li><a href="#tab-main" data-tab="tab-main" class="tabs--link">Main</a></li>
 
-    <%- group_settings.each do |group, settings| -%>
-      <%- group = "General" if group.blank? -%>
-      <li><a href="#tab-<%= group.parameterize %>" data-tab="tab-<%= group.parameterize -%>" class="tabs--link"><%= group %></a></li>
+    <%- if is_settable? -%>
+      <%- group_settings.each do |group, settings| -%>
+        <%- group = "General" if group.blank? -%>
+        <li><a href="#tab-<%= group.parameterize %>" data-tab="tab-<%= group.parameterize -%>" class="tabs--link"><%= group %></a></li>
+      <%- end -%>
     <%- end -%>
 
     <%- if is_reportable? -%>

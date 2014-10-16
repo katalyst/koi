@@ -15,6 +15,7 @@ module HasCrud
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
                   :is_exportable?, :title_for, :per_page, :settings_prefix
         base.send :respond_to, :html, :js, :csv
+        base.send :before_filter, :allow_all_parameters!
       end
 
       module ClassMethods
@@ -35,6 +36,10 @@ module HasCrud
         end
 
         private
+
+          def allow_all_parameters!
+            params.permit!
+          end
 
           def redirect_path
             if params[:commit].eql?("Continue")

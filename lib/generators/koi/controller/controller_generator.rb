@@ -13,9 +13,10 @@ module Koi
       argument :scaffold_name, :type => :string, :required => true, :banner => 'ModelName'
       argument :args_for_c_m, :type => :array, :default => [], :banner => 'model:attributes'
 
-      class_option :skip_views, :desc => 'Don\'t generate views.', :type => :boolean, :default => false
-      class_option :skip_model, :desc => 'Don\'t generate a model or migration file.', :type => :boolean
-      class_option :skip_migration, :desc => 'Dont generate migration file for model.', :type => :boolean
+      class_option :skip_views,      :desc => 'Don\'t generate views.', :type => :boolean, :default => false
+      class_option :skip_model,      :desc => 'Don\'t generate a model or migration file.', :type => :boolean
+      class_option :skip_serializer, :desc => 'Don\'t generate a serializer.', :type => :boolean
+      class_option :skip_migration,  :desc => 'Dont generate migration file for model.', :type => :boolean
 
       class_option :versioned, :desc => 'Add versioning capabilities.', :group => 'Additional Options', :type => :boolean
       class_option :orderable, :desc => 'Add Drag n Drop ordering capabilities.', :group => 'Additional Options', :type => :boolean
@@ -48,7 +49,13 @@ module Koi
         end
       end
 
-      def create_migration
+      def create_serializer
+        unless @skip_serializer
+          template 'serializer_template.rb', "app/serializers/#{model_path}_serializer.rb"
+        end
+      end
+
+      def create_koi_migration
         unless @skip_model || options.skip_migration?
           migration_template 'migration_template.rb', "db/migrate/create_#{model_path.pluralize.gsub('/', '_')}.rb"
         end

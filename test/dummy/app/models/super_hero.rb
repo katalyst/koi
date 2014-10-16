@@ -4,7 +4,7 @@ class SuperHero < ActiveRecord::Base
            searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true
 
-  # Refactored from has
+  # FIXME: Refactored from has
   has_many :images
 
   dragonfly_accessor :image
@@ -44,22 +44,26 @@ class SuperHero < ActiveRecord::Base
                        :telephone, :image, :file, :powers]
       reportable true
       charts [{
-        span: :created_at,
-        field: :id,
+        span:     :created_at,
+        field:    :id,
         strategy: :count,
-        colour: '#f60',
-        name: 'New Super Heros Created',
+        colour:   '#f60',
+        name:     'New Super Heros Created',
         renderer: 'bar'
       },{
         span:     :created_at,
         field:    :id,
         strategy: :sum,
-        colour: 'black',
-        name: 'Sum of Super Heros Created IDs with name Bob',
-        scope: :bob
+        colour:   'black',
+        name:     'Sum of Super Heros Created IDs with name Bob',
+        scope:    :bob
       }]
 
       overviews [{
+        span:     :created_at,
+        name:     'Total Super Heros Created',
+        period:   :all_time
+      },{
         field:    :id,
         name:     'Super Heros Created in the Last Month',
         prefix:   '$'

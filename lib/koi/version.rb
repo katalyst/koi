@@ -1,3 +1,3 @@
 module Koi
-  VERSION = "1.1.0.rc8"
+  VERSION = "2.0.0"
 end

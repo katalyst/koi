@@ -20,5 +20,10 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
 
 gem 'pg'
 gem 'pry'
+
 gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
 gem "compass-rails", "~> 1.1.7"
+
+# gem 'puma'
+gem 'unicorn'
+gem 'passenger'

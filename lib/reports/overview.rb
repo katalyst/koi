@@ -15,11 +15,15 @@ module Reports
       @postfix    = report[:postfix]
       scope       = report[:scope] || :all
 
-      time_range = Hash.new
-      time_range[span] = current_date_range
-      @current_value   = calculate(klass.send(scope).where(time_range))
-      time_range[span] = previous_date_range
-      @previous_value  = calculate(klass.send(scope).where(time_range))
+      if @period == :all_time
+        @current_value   = calculate(klass.send(scope))
+      else
+        time_range = Hash.new
+        time_range[span] = current_date_range
+        @current_value   = calculate(klass.send(scope).where(time_range))
+        time_range[span] = previous_date_range
+        @previous_value  = calculate(klass.send(scope).where(time_range))
+      end
     end
 
     def process
@@ -28,7 +32,8 @@ module Reports
         current_value:   "#{prefix}#{@current_value}#{postfix}",
         percent_change:  percent_change,
         change_type:     change_type,
-        class:          'overview'
+        class:          'overview',
+        period:          @period
       }
     end
 
