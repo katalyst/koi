@@ -59,6 +59,16 @@
           .has-menu { 
             width: 70px; 
 
+            &:hover {
+              ul {
+                display: block;
+              }
+            }
+
+            ul {
+              display: none;
+            }
+
             ul li {
               float: none;
               padding: 0;
