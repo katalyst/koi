@@ -22,6 +22,10 @@
       var $pane    = $tabset.find("[data-tab-for='"+pane+"']");
       var $panes   = $tabset.find(".tabs--pane");
 
+      if($anchor.hasClass(tabActiveClass)) {
+        return false;
+      }
+
       $panes.removeClass(activeClass);
       $pane.addClass(activeClass);
       $anchors.removeClass(tabActiveClass);
