@@ -12,13 +12,27 @@
   </header>
 
   <div class="layout--content">
-    <div class="layout--content--main">
-      <%= render "koi/shared/flash_messages" %>
-      <%= yield %>
-    </div>
-    <div class="layout--content--aside">
-      <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
-    </div>
+
+    <%- if content_for? :side -%>
+      
+      <div class="layout--content--main">
+        <%= render "koi/shared/flash_messages" %>
+        <%= yield %>
+      </div>
+
+      <div class="layout--content--aside">
+        <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
+      </div>
+
+    <%- else -%>
+
+      <div class="layout--content--main__full">
+        <%= render "koi/shared/flash_messages" %>
+        <%= yield %>
+      </div>
+
+    <%- end -%>
+
   </div>
 
 <% end %>

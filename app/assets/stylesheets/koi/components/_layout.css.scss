@@ -38,6 +38,10 @@ body {
   @include spang(19,24);
 }
 
+.layout--content--main__full {
+  @include spang(1,1);
+}
+
 .layout--content--aside {
   @include spang(5,24);
 }
