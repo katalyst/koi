@@ -5,15 +5,7 @@
   $(document).on("ornament:ck-editor", function(){
 
     function wysiwyg() {
-
-      var name = $(this).attr("id");
-      var editor = CKEDITOR.instances[name];
-
-      if(editor) {
-        editor.destroy(true);
-      }
-
-      CKEDITOR.replace(name);
+      CKEDITOR.replace(this);
     }
 
     $.fn.wysiwyg = function() {
@@ -159,7 +151,18 @@
   });
 
   $(document).on("ornament:tab-change", function(){
-    $(document).trigger("ornament:ck-editor");
+
+    for(k in CKEDITOR.instances) {
+      var instance = CKEDITOR.instances[k];
+      if(instance) {
+        instance.destroy(true)
+      }
+    }
+
+    $ ('.wysiwyg.source').each(function() {
+      CKEDITOR.replace (this);
+    });
+
   });
 
 }(document, window, jQuery));
