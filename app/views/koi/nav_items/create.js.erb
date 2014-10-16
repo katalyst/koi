@@ -4,7 +4,7 @@
 
 <% else %>
 
-  $ ("#modal-for-nav-item").modal ('hide');
+  $.magnificPopup.close();
 
   var rendered = "<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>";
   

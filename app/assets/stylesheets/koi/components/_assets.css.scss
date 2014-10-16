@@ -1,0 +1,48 @@
+$assets-gutter: $small-unit;
+
+.assets {
+  width:950px;
+  overflow-x:hidden;
+}
+
+.assets--body {
+  height: 550px;
+  margin-top: 0;
+  margin-bottom: 0;
+  background: #C8C8C8;
+  @include pie-clearfix;
+}
+
+.assets--body--left {
+  width: span(3,4);
+  float: left;
+  background: #f4f4f4;
+  height: 100%;
+  overflow: auto;
+}
+
+.assets--body--right {
+  width: span(1,4);
+  float: left;
+}
+
+.assets--body--left,
+.assets--body--right {
+  padding: $assets-gutter;
+}
+
+// ASSETS SEARCH
+
+.assets--search--stats {
+  float: left;
+}
+
+.assets--search form {
+  float: right;
+}
+
+// ASSETS LISTING
+
+.assets--listing {
+  padding-top: $assets-gutter;
+}

@@ -39,6 +39,15 @@ $button-error-foreground-color:     $white;
   }
 }
 
+.button__black {
+  @extend .button__primary;
+  background: $black;
+
+  &:hover {
+    background: darken($black,10);
+  }
+}
+
 .button__error {
   @extend .button;
   @include color-link($button-error-foreground-color, $button-error-foreground-color);

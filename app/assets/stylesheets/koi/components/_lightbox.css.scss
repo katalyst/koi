@@ -6,6 +6,10 @@
   background: #fff;
   width: 90%;
   max-width: 800px;
+  margin-top: $medium-gutter;
+  margin-bottom: $medium-gutter;
+  @include border-radius($border-radius);
+  overflow: hidden;
 
   .lightbox__small & {
     max-width: 500px;
@@ -15,7 +19,15 @@
 // Lightbox Headings
 .lightbox--heading {
   padding: $x-small-unit $small-unit;
-  border-bottom: 1px solid $grey;
+  border-bottom: 5px solid $primary-color;;
+  text-align: right;
+  background: $black;
+  color: $white;
+  @include pie-clearfix;
+
+  h1,h2,h3,h4 {
+    float: left;
+  }
 
   .content &,
   .content-spacing & {
@@ -23,13 +35,14 @@
   }
 }
 
+.lightbox--subheading {
+  padding: $x-small-unit $small-unit;
+  background: $light-grey;
+}
+
 // Lightbox Content
 .lightbox--content {
   padding: $small-unit;
-
-  .lightbox__flush & {
-    padding: 0;
-  }
 }
 
 // Lightbox Buttons
@@ -66,17 +79,17 @@
 .mfp-figure .mfp-close {
   @include grunticon("close-16-white", 16px);
   position: absolute;
-  top: -$xxxxx-small-unit;
-  right: -$xxxxx-small-unit;
+  top: 22px;
+  right: 22px;
 
   &:active {
-    top: -$xxxxx-small-unit; 
+    top: 22px; 
   }
 
   .lightbox__flush &,
   .lightbox__flush &:active {
-    top: -$xxx-small-unit;
-    right: -$xxx-small-unit;
+    top: 22px;
+    right: 22px;
   }
 }
 

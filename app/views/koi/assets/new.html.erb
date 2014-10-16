@@ -1,24 +1,27 @@
-<header class="pad-1">
-  <h4>Upload New <%= resource_class.name %></h4>
-</header>
+<h4 class="heading-four">Upload New <%= resource_class.name %></h4>
 
 <section class="pad-1 space-b-1">
 
   <%= simple_form_for resource, html: { id: 'upload-form', class: 'simple_form', multipart: true } do |f| %>
-    <%= f.error_notification %>
 
-    <p>Select file/s:</p>
+    <div class="inputs">
+      <%= f.error_notification %>
 
-    <div id="upload-files"></div>
+      <p>Select file/s:</p>
 
-    <%= f.submit value: "Add files...", class: "btn btn-primary btn-small space-b-1", id: 'upload-button-browse' %>
-  
-    <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
+      <div id="upload-files"></div>
 
-    <div>
-      <div id="upload-button-upload" class="pull-left space-r-1"><%= f.submit value: "Upload", disabled: "disabled", class: "btn btn-primary btn-small disabled" %></div>
-      <%= link_to "Cancel", collection_path, class: "btn btn-small" %>
+      <%= f.submit value: "Add files...", class: "button__primary", id: 'upload-button-browse' %>
+    
+      <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: "" } %>
+
+      <div>
+        <div id="upload-button-upload" class="align-box-left">
+          <%= f.submit value: "Upload", disabled: "disabled", class: "button" %>
+        </div>
+        <%= link_to "Cancel", collection_path, class: "button" %>
+      </div>
     </div>
-  <% end %>
 
+  <% end %>
 </section>

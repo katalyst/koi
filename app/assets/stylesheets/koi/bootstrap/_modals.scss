@@ -1,12 +1,15 @@
 // MODALS
 // ------
 
+$zindexModalBackdrop: #fff;
+$zindexModal: 99;
+
 // Recalculate z-index where appropriate
 .modal-open {
-  .dropdown-menu {  z-index: $zindexDropdown + $zindexModal; }
-  .dropdown.open { *z-index: $zindexDropdown + $zindexModal; }
-  .popover       {  z-index: $zindexPopover  + $zindexModal; }
-  .tooltip       {  z-index: $zindexTooltip  + $zindexModal; }
+  .dropdown-menu {  z-index: 99; }
+  .dropdown.open { *z-index: 99; }
+  .popover       {  z-index: 99; }
+  .tooltip       {  z-index: 99; }
 }
 
 // Background
@@ -41,7 +44,7 @@
   *border: 1px solid #999; /* IE6-7 */
   @include border-radius(6px);
   @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
-  @include background-clip(padding-box);
+  // @include background-clip(padding-box);
   &.fade {
     $transition: opacity .3s linear, top .3s ease-out;
     @include transition($transition);

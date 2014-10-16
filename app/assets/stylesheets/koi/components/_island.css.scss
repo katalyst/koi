@@ -8,7 +8,7 @@ $island-error-background:   mix($error-color, $white, 10);
   clear: both;
   background: $island-default-background;
   padding: $xxx-small-unit;
-  padding-left: $xxxxx-large-unit;
+  padding-right: $xxxxx-large-unit;
   margin: $default-unit 0;
   min-height: 24px;
   @include box-sizing(content-box);
@@ -19,7 +19,7 @@ $island-error-background:   mix($error-color, $white, 10);
   .close {
     position: absolute;
     top: $xxx-small-unit;
-    left: $xxx-small-unit;
+    right: $xxx-small-unit;
     width: 24px;
     height: 24px;
     line-height: 24px;

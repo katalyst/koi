@@ -8,34 +8,6 @@
 .listing--pagination--search {
   float: left;
   width: 50%;
-
-  form,
-  form input {
-    width: auto;
-  }
-
-  label {
-    padding-top: 2px;
-  }
-
-  label, 
-  input,
-  .search--buttons {
-    float: left;
-  }
-
-  input,
-  .search--buttons {
-    margin-left: $xxxxx-small-unit;
-  }
-
-  .input__tight {
-    // pull the input out of the row, so the row height is determined by
-    // the buttons
-    margin-top: -5px;
-    margin-bottom: -5px;
-  }
-
 }
 
 .listing--pagination--options {

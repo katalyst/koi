@@ -91,3 +91,13 @@
     }
   }
 }
+
+.list-horizontal-flush {
+  @include list-horizontal($xxxxx-small-unit, false);
+  @include list-flush("left and right");
+}
+
+.list-horizontal-flush__small {
+  @include list-horizontal(4px, false);
+  @include list-flush("left and right");
+}

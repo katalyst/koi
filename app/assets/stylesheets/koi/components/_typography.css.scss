@@ -113,6 +113,9 @@ body, .body-type {
     margin-bottom: 0;
   }
 }
+.heading-four {
+  @include heading-four();
+}
 
 @mixin heading-five() {}
 @mixin heading-six() {}
@@ -171,14 +174,6 @@ a, button {
   @include color-link($link-color, $link-hover-color);
 }
 
-
-// FORMS
-
-[type="text"], [type="password"], [type="date"], [type="datetime"], [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"], [type="url"], textarea {
-  @include font($input-typeface);
-}
-
-
 // TABLES
 
 th {
@@ -203,7 +198,6 @@ a, button {
 [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
 [type="url"], textarea {
   font: inherit;
-  font-size: $base-font-size;
   line-height: $base-line-height;
   @include font($body-font);
 }

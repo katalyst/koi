@@ -1,14 +1,9 @@
-<header class="titlebar">
-
-  <h2 class="pad-t-1">
+<div class="lightbox--heading">
+  <h2 class="heading-two">
     <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-
-    <!-- ALEX: originally had a close class which clashes with bootstrap -->
-    <!-- FIXME: Move the onclick modal close code to javascript file -->
-    <a href="#" onclick="$('#modal-for-nav-item').modal('hide');" class="txt-orange pull-right space-r-2">&times;</a>
   </h2>
-
-</header>
+</div>
+<div class="lightbox--content">
 
 <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
 
@@ -50,3 +45,4 @@
 
 <% end %>
 
+</div>
