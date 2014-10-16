@@ -1,3 +1,8 @@
+<%- # JS HTML replacement is nuking the close button -%>
+<%- unless resource.errors.blank? -%>
+  <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+<%- end -%>
+
 <div class="lightbox--heading">
   <h2 class="heading-two">
     <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>

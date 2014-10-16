@@ -5,10 +5,6 @@
   font-size:13px; 
   font-weight:bold;
 
-  &.is-hidden > div > div > div > div > a { 
-    color: #aaa; 
-  }
-
   &.level-0 {
     padding-left:0;
 
@@ -103,6 +99,10 @@
         }
       }
     }
+  }
+
+  &.is-hidden .zone .body a { 
+    @include color-link(#aaa);
   }
 
 }

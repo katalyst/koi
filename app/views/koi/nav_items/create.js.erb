@@ -1,6 +1,7 @@
 <% if resource.errors.any? -%>
 
-  $ ("#modal-for-nav-item").html ("<%= escape_javascript render ("modal_nav_item") %>");
+  $("#modal-for-nav-item").html ("<%= escape_javascript render ("modal_nav_item") %>");
+  $("#modal-for-nav-item").append('<button title="Close (Esc)" type="button" class="mfp-close">×</button>');
 
 <% else %>
 

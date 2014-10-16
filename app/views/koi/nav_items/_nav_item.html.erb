@@ -24,7 +24,7 @@
 
           <div class="controls">
             <ul class="hoverable menu ui-nestedSortable-no-nesting">
-              <%= content_tag :li, link_to("Modify", [:edit, nav_item], class: "button", data: { lightbox: "" }) unless RootNavItem === nav_item %>
+              <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button") unless RootNavItem === nav_item %>
               <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
 
               <li class="has-menu">
