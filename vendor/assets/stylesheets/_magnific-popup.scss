@@ -8,8 +8,9 @@
   overflow: hidden;
   position: fixed;
   background: #0b0b0b;
-  opacity: 0.8;
-  filter: alpha(opacity=80); }
+  opacity: 0.4;
+  filter: alpha(opacity=40); 
+}
 
 .mfp-wrap {
   top: 0;
@@ -48,7 +49,9 @@
   vertical-align: middle;
   margin: 0 auto;
   text-align: left;
-  z-index: 1045; }
+  z-index: 1045; 
+  @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
+}
 
 .mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content {
   width: 100%;

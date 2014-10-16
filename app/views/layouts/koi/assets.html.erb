@@ -1,124 +1,124 @@
 <% js_data :create_asset_url, collection_path %>
 <% js_data :accepted_extensions, Koi::Asset.const_get(resource_class.name).extensions.join(',') %>
-
 <% content_for :head, javascript_include_tag("koi/assets") %>
 
 <% content_for :global do %>
-  <body class="assets">
+  <body>
+    <div class="assets">
 
-    <div class="lightbox--heading">
-      <h2 class="heading-two">Select <%= resource_class.name %></h2>
-      <%= link_to "Upload New #{ resource_class.name }", collection_path, class: "button__primary" %>
-    </div>
+      <div class="lightbox--heading">
+        <h2 class="heading-two">Select <%= resource_class.name %></h2>
+        <%= link_to "Upload New #{ resource_class.name }", collection_path, class: "button__primary" %>
+        <button title="Close (Esc)" type="button" class="mfp-close-internal">×</button>
+      </div>
 
-    <div class="lightbox--subheading">
-      <ul class="list-horizontal-flush__small">
+      <div class="lightbox--subheading assets--filters">
+        <ul class="list-horizontal-flush__small">
 
-        <li>
-          Filter:
-        </li>
-
-        <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
-        <li>
-          <%= link_to "All", { tags: nil }, class: (@tags.empty? ? "button__black" : "button") %>
-        </li>
-
-        <% @all_tags.each do |tag| %>
-
-          <% selected = @tags.include? tag %>
           <li>
-            <%= link_to tag.to_s, params.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: (selected ? "button__black" : "button") %>
+            <span>Filter:</span>
           </li>
 
-        <% end %>
-      </ul>
-    </div>
-  
-    <div class="assets--body">
-      <div class="assets--body--left">
+          <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
+          <li>
+            <%= link_to "All", { tags: nil }, class: (@tags.empty? ? "button__black" : "button") %>
+          </li>
 
-        <div class="assets--search form--tiny-search small">
+          <% @all_tags.each do |tag| %>
 
-          <div class="assets--search--stats">
-            <p><%= pluralize collection.size, resource_class.name %></p>
-          </div>
+            <% selected = @tags.include? tag %>
+            <li>
+              <%= link_to tag.to_s, params.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: (selected ? "button__black" : "button") %>
+            </li>
 
-          <%= form_tag collection_path, :method => 'get', class: "simple_form form-inline pull-right" do %>
+          <% end %>
+        </ul>
+      </div>
+    
+      <div class="assets--body">
+        <div class="assets--body--left" data-conform-slave="asset-manager">
 
-            <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
-            <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
-            <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
-            <% unless params[:tags].blank? %>
-              <% params[:tags].each do |tag| %><%= hidden_field_tag "tags[]", tag %><% end %>
+          <div class="assets--search form--tiny-search small">
+
+            <div class="assets--search--stats">
+              <p><%= pluralize collection.size, resource_class.name %></p>
+            </div>
+
+            <%= form_tag collection_path, :method => 'get', class: "simple_form form-inline pull-right" do %>
+
+              <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
+              <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
+              <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
+              <% unless params[:tags].blank? %>
+                <% params[:tags].each do |tag| %><%= hidden_field_tag "tags[]", tag %><% end %>
+              <% end %>
+
+              <label>Search</label>
+
+              <input type="text"
+                     name="search"
+                     placeholder="Enter search criteria"
+                     value="<%= params[:search] %>"
+                     class="input__tight" />
+
+              <div class="search--buttons">
+                <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", class: "button__primary" %>
+                <%= link_to "Reset", collection_path(params.merge search: nil), class: "button" %>
+              </div>
             <% end %>
 
-            <label>Search</label>
+          </div>
 
-            <input type="text"
-                   name="search"
-                   placeholder="Enter search criteria"
-                   value="<%= params[:search] %>"
-                   class="input__tight" />
+          <div class="assets--listing clear">
 
-            <div class="search--buttons">
-              <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", class: "button__primary" %>
-              <%= link_to "Reset", collection_path(params.merge search: nil), class: "button" %>
-            </div>
-          <% end %>
-
-        </div>
-
-        <div class="assets--listing clear">
-
-          <table class="table table-striped table-condensed txt-grey font-12px">
-            <thead>
-              <tr>
-                <th>
-                </th>
-                <th>
-                  <div>
-                    <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
-                  </div>
-                </th>
-                <th>
-                  <%= sortable "created_at", "Uploaded", style: "padding-right:15px;" %>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <% collection.each_with_index do |asset, i| %>
-                <% begin %>
-                  <tr>
-                    <td>
-                      <%= link_to resource_path asset, params do %>
-                        <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
-                      <% end %>
-                    </td>
-                    <td>
-                      <%= link_to resource_path asset, params do %>
-                        <%= asset.data_name %>
-                      <% end %>
-                    </td>
-                    <td>
-                      <%= link_to resource_path asset, params do %>
-                        <%= date_d_Month_yyyy asset.created_at %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% rescue Dragonfly::DataStorage::DataNotFound %>
-                <% next %>
+            <table class="table table-striped table-condensed txt-grey font-12px">
+              <thead>
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    <div>
+                      <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
+                    </div>
+                  </th>
+                  <th>
+                    <%= sortable "created_at", "Uploaded", style: "padding-right:15px;" %>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% collection.each_with_index do |asset, i| %>
+                  <% begin %>
+                    <tr>
+                      <td>
+                        <%= link_to resource_path asset, params do %>
+                          <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to resource_path asset, params do %>
+                          <%= asset.data_name %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to resource_path asset, params do %>
+                          <%= date_d_Month_yyyy asset.created_at %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% rescue Dragonfly::DataStorage::DataNotFound %>
+                  <% next %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+
+          </div>
 
         </div>
-
-      </div>
-      <div class="assets--body--right">
-
-        <%= content_for?(:assets) ? yield(:assets) : yield %>
-
+        <div class="assets--body--right" data-conform="asset-manager">
+          <%= content_for?(:assets) ? yield(:assets) : yield %>
+        </div>
       </div>
     </div>
 

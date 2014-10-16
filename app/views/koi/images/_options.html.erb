@@ -1,18 +1,20 @@
-<h6>Sizes Available:</h6>
+<div class="spacing-xxx-tight">
+  <h6 class="heading-six">Sizes Available:</h6>
 
-<ul class="unmarked-list clearfix space-0">
+  <ul class="">
 
-  <li class="clear">
-    <input type="radio" name="asset[width]" id="asset[width][0]" value="<%= resource.width %>" class="pull-left" checked />
-    <label for="asset[width][0]" class="pull-left pad-l-1"><%= resource.title_options %> (Original)</label>
-  </li>
-  
-  <% Koi::Asset::Image.sizes.each_with_index do |opt, i| %><% i += 1 %>
     <li class="clear">
-
-      <input type="radio" name="asset[width]" id="asset[width][<%= i %>]" value="<%= opt[:width] %>" class="pull-left" />
-      <label for="asset[width][<%= i %>]" class="pull-left pad-l-1"><%= opt[:title] %></label>
-
+      <input type="radio" name="asset[width]" id="asset[width][0]" value="<%= resource.width %>" class="pull-left" checked />
+      <label for="asset[width][0]" class="pull-left pad-l-1"><%= resource.title_options %> (Original)</label>
     </li>
-  <% end %>
-</ul>
+    
+    <% Koi::Asset::Image.sizes.each_with_index do |opt, i| %><% i += 1 %>
+      <li class="clear">
+
+        <input type="radio" name="asset[width]" id="asset[width][<%= i %>]" value="<%= opt[:width] %>" class="pull-left" />
+        <label for="asset[width][<%= i %>]" class="pull-left pad-l-1"><%= opt[:title] %></label>
+
+      </li>
+    <% end %>
+  </ul>
+</div>

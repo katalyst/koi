@@ -43,7 +43,7 @@
 //= require koi/components/lightbox
 //= require koi/components/text-limiter
 
-//= require koi/bootstrap/modal
+//= require koi/bootstrap/dropdown
 
 //= require koi/koi/koi
 //= require koi/koi/shed
@@ -58,5 +58,3 @@
 
 // require ./etc/ZeroClipboard
 // require rickshaw_with_d3
-
-//= require koi/bootstrap/dropdown

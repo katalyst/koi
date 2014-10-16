@@ -20,10 +20,12 @@
         type: "inline",
         mainClass: "lightbox--main",
         removalDelay: 300,
+        fixedContentPos: true,
         callbacks: {
           open: function(){
             // callback on open to trigger a refresh for google maps
-            $(document).trigger("ornament:map_refresh");
+            // $(document).trigger("ornament:map_refresh");
+            $(document).trigger("ornament:column-conform");
           }
         }
       }
@@ -57,6 +59,7 @@
         tLoading: 'Loading image #%curr%...',
         mainClass: "lightbox--main",
         removalDelay: 300,
+        fixedContentPos: true,
         gallery: {
           enabled: true,
           navigateByImgClick: true,
@@ -66,6 +69,17 @@
           tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
         }
       });
+    });
+
+    // Custom close buttons
+    $(".mfp-close-internal").off("click").on("click", function(){
+      // TODO: Figure out a better way to close the popup that's on the other side of
+      // an iframe.
+      // var $parentWindow = $(window.parent.document);
+      // $parentWindow.find(".mfp-wrap").remove();
+      // $parentWindow.find(".mfp-bg").remove();
+      // debugger;
+      window.close();
     });
 
   });
@@ -129,6 +143,7 @@
     $.magnificPopup.open({
       mainClass: "lightbox--main",
       removalDelay: 300,
+      fixedContentPos: true,
       items: {
         src: $modalHtml,
         type: 'inline'

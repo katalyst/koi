@@ -1,20 +1,27 @@
 $assets-gutter: $small-unit;
 
 .assets {
-  width:950px;
+  // width:950px;
   overflow-x:hidden;
 }
 
 .assets--body {
-  height: 550px;
   margin-top: 0;
   margin-bottom: 0;
   background: #C8C8C8;
   @include pie-clearfix;
 }
 
+.assets--filters {
+  ul li span {
+    display: block;
+    padding-top: 2px;
+  }
+}
+
 .assets--body--left {
   width: span(3,4);
+  min-height: 468px;
   float: left;
   background: #f4f4f4;
   height: 100%;
@@ -68,4 +75,14 @@ $assets-gutter: $small-unit;
   .tagify {
     margin-bottom: $xx-small-unit;
   }
+  .align-box-left {
+    margin-right: $xxxxx-small-unit;
+  }
+}
+
+// ASSET SIDEBAR - PREVIEW
+
+.assets--body--right .plupload.html5 {
+  // not sure if this is necessary, it's breaking the layout, so hiding for now
+  display: none;
 }

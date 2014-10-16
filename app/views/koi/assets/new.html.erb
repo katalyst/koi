@@ -2,13 +2,10 @@
 
 <%= simple_form_for resource, html: { id: 'upload-form', class: 'simple_form', multipart: true } do |f| %>
 
-    <%- unless f.error_notification.blank? -%>
-      <div class="island island__error">
-        <%= f.error_notification %>
-      </div>
-    <%- end -%>
+    <div class="spacing-xxx-tight">
 
-    <div class="spacing">
+      <%= f.error_notification %>
+
       <div class="assets--upload--new">
         <p>Select file/s:</p>
         <div id="upload-files" class="file-list"></div>
