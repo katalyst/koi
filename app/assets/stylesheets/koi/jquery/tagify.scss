@@ -28,8 +28,11 @@ Author: Alicia Liu
     font-weight: bold;
 }
 .tagify-container > input {
-    border: 0 none;
+    border: 0 none !important;
+    clear: both;
     width: 100px;
+    display: block;
+    padding: 3px 5px !important;
 }
 .tagify-container > input:focus {
     outline: none;

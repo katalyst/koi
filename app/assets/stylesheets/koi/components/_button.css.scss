@@ -16,6 +16,7 @@ $button-error-foreground-color:     $white;
   @include decorate-link(none, none);
   @include inline-block;
   @include transition(background .2s);
+  font-size: inherit;
   background: $button-background-color;
   border: 0;
   color: $button-foreground-color;
