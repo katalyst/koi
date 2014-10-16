@@ -31,7 +31,7 @@
     }
 
     var getWidthOfTabRow = function($tabset) {
-      var $links = $tabset.find(".tabs-links li");
+      var $links = $tabset.find(".tabs--links li");
       var widthOfTabs = 0;
       $links.each(function(){
         widthOfTabs = widthOfTabs + $(this).outerWidth();
@@ -42,7 +42,7 @@
     var areTabsGoingToWrap = function($tabset) {
       var tabWidth = getWidthOfTabRow($tabset);
       var tabPanesWidth = $tabset.outerWidth() - 10; // some buffer for good measure
-      var $tabLinks = $tabset.find(".tabs-links");
+      var $tabLinks = $tabset.find(".tabs--links");
 
       if( !$tabLinks.is("[data-tab-width]") ) {
         $tabLinks.attr("data-tab-width", tabWidth);
@@ -58,7 +58,7 @@
 
     // Get active pane from a tabset
     var getActivePane = function($tabset) {
-      return $tabset.find(".tabs-links ."+tabActiveClass).attr("data-tab");
+      return $tabset.find(".tabs--links ."+tabActiveClass).attr("data-tab");
     }
 
     // Push to hash if deeplinking is turned on
@@ -83,7 +83,7 @@
     // Check if a select menu should be visible or not as a fallback for tabs
     // on smaller screen sizes
     var checkIfTabsNeedSelectMenu = function($tabset) {
-      var $tabLinks = $tabset.find(".tabs-links");
+      var $tabLinks = $tabset.find(".tabs--links");
 
       // check if there's already a select menu ready to be used
       var $fallbackSelect = $tabset.find(".tabs--fallback-select");
@@ -103,7 +103,7 @@
           }).text(tabLabel);
           $optionElement.appendTo($fallbackSelect);
         });
-        $tabset.find(".tabs-links").before($fallbackSelect);
+        $tabset.find(".tabs--links").before($fallbackSelect);
         // on change functionality to update tabs
         $fallbackSelect.on("change", function(){
           var pane = $fallbackSelect.val();
@@ -132,7 +132,7 @@
       // check bounds
       var leftBound = 0;
       var rightBound = tabWidth - $tabset.outerWidth();
-      var offset = offset || parseInt($tabset.find(".tabs-links ul").css("margin-left")) || 0;
+      var offset = offset || parseInt($tabset.find(".tabs--links ul").css("margin-left")) || 0;
 
       // overscroll maximums
       var leftOverscrollMax = 130;
@@ -173,7 +173,7 @@
 
     // Build up some additional required markup for swiping behaviours
     var scaffoldSwipeTabs = function($tabset){
-      var $tabLinksContainer = $tabset.find(".tabs-links");
+      var $tabLinksContainer = $tabset.find(".tabs--links");
       var $tabList = $tabLinksContainer.children("ul");
 
       // Get the height of a tab for later, set the width of the tab row to fit all tabs
@@ -194,7 +194,7 @@
       // check if shadows are needed
       checkSwipeStatus($tabset);
 
-      var $swipeTargets = $tabset.find(".tabs-links");
+      var $swipeTargets = $tabset.find(".tabs--links");
       $swipeTargets.swipe({
         excludedElements: "button, input, select, textarea, .noSwipe",
         triggerOnTouchLeave: true,

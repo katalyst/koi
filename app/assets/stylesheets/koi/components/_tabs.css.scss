@@ -2,7 +2,7 @@ $tab-inactive-color: #ECF0F1;
 
 // TABS
 
-.tabs-links {
+.tabs--links {
   overflow: hidden;
 
   ul {
@@ -66,7 +66,7 @@ $tab-inactive-color: #ECF0F1;
 .tabs--pane {
   display: none;
 
-  .tabs-links + .tabs--panes & {
+  .tabs--links + .tabs--panes & {
     padding: $xx-small-unit 0;
   }
 

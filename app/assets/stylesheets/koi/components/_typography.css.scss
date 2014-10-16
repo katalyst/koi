@@ -51,7 +51,7 @@ body, .body-type {
   }
 }
 .heading-one {
-  @include heading-one();
+  @include heading-one;
 }
 
 @mixin heading-two() {
@@ -74,7 +74,7 @@ body, .body-type {
   }
 }
 .heading-two {
-  @include heading-two();
+  @include heading-two;
 }
 
 @mixin heading-three() {
@@ -96,7 +96,7 @@ body, .body-type {
   }
 }
 .heading-three {
-  @include heading-three();
+  @include heading-three;
 }
 
 @mixin heading-four() {
@@ -114,11 +114,22 @@ body, .body-type {
   }
 }
 .heading-four {
-  @include heading-four();
+  @include heading-four;
 }
 
 @mixin heading-five() {}
-@mixin heading-six() {}
+.heading-give {
+  @include heading-five;
+}
+
+@mixin heading-six() {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: $grey;
+}
+.heading-six {
+  @include heading-six;
+}
 
 @mixin heading-module {
   @include font($heading-alpha-font);

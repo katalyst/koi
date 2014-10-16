@@ -45,6 +45,13 @@
   padding: $small-unit;
 }
 
+// Lightbox footer
+.lightbox--footer {
+  margin-top: $small-unit;
+  padding-top: $small-unit;
+  border-top: 1px solid $light-grey;
+}
+
 // Lightbox Buttons
 .lightbox--buttons {
   padding: $small-unit;
