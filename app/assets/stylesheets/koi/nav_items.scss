@@ -30,6 +30,10 @@
       padding-left:30px;
       @include border-radius(5px);
 
+      a {
+        @include color-link($foreground-color, $foreground-color);
+      }
+
       .information {
         float:left;
       }
@@ -54,6 +58,11 @@
             line-height: 1;
             display: block;
             padding: 6px 8px;
+            @include color-link($white, $white);
+
+            &:hover {
+              background: darken($orange, 10);
+            }
           }
 
           .has-menu { 
@@ -62,6 +71,9 @@
             &:hover {
               ul {
                 display: block;
+              }
+              > .button {
+                background: darken($orange, 10);
               }
             }
 
@@ -72,13 +84,16 @@
             ul li {
               float: none;
               padding: 0;
-              margin-top: 1px;
+              border-top: 1px solid lighten($orange,10);
               margin-left: 0;
             }
 
-            .button {
-              width: 100%;
-              margin-top: 0;
+            ul .button {
+              background: $orange;
+
+              &:hover {
+                background: darken($orange, 10);
+              }
             }
           }
 
@@ -110,6 +125,7 @@
     &.sort > a { 
       height:22px; 
       padding-right:24px; 
+      cursor: move;
     }
   }
 }
