@@ -26,7 +26,6 @@
 //= require koi/ornament/external_links
 //= require koi/ornament/refresh
 
-//= require koi/components/ckeditor
 //= require koi/components/show
 //= require koi/components/tabs
 //= require koi/components/fotorama
@@ -45,6 +44,8 @@
 
 //= require koi/bootstrap/dropdown
 
+//= require koi/ckeditor
+//= require koi/common
 //= require koi/koi/koi
 //= require koi/koi/shed
 //= require koi/koi/stuff
@@ -52,9 +53,7 @@
 //= require koi/koi/hover
 //= require koi/koi/nestedFields
 //= require koi/koi/datePicker
-// require koi/koi/wysiwyg
-//= require koi/common
-//= require koi/ckeditor
+//= require koi/koi/wysiwyg
 
 // require ./etc/ZeroClipboard
 // require rickshaw_with_d3

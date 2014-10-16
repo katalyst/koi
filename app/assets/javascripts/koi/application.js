@@ -1,5 +1,5 @@
 //= require ./common
-//= require ./ckeditor
+// require ./ckeditor
 //= require cocoon
 //= require ./bootstrap
 
@@ -110,7 +110,9 @@
     }
 
     // Change hash for page-reload
-    $('.nav-tabs a').on('shown', function (e) {
+    // $('.nav-tabs a').on('shown', function (e) {
+    $(document).on("ornament:tab-change", function(){
+      console.log("tab has changed");
 
       for(k in CKEDITOR.instances) {
           var instance = CKEDITOR.instances[k];

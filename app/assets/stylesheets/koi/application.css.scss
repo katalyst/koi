@@ -10,12 +10,26 @@
   * asset manager close button
   * resize asset manager popup based on iframe size
   * wysiwyg
+  * sortable tables + styles
+  * image upload fields
+    - drag and drop feature
+    - nicer fallback
+  * nested fields
 
   KOI BUGS
   * tagging crashes asset manager
+  * uploading documents throws error on front end, but uploads file anyway
+  * viewing document in asset manager throws errors
+  * adding tags to pages throws errors
+  * modules > categories throws errors
+  * plupload div breaking layout in asset manager
+    - I have added display:none for now to hide it from view
+    - Not sure if required or not
+    - Same bug exists in old koi
 
-  UNKNOWNS
-  * plupload div breaking layout in asset manager, hidden for now
+  POSSIBLE NEW FEATURES
+  * view site link
+  * remove "add to page" in asset manager when not editing a page
 
 */
 
