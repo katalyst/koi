@@ -46,9 +46,13 @@
 //= require koi/bootstrap/modal
 
 //= require koi/koi/koi
+//= require koi/koi/shed
 //= require koi/koi/stuff
+//= require koi/koi/sortable
+//= require koi/koi/hover
 //= require koi/koi/nestedFields
 //= require koi/koi/datePicker
+// require koi/koi/wysiwyg
 //= require koi/common
 //= require koi/ckeditor
 

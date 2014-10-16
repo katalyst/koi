@@ -1,6 +1,5 @@
 //= require      ./jquery/browser
 // require_tree ./jquery
-// require_tree ./koi
 //= require koi/etc/ZeroClipboard.js
 
 ZeroClipboard.setMoviePath ('/assets/ZeroClipboard.swf')
