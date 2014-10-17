@@ -50,12 +50,12 @@ $ (function ()
         .find ('input')
           .attr ("disabled", null)
 
-      $.each (files, function (i, file)
-     {
-        $fileList.append
-          ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
-      })
-      uploader.refresh ()
+     $.each (files, function (i, file) {
+      $fileList.append
+        ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
+      });
+      $(document).trigger("ornament:column-conform");
+      uploader.refresh();
     })
 
     uploader.bind ('BeforeUpload', function (up, file)

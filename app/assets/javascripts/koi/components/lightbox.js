@@ -30,9 +30,6 @@
             // callback on open to trigger a refresh for google maps
             // $(document).trigger("ornament:map_refresh");
             $(document).trigger("ornament:column-conform");
-          },
-          change: function(){
-            console.log("changed");
           }
         }
       }
