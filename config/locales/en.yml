@@ -3,6 +3,10 @@
 
 en:
   hello: "Hello world"
+  simple_form:
+    hints:
+      super_hero:
+        name: "The name of your hero"
   activerecord:
     models:
       translation: Settings

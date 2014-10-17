@@ -26,7 +26,6 @@ legend {
 [type="text"], [type="password"], [type="date"], [type="datetime"],
 [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
 [type="url"], textarea {
-  @include border-radius($input-border-radius);
   background: $input-background;
   border: $input-border;
   color: $input-color;
@@ -78,10 +77,6 @@ button::-moz-focus-inner {
 
 .inputs {
   @extend .spacing-xx-tight;
-
-  label {
-    display: inline-block;
-  }
 }
 
 // Push embedded forms away from content
@@ -90,10 +85,20 @@ button::-moz-focus-inner {
 }
 
 // Spacing between inputs and labels
+.input,
 .control-group {
   .controls {
     margin-top: $xxx-small-unit;
   }
+  label {
+    font-size: $large-font-size;
+    display: inline-block;
+  }
+}
+
+// Spacing between inputs and labels for ember
+.input label {
+  margin-bottom: $xxx-small-unit;
 }
 
 // Styling input fields
@@ -117,12 +122,18 @@ textarea,
   padding-left: $xxxx-small-unit;
   padding-right: $xxxx-small-unit;
   margin: 0;
-  @include border-radius($border-radius);
   @include transition(border-color .2s);
+  @include border-radius($input-border-radius);
 
-  .layout--body & {
+  .layout--main & {
     border: $input-border;
-    @include box-shadow(inset 2px 2px 2px #dfe0e2);
+    @include box-shadow(inset 1px 1px 3px 0px rgba(0,0,0,0.20));
+  }
+
+  .layout--main .error &,
+  .layout--main .fieldWithErrors & {
+    border-color: $error-color;
+    @include box-shadow(inset 2px 2px 2px 0px rgba($error-color,0.20));
   }
 
   &.input__flat-right {
@@ -139,10 +150,6 @@ textarea,
   &[disabled] {
     background: lighten($grey,20);
     cursor: not-allowed;
-  }
-
-  &.input__tight {
-    padding: 6px 8px;
   }
 }
 
@@ -191,10 +198,11 @@ select {
   select,
   select[size='0'],
   select[size='1'] {
-    background-image: url('/assets/koi/select_arrow.gif');
+    background-image: url('/assets/koi/application/select_arrow.png');
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 1.5em;
+    @include box-shadow(none);
   }
 
 }
@@ -247,18 +255,16 @@ $radio-offset: 24px;
 }
 
 // SINGLE CHECKBOXES
-.checkbox__single {
+.checkbox_single {
   position: relative;
-  @include pie-clearfix;
 
-  .controls label {
+  .control-label {
     padding-left: $radio-offset;
   }
-  .controls label input {
+  .controls label {
     position: absolute;
-    top: 5px;
+    top: 0;
     left: 0;
-    margin: 0;
   }
 }
 
@@ -268,14 +274,21 @@ $radio-offset: 24px;
   clear: both;
 }
 
-p.hint-block { // hint
+.input .hint,
+p.hint-block {
   color: $hint-color;
   font-style: italic;
+  font-size: $small-font-size;
   margin: 0;
 }
 
-span.error-block { // error
+.fieldWithErrors .error,
+span.error-block,
+p.error-block {
   color: $error-color;
+  font-size: $small-font-size;
+  margin-top: $xxxxx-small-unit;
+
   &:before {
     content: " ";
   }
@@ -344,6 +357,21 @@ $file-thumbnail-width: 100px;
 .form-inline__full {
   @extend .form-inline;
   width: 100%;
+}
+
+// INLINE AND CONTAINED FIELD
+.form-inline__contained {
+  background: $white;
+  position: relative;
+  @include border-radius($input-border-radius);
+
+  .form-inline--input {
+    background: transparent;
+    border: 0;
+  }
+  .form-inline--button {
+    background: transparent;
+  }
 }
 
 // FULL-WIDTH SEARCH FIELD WITH LABEL
