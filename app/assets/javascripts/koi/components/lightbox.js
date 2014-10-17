@@ -7,6 +7,10 @@
 
   "use strict";
 
+  $(document).on("ornament:close-popups", function () {
+    $.magnificPopup.close();
+  });
+
   $(document).on("ornament:refresh", function () {
 
     // Single lightbox anchors
@@ -73,11 +77,12 @@
 
     // Custom close buttons
     $(".mfp-close-internal").off("click").on("click", function(){
-      // TODO: Figure out a better way to close the popup that's on the other side of
+      // TODO: Figure out a way to close the popup that's on the other side of
       // an iframe.
-      var $parentWindow = $(window.parent.document);
-      $parentWindow.find(".mfp-wrap").remove();
-      $parentWindow.find(".mfp-bg").remove();
+      // var $parentWindow = $(window.parent.document);
+      // $parentWindow.trigger("ornament:close-popups");
+      // $parentWindow.find(".mfp-wrap").remove();
+      // $parentWindow.find(".mfp-bg").remove();
     });
 
   });
