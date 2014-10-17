@@ -2,6 +2,13 @@ $file-upload-thumbnail-width: 200px;
 $file-upload-thumbnail-background: #444;
 $file-upload-breakpoint: 545px;
 
+.form--file-upload--fallback {
+  display: none;
+  .image-upload--unsupported {
+    display: block;
+  }
+}
+
 // dropzone for images/files
 .file-upload--dropzone {
   @include pie-clearfix;

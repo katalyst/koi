@@ -41,8 +41,8 @@
 //= require koi/components/map
 //= require koi/components/lightbox
 //= require koi/components/text-limiter
-
-//= require koi/bootstrap/dropdown
+//= require koi/components/dismiss
+//= require koi/components/dropdown
 
 //= require koi/ckeditor
 //= require koi/common
@@ -55,5 +55,4 @@
 //= require koi/koi/datePicker
 //= require koi/koi/wysiwyg
 
-// require ./etc/ZeroClipboard
-// require rickshaw_with_d3
+//= require rickshaw_with_d3

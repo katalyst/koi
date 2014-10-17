@@ -1,5 +1,5 @@
 <li class="space-b-1">
-  <%= f.label(attr) %>
+  
   <div class="as-clr">
     <% unless resource.send(attr).nil? || resource.new_record? %>
       <%= link_to "Download File", resource.send(attr).url, :class => 'imgfix left space-r-1 space-b-1' %>

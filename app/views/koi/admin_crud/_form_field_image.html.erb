@@ -1,1 +1,66 @@
-<%= render "form_field_file", :f => f, :attr => attr %>
+<%
+  object        = f.object
+  klass         = object.class
+  value         = object.send attr
+  remove        = "remove_#{attr}"
+  is_nil_or_new = (value.nil? || object.new_record?)
+  is_required   = klass.validates_presence_of? attr
+  kind          = klass.crud.find(:fields, attr, :type)
+  html_id       = new_uuid
+
+  # maximum amount of files uploaded to this field
+  max_count ||= "1"
+
+  # max file size of each file
+  max_size ||= "5"
+
+  # allowed file types
+  types ||= "jpg,jpeg,gif"
+
+  # over-rideable html class for input file and dropzone
+  html_class ||= "image-upload"
+
+  # if there's an existing image
+  if resource.send(attr).nil? || resource.new_record?
+    existing_image = ""
+  else
+    existing_image = resource.send(attr).url
+  end
+
+%>
+
+<div class="input file optional control-group kat-upload <%= attr -%>">
+
+  <%= f.label(attr) -%>  
+  <div class="form--file-upload--hint-position">
+    <%= f.hint(attr) -%>
+  </div>
+  <%= f.error(attr) -%>
+
+  <div class="form--file-upload--fallback controls">
+
+    <p class="help-block">
+      <%- if max_size -%>
+        Max file size: <%= max_size -%>mb<br />
+      <%- end -%>
+      <%- if types -%>
+        File types allowed: <%= types -%><br />
+      <%- end -%>
+      <%- if max_count.to_i > 1 -%>
+        Maximum number of files: <%= max_count -%><br />
+      <%- end -%>
+    </p>
+
+    <% unless resource.send(attr).nil? || resource.new_record? %>
+      <%= image_tag resource.send(attr).thumb('100x').url, :class => 'form--file-upload--fallback-image imgfix left space-r-1' %>
+    <% end %>
+
+  </div>
+
+  <div class="form--file-upload controls">
+    <div>
+      <%= f.file_field(attr, class: html_class, data: {file_max_count: max_count, file_max_size: max_size, file_types: types, file_existing_image: existing_image, field: "hidden_for_#{attr}" }) %>
+    </div>
+  </div>
+
+</div>

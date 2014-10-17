@@ -29,6 +29,7 @@
         hintMarkup              : "<p class='hint-block'></p>",
         hintPlaceholder         : false,
         uploadPath              : "/uploads/image",
+        unsupportedClass        : "image-upload--unsupported",
         demo                    : false, // demo mode doesn't upload anything
         browseMessage           : "Drop your file here or click browse to upload.",
         undoMessage             : "Removed. Click here to undo.",
@@ -54,8 +55,7 @@
 
       // Abort if unsupported
       if(!supportsFileAPI || !supportsDragAndDrop){
-        // show flash message for unsupported browsers
-        $(".file-upload-flash").show();
+        $("html").addClass(options.unsupportedClass);
         return false;
       }
 
@@ -95,7 +95,7 @@
         var isAllowed = false;
         var allowedArray = allowedTypes.toLowerCase().split(",");
 
-        var extension_split = f.name.split(".");
+        var extension_split = f.name.toLowerCase().split(".");
         var extension = extension_split[extension_split.length - 1];
 
         debug(extension);
@@ -105,73 +105,6 @@
           debug("matching");
           isAllowed = true;
         }
-
-        /*
-
-        // mime types
-        var typeJpeg    = "image/jpeg";
-        var typeGif     = "image/gif";
-        var typePng     = "image/png";
-        var typePdf     = "application/pdf";
-        var typeWord    = "application/msword";
-        var typeExcel   = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-        debug(" ");
-        debug("checking against: " + allowedTypes);
-        debug("file is: " + fileType);
-
-        // convert single file types to an array
-        if(allowedTypes.indexOf(",") == -1) {
-          allowedArray = [allowedTypes.toLowerCase()];
-        }
-
-        // very basic and potentially unreliable method of checking file types
-        switch(fileType) {
-          case typeJpeg:
-            if( $.inArray("jpg", allowedArray) > -1 ||
-                $.inArray("jpeg", allowedArray) > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typeJpeg");
-            break;
-          case typeGif:
-            if( $.inArray("gif", allowedArray) > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typeGif");
-            break;
-          case typePng:
-            if( $.inArray("png", allowedArray)  > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typePng");
-            break;
-          case typeWord:
-            if( $.inArray("doc", allowedArray)  > -1 ||
-                $.inArray("docx", allowedArray) > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typeWord");
-            break;
-          case typeExcel:
-            if( $.inArray("xls", allowedArray)  > -1 ||
-                $.inArray("xlsx", allowedArray) > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typeWord");
-            break;
-          case typePdf:
-            if( $.inArray("pdf", allowedArray) > -1 ) {
-              isAllowed = true;
-            }
-            debug("matched against typePdf");
-            break;
-          default:
-            debug("did not match any known mime types");
-            break;
-        }
-        debug(" ");
-        */
 
         return isAllowed;
 
@@ -205,6 +138,11 @@
         var existingImage = $thisField.data("file-existing-image");
         var fileClasses = $thisField.attr("class");
         var $hiddenField = $("#"+ $thisField.attr("data-field") );
+
+        // Abort if has active clas
+        if($(this).hasClass("upload-rendered"))  {
+          return false;
+        }
 
         var gallery = true;
         if(maxCount === 1) {
@@ -832,6 +770,9 @@
         // rebind ordering on page load to bind it to existing images
         rebindOrdering();
 
+        // add class to element to stop if from doubling up
+        $thisField.addClass("upload-rendered");
+
       });
 
     }
@@ -839,8 +780,23 @@
 
 })(jQuery);
 
-$(function(){
-  $(".file-upload").katFileUpload({
-    uploadPath: "/uploads/image"
+/*jslint browser: true, indent: 2, todo: true, unparam: true */
+/*global jQuery,Ornament /*/
+
+(function (document, window, $) {
+
+  "use strict";
+
+  $(document).on("ornament:refresh", function () {
+
+    $(".file-upload").katFileUpload({
+      uploadPath: "/uploads/file"
+    });
+
+    $(".image-upload").katFileUpload({
+      uploadPath: "/uploads/image"
+    });
+
   });
-});
+
+}(document, window, jQuery));
