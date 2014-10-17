@@ -23,7 +23,7 @@ $assets-gutter: $small-unit;
   width: span(3,4);
   min-height: 468px;
   float: left;
-  background: #f4f4f4;
+  background: $x-light-grey;
   height: 100%;
   overflow: auto;
 }
