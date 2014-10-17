@@ -151,6 +151,10 @@ textarea,
     background: lighten($grey,20);
     cursor: not-allowed;
   }
+
+  &.input__tight {
+    padding: 6px 8px;
+  }
 }
 
 // PLACEHOLDERS
@@ -255,16 +259,18 @@ $radio-offset: 24px;
 }
 
 // SINGLE CHECKBOXES
-.checkbox_single {
+.checkbox__single {
   position: relative;
+  @include pie-clearfix;
 
-  .control-label {
+  .controls label {
     padding-left: $radio-offset;
   }
-  .controls label {
+  .controls label input {
     position: absolute;
-    top: 0;
+    top: 5px;
     left: 0;
+    margin: 0;
   }
 }
 
