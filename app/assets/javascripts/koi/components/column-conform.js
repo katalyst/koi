@@ -155,6 +155,10 @@
     $(document).trigger("ornament:column-conform");
   });
 
+  $(document).on("ornament:tab-change", function () {
+    $(document).trigger("ornament:column-conform");
+  });
+
   $(window).on("resize", function(){
     $(document).trigger("ornament:column-conform");
   });

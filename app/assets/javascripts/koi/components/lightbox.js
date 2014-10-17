@@ -75,11 +75,9 @@
     $(".mfp-close-internal").off("click").on("click", function(){
       // TODO: Figure out a better way to close the popup that's on the other side of
       // an iframe.
-      // var $parentWindow = $(window.parent.document);
-      // $parentWindow.find(".mfp-wrap").remove();
-      // $parentWindow.find(".mfp-bg").remove();
-      // debugger;
-      window.close();
+      var $parentWindow = $(window.parent.document);
+      $parentWindow.find(".mfp-wrap").remove();
+      $parentWindow.find(".mfp-bg").remove();
     });
 
   });
