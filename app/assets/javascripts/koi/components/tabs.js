@@ -14,7 +14,7 @@
     var currentHash         = document.location.hash;
     var leftShadowClass     = "shadow-left";
     var rightShadowClass    = "shadow-right";
-    var activeDeeplinking   = false;
+    var activeDeeplinking   = true;
 
     var loadTab = function($tabset, pane){
       var $anchor  = $tabset.find("[data-tab='"+pane+"']");
@@ -68,7 +68,12 @@
     // Push to hash if deeplinking is turned on
     var pushHashToLocation = function($tabset, pane){
       if( activeDeeplinking || $tabset.is("[data-tabs-deeplink]") ) {
+        // prevent scrolling by finding the current scroll position
+        var scrollmem = $(document).scrollTop();
+        // send value to hash
         document.location.hash = pane;
+        // scroll to where we were
+        $(document).scrollTop(scrollmem);
       }
     }
 
