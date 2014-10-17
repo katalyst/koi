@@ -8,7 +8,7 @@
       <label for="asset[width][0]" class="pull-left pad-l-1"><%= resource.title_options %> (Original)</label>
     </li>
     
-    <% Koi::Asset::Image.sizes.each_with_index do |opt, i| %><% i += 1 %>
+    <% Koi::KoiAsset::Image.sizes.each_with_index do |opt, i| %><% i += 1 %>
       <li class="clear">
 
         <input type="radio" name="asset[width]" id="asset[width][<%= i %>]" value="<%= opt[:width] %>" class="pull-left" />
