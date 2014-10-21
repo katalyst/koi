@@ -1,0 +1,57 @@
+.menu-aim {
+  width: 200px;
+
+  // global styles
+  > ul a {
+    display: block;
+  }
+
+  > ul li + li {
+    margin-top: 1px;
+  }
+
+  // first level
+  > ul {
+
+  }
+
+  > ul > li {
+    position: relative;
+  }
+
+  > ul > li > a {
+    display: block;
+    background: #eee;
+    padding: 5px 10px;
+    position: relative;
+    z-index: 2; 
+  }
+
+  > ul > li.active a:before {
+    content: "";
+    border: 6px solid transparent;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -6px;
+    border-right-color: #bada55;
+  }
+
+  // second level
+  > ul > li > ul {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 200px;
+    z-index: 3;
+    display: none;
+  }
+
+  > ul > li > ul > li > a {
+    background: #bada55;
+    color: #fff;
+    padding: 5px 10px;
+  }
+
+
+}

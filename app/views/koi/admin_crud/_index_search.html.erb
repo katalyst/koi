@@ -1,19 +1,21 @@
-<div class="span10">
+<div class="listing--pagination--search form--tiny-search">
 
   <%= form_tag collection_path, :method => 'get', class: "form-search form-inline space-0" do %>
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
     <%= hidden_field_tag :sort, params[:sort], id: "search_sort" %>
     <%= hidden_field_tag :per, params[:per], id: "search_per" %>
 
-    <span>Search</span>
+    <label for="search">Search</label>
 
     <input type="text"
            name="search"
            placeholder="Enter search criteria"
-           value="<%= params[:search] %>"
-           class="span4" />
+           value="<%= params[:search] %>" 
+           class="input__tight" />
 
-        <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "btn btn-primary btn-mini" %>
-        <%= link_to "Reset", collection_path, class: "btn btn-mini" %>
+    <div class="search--buttons">
+      <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary" %>
+      <%= link_to "Reset", collection_path, class: "button" %>
+    </div>
   <% end %>
 </div>

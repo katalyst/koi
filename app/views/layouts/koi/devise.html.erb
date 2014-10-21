@@ -1,13 +1,14 @@
-<% content_for :html do %>
+<% content_for :global do %>
   <body>
-    <div class="center container w-560 pad-t-6">
-      <div class="align-center space-b-2">
+    <div class="layout--container devise">
+      <div class="align-center">
         <%= image_tag "koi/application/logo-katalyst-devise.png"%>
       </div>
-
-     <%= content_for?(:devise) ? yield(:devise) : yield %>
+      <div class="devise--body">
+        <%= content_for?(:devise) ? yield(:devise) : yield %>
+      </div>
     </div>
   </body>
 <% end %>
 
-<%= render :file => 'layouts/koi/html' %>
+<%= render file: 'layouts/koi/global' %>

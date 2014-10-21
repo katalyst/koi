@@ -1,0 +1,96 @@
+.navigation-primary {
+  @include list-horizontal($xxxx-small-unit);
+  @include list-flush("right");
+  float: right;
+  @include font($heading-beta-font);
+  text-transform: uppercase;
+}
+
+// first level
+.navigation-primary > li {
+  position: relative;
+}
+
+.navigation-primary > li > a {
+  @include color-link($white);
+  @include decorate-link(none, none);
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  padding: $xxxxx-small-unit 0;
+  display: block;
+}
+
+// with children
+.navigation-primary > li.dropdown {
+
+  > a {
+    position: relative;
+    padding-right: $xxxx-small-unit;
+  }
+
+  > a:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    border: 4px solid transparent;
+    border-top-color: $dark-grey;
+    margin-top: -2px;
+  }
+
+  &.dropdown.open > a:before,
+  > a:hover:before {
+    border-top-color: $white;
+  }
+}
+
+// Second level menus
+.navigation-primary ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 4px 0;
+  background: #fff;
+  z-index: 1000;
+  min-width: 160px;
+  margin-top: 1px;
+  @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
+  @include border-radius($border-radius);
+
+  &:before {
+    content: "";
+    @include inline-block;
+    border: 7px solid transparent;
+    border-bottom-color: $border;
+    border-bottom-color: rgba(0,0,0,0.2);
+    position: absolute;
+    top: -14px;
+    right: 8px;
+  }
+
+  &:after {
+    content: "";
+    @include inline-block;
+    border: 6px solid transparent;
+    border-bottom-color: $white;
+    position: absolute;
+    top: -12px;
+    right: 9px;
+  }
+}
+
+.navigation-primary li.dropdown.open ul {
+  display: block;
+
+  > li > a {
+    @include color-link($foreground-color, $white);
+    @include decorate-link(none);
+    padding: 3px $xxx-small-unit;
+    display: block;
+  }
+
+  > li > a:hover {
+    background: $primary-color;
+  }
+}

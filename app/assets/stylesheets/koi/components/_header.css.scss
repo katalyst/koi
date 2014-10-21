@@ -1,0 +1,21 @@
+// lots of .headers
+// name spaced to .global-header
+.header.global-header {
+  background: $black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 5px solid $primary-color;
+  z-index: 990;
+  @include pie-clearfix;
+}
+
+.header--logo {
+  float: left;
+  padding-top: 7px;
+
+  img {
+    display: block;
+  }
+}

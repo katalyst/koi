@@ -1,0 +1,121 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// This is the base CSS file for your application. Import this into your layout.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/* 
+
+  KOI REBUILD TO DO
+  * nested fields
+  * resize asset manager popup based on iframe size
+  * asset manager close button
+  * image upload field controllers/routes
+    - test for model uploads (super heroes -> new)
+    - test for settings uploads (super heroes -> general)
+    - validations from model, default from jsData.acceptedExtensions
+
+  KOI BUGS
+  * tagging crashes asset manager
+  * uploading documents throws error on front end, but uploads file anyway
+  * viewing document in asset manager throws errors
+  * adding tags to pages throws errors
+  * modules > categories throws errors
+  * plupload div breaking layout in asset manager
+    - I have added display:none for now to hide it from view
+    - Not sure if required or not
+    - Same bug exists in old koi
+
+  POSSIBLE NEW FEATURES / OTHER
+  * remove "add to page" in asset manager when not editing a page
+  * wysiwyg throws errors in console, but still works
+
+*/
+
+// ORNAMENT
+//
+// Apply resets, apply default Ornament styles and import fonts & settings.
+//
+
+@import "ornament/core";
+
+// DEPENDANCIES
+
+@import "select2";
+@import "rickshaw";
+@import "koi/jquery/ui";
+@import "koi/jquery/tagify";
+
+// COMPONENTS
+//
+//
+// Import the components this project uses. Instead of importing Compass or
+// Ornament utilities/mixins here, import them directly into your components
+//
+
+@import "components/align";
+@import "components/assets";
+@import "components/breakpoint-helper";
+@import "components/button";
+@import "components/clearfix";
+@import "components/content";
+@import "components/devise";
+@import "components/environment";
+@import "components/error-page";
+@import "components/footer";
+@import "components/form";
+@import "components/header";
+@import "components/icons";
+@import "components/island";
+@import "components/kat-image-upload";
+@import "components/layout";
+@import "components/lightbox";
+@import "components/listing";
+@import "components/map";
+@import "components/menu-aim";
+@import "components/navigation-mobile";
+@import "components/navigation-primary";
+@import "components/pagination";
+@import "components/panel";
+@import "components/skip-link";
+@import "components/settings";
+@import "components/spacing";
+@import "components/table";
+@import "components/tabs";
+@import "components/text-limiter";
+@import "components/tiles";
+@import "components/tooltip";
+@import "components/fotorama-custom";
+@import "components/print";
+@import "components/vertre";
+
+// OLD KOI LEGACY
+// Potentially worth refactoring
+@import "nav_items";
+
+// UTILITY CLASSES
+
+.hidden {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.clearfix {
+  @include pie-clearfix;
+}
+
+// OVERRIDES
+//
+//
+// Add any hacky or temporary styles here.
+//
+
+//  /* Client wanted the logo bigger ASAP... */
+//  .header--logo {
+//    height:200%;
+//    width:200%;
+//  }
+//

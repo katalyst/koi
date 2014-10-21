@@ -29,8 +29,8 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 gem 'koi'                       , github: 'katalyst/koi',
                                   branch: 'v2.0.0'
 
-# Bowerbird
-gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
+# Compass
+gem 'compass'                   , "~> 0.12.2"
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',

@@ -1,8 +1,8 @@
 <div class="space-t-2 space-b-1 pad-t-1">
-  <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "btn btn-primary" %>
-  <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "btn" %>
+  <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "button__primary" %>
+  <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button" %>
   <% if !resource.new_record? && current_admin.god? %>
-    <%= link_to("Delete", resource_path, confirm: "Are you sure?", method: :delete, class: "btn" )%>
+    <%= link_to("Delete", resource_path, confirm: "Are you sure?", method: :delete, class: "button__error" )%>
   <% end %>
-  <%= link_to "Back", collection_path, class: "btn" %>
+  <%= link_to "Back", collection_path, class: "button" %>
 </div>

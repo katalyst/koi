@@ -1,22 +1,26 @@
-<div class="tab-pane" id="tab-reports">
+<div class="tabs--pane" id="tab-reports" data-tab-for="tab-reports">
   <div class="settings">
     <div id="index-fields">
 
       <% overview = @report_data.first[:class] == 'overview' %>
 
-      <% if overview %> 
-        <div class="row space-b-2">
+      <% if overview %>
+        <div class="tiles tiles__four" data-conform-columns="reports">
+          <% @report_data.each_with_index do |report, index| %>
+            <% if report[:class].eql?('overview') %>
+              <%= render "report_#{report[:class]}", report: report, index: index %>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
 
-      <% @report_data.each_with_index do |report, index| %>
-
-        <% if overview && report[:class] != 'overview' %>
-          </div>
-          <% overview = false %>
+      <div class="content clear">
+        <% @report_data.each_with_index do |report, index| %>
+          <% if report[:class] != 'overview' %>
+            <%= render "report_#{report[:class]}", report: report, index: index %>
+          <% end %>
         <% end %>
-
-        <%= render "report_#{report[:class]}", report: report, index: index %>
-      <% end %>
+      </div>
 
     </div>
   </div>

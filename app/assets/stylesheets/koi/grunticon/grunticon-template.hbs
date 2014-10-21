@@ -1,0 +1,17 @@
+@mixin icon-{{name}} {
+  position: relative;
+
+  &:before {
+    content: "";
+    display: block;
+    background-image: url('{{datauri}}');
+    background-repeat: no-repeat;
+    width: {{width}};
+    height: {{height}};
+  }
+}
+
+{{#each customselectors}}{{this}},{{/each}}
+{{prefix}}{{name}} {
+  @include icon-{{name}};
+}

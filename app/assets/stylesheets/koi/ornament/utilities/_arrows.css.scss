@@ -1,0 +1,33 @@
+// PSUEDO-ELEMENT CSS ARROWS
+
+@mixin arrow($direction,$diameter,$colour) {
+  position: relative;
+
+  &:before {
+    border: $diameter solid transparent;
+    content: "";
+    position: absolute;
+
+    @if( $direction == "top" ) {
+      border-bottom-color: $colour;
+      top: -($diameter * 2);
+      left: 50%;
+      margin-left: -($diameter/2);
+    } @else if ( $direction == "right" ) {
+      border-left-color: $colour;
+      right: -($diameter * 2);
+      top: 50%;
+      margin-top: -($diameter/2);
+    } @else if ( $direction == "bottom") {
+      border-top-color: $colour;
+      bottom: -($diameter * 2);
+      left: 50%;
+      margin-left: -($diameter/2);
+    } @else if ( $direction == "left" ) {
+      border-right-color: $colour;
+      left: -($diameter * 2);
+      top: 50%;
+      margin-top: -($diameter/2);
+    }
+  }
+}

@@ -1,7 +1,7 @@
 //= require ./common
-//= require ./ckeditor
+// require ./ckeditor
 //= require cocoon
-//= require bootstrap
+//= require ./bootstrap
 
 ! function () {
 
@@ -110,7 +110,9 @@
     }
 
     // Change hash for page-reload
-    $('.nav-tabs a').on('shown', function (e) {
+    // $('.nav-tabs a').on('shown', function (e) {
+    $(document).on("ornament:tab-change", function(){
+      console.log("tab has changed");
 
       for(k in CKEDITOR.instances) {
           var instance = CKEDITOR.instances[k];
@@ -121,7 +123,7 @@
 
       $ ('.wysiwyg.source').each(function() {
         // FIXME: Duplicated in wysiwyg.js
-        CKEDITOR.replace (this);
+        // CKEDITOR.replace (this);
       });
 
       var scrollmem = $('body').scrollTop();

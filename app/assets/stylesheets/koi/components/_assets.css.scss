@@ -1,0 +1,88 @@
+$assets-gutter: $small-unit;
+
+.assets {
+  // width:950px;
+  overflow-x:hidden;
+}
+
+.assets--body {
+  margin-top: 0;
+  margin-bottom: 0;
+  background: #C8C8C8;
+  @include pie-clearfix;
+}
+
+.assets--filters {
+  ul li span {
+    display: block;
+    padding-top: 2px;
+  }
+}
+
+.assets--body--left {
+  width: span(3,4);
+  min-height: 468px;
+  float: left;
+  background: $x-light-grey;
+  height: 100%;
+  overflow: auto;
+}
+
+.assets--body--right {
+  width: span(1,4);
+  float: left;
+}
+
+.assets--body--left,
+.assets--body--right {
+  padding: $assets-gutter;
+}
+
+// ASSETS SEARCH
+
+.assets--search--stats {
+  float: left;
+}
+
+.assets--search form {
+  float: right;
+}
+
+// ASSETS LISTING
+
+.assets--listing {
+  padding-top: $assets-gutter;
+}
+
+// ASSET SIDEBAR
+
+.assets--body--right h4 {
+  margin-top: $xxx-small-unit;
+  margin-bottom: $xxx-small-unit;
+  @include flush-children;
+}
+
+// ASSET SIDEBAR - FILES
+
+.assets--upload--new {
+  .file-list > div:first-child,
+  input {
+    margin-top: $xxx-small-unit;
+  }
+}
+
+.assets--upload--tags {
+  .tagify {
+    margin-bottom: $xx-small-unit;
+  }
+  .align-box-left {
+    margin-right: $xxxxx-small-unit;
+  }
+}
+
+// ASSET SIDEBAR - PREVIEW
+
+.assets--body--right .plupload.html5 {
+  // not sure if this is necessary, it's breaking the layout, so hiding for now
+  display: none;
+}

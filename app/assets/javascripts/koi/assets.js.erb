@@ -2,6 +2,7 @@
 //= require ./etc/plupload.html4.js
 //= require ./etc/plupload.html5.js
 //= require ./etc/plupload.flash.js
+//= require ./jquery/ui/tagify
 
 $ (function ()
 {
@@ -49,12 +50,12 @@ $ (function ()
         .find ('input')
           .attr ("disabled", null)
 
-      $.each (files, function (i, file)
-     {
-        $fileList.append
-          ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
-      })
-      uploader.refresh ()
+     $.each (files, function (i, file) {
+      $fileList.append
+        ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
+      });
+      $(document).trigger("ornament:column-conform");
+      uploader.refresh();
     })
 
     uploader.bind ('BeforeUpload', function (up, file)
@@ -124,7 +125,5 @@ $ (function ()
     myTextArea.tagify('add');
     myTextArea.tagify('serialize');
   });
-
-  $ ('.asset-manager[name=close]').click (function () { window.close (); });
 
 })

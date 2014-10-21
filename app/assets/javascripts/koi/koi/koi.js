@@ -71,4 +71,4 @@ $.extend($.fn, {
 });
 
 $.fn.component = $.fn.components;
-RunLink
+// RunLink

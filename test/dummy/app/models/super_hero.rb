@@ -5,7 +5,8 @@ class SuperHero < ActiveRecord::Base
            orderable: false, settings: true
 
   # FIXME: Refactored from has
-  has_many :images
+  has_many :images, as: :attributable
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   dragonfly_accessor :image
   dragonfly_accessor  :file
@@ -30,6 +31,7 @@ class SuperHero < ActiveRecord::Base
            gender:   { type: :select, data: Gender },
            is_alive: { type: :boolean },
            powers:   { type: :check_boxes, data: Powers },
+           images:   { type: :inline },
            published_at: { type: :date }
 
     form   fields: [:name, :description, :published_at, :gender, :is_alive, :url,

@@ -1,13 +1,15 @@
 <div class="titlebar">
-  <h1>Password Reset</h1>
+  <h2 class="heading-two">Password Reset</h2>
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
-  <div class="bg-lightgrey pad-l-2 pad-t-1 pad-b-1">
-    <%= f.input :email, required: true, autofocus: true, input_html: { class: "w-510" } %>
+  <div class="bg-lightgrey">
+    <div class="inputs">
+      <%= f.input :email,required: true, autofocus: true, input_html: { class: "w-510" } %>
+    </div>
   </div>
-  <div class="bg-mediumgrey pad-l-2 pad-t-1 pad-b-1">
-    <%= f.button :submit, "Reset", class: "btn btn-primary" %>
-    <%= link_to "Back", koi_engine.new_admin_session_path, class: "btn space-l-1" %>
+  <div class="bg-mediumgrey">
+    <%= f.button :submit, "Reset", class: "button__primary" %>
+    <%= link_to "Back", koi_engine.new_admin_session_path, class: "button" %>
   </div>
 <% end %>
 

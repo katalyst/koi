@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/katalyst/ornament.git
+  revision: e43447636bb6d2ac86eed72107019912b3a2ff96
+  branch: feature/development
+  specs:
+    ornament (0.0.0)
+      rails (>= 3.0.0)
+
+GIT
   remote: https://github.com/katalyst/koi_config.git
   revision: d25a662fce55b794b289250c4d7f5d2f808e0f5d
   specs:
@@ -106,8 +114,16 @@ GEM
     builder (3.2.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chunky_png (1.3.1)
     cocoon (1.2.6)
     coderay (1.1.0)
+    compass (0.12.7)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
+    compass-rails (1.1.7)
+      compass (>= 0.12.2)
+      sprockets (<= 2.11.0)
     connection_pool (2.0.0)
     countries (0.9.3)
       currencies (~> 0.4.2)
@@ -145,6 +161,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    fssm (0.2.10)
     garb (0.9.8)
       activesupport (>= 2.2)
       multi_json (>= 1.3)
@@ -313,6 +330,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  compass-rails (~> 1.1.7)
   factory_girl_rails
   forgery
   guard
@@ -322,6 +340,7 @@ DEPENDENCIES
   karo
   koi!
   koi_config!
+  ornament!
   passenger
   pg
   powder
