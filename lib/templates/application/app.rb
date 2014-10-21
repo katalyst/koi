@@ -43,6 +43,8 @@ gem 'newrelic_rpm'
 
 gem 'ey_config'
 
+gem 'sidekiq'
+
 gem_group :development do
   gem 'pry'
   gem 'karo'
@@ -133,7 +135,7 @@ module CommonControllerActions
   end
 
   def sign_in_as_admin!
-    sign_in(:admin, Admin.first) unless Admin.scoped.empty?
+    sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
 end
@@ -294,7 +296,7 @@ END
 # Setup sidekiq deploy hook
 create_file 'deploy/after_restart.rb', <<-END
 on_app_servers do
-  sudo "monit restart all -g "#{@app_name.gsub('-', '_')}"_sidekiq"
+  sudo "monit restart all -g #{@app_name.gsub('-', '_')}_sidekiq"
 end
 END
 
