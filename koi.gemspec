@@ -19,12 +19,14 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'mime-types', '~> 2.3'
-  # MVC Framework
+
   s.add_dependency 'rails', '~> 4.1.6'
 
   s.add_dependency 'rails-observers'
 
   s.add_dependency 'active_model_serializers', '~> 0.8.2'
+
+  s.add_dependency 'pg'
 
   s.add_dependency 'sass'
 
@@ -113,24 +115,11 @@ Gem::Specification.new do |s|
   # Karo Asset Syncer
   s.add_development_dependency 'karo'
 
-  # Console Replacement
-  s.add_development_dependency 'pry-rails'
-
-  # Powder makes POW easy
-  s.add_development_dependency 'powder'
-
-  # Clever Data Generator
-  s.add_development_dependency 'forgery'
-
   # Data Seeding
   s.add_development_dependency 'seedbank'
 
   # Fixture replacement
-  # s.add_development_dependency 'factory_girl_rails'
-
-  # Error display Replacement
-  s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
+  s.add_development_dependency 'factory_girl_rails'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'

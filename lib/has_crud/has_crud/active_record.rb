@@ -62,7 +62,7 @@ module HasCrud
             self.options[:sortable] = false
           end
 
-          scope :ordered, :order => 'ordinal ASC'
+          scope :ordered, -> { order('ordinal ASC') }
         end
       end
 
