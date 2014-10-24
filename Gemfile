@@ -18,6 +18,7 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
                                   branch: 'master'
 gem 'pg'
 gem 'pry'
+gem 'pry-rails'
 gem 'better_errors'
 gem 'binding_of_caller'
 
