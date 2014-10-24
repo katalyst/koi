@@ -29,8 +29,10 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 gem 'koi'                       , github: 'katalyst/koi',
                                   branch: 'v2.0.0'
 
-# Bowerbird
-gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
+# Compass
+gem 'compass'                   , "~> 0.12.2"
+
+gem 'compass-rails'             , "~> 2.0.0"
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
@@ -42,6 +44,8 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 
 gem 'ey_config'
+
+gem 'sidekiq'
 
 gem_group :development do
   gem 'pry'
@@ -65,23 +69,24 @@ END
 # Setup database yml
 run 'rm config/database.yml'
 create_file 'config/database.yml', <<-END
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+  username: deploy
+  host: localhost
+
+development:
+  <<: *default
   database: #{@app_name}_development
 
 test:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
+  <<: *default
   database: #{@app_name}_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  database: #{@app_name}_production
+  <<: *default
+  database: #{@app_name}_development
 
 END
 
@@ -133,7 +138,7 @@ module CommonControllerActions
   end
 
   def sign_in_as_admin!
-    sign_in(:admin, Admin.first) unless Admin.scoped.empty?
+    sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
 end
@@ -163,14 +168,14 @@ run 'bundle install'
 # Generate .karo.yml file
 create_file '.karo.yml', <<-END
 production:
-  host: koiproduction.engineyard.katalyst.com.au
+  host: koiv2production.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
       deploy: ey deploy -e koiproduction
 staging:
-  host: koistaging.engineyard.katalyst.com.au
+  host: koiv2staging.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
@@ -204,6 +209,8 @@ END
 generate('devise:install -f')
 
 # Change scoped views
+gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
+gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
 rake 'db:migrate'
@@ -294,7 +301,7 @@ END
 # Setup sidekiq deploy hook
 create_file 'deploy/after_restart.rb', <<-END
 on_app_servers do
-  sudo "monit restart all -g "#{@app_name.gsub('-', '_')}"_sidekiq"
+  sudo "monit restart all -g #{@app_name.gsub('-', '_')}_sidekiq"
 end
 END
 
@@ -323,6 +330,7 @@ MANDRILL_USERNAME: ''
 MANDRILL_PASSWORD: ''
 MAILTRAP_USERNAME: ''
 MAILTRAP_PASSWORD: ''
+SECRET_KEY_BASE:   ''
 END
 
 create_file 'config/application.yml.example', application_yml

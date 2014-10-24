@@ -20,6 +20,11 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
 
 gem 'pg'
 gem 'pry'
+gem 'better_errors'
+gem 'binding_of_caller'
+
+gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
+
 # gem 'puma'
 gem 'unicorn'
 gem 'passenger'

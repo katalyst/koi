@@ -1,22 +1,23 @@
 <div class="action view">
   <%= render 'edit_title' %>
 
-  <% if is_settable? %>
-    <%= render "index_settings_navigation" %>
-  <% end %>
-
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab-main">
-      <%= render 'edit_form' %>
-      <%= render 'edit_form_actions' %>
-    </div>
+  <div class="tabs">
 
     <% if is_settable? %>
-      <%= render "index_settings" %>
+      <%= render "index_settings_navigation" %>
     <% end %>
+
+    <div class="tabs--panes">
+    
+      <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
+        <%= render 'edit_form' %>
+        <%= render 'edit_form_actions' %>
+      </div>
+
+      <% if is_settable? %>
+        <%= render "index_settings" %>
+      <% end %>
+    </div>
+
   </div>
 </div>
-
-<% content_for :side do %>
-  <%= render 'side' %>
-<% end %>

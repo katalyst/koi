@@ -59,11 +59,11 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
+    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'hint-block' }
     b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
-      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
+    b.use :error, :wrap_with => { :tag => 'p', :class => 'error-block' }
   end
 
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|

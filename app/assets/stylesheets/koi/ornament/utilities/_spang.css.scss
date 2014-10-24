@@ -1,0 +1,180 @@
+@import "compass/utilities/general/clearfix";
+
+/* 
+-------------
+Functions
+-------------
+*/
+
+/* Create Column Widths */
+
+@function span($columnCount, $totalCol) {
+  @return $columnCount / $totalCol * 100%;
+}
+
+/* Create Fixed Width Columns Based of Max Site Width */
+
+@function spanf($columnCount, $totalCol, $max-width:$container-width) {
+  @return $columnCount / $totalCol * $max-width;
+}
+
+/* 
+-------------
+Mixins
+-------------
+*/
+
+/* Remove Outer Gutters */
+
+@mixin rowGenerate($gutterSize) {
+  margin-left: ($gutterSize * .5) * -1;
+  margin-right: ($gutterSize * .5) * -1;
+}
+
+@mixin row() {
+  @include pie-clearfix;
+  @include rowGenerate($desktop-gutters);
+  @each $gutter in $site-gutters {
+    @include media-query(nth($gutter, 1)) {
+      @include rowGenerate(nth($gutter, 2));
+    }
+  }
+}
+
+@mixin rowVGenerate($gutterSize) {
+  margin-top: ($gutterSize * .5) * -1;
+  margin-bottom: ($gutterSize * .5) * -1;
+}
+
+@mixin rowV(){
+  @include rowVGenerate($desktop-gutters);
+  @each $gutter in $site-gutters {
+    @include media-query(nth($gutter, 1)) {
+      @include rowVGenerate(nth($gutter, 2));
+    }
+  }
+}
+
+/* Generate Responsive Gutters */
+
+@mixin guttersGenerate($gutterSize) {
+  padding-left: $gutterSize * .5;
+  padding-right: $gutterSize * .5;
+}
+
+@mixin gutters() {
+  @include guttersGenerate($desktop-gutters);
+  @each $gutter in $site-gutters {
+    @include media-query(nth($gutter, 1)) {
+      @include guttersGenerate(nth($gutter, 2));
+    }
+  }
+}
+
+@mixin guttersVGenerate($gutterSize) {
+  padding-top: $gutterSize * .5;
+  padding-bottom: $gutterSize * .5;
+}
+
+@mixin guttersV() {
+  @include guttersVGenerate($desktop-gutters);
+  @each $gutter in $site-gutters {
+    @include media-query(nth($gutter, 1)) {
+      @include guttersVGenerate(nth($gutter, 2));
+    }
+  }
+}
+
+/* Create Column Widths & Apply Responsive Gutters */
+
+@mixin spang($columnCount, $totalCol, $mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      width: span($columnCount, $totalCol);
+      float: left;
+      //@include gutters();
+      // No gutters added. Assumes mixin has already been called without a media query.
+    }
+  } @else {
+    width: span($columnCount, $totalCol);
+    float: left;
+    @include gutters();
+  }
+}
+
+/* Add Space Before or After Columns */
+
+@mixin spacer-left($columnCount, $totalCol, $mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      margin-left: span($columnCount, $totalCol);
+    }
+  } @else {
+    margin-left: span($columnCount, $totalCol);
+  }
+}
+
+@mixin spacer-right($columnCount, $totalCol, $mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      margin-right: span($columnCount, $totalCol);
+    }
+  } @else {
+    margin-right: span($columnCount, $totalCol);
+  }
+}
+
+@mixin spacer($columnCountLeft, $columnCountRight, $totalCol, $mediaQuery:false) {
+  @include spacer-left($columnCountLeft, $totalCol, $mediaQuery);
+  @include spacer-right($columnCountRight, $totalCol, $mediaQuery);
+}
+
+/* Reset Span, Spang or Spacer */
+
+@mixin spanc($mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      width: 100%;
+      float: none;
+    }
+  } @else {
+    width: 100%;
+    float: none;
+  }
+}
+
+@mixin spacer-left-clear($mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      margin-left: 0;
+    }
+  } @else {
+    margin-left: 0;
+  }
+}
+
+@mixin spacer-right-clear($mediaQuery:false) {
+  @if $mediaQuery != false {
+    @include media-query($mediaQuery) {
+      margin-right: 0;
+    }
+  } @else {
+    margin-right: 0;
+  }
+}
+
+@mixin spacer-clear($mediaQuery:false) {
+  @include spacer-left-clear($mediaQuery);
+  @include spacer-right-clear($mediaQuery);
+}
+
+/* 
+-------------
+Classes
+-------------
+*/
+
+ul.row, ol.row, .row {
+  @include row();
+  @include rowV();
+}

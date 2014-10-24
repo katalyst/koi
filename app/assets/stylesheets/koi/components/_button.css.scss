@@ -1,0 +1,96 @@
+$button-background-color:           $primary-color;
+$button-border-radius:              $border-radius;
+$button-dangerous-background-color: #990000;
+$button-dangerous-foreground-color: #ffffff;
+$button-typeface:                   $bold-font, $base-font-size;
+$button-foreground-color:           $white;
+$button-padding:                    3px $xxxxx-small-unit;
+$button-secondary-background-color: $grey;
+$button-secondary-foreground-color: $white;
+$button-error-background-color:     $error-color;
+$button-error-foreground-color:     $white;
+
+.button__primary {
+  @include border-radius($button-border-radius);
+  @include color-link($button-foreground-color, $button-foreground-color);
+  @include decorate-link(none, none);
+  @include inline-block;
+  @include transition(background .2s);
+  font-size: inherit;
+  background: $button-background-color;
+  border: 0;
+  color: $button-foreground-color;
+  cursor: pointer;
+  padding: $button-padding;
+
+  &:hover {
+    background: darken($button-background-color,10);
+  }
+}
+
+.button__secondary,
+.button {
+  @extend .button__primary;
+  @include color-link($button-secondary-foreground-color, $button-secondary-foreground-color);
+  background: $button-secondary-background-color;
+  color: $button-secondary-foreground-color;
+
+  &:hover {
+    background: darken($button-secondary-background-color,10);
+  }
+}
+
+.button__black {
+  @extend .button__primary;
+  background: $black;
+
+  &:hover {
+    background: darken($black,10);
+  }
+}
+
+.button__error {
+  @extend .button;
+  @include color-link($button-error-foreground-color, $button-error-foreground-color);
+  background: $button-error-background-color;
+  color: $button-error-foreground-color;
+
+  &:hover {
+    background: darken($button-error-background-color,10);
+  }
+}
+
+.button__full {
+  width: 100%;
+}
+
+// BUTTONS WITH ICONS
+.button__icon-right,
+.button__icon-left {
+  &:before {
+    position: relative;
+    top: 3px;
+  }
+}
+
+.button__icon-right:before {
+  float: right;
+  margin-left: $xxxxx-small-unit;
+}
+.button__icon-left:before {
+  float: left;
+  margin-right: $xxxxx-small-unit;
+}
+
+// BUTTON GROUPS
+.button-group {
+  @include pie-clearfix;
+
+  .button__back {
+    float: left;
+  }
+
+  .button__forward {
+    float: right;
+  }
+}

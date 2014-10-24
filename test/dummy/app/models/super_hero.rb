@@ -5,7 +5,8 @@ class SuperHero < ActiveRecord::Base
            orderable: false, settings: true
 
   # FIXME: Refactored from has
-  has_many :images
+  has_many :images, as: :attributable
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   dragonfly_accessor :image
   dragonfly_accessor  :file
@@ -25,12 +26,13 @@ class SuperHero < ActiveRecord::Base
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:    { type: :image },
-           file:     { type: :file  },
-           gender:   { type: :select, data: Gender },
-           is_alive: { type: :boolean },
-           powers:   { type: :check_boxes, data: Powers },
-           published_at: { type: :date }
+    fields image:          { type: :image },
+           file:           { type: :file, droppable: true  },
+           gender:         { type: :select, data: Gender },
+           is_alive:       { type: :boolean },
+           powers:         { type: :check_boxes, data: Powers },
+           images:         { type: :inline },
+           published_at:   { type: :datetime }
 
     form   fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -44,22 +46,26 @@ class SuperHero < ActiveRecord::Base
                        :telephone, :image, :file, :powers]
       reportable true
       charts [{
-        span: :created_at,
-        field: :id,
+        span:     :created_at,
+        field:    :id,
         strategy: :count,
-        colour: '#f60',
-        name: 'New Super Heros Created',
+        colour:   '#f60',
+        name:     'New Super Heros Created',
         renderer: 'bar'
       },{
         span:     :created_at,
         field:    :id,
         strategy: :sum,
-        colour: 'black',
-        name: 'Sum of Super Heros Created IDs with name Bob',
-        scope: :bob
+        colour:   'black',
+        name:     'Sum of Super Heros Created IDs with name Bob',
+        scope:    :bob
       }]
 
       overviews [{
+        span:     :created_at,
+        name:     'Total Super Heros Created',
+        period:   :all_time
+      },{
         field:    :id,
         name:     'Super Heros Created in the Last Month',
         prefix:   '$'

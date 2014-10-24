@@ -1,0 +1,13 @@
+@mixin flush-children {
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.content-children,
+.flush-children {
+  @include flush-children;
+}

@@ -13,8 +13,10 @@
 <%#= form_path %>
 
 <%= simple_form_for form_path, html: { multipart: true, autocomplete: 'off', class: 'form-vertical' }  do |f| %>
-  <%= render "form_parent",  { :f => f } %>
-  <%= render "form_errors",  { :f => f } %>
-  <%= render "form_fields",  { :f => f } %>
-  <%= render "form_buttons", { :f => f } %>
+    <%= render "form_parent",  { :f => f } %>
+    <div class="inputs">
+      <%= render "form_errors",  { :f => f } %>
+      <%= render "form_fields",  { :f => f } %>
+      <%= render "form_buttons", { :f => f } %>
+    </div>
 <% end %>

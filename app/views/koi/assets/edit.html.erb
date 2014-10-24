@@ -1,27 +1,22 @@
-<header class="pad-1">
-  <h4><%= resource_class.name %> Details</h4>
-</header>
+<h4 class="heading-four"><%= resource_class.name %> Details</h4>
 
 <section class="pad-1 space-b-1">
-
   <%= render "preview" %>
-
 </section>
 
-<header class="pad-1">
-  <h4>Edit <%= resource_class.name %></h4>
-</header>
 
-<section class="pad-1 space-b-1">
+<h4 class="heading-four">Edit <%= resource_class.name %></h4>
 
-  <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+<%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+
+  <div class="spacing-xxx-tight">
     <%= f.error_notification %>
 
     <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
-      <div>
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "btn btn-primary btn-small" %>
-        <%= link_to "Cancel", collection_path, class: "btn btn-small" %>
-      </div>
-  <% end %>
+    <div>
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__primary" %>
+      <%= link_to "Cancel", collection_path, class: "button" %>
+    </div>
+  </div>
 
-</section>
+<% end %>

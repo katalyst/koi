@@ -1,0 +1,107 @@
+$tab-inactive-color: #ECF0F1;
+
+// TABS
+
+.tabs--links {
+  overflow: hidden;
+
+  ul {
+    @include pie-clearfix;
+  }
+
+  li {
+    float: left;
+    vertical-align: top;
+    font-size: $small-font-size;
+  }
+
+  li + li .tabs--link {
+    margin-left: 2px;
+  }
+}
+
+.tabs--link {
+  display: block;
+  // border: 1px solid $grey;
+  // border-bottom-width: 0;
+  background: $tab-inactive-color;
+  @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
+  cursor: pointer;
+  color: $foreground-color;
+  @include color-link($foreground-color, $foreground-color);
+  padding-left: $x-small-unit;
+  padding-right: $x-small-unit;
+  @include line-height-padding($button-height);
+  @include transition(border-color .2s);
+  @include border-radius($border-radius $border-radius 0 0);
+}
+
+.tabs--link__active {
+  background: $primary-color;
+  // border-color: $primary-color;
+  position: relative;
+  color: $white;
+  @include color-link($white, $white);
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background: $primary-color;
+    width: 99999px;
+  }
+  &:before {
+    left: 100%;
+  }
+  &:after {
+    right: 100%;
+  }
+}
+
+// PANES
+
+.tabs--pane {
+  display: none;
+
+  .tabs--links + .tabs--panes & {
+    padding: $xx-small-unit 0;
+  }
+
+  .tabs__filled & {
+    background: $passive-color;
+    @include panel-padding;
+    @include border-bottom-left-radius($border-radius);
+    @include border-bottom-right-radius($border-radius);
+  }
+}
+
+.tabs--pane__active {
+  display: block;
+}
+
+// SWIPABLE TABS
+.tabs[data-tabs-swipable] {
+  position: relative;
+
+  &.shadow-left:before,
+  &.shadow-right:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  &.shadow-left:before {
+    left: 0;
+    @include box-shadow(inset 8px 0px 11px -7px rgba(0,0,0,0.8));
+  }
+  &.shadow-right:after {
+    right: 0;
+    @include box-shadow(inset -8px 0px 11px -7px rgba(0,0,0,0.8));
+  }
+}

@@ -6,31 +6,93 @@
   is_nil_or_new = (value.nil? || object.new_record?)
   is_required   = klass.validates_presence_of? attr
   kind          = klass.crud.find(:fields, attr, :type)
+  is_droppable  = klass.crud.find(:fields, attr)[:droppable]
   html_id       = new_uuid
 %>
 
-<div class="media">
+<%- if is_droppable -%>
+
+  <%- 
+    max_count   ||= "1"              # TODO: pull this from a setting
+    max_size    ||= "5"              # TODO: pull this from a validation
+    types       ||= "doc,pdf,docx"   # TODO: pull this from a validation
+
+    html_class  ||= "#{kind.to_s}-upload"
+    if resource.send(attr).nil? || resource.new_record?
+      existing_image = ""
+    else
+      existing_image = resource.send(attr).url
+    end
+  -%>
+
+  <div class="control-group kat-upload <%= attr -%>">
+    <%= f.hidden_field "retained_#{attr}" -%>
+
+    <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
+    <div class="form--file-upload--hint-position">
+      <%= f.hint(attr) -%>
+    </div>
+    <%= f.error(attr) -%>
+
+    <div class="form--file-upload--fallback controls">
+
+      <p class="help-block">
+        <%- if max_size -%>
+          Max file size: <%= max_size -%>mb<br />
+        <%- end -%>
+        <%- if types -%>
+          File types allowed: <%= types -%><br />
+        <%- end -%>
+        <%- if max_count.to_i > 1 -%>
+          Maximum number of files: <%= max_count -%><br />
+        <%- end -%>
+      </p>
+
+      <!-- TODO: Create a partial of the regular image uploader below, use that as
+           the fallback -->
+      <% unless resource.send(attr).nil? || resource.new_record? %>
+        <%= image_tag resource.send(attr).thumb('100x').url, :class => 'form--file-upload--fallback-image imgfix left space-r-1' %>
+      <% end %>
+
+    </div>
+
+    <div class="form--file-upload">
+      <div>
+        <%= f.file_field(attr, class: html_class, data: {file_max_count: max_count, file_max_size: max_size, file_types: types, file_existing_image: existing_image, field: "hidden_for_#{attr}" }) %>
+      </div>
+    </div>
+
+  </div>
+
+<%- else -%>
+
+  <div class="control-group file">
     <%= f.hidden_field "retained_#{attr}" %>
     <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
 
-    <% unless is_nil_or_new %>
-      <%= attachment_image_tag(value, class: "media-object pull-left") %>
-    <% else %>
-      <%= placeholder_image_tag("No File", size: "100x100", class: "media-object pull-left") %>
-    <% end %>
-  <div class="media-body">
-    <% if value.respond_to?(:name) %>
-      <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
-    <% end %>
-      <div class="controls">
+    <div class="form--file-upload controls">
       <% unless is_nil_or_new %>
-          <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+        <%= attachment_image_tag(value, class: "form--file-upload--thumbnail") %>
+      <% else %>
+        <%= placeholder_image_tag("No File", size: "100x100", class: "form--file-upload--thumbnail") %>
       <% end %>
-      <% unless is_required %>
-        <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
-      <% end %>
-      <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
-      <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+
+      <div class="form--file-upload--body">
+        <% if value.respond_to?(:name) %>
+          <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
+        <% end %>
+          <div class="controls">
+          <% unless is_nil_or_new %>
+              <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+          <% end %>
+          <% unless is_required %>
+            <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
+          <% end %>
+          <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
+          <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
+<%- end -%>

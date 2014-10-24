@@ -1,0 +1,55 @@
+$table-border: 1px solid #ccc;
+
+table {
+  width: 100%;
+}
+
+.table {
+  margin: $desktop-gutters 0;
+  font-size: $small-font-size;
+  border: 1px solid $border;
+  @include flush-children;
+
+  td,
+  th {
+    padding: $xxxxx-small-unit;
+    border-top: 1px solid $border;
+  }
+
+  th {
+    background: $light-grey;
+  }
+
+  tr:first-child th {
+    border-top: 0;
+  }
+
+  a.nohover {
+    @include color-link($foreground-color, $foreground-color);
+  }
+
+}
+
+.table-container {
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scroll: touch;
+}
+
+.table--actions {
+  width: 140px;
+}
+
+// Sortable table icons
+
+table .icon.sort, 
+table .icon.sort:hover {
+  min-height: 16px; 
+  min-width: 16px; 
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding-right: 15px;
+
+  &.ascending, &.asc { background-image:   url(/assets/koi/application/icon-index-sort-ascending.png); }
+  &.descending, &.desc { background-image: url(/assets/koi/application/icon-index-sort-descending.png); }
+}

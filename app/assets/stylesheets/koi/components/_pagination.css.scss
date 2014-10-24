@@ -1,0 +1,166 @@
+ $pagination-bubbles-height:        30px;
+$pagination-breakpoint-nextprev:   $breakpoint-small;
+$pagination-breakpoint-firstlast:  $breakpoint-tiny;
+$pagination-current-color:         #ccc;
+
+.pagination {
+  text-align: center;
+  margin-top: $default-unit;
+  @include pie-clearfix;
+  @include border-radius(75px);
+
+  a:visited,
+  a:link {
+    @include color-link($white,$white);
+  }
+
+  a:hover {
+    @include decorate-link(none,none);
+  }
+
+  .disabled {
+    opacity: 0.10;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+  }
+
+  // icon extends
+  .first a,
+  .first.disabled {
+    @include grunticon("chevron-double-left-16-white", 16px);
+    padding-left: $xx-large-unit;
+
+    &:before {
+      left: $xxx-small-unit;
+    }
+  }
+  .prev a,
+  .prev.disabled {
+    @include grunticon("chevron-left-16-white", 16px);
+    padding-left: $x-large-unit;
+    margin-left: $xxx-small-unit;
+
+    &:before {
+      left: $xxx-small-unit;
+    }
+
+  }
+  .next a,
+  .next.disabled {
+    @include grunticon("chevron-right-16-white", 16px);
+    padding-right: $x-large-unit;
+    margin-right: $xxx-small-unit;
+
+    &:before {
+      right: $xxx-small-unit;
+    }
+
+  }
+  .last a,
+  .last.disabled {
+    @include grunticon("chevron-double-right-16-white", 16px);
+    padding-right: $xx-large-unit;
+
+    &:before {
+      right: $xxx-small-unit;
+    }
+
+  }
+
+  // general button styles
+  .first a,
+  .first.disabled,
+  .prev a,
+  .prev.disabled,
+  .next a,
+  .next.disabled,
+  .last a,
+  .last.disabled,
+  .page a,
+  .page.current {
+    position: relative;
+    background: $primary-color;
+    color: #fff;
+    line-height: $button-height;
+    @include font($bold-font);
+    @include border-radius(75px);
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      margin-top: -8px;
+    }
+  }
+
+  // left buttons
+  .first a,
+  .first.disabled,
+  .prev a,
+  .prev.disabled {
+    float: left;
+    padding-right: $xx-small-unit;
+  }
+
+  // right buttons
+  .next a,
+  .next.disabled,
+  .last a,
+  .last.disabled {
+    float: right;
+    padding-left: $xx-small-unit;
+  }
+
+  // page buttons
+  .page a,
+  .page.current {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0 2px;
+    width: $button-height;
+    text-align: center;
+  }
+
+  .page.current {
+    background: $pagination-current-color;
+    color: #fff;
+  }
+
+  .page.gap {
+    @include media-query(small) {
+      display: none;
+    }
+  }
+
+  // Breakpoint changes
+
+  .next,
+  .prev {
+    @include media-query($pagination-breakpoint-nextprev) {
+      display: none;
+    }
+  }
+
+  .first.disabled,
+  .first a,
+  .last.disabled,
+  .last a {
+    @include media-query($pagination-breakpoint-firstlast) {
+      text-indent: -9999px;
+      width: $button-height;
+      padding-left: 0;
+      padding-right: 0;
+
+      &:before {
+        left: 50%;
+        margin-left: -8px;
+      }
+    }
+  }
+
+  // Page counter
+  .pagination--pages {
+    display: inline;
+    line-height: $button-height;
+  }
+
+}

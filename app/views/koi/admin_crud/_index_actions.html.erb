@@ -1,23 +1,16 @@
-<div class="row">
-  <div class="span18 bg-darkgrey">
-    <div class="row">
-      <div class="span9 ">
-        <div class="space-half">
-          <% if respond_to? :parent %>
-            <%= link_to "Back", [:admin, parent.class], :class => "btn btn-small" %>
-          <% end %>
-        </div>
-      </div>
-      <div class="span9 color-darkgrey">
-        <div class="space-half pull-right">
-          <%- if is_exportable? %>
-            <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "btn btn-small btn-primary" %>
-          <% end %>
-          <%- if is_allowed?(:new) %>
-            <%= link_to title_for(:action_new), new_resource_path, :class => "btn btn-small btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+<div class="listing--actions small">
+
+  <% if respond_to? :parent %>
+    <%= link_to "Back", [:admin, parent.class], :class => "button" %>
+  <% end %>
+
+  <div class="align-right">
+    <%- if is_exportable? %>
+      <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary" %>
+    <% end %>
+    <%- if is_allowed?(:new) %>
+      <%= link_to title_for(:action_new), new_resource_path, :class => "button__primary" %>
+    <% end %>
   </div>
+
 </div>

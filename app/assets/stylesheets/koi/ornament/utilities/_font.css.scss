@@ -1,0 +1,5 @@
+@mixin font($list) {
+  font-family: nth($list,1);
+  font-style: nth($list,2);
+  font-weight: nth($list,3);
+}
