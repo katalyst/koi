@@ -14,11 +14,11 @@ GIT
 
 GIT
   remote: https://github.com/svenfuchs/i18n-active_record.git
-  revision: 4628202f676aecfbc00d404342e61f75078d9439
-  branch: rails-3.2
+  revision: 2d9a22b6a4e5d809782cdbfa65b14d9e47aa27fc
+  branch: master
   specs:
     i18n-active_record (0.0.2)
-      i18n (>= 0.6.0)
+      i18n (>= 0.5.0)
 
 PATH
   remote: .
