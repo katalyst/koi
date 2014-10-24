@@ -2,8 +2,7 @@
 
 // Content Container 
 .mfp-inline-holder .mfp-content, 
-.mfp-ajax-holder .mfp-content,
-.mfp-iframe-holder .mfp-content {
+.mfp-ajax-holder .mfp-content {
   background: #fff;
   width: 90%;
   max-width: 990px;
@@ -26,6 +25,10 @@
   background: $black;
   color: $white;
   @include pie-clearfix;
+
+  &.lightbox--heading__no-close {
+    padding-right: $small-unit;
+  }
 
   h1,h2,h3,h4 {
     float: left;
@@ -78,9 +81,9 @@
     position: static;
   }
 
-  .mfp-close {
-    display: none;
-  }
+  // .mfp-close {
+  //   display: none;
+  // }
 }
 
 // Lightbox Close Button and Arrows shared styles
@@ -88,7 +91,8 @@
 .mfp-ajax-holder .mfp-close,
 .mfp-figure .mfp-close,
 .mfp-image-holder .mfp-arrow,
-.mfp-close-internal {
+.mfp-close-internal,
+.mfp-iframe-scaler .mfp-close {
   background: $primary-color;
   @include icon-block(44px, 16px);
   @include border-radius(50%);
@@ -106,7 +110,8 @@
 .mfp-inline-holder .mfp-close, 
 .mfp-ajax-holder .mfp-close,
 .mfp-figure .mfp-close,
-.mfp-close-internal {
+.mfp-close-internal,
+.mfp-iframe-scaler .mfp-close {
   @include grunticon("close-16-white", 16px);
   position: absolute;
   top: 22px;
@@ -120,6 +125,15 @@
   .lightbox__flush &:active {
     top: 22px;
     right: 22px;
+  }
+}
+
+.mfp-iframe-scaler .mfp-close {
+  top: -18px;
+  right: 28px;
+
+  &:active {
+    top: -18px;
   }
 }
 
