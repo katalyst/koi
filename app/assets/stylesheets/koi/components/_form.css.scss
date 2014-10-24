@@ -312,23 +312,6 @@ abbr[title=required] {
   margin-right: -3px;
 }
 
-// FILE UPLOAD
-$file-thumbnail-width: 100px;
-.form--file-upload {
-  position: relative;
-
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .media-body {
-    padding-left: ($file-thumbnail-width + $xx-small-unit);
-    min-height: $file-thumbnail-width;
-  }
-}
-
 // INLINE FORMS
 // [input]button
 
@@ -472,5 +455,28 @@ $file-thumbnail-width: 100px;
     // the buttons
     margin-top: -6px;
     margin-bottom: -6px;
+  }
+}
+
+// INLINE FILE UPLOADS 
+
+// FILE UPLOAD
+$file-thumbnail-width: 100px;
+.form--file-upload {
+  position: relative;
+
+  .form--file-upload--thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .form--file-upload--body {
+    padding-left: ($file-thumbnail-width + $xx-small-unit);
+    min-height: $file-thumbnail-width;
+
+    label {
+      display: block;
+    }
   }
 }
