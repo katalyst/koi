@@ -13,3 +13,7 @@
     this.datepicker (opt)
   }
 } (jQuery)
+
+$(document).on("ornament:refresh", function(){
+  $(".input.date").koiDatePicker();
+});
