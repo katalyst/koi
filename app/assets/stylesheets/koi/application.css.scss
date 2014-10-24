@@ -13,9 +13,10 @@
   * datetime fields
   * tweets on dashboard
   * nested fields
-  * image upload field controllers/routes
+  * image upload field controllers
     - test for model uploads (super heroes -> new)
     - test for settings uploads (super heroes -> general)
+  * CKEditor popups
 
   KOI BUGS
   * tagging crashes asset manager
@@ -27,6 +28,7 @@
     - I have added display:none for now to hide it from view
     - Not sure if required or not
     - Same bug exists in old koi
+  * --orderable
 
   POSSIBLE NEW FEATURES / OTHER
   * remove "add to page" in asset manager when not editing a page
