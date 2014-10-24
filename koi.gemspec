@@ -26,7 +26,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_model_serializers', '~> 0.8.2'
 
+  s.add_dependency 'sass'
+
+  s.add_dependency 'compass'
+
   s.add_dependency 'sass-rails'
+
+  s.add_dependency 'compass-rails'
 
   s.add_dependency 'uglifier'
 
@@ -120,7 +126,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'seedbank'
 
   # Fixture replacement
-  s.add_development_dependency 'factory_girl_rails'
+  # s.add_development_dependency 'factory_girl_rails'
 
   # Error display Replacement
   s.add_development_dependency 'better_errors'

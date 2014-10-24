@@ -1,3 +1,5 @@
+require 'compass-rails'
+require 'sass-rails'
 require 'csv'
 require 'devise'
 require 'dragonfly'
@@ -36,7 +38,6 @@ require 'koi/settings'
 require 'koi/caching'
 require 'koi/engine'
 require 'reports/reporting'
-require 'compass'
 
 module Koi
 end
