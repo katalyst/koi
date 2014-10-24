@@ -6,12 +6,9 @@
 
 /*
 
-  KOI REBUILD TO DO
-  * resize asset manager popup based on iframe size
   * image upload field controllers
     - validations from model, default from jsData.acceptedExtensions
-
-  KOI BUGS
+    
   * plupload div breaking layout in asset manager
     - I have added display:none for now to hide it from view
     - Not sure if required or not
@@ -44,6 +41,7 @@
 @import "components/assets";
 @import "components/breakpoint-helper";
 @import "components/button";
+@import "components/ckeditor";
 @import "components/clearfix";
 @import "components/content";
 @import "components/devise";

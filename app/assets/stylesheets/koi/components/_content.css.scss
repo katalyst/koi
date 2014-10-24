@@ -16,12 +16,6 @@
   border-bottom: 1px solid $border;
 }
 
-.content-large {
-  @include media-query($breakpoint-medium,"min") {
-    font-size: $large-font-size;
-  }
-}
-
 ul.content-lists,
 ol.content-lists,
 .content-lists ul,
