@@ -7,13 +7,16 @@
 /* 
 
   KOI REBUILD TO DO
-  * nested fields
   * resize asset manager popup based on iframe size
   * asset manager close button
-  * image upload field controllers/routes
+  * modal errors push to first tab with errors
+  * tweets on dashboard
+  * nested fields
+  * image upload field controllers
     - test for model uploads (super heroes -> new)
     - test for settings uploads (super heroes -> general)
     - validations from model, default from jsData.acceptedExtensions
+  * CKEditor popups
 
   KOI BUGS
   * tagging crashes asset manager
@@ -25,10 +28,12 @@
     - I have added display:none for now to hide it from view
     - Not sure if required or not
     - Same bug exists in old koi
-
-  POSSIBLE NEW FEATURES / OTHER
-  * remove "add to page" in asset manager when not editing a page
+  * --orderable
   * wysiwyg throws errors in console, but still works
+  * datetime picker throws errors in console, but still works
+
+  POSSIBLE NEW FEATURES
+  * remove "add to page" in asset manager when not editing a page
 
 */
 

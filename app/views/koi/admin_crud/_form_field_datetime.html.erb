@@ -1,0 +1,10 @@
+<%= f.input attr, as: :string, input_html: { class: "datetime input datetimepicker form--medium", value: resource.send(attr).to_s.gsub(/  /, ' ') } %>
+
+<script>
+  $('.datetimepicker').datetimepicker({
+    stepMinute:  5,
+    controlType: 'select',
+    timeFormat:  'h:mm TT',
+    dateFormat:  'D, M d yy at'
+  });
+</script>
