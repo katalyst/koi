@@ -9,6 +9,7 @@
 //= require velocity
 //= require jquery.touchSwipe
 //= require jquery.placeholder
+//= require jquery-ui-timepicker-addon
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
