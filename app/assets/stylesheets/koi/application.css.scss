@@ -8,32 +8,14 @@
 
   KOI REBUILD TO DO
   * resize asset manager popup based on iframe size
-  * asset manager close button
-  * modal errors push to first tab with errors
-  * tweets on dashboard
-  * nested fields
   * image upload field controllers
-    - test for model uploads (super heroes -> new)
-    - test for settings uploads (super heroes -> general)
     - validations from model, default from jsData.acceptedExtensions
-  * CKEditor popups
 
   KOI BUGS
-  * tagging crashes asset manager
-  * uploading documents throws error on front end, but uploads file anyway
-  * viewing document in asset manager throws errors
-  * adding tags to pages throws errors
-  * modules > categories throws errors
   * plupload div breaking layout in asset manager
     - I have added display:none for now to hide it from view
     - Not sure if required or not
     - Same bug exists in old koi
-  * --orderable
-  * wysiwyg throws errors in console, but still works
-  * datetime picker throws errors in console, but still works
-
-  POSSIBLE NEW FEATURES
-  * remove "add to page" in asset manager when not editing a page
 
 */
 
