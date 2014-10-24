@@ -16,28 +16,31 @@
 
 <%- else -%>
 
-  <div class="media">
-      <%= f.hidden_field "retained_#{attr}" %>
-      <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
+  <div class="control-group file">
+    <%= f.hidden_field "retained_#{attr}" %>
+    <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
 
+    <div class="form--file-upload controls">
       <% unless is_nil_or_new %>
-        <%= attachment_image_tag(value, class: "media-object pull-left") %>
+        <%= attachment_image_tag(value, class: "form--file-upload--thumbnail") %>
       <% else %>
-        <%= placeholder_image_tag("No File", size: "100x100", class: "media-object pull-left") %>
+        <%= placeholder_image_tag("No File", size: "100x100", class: "form--file-upload--thumbnail") %>
       <% end %>
-    <div class="media-body">
-      <% if value.respond_to?(:name) %>
-        <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
-      <% end %>
-        <div class="controls">
-        <% unless is_nil_or_new %>
-            <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+
+      <div class="form--file-upload--body">
+        <% if value.respond_to?(:name) %>
+          <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
         <% end %>
-        <% unless is_required %>
-          <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
-        <% end %>
-        <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
-        <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+          <div class="controls">
+          <% unless is_nil_or_new %>
+              <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+          <% end %>
+          <% unless is_required %>
+            <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
+          <% end %>
+          <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
+          <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+        </div>
       </div>
     </div>
   </div>
