@@ -15,9 +15,7 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-                                  branch: 'rails-3.2',
-                                  require: 'i18n/active_record'
-
+                                  branch: 'master'
 gem 'pg'
 gem 'pry'
 gem 'better_errors'
