@@ -26,7 +26,7 @@ class SuperHero < ActiveRecord::Base
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:          { type: :image },
+    fields image:          { type: :image, dropable: true },
            file:           { type: :file  },
            gender:         { type: :select, data: Gender },
            is_alive:       { type: :boolean },
