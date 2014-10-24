@@ -24,8 +24,6 @@ gem 'better_errors'
 gem 'binding_of_caller'
 
 gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
-gem "compass-rails", "~> 1.1.7"
-
 
 # gem 'puma'
 gem 'unicorn'

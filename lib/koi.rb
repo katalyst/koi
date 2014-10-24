@@ -22,7 +22,6 @@ require 'rails-observers'
 require 'cocoon'
 require 'figaro'
 require 'rickshaw_rails'
-require 'bootstrap-sass'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'has_crud/has_crud'
@@ -37,6 +36,7 @@ require 'koi/settings'
 require 'koi/caching'
 require 'koi/engine'
 require 'reports/reporting'
+require 'compass'
 
 module Koi
 end
