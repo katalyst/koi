@@ -30,8 +30,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'uglifier'
 
-  s.add_dependency 'bootstrap-sass', "2.0.4.2"
-
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'
 
