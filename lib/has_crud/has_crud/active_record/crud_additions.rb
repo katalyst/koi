@@ -26,10 +26,8 @@ module HasCrud
         end
 
         def orderable(ids)
-          update_all(
-            ['ordinal = FIND_IN_SET(id, ?)', ids.join(',')],
-            { :id => ids }
-          )
+          # FIXME: Check ids sanitisation
+          update_all(["ordinal = STRPOS(?, ','||id||',')", ",#{ids.join(',')},"])
         end
 
         def titleize
