@@ -15,4 +15,9 @@
     <%= render "koi/admin_crud/report_#{report[:class]}", report: report, index: index %>
 
   <% end %>
+
+  <% if overview %> 
+    </div>
+  <% end %>
+
 <%- end -%>
