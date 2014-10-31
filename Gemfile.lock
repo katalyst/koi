@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/katalyst/ornament.git
-  revision: 430b18480b6d88ed3c01e5453ece10182fa5c755
+  revision: 7fa98aea5f2e0fd91872cb9b5096a496019f6c0c
   branch: feature/development
   specs:
     ornament (0.0.0)
-      rails (>= 4.0.0)
+      rails (>= 3.0.0)
 
 GIT
   remote: https://github.com/katalyst/koi_config.git
@@ -50,7 +50,7 @@ PATH
       responders
       rickshaw_rails
       sass
-      sass-rails (~> 4.0)
+      sass-rails (= 4.0.2)
       scoped_search
       select2-rails
       sendgrid
@@ -119,20 +119,12 @@ GEM
     chunky_png (1.3.3)
     cocoon (1.2.6)
     coderay (1.1.0)
-    compass (1.0.1)
+    compass (0.12.7)
       chunky_png (~> 1.2)
-      compass-core (~> 1.0.1)
-      compass-import-once (~> 1.0.5)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-      sass (>= 3.3.13, < 3.5)
-    compass-core (1.0.1)
-      multi_json (~> 1.0)
-      sass (>= 3.3.0, < 3.5)
-    compass-import-once (1.0.5)
-      sass (>= 3.2, < 3.5)
-    compass-rails (2.0.1)
-      compass (~> 1.0.0)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
+    compass-rails (2.0.0)
+      compass (>= 0.12.2)
     connection_pool (2.0.0)
     countries (0.9.3)
       currencies (~> 0.4.2)
@@ -169,6 +161,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    fssm (0.2.10)
     garb (0.9.8)
       activesupport (>= 2.2)
       multi_json (>= 1.3)
@@ -221,7 +214,7 @@ GEM
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.3)
+    mime-types (2.4.3)
     minitest (5.4.2)
     multi_json (1.10.1)
     orm_adapter (0.5.0)
@@ -267,10 +260,11 @@ GEM
     rickshaw_rails (1.4.5)
       railties (>= 3.1.0)
     ruby_gntp (0.3.4)
-    sass (3.4.6)
-    sass-rails (4.0.1)
+    sass (3.2.19)
+    sass-rails (4.0.2)
       railties (>= 4.0.0, < 5.0)
-      sass (>= 3.1.10)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0.0)
     scoped_search (2.7.1)
       activerecord (>= 2.1.0)
@@ -296,7 +290,7 @@ GEM
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
     slop (3.6.0)
-    sprockets (2.12.3)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
