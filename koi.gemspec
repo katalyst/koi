@@ -66,7 +66,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'
+  s.add_dependency 'inherited_resources', '1.5.1'
   s.add_dependency 'has_scope', '0.6.0.rc'
   s.add_dependency 'responders'
 
