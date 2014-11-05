@@ -5,6 +5,8 @@ module Reports
 
   class Reporting
     def self.generate_report(overviews, charts, collection)
+      overviews ||= []
+      charts    ||= []
       reports = overviews.map { |report| Overview.new(report, collection).process }
       reports = reports | charts.map { |report| Charting.new(report, collection).process }
       reports

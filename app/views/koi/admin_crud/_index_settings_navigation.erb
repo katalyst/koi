@@ -1,9 +1,11 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="#tab-main" data-toggle="tab">Main</a></li>
 
-  <%- group_settings.each do |group, settings| -%>
-    <%- group = "General" if group.blank? -%>
-    <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
+  <%- if is_settable? -%>
+    <%- group_settings.each do |group, settings| -%>
+      <%- group = "General" if group.blank? -%>
+      <li><a href="#tab-<%= group.parameterize %>" data-toggle="tab"><%= group %></a></li>
+    <%- end -%>
   <%- end -%>
 
   <%- if is_reportable? -%>
