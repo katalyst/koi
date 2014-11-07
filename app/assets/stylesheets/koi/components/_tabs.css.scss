@@ -67,7 +67,7 @@ $tab-inactive-color: #ECF0F1;
   display: none;
 
   .tabs--links + .tabs--panes & {
-    padding: $xx-small-unit 0;
+    padding: $default-unit 0;
   }
 
   .tabs__filled & {

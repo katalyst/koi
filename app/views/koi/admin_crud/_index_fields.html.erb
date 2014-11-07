@@ -6,7 +6,7 @@
       {
         var sortPath = "<%= url_for(:action => :sort) %>"
         var sortable = $ ('#sortable')
-        var notice   = $ ('<p>').addClass ('pad-half background-light-green').prependTo ('#tab-main').html ('&nbsp;')
+        var notice   = $ ('<div>').addClass ('island__success hidden').prependTo ('#tab-main').html ('&nbsp;')
 
         var savingMessage = "Saving..."
         var successMessage = 'Save successful...'
@@ -15,7 +15,7 @@
         {
           notice
             .stop (true, true)
-            .addClass ('notice').removeClass ('success')
+            .addClass ('notice').removeClass ('hidden')
             .text (savingMessage)
             .animate ({ opacity:1 }, f)
         }
@@ -23,10 +23,12 @@
         function hideNotice ()
         {
           notice
-            .removeClass ('notice').addClass ('success')
+            .removeClass('notice')
             .text (successMessage)
             .delay (1000)
-            .animate ({ opacity:0 })
+            .animate ({ opacity:0 }, function(){
+              notice.addClass('hidden');
+            });
         }
 
         $ ('#sortable').sortable ({
