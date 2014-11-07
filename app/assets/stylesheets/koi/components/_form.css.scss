@@ -262,6 +262,10 @@ $radio-offset: 24px;
   position: relative;
   @include pie-clearfix;
 
+  .controls {
+    position: relative;
+  }
+
   .controls label {
     padding-left: $radio-offset;
   }
