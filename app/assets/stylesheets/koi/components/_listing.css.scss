@@ -19,4 +19,5 @@
 .listing--actions {
   background: $dark-grey;
   padding: $xxxxx-small-unit;
+  @include pie-clearfix;
 }
