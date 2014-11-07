@@ -101,3 +101,8 @@
   @include list-horizontal(4px, false);
   @include list-flush("left and right");
 }
+
+.list__actions {
+  float: left;
+  margin-right: $xxxx-small-unit;
+}
