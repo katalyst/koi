@@ -36,7 +36,7 @@ gem 'compass-rails'             , "~> 2.0.0"
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
-                                  branch: 'rails-3.2',
+                                  branch: 'master',
                                   require: 'i18n/active_record'
 
 gem 'unicorn'
