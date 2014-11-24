@@ -111,7 +111,9 @@
 
     var modalHtml =   '<div class="lightbox--ajax-content content-spacing">';
         modalHtml +=  '  <div class="lightbox--body">';
-        modalHtml +=  '    <h2 class="heading-two lightbox--heading">'+ element.text() +'</h2>';
+        modalHtml +=  '    <div class="lightbox--heading">';
+        modalHtml +=  '      <h2 class="heading-two">'+element.text()+'</h2>';
+        modalHtml +=  '    </div>';
         modalHtml +=  '    <div class="lightbox--content  content-spacing">';
         modalHtml +=  '      <p>';
         modalHtml +=           message;

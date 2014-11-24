@@ -12,7 +12,6 @@ $tab-inactive-color: #ECF0F1;
   li {
     float: left;
     vertical-align: top;
-    font-size: $small-font-size;
   }
 
   li + li .tabs--link {
@@ -67,7 +66,7 @@ $tab-inactive-color: #ECF0F1;
   display: none;
 
   .tabs--links + .tabs--panes & {
-    padding: $xx-small-unit 0;
+    padding: $default-unit 0;
   }
 
   .tabs__filled & {

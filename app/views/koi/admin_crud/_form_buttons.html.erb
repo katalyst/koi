@@ -1,6 +1,6 @@
 <div class="form-action">
   <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "button__primary" %>
   <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button" %>
-  <%= link_to "Delete", resource_path, confirm: "Are you sure?", method: :delete, class: "button__error" if !resource.new_record? && is_allowed?(:destroy) %>
+  <%= link_to "Delete", resource_path, data: { confirm: "Are you sure?" }, method: :delete, class: "button__error" if !resource.new_record? && is_allowed?(:destroy) %>
   <%= link_to "Back", collection_path, :class => "button" if is_allowed?(:index) %>
 </div>

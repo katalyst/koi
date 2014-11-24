@@ -7,6 +7,15 @@ en:
     hints:
       super_hero:
         name: "The name of your hero"
+        description: "The description of your hero"
+        published_at: "When this hero was published"
+        gender: "The gender of your hero"
+        is_alive: "Is this hero currently alive?"
+        url: "Your hero's homepage"
+        telephone: "Contact number for your hero"
+        image: "A photo of your hero"
+        file: "Your hero's file"
+        powers: "What powers does this hero have?"
   activerecord:
     models:
       translation: Settings

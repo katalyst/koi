@@ -69,6 +69,7 @@
   <div class="control-group file">
     <%= f.hidden_field "retained_#{attr}" %>
     <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
+    <%= f.hint attr -%>
 
     <div class="form--file-upload controls">
       <% unless is_nil_or_new %>
@@ -89,10 +90,12 @@
             <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
           <% end %>
           <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
-          <%= f.input attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+          <%= f.input_field attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
         </div>
       </div>
     </div>
+
+    <%= f.error attr -%>
   </div>
 
 <%- end -%>

@@ -1,10 +1,10 @@
 <div class="listing--actions small">
 
   <% if respond_to? :parent %>
-    <%= link_to "Back", [:admin, parent.class], :class => "button" %>
+    <%= link_to "Back", [:admin, parent.class], :class => "button align-box-left" %>
   <% end %>
 
-  <div class="align-right">
+  <div class="align-box-right">
     <%- if is_exportable? %>
       <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary" %>
     <% end %>

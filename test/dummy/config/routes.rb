@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  namespace(:admin) { resources :product_images }
 
   resources :products
 
@@ -28,6 +27,7 @@ Rails.application.routes.draw do
     resources :users, path: :members
     resources :super_heros
     resources :news_items
+    resources :product_images
     resources :categories do
       collection { put 'sort' }
       resources :products do

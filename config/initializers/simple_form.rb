@@ -92,10 +92,12 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :checkbox, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+  config.wrappers :checkbox, :tag => 'div', :class => 'control-group checkbox__single', :error_class => 'error' do |b|
+    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'hint-block' }
     b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :label_input
     end
+    b.use :error, :wrap_with => { :tag => 'p', :class => 'error-block' }
   end
 
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.

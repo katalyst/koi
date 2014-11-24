@@ -42,7 +42,7 @@
       <div>
         <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
         <%- unless resource.new_record? -%>
-          <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "button"  %>
+          <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
         <%- end -%>
       </div>
     </div>
