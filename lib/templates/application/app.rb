@@ -173,14 +173,14 @@ production:
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
-      deploy: ey deploy -e koiproduction
+      deploy: ey deploy -e koiv2production
 staging:
   host: koiv2staging.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
-      deploy: ey deploy -e koistaging
+      deploy: ey deploy -e koiv2staging
 END
 
 # Install Migrations
