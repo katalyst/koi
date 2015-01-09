@@ -19,7 +19,7 @@
       <%= placeholder_image_tag("No File", size: "100x100", class: "media-object pull-left") %>
     <% end %>
   <div class="media-body">
-    <% if value.respond_to?(:name) %>
+    <% if value.respond_to?(:name, true) %>
       <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
     <% end %>
       <div class="controls">

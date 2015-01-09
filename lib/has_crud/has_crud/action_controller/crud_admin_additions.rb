@@ -36,7 +36,7 @@ module HasCrud
         def redirect_path
           if params[:commit].eql?("Continue")
             edit_resource_path
-          elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
+          elsif @site_parent || (resource.respond_to?(:resource_nav_item, true) && resource.resource_nav_item)
             sitemap_nav_items_path
           else
             collection_path
@@ -156,8 +156,8 @@ module HasCrud
           result = object.save
           if result
             #FIXME: hacky way to handle associations
-            parent.send(plural_name.to_sym) << object if respond_to? :parent
-            object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
+            parent.send(plural_name.to_sym) << object if respond_to?(:parent, true)
+            object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to?(:to_navigator, true)
           end
           result
         end
@@ -165,7 +165,7 @@ module HasCrud
         def update_resource(object, attributes)
           result = object.update_attributes(*attributes)
           if result
-            object.to_navigator! if object.respond_to? :to_navigator
+            object.to_navigator! if object.respond_to?(:to_navigator, true)
           end
           return result
         end
@@ -180,13 +180,13 @@ module HasCrud
 
         def kt(args={})
           interpolation = (params[:controller] + "/" + params[:action]).gsub("/", ".")
-          args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
-          args.merge!(klass: resource_class.name) if respond_to? :resource_class
+          args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource, true)
+          args.merge!(klass: resource_class.name) if respond_to?(:resource_class, true)
           t(interpolation, args)
         end
 
         def parent_title
-          respond_to?(:parent) ? "#{humanized(parent)}: " : ""
+          respond_to?(:parent, true) ? "#{humanized(parent)}: " : ""
         end
 
         def index_title
@@ -215,7 +215,7 @@ module HasCrud
 
         def title_for(symbol=nil)
           method_name = "#{symbol}_title".to_sym
-          if respond_to? method_name
+          if respond_to?(method_name, true)
             send(method_name)
           else
             "No title defined for #{symbol}"

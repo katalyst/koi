@@ -5,7 +5,7 @@
 %>
 <% form_path.insert(0, :admin) unless is_koi_core_class? resource_class %>
 <% # FIXME: Need to check if admin exists before inserting into 1 position %>
-<% form_path.insert(1, parent) unless parent.nil? if respond_to? :parent %>
+<% form_path.insert(1, parent) unless parent.nil? if respond_to?(:parent, true) %>
 
 <%#= is_koi_core_class? resource_class %>
 <%#= resource_class %>

@@ -28,7 +28,7 @@ module HasCrud
         Dir["#{Rails.root}/app/models/**/*.rb"].each { |path| require_dependency path }
         # Get all the models that have crud.
         Module.constants.collect { |c| eval(c.to_s) }.select do |constant|
-          !constant.nil? && constant.is_a?(Class) && constant.respond_to?(:has_crud?) && constant.has_crud?
+          !constant.nil? && constant.is_a?(Class) && constant.respond_to?(:has_crud?, true) && constant.has_crud?
         end.sort_by { |type| type.to_s }
       end
     end

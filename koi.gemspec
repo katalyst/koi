@@ -50,9 +50,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'                      , '~> 0.13.0'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources'           , '~> 1.3.1'
-  s.add_dependency 'has_scope'                     , '~> 0.5.1'
-  s.add_dependency 'responders'                    , '~> 0.9.1'
+  s.add_dependency 'inherited_resources'           , '~> 1.5.1'
+  s.add_dependency 'has_scope'                     , '~> 0.6.0.rc'
+  s.add_dependency 'responders'                    , '~> 1.1.2'
 
   # Navigation Rendering
   s.add_dependency 'simple-navigation'             , '~> 3.9.0'

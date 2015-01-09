@@ -1,8 +1,8 @@
 module Koi::ApplicationHelper
   def kt(args={})
     interpolation = (params[:controller] + "/" + params[:action]).gsub("/", ".")
-    args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
-    args.merge!(klass: resource_class.name) if respond_to? :resource_class
+    args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource, true)
+    args.merge!(klass: resource_class.name) if respond_to?(:resource_class, true)
     raw(t(interpolation, args))
   end
 
