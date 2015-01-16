@@ -21,4 +21,5 @@ gem 'pry-rails'
 gem 'better_errors'
 gem 'binding_of_caller'
 
-gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
+gem 'sass-rails', '4.0.3'
+gem 'ornament', github: 'katalyst/ornament'
