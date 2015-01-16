@@ -2,7 +2,8 @@ class SuperHero < ActiveRecord::Base
 
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
-           orderable: false, settings: true
+           orderable: false, settings: true,
+           paginate: false
 
   # FIXME: Refactored from has
   has_many :images, as: :attributable
