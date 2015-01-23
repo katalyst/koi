@@ -89,6 +89,7 @@
 
   // Override Rails handling of confirmation
   $.rails.allowAction = function(element) {
+    
     // The message is something like "Are you sure?"
     var message = element.data('confirm');
 
@@ -109,6 +110,10 @@
       // We want it to sound confirmy
       .html("Yes");
 
+    // Copy data and class attributes
+    // This fixes removing items from nested inline models 
+    $modalConfirm.addClass(element.attr("class"));
+
     var modalHtml =   '<div class="lightbox--ajax-content content-spacing">';
         modalHtml +=  '  <div class="lightbox--body">';
         modalHtml +=  '    <div class="lightbox--heading">';
@@ -123,7 +128,6 @@
         modalHtml +=  '    </div>';
         modalHtml +=  '  </div>';
         modalHtml +=  '</div>';
-
 
     var $modalHtml = $(modalHtml);
 
@@ -154,6 +158,15 @@
         type: 'inline'
       }
     });
+
+    // Nested fields delete action
+    if(element.is("[data-nested-delete]")) {
+      $modalConfirm.on("click", function(e){
+        element.siblings(".remove_fields.dynamic").click();
+        $.magnificPopup.close();
+        return false;
+      });
+    }
 
     // Clicking on the cancel button hides the popup
     $modalCancel.on("click", function(e){
