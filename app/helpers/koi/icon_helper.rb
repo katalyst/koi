@@ -17,7 +17,12 @@ module Koi::IconHelper
   #     document_icon(file) # => /assets/koi/application/icon-file-pdf.png
   #
   def document_icon(document)
-    ext = File.extname(document.name).gsub('.', '')
+    if document.name
+      ext = File.extname(document.name).gsub('.', '')
+    else
+      # prevents broken file uploads from crashing on subsequent page edits
+      ext = "none"
+    end
     Koi::KoiAsset::Document.icons.has_key?(ext) ? Koi::KoiAsset::Document.icons[ext] : Koi::KoiAsset.unknown_image
   end
 

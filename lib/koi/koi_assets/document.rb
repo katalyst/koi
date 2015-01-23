@@ -23,13 +23,13 @@ module Koi
 
       mattr_accessor :icons
       @@icons = {
-                  'pdf'  => '/assets/koi/application/icon-file-pdf.png',
-                  'doc'  => '/assets/koi/application/icon-file-doc.png',
-                  'docx' => '/assets/koi/application/icon-file-doc.png',
-                  'xls'  => '/assets/koi/application/icon-file-xls.png',
-                  'xlsx' => '/assets/koi/application/icon-file-xls.png',
-                  'ppt'  => '/assets/koi/application/icon-file-ppt.png',
-                  'zip'  => '/assets/koi/application/icon-file-zip.png'
+                  'pdf'  => 'koi/application/icon-file-pdf.png',
+                  'doc'  => 'koi/application/icon-file-doc.png',
+                  'docx' => 'koi/application/icon-file-doc.png',
+                  'xls'  => 'koi/application/icon-file-xls.png',
+                  'xlsx' => 'koi/application/icon-file-xls.png',
+                  'ppt'  => 'koi/application/icon-file-ppt.png',
+                  'zip'  => 'koi/application/icon-file-zip.png'
               }
     end
   end
