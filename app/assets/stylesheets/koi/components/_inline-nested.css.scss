@@ -30,6 +30,14 @@
   .inline-actions label {
     cursor: pointer;
   }
+
+  .error-block {
+    float: left;
+    margin-top: 0;
+    color: inherit;
+    font-size: inherit;
+    margin-left: .5em;
+  }
 }
 
 .nested-fields {

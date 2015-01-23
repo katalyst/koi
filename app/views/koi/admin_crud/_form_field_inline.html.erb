@@ -28,7 +28,6 @@
       </div>
     <%- end -%>
   </div>
-
   <div class="nested-wrapper">
 
     <div class="nested-container">
@@ -41,6 +40,12 @@
       </div>
     </div>
   </div>
+
+  <%- if f.error(attr) -%>
+    <p class="error-block">
+      <%= header %> <%= resource.errors.messages[attr][0] -%>
+    </p>
+  <%- end -%>
 
 </div>
 
