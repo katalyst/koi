@@ -5,6 +5,12 @@
   $(document).on("ornament:ck-editor", function(){
 
     function wysiwyg() {
+      var instance = CKEDITOR.instances[this.id];
+      if (instance) {
+        instance.removeAllListeners();
+        delete instance.editor;
+        instance.destroy(true);
+      }
       CKEDITOR.replace(this);
     }
 

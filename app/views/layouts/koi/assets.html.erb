@@ -27,13 +27,13 @@
 
             <% selected = @tags.include? tag %>
             <li>
-              <%= link_to tag.to_s, params.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: (selected ? "button__black" : "button") %>
+              <%= link_to tag.to_s, params.symbolize_keys.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: (selected ? "button__black" : "button") %>
             </li>
 
           <% end %>
         </ul>
       </div>
-    
+
       <div class="assets--body">
         <div class="assets--body--left" data-conform-slave="asset-manager">
 
@@ -62,7 +62,7 @@
 
               <div class="search--buttons">
                 <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", class: "button__primary" %>
-                <%= link_to "Reset", collection_path(params.merge search: nil), class: "button" %>
+                <%= link_to "Reset", collection_path(params.symbolize_keys.merge search: nil), class: "button" %>
               </div>
             <% end %>
 
@@ -90,17 +90,17 @@
                   <% begin %>
                     <tr>
                       <td>
-                        <%= link_to resource_path asset, params do %>
+                        <%= link_to resource_path asset, params.symbolize_keys do %>
                           <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
                         <% end %>
                       </td>
                       <td>
-                        <%= link_to resource_path asset, params do %>
+                        <%= link_to resource_path asset, params.symbolize_keys do %>
                           <%= asset.data_name %>
                         <% end %>
                       </td>
                       <td>
-                        <%= link_to resource_path asset, params do %>
+                        <%= link_to resource_path asset, params.symbolize_keys do %>
                           <%= date_d_Month_yyyy asset.created_at %>
                         <% end %>
                       </td>

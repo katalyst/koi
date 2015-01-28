@@ -17,8 +17,12 @@ module Koi
                         application/xls
                         application/xlsx
                         application/vnd.ms-excel
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                         application/msword
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document
                         application/ppt
+                        application/vnd.ms-powerpoint
+                        application/octet-stream
                         application/zip) + Image.mime_types
 
       mattr_accessor :icons
@@ -29,7 +33,9 @@ module Koi
                   'xls'  => 'koi/application/icon-file-xls.png',
                   'xlsx' => 'koi/application/icon-file-xls.png',
                   'ppt'  => 'koi/application/icon-file-ppt.png',
-                  'zip'  => 'koi/application/icon-file-zip.png'
+                  'pptx' => 'koi/application/icon-file-ppt.png',
+                  'zip'  => 'koi/application/icon-file-zip.png',
+                  'img'  => 'koi/application/icon-file-img.png'
               }
     end
   end

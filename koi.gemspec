@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 2.3'
 
-  s.add_dependency 'rails', '~> 4.1.6'
+  s.add_dependency 'rails', '~> 4.2'
 
   s.add_dependency 'rails-observers'
 
@@ -66,9 +66,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources', '1.5.1'
+  s.add_dependency 'inherited_resources', '~> 1.6'
   s.add_dependency 'has_scope', '0.6.0.rc'
-  s.add_dependency 'responders'
+  s.add_dependency 'responders', '~> 2.1'
 
   # Navigation Rendering
   s.add_dependency 'simple-navigation'
@@ -103,27 +103,19 @@ Gem::Specification.new do |s|
   # Nested Forms
   s.add_dependency 'cocoon'
 
-  # Figaro for using ENV variables
-  s.add_dependency 'figaro'
-
   # Admin Graphing
   s.add_dependency 'countries'
 
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
 
-  # Karo Asset Syncer
+  # Application Settings
+  s.add_dependency 'figaro'
+
+  # Development Dependencies
   s.add_development_dependency 'karo'
-
-  # Data Seeding
-  s.add_development_dependency 'seedbank'
-
-  # Fixture replacement
-  s.add_development_dependency 'factory_girl_rails'
-
-  # Guard for automated testing
-  s.add_development_dependency 'guard'
-  s.add_development_dependency 'guard-test'
-  s.add_development_dependency 'guard-livereload'
-  s.add_development_dependency 'ruby_gntp'
+  s.add_development_dependency 'byebug'
+  s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'web-console', '~> 2.0'
+  s.add_development_dependency 'spring'
 end

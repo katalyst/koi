@@ -61,7 +61,7 @@ module Koi
       return get_collection_ivar unless get_collection_ivar.nil?
       coll = end_of_association_chain
       coll = coll.unassociated
-      coll = coll.search_for params[:search]
+      coll = coll.search params[:search]
       coll = coll.tagged_with @tags unless @tags.blank?
       coll = coll.order sort_column + " " + sort_direction
       set_collection_ivar coll

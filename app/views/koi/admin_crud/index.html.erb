@@ -16,7 +16,7 @@
   <div class="tabs--panes">
     <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
 
-      <% if is_searchable? || is_paginated? %>    
+      <% if is_searchable? || is_paginated? %>
         <div class="listing--pagination listing--pagination__top small">
           <% if is_searchable? %>
             <%= render 'index_search' %>
