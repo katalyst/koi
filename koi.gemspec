@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'compass'
 
-  s.add_dependency 'sass-rails', '~> 4.0.2'
+  s.add_dependency 'sass-rails', '~> 4.0.3'
 
   s.add_dependency 'compass-rails'
 

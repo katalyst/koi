@@ -5,8 +5,8 @@
 Run this to create a new app:
 
 ```bash
-gem install rails -v 4.1.6
-rails _4.1.6_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.0.0/lib/templates/application/app.rb
+gem install rails -v 4.2.0
+rails _4.2.0_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.0.0/lib/templates/application/app.rb
 ```
 
 ## License
