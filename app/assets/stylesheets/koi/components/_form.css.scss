@@ -259,7 +259,8 @@ $radio-offset: 24px;
 }
 
 // SINGLE CHECKBOXES
-.checkbox__single {
+.checkbox__single,
+.control-group.boolean {
   position: relative;
   @include pie-clearfix;
 
