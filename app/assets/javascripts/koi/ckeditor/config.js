@@ -6,12 +6,12 @@
 CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins 								 = 'oembed,showblocks';
 
- 	config.filebrowserBrowseUrl          = '/admin/documents';
-  config.filebrowserUploadUrl          = '/admin/documents';
-  config.filebrowserImageBrowseUrl     = '/admin/images';
-  config.filebrowserImageUploadUrl     = '/admin/images';
-  config.filebrowserImageBrowseLinkUrl = '/admin/documents';
-  config.filebrowserImageUploadLinkUrl = '/admin/documents';
+ 	config.filebrowserBrowseUrl          = '/admin/documents/new';
+  config.filebrowserUploadUrl          = '/admin/documents/new';
+  config.filebrowserImageBrowseUrl     = '/admin/images/new';
+  config.filebrowserImageUploadUrl     = '/admin/images/new';
+  config.filebrowserImageBrowseLinkUrl = '/admin/documents/new';
+  config.filebrowserImageUploadLinkUrl = '/admin/documents/new';
   config.filebrowserWindowWidth        = 950;
   config.filebrowserWindowHeight       = 750;
 
