@@ -193,7 +193,7 @@ END
 rake 'koi:install:migrations'
 
 # Convert url's like this /pages/about-us into /about-us
-route 'get "/:id"  => "pages#show", as: :page_slug'
+route 'get "/:id"  => "pages#show", as: :page'
 
 # Koi Engine route
 route 'mount Koi::Engine => "/admin", as: "koi_engine"'
@@ -223,7 +223,7 @@ rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
-route 'resources :pages, only: [:index, :show]'
+route 'resources :pages, only: [:index, :show], as: :koi_pages'
 route 'resources :assets, only: [:show]'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
