@@ -89,6 +89,10 @@ module HasCrud
       end
 
       def setup_searchable
+        # FIXME: Disabled searchable as scoped_search is having issue working with
+        #        inherited resources ActiveRecord_Associations_CollectionProxy
+        options[:searchable] = false
+
         if !self.options[:searchable].eql?(false) && table_exists?
           if self.options[:searchable].eql?(true) || self.options[:searchable].eql?(nil)
             setup_default_searchable

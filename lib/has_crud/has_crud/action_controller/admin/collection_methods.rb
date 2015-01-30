@@ -41,10 +41,8 @@ module HasCrud
 
           def scope_searchable
             initial_scope
+            .search_for(params[:search])
             .reorder(sort_order)
-            # FIXME: Removed search_for between initial_scope and reorder as it is failing
-            #        to work with ActiveRecord_Associations_CollectionProxy
-            # .search_for(params[:search])
           end
 
           def scope_default
