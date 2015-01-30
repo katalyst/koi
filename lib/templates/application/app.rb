@@ -13,6 +13,11 @@ create_file '.rbenv-gemsets', <<-END
 koi-gem
 END
 
+# Add .envrc for direnv to autoload ./bin in PATH
+create_file '.envrc', <<-END
+PATH_add ./bin
+END
+
 # jQuery UI
 gem "jquery-ui-rails"
 
