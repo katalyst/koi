@@ -28,8 +28,8 @@ PATH
       acts-as-taggable-on
       awesome_nested_set
       cocoon
-      compass
-      compass-rails
+      compass (~> 1.0.0)
+      compass-rails (~> 2.0.2)
       countries
       devise
       dragonfly
@@ -48,7 +48,7 @@ PATH
       redis
       responders (~> 2.1)
       rickshaw_rails
-      sass
+      sass (~> 3.4.12)
       sass-rails (~> 5.0.0)
       scoped_search
       select2-rails
