@@ -39,56 +39,62 @@
   }
 </style>
 
-<div id='chart_container_<%= index %>'>
-  <div id="y_axis_<%= index %>"></div>
-  <div id="chart_<%= index %>"></div>
-  <div id="x_axis_<%= index %>"></div>
-  <div id="slider_<%= index %>"></div>
-</div>
+<%- if report[:values].blank? -%>
 
-<script type='text/javascript'>
+  <p>No data to show.</p>
 
-  var graph = new Rickshaw.Graph( {
-    element: document.querySelector("#chart_<%= index %>"),
-    width:  600,
-    height: 300,
-    stroke: true,
-    renderer: 'multi',
-    series: [{ color: '<%= report[:colour] %>',
-                data:  <%= raw report[:values].to_json %>,
-                name: '<%= report[:name] %>',
-            renderer: '<%= report[:renderer] %>' }]
-  });
+<%- else -%>
+  <div id='chart_container_<%= index %>'>
+    <div id="y_axis_<%= index %>"></div>
+    <div id="chart_<%= index %>"></div>
+    <div id="x_axis_<%= index %>"></div>
+    <div id="slider_<%= index %>"></div>
+  </div>
 
-  var hoverDetail = new Rickshaw.Graph.HoverDetail({
-      graph: graph
-  });
+  <script type='text/javascript'>
 
-  var xAxis = new Rickshaw.Graph.Axis.Time({
-    graph: graph,
-    tickFormat: Rickshaw.Fixtures.Time.formatTime,
-    element: document.getElementById('x_axis_<%= index %>')
-  });
+    var graph = new Rickshaw.Graph( {
+      element: document.querySelector("#chart_<%= index %>"),
+      width:  600,
+      height: 300,
+      stroke: true,
+      renderer: 'multi',
+      series: [{ color: '<%= report[:colour] %>',
+                  data:  <%= raw report[:values].to_json %>,
+                  name: '<%= report[:name] %>',
+              renderer: '<%= report[:renderer] %>' }]
+    });
 
-  xAxis.render();
+    var hoverDetail = new Rickshaw.Graph.HoverDetail({
+        graph: graph
+    });
 
-  var yAxis = new Rickshaw.Graph.Axis.Y({
-    graph: graph,
-    orientation: 'left',
-    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-    element: document.getElementById('y_axis_<%= index %>')
-  });
+    var xAxis = new Rickshaw.Graph.Axis.Time({
+      graph: graph,
+      tickFormat: Rickshaw.Fixtures.Time.formatTime,
+      element: document.getElementById('x_axis_<%= index %>')
+    });
 
-  yAxis.render();
+    xAxis.render();
 
-  graph.render();
+    var yAxis = new Rickshaw.Graph.Axis.Y({
+      graph: graph,
+      orientation: 'left',
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+      element: document.getElementById('y_axis_<%= index %>')
+    });
 
-  var slider = new Rickshaw.Graph.RangeSlider({
-    graph: graph,
-    element: document.querySelector('#slider_<%= index %>')
-  });
-</script>
+    yAxis.render();
 
-<br />
-<br />
-<br />
+    graph.render();
+
+    var slider = new Rickshaw.Graph.RangeSlider({
+      graph: graph,
+      element: document.querySelector('#slider_<%= index %>')
+    });
+  </script>
+
+  <br />
+  <br />
+  <br />
+<%- end -%>
