@@ -35,9 +35,9 @@ gem 'koi'                       , github: 'katalyst/koi',
                                   branch: 'v2.0.0'
 
 # Compass
-gem 'compass'                   , "~> 0.12.2"
+gem 'compass'                   , "~> 1.0.0"
 
-gem 'compass-rails'             , "~> 2.0.0"
+gem 'compass-rails'             , "~> 2.0.2"
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
@@ -59,7 +59,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
+  gem 'ornament', github: 'katalyst/ornament'
 end
 
 # Setup mailer host

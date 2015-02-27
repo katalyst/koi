@@ -17,5 +17,5 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
                                   branch: 'master'
 
-gem 'sass-rails', '4.0.3'
+gem 'sass-rails', '~> 5.0.0'
 gem 'ornament', github: 'katalyst/ornament'

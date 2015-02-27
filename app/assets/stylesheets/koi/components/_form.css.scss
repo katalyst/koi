@@ -142,13 +142,15 @@ textarea,
   &.input__flat-left {
     @include input__flat-left;
   }
+
   &:focus {
     outline: none;
     border-color: $input-border-focus-color;
   }
 
+  &[readonly],
   &[disabled] {
-    background: lighten($grey,20);
+    background: $passive-color;
     cursor: not-allowed;
   }
 

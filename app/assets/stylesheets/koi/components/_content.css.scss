@@ -88,9 +88,8 @@ ol.content-lists,
 }
 
 .content {
-  @extend .content-large;
-  @extend .content-spacing;
-  @extend .content-lists;
+  @extend .content-spacing !optional;
+  @extend .content-lists !optional;
 
   h1 {
     @include heading-one;

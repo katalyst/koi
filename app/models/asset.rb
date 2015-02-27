@@ -2,6 +2,8 @@ class Asset < ActiveRecord::Base
 
   has_crud paginate: false, settings: false
 
+  dragonfly_accessor :data, app: :file
+
   scoped_search :on => [:data_name]
 
   scope :unassociated, -> { where(attributable_type: nil) }
