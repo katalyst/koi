@@ -32,7 +32,7 @@ module CommonControllerActions
   end
 
   def sign_in_as_admin!
-    sign_in(:admin, Admin.first) unless Admin.all.empty?
+    sign_in(:admin, Admin.where(role: 'Super').first) unless Admin.where(role: 'Super').empty?
   end
 
 end
