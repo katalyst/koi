@@ -10,8 +10,7 @@
     </span>
     <span class="nested-fields__status collapser"></span>
     <span class="close-link">
-      <%= link_to "Delete", "#", data: { confirm: "Are you sure?", nested_delete: "" } %>
-      <%= link_to_remove_association "Delete", f, style: "display: none;" -%>
+      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. " } -%>
     </span>
   </h3>
   <div class="nested-inline-fields inputs <%= "hidden" if f.object.errors.blank? %>">

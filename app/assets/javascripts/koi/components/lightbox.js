@@ -87,6 +87,7 @@
 
   });
 
+  /*
   // Override Rails handling of confirmation
   $.rails.allowAction = function(element) {
     
@@ -108,7 +109,14 @@
       // We want a button
       .addClass('button')
       // We want it to sound confirmy
-      .html("Yes");
+      .html("Yes")
+      .on('click', function(e) {
+        if(element.is('[data-confirm-has-callback]')) {
+          e.preventDefault();
+          $.rails.fire(element, 'confirm:complete', true);
+          return false;
+        }
+      });
 
     // Copy data and class attributes
     // This fixes removing items from nested inline models 
@@ -177,5 +185,6 @@
     // Prevent the original link from working
     return false
   }
+  */
 
 }(document, window, jQuery));
