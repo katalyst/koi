@@ -19,6 +19,7 @@ en:
   activerecord:
     models:
       translation: Settings
+      product: "Add products to this category"
     attributes:
       nav_item:
         is_mobile: "Show for mobile"

@@ -1,11 +1,10 @@
 <%-
   partial                 = "inline_fields"
   attr_string             = attr.to_s
-  header                  = attr_string.humanize
-  singular_name           = attr_string.singularize
-  singular_name_humanized = singular_name.humanize
+  klass                   = attr_string.classify.constantize
+  header                  = klass.model_name.human
+  singular_name_humanized = header.singularize
   add_link                = "Add #{singular_name_humanized}"
-  klass                   = singular_name.titlecase.gsub(" ", "").constantize
   records                 = f.object.send(attr)
 
   is_orderable            = (klass.has_crud? && klass.options[:orderable]) ? true : false
