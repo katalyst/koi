@@ -410,6 +410,9 @@ public/system/**/*
 
 # Ignore application configuration
 /config/application.yml
+
+# NPM packages
+/node_modules
 END
 
 generate('ornament -f') if yes?("Do you want to generate ornament?")
