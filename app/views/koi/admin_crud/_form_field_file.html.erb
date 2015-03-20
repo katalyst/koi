@@ -82,16 +82,22 @@
         <% if value.respond_to?(:name) %>
           <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
         <% end %>
-          <div class="controls">
+        <div class="control-group radio_buttons">
           <% unless is_nil_or_new %>
+            <div class="controls">
               <label class="radio"><%= f.radio_button remove, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
+            </div>
           <% end %>
           <% unless is_required %>
-            <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
+            <div class="controls">
+              <label class="radio"><%= f.radio_button remove, true %> No <%= kind %></label>
+            </div>
           <% end %>
-          <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
-          <%= f.input_field attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+          <div class="controls">
+            <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
+          </div>
         </div>
+        <%= f.input_field attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
       </div>
     </div>
 
