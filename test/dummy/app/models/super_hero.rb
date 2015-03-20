@@ -41,10 +41,13 @@ class SuperHero < ActiveRecord::Base
 
     config :admin do
       exportable true
+      actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
+                       :telephone, :image, :file, :powers]
+      show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers]
       reportable true
       charts [{
