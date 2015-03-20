@@ -1,0 +1,8 @@
+<% data = resource_class.crud.find(:fields, attr, :data) %>
+<% if data.nil? %>
+  <%= f.input attr.to_sym, :as => :check_boxes, wrapper_html: { class: "form--horizontal" } %>
+<% else %>
+  <%= f.input attr.to_sym, :as => :check_boxes, collection: data, wrapper_html: { class: "form--horizontal" } %>
+<% end %>
+
+<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>

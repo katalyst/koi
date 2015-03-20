@@ -235,12 +235,15 @@ $radio-offset: 24px;
 
 .radio_buttons,
 .check_boxes {
+  @include pie-clearfix;
+
   .radio,
   .checkbox {
     position: relative;
     padding-left: $radio-offset;
     margin-right: $xxx-small-unit;
-    display: inline-block;
+    float: left;
+    clear: both;
 
     input {
       position: absolute;
@@ -256,6 +259,7 @@ $radio-offset: 24px;
   .radio,
   .checkbox {
     float: left;
+    clear: none;
     margin-right: $xx-small-unit;
   }
 }
