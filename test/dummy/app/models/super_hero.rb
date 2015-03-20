@@ -33,7 +33,8 @@ class SuperHero < ActiveRecord::Base
            is_alive:       { type: :boolean },
            powers:         { type: :check_boxes, data: Powers },
            images:         { type: :inline },
-           published_at:   { type: :readonly }
+           published_at:   { type: :date },
+           telephone:      { type: :readonly }
 
     form   fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
