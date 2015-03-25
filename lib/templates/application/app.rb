@@ -174,12 +174,12 @@ run 'bundle install'
 # Generate .karo.yml file
 create_file '.karo.yml', <<-END
 production:
-  host: koiv2production.engineyard.katalyst.com.au
+  host: koiv2productionv2.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
-      deploy: ey deploy -e koiv2production
+      deploy: ey deploy -e koiv2productionv2
 staging:
   host: koiv2staging.engineyard.katalyst.com.au
   user: deploy
