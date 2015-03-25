@@ -1,16 +1,16 @@
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-2.1.2
+2.2.1
 END
 
 # Add .ruby-gemset for RVM
 create_file '.ruby-gemset', <<-END
-koi-gem
+koiv2-gem
 END
 
 # Add .rbenv-gemsets for RBENV
 create_file '.rbenv-gemsets', <<-END
-koi-gem
+koiv2-gem
 END
 
 # Add .envrc for direnv to autoload ./bin in PATH
