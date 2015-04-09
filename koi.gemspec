@@ -89,9 +89,6 @@ Gem::Specification.new do |s|
   # Nice Multi Select
   s.add_dependency 'select2-rails'
 
-  # Karo Asset Syncer
-  s.add_dependency 'karo'
-
   # Nested Forms
   s.add_dependency 'cocoon'
 
@@ -103,6 +100,9 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
+
+  # Karo Asset Syncer
+  s.add_development_dependency 'karo'
 
   # Console Replacement
   s.add_development_dependency 'pry'
