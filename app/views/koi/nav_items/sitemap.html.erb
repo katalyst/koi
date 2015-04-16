@@ -1,5 +1,35 @@
 <% content_for :head do %>
   <%= javascript_include_tag "koi/nav_items" %>
+  <script>
+    $(function(){
+
+      var $toggleButton = $("[data-disable-dragndrop]");
+
+      if(localStorage) {
+
+        var toggleDragAndDrop = function(){
+          if(localStorage.disableDragAndDrop) {
+            localStorage.removeItem("disableDragAndDrop");
+          } else {
+            localStorage.setItem("disableDragAndDrop", "true")
+          }
+          document.location.reload();
+        }
+
+        if(localStorage.disableDragAndDrop) {
+          $toggleButton.text("Enable drag and drop");
+        }
+
+        $toggleButton.on("click", function(){
+          toggleDragAndDrop();
+        });
+
+      } else {
+        $toggleButton.hide();
+      }
+
+    });
+  </script>
 <% end %>
 
 <% content_for :title, "Sitemap" %>
@@ -13,6 +43,12 @@
 <div id="modal-for-nav-item" class="modal fade hide-element as-clr">&nbsp;</div>
 
 <% content_for :side do %>
+
+<!--
+  <p>
+    <a href="#" class="btn btn-primary" data-disable-dragndrop>Disable drag and drop</a>
+  </p>
+-->
 
   <header class="right side header">
     <h2 class="heading">Adding a page</h2>

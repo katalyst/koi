@@ -34,19 +34,21 @@ $ (function () {
       return JSON.stringify ($rootItem.call ($toNestedSet));
     }
 
-    $rootList.nestedSortable ({
-      forcePlaceholderSize: true
-    , handle: 'div'
-    , helper: 'clone'
-    , items: '.sortable'
-    , opacity: .6
-    , placeholder: 'placeholder'
-    , revert: 250
-    , tabSize: 25
-    , tolerance: 'pointer'
-    , toleranceElement: '> div'
-    })
-    .on ("sortupdate", save);
+    if(localStorage && !localStorage.disableDragAndDrop) {
+      $rootList.nestedSortable ({
+        forcePlaceholderSize: true
+      , handle: 'div'
+      , helper: 'clone'
+      , items: '.sortable'
+      , opacity: .6
+      , placeholder: 'placeholder'
+      , revert: 250
+      , tabSize: 25
+      , tolerance: 'pointer'
+      , toleranceElement: '> div'
+      })
+      .on ("sortupdate", save);
+    }
   });
 
   $ (".nav-item.application").application (true, function ($item)
