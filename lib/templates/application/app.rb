@@ -281,10 +281,17 @@ END
 # Setup Airbrake
 create_file 'config/initializers/airbrake.rb', <<-END
 Airbrake.configure do |config|
-  config.api_key = 'Consult Wiki'
-  config.host    = 'errbit.katalyst.com.au'
-  config.port    = 80
-  config.secure  = config.port == 443
+  config.api_key    = Figaro.env.airbrake_api_key
+  config.host       = Figaro.env.airbrake_host
+  config.port       = Figaro.env.airbrake_port.to_i
+  config.secure     = Figaro.env.airbrake_secure == 'true'
+  config.project_id = Figaro.env.airbrake_api_key
+end
+
+class Airbrake::Sender
+  def json_api_enabled?
+    true
+  end
 end
 END
 
@@ -337,6 +344,10 @@ MANDRILL_PASSWORD: ''
 MAILTRAP_USERNAME: ''
 MAILTRAP_PASSWORD: ''
 SECRET_KEY_BASE:   ''
+AIRBRAKE_API_KEY:  ''
+AIRBRAKE_HOST:     'errbit.katalyst.com.au'
+AIRBRAKE_PORT:     '443'
+AIRBRAKE_SECURE:   'true'
 END
 
 create_file 'config/application.yml.example', application_yml
