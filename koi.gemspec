@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 2.3'
 
-  s.add_dependency 'rails', '~> 4.2'
+  s.add_dependency 'rails', '~> 4.2.1'
 
   s.add_dependency 'rails-observers'
 
@@ -77,7 +77,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'acts-as-taggable-on'
 
   # Scoped Search
-  s.add_dependency 'scoped_search'
+  s.add_dependency 'scoped_search', '~> 3.2.0'
 
   # Unique ID generation
   s.add_dependency 'uuidtools'

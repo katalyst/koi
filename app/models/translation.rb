@@ -6,7 +6,7 @@ class Translation < ActiveRecord::Base
   # FIXME: Refactored from has
   has_many :images
 
-  after_save :reset_memory_store_cache
+  # after_save :reset_memory_store_cache
 
   validates :locale, :label, :key, :field_type,
             :role, presence: true

@@ -85,14 +85,10 @@ module HasCrud
       end
 
       def setup_ajaxable
-        self.options[:ajaxable] = true unless self.options[:ajaxable].eql?(false)
+        self.options[:ajaxable] = true if self.options[:ajaxable].eql?(true)
       end
 
       def setup_searchable
-        # FIXME: Disabled searchable as scoped_search is having issue working with
-        #        inherited resources ActiveRecord_Associations_CollectionProxy
-        options[:searchable] = false
-
         if !self.options[:searchable].eql?(false) && table_exists?
           if self.options[:searchable].eql?(true) || self.options[:searchable].eql?(nil)
             setup_default_searchable

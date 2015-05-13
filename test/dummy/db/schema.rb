@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: true do |t|
+  create_table "admins", force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
-  create_table "assets", force: true do |t|
+  create_table "assets", force: :cascade do |t|
     t.string   "data_uid"
     t.string   "data_name"
     t.string   "type"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
     t.string   "slug"
   end
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.integer  "ordinal"
     t.string   "slug"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
-  create_table "friendly_id_slugs", force: true do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 40
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "nav_items", force: true do |t|
+  create_table "nav_items", force: :cascade do |t|
     t.string   "type"
     t.string   "title"
     t.string   "url"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   add_index "nav_items", ["navigable_type"], name: "index_nav_items_on_navigable_type", using: :btree
   add_index "nav_items", ["url"], name: "index_nav_items_on_url", using: :btree
 
-  create_table "news_items", force: true do |t|
+  create_table "news_items", force: :cascade do |t|
     t.string   "title"
     t.string   "slug"
     t.datetime "created_at"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "news_items", ["slug"], name: "index_news_items_on_slug", unique: true, using: :btree
 
-  create_table "pages", force: true do |t|
+  create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.string   "slug"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
-  create_table "product_images", force: true do |t|
+  create_table "product_images", force: :cascade do |t|
     t.integer  "product_id"
     t.string   "product_type"
     t.string   "title"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "product_images", ["slug"], name: "index_product_images_on_slug", unique: true, using: :btree
 
-  create_table "products", force: true do |t|
+  create_table "products", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "name"
     t.text     "description"
@@ -157,14 +157,14 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
 
-  create_table "related_products", id: false, force: true do |t|
+  create_table "related_products", id: false, force: :cascade do |t|
     t.integer  "product_a_id", null: false
     t.integer  "product_b_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "reports", force: true do |t|
+  create_table "reports", force: :cascade do |t|
     t.integer  "visits"
     t.integer  "unique_pageviews"
     t.integer  "pageviews"
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
     t.datetime "updated_at"
   end
 
-  create_table "super_heros", force: true do |t|
+  create_table "super_heros", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.date     "published_at"
@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
 
-  create_table "taggings", force: true do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
@@ -214,14 +214,14 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", force: true do |t|
+  create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
-  create_table "translations", force: true do |t|
+  create_table "translations", force: :cascade do |t|
     t.string   "locale",           default: "en"
     t.string   "label"
     t.string   "key"
@@ -243,7 +243,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
 
   add_index "translations", ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true, using: :btree
 
-  create_table "url_rewrites", force: true do |t|
+  create_table "url_rewrites", force: :cascade do |t|
     t.text     "from"
     t.text     "to"
     t.boolean  "active",     default: true
@@ -251,7 +251,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

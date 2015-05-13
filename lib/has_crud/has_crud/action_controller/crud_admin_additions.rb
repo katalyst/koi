@@ -8,6 +8,10 @@ module HasCrud
         base.send :extend,  ClassMethods
         base.send :include, InstanceMethods
         base.send :include, Admin::CollectionMethods
+        base.send :has_scope, :search, :if => :is_searchable?,
+                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
+          scope.search_for(value)
+        end
         base.send :include, Admin::CrudMethods
         base.send :include, Koi::ApplicationHelper
         base.send :include, ActionView::Helpers::OutputSafetyHelper
