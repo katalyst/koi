@@ -54,7 +54,7 @@ PATH
       select2-rails
       sendgrid
       sidekiq
-      simple-navigation
+      simple-navigation (~> 3.14.0)
       simple_form
       sinatra
       uglifier
