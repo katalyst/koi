@@ -5,7 +5,7 @@
 
   <p>
     Name: <b><%= resource.data.name.truncate(25) %></b> <br />
-    Link: <b><%= link_to "Right-click to Copy", "#{ host }#{ resource.url }", target: "_clipboard" %></b> <br/>
+    Link: <b><%= link_to "Right-click to Copy", resource.url, target: "_clipboard" %></b> <br/>
     Size: <b><%= number_to_human_size(resource.data.size) %></b> <br />
     Uploaded: <b><%= date_d_Month_yyyy resource.created_at %></b>
   </p>
