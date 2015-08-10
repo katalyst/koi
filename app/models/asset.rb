@@ -6,7 +6,7 @@ class Asset < ActiveRecord::Base
 
   scoped_search :on => [:data_name]
 
-  scope :unassociated, -> { where(attributable_type: nil) }
+  scope :unassociated, -> { where("attributable_type IS NULL OR attributable_type = ''") }
   scope :search_data,  -> query { where("data_name LIKE ?", "%#{query}%") }
 
   acts_as_taggable
