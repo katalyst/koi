@@ -1,4 +1,9 @@
-<%= f.input attr, as: :string, input_html: { class: "datetime input datetimepicker form--medium", value: resource.send(attr).strftime('%a, %b %e %Y at %l:%M %p') } %>
+<%- 
+  datetime_value = ""
+  datetime_value = resource.send(attr).strftime('%a, %b %e %Y at %l:%M %p') if resource.send(attr)
+-%>
+
+<%= f.input attr, as: :string, input_html: { class: "datetime input datetimepicker form--medium", value: datetime_value } %>
 
 <script>
   $('.datetimepicker').datetimepicker({
