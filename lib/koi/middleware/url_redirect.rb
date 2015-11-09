@@ -14,7 +14,7 @@ module Koi
         request = ActionDispatch::Request.new(env)
 
         # Close the body as we will not use it for a 301 redirect
-        body.close
+        body.close if body.respond_to?(:close)
 
         # Issue a "Moved permanently" response with the redirect location
         [301, { "Location" => new_location(current_path, new_path, request) }, ["#{current_path} moved. The document has moved to #{new_path}"]]
