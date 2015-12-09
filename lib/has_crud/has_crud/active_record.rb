@@ -4,13 +4,20 @@ module HasCrud
   module ActiveRecord
     extend ActiveSupport::Concern
 
+    def crud
+      self.class.crud
+    end
+
+    def options
+      self.class.options
+    end
+
     module ClassMethods
+      attr_accessor :crud, :options
+
       def has_crud(options={})
         send :include, HasCrud::ActiveRecord::CrudAdditions
         send :include, Rails.application.routes.url_helpers
-
-        cattr_accessor :crud
-        cattr_accessor :options
 
         self.options = options
 
