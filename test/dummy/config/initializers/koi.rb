@@ -2,6 +2,7 @@
 
 Koi::Menu.items = {
   "Super Heros"  => "/admin/super_heros",
+  "Kid Heros"    => "/admin/kid_heros",
   "News"         => "/admin/news_items",
   "Categories"   => "/admin/categories",
   "URL History"  => "/admin/friendly_id_slugs",

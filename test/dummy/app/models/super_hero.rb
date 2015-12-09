@@ -36,6 +36,9 @@ class SuperHero < ActiveRecord::Base
            published_at:   { type: :date },
            telephone:      { type: :readonly }
 
+    index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
+                    :telephone]
+
     form   fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
 

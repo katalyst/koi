@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024065113) do
+ActiveRecord::Schema.define(version: 20151209231443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20141024065113) do
   end
 
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
+
+  create_table "contact_forms", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "postcode"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_forms", ["slug"], name: "index_contact_forms_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -197,6 +208,7 @@ ActiveRecord::Schema.define(version: 20141024065113) do
     t.integer  "ordinal"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
