@@ -21,9 +21,11 @@ module HasCrud
 
         self.options = options
 
-        self.crud = KoiConfig::Config.new
+        self.crud = default_crud_config
 
+        before_setup_crud
         setup_crud
+        after_setup_crud
       end
 
       def has_crud?
@@ -31,6 +33,20 @@ module HasCrud
       end
 
       private
+
+      def default_crud_config
+        KoiConfig::Config.new default_crud_config_options
+      end
+
+      def default_crud_config_options
+        {}
+      end
+
+      def before_setup_crud
+      end
+
+      def after_setup_crud
+      end
 
       def setup_crud
         setup_navigation
