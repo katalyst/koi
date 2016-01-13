@@ -50,6 +50,10 @@ module Koi
           '{ type: :boolean }'
         elsif field_is_enum?(name, data_type)
           "{ type: :select, data: #{name.pluralize.upcase}.invert }"
+        elsif data_type == 'date'
+          '{ type: :date }'
+        elsif data_type == 'datetime'
+          '{ type: :datetime }'
         else
           '{ type: :string }'
         end
@@ -65,6 +69,10 @@ module Koi
 
       def field_is_file?(name, data_type)
         name.include?('_uid') && doc_names.any?{ |doc_name| name.include?(doc_name) }
+      end
+
+      def field_is_url?(name, data_type)
+        name.include?('url') || name.include?('link')
       end
 
       #for keeping whitespace nice in form field type generation
@@ -88,6 +96,33 @@ module Koi
 
       def doc_names
         ['file', 'document', 'pdf', 'attachment']
+      end
+
+      def file_attributes
+        @model_attributes.select{ |attr| field_is_file?(attr.name, attr.type) }
+      end
+
+      def image_attributes
+        @model_attributes.select{ |attr| field_is_image?(attr.name, attr.type) }
+      end
+
+      # dragonfly accessors and validation for images/files, validation for urls, enum for statuses
+      def make_field_config(attr)
+        if field_is_enum?(attr.name, attr.type)
+         "#{attr.name.pluralize.upcase} = { active: 'Active', inactive: 'Inactive' }\n\s\s" \
+         "enum #{attr.name}: #{attr.name.pluralize.upcase}.keys\n\s\s" \
+         "validates :#{attr.name}, presence: true\n\n"
+        elsif field_is_image?(attr.name, attr.type)
+         "dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :image\n\s\s" \
+         "validates_property :format, of: :#{attr.name.chomp('_uid')}, in: ['jpeg', 'png', 'gif', 'png']\n\n"
+        elsif field_is_file?(attr.name, attr.type)
+         "dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :file\n\s\s" \
+         "validates_property :ext, of: :#{attr.name.chomp('_uid')}, in: ['pdf', 'doc', 'docx', 'csv', 'txt']\n\n"
+        elsif field_is_url?(attr.name, attr.type)
+         "validates :#{attr.name}, format: { with: ->(obj) {obj.#{ attr.name}.start_with?('http://') || obj.#{attr.name}.start_with?('https://') }, message: \"must be a valid url (including http:// or https://)\" }\n"
+        else
+          ""
+        end
       end
 
     end
