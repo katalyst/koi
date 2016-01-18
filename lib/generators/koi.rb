@@ -36,7 +36,11 @@ module Koi
       #make the field type for crud
       # i.e. banner_image: { type: :image }
       def make_field_type(attr, index)
-        "#{attr.name.chomp('_uid')}:#{whitespace_for_field(attr)} #{guess_field_type(attr.name, attr.type)}#{',' if index != @model_attributes.length-1}\n\s\s\s\s\s\s\s\s\s\s\s"
+        field_type    = guess_field_type(attr.name, attr.type)
+        whitespace    = whitespace_for_field(attr)
+        field_name    = attr.name.chomp('_uid')
+        is_last_field = index === @model_attributes.length-1
+        "#{field_name}:#{whitespace} #{field_type}#{',' unless is_last_field}\n\s\s\s\s\s\s\s\s\s\s\s"
       end
 
       def guess_field_type(name, data_type)
@@ -75,9 +79,16 @@ module Koi
         name.include?('url') || name.include?('link')
       end
 
-      #for keeping whitespace nice in form field type generation
+      # for keeping whitespace nice in form field type generation
+      # e.g.
+      #          something: { type: string },
+      #          file:      { type: :file },
+      #          my_url:    { type: :string }
       def whitespace_for_field(attr)
-        "\s"*(@model_attributes.max_by{|attr|attr.name.chomp('_uid').length}.name.chomp('_uid').length-attr.name.chomp('_uid').length)
+        longest_attribute_name = @model_attributes.max_by{ |attr| attr.name.chomp('_uid').length }.name.chomp('_uid')
+        current_attribute_name = attr.name.chomp('_uid')
+        whitespace_needed      = longest_attribute_name.length - current_attribute_name.length
+        "\s" * whitespace_needed
       end
 
       def crud_field_list
@@ -85,7 +96,7 @@ module Koi
       end
 
       def crud_csv_field_list
-        #reject fields that are files or images
+        #reject fields that are files or images and collects the attribute names
         @model_attributes.reject{ |attr| field_is_image?(attr.name, attr.type) || field_is_file?(attr.name, attr.type) }
                          .map{ |attr| attr.name.to_sym }
       end
