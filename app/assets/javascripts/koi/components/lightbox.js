@@ -1,4 +1,4 @@
-//= require magnific-popup
+//= require koi/magnific-popup
 
 /*jslint browser: true, indent: 2, todo: true, unparam: true */
 /*global jQuery,Ornament /*/

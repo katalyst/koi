@@ -3,13 +3,13 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require picturefill
+//= require koi/picturefill
 //= require select2
 //= require cocoon
-//= require velocity
-//= require jquery.touchSwipe
-//= require jquery.placeholder
-//= require jquery-ui-timepicker-addon
+//= require koi/velocity
+//= require koi/jquery.touchSwipe
+//= require koi/jquery.placeholder
+//= require koi/jquery-ui-timepicker-addon
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts

@@ -1,4 +1,4 @@
-//= require jquery.menu-aim
+//= require koi/jquery.menu-aim
 
 /*jslint browser: true, indent: 2, todo: true, unparam: true */
 /*global jQuery,Ornament /*/
