@@ -81,6 +81,8 @@ $site-breakpoints:
   (large, $breakpoint-large)
 ;
 
+$breakpoint-header-sticky: 400px;
+
 // GUTTERS
 //
 // Site gutters to be used at desktop and specific breakpoints. Used within grids util. (Breakpoint keyword, Gutter size)

@@ -62,14 +62,13 @@ body {
 }
 
 .layout--main {
-  padding-bottom: $layout-mobile-footer-gap;
-  padding-top: $layout-mobile-header-gap;
+  background: $layout-background;
+  padding-bottom: $layout-desktop-footer-gap;
+  padding-left: $layout-desktop-edge-gap;
+  padding-right: $layout-desktop-edge-gap;
+  padding-top: 58px;
 
-  @include media-query($layout-breakpoint,min) {
-    background: $layout-background;
-    padding-bottom: $layout-desktop-footer-gap;
-    padding-left: $layout-desktop-edge-gap;
-    padding-right: $layout-desktop-edge-gap;
+  @media only screen and (min-height:$breakpoint-header-sticky) { 
     padding-top: $layout-desktop-header-gap;
   }
 }
