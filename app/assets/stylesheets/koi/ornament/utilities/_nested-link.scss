@@ -1,0 +1,16 @@
+@mixin nested-link($text-color:$foreground-color, $link-color:$link-color) {
+  @include color-link($text-color, $text-color);
+  @include decorate-link(none, none);
+
+  .nested-link--target {
+    color: $link-color;
+  }
+
+  &:hover .nested-link--target {
+    text-decoration: underline;
+  }
+}
+
+.nested-link {
+  @include nested-link;
+}

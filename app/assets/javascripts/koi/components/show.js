@@ -12,9 +12,31 @@
     $showListeners = $("[data-show]");
     controlSeperator = "_&_";
 
+    var destroyData = function($field) {
+      $field.find("input").each(function(){
+        var $input = $(this);
+        if($input.is("[type=checkbox]") || $input.is("[type=radio]")) {
+          $input.prop("checked", false);
+        } else {
+          $input.val("");
+        }
+      });
+      $field.find("textarea").each(function(){
+        $(this).val("");
+      });
+      $field.find("select").each(function(){
+        $(this).val("");
+      });
+    }
+
     // Show or hide the field
     var showHideField = function($field, showField, instant){
       instant = instant || false;
+
+      // apply inverse filter
+      if($field.is("[data-show-inverse]")) {
+        showField = !showField;
+      }
 
       // show/hide field
       if(showField) {
@@ -28,6 +50,9 @@
           $field.hide();
         } else {
           $field.slideUp('fast');
+          if($field.is("[data-show-destroy]")){
+            destroyData($field);
+          }
         }
       }
     }
@@ -129,7 +154,7 @@
     // Show or hide everything that has [data-show]
     var showHideAllFields = function(){
       $showListeners.each(function(){
-        var $thisField, $showTargets, $siblingTargets, $showOnControls, 
+        var $thisField, $showTargets, $siblingTargets, $showOnControls,
             showOn, multipleControls;
 
         $thisField = $(this);
@@ -173,9 +198,9 @@
             });
             // check on page load
             if(multipleControls) {
-              showHideCheckMultipleRadio($thisField, $showTargets);
+              showHideCheckMultipleRadio($thisField, $showTargets, true);
             } else {
-              showHideCheckRadio($showTarget, $thisField);
+              showHideCheckRadio($showTarget, $thisField, true);
             }
           // Text Inputs
           } else if ( $thisField.data("show-input") !== undefined ) {

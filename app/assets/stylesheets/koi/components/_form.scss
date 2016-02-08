@@ -161,18 +161,8 @@ textarea,
 
 // PLACEHOLDERS
 
-$placeholder-color: #ccc;
-::-webkit-input-placeholder {
-   color: $placeholder-color;
-}
-:-moz-placeholder { /* Firefox 18- */
-   color: $placeholder-color;
-}
-::-moz-placeholder {  /* Firefox 19+ */
-   color: $placeholder-color;
-}
-:-ms-input-placeholder {
-   color: $placeholder-color;
+@include input-placeholder {
+  color: $input-border-color;
 }
 
 select {
@@ -227,6 +217,11 @@ select {
 }
 .form--x-small {
   max-width: spanf(1,4,$form-width);
+}
+
+.form--auto {
+  width: auto;
+  max-width: 100%;
 }
 
 // RADIOS AND CHECKBOXES
