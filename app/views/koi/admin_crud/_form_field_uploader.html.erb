@@ -50,9 +50,9 @@
 
   # create a cropped existing image if necessary
   existing_image_original = existing_image
-  if croppable && !crop_field.blank? && !resource.send(id_field).eql?(nil)
-    existing_image = resource.send(crop_field).url
-  end
+  # if croppable && !crop_field.blank? && !resource.send(id_field).eql?(nil)
+  #   existing_image = resource.send(crop_field).url
+  # end
 
 %>
 

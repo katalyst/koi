@@ -10,6 +10,7 @@
 //= require koi/jquery.touchSwipe
 //= require koi/jquery.placeholder
 //= require koi/jquery-ui-timepicker-addon
+//= require koi/jquery.jcrop
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts

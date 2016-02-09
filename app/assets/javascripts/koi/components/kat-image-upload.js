@@ -449,7 +449,7 @@
           // var urlSplit = url.split("/");
           // var filename = urlSplit[urlSplit.length-1]; // -1, array numbering and length mismatch
           var filenameSplit = existingName.split(".");
-          var extension = filenameSplit[filenameSplit.length-1];
+          var extension = filenameSplit[filenameSplit.length-1].toLowerCase();
 
           // rudamentory extension checking to see if this is an image or a document
           if(extension == "jpg" || extension == "png" || extension == "jpeg") {
@@ -925,10 +925,12 @@
                   },
 
                   success: function(result) {
-                    var oldValue = $hiddenField.val();
-                    // assign received ids to input value
-                    $hiddenField.val(result);
-                    uploadFinished();
+                    setTimeout(function(){
+                      var oldValue = $hiddenField.val();
+                      // assign received ids to input value
+                      $hiddenField.val(result);
+                      uploadFinished();
+                    }, 200);
                   },
 
                   error: function(result) {
@@ -1263,9 +1265,9 @@ $(document).on("ornament:refresh", function(){
     var isDemo = $this.is("[data-file-demo]");
 
     // Set upload path
-    var path = "/uploads/image";
+    var path = "/admin/uploads/image";
     if(isFile) {
-      path = "/uploads/file"
+      path = "/admin/uploads/file"
     }
 
     // Initialise uploader
