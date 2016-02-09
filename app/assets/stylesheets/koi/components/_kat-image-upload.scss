@@ -1,33 +1,94 @@
-$file-upload-thumbnail-width: 200px;
-$file-upload-thumbnail-background: #444;
+$file-upload-thumbnail-width: 80px;
+$file-upload-thumbnail-background: transparent;
 $file-upload-breakpoint: 545px;
 
-.form--file-upload--fallback {
-  display: none;
-  .image-upload--unsupported {
+.file-uploader--drop-zone {
+  position: relative;
+  padding: 8px;
+  border: 1px dashed $primary-color;
+  @include pie-clearfix();
+  margin: 8px 0;
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
+  overflow: hidden;
+
+  progress {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background-size: auto;
+    z-index: 1;
+  }
+
+  progress::-webkit-progress-bar {
+    background: transparent;
+  }
+  progress::-moz-progress-bar {
+    background: transparent;
+  }
+
+  progress::-webkit-progress-value {
+    background: $success-color;
+    opacity: 0.1;
+  }
+  progress::-moz-progress-bar {
+    background: $success-color;
+    opacity: 0.1;
+  }
+
+  &.file-upload--dropzone--over {
+    border-color: $success-color;
+  }
+
+  &.saving progress,
+  &.uploading progress {
     display: block;
+  }
+
+  &.saving .thumb,
+  &.uploading .thumb {
+    opacity: 0.2;
+  }
+
+  &.saving:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    background: rgba($success-color, 0.1);
+    z-index: 1;
+    @include animation(indefinite 1.5s linear infinite);
   }
 }
 
-// dropzone for images/files
-.file-upload--dropzone {
-  @include pie-clearfix;
-  border: 2px dashed $input-border-color;
-  padding: $xxxx-small-unit;
-  margin-top: $xxxx-small-unit;
-  @include transition(border-color .2s);
-
-  &.file-upload--dropzone--over {
-    border-color: $input-border-focus-color;
+@include keyframes(indefinite) {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
   }
 }
 
 .file-upload--thumbnail {
   float: left;
+  // display: none;
   width: $file-upload-thumbnail-width;
   height: $file-upload-thumbnail-width;
   background: $file-upload-thumbnail-background;
-  margin-right: 10px;
+  border: 2px solid $primary-color;
 
   .file-upload--image {
     margin-top: 0;
@@ -46,26 +107,36 @@ $file-upload-breakpoint: 545px;
   }
 }
 
+// 
+.form--file-upload--current {
+  margin-top: $xxxxx-small-unit;
+}
+
 // each image (single or gallery) gets a thumbnail-container
 .thumbnail-container {
   display: block;
   position: relative;
+  z-index: 2;
 
   .thumb {
     position: relative;
   }
 
-  .thumb .file {
-    text-align: center;
-    background: #ccc url("/assets/file-upload/icon_unknown.png") 50% 20px no-repeat;
-    padding: 156px 10px 10px;
+  svg {
+    display: block;
+  }
 
-    &.file__doc { background-image: url("/assets/file-upload/icon_doc.png"); }
-    &.file__docx { background-image: url("/assets/file-upload/icon_docx.png"); }
-    &.file__mp3 { background-image: url("/assets/file-upload/icon_mp3.png"); }
-    &.file__pdf { background-image: url("/assets/file-upload/icon_pdf.png"); }
-    &.file__csv { background-image: url("/assets/file-upload/icon_csv.png"); }
-    &.file__xls { background-image: url("/assets/file-upload/icon_xls.png"); }
+  .thumb__file {
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(center);
+  }
+
+  .thumb__file polyline {
+    stroke: $primary-color;
+  }
+  .thumb__file text {
+    fill: $primary-color;
   }
 
   .thumb img,
@@ -81,9 +152,9 @@ $file-upload-breakpoint: 545px;
     z-index: 2;
     background: $error-color;
     cursor: pointer;
-    @include border-radius(50%);
+    border-radius: 50%;
     @include icon-block(32px, 16px);
-    @include grunticon("close-16-white", 16px);
+    // @include grunticon("close-24-white", 24px);
     position: absolute;
     margin-top: -6px;
     margin-right: -6px;
@@ -91,60 +162,50 @@ $file-upload-breakpoint: 545px;
   }
 
   &:hover .thumbnail--remove {
-    display: block;
-  }
-
-  progress {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 5;
-    @include transform(translate(-50%, -50%));
-  }
-
-  &.uploading progress {
-    display: block;
-  }
-
-  &.uploading .thumb {
-    @include opacity(0.2);
+    // display: block;
   }
 }
 
 // helper text
-.file-upload--text {
-  float: left;
-  padding-left: $default-unit;
+.file-uploader--controls {
+  margin-left: 8px;
+  @include flex-grow(1);
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
+  position: relative;
+  z-index: 2;
 }
+.file-uploader--error {
+  color: $error-color;
+  display: block;
 
-.file-upload--message {
-  font-size: $large-font-size;
-  padding: $xxx-small-unit;
-  text-align: center;
-  margin-left: $file-upload-thumbnail-width;
-
-  span {
-    display: block;
-    margin-bottom: $xxx-small-unit;
+  &:before {
+    content: "Error: ";
   }
-
-  @include media-query($file-upload-breakpoint) {
-    margin-left: 0;
-    clear: both;
-    padding: $xxx-small-unit 0 0 0;
+}
+.file-uploader--notes {
+  @include pie-clearfix();
+  p {
+    color: #A8A8A8;
+    font-size: 14px;
   }
+}
+.file-uploader--max-size {
+  float: left;
+}
+.file-uploader--file-type {
+  float: right;
 }
 
 // Thumbnail container and undo styles
 .file-upload--undo,
 .thumbnail-container {
   float: left;
-  width: $file-upload-thumbnail-width;
-  height: $file-upload-thumbnail-width;
-  background: #444;
-  margin-right: 10px;
+  width: 100%;
+  height: 100%;
   position: relative;
+  overflow: hidden;
 
   .thumb {
     width: 100%;
@@ -159,10 +220,9 @@ $file-upload-breakpoint: 545px;
 
   img,
   span {
-    @include transform(translate(-50%,-50%));
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    max-width: none;
+    max-height: none;
+    pointer-events: none;
   }
 
 }
@@ -197,4 +257,39 @@ $file-upload-breakpoint: 545px;
   .dragover {
     opacity: 0.2;
   }
+}
+
+// Crop button
+.file-upload--crop-button {
+  margin-right: 8px;
+}
+
+// Crop modal styles
+.form--file-crop {
+  overflow: hidden;
+  @include display-flex;
+  @include flex-direction(column);  
+
+  // img {
+  //   display: block;
+  //   max-width: 100%;
+  // }
+}
+
+.form--file-crop--container {
+  @include flex-grow(1);
+  @include flex-shrink(1);
+  background: $primary-color;
+  padding: 5px;
+}
+
+.form--file-crop--footer {
+  .button__full {
+    border-radius: 0;
+  }
+}
+
+// Remove checkbox
+.form--file--remove {
+  display: none;
 }

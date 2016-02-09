@@ -27,14 +27,16 @@ class SuperHero < ActiveRecord::Base
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:          { type: :image },
-           file:           { type: :file, droppable: true  },
-           gender:         { type: :select, data: Gender },
-           is_alive:       { type: :boolean },
-           powers:         { type: :check_boxes, data: Powers },
-           images:         { type: :inline },
-           published_at:   { type: :date },
-           telephone:      { type: :readonly }
+    fields image:            { type: :image },
+           file:             { type: :file  },
+           document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
+           image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
+           gender:           { type: :select, data: Gender },
+           is_alive:         { type: :boolean },
+           powers:           { type: :check_boxes, data: Powers },
+           images:           { type: :inline },
+           published_at:     { type: :date },
+           telephone:        { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -49,7 +51,7 @@ class SuperHero < ActiveRecord::Base
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers]
+                       :telephone, :image, :file, :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :powers]
       reportable true
