@@ -1,4 +1,19 @@
-<% id = "koi-#{ new_uuid }" %>
+<% 
+  id = "koi-#{ new_uuid }"
+  crud_settings = resource_class.crud.find(:fields, attr)
+
+  wrapper_opts = {}
+  input_opts = {} 
+  input_opts[:class] = ""
+  input_opts[:id] = id
+
+  if crud_settings
+    wrapper_opts[:data] = crud_settings[:data]
+    input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
+  else
+    input_opts[:class] += " form--medium"
+  end
+%>
 
 <% content_for :head do %>
 
@@ -43,4 +58,4 @@
   </style>
 <% end %>
 
-<%= f.input attr, as: :string, input_html: { id: id, class: "form--medium" } %>
+<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>
