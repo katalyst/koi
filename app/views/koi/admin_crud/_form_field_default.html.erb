@@ -1,7 +1,18 @@
-<% writable_method = resource_class.crud.find :fields, attr, :writable_method %>
+<% 
+  writable_method = resource_class.crud.find :fields, attr, :writable_method
+  crud_settings = resource_class.crud.find(:fields, attr)
 
-<% opt = {} %>
+  wrapper_opts = {}
+  input_opt = {
+    class: "form--medium"
+  } 
 
-<% opt.merge! disabled: true unless current_admin.send writable_method if writable_method %>
+  if crud_settings
+    wrapper_opts["data"] = crud_settings[:data]
+    input_opt["class"] = "form--#{crud_settings[:size]}" if crud_settings[:size]
+  end
+%>
 
-<%= f.input attr, input_html: opt, input_html: { class: "form--medium" } %>
+<% input_opt.merge! disabled: true unless current_admin.send writable_method if writable_method %>
+
+<%= f.input attr, input_html: input_opt, wrapper_html: wrapper_opts %>

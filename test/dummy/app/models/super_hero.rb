@@ -31,11 +31,12 @@ class SuperHero < ActiveRecord::Base
            file:             { type: :file  },
            document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
            image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
-           gender:           { type: :select, data: Gender },
+           gender:           { type: :select, data: Gender, size: :small },
            is_alive:         { type: :boolean },
+           url:              { data: { show: "super_hero_is_alive" } },
            powers:           { type: :check_boxes, data: Powers },
            images:           { type: :inline },
-           published_at:     { type: :date },
+           published_at:     { type: :date, size: :small },
            telephone:        { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
