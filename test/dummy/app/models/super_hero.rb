@@ -28,7 +28,7 @@ class SuperHero < ActiveRecord::Base
     map file_uid:  :file
 
     fields image:            { type: :image },
-           file:             { type: :file  },
+           file:             { type: :file },
            document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
            image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
            gender:           { type: :select, data: Gender, size: :small },

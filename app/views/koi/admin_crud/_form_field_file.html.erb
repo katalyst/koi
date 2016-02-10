@@ -6,11 +6,21 @@
   is_nil_or_new = (value.nil? || object.new_record?)
   is_required   = klass.validates_presence_of? attr
   kind          = klass.crud.find(:fields, attr, :type)
-  is_droppable  = klass.crud.find(:fields, attr)[:droppable]
   html_id       = new_uuid
+
+  crud_settings = klass.crud.find(:fields, attr)
+
+  wrapper_opts = {
+    data: ""
+  }
+  input_opts = {} 
+
+  if crud_settings
+    wrapper_opts[:data] = crud_settings[:data]
+  end
 %>
 
-<div class="control-group file">
+<%= content_tag :div, class: "control-group file", data: wrapper_opts[:data] do -%>
   <%= f.hidden_field "retained_#{attr}" %>
   <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
   <%= f.hint attr -%>
@@ -46,4 +56,4 @@
   </div>
 
   <%= f.error attr -%>
-</div>
+<%- end -%>

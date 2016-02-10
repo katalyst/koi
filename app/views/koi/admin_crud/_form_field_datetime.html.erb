@@ -1,15 +1,21 @@
 <%- 
+  writable_method = resource_class.crud.find :fields, attr, :writable_method
   datetime_value = ""
   datetime_value = resource.send(attr).strftime('%a, %b %e %Y at %l:%M %p') if resource.send(attr)
+  crud_settings = resource_class.crud.find(:fields, attr)
+
+  wrapper_opts = {}
+  input_opts = {
+    class: "datetime input datetimepicker",
+    value: datetime_value
+  } 
+
+  if crud_settings
+    wrapper_opts[:data] = crud_settings[:data]
+    input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
+  else
+    input_opts[:class] += " form--medium"
+  end
 -%>
 
-<%= f.input attr, as: :string, input_html: { class: "datetime input datetimepicker form--medium", value: datetime_value } %>
-
-<script>
-  $('.datetimepicker').datetimepicker({
-    stepMinute:  5,
-    controlType: 'select',
-    timeFormat:  'h:mm TT',
-    dateFormat:  'D, M d yy at'
-  });
-</script>
+<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>

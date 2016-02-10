@@ -1,1 +1,19 @@
-<%= f.input attr, as: :string, input_html: { class: "date input form--medium" } %>
+<% 
+  writable_method = resource_class.crud.find :fields, attr, :writable_method
+  crud_settings = resource_class.crud.find(:fields, attr)
+
+  wrapper_opts = {}
+  input_opts = {
+    class: "date input"
+  } 
+
+  if crud_settings
+    wrapper_opts[:data] = crud_settings[:data]
+    input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
+  else 
+    input_opts[:class] += " form--medium"
+  end
+
+%>
+
+<%= f.input attr, as: :string, input_html: input_opts %>
