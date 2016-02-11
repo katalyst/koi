@@ -29,6 +29,9 @@
         </div>
       <% end %>
 
+      <div class="listing--count">
+        <span><%= pluralize(resource_class.count, "item") -%></span>
+      </div>
       <%= render 'index_actions' %>
       <%= render 'index_fields' %>
 

@@ -15,7 +15,7 @@ This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-### v2.2
+### v2.2.0
 
 Koi::Menu format has changed from:
 

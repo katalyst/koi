@@ -19,6 +19,12 @@
   display: block;
 }
 
+.listing--count {
+  // background: $light-grey;
+  padding: $xxxxx-small-unit 0;
+  border-top: 1px solid $border;
+}
+
 // Listing actions
 
 .listing--actions {
