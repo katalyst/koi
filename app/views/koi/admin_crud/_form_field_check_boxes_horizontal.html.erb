@@ -1,14 +1,5 @@
 <% 
-  crud_settings = resource_class.crud.find(:fields, attr)
-
-  wrapper_opts = {}
-  input_opts = {} 
-  wrapper_opts[:class] = "form--horizontal"
-
-  if crud_settings
-    wrapper_opts[:data] = crud_settings[:wrapper_data]
-    input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
-  end
+  wrapper_opts[:class] += " form--horizontal"
 %>
 
 <% data = resource_class.crud.find(:fields, attr, :data) %>

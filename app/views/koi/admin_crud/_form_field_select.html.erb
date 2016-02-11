@@ -1,18 +1,3 @@
-<% 
-  crud_settings = resource_class.crud.find(:fields, attr)
-
-  wrapper_opts = {}
-  input_opts = {} 
-  input_opts[:class] = ""
-
-  if crud_settings
-    wrapper_opts[:data] = crud_settings[:wrapper_data]
-    input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
-  else
-    input_opts[:class] += " form--medium"
-  end
-%>
-
 <% data = f.object.class.crud.find(:fields, attr, :data) %>
 <% raise ArgumentError, "You must provide a 'data' hash value for '#{attr}' field type" if data.nil? %>
 <%= f.input attr.to_sym, :as => :select, collection: data, wrapper_html: wrapper_opts, input_html: input_opts %>
