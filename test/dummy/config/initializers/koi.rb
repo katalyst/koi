@@ -3,9 +3,7 @@
 Koi::Menu.items = {
   "Modules": {
     "News"         => "/admin/news_items",
-    "Categories"   => "/admin/categories",
-    "URL History"  => "/admin/friendly_id_slugs",
-    "URL Rewriter" => "/admin/url_rewrites"
+    "Categories"   => "/admin/categories"
   },
   "Heroes": {
     "Super Heros"  => "/admin/super_heros",
