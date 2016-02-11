@@ -1,18 +1,21 @@
 # Koi::KoiAsset::Document.extensions = [:pdf, :doc]
 
 Koi::Menu.items = {
-  "Super Heros"  => "/admin/super_heros",
-  "Kid Heros"    => "/admin/kid_heros",
-  "News"         => "/admin/news_items",
-  "Categories"   => "/admin/categories",
-  "URL History"  => "/admin/friendly_id_slugs",
-  "URL Rewriter" => "/admin/url_rewrites"
-}
-
-Koi::Menu.advanced = {
-  "Admins"       => "/admin/site_users",
-  "URL History"  => "/admin/friendly_id_slugs",
-  "URL Rewriter" => "/admin/url_rewrites"
+  "Modules": {
+    "News"         => "/admin/news_items",
+    "Categories"   => "/admin/categories",
+    "URL History"  => "/admin/friendly_id_slugs",
+    "URL Rewriter" => "/admin/url_rewrites"
+  },
+  "Heroes": {
+    "Super Heros"  => "/admin/super_heros",
+    "Kid Heros"    => "/admin/kid_heros"
+  },
+  "Advanced": {
+    "Admins"       => "/admin/site_users",
+    "URL History"  => "/admin/friendly_id_slugs",
+    "URL Rewriter" => "/admin/url_rewrites"
+  }
 }
 
 Koi::KoiAsset::Image.sizes = [
