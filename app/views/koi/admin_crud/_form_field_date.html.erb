@@ -1,1 +1,5 @@
-<%= f.input attr, as: :string, input_html: { class: "date input form--medium" } %>
+<% 
+  input_opts[:class] += " date input"
+%>
+
+<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>
