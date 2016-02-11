@@ -321,7 +321,14 @@ END
 # Setup koi initializer to define admin menu and other koi related settings
 create_file 'config/initializers/koi.rb', <<-END
 Koi::Menu.items = {
-  'Admins' => '/admin/site_users'
+  "Modules": {
+    
+  },
+  "Advanced": {
+    "Admins"       => "/admin/site_users",
+    "URL History"  => "/admin/friendly_id_slugs",
+    "URL Rewriter" => "/admin/url_rewrites"
+  }
 }
 
 Koi::Settings.collection = {
