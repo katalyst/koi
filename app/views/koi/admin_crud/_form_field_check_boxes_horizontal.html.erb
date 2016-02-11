@@ -6,7 +6,7 @@
   wrapper_opts[:class] = "form--horizontal"
 
   if crud_settings
-    wrapper_opts[:data] = crud_settings[:data]
+    wrapper_opts[:data] = crud_settings[:wrapper_data]
     input_opts[:class] += " form--#{crud_settings[:size]}" if crud_settings[:size]
   end
 %>
