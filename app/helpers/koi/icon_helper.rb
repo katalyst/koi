@@ -36,6 +36,8 @@ module Koi::IconHelper
   def attachment_image_tag(attachment, options={})
     options.reverse_merge!(width: 100, height: 100)
     image_tag((document?(attachment.ext) ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
+  rescue Dragonfly::Job::Fetch::NotFound
+    "Image not found"
   end
 
   # Return a unique ID.
