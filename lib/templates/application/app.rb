@@ -22,7 +22,7 @@ END
 gem "jquery-ui-rails"
 
 # Airbrake
-gem "airbrake"
+gem "airbrake"                  , '4.3'
 
 # Nested fields
 gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
@@ -32,7 +32,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  branch: 'v2.0.0'
+                                  branch: 'v2.2.0'
 
 # Compass
 gem 'compass'                   , "~> 1.0.0"
@@ -40,9 +40,9 @@ gem 'compass'                   , "~> 1.0.0"
 gem 'compass-rails'             , "~> 2.0.2"
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
-                                  branch: 'master',
-                                  require: 'i18n/active_record'
+gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
+                            require: 'i18n/active_record',
+                            ref: 'b26c2e62e32df2f3b9ae42083647725b7ecfdff0'
 
 gem 'unicorn'
 
@@ -322,7 +322,7 @@ END
 create_file 'config/initializers/koi.rb', <<-END
 Koi::Menu.items = {
   "Modules": {
-    
+
   },
   "Advanced": {
     "Admins"       => "/admin/site_users",
