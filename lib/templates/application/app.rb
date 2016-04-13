@@ -44,6 +44,8 @@ gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
                             require: 'i18n/active_record',
                             ref: 'b26c2e62e32df2f3b9ae42083647725b7ecfdff0'
 
+gem 'active_model_serializers'
+
 gem 'unicorn'
 
 gem 'newrelic_rpm'
