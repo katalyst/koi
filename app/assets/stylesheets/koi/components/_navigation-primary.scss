@@ -44,11 +44,9 @@
 }
 
 // Second level menus
-.navigation-primary ul {
+.navigation-primary > li > ul,
+.navigation-primary > li > ul > li > ul {
   display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
   border: 1px solid rgba(0,0,0,0.2);
   padding: 4px 0;
   background: #fff;
@@ -57,6 +55,12 @@
   margin-top: 1px;
   @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
   @include border-radius($border-radius);
+}
+
+.navigation-primary > li > ul {
+  position: absolute;
+  top: 100%;
+  right: 0;
 
   &:before {
     content: "";
@@ -80,17 +84,33 @@
   }
 }
 
-.navigation-primary li.dropdown.open ul {
+.navigation-primary > li.dropdown.open > ul {
   display: block;
 
-  > li > a {
+  > li {
+    position: relative;
+  }
+
+  > li > a,
+  > li > ul > li > a {
     @include color-link($foreground-color, $white);
     @include decorate-link(none);
     padding: 3px $xxx-small-unit;
     display: block;
   }
 
-  > li > a:hover {
+  > li > a:hover,
+  > li > ul > li > a:hover {
     background: $primary-color;
+  }
+
+  > li:hover ul {
+    display: block;
+  }
+
+  > li > ul {
+    position: absolute;
+    top: 0;
+    left: 100%;
   }
 }

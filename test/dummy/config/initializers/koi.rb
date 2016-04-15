@@ -3,11 +3,11 @@
 Koi::Menu.items = {
   "Modules": {
     "News"         => "/admin/news_items",
-    "Categories"   => "/admin/categories"
-  },
-  "Heroes": {
-    "Super Heros"  => "/admin/super_heros",
-    "Kid Heros"    => "/admin/kid_heros"
+    "Categories"   => "/admin/categories",
+    "Heroes"       => {
+      "Super Heros"  => "/admin/super_heros",
+      "Kid Heros"    => "/admin/kid_heros"
+    }
   },
   "Advanced": {
     "Admins"       => "/admin/site_users",

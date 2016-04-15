@@ -7,7 +7,16 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= menu_name -%> <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <%- menu_items.each do |item_name,item_url| -%>
-          <li><a href="<%= item_url -%>"><%= item_name -%></a></li>
+          <li>
+            <a href="<%= item_url -%>"><%= item_name -%></a>
+            <%- if item_url.class.to_s.eql?("Hash") -%>
+              <ul>
+                <%- item_url.each do |child_name,child_url| -%>
+                  <li><a href="<%= child_url -%>"><%= child_name -%></a></li>
+                <%- end -%>
+              </ul>
+            <%- end -%>
+          </li>
         <%- end -%>
         <%- if menu_name.to_s.eql?("Advanced") -%>
           <li><%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %></li>
