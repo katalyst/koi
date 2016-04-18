@@ -31,8 +31,12 @@ To:
 ```
 Koi::Menu.items = {
   "Modules": {
-    "News"         => "/admin/news_items",
-    "Categories"   => "/admin/categories"
+    "News"          => "/admin/news_items",
+    "Categories"    => "/admin/categories",
+    "Nested Module" => {
+      "Nested 1"    => "/admin/nested-1",
+      "Nested 2"    => "/admin/nested-2"
+    }
   },
   "Heroes": {
     "Super Heros"  => "/admin/super_heros",

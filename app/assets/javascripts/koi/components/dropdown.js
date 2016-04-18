@@ -7,14 +7,14 @@
 
   $(document).on("ornament:refresh", function () {
 
-    var $dropdownAnchors = $("[data-toggle]");
+    var $dropdownAnchors = $("[data-dropdown-toggle]");
 
     var closeDropdown = function($parent){
       $parent.removeClass("open");
     }
 
     var closeOtherDropdowns = function($parent) {
-      var $otherParents = $("[data-toggle]").parent(".dropdown").not($parent);
+      var $otherParents = $("[data-dropdown-toggle]").parent(".dropdown").not($parent);
       closeDropdown($otherParents);
     }
 
