@@ -7,4 +7,10 @@
     remote:        data-remote
 -%>
 
-  <%= link_to raw(t 'views.pagination.next'), "#{ url unless current_page.last? }", :rel => 'next', :remote => remote, :data => { :get_script => true }, class: "btn btn-primary btn-mini #{'disabled' if current_page.last? }" %>
+<% if current_page.last? then %>
+  <span class="next disabled">
+<% else %>
+  <span class="next">
+<% end %>
+  <%= link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, :rel => 'next', :remote => remote, title: "Go to next page" %>
+</span>

@@ -4,7 +4,7 @@ class UrlRewrite < ActiveRecord::Base
 
   validates :from, :to, presence: true
 
-  scope :active, where(active: true)
+  scope :active, -> { where(active: true) }
 
   def to_s
     "#{from} -> #{to}"

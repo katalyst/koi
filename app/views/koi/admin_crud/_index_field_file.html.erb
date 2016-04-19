@@ -5,7 +5,7 @@
 %>
 
 <% unless value.nil? %>
-  <%= link_to attachment_image_tag(value, class: "media-object pull-left", width: 25, height: 25), value.url, :target => "_blank" %>
+  <%= link_to attachment_image_tag(value, class: "listing--thumbnail", height: 25), value.url, :target => "_blank" %>
 <% else %>
   No attached <%= kind %>
 <% end %>

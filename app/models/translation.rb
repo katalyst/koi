@@ -3,9 +3,10 @@ class Translation < ActiveRecord::Base
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
-  has :many, attributed: :images, orderable: true
+  # FIXME: Refactored from has
+  has_many :images
 
-  after_save :reset_memory_store_cache
+  # after_save :reset_memory_store_cache
 
   validates :locale, :label, :key, :field_type,
             :role, presence: true
@@ -14,7 +15,7 @@ class Translation < ActiveRecord::Base
 
   before_validation :set_default_values
 
-  scope :non_prefixed, where("prefix IS NULL OR prefix = ''")
+  scope :non_prefixed, -> { where("prefix IS NULL OR prefix = ''") }
 
   FieldTypes = {
                  "String"    => "string",
@@ -24,7 +25,7 @@ class Translation < ActiveRecord::Base
                  "Images"    => "images"
                }
 
-  scope :admin, where(role: "Admin")
+  scope :admin, -> { where(role: "Admin") }
 
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },

@@ -23,8 +23,6 @@ module HasCrud
           def select_scope
             if is_orderable?
               scope_orderable
-            elsif is_searchable?
-              scope_searchable
             else
               scope_default
             end
@@ -37,20 +35,11 @@ module HasCrud
           def scope_orderable
             initial_scope
             .ordered
-            .scoped
-          end
-
-          def scope_searchable
-            initial_scope
-            .search_for(params[:search])
-            .reorder(sort_order)
-            .scoped
           end
 
           def scope_default
             initial_scope
             .reorder(sort_order)
-            .scoped
           end
 
         end

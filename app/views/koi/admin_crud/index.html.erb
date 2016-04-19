@@ -8,46 +8,48 @@
   <%= render "index_title" %>
 <% end %>
 
-<% if is_settable? %>
-  <%= render "index_settings_navigation" %>
-<% end %>
+<div class="tabs">
+  <% if is_settable? || is_reportable? %>
+    <%= render "index_settings_navigation" %>
+  <% end %>
 
-<div class="tab-content">
-  <div class="tab-pane active" id="tab-main">
-    <% if is_searchable? || is_paginated? %>
-      <div class="row space-b-1">
-        <% if is_searchable? %>
-          <%= render 'index_search' %>
-        <% end %>
-        <% if is_paginated? %>
-          <div id="index-pagination-options">
-            <%= render 'index_pagination_options' %>
-          </div>
-        <% end %>
+  <div class="tabs--panes">
+    <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
+
+      <% if is_searchable? || is_paginated? %>
+        <div class="listing--pagination listing--pagination__top small">
+          <% if is_searchable? %>
+            <%= render 'index_search' %>
+          <% end %>
+          <% if is_paginated? %>
+            <div id="index-pagination-options" class="listing--pagination--options small">
+              <%= render 'index_pagination_options' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="listing--count">
+        <span><%= pluralize(resource_class.count, "item") -%></span>
       </div>
+      <%= render 'index_actions' %>
+      <%= render 'index_fields' %>
+
+      <% if is_paginated? && collection.num_pages != 0 %>
+        <br />
+        <div id="index-pagination">
+          <%= render 'index_pagination' %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if is_settable? %>
+      <%= render "index_settings" %>
     <% end %>
 
-    <%= render 'index_actions' %>
-    <%= render 'index_fields' %>
-
-    <% if is_paginated? && collection.num_pages != 0 %>
-      <br />
-      <div id="index-pagination">
-        <%= render 'index_pagination' %>
-      </div>
+    <% if is_reportable? %>
+      <%= render "reports" %>
     <% end %>
   </div>
 
-  <% if is_settable? %>
-    <%= render "index_settings" %>
-  <% end %>
-
-  <% if is_reportable? %>
-    <%= render "reports" %>
-  <% end %>
 </div>
-
-
-<% content_for :side do %>
-  <%= render 'side' %>
-<% end %>

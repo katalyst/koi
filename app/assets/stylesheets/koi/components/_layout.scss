@@ -1,0 +1,133 @@
+$layout-animation-duration:     0.5s;
+$layout-background:             $background-color;
+$layout-breakpoint:             $breakpoint-small;
+$layout-container-width:        $container-width;
+$layout-desktop-edge-gap:       0;
+$layout-desktop-footer-gap:     $default-unit;
+$layout-desktop-header-gap:     100px;
+$layout-footer-height:          100px;
+$layout-mobile-tray-width:      250px;
+$layout-mobile-edge-gap:        $small-unit;
+$layout-mobile-footer-gap:      $small-unit;
+$layout-mobile-header-gap:      100px;
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background: $background-color;
+}
+
+.layout {
+  height: 100%;
+}
+
+.layout--mobile-tray {
+  display: none;
+}
+
+.layout--content {
+  @include single-transition(transform, $layout-animation-duration);
+  background: $layout-background;
+  min-height: 100%;
+  @include row();
+}
+
+.layout--content--main {
+  @include spang(19,24);
+}
+
+.layout--content--main__full {
+  @include spang(1,1);
+}
+
+.layout--content--aside {
+  @include spang(5,24);
+}
+
+.layout--switch {
+  background: red;
+  float: right;
+  @include media-query($layout-breakpoint,min) {
+    display: none;
+  }
+}
+
+.layout--container {
+  min-width: 950px; 
+  max-width: $layout-container-width;
+  width: $container-percentage;
+  margin: 0 auto;
+}
+
+.layout--main {
+  background: $layout-background;
+  padding-bottom: $layout-desktop-footer-gap;
+  padding-left: $layout-desktop-edge-gap;
+  padding-right: $layout-desktop-edge-gap;
+  padding-top: 58px;
+
+  @media only screen and (min-height:$breakpoint-header-sticky) { 
+    padding-top: $layout-desktop-header-gap;
+  }
+}
+
+@include media-query($layout-breakpoint) {
+
+  // MENU OPEN
+  //
+
+  .layout-open {
+
+    .layout--mobile-tray {
+      display: block;
+      min-height: 100%;
+      float: right;
+      width: $layout-mobile-tray-width;
+    }
+
+    .layout--content {
+      @include translate(-($layout-mobile-tray-width), 0);
+      height: 100%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      @include box-shadow(0 0 10px rgba(0,0,0,0.2));
+    }
+
+    .layout--switch {
+      background: green;
+    }
+
+  }
+
+  // MENU TRANSITIONING
+  //
+
+  .layout-transitioning {
+
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    .layout--mobile-tray {
+      display: block;
+      min-height: 100%;
+      float: right;
+      width: $layout-mobile-tray-width;
+    }
+
+    .layout--content {
+      height: 100%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      @include box-shadow(0 0 10px rgba(0,0,0,0.1));
+    }
+
+  }
+
+}

@@ -2,14 +2,11 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 
-  attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :first_name, :last_name, :role
-
   before_validation :set_default_values
 
   validates :first_name, :last_name, :email, :role, presence: true
 
-  validates :email, email: true
+  # validates :email, email: true
 
   ROLES = ["Super", "Admin"]
 

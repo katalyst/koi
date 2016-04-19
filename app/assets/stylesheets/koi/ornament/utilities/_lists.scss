@@ -1,0 +1,113 @@
+@mixin list-vertical($space: $x-small-unit, $border: false, $all: false, $element: "li", $delegate: false) {
+  @include pie-clearfix;
+
+  // first level list items
+  @if($delegate) {
+    > #{$element} #{$delegate} {
+      padding-top: $space;
+      padding-bottom: $space;
+    }
+  } @else {
+    > #{$element} {
+      padding-top: $space;
+      padding-bottom: $space;
+    }
+  }
+
+  @if($border != false) {
+    @if($all == true) {
+      > #{$element} {
+        border-top: $border;
+      }
+      > #{$element}:last-child {
+        border-bottom: $border;
+      }
+    } @else {
+      > #{$element} + #{$element} {
+        border-top: $border;
+      }
+    }
+  }
+
+}
+
+@mixin list-horizontal($space: $x-small-unit, $border: false, $all: false, $element: "li", $delegate: false) {
+  @include pie-clearfix;
+
+  // first level list items
+  @if($delegate) {
+    > #{$element} {
+      float: left;
+    }
+    > #{$element} #{$delegate} {
+      padding-left: $space;
+      padding-right: $space;
+      display: block;
+    }
+  } @else {
+    > #{$element} {
+      padding-left: $space;
+      padding-right: $space;
+      float: left;
+    }
+  }
+
+  @if($border != false) {
+    @if($all == true) {
+      > #{$element} {
+        border-left: $border;
+      }
+      > #{$element}:last-child {
+        border-right: $border;
+      }
+    } @else {
+      > #{$element} + #{$element} {
+        border-left: $border;
+      }
+    }
+  }
+
+}
+
+@mixin list-flush($side, $element: "li", $delegate: "") {
+
+  // vertical flush
+  @if $side == "top" {
+    > #{$element}:first-child #{$delegate} {
+      padding-top: 0;
+    }
+  }
+  @if $side == "bottom" {
+    > #{$element}:last-child #{$delegate} {
+      padding-bottom: 0;
+    }
+  }
+  @if $side == "top and bottom" {
+    > #{$element}:first-child #{$delegate} {
+      padding-top: 0;
+    }
+    > #{$element}:last-child #{$delegate} {
+      padding-bottom: 0;
+    }
+  }
+
+  // horizontal flush
+  @if $side == "left" {
+    > #{$element}:first-child #{$delegate} {
+      padding-left: 0;
+    }
+  }
+  @if $side == "right" {
+    > #{$element}:last-child #{$delegate} {
+      padding-right: 0;
+    }
+  }
+  @if $side == "left and right" {
+    > #{$element}:first-child #{$delegate} {
+      padding-left: 0;
+    }
+    > #{$element}:last-child #{$delegate} {
+      padding-right: 0;
+    }
+  }
+}

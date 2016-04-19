@@ -6,5 +6,11 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
+<% if current_page.first? then %>
+  <span class="prev disabled">
+<% else %>
+  <span class="prev">
+<% end %>
+  <%= link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, :rel => 'prev', :remote => remote, title: "Go to previous page" %>
+</span>
 
-  <%= link_to raw(t 'views.pagination.previous'), "#{ url unless current_page.first? }", :rel => 'prev', :remote => remote, :data => { :get_script => true }, class: "btn btn-primary btn-mini #{'disabled' if current_page.first? }" %>

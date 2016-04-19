@@ -1,10 +1,19 @@
 <% if resource.errors.any? -%>
 
-  $ ("#modal-for-nav-item").html ("<%= escape_javascript render ("modal_nav_item") %>");
+  $("#modal-for-nav-item").html ("<%= escape_javascript render ("modal_nav_item") %>");
+  $("#modal-for-nav-item").append('<button title="Close (Esc)" type="button" class="mfp-close">×</button>');
+
+  // Open the first tab with errors
+  var $firstErrorField = $("#modal-for-nav-item .error-block").first()
+  var $firstErroredTab = $firstErrorField.closest("[data-tab-for]");
+  var firstErroredTabId = $firstErroredTab.attr("data-tab-for");
+  var $tabAnchorForFirstError = $("#modal-for-nav-item [data-tab=" + firstErroredTabId + "]");
+  $tabAnchorForFirstError.click();
+
 
 <% else %>
 
-  $ ("#modal-for-nav-item").modal ('hide');
+  $.magnificPopup.close();
 
   var rendered = "<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>";
   

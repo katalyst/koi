@@ -1,1 +1,5 @@
-<%= f.input attr, as: :text, input_html: { class: "wysiwyg source" } %>
+<% 
+  input_opts[:class] += " wysiwyg source"
+%>
+
+<%= f.input attr, as: :text, wrapper_html: wrapper_opts, input_html: input_opts %>

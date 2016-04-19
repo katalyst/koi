@@ -1,4 +1,7 @@
-<% id = "koi-#{ new_uuid }" %>
+<% 
+  id = "koi-#{ new_uuid }"
+  input_opts[:id] = id
+%>
 
 <% content_for :head do %>
 
@@ -43,4 +46,4 @@
   </style>
 <% end %>
 
-<%= f.input attr, as: :string, input_html: { id: id } %>
+<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>

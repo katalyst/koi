@@ -1,0 +1,5 @@
+@mixin background-cover {
+  background-size: cover;
+  background-position: center;
+  -ms-behavior: url(/assets/backgroundsize.htc);
+}

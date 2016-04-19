@@ -1,52 +1,56 @@
-<header class="titlebar">
+<%- # JS HTML replacement is nuking the close button -%>
+<%- unless resource.errors.blank? -%>
+  <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+<%- end -%>
 
-  <h2 class="pad-t-1">
+<div class="lightbox--heading">
+  <h2 class="heading-two">
     <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-
-    <!-- ALEX: originally had a close class which clashes with bootstrap -->
-    <!-- FIXME: Move the onclick modal close code to javascript file -->
-    <a href="#" onclick="$('#modal-for-nav-item').modal('hide');" class="txt-orange pull-right space-r-2">&times;</a>
   </h2>
-
-</header>
-
-<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
-
-  <div class="tabbable space-1">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#basic_settings" data-toggle="tab">Basic</a></li>
-      <% if current_admin.god? %>
-        <li><a href="#advanced_settings" data-toggle="tab">Advanced</a></li>
-        <li><a href="#god_settings" data-toggle="tab">God</a></li>
-      <% end %>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" id="basic_settings">
-        <%= render "form_fields", { f: f } %>
-      </div>
-      <% if current_admin.god? %>
-        <div class="tab-pane" id="advanced_settings">
-          <%= render "advanced_form_fields", { f: f } %>
-        </div>
-        <div class="tab-pane" id="god_settings">
-          <%= render "god_form_fields", { f: f } %>
-        </div>
-      <% end %>
-    </div>
-    <div>
-    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
-    <%- unless resource.new_record? -%>
-      <%= link_to "Delete", resource, confirm: "Are you sure?", method: :delete, remote: true, class: "btn"  %>
-      <%- end -%>
-  </div>
-
 </div>
+<div class="lightbox--content">
 
-    <div class="span5 pad-t-1">
-      <h6>Please note:</h6>
+  <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+
+    <div class="tabs">
+      <div class="tabs--links">
+        <ul>
+          <li>
+            <a href="#tab_basic" class="tabs--link tabs--link__active" data-tab="tab_basic">Basic</a>
+          </li>
+          <% if current_admin.god? %>
+            <li><a href="#tab_advanced" class="tabs--link" data-tab="tab_advanced">Advanced</a></li>
+            <li><a href="#tab_god" class="tabs--link" data-tab="tab_god">God</a></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tabs--panes">
+        <div class="tabs--pane tabs--pane__active" id="tab_basic" data-tab-for="tab_basic">
+          <div class="inputs">
+            <%= render "form_fields", { f: f } %>
+          </div>
+        </div>
+        <% if current_admin.god? %>
+          <div class="tabs--pane" id="tab_advanced" data-tab-for="tab_advanced">
+            <%= render "advanced_form_fields", { f: f } %>
+          </div>
+          <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
+            <%= render "god_form_fields", { f: f } %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
+        <%- unless resource.new_record? -%>
+          <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
+        <%- end -%>
+      </div>
+    </div>
+
+    <div class="lightbox--footer">
+      <h6 class="heading-six">Please note:</h6>
       <p>Fields marked with an asterisk are required.</p>
     </div>
-  </div>
 
-<% end %>
-
+  <% end %>
+</div>

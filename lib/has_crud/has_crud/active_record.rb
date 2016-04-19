@@ -4,19 +4,28 @@ module HasCrud
   module ActiveRecord
     extend ActiveSupport::Concern
 
+    def crud
+      self.class.crud
+    end
+
+    def options
+      self.class.options
+    end
+
     module ClassMethods
+      attr_accessor :crud, :options
+
       def has_crud(options={})
         send :include, HasCrud::ActiveRecord::CrudAdditions
         send :include, Rails.application.routes.url_helpers
 
-        cattr_accessor :crud
-        cattr_accessor :options
-
         self.options = options
 
-        self.crud = KoiConfig::Config.new
+        self.crud = default_crud_config
 
+        before_setup_crud
         setup_crud
+        after_setup_crud
       end
 
       def has_crud?
@@ -24,6 +33,20 @@ module HasCrud
       end
 
       private
+
+      def default_crud_config
+        KoiConfig::Config.new default_crud_config_options
+      end
+
+      def default_crud_config_options
+        {}
+      end
+
+      def before_setup_crud
+      end
+
+      def after_setup_crud
+      end
 
       def setup_crud
         setup_navigation
@@ -62,7 +85,7 @@ module HasCrud
             self.options[:sortable] = false
           end
 
-          scope :ordered, :order => 'ordinal ASC'
+          scope :ordered, -> { order('ordinal ASC') }
         end
       end
 
@@ -85,7 +108,7 @@ module HasCrud
       end
 
       def setup_ajaxable
-        self.options[:ajaxable] = true unless self.options[:ajaxable].eql?(false)
+        self.options[:ajaxable] = true if self.options[:ajaxable].eql?(true)
       end
 
       def setup_searchable
@@ -113,13 +136,13 @@ module HasCrud
           )
         end
 
-        scope ? (default_scope order("id ASC")) : (default_scope order(scope))
+        scope ? (default_scope { order("id ASC") }) : (default_scope { order(scope) })
       end
 
       def setup_slug
         if !self.options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
-          use = [:slugged]
+          use = [:slugged, :finders]
           use << :history if FriendlyIdSlug.table_exists?
           friendly_id (self.options[:slugged] || :to_s), use: use
         end

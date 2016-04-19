@@ -20,7 +20,7 @@ module Koi::HtmlHelper
   end
 
   def rich_text *sig, &blk
-    opt = sig.extract_options!.merge_html! class: "koi-rich-text"
+    opt = sig.extract_options!.merge! class: "koi-rich-text"
     tag = Symbol === sig.first ? sig.shift : :div
     txt = block_given? ? capture(&blk) : sig.shift
     txt = simple_format?(txt)  ? simple_format(txt) : sanitize(txt)

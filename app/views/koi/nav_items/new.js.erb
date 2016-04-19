@@ -1,3 +1,7 @@
 $("#modal-for-nav-item").html("<%= escape_javascript render("modal_nav_item") %>");
-$("#modal-for-nav-item").modal('show');
+$.magnificPopup.open({
+  items: {
+    src: $("#modal-for-nav-item")
+  }
+})
 

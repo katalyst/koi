@@ -1,8 +1,22 @@
 class AliasNavItem < NavItem
+
+  has_crud searchable: [:id, :title, :url], settings: false
+
   validates :title, :alias_id, :parent, presence: true
 
   crud.config do
+    fields parent_id:     { type: :hidden },
+           is_hidden:     { type: :boolean },
+           is_mobile:     { type: :boolean },
+           alias_id:      { type: :tree },
+           if:            { type: :code },
+           unless:        { type: :code },
+           method:        { type: :code },
+           highlights_on: { type: :code },
+           content_block: { type: :code }
+
     config :admin do
+      index fields: [:id, :title, :url]
       form fields: [:title, :is_hidden, :is_mobile, :alias_id, :parent_id]
     end
   end
@@ -27,4 +41,5 @@ class AliasNavItem < NavItem
   def self.title
     "Alias"
   end
+
 end

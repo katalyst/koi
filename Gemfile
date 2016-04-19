@@ -10,28 +10,12 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# jQuery
-gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 4.2.1'
-
-# Nested fields
-gem 'awesome_nested_fields'     , git: 'https://github.com/katalyst/awesome_nested_fields.git'
-
 # Koi
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
-# Bowerbird
-gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
-
 # i18n ActiveRecord backend
 gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-                                  branch: 'rails-3.2',
-                                  require: 'i18n/active_record'
+                                  branch: 'master'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'              , '~> 3.1'
-  gem 'uglifier'                , '>= 1.0.3'
-  gem 'coffee-rails'
-end
+gem 'sass-rails', '~> 5.0.0'
+gem 'ornament', github: 'katalyst/ornament'

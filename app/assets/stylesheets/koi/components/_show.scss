@@ -1,0 +1,6 @@
+// Koi module show pages
+
+.show--actions {
+  margin: $default-unit 0;
+  @include flush-children;
+}

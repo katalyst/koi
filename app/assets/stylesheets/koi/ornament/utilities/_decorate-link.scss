@@ -1,0 +1,6 @@
+@mixin decorate-link($link: underline, $hover: none) {
+  text-decoration: $link;
+  &:hover {
+    text-decoration: $hover;
+  }
+}

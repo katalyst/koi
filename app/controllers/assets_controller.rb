@@ -7,7 +7,7 @@ class AssetsController < Koi::CrudController
   end
 
   def data_path data
-    return data.url unless data.image?
+    return data.url unless data.app.name.try(:to_sym).try(:eql?, :image)
     width, height, format = params.values_at :width, :height, :format
     width  =  width.match(/[0-9]+/).to_s if width.present?
     height = height.match(/[0-9]+/).to_s if height.present?

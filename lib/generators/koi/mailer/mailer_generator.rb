@@ -52,7 +52,7 @@ module Koi
         end
       end
 
-      def create_migration
+      def create_koi_migration
         unless @skip_model || options.skip_migration?
           migration_template 'migration_template.rb', "db/migrate/create_#{model_path.pluralize.gsub('/', '_')}.rb"
         end

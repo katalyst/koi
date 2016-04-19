@@ -1,0 +1,11 @@
+<% 
+  wrapper_opts[:class] += " form--horizontal"
+%>
+
+<% data = resource_class.crud.find(:fields, attr, :data) %>
+<% if data.nil? %>
+  <%= f.input attr.to_sym, :as => :radio, wrapper_html: wrapper_opts, input_html: input_opts %>
+<% else %>
+  <%= f.input attr.to_sym, :as => :radio, collection: data, wrapper_html: wrapper_opts, input_html: input_opts %>
+<% end %>
+

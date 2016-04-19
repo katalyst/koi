@@ -8,6 +8,10 @@ module HasCrud
         base.send :extend,  ClassMethods
         base.send :include, InstanceMethods
         base.send :include, Admin::CollectionMethods
+        base.send :has_scope, :search, :if => :is_searchable?,
+                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
+          scope.search_for(value)
+        end
         base.send :include, Admin::CrudMethods
         base.send :include, Koi::ApplicationHelper
         base.send :include, ActionView::Helpers::OutputSafetyHelper
@@ -15,6 +19,7 @@ module HasCrud
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
                   :is_exportable?, :title_for, :per_page, :settings_prefix
         base.send :respond_to, :html, :js, :csv
+        base.send :before_filter, :allow_all_parameters!
       end
 
       module ClassMethods
@@ -35,6 +40,10 @@ module HasCrud
         end
 
         private
+
+          def allow_all_parameters!
+            params.permit!
+          end
 
           def redirect_path
             if params[:commit].eql?("Continue")

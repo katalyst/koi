@@ -1,23 +1,28 @@
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-2.0.0-p353
+2.2.1
 END
 
 # Add .ruby-gemset for RVM
 create_file '.ruby-gemset', <<-END
-koi-gem
+koiv2-gem
 END
 
 # Add .rbenv-gemsets for RBENV
 create_file '.rbenv-gemsets', <<-END
-koi-gem
+koiv2-gem
+END
+
+# Add .envrc for direnv to autoload ./bin in PATH
+create_file '.envrc', <<-END
+PATH_add ./bin
 END
 
 # jQuery UI
 gem "jquery-ui-rails"
 
 # Airbrake
-gem "airbrake"
+gem "airbrake"                  , '4.3'
 
 # Nested fields
 gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
@@ -27,15 +32,19 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: 'v1.1.0.rc8'
+                                  branch: 'v2.2.0'
 
-# Bowerbird
-gem 'bowerbird_v2'              , github: 'katalyst/bowerbird_v2'
+# Compass
+gem 'compass'                   , "~> 1.0.0"
+
+gem 'compass-rails'             , "~> 2.0.2"
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , github: 'svenfuchs/i18n-active_record',
-                                  branch: 'rails-3.2',
-                                  require: 'i18n/active_record'
+gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
+                            require: 'i18n/active_record',
+                            ref: 'b26c2e62e32df2f3b9ae42083647725b7ecfdff0'
+
+gem 'active_model_serializers'
 
 gem 'unicorn'
 
@@ -43,13 +52,16 @@ gem 'newrelic_rpm'
 
 gem 'ey_config'
 
+gem 'sidekiq'
+
 gem_group :development do
-  gem 'pry'
   gem 'karo'
+  gem 'pry-rails'
+  gem 'web-console', '~> 2.0'
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'feature/development'
+  gem 'ornament', github: 'katalyst/ornament'
 end
 
 # Setup mailer host
@@ -65,35 +77,24 @@ END
 # Setup database yml
 run 'rm config/database.yml'
 create_file 'config/database.yml', <<-END
-development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
-  database: #{@app_name}_development
+default: &default
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: katalyst
+  username: deploy
+  host: localhost
+
+development:
+  <<: *default
+  database: #{@app_name}_development
 
 test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
+  <<: *default
   database: #{@app_name}_test
-  pool: 5
-  username: root
-  password: katalyst
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  host: localhost
+  <<: *default
   database: #{@app_name}_development
-  pool: 5
-  username: root
-  password: katalyst
 
 END
 
@@ -145,7 +146,7 @@ module CommonControllerActions
   end
 
   def sign_in_as_admin!
-    sign_in(:admin, Admin.first) unless Admin.scoped.empty?
+    sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
 end
@@ -175,34 +176,29 @@ run 'bundle install'
 # Generate .karo.yml file
 create_file '.karo.yml', <<-END
 production:
-  host: koiproduction.engineyard.katalyst.com.au
+  host: koiv2productionv2.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
-      deploy: ey deploy -e koiproduction
+      deploy: ey deploy -e koiv2productionv2
 staging:
-  host: koistaging.engineyard.katalyst.com.au
+  host: koiv2staging.engineyard.katalyst.com.au
   user: deploy
   path: /data/#{@app_name.gsub("-", "_")}
   commands:
     client:
-      deploy: ey deploy -e koistaging
+      deploy: ey deploy -e koiv2staging
 END
 
 # Install Migrations
 rake 'koi:install:migrations'
 
 # Convert url's like this /pages/about-us into /about-us
-route 'match "/:id"  => "pages#show", as: :page'
+route 'get "/:id"  => "pages#show", as: :page'
 
 # Koi Engine route
 route 'mount Koi::Engine => "/admin", as: "koi_engine"'
-
-run 'rm public/index.html'
-
-# Disable Whitelist Attribute
-gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = true', 'config.active_record.whitelist_attributes = false'
 
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
@@ -221,13 +217,15 @@ END
 generate('devise:install -f')
 
 # Change scoped views
+gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
+gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
 rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
-route 'resources :pages, only: [:index, :show]'
+route 'resources :pages, only: [:index, :show], as: :koi_pages'
 route 'resources :assets, only: [:show]'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
@@ -285,10 +283,17 @@ END
 # Setup Airbrake
 create_file 'config/initializers/airbrake.rb', <<-END
 Airbrake.configure do |config|
-  config.api_key = 'Consult Wiki'
-  config.host    = 'errbit.katalyst.com.au'
-  config.port    = 80
-  config.secure  = config.port == 443
+  config.api_key    = Figaro.env.airbrake_api_key
+  config.host       = Figaro.env.airbrake_host
+  config.port       = Figaro.env.airbrake_port.to_i
+  config.secure     = Figaro.env.airbrake_secure == 'true'
+  config.project_id = Figaro.env.airbrake_api_key
+end
+
+class Airbrake::Sender
+  def json_api_enabled?
+    true
+  end
 end
 END
 
@@ -298,6 +303,9 @@ default_config = { namespace: "#{@app_name}" }
 
 Sidekiq.configure_server do |config|
   config.redis = default_config
+  # if scheduled jobs execute later than than expected uncomment this next line
+  # this should reduce the polling to 5 seconds
+  # config.poll_interval = 5
 end
 
 Sidekiq.configure_client do |config|
@@ -308,17 +316,21 @@ END
 # Setup sidekiq deploy hook
 create_file 'deploy/after_restart.rb', <<-END
 on_app_servers do
-  sudo "monit restart all -g hae_sidekiq"
+  sudo "monit restart all -g #{@app_name.gsub('-', '_')}_sidekiq"
 end
 END
 
 # Setup koi initializer to define admin menu and other koi related settings
 create_file 'config/initializers/koi.rb', <<-END
-# FIXME: Explicity require all main app controllers
-Dir.glob("app/controllers/admin/**/*.rb").each { |c| require Rails.root + c }
-
 Koi::Menu.items = {
-  'Admins' => '/admin/site_users'
+  "Modules" => {
+
+  },
+  "Advanced" => {
+    "Admins"       => "/admin/site_users",
+    "URL History"  => "/admin/friendly_id_slugs",
+    "URL Rewriter" => "/admin/url_rewrites"
+  }
 }
 
 Koi::Settings.collection = {
@@ -340,6 +352,13 @@ MANDRILL_USERNAME: ''
 MANDRILL_PASSWORD: ''
 MAILTRAP_USERNAME: ''
 MAILTRAP_PASSWORD: ''
+SECRET_KEY_BASE:   ''
+AIRBRAKE_API_KEY:  ''
+AIRBRAKE_HOST:     'errbit.katalyst.com.au'
+AIRBRAKE_PORT:     '443'
+AIRBRAKE_SECURE:   'true'
+DEFAULT_TO_ADDRESS:'admin@katalyst.com.au'
+NO_REPLY_ADDRESS:  'no-reply@katalyst.com.au'
 END
 
 create_file 'config/application.yml.example', application_yml
@@ -413,6 +432,9 @@ public/system/**/*
 
 # Ignore application configuration
 /config/application.yml
+
+# NPM packages
+/node_modules
 END
 
 generate('ornament -f') if yes?("Do you want to generate ornament?")

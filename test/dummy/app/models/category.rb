@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
 
   has_crud orderable: true, settings: true
-  has_many :products, order: ("ordinal ASC")
+  has_many :products, -> { order("ordinal ASC") }
 
   accepts_nested_attributes_for :products, allow_destroy: true
 

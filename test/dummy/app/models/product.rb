@@ -6,7 +6,9 @@ class Product < ActiveRecord::Base
 
   belongs_to :category
 
-  has :many, attributed: :images, orderable: true
+  # FIXME: Refactored from has
+  has_many :images
+
   has_and_belongs_to_many :products,
     join_table: "related_products",
     foreign_key: "product_a_id",
@@ -15,8 +17,8 @@ class Product < ActiveRecord::Base
   acts_as_taggable_on :genre
   serialize :countries
 
-  image_accessor :banner
-  file_accessor  :manual
+  dragonfly_accessor :banner
+  dragonfly_accessor  :manual
 
   Size = ["XL", "L", "M", "S", "XS"]
   Countries = ["Australia", "France", "Germany", "Greece"]

@@ -1,0 +1,32 @@
+// MEDIA QUERY MIXIN
+// Uses breakpoint keywords
+// OR custom with min/max + size specifics
+// eg media-query(large) {}
+// eg media-query(960px, min) {}
+
+@mixin media-query($media-query, $size: max){
+
+  @if $size == min {
+    $media-query: $media-query + 1;
+  }
+
+  @if $media-query == large {
+    @media only screen and (#{$size}-width:$breakpoint-large) { @content; }
+  }
+
+  @if $media-query == medium {
+    @media only screen and (#{$size}-width:$breakpoint-medium) { @content; }
+  }
+
+  @if $media-query == small {
+    @media only screen and (#{$size}-width:$breakpoint-small) { @content; }
+  }
+
+  @if $media-query == tiny {
+    @media only screen and (#{$size}-width:$breakpoint-tiny) { @content; }
+  }
+
+  @else {
+    @media only screen and (#{$size}-width:$media-query) { @content; }
+  }
+}

@@ -64,8 +64,8 @@ generic_hero_details = {
   url: "http://example.com/",
   telephone: "1234 123 123",
   description: "A super hero.",
-  image: Dragonfly::App[:images].generate(:plasma, 300, 300),
-  file:  Dragonfly::App[:images].generate(:plasma, 50, 50)
+  image: Dragonfly.app.generate(:plasma, 600, 400, 'format' => 'jpg'),
+  file:  Dragonfly.app.generate(:plasma, 50, 50, 'format' => 'jpg')
 }
 
 # heros.each do |name|

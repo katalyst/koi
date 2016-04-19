@@ -1,0 +1,31 @@
+.sitemap--group {
+  position: relative;
+}
+
+.sitemap--toggler {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+  text-indent: -9999px;
+
+  &:before {
+    content: "+";
+    text-indent: 0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 20px;
+    text-align: center;
+  }
+
+  &.active:before {
+    content: "-";
+  }
+
+  .nav-item.level-0 > & {
+    display: none;
+  }
+}

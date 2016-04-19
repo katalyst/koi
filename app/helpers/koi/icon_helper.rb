@@ -7,18 +7,23 @@ module Koi::IconHelper
   #     image_thumbnail(file, width: 200, height: 200) # => /media/gtoZWlnaHRpaQ/example.png
   #
   def image_thumbnail(image, options={})
-    image.process(:resize_and_crop, options).url
+    image.thumb("#{options[:width]}x#{options[:height]}").url
   end
 
-  # Gets the icon for a document. This uses the Koi::Asset::Document.icons config.
+  # Gets the icon for a document. This uses the Koi::KoiAsset::Document.icons config.
   #
   # Example:
   #
   #     document_icon(file) # => /assets/koi/application/icon-file-pdf.png
   #
   def document_icon(document)
-    ext = File.extname(document.name).gsub('.', '')
-    Koi::Asset::Document.icons.has_key?(ext) ? Koi::Asset::Document.icons[ext] : Koi::Asset.unknown_image
+    if document.name
+      ext = File.extname(document.name).gsub('.', '')
+    else
+      # prevents broken file uploads from crashing on subsequent page edits
+      ext = "none"
+    end
+    Koi::KoiAsset::Document.icons.has_key?(ext) ? Koi::KoiAsset::Document.icons[ext] : Koi::KoiAsset.unknown_image
   end
 
   # Returns an images that represents the given attachment. If it's a images it'll be a cropped
@@ -30,12 +35,24 @@ module Koi::IconHelper
   #
   def attachment_image_tag(attachment, options={})
     options.reverse_merge!(width: 100, height: 100)
-    image_tag((attachment.document? ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
+    image_tag((document?(attachment.ext) ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
+  rescue Dragonfly::Job::Fetch::NotFound
+    "Image not found"
   end
 
   # Return a unique ID.
   def identifier
     SecureRandom.hex(16)
   end
+
+  private
+
+    def document?(ext)
+      /pdf|xlsx?|docx?|txt|rtf/i === ext || ! image?(ext)
+    end
+
+    def image?(ext)
+      /png|jp?g|gif/i === ext
+    end
 
 end

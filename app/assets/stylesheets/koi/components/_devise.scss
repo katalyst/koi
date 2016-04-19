@@ -1,0 +1,28 @@
+.devise {
+  padding-top: $large-unit;
+}
+
+.devise--body {
+  margin: 0 auto;
+  max-width: 500px;
+  margin-top: $large-unit;
+}
+
+.devise .titlebar {
+  background: $black;
+  color: $white;
+  border-bottom: 5px solid $primary-color;
+  padding: $x-small-unit;
+  @include border-top-left-radius($border-radius);
+  @include border-top-right-radius($border-radius);
+}
+
+.devise .bg-lightgrey {
+  background: $x-light-grey;
+  padding: $x-small-unit;
+}
+
+.devise .bg-mediumgrey {
+  background: $light-grey;
+  padding: $x-small-unit;
+}

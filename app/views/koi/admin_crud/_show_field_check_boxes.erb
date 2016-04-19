@@ -1,0 +1,7 @@
+<strong><%= t "simple_form.labels.#{resource_class.name.underscore}.#{attr}",
+                 :default => attr.to_s.titleize %>:</strong>
+<%- field_value = resource.send(attr) -%>
+<%- if field_value.blank? -%>
+<%- else -%>
+  <%= field_value.reject(&:blank?).to_sentence %>
+<%- end -%>

@@ -1,0 +1,253 @@
+
+$navigation-tray-background:            #ccc;
+$navigation-forward-hitbox:             44px;
+$navigation-forward-background:         $primary-color;
+$navigation-forward-selected:           $primary-color;
+$navigation-max-pane-depth:             20;
+
+// Primary pane styles
+$navigation-first-pane-border:          lighten($primary-color, 10);
+$navigation-first-pane-selected:        $primary-color;
+$navigation-first-pane-link-color:      #fff;
+
+// Settings if the secondary panes are different colours than primary
+// If false, primary pane styles above can be considered global styles
+$navigation-secondary-pane-different:   true;
+$navigation-secondary-pane-background:  $primary-color;
+$navigation-secondary-pane-border:      lighten($primary-color, 20);
+$navigation-secondary-pane-selected:    lighten($primary-color, 20);
+$navigation-secondary-pane-link-color:  #fff;
+
+.layout--mobile-tray {
+  background: $navigation-tray-background;
+}
+
+.navigation-mobile.complex {
+  overflow: hidden;
+  height: 100%;
+
+  // wrapper div that contains all our panes
+  .pane-wrapper {
+    position: relative;
+    height: 100%;
+    @include transform(translateZ(0), translate(0%, 0));
+    @include transition(.15s linear);
+    -webkit-backface-visibility: hidden;
+
+    .no-csstransforms & {
+      left: 0%;
+    }
+  }
+
+  // Loop through the panes and apply offsets
+  @for $i from 2 through $navigation-max-pane-depth {
+    &[data-level="#{$i}"] > .pane-wrapper {
+      $offsetLevel: $i - 1;
+      $offset: $offsetLevel * 100%;
+      @include translate( -($offset), 0 );
+
+      .no-csstransforms & {
+        left: -($offset);
+      }
+    }
+  }
+
+  // Setting up panes
+  .pane {
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    .pane {
+      left: 100%;
+      background: $navigation-tray-background;
+      
+      @if $navigation-secondary-pane-different == true {
+        background: $navigation-secondary-pane-background;
+      }
+    }
+  }
+
+  // making active children a higher z-index
+  li.active > div {
+    z-index: 2;
+  }
+
+  // Pane list styles
+  .pane--navigation-container ul {
+    border-bottom: 1px solid $navigation-first-pane-border;
+
+    li + li > a,
+    li + li > .faux-link {
+      border-top: 1px solid $navigation-first-pane-border;
+    }
+
+    @if $navigation-secondary-pane-different == true {
+      ul {
+        border-bottom: 1px solid $navigation-secondary-pane-border;
+      }
+      ul li + li > a,
+      ul li + li > .faux-link {
+        border-top: 1px solid $navigation-secondary-pane-border;
+      }
+    }
+  }
+
+  // Link styles
+  .pane-wrapper .pane {
+    a, .faux-link {
+      position: relative;
+      @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-color);
+      @include font($bold-font);
+      @include line-height-padding($navigation-forward-hitbox);
+    }
+    .selected > a,
+    .selected > .faux-link {
+      background: $navigation-first-pane-selected;
+    }
+  }
+
+  .navigation-item {
+    > a,
+    > span.faux-link,
+    > button {
+      display: block;
+      position: relative;
+      padding-left: $xxx-small-unit;
+      padding-right: $button-height + $xxx-small-unit;
+      @include grunticon("chevron-right-16-white", 16px, $psuedo:after);
+
+      // Button Background
+      &:before {
+        content: "";
+        display: block;
+        width: $navigation-forward-hitbox;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: $navigation-forward-background;
+      }
+
+      // Button Icon
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        margin-top: -8px;
+        right: 14px;
+      }
+    }
+
+    // Updating Icon for Forward Buttons
+    &.has-children {
+      > a,
+      > span.faux-link,
+      > button {
+        @include grunticon("plus-16-white", 16px, $psuedo:after);
+      }
+    }
+  }
+
+  // Second level link styles
+  @if $navigation-secondary-pane-different == true {
+    .pane-wrapper .pane .pane {
+      a {
+        @include color-link($navigation-secondary-pane-link-color, $navigation-secondary-pane-link-color);
+        border-top-color: $navigation-secondary-pane-border;
+      }
+
+      .forward {
+        color: #fff;
+      }
+
+      .selected > a {
+        background: $primary-color;
+
+        &:before {
+          background: $primary-color;
+        }
+      }
+    }
+  }
+
+  // Back buttons
+  .back {
+    background: $primary-color;
+    padding: $xx-small-unit;
+
+    a {
+      cursor: pointer;
+      display: block;
+      @include grunticon("chevron-left-16-white", 16px, $psuedo:before);
+      @include icon-inline;
+    }
+
+    a:hover {
+      background: $primary-color;
+    }
+  }
+
+  // Description blocks
+  .description {
+    border-top: 1px solid $navigation-secondary-pane-border;
+    padding: $xx-small-unit;
+  }
+  .description--title {
+    @include font($bold-font);
+    color: #fff;
+  }
+  .description--body {
+    color: #fff;
+    margin-top: $xxx-small-unit;
+  }
+
+  // Overview link
+  .pane-wrapper .pane .description--overview a {
+    margin-top: $xxx-small-unit;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-top: 0;
+    display: block;
+
+    &:before {
+      top: 5px;
+    }
+  }
+}
+
+.navigation-mobile.simple {
+
+  // First level menus
+  a {
+    display: block;
+    padding: $xxx-small-unit;
+    border-bottom: 1px solid $navigation-first-pane-border;
+  }
+
+  // Second level menus
+  ul ul {
+    border-bottom: 1px solid $navigation-first-pane-border;
+    padding: $xxx-small-unit;
+  }
+  ul ul a {
+    border-bottom: 0;
+    padding: 0;
+    display: inline;
+  }
+
+  // Nested menus hidden by default
+  ul ul {
+    display: none;
+  }
+
+  // Visible with the appropriate class
+  ul li.visible ul {
+    display: block;
+  }
+}

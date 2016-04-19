@@ -50,7 +50,7 @@ module HasCrud
         end
 
         def is_paginated?
-          !!per_page
+          request.format == :csv ? false : !!per_page
         end
 
         def is_orderable?
@@ -63,7 +63,7 @@ module HasCrud
 
         def collection
           return get_collection_ivar if get_collection_ivar
-          set_collection_ivar end_of_association_chain.send(is_orderable? ? :ordered : :scoped)
+          set_collection_ivar end_of_association_chain.send(is_orderable? ? :ordered : :all)
           get_collection_ivar
         end
 
@@ -76,4 +76,3 @@ module HasCrud
     end
   end
 end
-
