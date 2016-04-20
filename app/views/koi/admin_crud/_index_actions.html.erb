@@ -1,6 +1,6 @@
 <div class="listing--actions small">
 
-  <% if respond_to? :parent %>
+  <% if respond_to?(:parent) && parent.present? %>
     <%= link_to "Back", [:admin, parent.class], :class => "button align-box-left" %>
   <% end %>
 
