@@ -1,8 +1,19 @@
 <%# cache "nav_item/admin/#{nav_item.id}-#{nav_item.updated_at}/sitemap", expires_in: 7.days do %>
 
-  <% nav_item_type = nav_item.class.name.underscore.dasherize %>
-  <% nav_item_id = nav_item.id %>
-  <% already_visible = (level < 2 ? true : false) %>
+  <%
+    nav_item_type = nav_item.class.name.underscore.dasherize 
+    nav_item_id = nav_item.id 
+
+    if Koi::Sitemap.toggles
+      if Koi::Sitemap.default_visible.empty? 
+        # show all top level nav items by default if there are no settings
+        already_visible = (level < 2 ? true : false) 
+      else
+        # show only those specified and foce show the home folder 
+        already_visible = Koi::Sitemap.default_visible.include?(nav_item.id) || nav_item.id.eql?(1)
+      end
+    end
+  %>
 
   <li id="nav-item-<%= nav_item.id %>"
       class="nav-item sitemap--group application id-<%= nav_item_id %>
@@ -24,7 +35,7 @@
           </div>
 
           <div class="controls">
-            <ul class="hoverable menu ui-nestedSortable-no-nesting" data-toggle="<%= nav_item.id -%>">
+            <ul class="hoverable menu ui-nestedSortable-no-nesting">
               <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button") unless RootNavItem === nav_item %>
               <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
 
@@ -47,8 +58,21 @@
       </div>
     </div>
     <% unless nav_item.children.empty? %>
-      <div class="sitemap--toggler <%= "active" if already_visible -%>" data-toggle-anchor="toggle_<%= nav_item.id -%>">Toggle</div>
-      <ol class="nav-items" data-toggle="toggle_<%= nav_item.id -%>" <%= "data-toggle-default" if already_visible -%>>
+      <%- if Koi::Sitemap.toggles -%>
+        <div class="sitemap--toggler <%= "active" if already_visible -%>" data-toggle-anchor="toggle_<%= nav_item.id -%>"
+          <%- if Koi::Sitemap.one_only && nav_item.parent -%>
+            data-toggle-group="group_<%= nav_item.parent.id -%>"
+          <%- end -%>
+        >Toggle</div>
+      <%- end -%>
+      <ol class="nav-items" 
+        <%- if Koi::Sitemap.toggles -%>
+          data-toggle="toggle_<%= nav_item.id -%>" 
+        <%- end -%>
+        <%- if already_visible -%>
+          data-toggle-default
+        <%- end -%>
+      >
         <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
       </ol>
     <% end %>
