@@ -357,6 +357,8 @@ AIRBRAKE_API_KEY:  ''
 AIRBRAKE_HOST:     'errbit.katalyst.com.au'
 AIRBRAKE_PORT:     '443'
 AIRBRAKE_SECURE:   'true'
+DEFAULT_TO_ADDRESS:'admin@katalyst.com.au'
+NO_REPLY_ADDRESS:  'no-reply@katalyst.com.au'
 END
 
 create_file 'config/application.yml.example', application_yml
