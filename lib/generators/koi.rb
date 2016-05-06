@@ -38,7 +38,7 @@ module Koi
       def make_field_type(attr, index)
         field_type    = guess_field_type(attr.name, attr.type)
         whitespace    = whitespace_for_field(attr)
-        field_name    = attr.name.chomp('_uid')
+        field_name    = attr.name.chomp('_uid').chomp('_id')
         is_last_field = index === @model_attributes.length-1
         "#{field_name}:#{whitespace} #{field_type}#{',' unless is_last_field}\n\s\s\s\s\s\s\s\s\s\s\s"
       end
@@ -54,6 +54,8 @@ module Koi
           '{ type: :boolean }'
         elsif field_is_enum?(name, data_type)
           "{ type: :select, data: #{name.pluralize.upcase}.invert }"
+        elsif field_is_association?(name, data_type)
+          "{ type: :association }"
         elsif data_type == 'date'
           '{ type: :date }'
         elsif data_type == 'datetime'
@@ -64,7 +66,7 @@ module Koi
       end
 
       def field_is_enum?(name, data_type)
-        data_type == 'integer' && name.include?('status')
+        data_type == 'integer' && (name.include?('status') || name.include?('type'))
       end
 
       def field_is_image?(name, data_type)
@@ -77,6 +79,10 @@ module Koi
 
       def field_is_url?(name, data_type)
         name.include?('url') || name.include?('link')
+      end
+
+      def field_is_association?(name, data_type)
+        name.include?('_id')
       end
 
       # for keeping whitespace nice in form field type generation
@@ -92,13 +98,13 @@ module Koi
       end
 
       def crud_field_list
-        @model_attributes.map{|attr| attr.name.chomp('_uid').to_sym }
+        @model_attributes.map{|attr| attr.name.chomp('_uid').chomp('_id').to_sym }
       end
 
       def crud_csv_field_list
         #reject fields that are files or images and collects the attribute names
         @model_attributes.reject{ |attr| field_is_image?(attr.name, attr.type) || field_is_file?(attr.name, attr.type) }
-                         .map{ |attr| attr.name.to_sym }
+                         .map{ |attr| attr.name.chomp('_id').to_sym }
       end
 
       def image_names
@@ -130,7 +136,9 @@ module Koi
          "dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :file\n\s\s" \
          "validates_property :ext, of: :#{attr.name.chomp('_uid')}, in: ['pdf', 'doc', 'docx', 'csv', 'txt']\n\n"
         elsif field_is_url?(attr.name, attr.type)
-         "validates :#{attr.name}, format: { with: ->(obj) {obj.#{ attr.name}.start_with?('http://') || obj.#{attr.name}.start_with?('https://') }, message: \"must be a valid url (including http:// or https://)\" }\n"
+         "validates :#{attr.name}, format: { with: URI::regexp, message: \"must be a valid url (including http:// or https://)\" }\n"
+        elsif field_is_association?(attr.name, attr.type)
+          "belongs_to :#{attr.name.chomp('_id')}\n\n"
         else
           ""
         end
