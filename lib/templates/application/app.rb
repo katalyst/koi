@@ -348,17 +348,17 @@ END
 
 # Setup Fiagro application.yml
 application_yml = <<-END
-MANDRILL_USERNAME: ''
-MANDRILL_PASSWORD: ''
-MAILTRAP_USERNAME: ''
-MAILTRAP_PASSWORD: ''
-SECRET_KEY_BASE:   ''
-AIRBRAKE_API_KEY:  ''
-AIRBRAKE_HOST:     'errbit.katalyst.com.au'
-AIRBRAKE_PORT:     '443'
-AIRBRAKE_SECURE:   'true'
-DEFAULT_TO_ADDRESS:'admin@katalyst.com.au'
-NO_REPLY_ADDRESS:  'no-reply@katalyst.com.au'
+MANDRILL_USERNAME:  ''
+MANDRILL_PASSWORD:  ''
+MAILTRAP_USERNAME:  ''
+MAILTRAP_PASSWORD:  ''
+SECRET_KEY_BASE:    ''
+AIRBRAKE_API_KEY:   ''
+AIRBRAKE_HOST:      'errbit.katalyst.com.au'
+AIRBRAKE_PORT:      '443'
+AIRBRAKE_SECURE:    'true'
+DEFAULT_TO_ADDRESS: 'admin@katalyst.com.au'
+NO_REPLY_ADDRESS:   'no-reply@katalyst.com.au'
 END
 
 create_file 'config/application.yml.example', application_yml
@@ -438,6 +438,40 @@ public/system/**/*
 END
 
 generate('ornament -f') if yes?("Do you want to generate ornament?")
+
+if yes?("Do you want to generate a contact form? (yes/no)")
+
+  generate('koi:mailer Contact first_name:string last_name:string email:string message:text')
+  inject_into_class "app/models/contact.rb", 'Contact' do
+    <<-END
+
+  # You may wish to use some of this config/validation/methods
+
+  # validates :first_name, :last_name, :email, :message, presence: true
+  # validates_format_of :email, with: /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i, allow_blank: true, message: 'Please supply a valid email address'
+
+  # crud.config do
+  #   config :admin do
+  #     exportable true
+  #     actions only:  [:index, :show]
+  #     index   fields: [:created_at, :first_name, :last_name, :contact_category, :email, :message_preview],
+  #             order: { created_at: :desc }
+  #     show    fields: [:created_at, :first_name, :last_name, :contact_category, :email, :message]
+  #     csv     fields: [:created_at, :first_name, :last_name, :contact_category, :email, :message]
+  #   end
+  # end
+
+  # def message_preview
+  #   message.truncate(70)
+  # end
+
+  # def to_s
+  #   "Contact from" + first_name + " " + last_name
+  # end
+
+    END
+  end
+end
 
 git :init
 git add: '.'
