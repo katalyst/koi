@@ -23,7 +23,11 @@
       data-type="<%= nav_item_type %>"
       data-id="<%= nav_item_id %>"
       data-left-ordinal="<%= nav_item.lft %>"
-      data-right-ordinal="<%= nav_item.rgt %>">
+      data-right-ordinal="<%= nav_item.rgt %>"
+      <%- if Koi::Sitemap.toggles -%>
+        data-toggleable
+      <%- end -%>
+    >
 
     <!-- zone provides hoverable space between elements so there are no dead-spots -->
     <div class="zone">

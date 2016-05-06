@@ -29,6 +29,9 @@ $ (function () {
     function buildtoggles () {
       $.each($rootList.find(".nav-item"), function(){
         var $this = $(this);
+        if(!$this.is("[data-toggleable]")) {
+          return false;
+        }
         if($this.find(".nav-item").length > 0) {
           if($this.find(".sitemap--toggler").length < 1) {
             var thisId = $(this).attr("data-id");
