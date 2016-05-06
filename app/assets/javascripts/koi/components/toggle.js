@@ -102,6 +102,10 @@
 
     }
 
+    Ornament.toggle = function($toggleAnchor, $toggleContent){
+      toggle($toggleAnchor, $toggleContent);
+    }
+
     // Hid all toggles on page
     var hideAllToggles = function(){
       $toggles.not("[data-toggle-default]").hide();

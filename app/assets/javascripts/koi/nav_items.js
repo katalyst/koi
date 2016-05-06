@@ -26,7 +26,35 @@ $ (function () {
     var $rootList = $sitemap.component ('ol');
     var $rootItem = $sitemap.component ('.nav-item');
 
+    function buildtoggles () {
+      $.each($rootList.find(".nav-item"), function(){
+        var $this = $(this);
+        if(!$this.is("[data-toggleable]")) {
+          return false;
+        }
+        if($this.find(".nav-item").length > 0) {
+          if($this.find(".sitemap--toggler").length < 1) {
+            var thisId = $(this).attr("data-id");
+            var $sitemapToggler = $("<div />").attr({
+              "class": "sitemap--toggler active",
+              "data-toggle-anchor": "toggle_" + thisId,
+              "data-toggle-group": "group_" + thisId
+            });
+            var $childMenu = $this.children("ol");
+            $childMenu.before($sitemapToggler);
+            $sitemapToggler.on("click", function(e){
+              e.preventDefault();
+              Ornament.toggle($sitemapToggler, $childMenu);
+            });
+          }
+        } else {
+          $this.children(".sitemap--toggler").remove();
+        }
+      });
+    }
+
     function save (cb) {
+      buildtoggles ();
       $.post (path, { set: render () }, cb);
     }
 

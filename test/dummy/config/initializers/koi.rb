@@ -55,8 +55,11 @@ resource_settings = settings.merge({
 
 Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
-
 Koi::Settings.skip_on_create = [:news_item]
+
+# Sitemap settings
+Koi::Sitemap.toggles = true
+Koi::Sitemap.default_visible = [2]
 
 # Caching enabled by default
 Koi::Caching.enabled = true
