@@ -25,7 +25,7 @@ gem "jquery-ui-rails"
 gem "airbrake"                  , '4.3'
 
 # Nested fields
-gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
+gem 'awesome_nested_fields'     , '0.6.4'
 
 # Koi Config
 gem 'koi_config'                , github: 'katalyst/koi_config'
