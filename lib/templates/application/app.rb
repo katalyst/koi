@@ -448,3 +448,52 @@ git add: '.'
 git commit: "-m 'Generated EngineYard Config'"
 
 rake 'db:seed'
+
+if yes?("Do you want to generate users? (yes/no)")
+  run('rails generate koi:admin_controller User first_name:string last_name:string')
+  run('rails generate devise User')
+  run('rails generate devise:views users')
+  run('rails generate devise:controllers users')
+  say <<-TEXT
+
+===============================================================================
+
+USERS
+
+    You may wish to configure your user model with additional devise modules.
+    Be sure to edit the migration file if so, or if your user model needs additional fields.
+    Migrations have not yet run for users.
+
+    You will also need to configure your routes to use the imported devise controllers.
+
+    devise_for :users, controllers: {
+      passwords:           'users/passwords',
+      registrations:       'users/registrations',
+      sessions:            'users/sessions',
+      unlocks:             'users/unlocks',
+      #confirmations:      'users/confirmations',
+      #omniauth_callbacks: 'users/omniauth_callbacks',
+    }
+
+    If you want to enable OmniAuth (i.e. facebook/twitter registration / login), follow the instructions at
+    https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+
+    You may wish to put sign up / log out links somewhere in the global template
+
+    <% if user_signed_in? %>
+      <%= link_to "Edit your details", edit_user_registration_path %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %>
+      <%= link_to "Log in", new_user_session_path %>
+    <% end %>
+
+    You may also wish to edit your sign up form to include any other relevant user fields, like the user's name.
+
+    1. Edit your users/registrations/new.html.erb (and the edit version) to include the these fields
+    2. Permit these params in the users/registrations_controller.rb
+
+===============================================================================
+
+  TEXT
+end
