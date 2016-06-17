@@ -1,0 +1,6 @@
+<%- content_for :title, @page.title -%>
+
+<%- @page.page_contents.ordered.each do |page_content| -%>
+  <%= default_page_content_render(page_content) -%>
+<%- end -%>
+

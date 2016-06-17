@@ -11,5 +11,9 @@ module Koi
     # Skip settings on create for all these resources
     mattr_accessor :skip_on_create
     @@skip_on_create = []
+
+    # Page cotnent settings
+    mattr_accessor :page_content_settings
+    @@page_content_settings = {}
   end
 end

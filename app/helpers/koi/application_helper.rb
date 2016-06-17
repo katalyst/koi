@@ -114,4 +114,9 @@ module Koi::ApplicationHelper
     content_for(name, content, &block)
   end
 
+  # Default renderer for page content types 
+  def default_page_content_render(page_content)
+    render "/page_contents/#{page_content.content_type.parameterize}", page_content: page_content
+  end
+
 end
