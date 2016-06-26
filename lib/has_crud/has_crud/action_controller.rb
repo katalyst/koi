@@ -6,7 +6,7 @@ module HasCrud
     def self.included(base)
       base.send :extend, ClassMethods
       base.send :include, InstanceMethods
-      base.send :helper_method, :has_crud?, :has_crud_models
+      base.send :helper_method, :has_crud?, :has_navigation_models, :has_crud_models
     end
 
     module ClassMethods
@@ -23,6 +23,11 @@ module HasCrud
         false
       end
 
+      def has_navigation_models
+        # get all models with has_crud navigation: true
+        has_crud_models.select{ |model| model.options[:navigation] }
+      end
+
       def has_crud_models
         # Make sure all the models are loaded.
         Dir["#{Rails.root}/app/models/**/*.rb"].each { |path| require_dependency path }
@@ -34,4 +39,3 @@ module HasCrud
     end
   end
 end
-
