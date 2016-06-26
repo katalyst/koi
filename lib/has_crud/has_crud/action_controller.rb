@@ -25,7 +25,7 @@ module HasCrud
 
       def has_navigation_models
         # get all models with has_crud navigation: true
-        has_crud_models.select{ |model| model.options[:navigation] }
+        @has_navigation_models || has_crud_models.select{ |model| model.options[:navigation] }
       end
 
       def has_crud_models
