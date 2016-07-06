@@ -75,5 +75,6 @@ Ornament = window.Ornament = {
 
 $(document).on("ornament:refresh", function(){
   Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
+  Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
   $("[data-ornament-icons]").remove();
 });

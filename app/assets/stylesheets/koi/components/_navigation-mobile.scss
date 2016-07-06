@@ -145,18 +145,30 @@ $navigation-secondary-pane-link-color:  #fff;
 
       // Button Icon
       svg {
-        content: "";
-        display: block;
         position: absolute;
         top: 50%;
-        margin-top: -8px;
         right: 14px;
+        display: block;
+      }
+
+      .icon-chevron {
         @include transform(rotateZ(-90deg));
+        margin-top: -8px;
         width: 16px;
         height: 11px;
 
         path {
           stroke: $white;
+        }
+      }
+
+      .icon-plus {
+        width: 16px;
+        height: 16px;
+        margin-top: -8px;
+
+        .fill {
+          fill: $white;
         }
       }
     }
