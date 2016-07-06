@@ -44,9 +44,11 @@
       <div class="layout--mobile-tray">
         <nav class="navigation-mobile">
           <div class="pane-wrapper">
-
             <div class="pane">
               <div class="pane--navigation-container">
+                <div class="navigation-mobile--header">
+                  Menu
+                </div>
                 <%= render :partial => "layouts/koi/navigation" %>
               </div>
             </div>
@@ -58,7 +60,7 @@
 
         <header class="header global-header" role="banner">
           <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
-            <%= image_tag "koi/application/logo-katalyst.png", border: 0 %>
+            koi
           <% end %>
           <ul class="header--actions">
             <%- if current_admin.god? -%>
@@ -67,7 +69,10 @@
               </li>
             <%- end -%>
             <li>
-              <button class="layout--switch header--menu" data-mobile-menu-switch>open navigation</button>
+              <button class="layout--switch header--menu" data-mobile-menu-switch>
+                <%= icon("menu", fill: "#ffffff") -%>
+                <%= icon("close", stroke: "#ffffff") -%>
+              </button>
             </li>
           </ul>
         </header>
@@ -111,6 +116,11 @@
         </div>
       </div>
 
+    </div>
+
+    <%- # Make icons accessible via JS -%>
+    <div style="display: none;" data-ornament-icons>
+      <div data-ornament-icon-chevron><%= icon("chevron") -%></div>
     </div>
 
   </body>

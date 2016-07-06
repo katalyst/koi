@@ -114,4 +114,24 @@ module Koi::ApplicationHelper
     content_for(name, content, &block)
   end
 
+  # Icon Helper
+  # <%= icon("close", width: 24, height: 24, stroke: "#BADA55", fill: "purple") -%>
+  def icon(icon_path, options={})
+    options[:width] = 24 unless options[:width].present?
+    options[:height] = 24 unless options[:height].present?
+    options[:stroke] = "#000000" unless options[:stroke].present?
+    options[:fill] = "#000000" unless options[:fill].present?
+    options[:class] = "" unless options[:class].present?
+    render("koi/shared/icons/#{icon_path}", options: options)
+  end
+
+  # SVG Image Helper
+  # Converts a dragonfly-stored SVG image to inline SVG with a missing
+  # asset fallback. 
+  def svg_image(image)
+    raw image.data
+  rescue Dragonfly::Job::Fetch::NotFound
+    "Image missing"
+  end
+
 end

@@ -488,6 +488,13 @@ abbr[title=required] {
 
 // TINY SEARCH COMPONENT
 .form--tiny-search {
+
+  form {
+    @include display-flex;
+    @include flex-direction(row);
+    @include align-items(center); 
+  }
+
   form,
   form input {
     width: auto;

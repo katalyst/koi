@@ -14,7 +14,7 @@
   <% end %>
 
   <div class="tabs--panes">
-    <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
+    <div class="tabs--pane <%= "tabs--pane__flush" if is_searchable? || is_paginated? -%>" id="tab-main" data-tab-for="tab-main">
 
       <% if is_searchable? || is_paginated? %>
         <div class="listing--pagination listing--pagination__top small">

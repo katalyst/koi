@@ -69,6 +69,10 @@ $tab-inactive-color: #ECF0F1;
     padding: $default-unit 0;
   }
 
+  .tabs--links + .tabs--panes &.tabs--pane__flush {
+    padding-top: 0;
+  }
+
   .tabs__filled & {
     background: $passive-color;
     padding: $panel-padding;

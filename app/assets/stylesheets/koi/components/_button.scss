@@ -1,72 +1,172 @@
-$button-background-color:           $primary-color;
-$button-border-radius:              $border-radius;
-$button-dangerous-background-color: #990000;
-$button-dangerous-foreground-color: #ffffff;
-$button-typeface:                   $bold-font, $base-font-size;
-$button-foreground-color:           $white;
-$button-padding:                    3px $xxxxx-small-unit;
-$button-secondary-background-color: $grey;
-$button-secondary-foreground-color: $white;
-$button-error-background-color:     $error-color;
-$button-error-foreground-color:     $white;
 
-.button__primary {
-  @include border-radius($button-border-radius);
-  @include color-link($button-foreground-color, $button-foreground-color);
+.button {
+  // empty class to extend all our buttons in to so we 
+  // can target them all with .button regardless of what
+  // actual class they have
+}
+
+// MIXINS
+
+// Custom button background colours and hovers
+@mixin button-background($color, $hover-color:false) {
+  background: $color;
+
+  @if($hover-color) {
+    &:hover {
+      background: $hover-color;
+    }
+  } @else {
+    &:hover {
+      background: darken($color, 10);
+    }
+  }
+}
+
+// Line button style mixin
+@mixin button-line($color, $hover-color:false, $text-color:false) {
+  background: transparent;
+  border: 2px solid $color;
+
+  @if($text-color) {
+    @include color-link($text-color, $text-color);
+  }
+
+  @if($hover-color) {
+    &:hover {
+      background: transparent;
+      border-color: $hover-color;
+    }
+  } @else {
+    &:hover {
+      background: transparent;
+      border-color: darken($color, 10);
+    }
+  }
+}
+
+@mixin button-large {
+  padding: $xx-small-unit $x-small-unit;
+}
+
+@mixin button-medium {
+  padding: 12px 24px;
+}
+
+@mixin button-base {
+  @extend .button;
+  padding: 8px 12px;
+  @include border-radius($border-radius);
   @include decorate-link(none, none);
   @include inline-block;
-  @include transition(background .2s);
-  font-size: inherit;
-  background: $button-background-color;
-  border: 0;
-  color: $button-foreground-color;
-  cursor: pointer;
-  padding: $button-padding;
+  @include font($bold-font);
+  @include color-link($white, $white);
 
-  &:hover {
-    background: darken($button-background-color,10);
+  &.button__medium {
+    @include button-medium;
+  }
+
+  &.button__large {
+    @include button-large;
   }
 }
 
-.button__secondary,
-.button {
-  @extend .button__primary;
-  @include color-link($button-secondary-foreground-color, $button-secondary-foreground-color);
-  background: $button-secondary-background-color;
-  color: $button-secondary-foreground-color;
-
-  &:hover {
-    background: darken($button-secondary-background-color,10);
-  }
+@mixin button-primary {
+  @include button-base;
+  @include button-background($primary-color);
 }
 
-.button__black {
-  @extend .button__primary;
-  background: $black;
-
-  &:hover {
-    background: darken($black,10);
-  }
+@mixin button-grey {
+  @include button-base;
+  @include color-link($foreground-color, $foreground-color);
+  @include button-background($passive-color);
 }
 
-.button__error {
+@mixin button-error {
+  @include button-base;
+  @include color-link($foreground-color, $foreground-color);
+  @include button-background($error-color);
+}
+
+@mixin button-depressed {
+  @include box-shadow(inset 2px 2px 4px 0px rgba(0,0,0,0.30));
+}
+
+// BUTTON CLASSES
+
+.button__inactive {
   @extend .button;
-  @include color-link($button-error-foreground-color, $button-error-foreground-color);
-  background: $button-error-background-color;
-  color: $button-error-foreground-color;
-
-  &:hover {
-    background: darken($button-error-background-color,10);
-  }
+  @include button-background($grey);
 }
 
+
+// basic button
+.button,
+.button__back,
+.button__secondary {
+  @include button-base;
+  @include button-background($secondary-color);
+}
+.button__save-continue,
+.button__primary {
+  @include button-primary;
+}
+.button__save,
+.button__confirm {
+  @include button-base;
+  @include button-background($success-color);
+}
+.button__error,
+.button__cancel {
+  @include button-base;
+  @include button-background($error-color);
+}
+
+// button states
+.button__depressed {
+  @include button-depressed;
+}
+
+// line styles
+.button__line {
+  @include button-base;
+  @include button-line($primary-color, false, $primary-color);
+}
+.button__secondary__line {
+  @include button-base;
+  @include button-line($secondary-color, false, $secondary-color);
+}
+.button__confirm__line {
+  @include button-base;
+  @include button-line($success-color, false, $success-color);
+}
+.button__cancel__line {
+  @include button-base;
+  @include button-line($error-color, false, $error-color);
+}
+
+// disabled buttons
+.button[disabled] {
+  @include button-background($grey,$grey);
+  color: $white;
+  cursor: not-allowed;
+}
+
+.button__disabled {
+  @include button-base;
+  @extend .button[disabled];
+}
+
+// full width buttons
 .button__full {
+  text-align: center;
   width: 100%;
 }
 
-// BUTTONS WITH ICONS
+// buttons with icons
 .button__icon-right,
 .button__icon-left {
+  display: inline-block;
+
   &:before {
     position: relative;
     top: 3px;
@@ -77,19 +177,54 @@ $button-error-foreground-color:     $white;
   float: right;
   margin-left: $xxxxx-small-unit;
 }
+
 .button__icon-left:before {
   float: left;
   margin-right: $xxxxx-small-unit;
 }
 
-// BUTTON GROUPS
+.button__icon {
+  @include icon-block(48px, 16px);
+  display: inline-block;
+
+  &:before {
+    float: left;
+  }
+}
+
+// button groups
 .button-group {
+  @include pie-clearfix;
+
+  // Take advantage of the fact that buttons all extend the 
+  // .button class here
+  .button {
+    @include border-radius(0);
+    float: left;
+  }
+
+  .button + .button {
+    margin-left: 1px;
+  }
+
+  .button:first-child {
+    @include border-top-left-radius($border-radius);
+    @include border-bottom-left-radius($border-radius);
+  }
+
+  .button:last-child {
+    @include border-top-right-radius($border-radius);
+    @include border-bottom-right-radius($border-radius);
+  }
+}
+
+// button sides
+.button-sides {
   @include pie-clearfix;
 
   .button__back {
     float: left;
   }
-
   .button__forward {
     float: right;
   }

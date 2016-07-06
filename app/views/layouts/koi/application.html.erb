@@ -1,18 +1,15 @@
 <% content_for :global do %>
 
-  <%- content_for :page_main do -%>
-    <% if content_for? :title %>
-      <h1 class="heading-one page--title">
-        <%= yield :title %>
-      </h1>
-    <% end %>
-    <%= content_for?(:application) ? yield(:application) : yield %>
-  <%- end -%>
+  <% if content_for? :title %>
+    <h1 class="heading-one page--title">
+      <%= yield :title %>
+    </h1>
+  <% end %>
 
   <%- if content_for? :sidebar -%>
     <div class="page__with-sidebar">
       <div class="page--main">
-        <%= yield :page_main -%>
+        <%= content_for?(:application) ? yield(:application) : yield %>
       </div>
       <div class="page--sidebar">
         <%= yield :sidebar -%>
@@ -21,14 +18,14 @@
   <%- elsif content_for? :side -%>
     <div class="page__with-sidebar-right">
       <div class="page--main">
-        <%= yield :page_main -%>
+        <%= content_for?(:application) ? yield(:application) : yield %>
       </div>
       <div class="page--sidebar">
         <%= yield :side -%>
       </div>
     </div>
   <%- else -%>
-    <%= yield :page_main -%>
+    <%= content_for?(:application) ? yield(:application) : yield %>
   <%- end -%>  
   
 <% end %>

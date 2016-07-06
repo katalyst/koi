@@ -35,7 +35,7 @@
       animationBuffer:            100, // buffer for good measure
       slideTransitionTime:        200, // transition between pane sliding
       jumpToCurrent:              true, // jump to current page in the menu rather than starting at top-level
-      showOverviewLinks:          true, // will show overview links on secodary panes
+      showOverviewLinks:          false, // will show overview links on secodary panes
       keepScrollPosition:         false, // keep scroll position when opening tabs, dangerous if button isn't fixed
       closeForAnchors:            true, // close menu when clicking on anchors
 
@@ -361,6 +361,9 @@
           var $parentNode = $(this);
           if($parentNode.children("div").length > 0) {
             $parentNode.addClass(mobileNav.hasChildren).attr("data-mobilenav-forward","");
+            // $parentNode.children("a").append(Ornament.icons.plus);
+          } else {
+            $parentNode.children("a").append(Ornament.icons.chevron);
           }
         });
 

@@ -1,17 +1,28 @@
 // Koi module listing pages
 
 .listing--pagination {
-  margin-bottom: $default-unit;
-  @include pie-clearfix;
+  padding-top: $xxx-small-unit;
+  padding-bottom: $xxx-small-unit;
+  @include display-flex;
+  @include flex-direction(column);
+
+  @include media-query(780px,min) {
+    @include flex-direction(row);
+    @include align-items(center);
+  }
 }
 
 .listing--pagination--search {
-  float: left;
-  width: 50%;
+  
 }
 
 .listing--pagination--options {
-  float: right;
+  margin-left: auto;
+
+  @include media-query(780px) {
+    padding-top: $xxxxx-small-unit;
+    margin-left: 0;
+  }
 }
 
 .listing--thumbnail {

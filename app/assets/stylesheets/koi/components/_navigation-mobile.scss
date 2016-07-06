@@ -21,6 +21,15 @@ $navigation-secondary-pane-link-color:  #fff;
   background: $navigation-tray-background;
 }
 
+.navigation-mobile--header {
+  background: $black;
+  border-bottom: 5px solid $primary-color;
+  line-height: 44px;
+  text-align: center;
+  color: $white;
+  text-transform: uppercase;
+}
+
 .navigation-mobile.complex {
   overflow: hidden;
   height: 100%;
@@ -118,7 +127,9 @@ $navigation-secondary-pane-link-color:  #fff;
       position: relative;
       padding-left: $xxx-small-unit;
       padding-right: $button-height + $xxx-small-unit;
-      @include grunticon("chevron-right-16-white", 16px, $psuedo:after);
+      // @include grunticon("chevron-right-16-white", 16px, $psuedo:after);
+
+
 
       // Button Background
       &:before {
@@ -133,13 +144,20 @@ $navigation-secondary-pane-link-color:  #fff;
       }
 
       // Button Icon
-      &:after {
+      svg {
         content: "";
         display: block;
         position: absolute;
         top: 50%;
         margin-top: -8px;
         right: 14px;
+        @include transform(rotateZ(-90deg));
+        width: 16px;
+        height: 11px;
+
+        path {
+          stroke: $white;
+        }
       }
     }
 

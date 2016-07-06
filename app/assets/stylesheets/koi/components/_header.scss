@@ -7,31 +7,44 @@
   top: 0;
   border-bottom: 5px solid $primary-color;
   z-index: 990;
-  @include pie-clearfix;
   position: fixed;  
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
 }
 
 .header--menu {
-  @include grunticon("menu-white", 24px);
-  @include icon-block(44px, 24px);
+  @include icon-block(44px, 22px);
+  background: $primary-color;
   overflow: visible;
-  float: right;
+
+  .icon-close,
+  .layout-open & .icon-menu {
+    display: none;
+  }
+
+  .layout-open & {
+    @include icon-block(44px, 18px);
+  }
+
+  .layout-open & .icon-close {
+    display: block;
+  }
 }
 
 .header--logo {
-  float: left;
-  padding-top: 7px;
-
-  img {
-    display: block;
-  }
+  padding-left: $xxx-small-unit;
+  @include font($bold-font);
+  font-size: 18px;
+  @include color-link($white, $white);
+  @include decorate-link(none, none);
 }
 
 .header--actions {
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
-  float: right;
+  margin-left: auto;
 
   li + li {
     padding-left: $xxxxx-small-unit;
