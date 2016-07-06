@@ -6,8 +6,8 @@
   background: #fff;
   width: 90%;
   max-width: 990px;
-  margin-top: $medium-gutter;
-  margin-bottom: $medium-gutter;
+  margin-top: $default-unit;
+  margin-bottom: $default-unit;
   @include border-radius($border-radius);
   overflow: hidden;
 

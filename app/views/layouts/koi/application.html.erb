@@ -1,40 +1,36 @@
-<% content_for :body do %>
+<% content_for :global do %>
 
-  <header class="content--header">
-    <% if content_for?(:title) %>
-      <h1 class="heading-one content--title"><%= yield :title %></h1>
+  <%- content_for :page_main do -%>
+    <% if content_for? :title %>
+      <h1 class="heading-one page--title">
+        <%= yield :title %>
+      </h1>
     <% end %>
-    <% if content_for?(:breadcrumbs) %>
-      <p class="breadcrumbs">
-        <%= yield :breadcrumbs %>
-      </p>
-    <% end %>
-  </header>
+    <%= content_for?(:application) ? yield(:application) : yield %>
+  <%- end -%>
 
-  <div class="layout--content">
-
-    <%- if content_for? :side -%>
-      
-      <div class="layout--content--main">
-        <%= render "koi/shared/flash_messages" %>
-        <%= yield %>
+  <%- if content_for? :sidebar -%>
+    <div class="page__with-sidebar">
+      <div class="page--main">
+        <%= yield :page_main -%>
       </div>
-
-      <div class="layout--content--aside">
-        <%= content_for?(:side) ? yield(:side) : raw("&nbsp") %>
+      <div class="page--sidebar">
+        <%= yield :sidebar -%>
       </div>
-
-    <%- else -%>
-
-      <div class="layout--content--main__full">
-        <%= render "koi/shared/flash_messages" %>
-        <%= yield %>
+    </div>
+  <%- elsif content_for? :side -%>
+    <div class="page__with-sidebar-right">
+      <div class="page--main">
+        <%= yield :page_main -%>
       </div>
-
-    <%- end -%>
-
-  </div>
-
+      <div class="page--sidebar">
+        <%= yield :side -%>
+      </div>
+    </div>
+  <%- else -%>
+    <%= yield :page_main -%>
+  <%- end -%>  
+  
 <% end %>
 
-<%= render :file => 'layouts/koi/body' %>
+<%= render :file => "layouts/koi/global" %>

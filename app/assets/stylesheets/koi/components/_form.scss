@@ -248,6 +248,58 @@ $radio-offset: 24px;
   }
 }
 
+
+// Enhanced input fields
+.form--enhanced {
+
+  .radio .form--enhanced--control {
+    @include border-radius(50%);
+  }
+
+  .radio,
+  .checkbox {
+
+    .form--enhanced--control {
+      content: "";
+      width: 1em;
+      height: 1em;
+      border: 1px solid $input-border-color;
+      position: absolute;
+      top: 0.2em;
+      left: 0;
+      background: $primary-color;
+      @include box-shadow(inset 0 0 0 1em $white);
+      @include transition(box-shadow .2s);
+    }
+
+    .form--enhanced--control:hover {
+      border-color: $input-border-focus-color;
+      cursor: pointer;
+    }
+
+    input:focus + .form--enhanced--control {
+      border-color: $input-border-focus-color;
+    }
+
+    input:checked + .form--enhanced--control {
+      border-color: $input-border-focus-color;
+      @include box-shadow(inset 0 0 0 3px $white);
+    }
+
+    input {
+      border: 0;
+      clip: rect(0,0,0,0);
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      position: absolute;
+      padding: 0;
+    }
+  }
+
+}
+
 .form--horizontal {
   @include pie-clearfix;
 

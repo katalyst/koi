@@ -14,11 +14,29 @@
   }
 }
 
+.header--menu {
+  @include grunticon("menu-white", 24px);
+  @include icon-block(44px, 24px);
+  overflow: visible;
+  float: right;
+}
+
 .header--logo {
   float: left;
   padding-top: 7px;
 
   img {
     display: block;
+  }
+}
+
+.header--actions {
+  float: right;
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
+
+  li + li {
+    padding-left: $xxxxx-small-unit;
   }
 }

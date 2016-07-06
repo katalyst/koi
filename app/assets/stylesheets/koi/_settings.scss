@@ -13,11 +13,11 @@
 // The base line height should be unitless (ratio of line height to font size).
 //
 
-$base-pixel:          14px;
+$base-font-size:      14px;
 
 $small-font-size:     12px;
-$base-font-size:      $base-pixel;
-$large-font-size:     1.1em;
+$base-font-size:      $base-font-size;
+$large-font-size:     16px;
 $base-line-height:    1.5;
 $base-line-size:      $base-font-size * $base-line-height;
 
@@ -73,6 +73,7 @@ $breakpoint-large: 1080px;
 $breakpoint-medium: 935px;
 $breakpoint-small: 780px;
 $breakpoint-tiny: 620px;
+$breakpoint-header: 9999px;
 
 $site-breakpoints:
   (tiny, $breakpoint-tiny),
@@ -90,16 +91,13 @@ $breakpoint-header-sticky: 400px;
 
 $desktop-gutters: $default-unit;
 
-$large-gutter:    $default-unit;
-$medium-gutter:   $small-unit;
-$small-gutter:    $small-unit;
-$tiny-gutter:     $small-unit;
+// $large-gutter:    $default-unit;
+// $medium-gutter:   $small-unit;
+// $small-gutter:    $small-unit;
+// $tiny-gutter:     $small-unit;
 
 $site-gutters:
-  (large, $large-gutter),
-  (medium, $medium-gutter),
-  (small, $small-gutter),
-  (tiny, $tiny-gutter)
+  false
 ;
 
 // COLORS
@@ -121,29 +119,36 @@ $dark-grey:     #666;
 
 $border:        #ccc;
 
-$error-color: #E74C3C;
-$success-color: #2ECC71;
-$warning-color: #F1C40F;
+
 $passive-color: #ECF0F1;
 
 $foreground-color: #222;
 $background-color: #fff;
+
 $link-color: $primary-color;
 $link-hover-color: false;
+
+$error-color: #E74C3C;
+$error-color: #990000;
+$error-background: #ffcccc;
+
+$notice-color: #F1c40f;
+$notice-background: #ffffcc;
+$warning-color: $notice-color; 
+
+$success-color: #2ECC71;
+$success-color: #2ecc71;
+$success-background: #ccffcc;
 
 $input-border-color: #c5cbd4;
 $input-border-focus-color: darken($input-border-color,20);
 
-/*
-$error-color: #990000;
-$error-background: red;
-$notice-color: #ff6600;
-$success-color: green;
-*/
+$facebook: #3b5998;
+$twitter: #44ccf6;
+$linkedin: #1b86bd;
 
-$white: #fff;
-$facebook: #5e78aa;
-
+$divider-color: $passive-color;
+$divider: 1px solid $divider-color;
 $image-border: 0;
 
 

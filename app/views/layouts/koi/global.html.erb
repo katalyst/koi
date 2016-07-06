@@ -16,7 +16,8 @@
     <%= yield :meta %>
 
     <!-- DATA -->
-    <%= js_data if defined?(js_data) %><!-- FIXME: helper isn't loaded by DeviseController -->
+    <!-- FIXME: helper isn't loaded by DeviseController -->
+    <%= js_data if defined?(js_data) %>
 
     <!-- WEBFONTS -->
     <%= render "layouts/koi/webfonts" -%>
@@ -37,5 +38,79 @@
     <%= yield(:head) %>
 
   </head>
-  <%= yield :global %>
+  <body>
+
+    <div class="layout">
+      <div class="layout--mobile-tray">
+        <nav class="navigation-mobile">
+          <div class="pane-wrapper">
+
+            <div class="pane">
+              <div class="pane--navigation-container">
+                <%= render :partial => "layouts/koi/navigation" %>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="layout--content">
+
+        <header class="header global-header" role="banner">
+          <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
+            <%= image_tag "koi/application/logo-katalyst.png", border: 0 %>
+          <% end %>
+          <ul class="header--actions">
+            <%- if current_admin.god? -%>
+              <li>
+                <%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %>
+              </li>
+            <%- end -%>
+            <li>
+              <button class="layout--switch header--menu" data-mobile-menu-switch>open navigation</button>
+            </li>
+          </ul>
+        </header>
+
+        <% if content_for?(:breadcrumbs) %>
+          <div class="breadcrumbs">
+            <%= yield :breadcrumbs %>
+          </div>
+        <% end %>
+
+        <a id="main" name="main" tabindex="-1"></a>
+
+        <%= yield :above_layout -%>
+        <%= render "/koi/shared/flash_messages" -%>
+        <%- if content_for?(:global) || !yield.blank? -%>
+          <main class="layout--main <%= yield(:layout_class) -%>" role="main">
+            <div class="layout--container">
+              <%= content_for?(:global) ? yield(:global) : yield %>
+            </div>
+          </main>
+        <%- end -%>
+        <%= yield :below_layout -%>
+
+      </div>
+    </div>
+
+    <div id="void" class="hidden">
+
+      <div koi="ask" class="modal hide fade">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 koi:bind="question">What?</h3>
+        </div>
+        <div class="modal-body">
+          <input class="input-xlarge" name="answer" koi:bind="answer" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="cancel" class="btn close" data-dismiss="modal">Cancel</button>
+          <button type="button" name="submit" class="space-r-1 btn btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
 </html>

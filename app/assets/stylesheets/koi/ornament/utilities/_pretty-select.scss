@@ -1,0 +1,18 @@
+@mixin pretty-select {
+  
+  // https://raw2.github.com/isellsoap/forms.css/gh-pages/assets/css/forms.css
+  @media (-webkit-min-device-pixel-ratio: 0) {
+    select {
+      -webkit-appearance: none;
+    }
+    @content;
+  }
+
+  @-moz-document url-prefix() {
+    select {
+      -moz-appearance: none;
+    }
+    @content;
+  }
+
+}
