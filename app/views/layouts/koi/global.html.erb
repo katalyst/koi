@@ -79,16 +79,17 @@
         <% end %>
 
         <a id="main" name="main" tabindex="-1"></a>
-
         <%= yield :above_layout -%>
-        <%= render "/koi/shared/flash_messages" -%>
-        <%- if content_for?(:global) || !yield.blank? -%>
-          <main class="layout--main <%= yield(:layout_class) -%>" role="main">
+
+        <main class="layout--main <%= yield(:layout_class) -%>" role="main">
+          <%= render "/koi/shared/flash_messages" -%>
+          <%- if content_for?(:global) || !yield.blank? -%>
             <div class="layout--container">
               <%= content_for?(:global) ? yield(:global) : yield %>
             </div>
-          </main>
-        <%- end -%>
+          <%- end -%>
+        </main>
+        
         <%= yield :below_layout -%>
 
       </div>

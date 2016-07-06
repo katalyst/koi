@@ -57,10 +57,9 @@ $xxxxxxx-large-unit:    80px;
 $border-radius:   4px;
 $button-height:   44px;
 
-$panel-padding-large:   $x-large-unit;
 $panel-padding:         $xx-small-unit;
 $panel-padding-small:   $xxx-small-unit;
-$panel-padding-tiny:    $xxxx-small-unit;
+$panel-spacing:         $xx-small-unit;
 
 
 // BREAKPOINTS
@@ -81,8 +80,6 @@ $site-breakpoints:
   (medium, $breakpoint-medium),
   (large, $breakpoint-large)
 ;
-
-$breakpoint-header-sticky: 400px;
 
 // GUTTERS
 //

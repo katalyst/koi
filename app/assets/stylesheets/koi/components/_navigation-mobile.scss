@@ -1,5 +1,4 @@
-
-$navigation-tray-background:            #ccc;
+$navigation-tray-background:            $black;
 $navigation-forward-hitbox:             44px;
 $navigation-forward-background:         $primary-color;
 $navigation-forward-selected:           $primary-color;
@@ -12,7 +11,7 @@ $navigation-first-pane-link-color:      #fff;
 
 // Settings if the secondary panes are different colours than primary
 // If false, primary pane styles above can be considered global styles
-$navigation-secondary-pane-different:   true;
+$navigation-secondary-pane-different:   false;
 $navigation-secondary-pane-background:  $primary-color;
 $navigation-secondary-pane-border:      lighten($primary-color, 20);
 $navigation-secondary-pane-selected:    lighten($primary-color, 20);

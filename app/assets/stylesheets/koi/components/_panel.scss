@@ -1,24 +1,8 @@
 $panel-border:          $background-color;
 
-// SINGLE PANELS
-
 .panel {
   @include border-radius($border-radius);
   @include pie-clearfix;
-  display: block;
-  background: $passive-color;
-  overflow: hidden;
-}
-
-a.panel {
-  display: block;
-  @include color-link($foreground-color, $foreground-color);
-  @include decorate-link(none,none);
-}
-
-.panel__default {
-  @extend .panel;
-  @extend .panel--padding;
 }
 
 .panel--padding-border {
@@ -28,6 +12,7 @@ a.panel {
 // COLOUR VARIANTS
 
 .panel__primary {
+  @extend .panel;
   background: $primary-color;
   color: $white;
   a {
@@ -35,67 +20,51 @@ a.panel {
   }
 }
 
-.panel__error {
-  background: $error-color;
-  color: $white;
-  a {
-    @include color-link($white,$white);
-  }
+.panel__passive {
+  @extend .panel;
+  background: $passive-color;
 }
 
 .panel__warning {
-  background: $warning-color;
-  color: $white;
+  @extend .panel;
+  background: $notice-background;
+  color: $foreground-color;
+
   a {
-    @include color-link($white,$white);
+    @include color-link($foreground-color, $foreground-color);
+    @include decorate-link(underline, underline);
   }
+}
+
+.panel__alert,
+.panel__error {
+  @extend .panel;
+  background: $error-background;
+  color: $error-color;
+}
+
+.panel__notice {
+  @extend .panel;
+  background: $notice-background;
+  color: $notice-color;
 }
 
 .panel__success {
-  background: $success-color;
-  color: $white;
-  a {
-    @include color-link($white,$white);
-  }
+  @extend .panel;
+  background: $success-background;
+  color: $success-color;
 }
 
+.panel__flash {
+  padding-top: $panel-padding;
+  padding-bottom: $panel-padding;
+  @include border-radius(0);
+}
 
 // PADDING VARIANTS
 
-@mixin panel-padding {
-  padding: $panel-padding;
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
-}
-
-@mixin panel-padding-large {
-  padding: $panel-padding-large;
-
-  @include media-query($breakpoint-medium) {
-    padding: $panel-padding;
-  }
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
-}
-
-.panel--padding__x-tight {
-  padding: $panel-padding-tiny;
-}
-
-.panel--padding__tight {
-  padding: $panel-padding-small;
-}
-
 .panel--padding {
-  @include panel-padding;
-}
-
-.panel--padding__large {
-  @include panel-padding-large;
+  padding: $panel-padding;
 }
 
 // BORDER RADIUS VARIANTS
@@ -110,11 +79,13 @@ a.panel {
   @include border-bottom-right-radius(0);
 }
 
-// THINGS IN PANELS
+// PANEL SPACING
 
-.panel--avatar {
-  img {
-    display: block;
-    margin: 0 auto;
+.panel-spacing {
+  .panel + .panel,
+  .panel + .panel-spacer,
+  .panel-spacer + .panel-spacer,
+  .panel-spacer + .panel {
+    margin-top: $panel-spacing;
   }
 }

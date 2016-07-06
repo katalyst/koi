@@ -39,16 +39,22 @@ body {
   padding-left: $desktop-gutters;
   padding-right: $desktop-gutters;
   margin: 0 auto;
+
+  @include media-query(600px) {
+    padding-left: $xx-small-unit;
+    padding-right: $xx-small-unit;
+  }
+
+  @include media-query(420px) {
+    padding-left: $xxxx-small-unit;
+    padding-right: $xxxx-small-unit;
+  }
 }
 
 .layout--main {
   background: $layout-background;
   padding-bottom: $layout-desktop-footer-gap;
-  padding-top: 58px;
-
-  @media only screen and (min-height:$breakpoint-header-sticky) { 
-    padding-top: $layout-desktop-header-gap;
-  }
+  padding-top: 49px;
 }
 
 // MENU OPEN

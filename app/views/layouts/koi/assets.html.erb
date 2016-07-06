@@ -1,8 +1,46 @@
-<% js_data :create_asset_url, collection_path %>
-<% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
-<% content_for :head, javascript_include_tag("koi/assets") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta -->
+    <meta charset="UTF-8" />
 
-<% content_for :global do %>
+    <!-- title -->
+    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+
+    <!-- META -->
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
+    <% unless Rails.env == "production" %>
+      <meta name="robots" content="noindex,nofollow"/>
+    <% end  %>
+    <%= yield :meta %>
+
+    <!-- DATA -->
+    <!-- FIXME: helper isn't loaded by DeviseController -->
+    <% js_data :create_asset_url, collection_path %>
+    <% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
+    <%= js_data if defined?(js_data) %>
+
+    <!-- WEBFONTS -->
+    <%= render "layouts/koi/webfonts" -%>
+
+    <!-- STYLES -->
+    <%= stylesheet_link_tag "koi/application" %>
+    <%= yield :styles %>
+    <%= yield :stylesheets %>
+
+    <!-- SCRIPTS -->
+    <%= javascript_include_tag "koi/modernizr" %>
+    <%= javascript_include_tag "koi" %>
+    <%= render 'koi/custom_javascripts' %>
+    <%= yield :javascripts %>
+    <%= yield :scripts %>
+
+    <!-- ETC -->
+    <%= yield(:head) %>
+    <%= javascript_include_tag("koi/assets") -%>
+
+  </head>
   <body>
     <div class="assets">
 
@@ -122,6 +160,4 @@
     </div>
 
   </body>
-<% end %>
-
-<%= render file: 'layouts/koi/global' %>
+</html>

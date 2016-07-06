@@ -71,7 +71,7 @@ $tab-inactive-color: #ECF0F1;
 
   .tabs__filled & {
     background: $passive-color;
-    @include panel-padding;
+    padding: $panel-padding;
     @include border-bottom-left-radius($border-radius);
     @include border-bottom-right-radius($border-radius);
   }
