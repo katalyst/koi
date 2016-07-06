@@ -1,4 +1,17 @@
-$table-border: 1px solid #ccc;
+$table-border: 1px solid $divider-color;
+$table-striped-odd: $passive-color;
+$table-striped-even: transparent;
+$table-stacked-breakpoint: 500px;
+$table-padding: $xxxxx-small-unit;
+
+// Display types
+.display-table {
+  display: table;
+  width: 100%;
+}
+.display-table-cell {
+  display: table-cell;
+}
 
 table {
   width: 100%;
@@ -34,6 +47,10 @@ table {
   max-width: 100%;
   overflow: auto;
   -webkit-overflow-scroll: touch;
+
+  table {
+    min-width: 450px;
+  }
 }
 
 .table--actions {

@@ -33,6 +33,9 @@
 .listing--count {
   // background: $light-grey;
   padding: $xxxxx-small-unit 0;
+}
+
+.listing--pagination + .listing--count {
   border-top: 1px solid $border;
 }
 
