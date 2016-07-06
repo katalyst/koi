@@ -52,6 +52,10 @@
   padding: 12px 24px;
 }
 
+@mixin button-small {
+  padding: 4px 8px;
+}
+
 @mixin button-base {
   @extend .button;
   padding: 8px 12px;
@@ -67,6 +71,10 @@
 
   &.button__large {
     @include button-large;
+  }
+
+  &.button__small {
+    @include button-small;
   }
 }
 

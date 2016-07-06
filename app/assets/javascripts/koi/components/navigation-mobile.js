@@ -23,7 +23,7 @@
       menuNavItemClass:           "navigation-item", // list items that are navigation triggers for styling purposes
       menuReadyClass:             "ready", // ready class, only used so that scaffolding won't happen more than once
       backContainerClass:         "back", // class used for back button containers
-      backButtonClass:            "button", // class used for back buttons
+      backButtonClass:            "button__primary", // class used for back buttons
       descriptionClass:           "description",
       descriptionTitleClass:      "description--title",
       descriptionBodyClass:       "description--body",

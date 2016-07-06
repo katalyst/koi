@@ -195,7 +195,7 @@ $navigation-secondary-pane-link-color:  #fff;
 
   // Back buttons
   .back {
-    background: $primary-color;
+    background: $black;
     padding: $xx-small-unit;
 
     a {
@@ -203,10 +203,6 @@ $navigation-secondary-pane-link-color:  #fff;
       display: block;
       @include grunticon("chevron-left-16-white", 16px, $psuedo:before);
       @include icon-inline;
-    }
-
-    a:hover {
-      background: $primary-color;
     }
   }
 
