@@ -49,4 +49,17 @@
   li + li {
     padding-left: $xxxxx-small-unit;
   }
+
+  .action a {
+    @include display-flex;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    @include align-items(center);
+
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
 }

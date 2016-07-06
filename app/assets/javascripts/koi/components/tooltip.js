@@ -280,7 +280,7 @@
     }
 
     // Build tooltips and attach to each tooltip anchor
-    $tooltipAnchors.each(function (i) {
+    $tooltipAnchors.not(".tooltip__init").each(function (i) {
 
       var $anchor, $wrapper, $outer, $inner, $arrow, $content, $text;
 
@@ -290,7 +290,12 @@
       $inner = $('<div class="tooltip--inner"/>');
       $arrow = $('<div class="tooltip--arrow"/>');
       $content = $('<div class="tooltip--content"/>');
-      $text = $("[data-tooltip-for='" + $(this).attr("data-tooltip") + "']").html();
+      if($anchor.is("[data-tooltip-basic]")) {
+        $text = $anchor.attr("title");
+        $anchor.attr("title", "");
+      } else {
+        $text = $("[data-tooltip-for='" + $(this).attr("data-tooltip") + "']").html();
+      }
 
       // Put all the parts together.
       $wrapper.append($outer);
@@ -342,7 +347,7 @@
 
       }
 
-    });
+    }).addClass("tooltip__init");
 
     // Window resize functions
     $(window).on("resize", function(){

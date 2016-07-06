@@ -65,8 +65,10 @@
           <% end %>
           <ul class="header--actions">
             <%- if current_admin.god? -%>
-              <li>
-                <%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %>
+              <li class="action">
+                <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
+                  <%= icon("refresh", fill: "#2ECC71") -%>
+                <%- end -%>
               </li>
             <%- end -%>
             <li>
