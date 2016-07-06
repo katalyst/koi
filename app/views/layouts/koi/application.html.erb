@@ -24,6 +24,15 @@
         <%= yield :side -%>
       </div>
     </div>
+  <%- elsif content_for? :side_top -%>
+    <div class="page__with-sidebar-right page__with-sidebar-top">
+      <div class="page--main">
+        <%= content_for?(:application) ? yield(:application) : yield %>
+      </div>
+      <div class="page--sidebar">
+        <%= yield :side_top -%>
+      </div>
+    </div>
   <%- else -%>
     <%= content_for?(:application) ? yield(:application) : yield %>
   <%- end -%>  

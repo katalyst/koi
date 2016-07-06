@@ -5,45 +5,32 @@
 
 .page__with-sidebar,
 .page__with-sidebar-right {
-  @include row;
+  @include flex-row($desktop-gutters);
 }
 
 .page--main {
-  @include spang(8,12);
+  @include flex-col(span(8,12), $desktop-gutters);
 
   @include media-query(780px) {
-    @include spang(1,1);
+    @include flex-col(100%);
   }
 
   .page__with-sidebar & {
-    float: right;
-    @include spacer-left(1,12);
-
-    @include media-query(960px) {
-      margin-left: 0;
-    }
-  }
-
-  .page__with-sidebar-right & {
-    @include spacer-right(1,12);
-
-    @include media-query(960px) {
-      margin-right: 0;
-    }
+    @include order(1);
   }
 }
 
 .page--sidebar {
-  @include spang(3,12);
-  // avoids collapsing empty sidebar
+  @include flex-col(span(4,12), $desktop-gutters);
   min-height: 1px;
 
-  @include media-query(960px) {
-    @include spang(4,12);
+  @include media-query(780px) {
+    @include flex-col(100%);
   }
 
-  @include media-query(780px) {
-    margin-top: $large-unit;
-    @include spang(1,1);
+  .page__with-sidebar-top & {
+    @include media-query(780px) {
+      @include order(-1);
+    }
   }
 }
