@@ -40,6 +40,7 @@
   </head>
   <body>
 
+
     <div class="layout">
       <div class="layout--mobile-tray">
         <nav class="navigation-mobile">
@@ -84,15 +85,27 @@
         <% end %>
 
         <a id="main" name="main" tabindex="-1"></a>
-        <%= yield :above_layout -%>
+
 
         <main class="layout--main <%= yield(:layout_class) -%>" role="main">
+          <!--[if lte IE 9 ]>
+            <div class="browser-warning">
+              <div class="browser-warning--inner compressed">
+                <p>It looks like you're using an out-dated version of Internet Explorer.</p>
+                <p>Please either use at least Internet Explorer 10, or try a free alternative browser such as <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>.</p>
+              </div>
+            </div>
+          <![endif]-->
+
           <%= render "/koi/shared/flash_messages" -%>
+
+          <%= yield :above_layout -%>
           <%- if content_for?(:global) || !yield.blank? -%>
             <div class="layout--container">
               <%= content_for?(:global) ? yield(:global) : yield %>
             </div>
           <%- end -%>
+
         </main>
         
         <%= yield :below_layout -%>
