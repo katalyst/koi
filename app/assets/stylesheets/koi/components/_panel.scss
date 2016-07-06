@@ -89,3 +89,11 @@ $panel-border:          $background-color;
     margin-top: $panel-spacing;
   }
 }
+
+// FIXED BOTTOM
+.panel__flash__fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

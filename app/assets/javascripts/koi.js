@@ -33,6 +33,7 @@
 //= require koi/components/tabs
 //= require koi/components/fotorama
 //= require koi/components/sticky-header
+//= require koi/components/enhanced-form
 //= require koi/components/navigation-mobile
 //= require koi/components/menu-aim
 //= require koi/components/kat-image-upload

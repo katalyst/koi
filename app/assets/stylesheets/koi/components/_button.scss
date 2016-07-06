@@ -171,32 +171,24 @@
 }
 
 // buttons with icons
-.button__icon-right,
-.button__icon-left {
-  display: inline-block;
+.button__icon-left,
+.button__icon-right {
+  @include display-flex;  
+  @include flex-direction(row);
+  @include align-items(center);
+}
 
-  &:before {
-    position: relative;
-    top: 3px;
+.button__icon-left {
+  svg {
+    padding-right: $xxx-small-unit;
+    // @include order(-1);
   }
 }
 
-.button__icon-right:before {
-  float: right;
-  margin-left: $xxxxx-small-unit;
-}
-
-.button__icon-left:before {
-  float: left;
-  margin-right: $xxxxx-small-unit;
-}
-
-.button__icon {
-  @include icon-block(48px, 16px);
-  display: inline-block;
-
-  &:before {
-    float: left;
+.button__icon-right {
+  svg {
+    padding-left: $xxx-small-unit;
+    // @include order(2);
   }
 }
 
