@@ -8,7 +8,7 @@
   <%= render "index_title" %>
 <% end %>
 
-<div class="tabs">
+<div class="tabs" data-tabs-fallback-select>
   <% if is_settable? || is_reportable? %>
     <%= render "index_settings_navigation" %>
   <% end %>
