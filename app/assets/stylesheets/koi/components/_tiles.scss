@@ -6,6 +6,12 @@
 
 .tiles__four .tiles--column {
   @include flex-col(25%,$desktop-gutters);
+  @include media-query(900px) {
+    @include flex-col(33.33%,$desktop-gutters);
+  }
+  @include media-query(700px) {
+    @include flex-col(50%,$desktop-gutters);
+  }
 }
 
 .tile {

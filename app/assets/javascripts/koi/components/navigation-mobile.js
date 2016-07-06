@@ -391,7 +391,7 @@
           $nestedNode.prepend($descriptionBlock);
 
           // add the back button
-          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + mobileNav.backText + "</a></li>");
+          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + Ornament.icons.chevron + mobileNav.backText + "</a></li>");
         });
 
         // Run bindings

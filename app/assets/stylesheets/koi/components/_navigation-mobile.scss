@@ -208,23 +208,35 @@ $navigation-secondary-pane-link-color:  #fff;
   // Back buttons
   .back {
     background: $black;
-    padding: $xx-small-unit;
+    padding: $xxxx-small-unit;
 
     a {
       cursor: pointer;
-      display: block;
-      @include grunticon("chevron-left-16-white", 16px, $psuedo:before);
-      @include icon-inline;
+      @include display-flex;
+      @include flex-direction(row);
+      @include align-items(center);
+
+    }
+
+    .icon-chevron {
+      @include transform(rotateZ(90deg));
+      padding-top: 10px;
+      width: 14px;
+    }
+
+    path {
+      stroke: $white;
     }
   }
 
   // Description blocks
   .description {
     border-top: 1px solid $navigation-secondary-pane-border;
-    padding: $xx-small-unit;
+    padding: $small-unit $xx-small-unit;
   }
   .description--title {
-    @include font($bold-font);
+    @include font($heading-alpha-font);
+    font-size: 22px;
     color: #fff;
   }
   .description--body {
