@@ -5,6 +5,30 @@ $assets-gutter: $small-unit;
   overflow-x:hidden;
 }
 
+.assets--heading {
+  padding: $x-small-unit $small-unit;
+  padding-right: $small-unit;
+  border-bottom: 5px solid $primary-color;;
+  text-align: right;
+  background: $black;
+  color: $white;
+  @include pie-clearfix;
+
+  h1,h2,h3,h4 {
+    float: left;
+  }
+
+  .button,
+  .button__primary {
+    margin-top: 6px;
+  }
+
+  .content &,
+  .content-spacing & {
+    margin-bottom: 0;
+  }
+}
+
 .assets--body {
   margin-top: 0;
   margin-bottom: 0;
@@ -13,6 +37,9 @@ $assets-gutter: $small-unit;
 }
 
 .assets--filters {
+  padding: $xxx-small-unit $small-unit;
+  background: $light-grey;
+
   ul li span {
     display: block;
     padding-top: 2px;

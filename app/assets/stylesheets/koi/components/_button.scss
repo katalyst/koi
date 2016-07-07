@@ -64,6 +64,7 @@
   @include inline-block;
   @include font($bold-font);
   @include color-link($white, $white);
+  border: none;
 
   &.button__medium {
     @include button-medium;

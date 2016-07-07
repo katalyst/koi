@@ -36,6 +36,10 @@
       // Update type based on setting passed in to our anchor
       if($anchor.data("lightbox")) {
         popupOptions.type = $anchor.data("lightbox");
+
+        if($anchor.data("lightbox") === "iframe") {
+          popupOptions.showCloseBtn = true;
+        }
       }
 
       // Init magnificPopup on our anchors
