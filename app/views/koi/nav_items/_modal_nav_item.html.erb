@@ -1,19 +1,14 @@
-<%- # JS HTML replacement is nuking the close button -%>
-<%- unless resource.errors.blank? -%>
-  <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-<%- end -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), no_hide: true } do -%>
 
-<div class="lightbox--heading">
-  <h2 class="heading-two">
-    <%= resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}" %>
-  </h2>
-</div>
-<div class="lightbox--content">
+  <%- # JS HTML replacement is nuking the close button -%>
+  <%- unless resource.errors.blank? -%>
+    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+  <%- end -%>
 
   <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
 
-    <div class="tabs">
-      <div class="tabs--links">
+    <div class="tabs" data-tabs="navitem_modal">
+      <div class="tabs--links tabs--links__flush">
         <ul>
           <li>
             <a href="#tab_basic" class="tabs--link tabs--link__active" data-tab="tab_basic">Basic</a>
@@ -24,33 +19,35 @@
           <% end %>
         </ul>
       </div>
-      <div class="tabs--panes">
-        <div class="tabs--pane tabs--pane__active" id="tab_basic" data-tab-for="tab_basic">
-          <div class="inputs">
-            <%= render "form_fields", { f: f } %>
-          </div>
-        </div>
-        <% if current_admin.god? %>
-          <div class="tabs--pane" id="tab_advanced" data-tab-for="tab_advanced">
-            <%= render "advanced_form_fields", { f: f } %>
-          </div>
-          <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
-            <%= render "god_form_fields", { f: f } %>
-          </div>
-        <% end %>
-      </div>
-      <div>
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
-        <%- unless resource.new_record? -%>
-          <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
-        <%- end -%>
-      </div>
     </div>
 
-    <div class="lightbox--footer">
+    <div class="tabs--panes tabs--panes__flush">
+      <div class="tabs--pane tabs--pane__active" id="tab_basic" data-tab-for="tab_basic">
+        <div class="inputs">
+          <%= render "form_fields", { f: f } %>
+        </div>
+      </div>
+      <% if current_admin.god? %>
+        <div class="tabs--pane" id="tab_advanced" data-tab-for="tab_advanced">
+          <%= render "advanced_form_fields", { f: f } %>
+        </div>
+        <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
+          <%= render "god_form_fields", { f: f } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="panel--padding panel--padding-border">
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
+      <%- unless resource.new_record? -%>
+        <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
+      <%- end -%>
+    </div>
+
+    <div class="panel--padding panel--padding-border lightbox--footer">
       <h6 class="heading-six">Please note:</h6>
       <p>Fields marked with an asterisk are required.</p>
     </div>
 
   <% end %>
-</div>
+<%- end -%>

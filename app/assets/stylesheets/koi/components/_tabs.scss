@@ -4,6 +4,10 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--links {
 
+  &.tabs--links__flush {
+    overflow: hidden;
+  }
+
   ul {
     @include pie-clearfix;
   }
@@ -32,6 +36,10 @@ $tab-inactive-color: #ECF0F1;
   @include line-height-padding($button-height);
   @include transition(border-color .2s);
   @include border-radius($border-radius $border-radius 0 0);
+
+  .tabs--links__flush & {
+    @include border-radius(0);
+  }
 }
 
 .tabs--link.active {
@@ -64,6 +72,10 @@ $tab-inactive-color: #ECF0F1;
 .tabs--pane {
   display: none;
   padding-top: $default-unit;
+
+  .tabs--panes__flush & {
+    padding: $panel-padding;
+  }
 
   .tabs--links + .tabs--panes & {
     padding: $default-unit 0;

@@ -5,7 +5,7 @@
 
   "use strict";
 
-  $(document).on("ornament:refresh", function () {
+  $(document).on("ornament:toggles", function () {
 
     var $toggleAnchors = $("[data-toggle-anchor]");
     var $toggles = $("[data-toggle]");
@@ -200,6 +200,10 @@
       event.stopPropagation();
     });
 
+  });
+
+  $(document).on("ornament:refresh", function () {
+    $(document).trigger("ornament:toggles");
   });
 
 }(document, window, jQuery));

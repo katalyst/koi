@@ -5,7 +5,7 @@
 
   "use strict";
 
-  $(document).on("ornament:refresh", function () {
+  $(document).on("ornament:tabs", function () {
 
     /*
       TODO:
@@ -20,6 +20,10 @@
       var $tabs = $(this);
       var $tabLinks = $tabs.find("[data-tab]");
       var tabGroup = "tab-group-" + i;
+
+      if($tabs.attr("data-tabs")) {
+        tabGroup = $tabs.attr("data-tabs") + tabGroup;
+      }
 
       // Update link attributes to use toggle attributes
       $tabLinks.each(function(){
@@ -429,6 +433,10 @@
 
     // });
 
+  });
+
+  $(document).on("ornament:refresh", function () {
+    $(document).trigger("ornament:tabs");
   });
 
 }(document, window, jQuery));

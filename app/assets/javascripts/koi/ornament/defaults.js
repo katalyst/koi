@@ -30,6 +30,11 @@ Ornament = window.Ornament = {
 
         // callback on open to trigger a refresh for google maps
         $(document).trigger("ornament:map_refresh");
+
+        // trigger tabs
+        $(document).trigger("ornament:tabs");
+        $(document).trigger("ornament:toggles");
+        $(document).trigger("ornament:enhance-forms");
       },
       close: function(){
         var $anchor = $(this.ev.context);
@@ -38,7 +43,6 @@ Ornament = window.Ornament = {
       resize: function(){
         // Resize to viewport
         Ornament.sizeLightboxToViewport(this);
-        console.log("resizing");
       }
     }
   },

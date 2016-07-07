@@ -1,10 +1,12 @@
 <%-
   title ||= false
+  inline_id ||= false
+  no_hide ||= false
   body_class ||= ""
   lightbox_class ||= ""
 -%>
 
-<div class="lightbox--body mfp-hide <%= lightbox_class -%>" id="<%= inline_id -%>">
+<div class="lightbox--body <%= "mfp-hide" unless no_hide -%> <%= lightbox_class -%>" id="<%= inline_id if inline_id -%>">
   <div class="lightbox--header">
     <div class="lightbox--header--logo">
       <%= title ? title : "koi" -%>
