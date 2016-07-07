@@ -7,7 +7,7 @@
   <% end %>
 
   <%- if content_for? :sidebar -%>
-    <div class="page__with-sidebar">
+    <div class="page__with-sidebar" data-toggle-width-listener="page">
       <div class="page--main">
         <%= content_for?(:application) ? yield(:application) : yield %>
       </div>

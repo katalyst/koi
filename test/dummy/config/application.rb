@@ -23,6 +23,9 @@ module Dummy
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    # Include assets/stylesheets/koi in sass load paths to enable custom koi sass
+    config.sass.load_paths += [Rails.root.join('app', 'assets', 'stylesheets', 'koi')]
+
     config.generators do|g|
       g.fixture_replacement :factory_girl, :dir => "test/factories"
     end
