@@ -43,6 +43,14 @@ table {
 
 }
 
+.table-col-heading {
+  background: $passive-color;
+  border-right: 1px solid $border;
+  @include font($bold-font);
+  width: 250px;
+  vertical-align: top;
+}
+
 .table-container {
   max-width: 100%;
   overflow: auto;

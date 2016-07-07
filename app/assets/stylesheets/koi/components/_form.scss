@@ -374,36 +374,17 @@ abbr[title=required] {
 // [input]button
 
 .form-inline {
-  @include pie-clearfix;
-  position: relative;
-  width: 200px;
+  @include display-flex;
+  @include flex-direction(row);
 }
 
-.form-inline--input-container {
-  width: 100%;
-  padding-right: $form-inline-height;
-}
-
-.form-inline--input-container .form-inline--input {
-  width: 100%;
-  height: $form-inline-height;
-  line-height: $form-inline-height;
-  padding: $xxxxx-small-unit $xxxx-small-unit 6px;
-  border-right-width: 0;
-  @include input__flat-right;
+.form-inline--input {
+  padding-right: $xxxxx-small-unit;
+  @include flex-grow(1);
 }
 
 .form-inline--button {
-  @include input__flat-left;
-  @include icon-block($form-inline-height, 16px);
-  position: absolute !important;
-  top: 0;
-  right: 0;
-}
-
-.form-inline__full {
-  @extend .form-inline;
-  width: 100%;
+  
 }
 
 // INLINE AND CONTAINED FIELD
@@ -418,37 +399,6 @@ abbr[title=required] {
   }
   .form-inline--button {
     background: transparent;
-  }
-}
-
-// FULL-WIDTH SEARCH FIELD WITH LABEL
-
-.form-search {
-  @include pie-clearfix;
-
-  .form-search--label,
-  .form-inline {
-    float: left;
-  }
-
-  .form-search--label {
-    width: span(4,12);
-    @include font($bold-font);
-    @include line-height-padding($form-inline-height);
-
-    @include media-query($breakpoint-small) {
-      width: 100%;
-      padding-top: 0;
-    }
-  }
-
-  .form-inline {
-    width: span(8,12);
-
-    @include media-query($breakpoint-small) {
-      width: 100%;
-      clear: both;
-    }
   }
 }
 
