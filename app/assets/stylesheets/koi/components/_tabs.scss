@@ -63,7 +63,7 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--pane {
   display: none;
-  padding: $panel-padding;
+  padding-top: $default-unit;
 
   .tabs--links + .tabs--panes & {
     padding: $default-unit 0;

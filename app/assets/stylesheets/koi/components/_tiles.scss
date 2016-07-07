@@ -1,7 +1,11 @@
+.tiles-group {
+  margin-top: $default-unit;
+  margin-bottom: $default-unit;
+  @include flush-children;
+}
+
 .tiles {
   @include flex-row($desktop-gutters);
-  margin-top: $default-unit;
-  @include content-children;
 }
 
 .tiles__four .tiles--column {

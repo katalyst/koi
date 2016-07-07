@@ -14,7 +14,9 @@
   <%- end -%>
 <% end %>
 
-<div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
+<% if is_settable? || is_reportable? %>
+  <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
+<% end %>
 
   <div class="page__with-sidebar-right page__with-sidebar-top">
     <div class="page--main">
@@ -65,7 +67,10 @@
       </div>
     </div>
   </div>
-</div>
+
+<% if is_settable? || is_reportable? %>
+  </div>
+<% end %>
 
 <% if is_settable? %>
   <%= render "index_settings" %>
