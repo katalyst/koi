@@ -31,6 +31,7 @@ class SuperHero < ActiveRecord::Base
            file:             { type: :file },
            document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
            image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
+           image_upload_id:  { type: :uploader },
            gender:           { type: :select, data: Gender, size: :small },
            is_alive:         { type: :boolean },
            url:              { wrapper_data: { show: "super_hero_is_alive" } },
@@ -54,7 +55,7 @@ class SuperHero < ActiveRecord::Base
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :telephone, :image, :file, :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers]
+                       :telephone, :image, :file, :image_upload_id, :document_upload_id, :powers]
       reportable true
       charts [{
         span:     :created_at,

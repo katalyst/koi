@@ -10,10 +10,10 @@
             -
           <%- else -%>
             <%= begin
-                  render crud_partial(attr, :show), { :attr => attr }
-                rescue ActionView::MissingTemplate
-                  render "show_field_default", { :attr => attr }
-                end
+                render crud_partial(attr, :show), { :attr => attr }
+              rescue ActionView::MissingTemplate
+                render "show_field_default", { :attr => attr }
+              end
             %>
           <%- end -%>
         </td>

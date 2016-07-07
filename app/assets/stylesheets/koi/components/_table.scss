@@ -40,7 +40,6 @@ table {
   a.nohover {
     @include color-link($foreground-color, $foreground-color);
   }
-
 }
 
 .table-col-heading {
