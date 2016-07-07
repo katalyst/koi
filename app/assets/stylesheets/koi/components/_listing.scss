@@ -1,7 +1,6 @@
 // Koi module listing pages
 
 .listing--pagination {
-  padding-top: $xxx-small-unit;
   padding-bottom: $xxx-small-unit;
   @include display-flex;
   @include flex-direction(column);

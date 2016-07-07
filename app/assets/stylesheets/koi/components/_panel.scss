@@ -1,12 +1,14 @@
-$panel-border:          $background-color;
-
 .panel {
   @include border-radius($border-radius);
   @include pie-clearfix;
 }
 
+.panel__border {
+  border: $divider;
+}
+
 .panel--padding-border {
-  border-top: 1px solid $panel-border;
+  border-top: $divider;
 }
 
 // COLOUR VARIANTS

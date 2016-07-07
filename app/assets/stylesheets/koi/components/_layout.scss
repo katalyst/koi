@@ -29,6 +29,7 @@ body {
   @include single-transition(transform, $layout-animation-duration);
   background: $layout-background;
   min-height: 100%;
+  overflow: hidden;
 }
 
 .layout--content--aside {

@@ -1,6 +1,15 @@
 .page--title {
-  padding-top: $xx-large-unit;
-  padding-bottom: $xx-large-unit;
+  background: $passive-color;
+
+  h1 {
+    padding-top: $xx-large-unit;
+    padding-bottom: $xx-large-unit;
+  }
+}
+
+.page--title__border {
+  border-bottom: 1px solid $divider-color;
+  margin-bottom: $xx-large-unit;
 }
 
 .page__with-sidebar,

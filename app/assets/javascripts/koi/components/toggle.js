@@ -38,8 +38,8 @@
         });
       }
 
-      // Toggle sliding
-      $toggleContent.slideDown(function(){
+      // Setup afterSlide function
+      var afterSlide = function(){
         if(focusOnField) {
           var $inputs = $toggleContent.find("input");
           var $textareas = $toggleContent.find("textarea");
@@ -49,7 +49,16 @@
             $textareas.first().focus();
           }
         }
-      });
+      }
+
+      // Toggle sliding
+      if($toggleAnchor.is("[data-toggle-tab]")) {
+        $toggleContent.addClass("tabs--pane__active");
+      } else if($toggleAnchor.is("[data-toggle-speed]")) {
+        $toggleContent.slideDown(parseInt($toggleAnchor.attr("data-toggle-speed")), afterSlide());
+      } else {
+        $toggleContent.slideDown(200, afterSlide());
+      }
     }
 
     var toggleOff = function($toggleAnchor, $toggleContent) {
@@ -65,7 +74,13 @@
       }
 
       // Slide content
-      $toggleContent.slideUp(200);
+      if($toggleContent.is("[data-toggle-tab-pane]")) {
+        $toggleContent.removeClass("tabs--pane__active");
+      } else if($toggleAnchor.is("[data-toggle-speed]")) {
+        $toggleContent.slideUp(parseInt($toggleAnchor.attr("data-toggle-speed")));
+      } else {
+        $toggleContent.slideUp(200);
+      }
 
       // Scroll if needed
       if($toggleAnchor.is("[data-toggle-scroll]")) {
@@ -90,31 +105,46 @@
 
     var toggle = function($toggleAnchor, $toggleContent) {
 
+      var oneWay = false;
+      if($toggleAnchor.is("[data-toggle-one-way]")) {
+        oneWay = true;
+      }
+
+      // Abort if animating
       if($toggleContent.is(":animated")) {
         return false;
       }
 
-      if($toggleAnchor.hasClass(toggleOnClass)) {
+      // Abort if one-way and already active
+      if(oneWay && $toggleAnchor.is("."+toggleOnClass)) {
+        return false;
+      }
+
+      if($toggleAnchor.hasClass(toggleOnClass) && !oneWay) {
         toggleOff($toggleAnchor, $toggleContent);
       } else {
         toggleOn($toggleAnchor, $toggleContent);
       }
 
-    }
-
-    Ornament.toggle = function($toggleAnchor, $toggleContent){
-      toggle($toggleAnchor, $toggleContent);
+      $toggleAnchor.trigger("toggle:toggled");
     }
 
     // Hid all toggles on page
     var hideAllToggles = function(){
-      $toggles.not("[data-toggle-default]").hide();
+      $toggles.not("[data-toggle-default]").each(function(){
+        var $togglePane = $(this);
+        if($togglePane.is("[data-toggle-tab-pane]")) {
+          //
+        } else {
+          $togglePane.hide();
+        }
+      });
     }
 
     // Hide all toggles by default
     hideAllToggles();
 
-    $toggleAnchors.each(function(){
+    $toggleAnchors.not("[data-toggle-anchor-init]").each(function(){
       var $toggleAnchor = $(this);
       var toggleId = $toggleAnchor.attr("data-toggle-anchor");
       var $toggleContent = $("[data-toggle=" + toggleId + "]");
@@ -144,7 +174,7 @@
         hideAllToggles();
       });
 
-    });
+    }).attr("data-toggle-anchor-init", "");
 
     var hideTemporaryToggles = function(){
       $temporaryToggles.each(function(){

@@ -8,24 +8,21 @@
   <%= render "index_title" %>
 <% end %>
 
-<div class="tabs" data-tabs-fallback-select>
-  <% if is_settable? || is_reportable? %>
+<% if is_settable? || is_reportable? %>
+  <%- content_for :title_tabs do -%>
     <%= render "index_settings_navigation" %>
-  <% end %>
+  <%- end -%>
+<% end %>
 
-  <div class="tabs--panes">
-    <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
+<div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
 
-      <% if is_searchable? || is_paginated? %>
+  <div class="page__with-sidebar-right page__with-sidebar-top">
+    <div class="page--main">
+      <% if is_paginated? %>
         <div class="listing--pagination listing--pagination__top small">
-          <% if is_searchable? %>
-            <%= render 'index_search' %>
-          <% end %>
-          <% if is_paginated? %>
-            <div id="index-pagination-options" class="listing--pagination--options small">
-              <%= render 'index_pagination_options' %>
-            </div>
-          <% end %>
+          <div id="index-pagination-options" class="listing--pagination--options small">
+            <%= render 'index_pagination_options' %>
+          </div>
         </div>
       <% end %>
 
@@ -42,37 +39,38 @@
         </div>
       <% end %>
     </div>
-
-    <% if is_settable? %>
-      <%= render "index_settings" %>
-    <% end %>
-
-    <% if is_reportable? %>
-      <%= render "reports" %>
-    <% end %>
-  </div>
-
-</div>
-
-<%- content_for :side_top do -%>
-  <div class="panel__passive">
-    <div class="panel--padding" data-toggle-anchor="filter" data-toggle-anchor-width="page">
-      <h2 class="heading-four">Filter</h2>
-    </div>
-    <div data-toggle="filter" data-toggle-default>
-      <div class="panel--padding panel--padding-border">
-        <div class="inputs">
-          <div class="control-group select optional super_hero_gender form--enhanced"><label class="select optional control-label" for="super_hero_gender">Gender</label><p class="hint-block">The gender of your hero</p><div class="controls"><select class="select optional  form--small" name="super_hero[gender]" id="super_hero_gender"><option value=""></option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Robot">Robot</option></select></div></div>
-          <div class="control-group check_boxes optional super_hero_powers form--enhanced"><label class="check_boxes optional control-label">Powers</label><p class="hint-block">What powers does this hero have?</p><div class="controls"><span class="checkbox"><label for="super_hero_powers_x-ray_vision"><input class="check_boxes optional enhanced" type="checkbox" value="X-RAY VISION" name="super_hero[powers][]" id="super_hero_powers_x-ray_vision"><span class="form--enhanced--control"></span>X-RAY VISION</label></span><span class="checkbox"><label for="super_hero_powers_regeneration"><input class="check_boxes optional enhanced" type="checkbox" value="REGENERATION" name="super_hero[powers][]" id="super_hero_powers_regeneration"><span class="form--enhanced--control"></span>REGENERATION</label></span><span class="checkbox"><label for="super_hero_powers_total_recall"><input class="check_boxes optional enhanced" type="checkbox" value="TOTAL RECALL" name="super_hero[powers][]" id="super_hero_powers_total_recall"><span class="form--enhanced--control"></span>TOTAL RECALL</label></span><span class="checkbox"><label for="super_hero_powers_teleportation"><input class="check_boxes optional enhanced" type="checkbox" value="TELEPORTATION" name="super_hero[powers][]" id="super_hero_powers_teleportation"><span class="form--enhanced--control"></span>TELEPORTATION</label></span><span class="checkbox"><label for="super_hero_powers_weather_control"><input class="check_boxes optional enhanced" type="checkbox" value="WEATHER CONTROL" name="super_hero[powers][]" id="super_hero_powers_weather_control"><span class="form--enhanced--control"></span>WEATHER CONTROL</label></span><span class="checkbox"><label for="super_hero_powers_force_fields"><input class="check_boxes optional enhanced" type="checkbox" value="FORCE FIELDS" name="super_hero[powers][]" id="super_hero_powers_force_fields"><span class="form--enhanced--control"></span>FORCE FIELDS</label></span><span class="checkbox"><label for="super_hero_powers_underwater_breathing"><input class="check_boxes optional enhanced" type="checkbox" value="UNDERWATER BREATHING" name="super_hero[powers][]" id="super_hero_powers_underwater_breathing"><span class="form--enhanced--control"></span>UNDERWATER BREATHING</label></span><span class="checkbox"><label for="super_hero_powers_super_strength"><input class="check_boxes optional enhanced" type="checkbox" value="SUPER STRENGTH" name="super_hero[powers][]" id="super_hero_powers_super_strength"><span class="form--enhanced--control"></span>SUPER STRENGTH</label></span><input type="hidden" name="super_hero[powers][]" value="" class="enhanced"><span class="form--enhanced--control"></span></div></div>
-          <div class="control-group boolean optional super_hero_is_alive form--enhanced"><div class="controls test"><input value="0" type="hidden" name="super_hero[is_alive]" class="enhanced"><span class="form--enhanced--control"></span><label class="boolean optional control-label checkbox" for="super_hero_is_alive"><input class="boolean optional form--medium enhanced" type="checkbox" value="1" checked="checked" name="super_hero[is_alive]" id="super_hero_is_alive"><span class="form--enhanced--control"></span>Is alive</label></div></div>
+    <div class="page--sidebar">
+      <div class="panel__passive panel__border">
+        <div class="panel--padding" data-toggle-anchor="filter" data-toggle-anchor-width="page">
+          <h2 class="heading-four">Filter</h2>
+        </div>
+        <div data-toggle="filter" data-toggle-default>
+          <div class="panel--padding panel--padding-border">
+            <div class="inputs">
+              <% if is_searchable? %>
+                <%= render 'index_search' %>
+              <% end %>
+              <div class="control-group select optional super_hero_gender form--enhanced"><label class="select optional control-label" for="super_hero_gender">Gender</label><p class="hint-block">The gender of your hero</p><div class="controls"><select class="select optional  form--small" name="super_hero[gender]" id="super_hero_gender"><option value=""></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Robot">Robot</option></select></div></div>
+              <div class="control-group check_boxes optional super_hero_powers form--enhanced"><label class="check_boxes optional control-label">Powers</label><p class="hint-block">What powers does this hero have?</p><div class="controls"><span class="checkbox"><label for="super_hero_powers_x-ray_vision"><input class="check_boxes optional enhanced" type="checkbox" value="X-RAY VISION" name="super_hero[powers][]" id="super_hero_powers_x-ray_vision"><span class="form--enhanced--control"></span>X-RAY VISION</label></span><span class="checkbox"><label for="super_hero_powers_regeneration"><input class="check_boxes optional enhanced" type="checkbox" value="REGENERATION" name="super_hero[powers][]" id="super_hero_powers_regeneration"><span class="form--enhanced--control"></span>REGENERATION</label></span><span class="checkbox"><label for="super_hero_powers_total_recall"><input class="check_boxes optional enhanced" type="checkbox" value="TOTAL RECALL" name="super_hero[powers][]" id="super_hero_powers_total_recall"><span class="form--enhanced--control"></span>TOTAL RECALL</label></span><span class="checkbox"><label for="super_hero_powers_teleportation"><input class="check_boxes optional enhanced" type="checkbox" value="TELEPORTATION" name="super_hero[powers][]" id="super_hero_powers_teleportation"><span class="form--enhanced--control"></span>TELEPORTATION</label></span><span class="checkbox"><label for="super_hero_powers_weather_control"><input class="check_boxes optional enhanced" type="checkbox" value="WEATHER CONTROL" name="super_hero[powers][]" id="super_hero_powers_weather_control"><span class="form--enhanced--control"></span>WEATHER CONTROL</label></span><span class="checkbox"><label for="super_hero_powers_force_fields"><input class="check_boxes optional enhanced" type="checkbox" value="FORCE FIELDS" name="super_hero[powers][]" id="super_hero_powers_force_fields"><span class="form--enhanced--control"></span>FORCE FIELDS</label></span><span class="checkbox"><label for="super_hero_powers_underwater_breathing"><input class="check_boxes optional enhanced" type="checkbox" value="UNDERWATER BREATHING" name="super_hero[powers][]" id="super_hero_powers_underwater_breathing"><span class="form--enhanced--control"></span>UNDERWATER BREATHING</label></span><span class="checkbox"><label for="super_hero_powers_super_strength"><input class="check_boxes optional enhanced" type="checkbox" value="SUPER STRENGTH" name="super_hero[powers][]" id="super_hero_powers_super_strength"><span class="form--enhanced--control"></span>SUPER STRENGTH</label></span><input type="hidden" name="super_hero[powers][]" value="" class="enhanced"><span class="form--enhanced--control"></span></div></div>
+              <div class="control-group boolean optional super_hero_is_alive form--enhanced"><div class="controls test"><input value="0" type="hidden" name="super_hero[is_alive]" class="enhanced"><span class="form--enhanced--control"></span><label class="boolean optional control-label checkbox" for="super_hero_is_alive"><input class="boolean optional form--medium enhanced" type="checkbox" value="1" checked="checked" name="super_hero[is_alive]" id="super_hero_is_alive"><span class="form--enhanced--control"></span>Is alive</label></div></div>
+            </div>
+          </div>
+          <div class="panel--padding panel--padding-border">
+            <a href="#" class="button__confirm button__full">Filter</a>
+          </div>
         </div>
       </div>
-      <div class="panel--padding panel--padding-border">
-        <a href="#" class="button__confirm button__full">Filter</a>
-      </div>
     </div>
   </div>
-<%- end -%>
+</div>
+
+<% if is_settable? %>
+  <%= render "index_settings" %>
+<% end %>
+
+<% if is_reportable? %>
+  <%= render "reports" %>
+<% end %>

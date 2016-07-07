@@ -3,7 +3,6 @@ $tab-inactive-color: #ECF0F1;
 // TABS
 
 .tabs--links {
-  overflow: hidden;
 
   ul {
     @include pie-clearfix;
@@ -23,8 +22,8 @@ $tab-inactive-color: #ECF0F1;
   display: block;
   // border: 1px solid $grey;
   // border-bottom-width: 0;
-  background: $tab-inactive-color;
-  @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
+  // background: $tab-inactive-color;
+  // @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
   cursor: pointer;
   color: $foreground-color;
   @include color-link($foreground-color, $foreground-color);
@@ -35,7 +34,7 @@ $tab-inactive-color: #ECF0F1;
   @include border-radius($border-radius $border-radius 0 0);
 }
 
-.tabs--link__active {
+.tabs--link.active {
   background: $primary-color;
   // border-color: $primary-color;
   position: relative;
@@ -64,6 +63,7 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--pane {
   display: none;
+  padding: $panel-padding;
 
   .tabs--links + .tabs--panes & {
     padding: $default-unit 0;

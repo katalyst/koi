@@ -100,14 +100,8 @@
           </ul>
         </header>
 
-        <% if content_for?(:breadcrumbs) %>
-          <div class="breadcrumbs">
-            <%= yield :breadcrumbs %>
-          </div>
-        <% end %>
 
         <a id="main" name="main" tabindex="-1"></a>
-
 
         <main class="layout--main <%= yield(:layout_class) -%>" role="main">
           <!--[if lte IE 9 ]>
@@ -120,6 +114,21 @@
           <![endif]-->
 
           <%= render "/koi/shared/flash_messages" -%>
+
+          <% if content_for?(:breadcrumbs) %>
+            <div class="breadcrumbs">
+              <%= yield :breadcrumbs %>
+            </div>
+          <% end %>
+
+          <% if content_for? :title %>
+            <div class="page--title <%= "page--title__border" unless content_for?(:title_tabs) -%>">
+              <div class="layout--container">
+                <h1 class="heading-one"><%= yield :title %></h1>
+                <%= yield :title_tabs -%>
+              </div>
+            </div>
+          <% end %>
 
           <%= yield :above_layout -%>
           <%- if content_for?(:global) || !yield.blank? -%>

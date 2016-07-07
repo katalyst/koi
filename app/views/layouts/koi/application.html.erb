@@ -1,11 +1,5 @@
 <% content_for :global do %>
 
-  <% if content_for? :title %>
-    <h1 class="heading-one page--title">
-      <%= yield :title %>
-    </h1>
-  <% end %>
-
   <%- if content_for? :sidebar -%>
     <div class="page__with-sidebar" data-toggle-width-listener="page">
       <div class="page--main">
