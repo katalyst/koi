@@ -5,6 +5,7 @@
   <% end %>
 
   <div class="align-box-right">
+    <%= link_to "Filter", "#index-filters", class: "button__secondary", data: { lightbox: "" } -%>
     <%- if is_exportable? %>
       <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary" %>
     <% end %>

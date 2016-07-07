@@ -1,0 +1,20 @@
+// Rows
+
+.row {
+  @include flex-row($desktop-gutters);
+}
+
+.row__tight {
+  @include flex-row($small-gutters);
+}
+
+// Columns
+
+.col-1-2 {
+  .row & {
+    @include flex-col(50%, $desktop-gutters);
+  }
+  .row__tight & {
+    @include flex-col(50%, $small-gutters);
+  }
+}

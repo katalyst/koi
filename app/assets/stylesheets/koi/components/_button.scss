@@ -1,5 +1,5 @@
 
-.button {
+.button-object {
   // empty class to extend all our buttons in to so we 
   // can target them all with .button regardless of what
   // actual class they have
@@ -57,7 +57,7 @@
 }
 
 @mixin button-base {
-  @extend .button;
+  @extend .button-object !optional;
   padding: 8px 12px;
   @include border-radius($border-radius);
   @include decorate-link(none, none);

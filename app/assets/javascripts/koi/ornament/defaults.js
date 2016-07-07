@@ -38,6 +38,7 @@ Ornament = window.Ornament = {
       resize: function(){
         // Resize to viewport
         Ornament.sizeLightboxToViewport(this);
+        console.log("resizing");
       }
     }
   },
@@ -49,7 +50,7 @@ Ornament = window.Ornament = {
     } else {
       var $lightboxBody = mfp.contentContainer;
     }
-    var $lightboxContent = $lightboxBody.find(".lightbox--body");
+    var $lightboxContent = $lightboxBody.find(".lightbox--content");
     var $lightboxHeader = $lightboxBody.find(".lightbox--header");
     var topOffset = 20;
     var bottomOffset = 20;

@@ -7,11 +7,7 @@
 
   "use strict";
 
-  $(document).on("ornament:close-popups", function () {
-    $.magnificPopup.close();
-  });
-
-  $(document).on("ornament:refresh", function () {
+  $(document).on("ornament:lightbox", function () {
 
     // Single lightbox anchors
     $("[data-lightbox]").each(function(){
@@ -20,19 +16,7 @@
       var anchorType = "inline";
 
       // Setup lightbox options with a default type of "inline"
-      var popupOptions = {
-        type: "inline",
-        mainClass: "lightbox--main",
-        removalDelay: 300,
-        fixedContentPos: true,
-        callbacks: {
-          open: function(){
-            // callback on open to trigger a refresh for google maps
-            // $(document).trigger("ornament:map_refresh");
-            $(document).trigger("ornament:column-conform");
-          }
-        }
-      }
+      var popupOptions = $.extend({}, Ornament.popupOptions);
 
       if($anchor.is("[data-lightbox-small]")) {
         popupOptions.mainClass = popupOptions.mainClass + " lightbox__small";
@@ -40,6 +24,13 @@
 
       if($anchor.is("[data-lightbox-flush]")) {
         popupOptions.mainClass = popupOptions.mainClass + " lightbox__flush";
+      }
+
+      if($anchor.is("[data-lightbox-inspiration]")) {
+        popupOptions.mainClass = popupOptions.mainClass + " lightbox__inspiration";
+        popupOptions.gallery = {
+          enabled: true
+        }
       }
 
       // Update type based on setting passed in to our anchor
@@ -52,49 +43,26 @@
 
     });
 
-    // Lightbox galleries
-    $("[data-lightbox-gallery]").each(function(){
-
-      var $gallery = $(this);
-
-      $gallery.magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        tLoading: 'Loading image #%curr%...',
-        mainClass: "lightbox--main",
-        removalDelay: 300,
-        fixedContentPos: true,
-        gallery: {
-          enabled: true,
-          navigateByImgClick: true,
-          preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-        },
-        image: {
-          tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-        }
-      });
+    $("[data-lightbox-close]").on("click", function(e){
+      e.preventDefault();
+      $.magnificPopup.close();
     });
 
-    // Custom close buttons
-    $(".mfp-close-internal").off("click").on("click", function(){
-      // TODO: Figure out a way to close the popup that's on the other side of
-      // an iframe.
-      // var $parentWindow = $(window.parent.document);
-      // $parentWindow.trigger("ornament:close-popups");
-      // $parentWindow.find(".mfp-wrap").remove();
-      // $parentWindow.find(".mfp-bg").remove();
+    $(document).delegate("[data-lightbox-close]", "click", function(e){
+      e.preventDefault();
+      $.magnificPopup.close();
     });
 
   });
 
-  /*
   // Override Rails handling of confirmation
+  /*
   $.rails.allowAction = function(element) {
-    
+
     // The message is something like "Are you sure?"
     var message = element.data('confirm');
 
-    // If there's no message, there's no data-confirm attribute, 
+    // If there's no message, there's no data-confirm attribute,
     // which means there's nothing to confirm
     if(!message) {
       return true;
@@ -109,24 +77,11 @@
       // We want a button
       .addClass('button')
       // We want it to sound confirmy
-      .html("Yes")
-      .on('click', function(e) {
-        if(element.is('[data-confirm-has-callback]')) {
-          e.preventDefault();
-          $.rails.fire(element, 'confirm:complete', true);
-          return false;
-        }
-      });
-
-    // Copy data and class attributes
-    // This fixes removing items from nested inline models 
-    $modalConfirm.addClass(element.attr("class"));
+      .html("Yes");
 
     var modalHtml =   '<div class="lightbox--ajax-content content-spacing">';
         modalHtml +=  '  <div class="lightbox--body">';
-        modalHtml +=  '    <div class="lightbox--heading">';
-        modalHtml +=  '      <h2 class="heading-two">'+element.text()+'</h2>';
-        modalHtml +=  '    </div>';
+        modalHtml +=  '    <h2 class="heading-two lightbox--heading">'+ element.text() +'</h2>';
         modalHtml +=  '    <div class="lightbox--content  content-spacing">';
         modalHtml +=  '      <p>';
         modalHtml +=           message;
@@ -136,6 +91,7 @@
         modalHtml +=  '    </div>';
         modalHtml +=  '  </div>';
         modalHtml +=  '</div>';
+
 
     var $modalHtml = $(modalHtml);
 
@@ -160,21 +116,11 @@
     $.magnificPopup.open({
       mainClass: "lightbox--main",
       removalDelay: 300,
-      fixedContentPos: true,
       items: {
         src: $modalHtml,
         type: 'inline'
       }
     });
-
-    // Nested fields delete action
-    if(element.is("[data-nested-delete]")) {
-      $modalConfirm.on("click", function(e){
-        element.siblings(".remove_fields.dynamic").click();
-        $.magnificPopup.close();
-        return false;
-      });
-    }
 
     // Clicking on the cancel button hides the popup
     $modalCancel.on("click", function(e){
@@ -186,5 +132,9 @@
     return false
   }
   */
+
+  $(document).on("ornament:refresh", function () {
+    $(document).trigger("ornament:lightbox");
+  });
 
 }(document, window, jQuery));
