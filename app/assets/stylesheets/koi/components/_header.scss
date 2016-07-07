@@ -50,6 +50,15 @@
     padding-left: $xxxxx-small-unit;
   }
 
+  // Regular non-icon links
+  li a {
+    @include color-link($white, $white);
+    @include decorate-link(none, none);
+    text-transform: uppercase;
+    @include font($bold-font);
+  }
+
+  // Icon links
   .action a {
     @include display-flex;
     width: 44px;

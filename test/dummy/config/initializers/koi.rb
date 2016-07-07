@@ -16,6 +16,20 @@ Koi::Menu.items = {
   }
 }
 
+Koi::PriorityMenu.items = [
+  {
+    label: "Dashboard",
+    url: "/admin",
+    link_opts: { method: :post },
+    icon: "planet_filled",
+    icon_opts: { fill: "#2ECC71" }
+  },
+  {
+    label: "Super Heros",
+    url: "/admin/super_heros"
+  }
+]
+
 Koi::KoiAsset::Image.sizes = [
   { width: '200', title: '200 pixels wide' },
   { width: '400', title: '400 pixels wide' },
