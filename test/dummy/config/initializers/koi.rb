@@ -18,9 +18,8 @@ Koi::Menu.items = {
 
 Koi::PriorityMenu.items = [
   {
-    label: "Dashboard",
-    url: "/admin",
-    link_opts: { method: :post },
+    label: "View Website",
+    url: "/",
     icon: "planet_filled",
     icon_opts: { fill: "#2ECC71" }
   },
