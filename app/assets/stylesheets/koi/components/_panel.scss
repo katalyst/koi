@@ -60,7 +60,24 @@
 .panel__flash {
   padding-top: $panel-padding;
   padding-bottom: $panel-padding;
+  border-bottom: 1px solid;
   @include border-radius(0);
+}
+
+.panel__flash--inner {
+  @include display-flex;
+  @include flex-direction(row);
+}
+
+.panel__flash--message {
+  @include flex-grow(1);
+}
+
+.panel__flash--close {
+  @include border-radius(50%);
+  @include icon-block(22px, 12px);
+  background: currentColor;
+  cursor: pointer;
 }
 
 // PADDING VARIANTS
