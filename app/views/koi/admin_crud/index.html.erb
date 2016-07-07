@@ -20,17 +20,18 @@
 
   <div class="page__with-sidebar-right page__with-sidebar-top">
     <div class="page--main">
-      <% if is_paginated? %>
-        <div class="listing--pagination listing--pagination__top small">
-          <div id="index-pagination-options" class="listing--pagination--options small">
-            <%= render 'index_pagination_options' %>
-          </div>
-        </div>
-      <% end %>
 
       <div class="listing--count">
-        <span><%= pluralize(resource_class.count, "item") -%></span>
+        <div class="listing--count--items">
+          <span><%= pluralize(resource_class.count, "item") -%></span>
+        </div>
+        <% if is_paginated? %>
+          <div class="listing--count--per-page">
+            <%= render 'index_pagination_options' %>
+          </div>
+        <% end %>
       </div>
+
       <%= render 'index_actions' %>
       <%= render 'index_fields' %>
 

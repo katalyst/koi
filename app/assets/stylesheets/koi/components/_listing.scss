@@ -30,12 +30,27 @@
 }
 
 .listing--count {
-  // background: $light-grey;
   padding: $xxxxx-small-unit 0;
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
+
+  @include media-query(550px) {
+    @include flex-direction(column);
+    @include align-items(flex-start);
+  }
 }
 
-.listing--pagination + .listing--count {
-  border-top: 1px solid $border;
+.listing--count--items {
+  padding-right: $xxx-small-unit;
+}
+
+.listing--count--per-page {
+  margin-left: auto;
+
+  @include media-query(550px) {
+    margin-left: 0;
+  }
 }
 
 // Listing actions
