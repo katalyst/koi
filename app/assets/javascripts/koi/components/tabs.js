@@ -107,6 +107,12 @@
           "data-toggle-tab": ""
         }).removeAttr("data-tab");
 
+        if($tabs.is("[data-tabs-deeplink]")) {
+          $tabLink.attr({
+            "data-toggle-deeplink-tab": ""
+          });
+        }
+
         // after change
         $tabLink.on("toggle:toggled", function(){
           $(document).trigger("ornament:tab-change");
@@ -132,6 +138,22 @@
 
     // Set first as active
     $tabPanes.first().addClass("tabs--pane__active");
+
+    // Deeplinking
+    var hash = document.location.hash;
+    if(hash) {
+      // remove hash symbol from hash
+      // (#thing = thing)
+      var hash = hash.substr(1,hash.length); 
+      var $pane = $tabPanes.filter("[data-toggle-tab-pane][data-toggle=" + hash + "]");
+      if($pane.length) {
+        // click the appropriate toggle
+        var $anchor = $("[data-toggle-tab][data-toggle-anchor=" + hash + "]");
+        $(document).on("ornament:toggles", function(){
+          $anchor.trigger("ornament:toggle-on");
+        });
+      }
+    }
 
     // On resize
     $(window).on("resize", function(){
