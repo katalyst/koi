@@ -116,7 +116,9 @@
 
           <% if content_for?(:breadcrumbs) %>
             <div class="breadcrumbs">
-              <%= yield :breadcrumbs %>
+              <div class="layout--container">
+                <%= yield :breadcrumbs %>
+              </div>
             </div>
           <% end %>
 
