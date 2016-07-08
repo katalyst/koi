@@ -1,2 +1,6 @@
-$("#modal-for-extra").html("<%= escape_javascript render("modal_setting") %>");
-$("#modal-for-extra").modal('show');
+var $modal = $("<%= escape_javascript render("modal_setting") %>");
+var popupOptions = $.extend({}, Ornament.popupOptions);
+popupOptions.items = {
+  src: $modal
+};
+$.magnificPopup.open(popupOptions);
