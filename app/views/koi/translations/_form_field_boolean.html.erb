@@ -1,1 +1,2 @@
-<%= f.input :value, as: :select, collection: [["True", "true"], ["False", "false"]] %>
+<%= f.input attr, as: :boolean, wrapper: :checkbox, wrapper_html: wrapper_opts, input_html: input_opts %>
+

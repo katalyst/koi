@@ -29,6 +29,14 @@ table {
     border-top: 1px solid $border;
   }
 
+  // tr:nth-child(even) td {
+  //   background: #fcfcfc;
+  // }
+
+  tr:hover td {
+    background: $primary-color-x-light;
+  }
+
   th {
     background: $light-grey;
   }

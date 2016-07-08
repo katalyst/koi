@@ -98,20 +98,25 @@ $site-gutters:
 // Default colors.
 //
 
-$primary-color:     #ff521f;
-$secondary-color:   #999;
-$orange:            #fc6b02;
-$light-green:       #bde9d5;
-$green:             #00a362;
+$primary-color:           #ff521f;
+$primary-color-light:     lighten($primary-color, 20);
+$primary-color-x-light:   lighten($primary-color, 40);
 
-$black:             #2e2e2e;
-$white:             #fff;
-$x-light-grey:      #f4f4f4;
-$light-grey:        #ececec;
-$grey:              #999999;
-$dark-grey:         #666;
+$secondary-color:          #999;
+$orange:                   #fc6b02;
+$light-green:              #bde9d5;
+$green:                    #00a362;
 
-$border:            #ccc;
+$x-light-grey:             #f4f4f4;
+$light-grey:               #ececec;
+$grey:                     #999999;
+$dark-grey:                #666;
+
+$black:                    #2e2e2e;
+$white:                    #fff;
+
+
+$border: #ccc;
 
 $passive-color: #f2f4f5;
 
