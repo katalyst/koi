@@ -1,6 +1,10 @@
 <% js_data :create_asset_url, collection_path %>
 <% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
 
+<%- if params[:CKEditor] -%>
+  <%- content_for :hide_header, "true" -%>
+<%- end -%>
+
 <%- content_for :scripts do -%>
   <%= javascript_include_tag "koi/assets" %>
 <%- end -%>

@@ -44,7 +44,7 @@
   <body>
 
 
-    <div class="layout">
+    <div class="layout <%= "layout__headerless" if content_for?(:hide_header) -%>">
       <div class="layout--mobile-tray">
         <nav class="navigation-mobile">
           <div class="pane-wrapper">
@@ -99,7 +99,6 @@
             </li>
           </ul>
         </header>
-
 
         <a id="main" name="main" tabindex="-1"></a>
 

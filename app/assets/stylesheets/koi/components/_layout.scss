@@ -56,6 +56,10 @@ body {
   background: $layout-background;
   padding-bottom: $layout-desktop-footer-gap;
   padding-top: 46px;
+
+  .layout__headerless & {
+    padding-top: 0;
+  }
 }
 
 // MENU OPEN
