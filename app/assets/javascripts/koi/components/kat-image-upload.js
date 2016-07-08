@@ -344,73 +344,78 @@
               e.preventDefault();
 
               // Open modal
-              $.magnificPopup.open({
-                mainClass: "lightbox--main lightbox__cropper",
-                removalDelay: 300,
-                closeOnBgClick: false,
-                items: {
-                  type: "inline",
-                  src: $cropModal
-                },
-                callbacks: {
-
-                  // Resize and add crop widget when opening modal
-                  open: function(){
-
-                    // Reset image size
-                    var $previewImage = $cropModal.find("[data-crop-image] > img");
-                    $previewImage.height("auto").width("auto");
-
-                    // Resize image to available space
-                    var $button = $(".form--file-crop a.button__full");
-                    var buttonHeight = $button.outerHeight();
-                    var windowHeight = Ornament.windowHeight() * 0.8;
-                    var windowWidth = Ornament.windowWidth() * 0.9;
-                    var idealWindowHeight = windowHeight - buttonHeight;
-
-                    if($previewImage.outerHeight() > idealWindowHeight) {
-                      $previewImage.height(idealWindowHeight);
-                    } else if($previewImage.outerHeight() > windowHeight) {
-                      $previewImage.width(windowWidth);
-                    }
-
-                    // Update preview widths and actual widths
-                    updateDifferences();
-
-                    // Update crop string
-                    if( $cropStringField.val() ) {
-                      var dragonflyObject;
-                      dragonflyObject = Ornament.uploader.dragonflyToCropObject($cropStringField.val());
-                      dragonflyObject = Ornament.uploader.cropObjectToPreviewSize(dragonflyObject, actualWidthDifference, actualHeightDifference);
-                      currentCrop = Ornament.uploader.getJcrop(dragonflyObject);
-                    } else {
-                      // initialise a default crop in the center
-                      var centre = centreCoords();
-                      currentCrop = [centre.x,centre.y,previewWidth,previewHeight];
-                    }
-
-                    // Initialise the crop tool
-                    if(jcropApi) {
-                      jcropApi = false;
-                      $previewImage.next("div").remove();
-                      $previewImage.show();
-                    }
-
-                    initialiseCrop($previewImage, currentCrop);
-
-                    $thisField.trigger("uploader:modal-opened");
-
-                    // Resize the modal to auto width
-                    $(".mfp-content").width("auto");
-
-                  },
-
-                  // Destroy the crop widget when closing the modal
-                  close: function(){
-                    jcropApi.destroy();
-                  }
+              if(Ornament && Ornament.popupOptions) {
+                var popupOptions = $.extend({}, Ornament.popupOptions);
+              } else {
+                var popupOptions = {
+                  removalDelay: 300,
+                  closeOnBgClick: false
                 }
-              });
+              }
+
+              popupOptions.showCloseBtn = true;
+              popupOptions.items = {
+                mainClass: "lightbox--main lightbox__cropper",
+                type: "inline",
+                src: $cropModal
+              };
+
+              // Resize and add crop widget when opening modal
+              popupOptions.callbacks.open = function(){
+                // Reset image size
+                var $previewImage = $cropModal.find("[data-crop-image] > img");
+                $previewImage.height("auto").width("auto");
+
+                // Resize image to available space
+                var $button = $(".form--file-crop a.button__full");
+                var buttonHeight = $button.outerHeight();
+                var windowHeight = Ornament.windowHeight() * 0.8;
+                var windowWidth = Ornament.windowWidth() * 0.9;
+                var idealWindowHeight = windowHeight - buttonHeight;
+
+                if($previewImage.outerHeight() > idealWindowHeight) {
+                  $previewImage.height(idealWindowHeight);
+                } else if($previewImage.outerHeight() > windowHeight) {
+                  $previewImage.width(windowWidth);
+                }
+
+                // Update preview widths and actual widths
+                updateDifferences();
+
+                // Update crop string
+                if( $cropStringField.val() ) {
+                  var dragonflyObject;
+                  dragonflyObject = Ornament.uploader.dragonflyToCropObject($cropStringField.val());
+                  dragonflyObject = Ornament.uploader.cropObjectToPreviewSize(dragonflyObject, actualWidthDifference, actualHeightDifference);
+                  currentCrop = Ornament.uploader.getJcrop(dragonflyObject);
+                } else {
+                  // initialise a default crop in the center
+                  var centre = centreCoords();
+                  currentCrop = [centre.x,centre.y,previewWidth,previewHeight];
+                }
+
+                // Initialise the crop tool
+                if(jcropApi) {
+                  jcropApi = false;
+                  $previewImage.next("div").remove();
+                  $previewImage.show();
+                }
+
+                initialiseCrop($previewImage, currentCrop);
+
+                $thisField.trigger("uploader:modal-opened");
+
+                // Resize the modal to auto width
+                $(".mfp-content").width("auto");
+
+              },
+
+              // Destroy the crop widget when closing the modal
+              popupOptions.callbacks.close = function(){
+                jcropApi.destroy();
+              }
+
+              $.magnificPopup.open(popupOptions);
             });
           }
 

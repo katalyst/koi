@@ -333,7 +333,7 @@ $file-upload-breakpoint: 545px;
 .form--file-crop--container {
   @include flex-grow(1);
   @include flex-shrink(1);
-  background: $primary-color;
+  background: $black;
   padding: 5px;
 }
 
