@@ -1,18 +1,10 @@
 (function (document, window, $) {
 
-  $(document).on("ornament:tab-change", function(){
-    $(document).trigger("ornament:ck-editor");
-  });
-
   // Configuration ////////////////////////////////////////////////////////////
 
   $(document).on("ornament:ck-editor", function(){
 
     function wysiwyg() {
-      var instance = CKEDITOR.instances[this.id];
-      if (instance) {
-        instance.destroy(true);
-      }
       CKEDITOR.replace(this);
     }
 
