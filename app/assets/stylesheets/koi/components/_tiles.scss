@@ -5,16 +5,17 @@
 }
 
 .tiles {
-  @include flex-row($desktop-gutters);
+  @include flex-row-fluid;
 }
 
+.tiles__dashboard .tiles--column,
 .tiles__four .tiles--column {
-  @include flex-col(25%,$desktop-gutters);
+  @include flex-col-fluid(25%);
   @include media-query(900px) {
-    @include flex-col(33.33%,$desktop-gutters);
+    @include flex-col-fluid(33.33%);
   }
   @include media-query(700px) {
-    @include flex-col(50%,$desktop-gutters);
+    @include flex-col-fluid(50%);
   }
 }
 
@@ -53,14 +54,4 @@
   padding: $xxxxx-small-unit;
   background: $light-green;
   color: $green;
-}
-
-.tiles__dashboard .tiles--column {
-  @include flex-col(25%,$desktop-gutters);
-  @include media-query(900px) {
-    @include flex-col(33.33%,$desktop-gutters);
-  }
-  @include media-query(700px) {
-    @include flex-col(50%,$desktop-gutters);
-  }
 }

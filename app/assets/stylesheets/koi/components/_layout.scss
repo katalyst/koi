@@ -42,13 +42,13 @@ body {
   margin: 0 auto;
 
   @include media-query(600px) {
-    padding-left: $xx-small-unit;
-    padding-right: $xx-small-unit;
+    padding-left: $small-gutters;
+    padding-right: $small-gutters;
   }
 
   @include media-query(420px) {
-    padding-left: $xxxx-small-unit;
-    padding-right: $xxxx-small-unit;
+    padding-left: $x-small-gutters;
+    padding-right: $x-small-gutters;
   }
 }
 
