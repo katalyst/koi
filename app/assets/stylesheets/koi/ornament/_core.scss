@@ -45,9 +45,13 @@
 @import "koi/ornament/utilities/overlay";
 
 // VENDOR ASSETS
+@import "select2";
+@import "rickshaw";
+@import "koi/jquery.jcrop";
+@import "koi/jquery/ui";
 @import "koi/jquery-ui-timepicker-addon";
 @import "koi/ornament/jquery-ui-theme";
-@import "koi/jquery.jcrop";
+@import "koi/jquery/tagify";
 
 // ORNAMENT
 @import "koi/ornament/reset";
