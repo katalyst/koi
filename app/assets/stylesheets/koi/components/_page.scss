@@ -5,6 +5,14 @@
   h1 {
     padding-top: $xx-large-unit;
     padding-bottom: $xx-large-unit;
+    @include media-query(800px) {
+      padding-top: $large-unit;
+      padding-bottom: $large-unit;
+    }
+    @include media-query(500px) {
+      padding-top: $default-unit;
+      padding-bottom: $default-unit;
+    }
   }
 
   .tabs--fallback-select {
