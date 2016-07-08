@@ -4,7 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.extraPlugins 								 = 'oembed,showblocks';
+	config.extraPlugins 								 = 'oembed,showblocks,autogrow';
 
  	config.filebrowserBrowseUrl          = '/admin/documents/new';
   config.filebrowserUploadUrl          = '/admin/documents/new';
