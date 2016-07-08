@@ -1,6 +1,6 @@
 <%- id = "koi-#{ new_uuid }" -%>
 
-<%= f.input :tag_list, as: :string, input_html: { id: id, style: 'width:500px' }, label: label %>
+<%= f.input :tag_list, as: :string, input_html: { id: id, class: "form--medium" }, label: label %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
