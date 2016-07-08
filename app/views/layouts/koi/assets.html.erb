@@ -1,6 +1,13 @@
-<% content_for :global do %>
+<% js_data :create_asset_url, collection_path %>
+<% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
 
-  <%- content_for :title, "Select #{resource_class.name}" -%>
+<%- content_for :scripts do -%>
+  <%= javascript_include_tag "koi/assets" %>
+<%- end -%>
+
+<%- content_for :title, "Select #{resource_class.name}" -%>
+
+<% content_for :global do %>
 
   <div class="page__with-sidebar-right">
     <div class="page--main">
