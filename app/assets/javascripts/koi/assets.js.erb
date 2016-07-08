@@ -54,7 +54,6 @@ $ (function ()
       $fileList.append
         ('<div id="' + file.id + '" class="bold space-b-3px">' + truncate (file.name) + ' (' + plupload.formatSize (file.size) + ')' +' <b></b></div>')
       });
-      $(document).trigger("ornament:column-conform");
       uploader.refresh();
     })
 
@@ -72,7 +71,6 @@ $ (function ()
     {
       $fileList.append
         ("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>")
-      $(document).trigger("ornament:column-conform");
       uploader.refresh ()
     })
 

@@ -7,12 +7,25 @@
       <%= f.error_notification %>
 
       <div class="assets--upload--new">
-        <p>Select file/s:</p>
-        <div id="upload-files" class="file-list"></div>
-        <%= f.button :button, "Add files...", class: "button__primary", id: 'upload-button-browse' %>
+        
+        <div class="file-uploader">
+          <input type="hidden" name="asset_hidden_field" />
+          <input type="file" name="asset_files" 
+                 data-asset-uploader 
+                 data-file-for="asset_hidden_field" 
+                 data-file-gallery 
+                 data-file-types="" 
+          />
+        </div>
+
+        <!--
+          <p>Select file/s:</p>
+          <div id="upload-files" class="file-list"></div>
+          <%= f.button :button, "Add files...", class: "button__primary", id: 'upload-button-browse' %>
+        -->
       </div>
-    
-      <div class="assets--upload--tags">
+
+      <div class="assets--upload--tags" style="display: none;">
         <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify input__tight" }, label_html: { class: "" } %>
         <div>
           <div id="upload-button-upload" class="align-box-left">
@@ -26,3 +39,25 @@
   </div>
 
 <% end %>
+
+<%- content_for :scripts_bottom do -%>
+  <script>
+    $(document).on("ornament:refresh", function(){
+
+      $("[data-asset-uploader]").each(function(){
+
+        var $this = $(this);
+
+        // Add file types from jsData on the page
+        $this.attr("data-file-types", jsData.acceptedExtensions);
+
+        // Initialise uploader
+        $this.not(".file-upload__init").katFileUpload({
+          uploadPath: jsData.createAssetUrl,
+          debug: true
+        }).addClass("file-upload__init");
+
+      });
+    });
+  </script>
+<%- end -%>
