@@ -1095,7 +1095,7 @@
                       }, false);
 
                       xhr.addEventListener("loadend", function(e){
-                        $dropZone.addClass("saving").removeClass("uploading");
+                        // $dropZone.addClass("saving").removeClass("uploading");
                       });
                     }
                     return xhr;
@@ -1363,7 +1363,7 @@
               updatedInputValue = updatedInputValue + "," + thisGalleryId;
             }
 
-            console.log(thisGalleryId);
+            // console.log(thisGalleryId);
           });
 
           // update hidden field with new order
