@@ -37,16 +37,17 @@
       <% end %>
     </div>
 
-    <div class="panel--padding panel--padding-border">
-      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
-      <%- unless resource.new_record? -%>
-        <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
-      <%- end -%>
-    </div>
-
-    <div class="panel--padding panel--padding-border lightbox--footer">
-      <h6 class="heading-six">Please note:</h6>
-      <p>Fields marked with an asterisk are required.</p>
+    <div class="panel--padding panel--padding-border spacing-xxx-tight">
+      <div>
+        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
+        <%- unless resource.new_record? -%>
+          <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
+        <%- end -%>
+      </div>
+      <div>
+        <h6 class="heading-six">Please note:</h6>
+        <p>Fields marked with an asterisk are required.</p>
+      </div>
     </div>
 
   <% end %>
