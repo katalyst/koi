@@ -6,12 +6,6 @@
 
 
 // BASE UNITS
-//
-//
-// The base font size should be set in pixels.
-//
-// The base line height should be unitless (ratio of line height to font size).
-//
 
 $base-font-size:      14px;
 
@@ -23,19 +17,12 @@ $base-line-size:      $base-font-size * $base-line-height;
 
 
 // CONTAINER WIDTH
-//
-// Width of the container (desktop only).
-//
 
 $container-width: 1072px;
 $container-percentage: 92%;
 
 
 // SIZES
-//
-//
-// Setup a sizing units.
-//
 
 $xxxxx-small-unit:      8px;
 $xxxx-small-unit:       12px;
@@ -63,9 +50,6 @@ $panel-spacing:         $xx-small-unit;
 
 
 // BREAKPOINTS
-//
-// Desktop first breakpoints. Used in conjunction with media-query util. (Breakpoint keyword, Desktop first breakpoint)
-//
 
 $breakpoint-typography: 480px;
 $breakpoint-large: 1080px;
@@ -82,9 +66,6 @@ $site-breakpoints:
 ;
 
 // GUTTERS
-//
-// Site gutters to be used at desktop and specific breakpoints. Used within grids util. (Breakpoint keyword, Gutter size)
-//
 
 $desktop-gutters:     $default-unit;
 $small-gutters:       $xx-small-unit;
@@ -94,10 +75,7 @@ $site-gutters:
   false
 ;
 
-// COLORS
-//
-// Default colors.
-//
+// DEFAULT COLORS
 
 $primary-color:           #ff521f;
 $primary-color-light:     lighten($primary-color, 20);
@@ -152,9 +130,6 @@ $image-border: 0;
 
 
 // INPUTS
-//
-// Input styling.
-//
 
 $checkbox-radio-padding:  -0.2em 0 0 0.2em;
 $input-background:        #ffffff;
@@ -164,3 +139,48 @@ $input-color:             $foreground-color;
 $input-padding:           0.3em 0.2em 0.1em;
 $input-width:             100%;
 $textarea-height:         $base-line-size*5;
+
+// DEFAULT THEME
+// These vairables (and other things) can be overridden 
+// in overrides.scss in your application
+
+// Header
+$header-height: 48px;
+$header-background: $black;
+$header-border: 4px solid $primary-color;
+$header-menu-background: $primary-color;
+$header-link-color: #fff;
+$header-link-hover: #fff;
+
+// Mobile pane
+$mobile-pane-background: $black;
+$mobile-pane-action-background: $primary-color;
+$mobile-pane-borders: $primary-color;
+$mobile-pane-header-border: $header-border;
+$mobile-pane-max-depth: 20;
+$mobile-pane-link-color: #fff;
+$mobile-pane-link-hover: #fff;
+$mobile-pane-link-background: transparent;
+
+// Buttons
+$button-large-padding: $xx-small-unit $x-small-unit;
+$button-default-padding: 8px 12px;
+$button-medium-padding: 12px 24px;
+$button-small-padding: 4px 8px;
+$button-depressed-shadow: inset 2px 2px 4px 0px rgba(0,0,0,0.30);
+
+// Button Colours
+$button-primary-background: $primary-color;
+$button-error-background: $error-color;
+$button-inactive-background: $grey;
+$button-secondary-background: $secondary-color;
+$button-success-background: $success-color;
+$button-disabled-background: $grey;
+
+// Page Title
+$page-title-background: linear-gradient(to top, $passive-color 0%, $white 100%);
+$page-title-border: $divider-color;
+
+// Listing Tables
+$listing-actions-background: $dark-grey;
+$table-hover-background: $primary-color-x-light;

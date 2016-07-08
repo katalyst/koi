@@ -45,20 +45,20 @@
 }
 
 @mixin button-large {
-  padding: $xx-small-unit $x-small-unit;
+  padding: $button-large-padding;
 }
 
 @mixin button-medium {
-  padding: 12px 24px;
+  padding: $button-medium-padding;
 }
 
 @mixin button-small {
-  padding: 4px 8px;
+  padding: $button-small-padding;
 }
 
 @mixin button-base {
   @extend .button-object !optional;
-  padding: 8px 12px;
+  padding: $button-default-padding;
   @include border-radius($border-radius);
   @include decorate-link(none, none);
   @include inline-block;
@@ -81,30 +81,18 @@
 
 @mixin button-primary {
   @include button-base;
-  @include button-background($primary-color);
-}
-
-@mixin button-grey {
-  @include button-base;
-  @include color-link($foreground-color, $foreground-color);
-  @include button-background($passive-color);
-}
-
-@mixin button-error {
-  @include button-base;
-  @include color-link($foreground-color, $foreground-color);
-  @include button-background($error-color);
+  @include button-background($button-primary-background);
 }
 
 @mixin button-depressed {
-  @include box-shadow(inset 2px 2px 4px 0px rgba(0,0,0,0.30));
+  @include box-shadow($button-depressed-shadow);
 }
 
 // BUTTON CLASSES
 
 .button__inactive {
   @extend .button;
-  @include button-background($grey);
+  @include button-background($button-inactive-background);
 }
 
 
@@ -113,7 +101,7 @@
 .button__back,
 .button__secondary {
   @include button-base;
-  @include button-background($secondary-color);
+  @include button-background($button-secondary-background);
 }
 .button__save-continue,
 .button__primary {
@@ -122,12 +110,12 @@
 .button__save,
 .button__confirm {
   @include button-base;
-  @include button-background($success-color);
+  @include button-background($button-success-background);
 }
 .button__error,
 .button__cancel {
   @include button-base;
-  @include button-background($error-color);
+  @include button-background($button-error-background);
 }
 
 // button states
@@ -138,24 +126,24 @@
 // line styles
 .button__line {
   @include button-base;
-  @include button-line($primary-color, false, $primary-color);
+  @include button-line($button-primary-background, false, $button-primary-background);
 }
 .button__secondary__line {
   @include button-base;
-  @include button-line($secondary-color, false, $secondary-color);
+  @include button-line($button-secondary-background, false, $button-secondary-background);
 }
 .button__confirm__line {
   @include button-base;
-  @include button-line($success-color, false, $success-color);
+  @include button-line($button-success-background, false, $button-success-background);
 }
 .button__cancel__line {
   @include button-base;
-  @include button-line($error-color, false, $error-color);
+  @include button-line($button-error-background, false, $button-error-background);
 }
 
 // disabled buttons
 .button[disabled] {
-  @include button-background($grey,$grey);
+  @include button-background($button-disabled-background,$button-disabled-background);
   color: $white;
   cursor: not-allowed;
 }

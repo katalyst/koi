@@ -1,11 +1,11 @@
 // lots of .headers
 // name spaced to .global-header
 .header.global-header {
-  background: $black;
+  background: $header-background;
   left: 0;
   right: 0;
   top: 0;
-  border-bottom: 2px solid $primary-color;
+  border-bottom: $header-border;
   z-index: 990;
   position: fixed;  
   @include display-flex;
@@ -20,7 +20,7 @@
 
 .header--menu {
   @include icon-block(44px, 22px);
-  background: $primary-color;
+  background: $header-menu-background;
   overflow: visible;
 
   .icon-close,
@@ -57,7 +57,7 @@
 
   // Regular non-icon links
   li a {
-    @include color-link($white, $white);
+    @include color-link($header-link-color, $header-link-hover);
     @include decorate-link(none, none);
     text-transform: uppercase;
     @include font($bold-font);

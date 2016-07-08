@@ -1,18 +1,20 @@
-$navigation-tray-background:            $black;
+$navigation-tray-background:            $mobile-pane-background;
 $navigation-forward-hitbox:             44px;
-$navigation-forward-background:         $primary-color;
+$navigation-forward-background:         $mobile-pane-action-background;
 $navigation-forward-selected:           $primary-color;
-$navigation-max-pane-depth:             20;
+$navigation-max-pane-depth:             $mobile-pane-max-depth;
 
 // Primary pane styles
-$navigation-first-pane-border:          lighten($primary-color, 10);
+$navigation-first-pane-border:          $primary-color;
 $navigation-first-pane-selected:        $primary-color;
-$navigation-first-pane-link-color:      #fff;
+$navigation-first-pane-link-color:      $mobile-pane-link-color;
+$navigation-first-pane-link-hover:      $mobile-pane-link-hover;
+$navigation-first-pane-link-background: $mobile-pane-link-background;
 
 // Settings if the secondary panes are different colours than primary
 // If false, primary pane styles above can be considered global styles
 $navigation-secondary-pane-different:   false;
-$navigation-secondary-pane-background:  $primary-color;
+$navigation-secondary-pane-background:  transparent;
 $navigation-secondary-pane-border:      lighten($primary-color, 20);
 $navigation-secondary-pane-selected:    lighten($primary-color, 20);
 $navigation-secondary-pane-link-color:  #fff;
@@ -22,8 +24,7 @@ $navigation-secondary-pane-link-color:  #fff;
 }
 
 .navigation-mobile--header {
-  background: $black;
-  border-bottom: 2px solid $primary-color;
+  border-bottom: $mobile-pane-header-border;
   line-height: 44px;
   text-align: center;
   color: $white;
@@ -109,7 +110,7 @@ $navigation-secondary-pane-link-color:  #fff;
   .pane-wrapper .pane {
     a, .faux-link {
       position: relative;
-      @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-color);
+      @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-hover);
       @include font($bold-font);
       @include line-height-padding($navigation-forward-hitbox);
     }
@@ -127,9 +128,7 @@ $navigation-secondary-pane-link-color:  #fff;
       position: relative;
       padding-left: $xxx-small-unit;
       padding-right: $button-height + $xxx-small-unit;
-      // @include grunticon("chevron-right-16-white", 16px, $psuedo:after);
-
-
+      background: $navigation-first-pane-link-background;
 
       // Button Background
       &:before {
@@ -231,7 +230,7 @@ $navigation-secondary-pane-link-color:  #fff;
 
   // Description blocks
   .description {
-    border-top: 1px solid $navigation-secondary-pane-border;
+    border-top: 1px solid $navigation-first-pane-border;
     padding: $small-unit $xx-small-unit;
   }
   .description--title {

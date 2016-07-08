@@ -1,6 +1,5 @@
 .page--title {
-  background: $passive-color;
-  background: linear-gradient(to top, $passive-color 0%, $white 100%);
+  background: $page-title-background;
 
   h1 {
     padding-top: $xx-large-unit;
@@ -21,7 +20,7 @@
 }
 
 .page--title__border {
-  border-bottom: 1px solid $divider-color;
+  border-bottom: 1px solid $page-title-border;
   margin-bottom: $default-unit;
 }
 
