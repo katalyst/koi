@@ -5,11 +5,17 @@ module Koi
     layout 'koi/assets'
 
     def new
+      @assets = Asset.newest_first.page(params[:page]).per(20)
       params[:asset] = { :tag_list => [ @tags ] }
       super
     end
 
     def show
+      @assets = Asset.newest_first.page(params[:page]).per(20)
+    end
+
+    def edit
+      @assets = Asset.newest_first.page(params[:page]).per(20)
     end
 
     def create

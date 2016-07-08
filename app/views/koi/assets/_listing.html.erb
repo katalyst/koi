@@ -89,7 +89,7 @@
       </tr>
     </thead>
     <tbody>
-      <% collection.each_with_index do |asset, i| %>
+      <% @assets.each_with_index do |asset, i| %>
         <% begin %>
           <tr>
             <td>
@@ -115,3 +115,5 @@
     </tbody>
   </table>
 </div>
+
+<%= paginate @assets -%>

@@ -8,6 +8,7 @@ class Asset < ActiveRecord::Base
 
   scope :unassociated, -> { where("attributable_type IS NULL OR attributable_type = ''") }
   scope :search_data,  -> query { where("data_name LIKE ?", "%#{query}%") }
+  scope :newest_first, -> { order(created_at: :desc) }
 
   acts_as_taggable
 
