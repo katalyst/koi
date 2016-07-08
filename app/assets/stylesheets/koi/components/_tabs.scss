@@ -48,6 +48,7 @@ $tab-inactive-color: #ECF0F1;
   position: relative;
   color: $white;
   @include color-link($white, $white);
+  @include decorate-link(none, none);
 
   &:before,
   &:after {

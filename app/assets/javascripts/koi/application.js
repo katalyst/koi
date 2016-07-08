@@ -111,19 +111,18 @@
     // Change hash for page-reload
     // $('.nav-tabs a').on('shown', function (e) {
     $(document).on("ornament:tab-change", function(){
-      console.log("tab has changed");
 
-      for(k in CKEDITOR.instances) {
-          var instance = CKEDITOR.instances[k];
-          if(instance) {
-            instance.destroy(true)
-          }
-      }
+      // for(k in CKEDITOR.instances) {
+      //     var instance = CKEDITOR.instances[k];
+      //     if(instance) {
+      //       instance.destroy(true)
+      //     }
+      // }
 
-      $ ('.wysiwyg.source').each(function() {
-        // FIXME: Duplicated in wysiwyg.js
-        // CKEDITOR.replace (this);
-      });
+      // $ ('.wysiwyg.source').each(function() {
+      //   // FIXME: Duplicated in wysiwyg.js
+      //   // CKEDITOR.replace (this);
+      // });
 
       var scrollmem = $('body').scrollTop();
       window.location.hash = e.target.hash;

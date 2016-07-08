@@ -1,5 +1,9 @@
 (function (document, window, $) {
 
+  $(document).on("ornament:tab-change", function(){
+    $(document).trigger("ornament:ck-editor");
+  });
+
   // Configuration ////////////////////////////////////////////////////////////
 
   $(document).on("ornament:ck-editor", function(){
@@ -7,8 +11,6 @@
     function wysiwyg() {
       var instance = CKEDITOR.instances[this.id];
       if (instance) {
-        instance.removeAllListeners();
-        delete instance.editor;
         instance.destroy(true);
       }
       CKEDITOR.replace(this);
@@ -24,41 +26,41 @@
 
     // Dynamic Toolbar //////////////////////////////////////////////////////////
 
-    CKEDITOR.on ('instanceReady', function (ck)
-    {
-      var  dockHeight            = 44 // height of Koi menu bar, which is fixed
-      var $window                = $ (window)
-      var  container             = ck.editor.container.$
-      var $container             = $ (container)
-      var $containerWindow       = $container.find ('iframe').$contentWindow ()
-      var $toolbar               = $container.find ('.cke_top')
-      var $bar                   = $ ('<div>').css ({ width:$container.innerWidth (), height:$toolbar.outerHeight () })
-      var  toolbarAbsolute       = { position:'absolute', top:0, left:0, width:$toolbar.css ('width') }
-      var  toolbarFixed          = { position:'fixed', top:dockHeight, left:$toolbar.offset ().left }
+    // CKEDITOR.on ('instanceReady', function (ck)
+    // {
+    //   var  dockHeight            = 46 // height of Koi menu bar, which is fixed
+    //   var $window                = $ (window)
+    //   var  container             = ck.editor.container.$
+    //   var $container             = $ (container)
+    //   var $containerWindow       = $container.find ('iframe').$contentWindow ()
+    //   var $toolbar               = $container.find ('.cke_top')
+    //   var $bar                   = $ ('<div>').css ({ width:$container.innerWidth (), height:$toolbar.outerHeight () })
+    //   var  toolbarAbsolute       = { position:'absolute', top:0, left:0, width:$toolbar.css ('width') }
+    //   var  toolbarFixed          = { position:'fixed', top:dockHeight, left:$toolbar.offset ().left }
 
-      $container.css ({ position:'relative' })
-      $toolbar.css (toolbarAbsolute)
+    //   $container.css ({ position:'relative' })
+    //   $toolbar.css (toolbarAbsolute)
 
-      $bar.insertBefore ($toolbar)
+    //   $bar.insertBefore ($toolbar)
 
-      $window.on ('scroll', balance)
-      $containerWindow.ready (balance).load (balance)
+    //   $window.on ('scroll', balance)
+    //   $containerWindow.ready (balance).load (balance)
 
-      function balance ()
-      {
-        var containerOffset = $container.offset ()
-        var containerTop    = containerOffset.top
-        var containerBottom = containerOffset.top + $container.outerHeight ()
-        var scrollTop       = $window.scrollTop ()
+    //   function balance ()
+    //   {
+    //     var containerOffset = $container.offset ()
+    //     var containerTop    = containerOffset.top
+    //     var containerBottom = containerOffset.top + $container.outerHeight ()
+    //     var scrollTop       = $window.scrollTop ()
 
-        var balanceTop      = scrollTop + dockHeight     - containerTop
-        var balanceBottom   = scrollTop + dockHeight * 2 - containerBottom
+    //     var balanceTop      = scrollTop + dockHeight     - containerTop
+    //     var balanceBottom   = scrollTop + dockHeight * 2 - containerBottom
 
-        var balanceInside = balanceTop > 0 && balanceBottom < 0
+    //     var balanceInside = balanceTop > 0 && balanceBottom < 0
 
-        $toolbar.css (balanceInside ? toolbarFixed : toolbarAbsolute)
-      }
-    })
+    //     $toolbar.css (balanceInside ? toolbarFixed : toolbarAbsolute)
+    //   }
+    // })
 
     ////////////////////////////////////////////////////////// Dynamic Toolbar //
 
@@ -154,21 +156,6 @@
 
   $(document).on("ornament:refresh", function(){
     $(document).trigger("ornament:ck-editor");
-  });
-
-  $(document).on("ornament:tab-change", function(){
-
-    for(k in CKEDITOR.instances) {
-      var instance = CKEDITOR.instances[k];
-      if(instance) {
-        instance.destroy(true)
-      }
-    }
-
-    $ ('.wysiwyg.source').each(function() {
-      CKEDITOR.replace (this);
-    });
-
   });
 
 }(document, window, jQuery));
