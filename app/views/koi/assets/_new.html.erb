@@ -9,14 +9,14 @@
       <div class="assets--upload--new">
         <p>Select file/s:</p>
         <div id="upload-files" class="file-list"></div>
-        <%= f.submit value: "Add files...", class: "button__primary", id: 'upload-button-browse' %>
+        <%= f.button :button, "Add files...", class: "button__primary", id: 'upload-button-browse' %>
       </div>
     
       <div class="assets--upload--tags">
         <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify input__tight" }, label_html: { class: "" } %>
         <div>
           <div id="upload-button-upload" class="align-box-left">
-            <%= f.submit value: "Upload", disabled: "disabled", class: "button" %>
+            <%= f.button :button, "Upload", disabled: "disabled", class: "button" %>
           </div>
           <%= link_to "Cancel", collection_path, class: "button" %>
         </div>
