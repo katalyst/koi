@@ -160,15 +160,6 @@
       $toggleAnchor.on("click", function(e){
         e.preventDefault();
         toggle($toggleAnchor, $toggleContent);
-
-        if($toggleAnchor.is("[data-toggle-deeplink-tab]")) {
-          // prevent scrolling by finding the current scroll position
-          var scrollmem = $(document).scrollTop();
-          // send value to hash
-          document.location.hash = toggleId;
-          // scroll to where we were
-          $(document).scrollTop(scrollmem);
-        }
       });
 
       // Bind some events

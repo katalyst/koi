@@ -36,7 +36,6 @@
       var $fallbackSelect = $tabset.find(".tabs--fallback-select");
       if($fallbackSelect.length) {
         var activePane = $tabPanes.filter(".tabs--pane__active").attr("data-toggle");
-        console.log(activePane);
         if(activePane) {
           $fallbackSelect.val(activePane);
         }
@@ -120,6 +119,15 @@
         $tabLink.on("toggle:toggled", function(){
           $(document).trigger("ornament:tab-change");
           updateSelect($tabs);
+
+          if($tabs.is("[data-tabs-deeplink]")) {
+            // prevent scrolling by finding the current scroll position
+            var scrollmem = $(document).scrollTop();
+            // send value to hash
+            document.location.hash = $tabLink.attr("data-toggle-anchor");
+            // scroll to where we were
+            $(document).scrollTop(scrollmem);
+          }
         });
       });
 
@@ -143,21 +151,29 @@
     // Set first as active
     $tabPanes.first().addClass("tabs--pane__active");
 
-    // Deeplinking
-    var hash = document.location.hash;
-    if(hash) {
-      // remove hash symbol from hash
-      // (#thing = thing)
-      var hash = hash.substr(1,hash.length); 
-      var $pane = $tabPanes.filter("[data-toggle-tab-pane][data-toggle=" + hash + "]");
+    var loadTab = function(paneId){
+      var $pane = $tabPanes.filter("[data-toggle-tab-pane][data-toggle=" + paneId + "]");
       if($pane.length) {
         // click the appropriate toggle
-        var $anchor = $("[data-toggle-tab][data-toggle-anchor=" + hash + "]");
-        $(document).on("ornament:toggles", function(){
-          $anchor.trigger("ornament:toggle-on");
-        });
+        var $anchor = $("[data-toggle-tab][data-toggle-anchor=" + paneId + "]");
+        $anchor.trigger("ornament:toggle-on");
       }
     }
+
+    // Deeplinking
+    var loadTabFromHash = function(){
+      var hash = document.location.hash;
+      if(hash) {
+        // remove hash symbol from hash
+        // (#thing = thing)
+        var hash = hash.substr(1,hash.length); 
+        loadTab(hash);
+      }
+    }
+
+    $(document).on("ornament:toggles", function(){
+      loadTabFromHash();
+    });
 
     // On resize
     $(window).on("resize", function(){
@@ -166,6 +182,11 @@
         // Check if a select menu is needed
         checkIfTabsNeedSelectMenu($tabset);
       });
+    });
+
+    // Reopening tabs on popstate (browser back)
+    $(window).on("popstate", function(){
+      loadTabFromHash();
     });
 
   });
