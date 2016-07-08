@@ -1,5 +1,6 @@
 .page--title {
   background: $passive-color;
+  background: linear-gradient(to top, $passive-color 0%, $white 100%);
 
   h1 {
     padding-top: $xx-large-unit;

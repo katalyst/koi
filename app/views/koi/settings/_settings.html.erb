@@ -3,7 +3,7 @@
     <div id="index-fields">
       <%= simple_form_for :setting, url: koi_engine.update_multiple_settings_path, html: { multipart: true, method: :put } do |f| %>
 
-        <div class="inputs">
+        <div class="inputs form--enhanced">
           <%= render "koi/settings/settings_form", f: f, settings: settings %>
 
           <div class="form-action">
