@@ -60,62 +60,58 @@
   <%- end -%>
 <%- end -%>
 
-<div class="assets--search">
-  <div class="assets--search--stats">
+<div class="listing--count">
+  <div class="listing--count--items">
     <p><%= pluralize collection.size, resource_class.name %></p>
   </div>
 </div>
 
-<div class="assets--listing clear">
-
-  <div class="listing--actions small">
-    <div class="align-box-right">
-      <%= link_to "Filter", "#asset-filters", class: "button__secondary", data: { lightbox: "" } -%>
-      <%= link_to "Upload New #{ resource_class.name }", collection_path, class: "button__confirm" %>
-    </div>
+<div class="listing--actions small">
+  <div class="align-box-right">
+    <%= link_to "Filter", "#asset-filters", class: "button__secondary", data: { lightbox: "" } -%>
+    <%= link_to "Upload New #{ resource_class.name }", collection_path, class: "button__confirm" %>
   </div>
-  <div class="table-container">
-    <table class="table table-striped table-condensed txt-grey font-12px">
-      <thead>
-        <tr>
-          <th>
-          </th>
-          <th>
-            <div>
-              <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
-            </div>
-          </th>
-          <th>
-            <%= sortable "created_at", "Uploaded", style: "padding-right:15px;" %>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% collection.each_with_index do |asset, i| %>
-          <% begin %>
-            <tr>
-              <td>
-                <%= link_to resource_path asset, params.symbolize_keys do %>
-                  <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
-                <% end %>
-              </td>
-              <td>
-                <%= link_to resource_path asset, params.symbolize_keys do %>
-                  <%= asset.data_name %>
-                <% end %>
-              </td>
-              <td>
-                <%= link_to resource_path asset, params.symbolize_keys do %>
-                  <%= date_d_Month_yyyy asset.created_at %>
-                <% end %>
-              </td>
-            </tr>
-          <% rescue Dragonfly::DataStorage::DataNotFound %>
-          <% next %>
-          <% end %>
+</div>
+<div class="table-container">
+  <table class="table table-striped table-condensed txt-grey font-12px">
+    <thead>
+      <tr>
+        <th>
+        </th>
+        <th>
+          <div>
+            <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
+          </div>
+        </th>
+        <th>
+          <%= sortable "created_at", "Uploaded", style: "padding-right:15px;" %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each_with_index do |asset, i| %>
+        <% begin %>
+          <tr>
+            <td>
+              <%= link_to resource_path asset, params.symbolize_keys do %>
+                <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to resource_path asset, params.symbolize_keys do %>
+                <%= asset.data_name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to resource_path asset, params.symbolize_keys do %>
+                <%= date_d_Month_yyyy asset.created_at %>
+              <% end %>
+            </td>
+          </tr>
+        <% rescue Dragonfly::DataStorage::DataNotFound %>
+        <% next %>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-
+      <% end %>
+    </tbody>
+  </table>
 </div>
