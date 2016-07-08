@@ -7,6 +7,9 @@
 
   $(document).on("ornament:tabs", function () {
 
+    var $tabSets = $("[data-tabs]");
+    var $tabPanes = $("[data-tab-for]");
+
     var getWidthOfTabRow = function($tabset) {
       var $links = $tabset.find("li");
       var widthOfTabs = 0;
@@ -32,8 +35,11 @@
     var updateSelect = function($tabset) {
       var $fallbackSelect = $tabset.find(".tabs--fallback-select");
       if($fallbackSelect.length) {
-        // var activePane = getActivePane($tabset);
-        // $fallbackSelect.val(activePane);
+        var activePane = $tabPanes.filter(".tabs--pane__active").attr("data-toggle");
+        console.log(activePane);
+        if(activePane) {
+          $fallbackSelect.val(activePane);
+        }
       }
 
     }
@@ -84,9 +90,6 @@
       }
     }
 
-    var $tabSets = $("[data-tabs]");
-    var $tabPanes = $("[data-tab-for]");
-
     $tabSets.each(function(i){
       var $tabs = $(this);
       var $tabLinks = $tabs.find("[data-tab]");
@@ -116,6 +119,7 @@
         // after change
         $tabLink.on("toggle:toggled", function(){
           $(document).trigger("ornament:tab-change");
+          updateSelect($tabs);
         });
       });
 

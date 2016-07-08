@@ -59,6 +59,8 @@
       } else {
         $toggleContent.slideDown(200, afterSlide());
       }
+
+      $toggleAnchor.trigger("ornament:toggle:after-toggle-on");
     }
 
     var toggleOff = function($toggleAnchor, $toggleContent) {
