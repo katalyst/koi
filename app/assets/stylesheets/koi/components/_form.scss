@@ -171,21 +171,12 @@ select {
   color: $input-color;
 }
 
-// WEBKIT SELECT MENU OVER-RIDE
-// https://raw2.github.com/isellsoap/forms.css/gh-pages/assets/css/forms.css
+// WEBKIT AND FIREFOX SELECT MENU OVER-RIDE
 
-@media (-webkit-min-device-pixel-ratio: 0) {
-
-  select {
-    -webkit-appearance: none;
-  }
-
-  /*
-   * 1. https://github.com/nathansmith/formalize/issues/44
-   */
+@include pretty-select {
 
   select[multiple],
-  select[multiple][size], /* 1 */
+  select[multiple][size], 
   select[size] {
     background-image: none;
     padding-right: 3px;
@@ -197,8 +188,7 @@ select {
     background-image: url('/assets/koi/application/select_arrow.png');
     background-repeat: no-repeat;
     background-position: right center;
-    padding-right: $x-large-unit;
-    @include box-shadow(none);
+    padding-right: 36px;
   }
 
 }
