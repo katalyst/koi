@@ -59,6 +59,10 @@ $lightbox-padding-y-bottom: $small-unit;
     width: 16px;
     height: 16px;
   }
+
+  path {
+    stroke: #fff;
+  }
 }
 .lightbox--content {
   overflow: auto;

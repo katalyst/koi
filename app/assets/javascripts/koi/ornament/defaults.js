@@ -80,7 +80,10 @@ Ornament = window.Ornament = {
 };
 
 $(document).on("ornament:refresh", function(){
-  Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
-  Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
-  $("[data-ornament-icons]").remove();
+  if($("[data-ornament-icons]").length > 0) {
+    Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
+    Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
+    Ornament.icons.close = $("[data-ornament-icon-close]").html();
+    $("[data-ornament-icons]").remove();
+  }
 });

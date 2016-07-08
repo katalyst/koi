@@ -60,7 +60,6 @@
   });
 
   // Override Rails handling of confirmation
-  /*
   $.rails.allowAction = function(element) {
 
     // The message is something like "Are you sure?"
@@ -79,29 +78,12 @@
       // We don't want to pop up another confirmation (recursion)
       .removeAttr('data-confirm')
       // We want a button
-      .addClass('button')
+      .addClass('button__confirm')
       // We want it to sound confirmy
       .html("Yes");
 
-    var modalHtml =   '<div class="lightbox--ajax-content content-spacing">';
-        modalHtml +=  '  <div class="lightbox--body">';
-        modalHtml +=  '    <h2 class="heading-two lightbox--heading">'+ element.text() +'</h2>';
-        modalHtml +=  '    <div class="lightbox--content  content-spacing">';
-        modalHtml +=  '      <p>';
-        modalHtml +=           message;
-        modalHtml +=  '      </p>';
-        modalHtml +=  '    </div>';
-        modalHtml +=  '    <div class="lightbox--buttons">';
-        modalHtml +=  '    </div>';
-        modalHtml +=  '  </div>';
-        modalHtml +=  '</div>';
-
-
-    var $modalHtml = $(modalHtml);
-
-    // Create our cancel button
-    var $modalButtons = $modalHtml.find(".lightbox--buttons");
-    var $modalCancel = $("<button class='button button__secondary'>Cancel</button>");
+    // Create buttons 
+    var $modalCancel = $("<button class='button button__cancel'>Cancel</button>");
 
     // Update confirm button text
     if(element.is("[data-confirm-confirm]")) {
@@ -113,18 +95,32 @@
       $modalCancel.text(element.attr("data-confirm-cancel"));
     }
 
-    $modalButtons.append($modalCancel);
-    $modalButtons.append($modalConfirm);
+    var modalHtml = $('<div class="lightbox--body">' + 
+                    '  <div class="lightbox--header">' + 
+                    '    <div class="lightbox--header--logo">' + 
+                    '      Please confirm' + 
+                    '    </div>' + 
+                    '    <div class="lightbox--header--close" data-lightbox-close title="Close">' + 
+                    '      ' + Ornament.icons.close + 
+                    '    </div>' + 
+                    '  </div>' + 
+                    '  <div class="lightbox--content">' + 
+                    '    <div class="panel--padding">' + 
+                    '    ' + message + 
+                    '    </div>' + 
+                    '    <div class="panel--padding panel--padding-border" data-lightbox-buttons>' + 
+                    '    </div>' + 
+                    '  </div>' + 
+                    '</div>');
+
+    modalHtml.find("[data-lightbox-buttons]").append($modalConfirm).append(" ").append($modalCancel);
 
     // Open popup
-    $.magnificPopup.open({
-      mainClass: "lightbox--main",
-      removalDelay: 300,
-      items: {
-        src: $modalHtml,
-        type: 'inline'
-      }
-    });
+    var popupOptions = $.extend({}, Ornament.popupOptions);
+    popupOptions.items = {
+      src: modalHtml
+    };
+    $.magnificPopup.open(popupOptions);
 
     // Clicking on the cancel button hides the popup
     $modalCancel.on("click", function(e){
@@ -135,7 +131,6 @@
     // Prevent the original link from working
     return false
   }
-  */
 
   $(document).on("ornament:refresh", function () {
     $(document).trigger("ornament:lightbox");
