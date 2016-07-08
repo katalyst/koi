@@ -186,7 +186,12 @@
 
     // Reopening tabs on popstate (browser back)
     $(window).on("popstate", function(){
-      loadTabFromHash();
+      var hash = document.location.hash;
+      if(hash) {
+        loadTabFromHash();
+      } else if($tabPanes.length) {
+        loadTab($tabPanes.first().attr("data-toggle"));
+      }
     });
 
   });
