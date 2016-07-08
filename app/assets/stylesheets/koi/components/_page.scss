@@ -15,6 +15,7 @@
 
 .page__with-sidebar,
 .page__with-sidebar-right {
+  clear: both;
   @include flex-row($desktop-gutters);
 }
 

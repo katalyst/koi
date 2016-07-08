@@ -366,6 +366,7 @@ abbr[title=required] {
 .form-inline {
   @include display-flex;
   @include flex-direction(row);
+  @include align-items(center);
 }
 
 .form-inline--input {

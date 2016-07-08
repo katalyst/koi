@@ -1,22 +1,28 @@
-<h4 class="heading-four"><%= resource_class.name %> Details</h4>
+<div class="spacing">
 
-<section class="pad-1 space-b-1">
-  <%= render "preview" %>
-</section>
-
-
-<h4 class="heading-four">Edit <%= resource_class.name %></h4>
-
-<%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
-
-  <div class="spacing-xxx-tight">
-    <%= f.error_notification %>
-
-    <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
-    <div>
-      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__primary" %>
-      <%= link_to "Cancel", collection_path, class: "button" %>
-    </div>
+  <div class="spacing-xx-tight">
+    <h4 class="heading-four"><%= resource_class.name %> Details</h4>
+    <section class="pad-1 space-b-1">
+      <%= render "preview" %>
+    </section>
   </div>
 
-<% end %>
+  <div class="spacing-xx-tight">
+    <h4 class="heading-four">Edit <%= resource_class.name %></h4>
+
+    <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+
+      <div class="spacing-xxx-tight">
+        <%= f.error_notification %>
+
+        <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
+        <div>
+          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__primary" %>
+          <%= link_to "Cancel", collection_path, class: "button" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+  
+</div>

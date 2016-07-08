@@ -67,12 +67,14 @@ $assets-gutter: $small-unit;
 
 // ASSETS SEARCH
 
-.assets--search--stats {
-  float: left;
+.assets--search {
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(center);
 }
 
 .assets--search form {
-  float: right;
+  margin-left: auto;
 }
 
 // ASSETS LISTING
