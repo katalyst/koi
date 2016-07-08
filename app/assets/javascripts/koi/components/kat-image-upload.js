@@ -771,10 +771,12 @@
           var $progressBar = $("<progress value='0' max='100' data-file-gallery-item-progress />");
           var $status = $("<div data-file-gallery-item-status class='file-upload--gallery-item--status' />").text("uploading");
           var $remove = $("<div data-file-gallery-item-remove class='file-upload--gallery-item--status' />").text("remove");
+          var $success = $("<div data-file-gallery-item-success class='file-upload--gallery-item--status' />").text("uploaded");
 
           $thumbnailContainer.append($imageContainer);
           $remove.hide();
-          $galleryItem.append($thumbnailContainer).append($progressBar).append($status).append($remove);
+          $success.hide();
+          $galleryItem.append($thumbnailContainer).append($progressBar).append($status).append($remove).append($success);
           thumbnailTarget.append($galleryItem);
           bindGalleryActions($galleryItem);
           // setThumbnailRatio();
@@ -1105,7 +1107,7 @@
                       thumbnail.addClass("uploaded").removeClass("saving uploading");
                       thumbnail.find(".thumbnail-container").attr("data-file-gallery-item-id", "1");
                       thumbnail.find("[data-file-gallery-item-status]").hide();
-                      thumbnail.find("[data-file-gallery-item-remove]").show();
+                      thumbnail.find("[data-file-gallery-item-success]").show().append($("<br /><small class='grey'>" + f.name + "</small>"));
                       if(options.orderable) {
                         // thumbnail.attr("draggable", true);
                         // rebindOrdering();
