@@ -7,18 +7,7 @@
       <a href="#"><%= menu_name -%></a>
       <ul>
         <%- menu_items.each do |item_name,item_url| -%>
-          <li>
-            <%- if item_url.class.to_s.eql?("Hash") -%>
-              <a href="#"><%= item_name -%></a>
-              <ul>
-                <%- item_url.each do |child_name,child_url| -%>
-                  <li><a href="<%= child_url -%>"><%= child_name -%></a></li>
-                <%- end -%>
-              </ul>
-            <%- else -%>
-              <a href="<%= item_url -%>"><%= item_name -%></a>
-            <%- end -%>
-          </li>
+          <%= render "layouts/koi/navigation_item", item_name: item_name, item_url: item_url -%>
         <%- end -%>
         <%- if menu_name.to_s.eql?("Advanced") -%>
           <li><%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %></li>
