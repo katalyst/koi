@@ -1,28 +1,34 @@
-<div class="spacing">
+<%= render "koi/assets/listing" -%>
 
-  <div class="spacing-xx-tight">
-    <h4 class="heading-four"><%= resource_class.name %> Details</h4>
-    <section class="pad-1 space-b-1">
-      <%= render "preview" %>
-    </section>
-  </div>
+<%- content_for :side do -%>
 
-  <div class="spacing-xx-tight">
-    <h4 class="heading-four">Edit <%= resource_class.name %></h4>
+  <div class="spacing">
 
-    <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+    <div class="spacing-xx-tight">
+      <h4 class="heading-four"><%= resource_class.name %> Details</h4>
+      <section class="pad-1 space-b-1">
+        <%= render "preview" %>
+      </section>
+    </div>
 
-      <div class="spacing-xxx-tight">
-        <%= f.error_notification %>
+    <div class="spacing-xx-tight">
+      <h4 class="heading-four">Edit <%= resource_class.name %></h4>
 
-        <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
-        <div>
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__primary" %>
-          <%= link_to "Cancel", collection_path, class: "button" %>
+      <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+
+        <div class="spacing-xxx-tight">
+          <%= f.error_notification %>
+
+          <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
+          <div>
+            <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__primary" %>
+            <%= link_to "Cancel", collection_path, class: "button" %>
+          </div>
         </div>
-      </div>
 
-    <% end %>
+      <% end %>
+    </div>
+    
   </div>
-  
-</div>
+
+<%- end -%>

@@ -1,43 +1,49 @@
-<div class="spacing">
-  <h4 class="heading-four"><%= resource_class.name %> Details</h4>
+<%= render "koi/assets/listing" -%>
 
-  <div class="assets--preview">
+<%- content_for :side do -%>
 
-    <div class="spacing-xxx-tight">
-      <%= render "preview" %>
+  <div class="spacing">
+    <h4 class="heading-four"><%= resource_class.name %> Details</h4>
 
-      <% unless resource.tags.empty? %>
-        <h6 class="heading-six">Tags:</h6>
+    <div class="assets--preview">
 
-        <ul>
-          <% resource.tags.each do |tag| %>
-            <li class="space-r-1"><a><%= tag.name %></a></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <div class="spacing-xxx-tight">
+        <%= render "preview" %>
 
-      <div class="">
-        <%= link_to "Edit tags", { action: :edit }, class: "txt-grey" %>
+        <% unless resource.tags.empty? %>
+          <h6 class="heading-six">Tags:</h6>
+
+          <ul>
+            <% resource.tags.each do |tag| %>
+              <li class="space-r-1"><a><%= tag.name %></a></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <div class="">
+          <%= link_to "Edit tags", { action: :edit }, class: "txt-grey" %>
+        </div>
+
+        <form class="insert asset application spacing-xxx-tight">
+
+          <div>
+            <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
+            <%= render "options" %>
+          </div>
+
+          <div>
+            <button class="button__primary insert asset link">Add to Page</button>
+            <%= link_to "Delete", url_for(:action => 'delete'),
+                              :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?",
+                              :method  => 'delete',
+                              :class   => "button__error" %>
+          </div>
+
+        </form>
+
       </div>
 
-      <form class="insert asset application spacing-xxx-tight">
-
-        <div>
-          <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
-          <%= render "options" %>
-        </div>
-
-        <div>
-          <button class="button__primary insert asset link">Add to Page</button>
-          <%= link_to "Delete", url_for(:action => 'delete'),
-                            :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?",
-                            :method  => 'delete',
-                            :class   => "button__error" %>
-        </div>
-
-      </form>
-
     </div>
-
   </div>
-</div>
+
+<%- end -%>

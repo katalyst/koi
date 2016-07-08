@@ -9,14 +9,12 @@
 
 <% content_for :global do %>
 
-  <div class="page__with-sidebar-right">
+  <div class="page__with-sidebar-right page__with-sidebar-top">
     <div class="page--main">
-
-      <%= render "koi/assets/listing" -%>
-
+      <%= content_for?(:assets) ? yield(:assets) : yield %>
     </div>
     <div class="page--sidebar">
-      <%= content_for?(:assets) ? yield(:assets) : yield %>
+      <%= yield :side -%>
     </div>
   </div>
   
