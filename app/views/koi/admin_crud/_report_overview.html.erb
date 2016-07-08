@@ -1,6 +1,6 @@
 <div class="tiles--column">
   <div class="tile tile__report">
-    <div class="tile--header" data-conform="reports"><%= report[:name] %></div>
+    <div class="tile--header"><%= report[:name] %></div>
     <div class="tile--body"><%= report[:current_value] %></div>
     <% if report[:percent_change] %>
       <div class="tile--footer tile--footer-<%= report[:change_type] %>">
