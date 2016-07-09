@@ -143,6 +143,10 @@
       });
     }
 
+    Ornament.toggle = function($toggleAnchor, $toggleContent) {
+      toggle($toggleAnchor, $toggleContent);
+    }
+
     // Hide all toggles by default
     hideAllToggles();
 

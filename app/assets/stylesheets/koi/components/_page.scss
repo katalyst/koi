@@ -33,7 +33,7 @@
 .page--main {
   @include flex-col(span(8,12), $desktop-gutters);
 
-  @include media-query(780px) {
+  @include media-query($breakpoint-page) {
     @include flex-col(100%);
   }
 
@@ -46,12 +46,12 @@
   @include flex-col(span(4,12), $desktop-gutters);
   min-height: 1px;
 
-  @include media-query(780px) {
+  @include media-query($breakpoint-page) {
     @include flex-col(100%);
   }
 
   .page__with-sidebar-top & {
-    @include media-query(780px) {
+    @include media-query($breakpoint-page) {
       @include order(-1);
     }
   }

@@ -1,4 +1,50 @@
-$ (function () {
+$(document).on("ornament:refresh", function(){
+  
+  var $lockButton = $("[data-sitemap-lock]");
+
+  var toggleKoiSitemapDragDropState = function(){
+    if(localStorage.koiSitemapDragDropDisabled) {
+      koiSetSitemapDragDropState("enabled");
+    } else {
+      koiSetSitemapDragDropState("disabled");
+    }
+  }
+
+  var koiSetSitemapDragDropState = function(state){
+    if(state === "enabled") {
+      localStorage.removeItem("koiSitemapDragDropDisabled");
+      $lockButton.removeClass("button__depressed");
+      $lockButton.text("Lock Dragging");
+      $(document).trigger("ornament:koi:sitemap:unlocked");
+    } else if (state === "disabled") {
+      localStorage.setItem("koiSitemapDragDropDisabled", "true");
+      $lockButton.addClass("button__depressed");
+      $lockButton.text("Unlock Dragging");
+      $(document).trigger("ornament:koi:sitemap:locked");
+    }
+  }
+
+  // Some nice public functions
+  Ornament.koiDisableSitemapDragDrop = function(){
+    koiSetSitemapDragDropState("disabled");
+  }
+  Ornament.koiEnableSitemapDragDrop = function(){
+    koiSetSitemapDragDropState("enabled");
+  }
+
+  if(localStorage) {
+    // Set initial state
+    if(localStorage.koiSitemapDragDropDisabled) {
+      koiSetSitemapDragDropState("disabled");
+    } else {
+      koiSetSitemapDragDropState("enabled");
+    }
+    // Button press action
+    $lockButton.on("click", function(e) {
+      e.preventDefault();
+      toggleKoiSitemapDragDropState();
+    });
+  }
 
   function $toNestedSet ()
   {
@@ -35,12 +81,13 @@ $ (function () {
         if($this.find(".nav-item").length > 0) {
           if($this.find(".sitemap--toggler").length < 1) {
             var thisId = $(this).attr("data-id");
+            var $childMenu = $this.children("ol");
+            var activeClass = $childMenu.is(":visible") ? "active" : "";
             var $sitemapToggler = $("<div />").attr({
-              "class": "sitemap--toggler active",
+              "class": "sitemap--toggler " + activeClass,
               "data-toggle-anchor": "toggle_" + thisId,
               "data-toggle-group": "group_" + thisId
             });
-            var $childMenu = $this.children("ol");
             $childMenu.before($sitemapToggler);
             $sitemapToggler.on("click", function(e){
               e.preventDefault();
@@ -62,19 +109,43 @@ $ (function () {
       return JSON.stringify ($rootItem.call ($toNestedSet));
     }
 
-    $rootList.nestedSortable ({
-      forcePlaceholderSize: true
-    , handle: 'div'
-    , helper: 'clone'
-    , items: '.sortable'
-    , opacity: .6
-    , placeholder: 'placeholder'
-    , revert: 250
-    , tabSize: 25
-    , tolerance: 'pointer'
-    , toleranceElement: '> div'
-    })
-    .on ("sortupdate", save);
+    function bindSortable () {
+      $rootList.not(".enabled").nestedSortable ({
+        forcePlaceholderSize: true
+      , handle: 'div'
+      , helper: 'clone'
+      , items: '.sortable'
+      , opacity: .6
+      , placeholder: 'placeholder'
+      , revert: 250
+      , tabSize: 25
+      , tolerance: 'pointer'
+      , toleranceElement: '> div'
+      })
+      .addClass("enabled")
+      .on ("sortupdate", save);
+    }
+
+    function rebuildRootList () {
+      var $clone = $rootList.clone().removeClass("enabled");
+      $rootList.before($clone).remove();
+      $rootList = $clone;
+      $rootItem = $sitemap.component ('.nav-item');
+      // Fix toggles
+      $rootList.find("[data-toggle-anchor]").remove();
+      buildtoggles();
+    }
+
+    $(document).on("ornament:koi:sitemap:unlocked", function(){
+      bindSortable();
+    });
+
+    $(document).on("ornament:koi:sitemap:locked", function(){
+      rebuildRootList();
+    });
+
+    bindSortable();
+
   });
 
   $ (".nav-item.application").application (true, function ($item)

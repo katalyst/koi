@@ -11,8 +11,15 @@ hr,
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -50vw;
-    right: -50vw;
+    left: 0;
+    right: 0;
     background: $divider-color;
+  }
+}
+
+.hr__full {
+  &:before {
+    left: -100vw;
+    right: -100vw;
   }
 }
