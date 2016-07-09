@@ -5,12 +5,12 @@
   <% end %>
 
   <div class="align-box-right">
-    <%= link_to "Filter", "#index-filters", class: "button__secondary", data: { lightbox: "" } -%>
+    <%= link_to "Filter", "#index-filters", class: "button__secondary button__small", data: { lightbox: "" } -%>
     <%- if is_exportable? %>
-      <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary" %>
+      <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary button__small" %>
     <% end %>
     <%- if is_allowed?(:new) %>
-      <%= link_to title_for(:action_new), new_resource_path, :class => "button__confirm" %>
+      <%= link_to title_for(:action_new), new_resource_path, :class => "button__confirm button__small" %>
     <% end %>
   </div>
 
