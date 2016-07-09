@@ -56,7 +56,7 @@
 //= require koi/koi/sortable
 //= require koi/koi/hover
 //= require koi/koi/nestedFields
-//= require koi/koi/datePicker
+// require koi/koi/datePicker
 //= require koi/koi/wysiwyg
 
 //= require rickshaw_with_d3

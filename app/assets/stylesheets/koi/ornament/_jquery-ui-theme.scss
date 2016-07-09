@@ -43,6 +43,11 @@
   @include color-link($foreground-color, $foreground-color);
 }
 
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+  @include font($body-font);
+  font-size: $base-font-size;
+}
+
 /* Interaction states
 ----------------------------------*/
 .ui-state-default,

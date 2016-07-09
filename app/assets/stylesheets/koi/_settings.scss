@@ -144,6 +144,18 @@ $textarea-height:         $base-line-size*5;
 // These vairables (and other things) can be overridden 
 // in overrides.scss in your application
 
+// Fonts
+$body-font: ('Open Sans', sans-serif) normal normal;
+$italic-font: ('Open Sans', sans-serif) italic normal;
+$bold-font: ('Open Sans', sans-serif) normal bold;
+$bold-italic-font: ('Open Sans', sans-serif) italic bold;
+$heading-alpha-font: ('Open Sans', sans-serif) normal bold;
+$heading-alpha-font-italic: ('Open Sans', sans-serif) italic bold;
+$heading-beta-font: ('Open Sans Condensed', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif) normal bold;
+$heading-beta-font-italic: ('Open Sans', sans-serif) italic bold;
+
+$input-typeface: $body-font;
+
 // Header
 $header-height: 48px;
 $header-background: $black;

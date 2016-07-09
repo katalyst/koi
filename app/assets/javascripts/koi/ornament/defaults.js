@@ -2,7 +2,7 @@ Ornament = window.Ornament = {
 
   externalLinkExtensions: [],
   internalLinkSelectors: [],
-  jQueryUISupport: false,
+  jQueryUISupport: true,
 
   popupOptions: {
     type: "inline",
