@@ -32,7 +32,9 @@
           </div>
 
           <div>
-            <button class="button__primary insert asset link">Add to Page</button>
+            <%- if params[:CKEditor] -%>
+              <button class="button__primary insert asset link">Add to Page</button>
+            <%- end -%>
             <%= link_to "Delete", url_for(:action => 'delete'),
                               :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?",
                               :method  => 'delete',
