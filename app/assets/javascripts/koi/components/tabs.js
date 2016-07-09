@@ -200,5 +200,9 @@
     $(document).trigger("ornament:tabs");
   });
 
+  $(document).on("ornament:tab-change", function() {
+    Ornament.globalLightboxSizing();
+  });
+
 }(document, window, jQuery));
 // 
