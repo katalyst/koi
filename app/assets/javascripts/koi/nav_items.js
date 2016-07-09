@@ -126,22 +126,12 @@ $(document).on("ornament:refresh", function(){
       .on ("sortupdate", save);
     }
 
-    function rebuildRootList () {
-      var $clone = $rootList.clone().removeClass("enabled");
-      $rootList.before($clone).remove();
-      $rootList = $clone;
-      $rootItem = $sitemap.component ('.nav-item');
-      // Fix toggles
-      $rootList.find("[data-toggle-anchor]").remove();
-      buildtoggles();
-    }
-
     $(document).on("ornament:koi:sitemap:unlocked", function(){
       bindSortable();
     });
 
     $(document).on("ornament:koi:sitemap:locked", function(){
-      rebuildRootList();
+      $rootList.removeClass("enabled").nestedSortable("destroy");
     });
 
     bindSortable();
