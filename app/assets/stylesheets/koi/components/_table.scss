@@ -56,6 +56,10 @@ table {
   @include font($bold-font);
   width: 250px;
   vertical-align: top;
+
+  @include media-query(500px) {
+    width: 150px;
+  }
 }
 
 .table-container {
