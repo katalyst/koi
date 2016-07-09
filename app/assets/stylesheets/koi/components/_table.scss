@@ -72,8 +72,21 @@ table {
   width: 140px;
 }
 
-// Sortable table icons
+// Specific table width types
+.table--image {
+  width: 80px;
 
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  @include media-query(600px) {
+    width: 50px;
+  }
+}
+
+// Sortable table icons
 table .icon.sort, 
 table .icon.sort:hover {
   min-height: 16px; 

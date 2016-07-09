@@ -92,9 +92,9 @@
       <% @assets.each_with_index do |asset, i| %>
         <% begin %>
           <tr>
-            <td>
+            <td class="table--image">
               <%= link_to resource_path asset, params.symbolize_keys do %>
-                <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
+                <%= image_tag(asset.thumbnail(size: '80x80#')) %>
               <% end %>
             </td>
             <td>
@@ -109,7 +109,7 @@
             </td>
           </tr>
         <% rescue Dragonfly::DataStorage::DataNotFound %>
-        <% next %>
+          <% next %>
         <% end %>
       <% end %>
     </tbody>
