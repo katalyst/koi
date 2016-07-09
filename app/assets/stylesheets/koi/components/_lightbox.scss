@@ -28,6 +28,14 @@ $lightbox-padding-y-bottom: $small-unit;
   }
 }
 
+.mfp-image-holder .mfp-content {
+  @include box-shadow(none);
+}
+
+.mfp-image-holder .mfp-figure .mfp-img {
+  padding-top: $default-unit;
+}
+
 .lightbox--container {
   @include border-radius($border-radius);
 }
