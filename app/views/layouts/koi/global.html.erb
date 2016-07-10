@@ -43,6 +43,9 @@
   </head>
   <body>
 
+    <%- if content_for?(:include_google_maps) -%>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjgOvjmIVHFO-1IVSYWeZN-1Yp_MkjeW0&libraries=places"></script>
+    <%- end -%>
 
     <div class="layout <%= "layout__headerless" if content_for?(:hide_header) -%>">
       <div class="layout--mobile-tray">

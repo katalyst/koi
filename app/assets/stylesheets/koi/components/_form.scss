@@ -514,3 +514,8 @@ $file-thumbnail-width: 100px;
   padding: 5px;
   @include box-shadow(inset 1px 1px 3px 0px rgba(0,0,0,0.20));
 }
+
+.form--latlng--actions {
+  background: $black;
+  padding: $xxxxx-small-unit;
+}

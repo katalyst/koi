@@ -4,6 +4,7 @@
   no_hide ||= false
   body_class ||= ""
   lightbox_class ||= ""
+  footer ||= false
 -%>
 
 <div class="lightbox--body <%= "mfp-hide" unless no_hide -%> <%= lightbox_class -%>" id="<%= inline_id if inline_id -%>">
@@ -18,4 +19,9 @@
   <div class="lightbox--content <%= body_class -%>">
     <%= yield -%>
   </div>
+  <%- if footer -%>
+    <div class="lightbox--footer">
+      <%= footer -%>
+    </div>
+  <%- end -%>
 </div>

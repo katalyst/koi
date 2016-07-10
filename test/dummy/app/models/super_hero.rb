@@ -34,7 +34,7 @@ class SuperHero < ActiveRecord::Base
            image_upload_id:  { type: :uploader },
            gender:           { type: :select, data: Gender, size: :small },
            is_alive:         { type: :boolean },
-           url:              { wrapper_data: { show: "super_hero_is_alive" } },
+           url:              { type: :latlng, wrapper_data: { show: "super_hero_is_alive" } },
            powers:           { type: :check_boxes, data: Powers },
            images:           { type: :inline },
            published_at:     { type: :date, size: :small },

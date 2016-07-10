@@ -1,0 +1,173 @@
+<%- 
+  content_for(:include_google_maps, "true") 
+  wrapper_opts[:class] += " control-group--latlng" 
+  latlng_data = { latlng_from: attr }
+  input_opts[:data] ? input_opts[:data].merge(latlng_data) : input_opts[:data] = latlng_data
+-%>
+
+<%= f.input attr, wrapper_html: wrapper_opts, input_html: input_opts %>
+
+<a href="#" class="button__primary" data-latlng-lightbox-for="<%= attr -%>">Find Location</a>
+
+<div class="form--latlng" data-latlng-for="<%= attr -%>">
+  <%= render layout: "koi/shared/inline_lightbox", locals: { title: "Find Location", inline_id: "#{attr}_lightbox", footer: capture { -%>
+    <a href="#" class="button__save" data-latlng-save>Save</a> 
+    <a href="#" class="button__cancel" data-lightbox-close>Cancel</a> 
+    <a href="#" class="button__primary" data-latlng-geolocate>Geolocate Me</a>
+  <%- } } do -%>
+    <input id="pac-input" class="map--pac-input" type="text" placeholder="Search for Location">
+    <div class="map-canvas" data-latlng-map></div>
+  <%- end -%>
+</div>
+
+<script>
+  $(document).on("ornament:refresh", function(){
+
+    // References
+    // https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
+    // https://github.com/kolyunya/yii2-map-input-widget/
+
+    // Get our fields
+    var $actualInput = $("[data-latlng-from=<%= attr -%>]");
+    var $mapContainer = $("[data-latlng-for=<%= attr -%>]");
+    var $mapLightbox = $("[data-latlng-lightbox-for=<%= attr -%>]");
+    var autoComplete = document.getElementById('pac-input');
+    var mapCanvas = $mapContainer.find("[data-latlng-map]")[0];
+
+    // Some global variables
+    var map,marker,searchBox,center;
+
+    // Lightbox functionality
+    $mapLightbox.on("click", function(){
+      var popupOptions = $.extend({}, Ornament.popupOptions);
+      popupOptions.items = {
+        src: "#<%= attr -%>_lightbox"
+      }
+      if(center) {
+        center = getCenterFromInput();
+        createPin(center);
+      } 
+      $.magnificPopup.open(popupOptions);
+    });
+
+    // Get center from existing value, or use a fallback
+    var getCenterFromInput = function(){
+      if($actualInput.val()) {
+        var splitLatLng = $actualInput.val().split(",");
+        return { lat: parseFloat(splitLatLng[0]), lng: parseFloat(splitLatLng[1]) };
+      } else {
+        return {lat: -34.921619, lng: 138.599257};
+      }
+    }
+    center = getCenterFromInput();
+
+    // Send latitude and logitude to the actual input field
+    var sendLatLng = function(position){
+      $actualInput.val(position.lat() + "," + position.lng());
+    }
+
+    // Create our google map
+    map = new google.maps.Map(mapCanvas, {
+      center: center,
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      // Hide unneccessary controls 
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+      // Hide points of interest
+      styles: [{
+        featureType: "poi",
+        stylers: [{
+          visibility: "off"
+        }]
+      }]
+    });
+
+    // Resizing window re-centers map
+    google.maps.event.addDomListener(window, "resize", function(){
+      var center = map.getCenter();
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+    });
+
+    // Create a pin and place it on the map
+    // This will be called once when the map loads to place the original
+    // center point, and again after the user has searched 
+    var createPin = function(location) {
+
+      // Clear out the old markers.
+      if(marker) {
+        marker.setMap(null);
+      }
+
+      // Recenter map to marker
+      map.panTo(location);
+
+      marker = new google.maps.Marker({
+        map: map,
+        position: location,
+        draggable: true
+      });
+
+      // Add event listener to dragging the pin
+      google.maps.event.addListener(marker, "dragend", function(){
+        map.panTo(this.getPosition());
+
+        // Clear search box when dragging the pin
+        if(searchBox) {
+          searchBox.value = "";
+          autoComplete.value = "";
+        }
+      });
+    }
+
+    // Create our initial pin (or the pin from the existing value)
+    createPin(center);
+
+    // Create the search box and link it to the UI element.
+    searchBox = new google.maps.places.Autocomplete(autoComplete);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(autoComplete);
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('place_changed', function() {
+      var place = searchBox.getPlace();
+
+      if (!place) {
+        return;
+      }
+
+      // Create the pin for the result and save data to field
+      createPin(place.geometry.location);
+
+    });
+
+    $("[data-latlng-save]").on("click", function(e){
+      e.preventDefault();
+      if(marker) {
+        sendLatLng(marker.getPosition());
+        $.magnificPopup.close();
+      } else {
+        alert("no marker found :(");
+      }
+    });
+
+    $("[data-latlng-geolocate]").on("click", function(e){
+      navigator.geolocation.getCurrentPosition(function(position){
+        var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        createPin(position);
+      }, function(status) {
+        alert("Error geolocating, did you enable permissions?");
+      });
+    });
+
+    // Resize the map when the lightbox is opened
+    $(document).on("ornament:map_refresh", function(){
+      var center = map.getCenter();
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+    });
+
+  });
+</script>

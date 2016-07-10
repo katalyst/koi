@@ -56,10 +56,11 @@ Ornament = window.Ornament = {
     }
     var $lightboxContent = $lightboxBody.find(".lightbox--content");
     var $lightboxHeader = $lightboxBody.find(".lightbox--header");
+    var $lightboxFooter = $lightboxBody.find(".lightbox--footer");
     var topOffset = 20;
     var bottomOffset = 20;
     var windowHeight = Ornament.windowHeight();
-    var maxLightboxHeightInPixels = (windowHeight - topOffset - bottomOffset) - $lightboxHeader.outerHeight();
+    var maxLightboxHeightInPixels = (windowHeight - topOffset - bottomOffset) - $lightboxHeader.outerHeight() - $lightboxFooter.outerHeight();
     $lightboxContent.height("auto");
 
     if($lightboxContent.outerHeight() >= maxLightboxHeightInPixels) {

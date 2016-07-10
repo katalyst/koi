@@ -1,5 +1,6 @@
 .map-canvas {
   height: 500px;
+  max-height: 100%;
 
   img {
     max-width: initial;
@@ -59,4 +60,16 @@
   p {
     margin: 0;
   }
+}
+
+// Places Search Box
+input.map--pac-input[type=text] {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  @include border-radius(0);
+}
+
+.pac-container {
+  z-index: 1200;
 }
