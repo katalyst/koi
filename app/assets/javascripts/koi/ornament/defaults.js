@@ -13,7 +13,6 @@ Ornament = window.Ornament = {
     callbacks: {
       beforeOpen: function(){
         window.mfpScrollPosition = $(document).scrollTop();
-        console.log("saving scroll position");
       },
       open: function(){
         var mfp = this;
