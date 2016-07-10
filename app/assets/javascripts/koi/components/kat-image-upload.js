@@ -1128,6 +1128,7 @@
                         // thumbnail.attr("draggable", true);
                         // rebindOrdering();
                       }
+                      $thisField.trigger("uploader:gallery-item:after-upload", [ $uploader,thumbnail, result ]);
                     } else {
                       var oldValue = $hiddenField.val();
                       // assign received ids to input value
