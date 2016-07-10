@@ -515,7 +515,20 @@ $file-thumbnail-width: 100px;
   @include box-shadow(inset 1px 1px 3px 0px rgba(0,0,0,0.20));
 }
 
-.form--latlng--actions {
-  background: $black;
-  padding: $xxxxx-small-unit;
+.form--latlng {
+  .controls {
+    @include display-flex;
+    @include flex-direction(row);
+  }
+  .controls input {
+    @include border-top-right-radius(0);
+    @include border-bottom-right-radius(0);
+  }
+  .controls a {
+    @include border-top-left-radius(0);
+    @include border-bottom-left-radius(0);
+    @include display-flex;
+    @include align-items(center);
+    @include flex-shrink(0);
+  }
 }

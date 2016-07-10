@@ -21,7 +21,7 @@
 
       // Add our button in to the control-group wrapper
       var $button = $('<a href="#" class="button__primary" data-latlng-lightbox-for="' + id + '">Find Location</a>');
-      $actualInput.closest(".control-group").append($button);
+      $actualInput.closest(".controls").append($button);
 
       // Get all our relevant elements identified by the id
       var $mapContainer = $("[data-latlng-for=" + id + "]");
@@ -78,9 +78,10 @@
         // Hide points of interest
         styles: [{
           featureType: "poi",
-          stylers: [{
-            visibility: "off"
-          }]
+          elementType: "labels",
+          stylers: [
+                { visibility: "off" }
+          ]
         }]
       });
 
@@ -157,7 +158,8 @@
           var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           createPin(position);
         }, function(status) {
-          alert("Error geolocating, did you enable permissions?");
+          alert("Error geolocating, did you enable permissions? Error message is: " + status.message);
+          console.log(status);
         });
       });
 

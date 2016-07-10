@@ -11,6 +11,9 @@ Ornament = window.Ornament = {
     fixedContentPos: true,
     showCloseBtn: false,
     callbacks: {
+      beforeOpen: function(){
+        window.mfpScrollPosition = $(document).scrollTop();
+      },
       open: function(){
         var mfp = this;
         var $anchor = $(mfp.ev.context);
@@ -28,6 +31,13 @@ Ornament = window.Ornament = {
           $(this).append(Ornament.icons.arrowSmall);
         }).addClass("lightbox--navigation--link");
 
+        if(window.mfpScrollPosition) {
+          $("body").css({
+            position: "relative",
+            top: window.mfpScrollPosition * -1
+          });
+        }
+
         // callback on open to trigger a refresh for google maps
         $(document).trigger("ornament:map_refresh");
 
@@ -39,6 +49,13 @@ Ornament = window.Ornament = {
       close: function(){
         var $anchor = $(this.ev.context);
         $("body").removeClass("lightbox-open");
+
+        if(window.mfpScrollPosition) {
+          $("body").css({
+            position: "static",
+            top: 0
+          });
+        }
       },
       resize: function(){
         // Resize to viewport
