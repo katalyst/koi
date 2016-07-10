@@ -769,16 +769,21 @@
         // CREATE A GALLERY ITEM
         // ===============================================
 
-        var createGalleryItem = function(image){
+        var createGalleryItem = function(f, type){
+          var type = type || "image";
           var $galleryItem = $("<div class='file-upload--gallery-item' data-file-gallery-item />");
-          var $thumbnailContainer = $("<div class='thumbnail-container' />");
-          var $imageContainer = $("<div class='thumb'><img src='" + image + "' /></div>");
+          if(type === "image") {
+            var $thumbnailContainer = $("<div class='thumbnail-container' />");
+            var $imageContainer = $("<div class='thumb'><img src='" + f + "' /></div>");
+            $thumbnailContainer.append($imageContainer);
+          } else {
+            var $thumbnailContainer = createFileThumbnail(f);
+          }
           var $progressBar = $("<progress value='0' max='100' data-file-gallery-item-progress />");
           var $status = $("<div data-file-gallery-item-status class='file-upload--gallery-item--status' />").text("uploading");
           var $remove = $("<div data-file-gallery-item-remove class='file-upload--gallery-item--status' />").text("remove");
           var $success = $("<div data-file-gallery-item-success class='file-upload--gallery-item--status' />").text("uploaded");
 
-          $thumbnailContainer.append($imageContainer);
           $remove.hide();
           $success.hide();
           $galleryItem.append($thumbnailContainer).append($progressBar).append($status).append($remove).append($success);
@@ -941,7 +946,7 @@
                 // append image to thumbnail if only one image
                 // if in gallery mode, append each image to the bottom of the drop zone
                 if(gallery) {
-                  var thumbnail = createGalleryItem(e.target.result);
+                  var thumbnail = createGalleryItem(e.target.result, "image");
                 } else {
                   var thumbnail = createThumbnail(e.target.result);
                 }
@@ -951,7 +956,13 @@
 
               // Document thumbnail:
               } else {
-                var thumbnail = createFileThumbnail(f);
+
+                if(gallery) {
+                  var thumbnail = createGalleryItem(f, "document");
+                } else {
+                  var thumbnail = createFileThumbnail(f);
+                }
+
                 updateDropZoneIfMaxed();
               }
 

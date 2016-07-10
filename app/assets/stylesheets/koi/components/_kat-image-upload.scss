@@ -311,6 +311,10 @@ $file-upload-breakpoint: 545px;
       max-width: 100%;
     }
   }
+
+  .thumbnail-container.file {
+    width: 40px;
+  }
 }
 
 // Crop button
