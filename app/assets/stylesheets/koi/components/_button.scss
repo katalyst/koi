@@ -182,8 +182,20 @@
   }
 }
 
-// button groups
+// button group
 .button-group {
+  margin: -2px;
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap;
+
+  > div {
+    padding: 2px;
+  }
+}
+
+// button set
+.button-set {
   @include pie-clearfix;
 
   // Take advantage of the fact that buttons all extend the 
