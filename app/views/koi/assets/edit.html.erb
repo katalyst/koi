@@ -16,7 +16,7 @@
         <div class="inputs">
           <%= f.error_notification %>
 
-          <%= f.input :tag_list, as: :string, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "" } } %>
+          <%= f.input :tag_list, as: :string, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "", tag_list: tag_list } } %>
         </div>
 
         <div class="actions">
@@ -28,22 +28,5 @@
     </div>
     
   </div>
-
-  <script type='text/javascript'>
-    $(function(){
-      var $tagInput = $("[data-tag-input]");
-
-      $tagInput.select2({
-        tags: <%= raw tag_list -%>,
-        tokenSeparators: [","," "]
-      });
-
-      $tagInput.select2("container").find("ul.select2-choices").sortable({
-        containment: 'parent',
-        start:  function() { $tagInput.select2("onSortStart"); },
-        update: function() { $tagInput.select2("onSortEnd"); }
-      });
-    });
-  </script>
 
 <%- end -%>

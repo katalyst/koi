@@ -34,6 +34,22 @@
       }).addClass("datetimepicker__enabled");
     }
 
+    // Select2 Tagging
+    $("[data-tag-input]").each(function(){
+      var $tagInput = $(this);
+
+      $tagInput.select2({
+        tags: JSON.parse($tagInput.attr("data-tag-list")),
+        tokenSeparators: [","," "]
+      });
+
+      $tagInput.select2("container").find("ul.select2-choices").sortable({
+        containment: 'parent',
+        start:  function() { $tagInput.select2("onSortStart"); },
+        update: function() { $tagInput.select2("onSortEnd"); }
+      });
+    });
+
   });
 
   $(document).on("ornament:refresh", function () {
