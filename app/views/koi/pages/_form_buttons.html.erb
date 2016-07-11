@@ -1,6 +1,14 @@
-<div class="form-action">
-  <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "button__save" %>
-  <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue" %>
-  <%= link_to("Delete", resource_path, data: { confirm: "Are you sure?" }, method: :delete, class: "button__error") unless resource.new_record? %>
-  <%= link_to "Back", koi_engine.sitemap_nav_items_path, :class => "button__back" %>
+<div class="form-action button-group">
+  <div>
+    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "button__save" %>
+  </div>
+  <div>
+    <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue" %>
+  </div>
+  <div>
+    <%= link_to("Delete", resource_path, data: { confirm: "Are you sure?" }, method: :delete, class: "button__error") unless resource.new_record? %>
+  </div>
+  <div>
+    <%= link_to "Back", koi_engine.sitemap_nav_items_path, :class => "button__back" %>
+  </div>
 </div>
