@@ -17,6 +17,10 @@ body {
   background: $background-color;
 }
 
+body.lightbox-open {
+  overflow: hidden;
+}
+
 .layout {
   height: 100%;
 }
