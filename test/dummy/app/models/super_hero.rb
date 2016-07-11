@@ -105,6 +105,14 @@ class SuperHero < ActiveRecord::Base
     ["SEO"]
   end
 
+  def cropped_image_upload
+    if image_upload_crop.blank?
+      Asset.find(image_upload_id).data
+    else
+      Asset.find(image_upload_id).data.thumb(image_upload_crop)
+    end
+  end
+
   def to_s
     name
   end
