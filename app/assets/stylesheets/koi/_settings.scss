@@ -173,6 +173,14 @@ $mobile-pane-link-color: #fff;
 $mobile-pane-link-hover: #fff;
 $mobile-pane-link-background: transparent;
 
+// Overlay
+$overlay-color: $black;
+$overlay-opacity: 0.5;
+$lightbox-overlay-color: $overlay-color;
+$lightbox-overlay-opacity: $overlay-opacity;
+$mobile-menu-overlay-color: $overlay-color;
+$mobile-menu-overlay-opacity: $overlay-opacity;
+
 // Buttons
 $button-large-padding: 12px 24px;
 $button-default-padding: 8px 12px;

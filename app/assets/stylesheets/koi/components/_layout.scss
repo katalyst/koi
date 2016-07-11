@@ -63,7 +63,7 @@ body.lightbox-open {
 
   &:before {
     content: "";
-    background: rgba(0,0,0,0.25);
+    background: $mobile-menu-overlay-color;
     opacity: 0;
     @include transition(opacity .3s);
   }
@@ -79,7 +79,7 @@ body.lightbox-open {
   }
 
   .layout-open &:before {
-    opacity: 1;
+    opacity: $mobile-menu-overlay-opacity;
   }
 
   .layout__headerless & {
