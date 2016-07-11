@@ -48,6 +48,7 @@
 //= require koi/components/dropdown
 //= require koi/components/toggle
 //= require koi/components/form-latlng
+//= require koi/components/table
 
 //= require koi/ckeditor
 //= require koi/common
