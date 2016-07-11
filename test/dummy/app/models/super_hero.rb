@@ -27,17 +27,18 @@ class SuperHero < ActiveRecord::Base
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:            { type: :image },
-           file:             { type: :file },
-           document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
-           image_upload_id:  { type: :uploader },
-           gender:           { type: :select, data: Gender, size: :small },
-           is_alive:         { type: :boolean },
-           url:              { type: :latlng, wrapper_data: { show: "super_hero_is_alive" } },
-           powers:           { type: :check_boxes, data: Powers },
-           images:           { type: :inline },
-           published_at:     { type: :date, size: :small },
+    fields image:                { type: :image },
+           file:                 { type: :file },
+           document_upload:      { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
+           image_upload:         { type: :uploader, croppable: true, ratio: "2/1" },
+           image_upload_id:      { type: :uploader },
+           gender:               { type: :select, data: Gender, size: :small },
+           is_alive:             { type: :boolean },
+           url:                  { type: :disabled, wrapper_data: { show: "super_hero_is_alive" } },
+           last_location_seen:   { type: :latlng },
+           powers:               { type: :check_boxes, data: Powers },
+           images:               { type: :inline },
+           published_at:         { type: :date, size: :small },
            telephone:        { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
@@ -53,9 +54,11 @@ class SuperHero < ActiveRecord::Base
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :image_upload, :document_upload, :powers]
+                       :last_location_seen, :telephone, :image, :file, 
+                       :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :image_upload_id, :document_upload_id, :powers]
+                       :last_location_seen, :telephone, :image, :file, 
+                       :image_upload_id, :document_upload_id, :powers]
       reportable true
       charts [{
         span:     :created_at,
