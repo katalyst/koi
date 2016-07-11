@@ -8,6 +8,10 @@
   @include flex-row($small-gutters);
 }
 
+.row__x-tight {
+  @include flex-row($x-small-gutters);
+}
+
 // Columns
 
 .col-1-2 {
@@ -16,5 +20,8 @@
   }
   .row__tight & {
     @include flex-col(50%, $small-gutters);
+  }
+  .row__x-tight & {
+    @include flex-col(50%, $x-small-gutters);
   }
 }
