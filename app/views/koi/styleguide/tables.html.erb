@@ -6,7 +6,11 @@
 
 <div class="spacing">
 
-  <p>By default, tables are mostly unstyled:</p>
+  <div class="content-spacing">
+    <h2 class="heading-two">Default Table</h2>
+    <p>By default, tables are mostly unstyled. The concept here is that you may not want a default styled table. This table is completely bare ready for any custom styling it may need without worrying about any cascading styles.</p>
+  </div>
+
 
   <table>
     <thead>
@@ -30,8 +34,13 @@
     </tbody>
   </table>
 
-  <p>You can apply the generic koi table styles by adding the class "table".</p>
-  <p>Make sure you always wrap your tables in a div with the class of <code>table-container</code> to ensure it can be scrolled when the screen is too small.</p>
+  <hr />
+
+  <div class="content-spacing">
+    <h2 class="heading-two">Styled Table</h2>
+    <p>You can apply the generic koi table styles by adding the class "table".</p>
+    <p>Make sure you always wrap your tables in a div with the class of <code>table-container</code> to ensure it can be scrolled when the screen is too small.</p>
+  </div>
 
   <div class="table-contaner">
     <table class="table">
@@ -57,7 +66,50 @@
     </table>
   </div>
 
-  <p>You can apply left-hand heading styles by giving the <code>th</code>s the <code>table-col-heading</code> class.
+  <hr />
+
+  <div class="content-spacing">
+    <h2 class="heading-two">Table Actions</h2>
+    Actions use the <code>listing--actions</code> class and sit outside of the <code>table-container</code> like so:
+  </div>
+
+  <div>
+    <div class="listing--actions small">
+      <div class="align-box-right">
+        <a href="#" class="button__primary button__small">Do stuff</a>
+      </div>
+    </div>
+    <div class="table-contaner">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Table Heading</th>
+            <th>Table Heading</th>
+            <th>Table Heading</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+          <tr>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="content-spacing">
+    <h2 class="heading-two">Left-aligned Table</h2>
+    <p>You can apply left-hand heading styles by giving the <code>th</code>s the <code>table-col-heading</code> class.
+  </div>
 
   <div class="table-contaner">
     <table class="table">
