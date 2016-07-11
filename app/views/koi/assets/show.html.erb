@@ -31,14 +31,18 @@
             <%= render "options" %>
           </div>
 
-          <div>
+          <div class="button-group">
             <%- if params[:CKEditor] -%>
-              <button class="button__primary insert asset link">Add to Page</button>
+              <div>
+                <button class="button__confirm insert asset link">Add to Page</button>
+              </div>
             <%- end -%>
-            <%= link_to "Delete", url_for(:action => 'delete'),
+            <div>
+              <%= link_to "Delete", url_for(:action => 'delete'),
                               :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?",
                               :method  => 'delete',
                               :class   => "button__error" %>
+            </div>
           </div>
 
         </form>
