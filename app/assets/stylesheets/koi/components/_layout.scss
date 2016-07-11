@@ -65,7 +65,7 @@ body.lightbox-open {
     content: "";
     background: $mobile-menu-overlay-color;
     opacity: 0;
-    @include transition(opacity .3s);
+    @include transition(opacity .2s);
   }
 
   .layout-transitioning &:before,
@@ -77,6 +77,7 @@ body.lightbox-open {
     bottom: 0;
     min-height: 100vh;
     z-index: 100;
+    @include transition(opacity .6s);
   }
 
   .layout-open &:before {
