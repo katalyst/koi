@@ -6,9 +6,7 @@
           <%= t "simple_form.labels.#{resource_class.name.underscore}.#{attr}", :default => attr.to_s.titleize %>
         </td>
         <td>
-          <%- if resource.send(attr).blank? -%>
-            -
-          <%- else -%>
+          <%- unless resource.send(attr).blank? -%>
             <%= begin
                 render crud_partial(attr, :show), { :attr => attr }
               rescue ActionView::MissingTemplate
