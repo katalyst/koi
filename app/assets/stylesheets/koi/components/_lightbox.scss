@@ -78,8 +78,9 @@ $lightbox-padding-y-bottom: $small-unit;
   z-index: 1;
 }
 .lightbox--footer {
-  background: $black;
-  padding: $xxxxx-small-unit;
+  // background: $black;
+  border-top: $divider;
+  padding: $xxxx-small-unit;
 }
 
 // Sections in a lightbox
