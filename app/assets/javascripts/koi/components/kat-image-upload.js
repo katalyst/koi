@@ -676,7 +676,7 @@
         var $cancelUpload = $("<a href='#' data-file-cancel>Cancel</a>");
         var $okayButton = $("<a href='#' date-file-reset>Okay</a>");
         var $messageSaving = $("<span data-file-message=\"saving\">Saving...</span>");
-        var $messageSuccess = $("<div data-file-success class='file-upload--success' />").text("Successfully uploaded");
+        var $messageSuccess = $("<div data-file-success class='file-uploader--success' />").text("Successfully uploaded");
         $dropZoneText.append($messageDefault)
                      .append($messageUploading)
                      .append($messageSuccess)

@@ -216,7 +216,8 @@ $file-upload-breakpoint: 545px;
     content: "Error: ";
   }
 }
-.file-upload--success {
+.file-uploader--error,
+.file-uploader--success {
   @include flex-grow(1);
   width: 100%;
 }
