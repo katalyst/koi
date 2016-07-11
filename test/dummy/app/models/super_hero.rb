@@ -30,6 +30,7 @@ class SuperHero < ActiveRecord::Base
     fields image:                { type: :image },
            file:                 { type: :file },
            document_upload:      { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
+           document_upload_id:   { type: :uploader },
            image_upload:         { type: :uploader, croppable: true, ratio: "2/1" },
            image_upload_id:      { type: :uploader },
            gender:               { type: :select, data: Gender, size: :small },
