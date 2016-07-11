@@ -36,7 +36,7 @@
       slideTransitionTime:        200, // transition between pane sliding
       jumpToCurrent:              true, // jump to current page in the menu rather than starting at top-level
       showOverviewLinks:          false, // will show overview links on secodary panes
-      keepScrollPosition:         false, // keep scroll position when opening tabs, dangerous if button isn't fixed
+      keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
       closeForAnchors:            true, // close menu when clicking on anchors
 
       // Customisable text strings
@@ -84,6 +84,10 @@
 
         if(mobileNav.keepScrollPosition) {
           setTimeout(function(){
+            $(".layout--main").css({
+              position: "static",
+              top: 0
+            });
             scrollTo(0,mobileNav.scrollPosition);
           }, mobileNav.animationDuration + mobileNav.animationBuffer);
         }
@@ -96,7 +100,13 @@
         }
 
         // get scroll position and update
-        mobileNav.scrollPosition = $(window).scrollTop();
+        if(mobileNav.keepScrollPosition) {
+          mobileNav.scrollPosition = $(window).scrollTop();
+          $(".layout--main").css({
+            position: "relative",
+            top: mobileNav.scrollPosition * -1
+          });
+        }
 
         // update classes on page
         mobileNav.layoutElement.addClass(mobileNav.layoutOpenClass + " " + mobileNav.layoutTransitionClass);
