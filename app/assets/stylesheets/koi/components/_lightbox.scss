@@ -23,8 +23,8 @@ $lightbox-padding-y-bottom: $small-unit;
     max-width: 400px;
   }
 
-  .lightbox__inspiration & {
-    max-width: 820px;
+  .lightbox__with-close & {
+    margin-top: 50px;
   }
 }
 
@@ -188,12 +188,11 @@ $lightbox-padding-y-bottom: $small-unit;
 .mfp-inline-holder .mfp-close, 
 .mfp-ajax-holder .mfp-close,
 .mfp-figure .mfp-close {
-  @include grunticon("close-white", 18px);
-  @include icon-block(44px, 18px);
   @include opacity(1);
   position: absolute;
   top: -46px;
   right: -12px;
+  color: $white;
 
   &:active {
     top: -12;

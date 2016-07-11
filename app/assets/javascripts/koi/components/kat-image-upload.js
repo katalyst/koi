@@ -353,9 +353,9 @@
                 }
               }
 
+              popupOptions.mainClass = popupOptions.mainClass + " lightbox__with-close"
               popupOptions.showCloseBtn = true;
               popupOptions.items = {
-                mainClass: "lightbox--main lightbox__cropper",
                 type: "inline",
                 src: $cropModal
               };
