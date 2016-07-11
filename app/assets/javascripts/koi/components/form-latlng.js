@@ -154,11 +154,18 @@
       });
 
       $geolocate.on("click", function(e){
+        if($geolocate.is("[disabled]")) {
+          return false;
+        }
+        var existingText = $geolocate.text();
+        $geolocate.attr("disabled", true).text("Geolocating..."); 
         navigator.geolocation.getCurrentPosition(function(position){
           var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           createPin(position);
+          $geolocate.attr("disabled", false).text(existingText); 
         }, function(status) {
-          alert("Error geolocating, did you enable permissions? Error message is: " + status.message);
+          alert("Error geolocating. Error message is: " + status.message);
+          $geolocate.attr("disabled", false).text(existingText); 
           console.log(status);
         });
       });

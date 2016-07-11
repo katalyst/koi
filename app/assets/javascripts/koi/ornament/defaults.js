@@ -32,7 +32,7 @@ Ornament = window.Ornament = {
         }).addClass("lightbox--navigation--link");
 
         if(window.mfpScrollPosition) {
-          $("body").css({
+          $(".layout").css({
             position: "relative",
             top: window.mfpScrollPosition * -1
           });
@@ -51,7 +51,7 @@ Ornament = window.Ornament = {
         $("body").removeClass("lightbox-open");
 
         if(window.mfpScrollPosition) {
-          $("body").css({
+          $(".layout").css({
             position: "static",
             top: 0
           });

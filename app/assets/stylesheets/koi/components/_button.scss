@@ -143,7 +143,7 @@
 }
 
 // disabled buttons
-.button[disabled] {
+.button-object[disabled] {
   @include button-background($button-disabled-background,$button-disabled-background);
   color: $white;
   cursor: not-allowed;
@@ -151,7 +151,7 @@
 
 .button__disabled {
   @include button-base;
-  @extend .button[disabled];
+  @extend .button-object[disabled];
 }
 
 // full width buttons
