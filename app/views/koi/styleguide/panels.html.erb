@@ -6,14 +6,14 @@
 
 <div class="spacing-xxx-tight">
   
-  <div class="content">
+  <div class="content-spacing">
+    <h2 class="heading-two">Basic Panel</h2>
     <p>Panels are made up of several classes and concepts.</p>
     <p>First there is the main content class, such as <code>panel__primary</code> which will add the rounded corners and colouring. </p>
     <p>Then there is the padding. You can either add the padding to the whole panel itself, or you can apply the padding to the internal elements inside the panel.</p>
     <p>Then there are borders which again can either be applied to the whole panel or on individual elements inside the panel.</p>
+    <p>Here you can see how the different classes work on the whole panel itself:</p>
   </div>
-
-  <p>Here you can see how the different classes work on the whole panel itself:</p>
 
   <div class="panel__passive">
     panel__passive
@@ -30,7 +30,11 @@
     panel__border
   </div>
 
-  <p>Now lets see how they work on individual elements. Here is a panel wrapper with two panel--padding elements inside it. The main panel has <code>panel__passive</code> and <code>panel__border</code>, while the internal panels have the <code>panel--padding</code> classes. The second panel has <code>panel--border-top</code> to add an internal border.</p>
+  <hr />
+  <div class="content-spacing">
+    <h2 class="heading-two">Nested Panels</h2>
+    <p>Now lets see how they work on individual elements. Here is a panel wrapper with two panel--padding elements inside it. The main panel has <code>panel__passive</code> and <code>panel__border</code>, while the internal panels have the <code>panel--padding</code> classes. The second panel has <code>panel--border-top</code> to add an internal border.</p>
+  </div>
 
   <div class="panel__passive panel__border">
     <div class="panel--padding">
@@ -40,6 +44,11 @@
       panel--padding<br />
       panel--padding-boder
     </div>
+  </div>
+
+  <hr />
+  <div class="content-spacing">
+    <h2 class="heading-two">Stacked Panels</h2>
   </div>
 
   <p>For more complex panels there are also <code>panel__no-top-radius</code> and <code>panel__no-bottom-radius</code> if you want to only deal with top-level panels.</p>
@@ -59,6 +68,11 @@
     </div>
   </div>
 
+  <hr />
+  <div class="content-spacing">
+    <h2 class="heading-two">Panel Spacing</h2>
+  </div>
+
   <p>To space out panels consistently you can use the <code>panel-spacing</code> wrapper class to wrap around your panels:</p>
 
   <div class="panel-spacing">
@@ -71,6 +85,11 @@
     <div class="panel__passive panel--padding">
       Panel 3
     </div>
+  </div>
+
+  <hr />
+  <div class="content-spacing">
+    <h2 class="heading-two">Panel Colours</h2>
   </div>
 
   <p>There are a few different colour panels ready for you to implement whatever sort of panel you need:</p>
