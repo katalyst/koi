@@ -1,5 +1,11 @@
 <%= render "koi/assets/listing" -%>
 
+<%
+  tag_list = resource.tags.collect { |t| t.name }
+  #tag_list = tag_list | resource.data_source.call if resource.data_source
+  tag_list.sort!
+%>
+
 <%- content_for :side do -%>
 
     <%= render "preview" %>
@@ -9,17 +15,35 @@
 
         <div class="inputs">
           <%= f.error_notification %>
-          <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify" }, label_html: { class: ""} %>
+
+          <%= f.input :tag_list, as: :string, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "" } } %>
         </div>
 
         <div class="actions">
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" %>
-          <%= link_to "Cancel", collection_path, class: "button__cancel" %>
+          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" -%>
+          <%= link_to "Cancel", resource_path, class: "button__cancel" -%>
         </div>
 
       <% end %>
     </div>
     
   </div>
+
+  <script type='text/javascript'>
+    $(function(){
+      var $tagInput = $("[data-tag-input]");
+
+      $tagInput.select2({
+        tags: <%= raw tag_list -%>,
+        tokenSeparators: [","," "]
+      });
+
+      $tagInput.select2("container").find("ul.select2-choices").sortable({
+        containment: 'parent',
+        start:  function() { $tagInput.select2("onSortStart"); },
+        update: function() { $tagInput.select2("onSortEnd"); }
+      });
+    });
+  </script>
 
 <%- end -%>

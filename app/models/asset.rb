@@ -10,7 +10,7 @@ class Asset < ActiveRecord::Base
   scope :search_data,  -> query { where("data_name LIKE ?", "%#{query}%") }
   scope :newest_first, -> { order(created_at: :desc) }
 
-  acts_as_taggable
+  acts_as_ordered_taggable
 
   belongs_to :attributable, polymorphic: true
 
