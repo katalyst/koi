@@ -92,6 +92,14 @@
         map.setCenter(center);
       });
 
+      // Clearing autosearch
+      var clearAutoSearch = function(){
+        if(searchBox) {
+          searchBox.value = "";
+          autoComplete.value = "";
+        }
+      }
+
       // Create a pin and place it on the map
       // This will be called once when the map loads to place the original
       // center point, and again after the user has searched 
@@ -116,10 +124,7 @@
           map.panTo(this.getPosition());
 
           // Clear search box when dragging the pin
-          if(searchBox) {
-            searchBox.value = "";
-            autoComplete.value = "";
-          }
+          clearAutoSearch();
         });
       }
 
@@ -163,6 +168,7 @@
           var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           createPin(position);
           $geolocate.attr("disabled", false).text(existingText); 
+          clearAutoSearch();
         }, function(status) {
           alert("Error geolocating. Error message is: " + status.message);
           $geolocate.attr("disabled", false).text(existingText); 
