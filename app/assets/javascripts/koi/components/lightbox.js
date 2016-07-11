@@ -26,8 +26,7 @@
         popupOptions.mainClass = popupOptions.mainClass + " lightbox__flush";
       }
 
-      if($anchor.is("[data-lightbox-inspiration]")) {
-        popupOptions.mainClass = popupOptions.mainClass + " lightbox__inspiration";
+      if($anchor.is("[data-lightbox-gallery]")) {
         popupOptions.gallery = {
           enabled: true
         }

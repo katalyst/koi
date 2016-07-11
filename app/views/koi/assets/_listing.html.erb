@@ -93,9 +93,15 @@
         <% begin %>
           <tr>
             <td class="table--image">
-              <%= link_to resource_path asset, params.symbolize_keys do %>
-                <%= image_tag(asset.thumbnail(size: '80x80#')) %>
-              <% end %>
+              <%- if asset.class.name.eql?("Image") -%>
+                <%= link_to asset.data.thumb("800x").url, data: { lightbox: "image", lightbox_gallery: "" } do -%>
+                  <%= image_tag(asset.thumbnail(size: '80x80#')) %>
+                <%- end -%>
+              <%- else -%>
+                <%= link_to resource_path asset, params.symbolize_keys do %>
+                  <%= image_tag(asset.thumbnail(size: '80x80#')) %>
+                <% end %>
+              <%- end -%>
             </td>
             <td>
               <%= link_to resource_path asset, params.symbolize_keys do %>
