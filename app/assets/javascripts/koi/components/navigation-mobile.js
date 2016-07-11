@@ -122,6 +122,7 @@
         // start animation timings
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
+        mobileNav.updateMenuHeightWithDelay();
       },
 
       // Toggle menu. Open if closed, close if open.
