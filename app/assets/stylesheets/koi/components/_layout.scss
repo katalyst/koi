@@ -61,6 +61,27 @@ body.lightbox-open {
   padding-bottom: $layout-desktop-footer-gap;
   padding-top: $header-height;
 
+  &:before {
+    content: "";
+    background: rgba(0,0,0,0.25);
+    opacity: 0;
+    @include transition(opacity .3s);
+  }
+
+  .layout-transitioning &:before,
+  .layout-open &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+
+  .layout-open &:before {
+    opacity: 1;
+  }
+
   .layout__headerless & {
     padding-top: 0;
   }
