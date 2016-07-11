@@ -209,14 +209,14 @@ $navigation-secondary-pane-link-color:  #fff;
   // Back buttons
   .back {
     background: $black;
-    padding: $xxxx-small-unit;
+    padding: 0;
 
     a {
       cursor: pointer;
       @include display-flex;
       @include flex-direction(row);
       @include align-items(center);
-
+      @include border-radius(0);
     }
 
     .icon-chevron {
