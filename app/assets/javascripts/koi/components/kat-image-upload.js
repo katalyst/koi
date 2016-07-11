@@ -225,6 +225,7 @@
           $messageError.hide();
           $okayButton.hide();
           $cancelUpload.hide();
+          $messageSuccess.hide();
 
           if(croppable) {
             $cropButton.hide();
@@ -675,8 +676,10 @@
         var $cancelUpload = $("<a href='#' data-file-cancel>Cancel</a>");
         var $okayButton = $("<a href='#' date-file-reset>Okay</a>");
         var $messageSaving = $("<span data-file-message=\"saving\">Saving...</span>");
+        var $messageSuccess = $("<div data-file-success class='file-upload--success' />").text("Successfully uploaded");
         $dropZoneText.append($messageDefault)
                      .append($messageUploading)
+                     .append($messageSuccess)
                      .append($messageSaving)
                      .append($messageError)
                      .append($okayButton)
@@ -1133,7 +1136,7 @@
                       var oldValue = $hiddenField.val();
                       // assign received ids to input value
                       $hiddenField.val(result);
-                      uploadFinished();
+                      uploadFinished(f);
                       uploadxhr = false;
                     }
                   },
@@ -1156,9 +1159,11 @@
           reader.readAsDataURL(f);
         }
 
-        var uploadFinished = function(){
+        var uploadFinished = function(f){
           
           setState("uploaded");
+          $messageSuccess.html("uploaded<br /><small class='grey'>" + f.name + "</small><br />");
+          $messageSuccess.show();
 
           // Copy the image to the crop modal
           if(croppable) {

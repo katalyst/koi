@@ -8,6 +8,11 @@ module Koi
           logger.warn("[Asset Upload] - #{resource.errors.messages[:data].join(', ')}")
           render json: resource.errors, status: :unprocessable_entity
         end
+        failure.js do
+          logger.warn("[Asset Upload] - #{resource.errors.messages[:data].join(', ')}")
+          render json: resource.errors, status: :unprocessable_entity
+        end
+        success.js { render text: resource.id }
       end
     end
   end

@@ -216,6 +216,10 @@ $file-upload-breakpoint: 545px;
     content: "Error: ";
   }
 }
+.file-upload--success {
+  @include flex-grow(1);
+  width: 100%;
+}
 .file-uploader--notes {
   @include pie-clearfix();
   p {
