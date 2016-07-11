@@ -97,7 +97,7 @@
           <tr>
             <td class="table--image">
               <%- if asset.class.name.eql?("Image") -%>
-                <%= link_to asset.data.thumb("800x").url, data: { lightbox: "image", lightbox_gallery: "" } do -%>
+                <%= link_to asset.data.url, data: { lightbox: "image", lightbox_gallery: "" } do -%>
                   <%= image_tag(asset.thumbnail(size: '80x80#')) %>
                 <%- end -%>
               <%- else -%>

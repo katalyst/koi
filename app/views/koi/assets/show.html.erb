@@ -2,51 +2,41 @@
 
 <%- content_for :side do -%>
 
-  <div class="spacing">
-    <h4 class="heading-four"><%= resource_class.name %> Details</h4>
+  <%= render "preview" %>
 
-    <div class="assets--preview">
-
-      <div class="spacing-xxx-tight">
-        <%= render "preview" %>
-
-        <% unless resource.tags.empty? %>
-          <h6 class="heading-six">Tags:</h6>
-
-          <ul>
-            <% resource.tags.each do |tag| %>
-              <li class="space-r-1"><a><%= tag.name %></a></li>
-            <% end %>
-          </ul>
+  <% unless resource.tags.empty? %>
+    <div class="asset--tags">
+      <h6 class="heading-six">Tags:</h6>
+      <ul>
+        <% resource.tags.each do |tag| %>
+          <li><a><%= tag.name %></a></li>
         <% end %>
-
-        <div class="">
-          <%= link_to "Edit tags", { action: :edit }, class: "txt-grey" %>
-        </div>
-
-        <form class="insert asset application spacing-xxx-tight">
-
-          <div>
-            <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
-            <%= render "options" %>
-          </div>
-
-          <div class="button-group">
-            <%- if params[:CKEditor] -%>
-              <div>
-                <button class="button__confirm insert asset link">Add to Page</button>
-              </div>
-            <%- end -%>
-            <div>
-              <%= link_to "Delete", url_for(action: :delete), method: :delete, class: "button__error", data: { confirm: "Are you sure you want to delete this #{ resource_class.name.downcase }?" } -%>
-            </div>
-          </div>
-
-        </form>
-
-      </div>
-
+      </ul>
     </div>
-  </div>
+  <% end %>
+
+  <form class="asset--form insert asset application">
+
+    <%- if params[:CKEditor] -%>
+      <div>
+        <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
+        <%= render "options" %>
+      </div>
+    <%- end -%>
+
+    <div class="button-group">
+      <%- if params[:CKEditor] -%>
+        <div>
+          <button class="button__confirm insert asset application link">Add to Page</button>
+        </div>
+      <%- end -%>
+      <div>
+        <%= link_to "Edit tags", { action: :edit }, class: "button__primary" %>
+      </div>
+      <div>
+        <%= link_to "Delete", url_for(action: :delete), method: :delete, class: "button__error", data: { confirm: "Are you sure you want to delete this #{ resource_class.name.downcase }?" } -%>
+      </div>
+    </div>
+  </form>
 
 <%- end -%>

@@ -28,6 +28,7 @@ $navigation-secondary-pane-link-color:  #fff;
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;
   @include font($bold-font);
+  font-size: 18px;
   color: $white;
   padding: 0 $navigation-first-pane-padding;
 }

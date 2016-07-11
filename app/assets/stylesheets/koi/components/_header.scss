@@ -22,6 +22,7 @@
   @include icon-block(44px, 22px);
   background: $header-menu-background;
   overflow: visible;
+  outline: none;
 
   .icon-close,
   .layout-open & .icon-menu {

@@ -1,117 +1,28 @@
-$assets-gutter: $small-unit;
-
-.assets {
-  // width:950px;
-  overflow-x:hidden;
-}
-
-.assets--heading {
-  padding: $x-small-unit $small-unit;
-  padding-right: $small-unit;
-  border-bottom: 5px solid $primary-color;;
-  text-align: right;
-  background: $black;
-  color: $white;
-  @include pie-clearfix;
-
-  h1,h2,h3,h4 {
-    float: left;
-  }
-
-  .button,
-  .button__primary {
-    margin-top: 6px;
-  }
-
-  .content &,
-  .content-spacing & {
-    margin-bottom: 0;
-  }
-}
-
-.assets--body {
-  margin-top: 0;
-  margin-bottom: 0;
-  background: #C8C8C8;
-  @include pie-clearfix;
-}
-
-.assets--filters {
-  padding: $xxx-small-unit $small-unit;
-  background: $light-grey;
-
-  ul li span {
-    display: block;
-    padding-top: 2px;
-  }
-}
-
-.assets--body--left {
-  width: span(3,4);
-  min-height: 468px;
-  float: left;
-  background: $x-light-grey;
-  height: 100%;
-  overflow: auto;
-}
-
-.assets--body--right {
-  width: span(1,4);
-  float: left;
-}
-
-.assets--body--left,
-.assets--body--right {
-  padding: $assets-gutter;
-}
-
-// ASSETS SEARCH
-
-.assets--search {
-  @include display-flex;
-  @include flex-direction(row);
-  @include align-items(center);
-}
-
-.assets--search form {
-  margin-left: auto;
-}
-
-// ASSETS LISTING
-
-.assets--listing {
-  padding-top: $assets-gutter;
-}
-
-// ASSET SIDEBAR
-
-.assets--body--right h4 {
-  margin-top: $xxx-small-unit;
+.asset--filename {
+  @include heading-four;
   margin-bottom: $xxx-small-unit;
-  @include flush-children;
 }
 
-// ASSET SIDEBAR - FILES
-
-.assets--upload--new {
-  .file-list > div:first-child,
-  button {
-    margin-top: $xxx-small-unit;
+.asset--thumbnail {
+  img {
+    width: 100%;
+    max-width: 400px;
+    display: block;
   }
 }
 
-.assets--upload--tags {
-  .tagify {
-    margin-bottom: $xx-small-unit;
-  }
-  .align-box-left {
-    margin-right: $xxxxx-small-unit;
-  }
+.asset--information {
+  padding-top: $xxx-small-unit;
 }
 
-// ASSET SIDEBAR - PREVIEW
+.asset--form {
+  margin-top: $xxx-small-unit;
+}
 
-.assets--body--right .plupload.html5 {
-  // not sure if this is necessary, it's breaking the layout, so hiding for now
-  display: none;
+.asset--options--heading {
+  margin-bottom: $xxxx-small-unit;
+}
+
+.asset--options {
+  margin-bottom: $xxx-small-unit;
 }

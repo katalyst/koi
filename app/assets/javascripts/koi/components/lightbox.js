@@ -36,8 +36,9 @@
       if($anchor.data("lightbox")) {
         popupOptions.type = $anchor.data("lightbox");
 
-        if($anchor.data("lightbox") === "iframe") {
+        if($anchor.data("lightbox") === "iframe" || $anchor.data("lightbox") === "image") {
           popupOptions.showCloseBtn = true;
+          popupOptions.mainClass = popupOptions.mainClass += " lightbox__with-close";
         }
       }
 

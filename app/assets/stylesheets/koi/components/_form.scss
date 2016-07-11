@@ -75,10 +75,6 @@ button::-moz-focus-inner {
 
 // FORM STYLING
 
-.inputs {
-  @extend .spacing-xx-tight;
-}
-
 // Push embedded forms away from content
 .form-embedded {
   margin-top: $default-unit;

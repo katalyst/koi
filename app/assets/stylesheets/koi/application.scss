@@ -23,6 +23,12 @@
 
 @import "ornament/core";
 
+// ASPECTS
+
+@import "aspects/content";
+@import "aspects/compressed";
+@import "aspects/inputs";
+
 // COMPONENTS
 //
 //
@@ -38,7 +44,6 @@
 @import "components/button";
 @import "components/ckeditor";
 @import "components/clearfix";
-@import "components/content";
 @import "components/devise";
 @import "components/embed";
 @import "components/environment";
