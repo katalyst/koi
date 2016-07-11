@@ -107,9 +107,8 @@
                     '    <div class="panel--padding">' + 
                     '    ' + message + 
                     '    </div>' + 
-                    '    <div class="panel--padding panel--padding-border" data-lightbox-buttons>' + 
-                    '    </div>' + 
                     '  </div>' + 
+                    ' <div class="lightbox--footer" data-lightbox-buttons></div>' + 
                     '</div>');
 
     modalHtml.find("[data-lightbox-buttons]").append($modalConfirm).append(" ").append($modalCancel);
