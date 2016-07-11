@@ -7,6 +7,7 @@
   border: $divider;
 }
 
+.panel--border-top,
 .panel--padding-border {
   border-top: $divider;
 }
@@ -118,4 +119,16 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+// PANEL LINKS
+.panel--links li,
+.panel--links__block li a {
+  display: block;
+  padding: $xxxx-small-unit $panel-padding;
+}
+
+.panel--links li + li,
+.panel--links__block li + li {
+  border-top: $divider;
 }

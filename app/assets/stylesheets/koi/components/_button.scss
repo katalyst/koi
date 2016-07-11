@@ -188,21 +188,21 @@
 
   // Take advantage of the fact that buttons all extend the 
   // .button class here
-  .button {
+  .button-object {
     @include border-radius(0);
     float: left;
   }
 
-  .button + .button {
+  .button-object + .button-object {
     margin-left: 1px;
   }
 
-  .button:first-child {
+  .button-object:first-child {
     @include border-top-left-radius($border-radius);
     @include border-bottom-left-radius($border-radius);
   }
 
-  .button:last-child {
+  .button-object:last-child {
     @include border-top-right-radius($border-radius);
     @include border-bottom-right-radius($border-radius);
   }
