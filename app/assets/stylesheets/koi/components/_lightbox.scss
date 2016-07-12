@@ -33,7 +33,7 @@ $lightbox-padding-y-bottom: $small-unit;
 }
 
 .mfp-image-holder .mfp-figure .mfp-img {
-  padding-top: $default-unit;
+  padding-top: $x-large-unit;
 }
 
 .lightbox--container {
@@ -187,16 +187,20 @@ $lightbox-padding-y-bottom: $small-unit;
 
 // Lightbox Close Button
 .mfp-inline-holder .mfp-close, 
-.mfp-ajax-holder .mfp-close,
+.mfp-ajax-holder .mfp-close ,
 .mfp-figure .mfp-close {
   @include opacity(1);
   position: absolute;
+  color: $white;
+}
+
+.mfp-inline-holder .mfp-close, 
+.mfp-ajax-holder .mfp-close {
   top: -46px;
   right: -12px;
-  color: $white;
 
   &:active {
-    top: -12;
+    top: -46;
   }
 
   .lightbox__flush &,
@@ -206,9 +210,11 @@ $lightbox-padding-y-bottom: $small-unit;
   }
 }
 
-// Removing Top Padding on Image Lightboxes
-.mfp-figure .mfp-img {
-  padding-top: 0;
+.mfp-figure .mfp-close,
+.mfp-figure .mfp-close:active {
+  top: 0;
+  right: 0;
+  padding-right: 0;
 }
 
 // Lightbox Arrows
