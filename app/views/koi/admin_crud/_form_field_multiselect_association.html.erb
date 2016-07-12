@@ -2,7 +2,8 @@
 <%= f.association attr.to_sym,
   collection: attr.to_s.classify.constantize.all,
   include_blank: true,
-  input_html: { id: id, style: 'width:550px' } %>
+  wrapper_html: { class: "form--medium" }, 
+  input_html: { id: id } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
