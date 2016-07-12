@@ -65,6 +65,40 @@ Ornament = window.Ornament = {
     }
   },
 
+  showHideXYShadows: function($element) {
+    var scrollTop = $element.scrollTop();
+    var maxScroll = 0;
+    $element.children().each(function(){
+      maxScroll += parseInt($(this).outerHeight());
+    });
+    maxScroll = maxScroll - $element.outerHeight();
+
+    var showTopShadow = false;
+    var showBottomShadow = false;
+    var $topShadow = $element.parent().find("[data-shadow-top]");
+    var $bottomShadow = $element.parent().find("[data-shadow-bottom]");
+
+    if(scrollTop != 0) {
+      showTopShadow = true;
+    }
+
+    if(scrollTop < maxScroll) {
+      showBottomShadow = true;
+    }
+
+    if(showTopShadow) {
+      $topShadow.show();
+    } else {
+      $topShadow.hide();
+    }
+
+    if(showBottomShadow) {
+      $bottomShadow.show();
+    } else {
+      $bottomShadow.hide();
+    }
+  },
+
   // Size a specific lightbox to the screen
   sizeLightboxToViewport: function(mfp){
     if(mfp.items && mfp.items[0] && mfp.items[0].inlineElement) {
@@ -84,6 +118,11 @@ Ornament = window.Ornament = {
     if($lightboxContent.outerHeight() >= maxLightboxHeightInPixels) {
       $lightboxContent.height(maxLightboxHeightInPixels);
     }
+
+    Ornament.showHideXYShadows($lightboxContent);
+    $lightboxContent.off("scroll").on("scroll", function(){
+      Ornament.showHideXYShadows($lightboxContent);
+    });
   },
 
   // Size all lightboxes to the screen

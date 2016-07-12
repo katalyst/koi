@@ -102,63 +102,23 @@ $lightbox-padding-y-bottom: $small-unit;
   border-top: 1px solid $divider-color;
 }
 
-// Errors
-.lightbox--mailchimp-error {
-  display: none;
-  margin-bottom: $xx-small-unit;
+.lightbox--content--wrapper {
+  position: relative;
 }
-
-// Register Intro
-.lightbox__register--intro {
-  display: table;
-  table-layout: fixed;
-
-  @include media-query(450px) {
-    display: block;
-  }
+.lightbox--shadow-top,
+.lightbox--shadow-bottom {
+  height: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
-
-.lightbox__register--image,
-.lightbox__register--content {
-  display: table-cell;
-  vertical-align: top;
-
-  @include media-query(450px) {
-    display: block;
-  }
+.lightbox--shadow-top {
+  top: 0;
+  background: linear-gradient(to top, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
 }
-
-.lightbox__register--image {
-  width: 76px;
-
-  img {
-    display: block;
-  }
-
-  @include media-query(450px) {
-    display: none;
-  }
-}
-
-.lightbox__register--content {
-  @include media-query(450px, min) {
-    padding-left: $lightbox-padding-x;
-  }
-}
-
-// Region modal
-.lightbox__region--buttons {
-  margin-top: $default-unit;
-}
-
-// Lightbox Buttons
-.lightbox--buttons {
-  padding: $small-unit;
-  padding-top: 0;
-
-  .button + .button {
-    margin-left: $xxxx-small-unit;
-  }
+.lightbox--shadow-bottom {
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
 }
 
 // Lightbox arrows

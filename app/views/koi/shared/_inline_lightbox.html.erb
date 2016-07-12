@@ -16,8 +16,12 @@
       <%= icon("close", stroke: "#fff") -%>
     </div>
   </div>
-  <div class="lightbox--content <%= body_class -%>">
-    <%= yield -%>
+  <div class="lightbox--content--wrapper">
+    <div class="lightbox--shadow-top" data-shadow-top></div>
+    <div class="lightbox--shadow-bottom" data-shadow-bottom></div>
+    <div class="lightbox--content <%= body_class -%>">
+      <%= yield -%>
+    </div>
   </div>
   <%- if footer -%>
     <div class="lightbox--footer">
