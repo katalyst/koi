@@ -111,6 +111,7 @@ $lightbox-padding-y-bottom: $small-unit;
   position: absolute;
   left: 0;
   right: 0;
+  z-index: 10;
 }
 .lightbox--shadow-top {
   top: 0;
