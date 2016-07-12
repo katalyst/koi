@@ -73,14 +73,14 @@
     }
 
     var showNestedPane = function($pane) {
-      $pane.children("h3").toggleClass("nested-fields-visible");
-      $pane.siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
+      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
       $pane.children(".nested-inline-fields").toggle();
     }
 
     var hideNestedPane = function($pane) {
-      $pane.children("h3").toggleClass("nested-fields-visible");
-      $pane.siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
+      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
       $pane.children(".nested-inline-fields").toggle();
     }
 
@@ -136,9 +136,9 @@
         var parent               = $(this).closest(".inline-nested--heading").next(".nested-wrapper");
         var nested_container     = parent.children(".nested-container")
         var nested_fields        = nested_container.children(".nested-fields");
-        var nested_title_fields  = nested_fields.children("h3");
+        var nested_title_fields  = nested_fields.children("[data-inline-nested-field-heading]");
         var nested_inline_fields = nested_fields.children(".nested-inline-fields");
-        var handlers             = nested_fields.children("h3").children(".drag-handler");
+        var handlers             = nested_fields.children("[data-inline-nested-field-heading]").children(".drag-handler");
 
         if (this.checked) {
 
@@ -161,8 +161,8 @@
 
           parent.removeClass("nested-wrapper-ordering");
           nested_container.children(".nested-links").show();
-          nested_fields.children("h3").children(".drag-handler").hide().removeClass("drag-me");
-          nested_fields.children("h3").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
+          nested_fields.children("[data-inline-nested-field-heading]").children(".drag-handler").hide().removeClass("drag-me");
+          nested_fields.children("[data-inline-nested-field-heading]").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
         }
 
       });
