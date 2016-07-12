@@ -114,16 +114,41 @@
 
     modalHtml.find("[data-lightbox-buttons]").append($modalConfirm).append(" ").append($modalCancel);
 
-    // Open popup
-    var popupOptions = $.extend({}, Ornament.popupOptions);
-    popupOptions.items = {
-      src: modalHtml
-    };
-    $.magnificPopup.open(popupOptions);
+    var openConfirmModal = function(){
+      // Open popup
+      var popupOptions = $.extend({}, Ornament.popupOptions);
+      popupOptions.items = {
+        src: modalHtml
+      };
+      $.magnificPopup.open(popupOptions);
+    }
+
+    // Check if there's an existing modal
+    var currentModal = $.magnificPopup.instance.currItem;
+    if(currentModal) {
+      var previousModal = currentModal.src;
+      $.magnificPopup.close();
+
+      setTimeout(function(){
+        openConfirmModal();
+      }, Ornament.popupOptions.removalDelay);
+    }
+
 
     // Clicking on the cancel button hides the popup
     $modalCancel.on("click", function(e){
       $.magnificPopup.close();
+
+      if(previousModal) {
+        var popupOptions = $.extend({}, Ornament.popupOptions);
+        popupOptions.items = {
+          src: previousModal
+        };
+        setTimeout(function(){
+          $.magnificPopup.open(popupOptions);
+        }, Ornament.popupOptions.removalDelay);
+      }
+
       return false;
     });
 

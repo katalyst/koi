@@ -2,11 +2,11 @@
 
   <div class="button-group">
     <div>
-      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary", form: "sitemap-modal-form" %>
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__save", form: "sitemap-modal-form" %>
     </div>
     <%- unless resource.new_record? -%>
       <div>
-        <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button", form: "sitemap-modal-form"  %>
+        <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button__cancel", form: "sitemap-modal-form"  %>
       </div>
     <%- end -%>
   </div>
