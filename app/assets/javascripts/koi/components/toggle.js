@@ -135,7 +135,9 @@
     var hideAllToggles = function(){
       $toggles.not("[data-toggle-default]").each(function(){
         var $togglePane = $(this);
-        if($togglePane.is("[data-toggle-tab-pane]")) {
+        if($("[data-toggle-anchor=" + $togglePane.attr("data-toggle") + "]").is(".active")) {
+          // 
+        } else if($togglePane.is("[data-toggle-tab-pane]")) {
           //
         } else {
           $togglePane.hide();
