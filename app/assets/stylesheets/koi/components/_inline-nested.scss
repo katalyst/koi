@@ -59,14 +59,23 @@
 .nested-fields__status {
   border-left: $divider;
   width: 50px;
-  background: url("/assets/koi/application/icon-collapse-down.png") center no-repeat;
   cursor: pointer;
   @include display-flex;
   @include align-items(center);
   @include justify-content(center);
 
-  .nested-fields-visible & {
-    background-image: url("/assets/koi/application/icon-collapse-up.png");
+  .icon-chevron {
+    width: 16px;
+    height: 11px;
+    @include transition(transform .2s);
+
+    .nested-fields-visible & {
+      @include transform(rotateZ(-180deg));
+    }
+
+    path {
+      stroke: $dark-grey;
+    }
   }
 
   .nested-wrapper-ordering & {
