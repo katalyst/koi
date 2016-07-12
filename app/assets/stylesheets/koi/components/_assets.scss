@@ -1,6 +1,7 @@
 .asset--filename {
   @include heading-four;
   margin-bottom: $xxx-small-unit;
+  @include ellipsis;
 }
 
 .asset--thumbnail {
