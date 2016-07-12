@@ -14,7 +14,7 @@
     </span>
   </h3>
   <div class="nested-inline-fields inputs <%= "hidden" if f.object.errors.blank? %>">
-    <%= render "form_fields", f: f %>
     <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
+    <%= render "form_fields", f: f %>
   </div>
 </div>

@@ -1,5 +1,10 @@
+.inline-nested--heading {
+  margin: $default-unit 0 $xxx-small-unit;
+}
+
 .inline-nested-form {
   margin-bottom: 20px;
+  @include flush-children;
 }
 
 .inline-actions label {
@@ -7,13 +12,10 @@
 }
 
 .nested-container {
-  border-top: 1px solid #ccc;
+  border-top: $divider;
 }
 
 .nested-heading {
-  background: #666;
-  color: #fff;
-  overflow: hidden;
   padding: 10px;
 
   strong {
@@ -41,20 +43,20 @@
 }
 
 .nested-fields {
-  border: 1px solid #ccc;
+  border: $divider;
   border-width: 0 1px;
 
   &.ui-sortable-helper {
-    border-top: 1px solid #ccc;
+    border-top: $divider;
+    background: $passive-color;
   }
 }
 
 .nested-fields__heading {
   display: block;
-  padding: 10px;
-  background: #ececec;
-  border-bottom: 1px solid #ccc;
-  font-size: 1em;
+  padding: $xxx-small-unit;
+  background: $passive-color;
+  border-bottom: $divider;
 }
 
 .nested-fields .drag-handler {
@@ -74,11 +76,11 @@
 
 .nested-fields__status {
   float: right;
-  border-left: 1px solid #ccc;
+  border-left: $divider;
   width: 50px;
   height: 26px;
   margin-left: 15px;
-  margin-right: -10px;
+  margin-right: -10px;    
   background: url("/assets/koi/application/icon-collapse-down.png") center no-repeat;
   cursor: pointer;
 
@@ -93,11 +95,10 @@
 
 .nested-inline-fields {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: $divider;
 }
 
-.nested-container .links {
-  background: #666;
-  padding: 5px;
+.nested-links {
   overflow: hidden;
+  margin-top: $xxx-small-unit;
 }

@@ -9,6 +9,11 @@
     }
 
     $.fn.wysiwyg = function() {
+      if($(this).is(".wysiwyg-enabled")) {
+        return false;
+      } else {
+        $(this).addClass("wysiwyg-enabled");
+      }
       return this.each(wysiwyg);
     }
 
