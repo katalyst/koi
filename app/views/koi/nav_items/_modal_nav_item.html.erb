@@ -5,7 +5,7 @@
     <button title="Close (Esc)" type="button" class="mfp-close">×</button>
   <%- end -%>
 
-  <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+  <%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
 
     <div class="tabs" data-tabs="navitem_modal">
       <div class="tabs--links tabs--links__flush">
@@ -37,16 +37,23 @@
       <% end %>
     </div>
 
-    <div class="panel--padding panel--padding-border spacing-xxx-tight">
-      <div>
-        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
+    <div class="panel--padding panel--border-top">
+      <p>
+        <strong>Please note:</strong><br />
+        Fields marked with an asterisk are required.
+      </p>
+    </div>
+
+    <div class="panel--padding panel--border-top">
+      <div class="button-group">
+        <div>
+          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
+        </div>
         <%- unless resource.new_record? -%>
-          <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
+          <div>
+            <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
+          </div>
         <%- end -%>
-      </div>
-      <div>
-        <h6 class="heading-six">Please note:</h6>
-        <p>Fields marked with an asterisk are required.</p>
       </div>
     </div>
 
