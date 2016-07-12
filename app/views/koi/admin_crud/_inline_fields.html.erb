@@ -1,4 +1,5 @@
 <div class="nested-fields">
+  <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
   <div class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>" data-inline-nested-field-heading>
     <%- if is_orderable -%>
       <span class="drag-handler hidden">
@@ -16,7 +17,6 @@
     </span>
   </div>
   <div class="nested-inline-fields inputs <%= "hidden" if f.object.errors.blank? %>">
-    <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
     <%= render "form_fields", f: f %>
   </div>
 </div>
