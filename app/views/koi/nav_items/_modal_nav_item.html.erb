@@ -1,11 +1,24 @@
-<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), no_hide: true } do -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), no_hide: true, footer: capture { -%>
+
+  <div class="button-group">
+    <div>
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary", form: "sitemap-modal-form" %>
+    </div>
+    <%- unless resource.new_record? -%>
+      <div>
+        <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button", form: "sitemap-modal-form"  %>
+      </div>
+    <%- end -%>
+  </div>
+
+<%- } } do -%>
 
   <%- # JS HTML replacement is nuking the close button -%>
   <%- unless resource.errors.blank? -%>
     <button title="Close (Esc)" type="button" class="mfp-close">×</button>
   <%- end -%>
 
-  <%= simple_form_for resource, remote: true, html: { multipart: true } do |f| %>
+  <%= simple_form_for resource, remote: true, html: { multipart: true, id: "sitemap-modal-form" } do |f| %>
 
     <div class="tabs" data-tabs="navitem_modal">
       <div class="tabs--links tabs--links__flush">
@@ -44,19 +57,6 @@
         <strong>Please note:</strong><br />
         Fields marked with an asterisk are required.
       </p>
-    </div>
-
-    <div class="panel--padding panel--border-top">
-      <div class="button-group">
-        <div>
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
-        </div>
-        <%- unless resource.new_record? -%>
-          <div>
-            <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button"  %>
-          </div>
-        <%- end -%>
-      </div>
     </div>
 
   <% end %>
