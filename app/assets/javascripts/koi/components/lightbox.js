@@ -132,6 +132,8 @@
       setTimeout(function(){
         openConfirmModal();
       }, Ornament.popupOptions.removalDelay);
+    } else {
+      openConfirmModal();
     }
 
 
