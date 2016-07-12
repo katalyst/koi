@@ -6,11 +6,11 @@
     <div>
       <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue" %>
     </div>
-    <div>
-      <% if !resource.new_record? && current_admin.god? %>
+    <% if !resource.new_record? && current_admin.god? %>
+      <div>
         <%= link_to("Delete", resource_path, data: { confirm: "Are you sure?" }, method: :delete, class: "button__error" )%>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
     <div>
       <%= link_to "Back", collection_path, class: "button__back" %>
     </div>
