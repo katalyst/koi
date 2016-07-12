@@ -80,6 +80,7 @@ table {
 // Specific table width types
 .table--image {
   width: 80px;
+  min-width: 80px;
 
   img {
     display: block;
@@ -88,6 +89,7 @@ table {
 
   @include media-query(600px) {
     width: 50px;
+    min-width: 50px;
   }
 }
 
