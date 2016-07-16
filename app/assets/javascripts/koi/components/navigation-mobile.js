@@ -78,13 +78,15 @@
       // Destroy the tab indexes of all the links in the mobile menu
       // This is used to stop screen readers and tabbing 
       destroyTabIndexes: function() {
+        mobileNav.tray.find(".pane").removeAttr("tabIndex");
         mobileNav.tray.find("a").attr("tabIndex", "-1");
       },
 
       // Create tabindexes for the current visible pane
       createTabIndexesForCurrentPane: function() {
         var currentPane = mobileNav.getCurrentPane();
-        var tabIndex = 0;
+        var tabIndex = 2;
+        currentPane.attr("tabIndex", 1);
         currentPane.children("ul").children("li").children("a").each(function(){
           tabIndex++;
           $(this).attr("tabIndex", tabIndex);
@@ -142,7 +144,13 @@
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
         mobileNav.updateMenuHeightWithDelay();
-        mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+
+        // Focus on the first link
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+          mobileNav.getCurrentPane().focus();
+        }, mobileNav.slideTransitionTime);
+
       },
 
       // Toggle menu. Open if closed, close if open.
