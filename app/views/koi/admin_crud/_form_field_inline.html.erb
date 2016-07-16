@@ -52,123 +52,12 @@
 
 <%- content_for :javascripts do -%>
   <script>
-
-    var initCkEditorOn = function(parentElement) {
-      parentElement.find('.wysiwyg.source').not(".wysiwyg-enabled").each(function() {
-        $(this).addClass("wysiwyg-enabled");
-        CKEDITOR.replace (this);
-      });
-    }
-
-    var makeNestedSortable = function(){
-
-    }
-
-    var makeNestedUnsortable = function () {
-
-    }
-
-    var toggleNestedSortable = function () {
-
-    }
-
-    var showNestedPane = function($pane) {
-      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
-      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").toggle();
-    }
-
-    var hideNestedPane = function($pane) {
-      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
-      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").toggle();
-    }
-
-    var toggleNestedPane = function($pane) {
-      if($pane.is(".active")) {
-        showNestedPane($pane);
-      } else {
-        hideNestedPane($pane);
-      }
-    }
-
-    var updateOrdinal = function(fields) {
-      fields.children(".inline-ordinal-wrapper").find('.inline-ordinal').each(function(i, e) {
-        $(e).val(i);
-      });
-    }
-
-    $("[data-inline-nested]").each(function(){
-      var $inlineNested = $(this);
-      $inlineNested.bind("koi:inline-nested:make-sortable", function(){
-        makeNestedSortable($inlineNested);
-      });
-      $inlineNested.bind("koi:inline-nested:make-unsortable", function(){
-        makeNestedUnsortable($inlineNested);
-      });
-    });
-
     $(document).on("ornament:refresh", function(){
-
-      // Clicking on collapser will toggle the pane
-      $("body").on("click", ".collapser", function (event) {
-        toggleNestedPane($(this).closest(".nested-fields"));
+      // When inserting a new item, call the inline-nested function to do stuff to the inserted element
+      $('body').unbind('cocoon:after-insert').bind('cocoon:after-insert', function(event, insertedItem) {
+        $(document).trigger("ornament:inline-nested:insert", [insertedItem]);
       });
-
-      // Inserting a new item
-      $('body').bind('cocoon:after-insert', function(event, insertedItem) {
-        // Show the new item and collapse the others
-        toggleNestedPane(insertedItem);
-        // Init CKEditor if necessary
-        initCkEditorOn(insertedItem);
-        // Find the parent inline nested element and check if we 
-        // need to update ordinals 
-        var $inlineNested = insertedItem.closest("[data-inline-nested]");
-        if($inlineNested.is("[data-inline-nested-sortable]")) {
-          var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
-          updateOrdinal(nested_inline_fields);
-        }
-      });
-
-      // Changing the re-ordering checkbox 
-      $("body").on("change", "[data-inline-nested-sortable-toggle]", function() {
-
-        var parent               = $(this).closest(".inline-nested--heading").next(".nested-wrapper");
-        var nested_container     = parent.children(".nested-container")
-        var nested_fields        = nested_container.children(".nested-fields");
-        var nested_title_fields  = nested_fields.children("[data-inline-nested-field-heading]");
-        var nested_inline_fields = nested_fields.children(".nested-inline-fields");
-        var handlers             = nested_fields.children("[data-inline-nested-field-heading]").children(".drag-handler");
-
-        if (this.checked) {
-
-          parent.addClass("nested-wrapper-ordering");
-          nested_inline_fields.hide();
-          nested_container.children(".nested-links").hide();
-          nested_title_fields.removeClass("nested-fields-visible");
-          nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
-          nested_title_fields.children(".drag-handler").show().addClass("drag-me");
-
-          nested_container.sortable({
-            axis: "y",
-            handle: ".drag-me",
-            stop: function( event, ui ) {
-              updateOrdinal(nested_inline_fields);
-            }
-          });
-
-        } else {
-
-          parent.removeClass("nested-wrapper-ordering");
-          nested_container.children(".nested-links").show();
-          nested_fields.children("[data-inline-nested-field-heading]").children(".drag-handler").hide().removeClass("drag-me");
-          nested_fields.children("[data-inline-nested-field-heading]").children(".no-collapser").addClass("collapser").removeClass("no-collapser");
-        }
-
-      });
-
     });
-
   </script>
 
   <%= render "user_inline_javascript" -%>
