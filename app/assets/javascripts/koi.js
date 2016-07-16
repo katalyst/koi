@@ -11,6 +11,7 @@
 //= require koi/jquery.placeholder
 //= require koi/jquery-ui-timepicker-addon
 //= require koi/jquery.jcrop
+//= require koi/keyboardjs
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
@@ -41,6 +42,7 @@
 //= require koi/components/tooltip
 //= require koi/components/pagination-helper
 //= require koi/components/select-link
+//= require koi/components/shortcuts
 //= require koi/components/map
 //= require koi/components/lightbox
 //= require koi/components/text-limiter
