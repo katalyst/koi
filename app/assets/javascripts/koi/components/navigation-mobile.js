@@ -75,6 +75,27 @@
         }
       },
 
+      // Destroy the tab indexes of all the links in the mobile menu
+      // This is used to stop screen readers and tabbing 
+      destroyTabIndexes: function() {
+        mobileNav.tray.find("a").attr("tabIndex", "-1");
+      },
+
+      // Create tabindexes for the current visible pane
+      createTabIndexesForCurrentPane: function() {
+        var currentPane = mobileNav.getCurrentPane();
+        var tabIndex = 0;
+        currentPane.children("ul").children("li").children("a").each(function(){
+          tabIndex++;
+          $(this).attr("tabIndex", tabIndex);
+        });
+      },
+
+      destroyTabIndexesAndCreateForCurrentPane: function() {
+        mobileNav.destroyTabIndexes();
+        mobileNav.createTabIndexesForCurrentPane();
+      },
+
       // Close menu
       closeMenu: function(){
         mobileNav.layoutElement.removeClass(mobileNav.layoutOpenClass).addClass(mobileNav.layoutTransitionClass);
@@ -111,8 +132,6 @@
         // update classes on page
         mobileNav.layoutElement.addClass(mobileNav.layoutOpenClass + " " + mobileNav.layoutTransitionClass);
 
-        // get scroll position
-
         // clicking on content wilgl close menu
         mobileNav.contentElement.on("click", "*", function (event) {
           mobileNav.toggleMenu();
@@ -123,6 +142,7 @@
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
         mobileNav.updateMenuHeightWithDelay();
+        mobileNav.destroyTabIndexesAndCreateForCurrentPane();
       },
 
       // Toggle menu. Open if closed, close if open.
@@ -146,6 +166,14 @@
 
       getNestedMenus: function(){
         return mobileNav.tray.find("ul ul");
+      },
+
+      getCurrentPane: function(){
+        if( mobileNav.currentLevel === 1 ) {
+          return mobileNav.tray.find("." + mobileNav.menuNavigationClass)
+        } else {
+          return mobileNav.getCurrentTab().children(".pane");
+        }
       },
 
       // Update mobile menu height based on content
@@ -198,6 +226,7 @@
           // Do this after it has animated back to the previous pane via timeout
           mobileNav.getCurrentTab().removeClass(mobileNav.menuSelectedClass);
           mobileNav.updateMenuHeight();
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
         }, mobileNav.slideTransitionTime);
       },
 
@@ -216,6 +245,9 @@
         mobileNav.markParentAsActive($tab);
         // update heights
         mobileNav.updateMenuHeightWithDelay();
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+        }, mobileNav.slideTransitionTime);
       },
 
       // Match an ID and navigate to it
@@ -243,6 +275,7 @@
         mobileNav.tray.find("."+mobileNav.menuSelectedClass).removeClass(mobileNav.menuSelectedClass);
         mobileNav.currentLevel = 1;
         mobileNav.tray.attr("data-level", mobileNav.currentLevel);
+        mobileNav.destroyTabIndexesAndCreateForCurrentPane();
       },
 
       // Mark a parent node as active
@@ -294,6 +327,9 @@
             mobileNav.currentLevel = mobileNav.currentLevel + 1;
             mobileNav.tray.attr("data-level", mobileNav.currentLevel);
             mobileNav.updateMenuHeightWithDelay();
+            setTimeout(function(){
+              mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+            }, mobileNav.slideTransitionTime);
           });
 
           // Making back buttons work

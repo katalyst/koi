@@ -11,6 +11,7 @@ $navigation-first-pane-link-color:      $mobile-pane-link-color;
 $navigation-first-pane-link-hover:      $mobile-pane-link-hover;
 $navigation-first-pane-link-background: $mobile-pane-link-background;
 $navigation-first-pane-padding:         $xxx-small-unit;
+$navigation-first-pane-focus:           $mobile-pane-focus-background;
 
 // Settings if the secondary panes are different colours than primary
 // If false, primary pane styles above can be considered global styles
@@ -115,6 +116,11 @@ $navigation-secondary-pane-link-color:  #fff;
       @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-hover);
       @include font($bold-font);
       @include line-height-padding($navigation-forward-hitbox);
+
+      &:focus {
+        background: $navigation-first-pane-focus;
+        outline: none;
+      }
     }
     .selected > a,
     .selected > .faux-link {

@@ -12,8 +12,8 @@
       mobileNav.toggleMenu();
       if(!mobileNav.isOpen()) {
         setTimeout(function(){
-          // TODO: Focus on first pane link 
-        }, animationDuration);
+          mobileNav.getCurrentPane().find("a").first().focus();
+        }, mobileNav.animationDuration);
       }
     });
 
