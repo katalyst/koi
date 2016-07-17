@@ -57,6 +57,10 @@
         showHideShadows($tableContainer);
       });
 
+      $(document).on("ornament:tab-change", function(){
+        showHideShadows($tableContainer);
+      });
+
       showHideShadows($tableContainer);
 
     });
