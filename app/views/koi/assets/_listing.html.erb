@@ -1,19 +1,19 @@
 <%= render layout: "koi/shared/inline_lightbox", locals: { inline_id: "asset-filters", title: "Filter", footer: capture { -%>
   <div class="row__x-tight">
     <div class="col-1-2">
-      <a href="#" class="button__confirm button__full">Filter</a>
+      <button class="button__confirm button__full" form="asset-filter">Filter</a>
     </div>
     <div class="col-1-2">
       <%= link_to "Reset", collection_path(params.symbolize_keys.merge search: nil), class: "button button__full" %>
     </div>
   </div>
 <%- } } do -%>
-  <%= form_tag collection_path, :method => 'get' do %>
+  <%= form_tag collection_path, :method => 'get', id: "asset-filter" do %>
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
     <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
     <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
     <% unless params[:tags].blank? %>
-      <% params[:tags].each do |tag| %><%= hidden_field_tag "tags[]", tag %><% end %>
+      <%# params[:tags].each do |tag| %><%#= hidden_field_tag "tags[]", tag %><%# end %>
     <% end %>
 
     <div class="panel--padding">
@@ -21,24 +21,20 @@
 
         <div class="control-group">
           <div class="control-label">
-            <label for="search">Search</label>
+            <label for="search">Keyword Search</label>
           </div>
           <div class="controls">
-            <div class="form-inline">
-              <div class="form-inline--input">
-                <input type="text" name="search" placeholder="Enter search criteria" value="<%= params[:search] %>" />
-              </div>
-              <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", class: "button__primary form-inline--button" %>
-            </div>
+            <input type="text" name="search" placeholder="Enter search criteria" value="<%= params[:search] %>" />
           </div>
         </div>
 
         <%- unless @all_tags.empty? -%>
-          <div class="control-group">
+          <div class="control-group radio_buttons">
             <div class="control-label">
               <label for="search">Tags</label>
             </div>
             <div class="controls">
+              <!--
               <ul>
                 <li>
                   <%= link_to "All", { tags: nil }, class: "#{"active" if @tags.empty?}" %>
@@ -50,6 +46,13 @@
                   </li>
                 <% end %>
               </ul>
+              -->
+              <% @all_tags.each do |tag| %>
+                <% selected = @tags.include? tag %>
+                <label class="radio">
+                  <input type="checkbox" class="radio_buttons" <%= "checked" if selected -%> name="tags[]" value="<%= tag -%>"> <%= tag -%>
+                </label>
+              <% end %>
             </div>
           </div>
         <%- end -%>
