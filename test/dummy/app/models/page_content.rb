@@ -26,7 +26,8 @@ class PageContent < ActiveRecord::Base
     fields active:          { type: :boolean },
            content_type:    { type: :select, data: ContentTypes },
            # file_id:         { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           file:            { type: :image }
+           file:            { type: :image },
+           string:          { wrapper_data: { show: "page_page_contents_attributes_0_content_type", show_option: "Heading_&_Quote", show_type: "any" } }
     config :admin do
       form  fields: [:content_type, :string,  :text, :file, :file_id]
     end

@@ -59,13 +59,25 @@
 
     // Check for select matches
     var showHideCheckSelect = function($target, $field, instant) {
-      var showField = false;
       instant = instant || false;
+      var showField = false;
+      var value = $field.attr("data-show-option");
 
-      if( $target.val() == $field.attr("data-show-option") ) {
-        showField = true;
+      if($field.data("show-type") === "any") {
+        var valuesToCheck = [];
+        if(value.indexOf(controlSeperator)) {
+          valuesToCheck = value.split(controlSeperator);
+        } else {
+          valuesToCheck = [value];
+        }
+        $.each(valuesToCheck, function(){
+          var match = this;
+          if($target.val() === match) {
+            showField = true;
+          }
+        });
       } else {
-        showField = false;
+        showField = $target.val() === value;
       }
 
       showHideField($field, showField, instant);
@@ -103,7 +115,7 @@
       });
 
       // match any or all?
-      if( $field.data("show-type") == "any") {
+      if( $field.data("show-type") === "any") {
         if(numberOfTargetsHit > 0) {
           showField = true;
         } else {
