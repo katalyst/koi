@@ -4,6 +4,7 @@ class CreatePageContents < ActiveRecord::Migration
       t.string :content_type
       t.string :string
       t.text :text
+      t.text :rich_text
       t.string :file_uid
       t.string :file_name
       t.integer :file_id

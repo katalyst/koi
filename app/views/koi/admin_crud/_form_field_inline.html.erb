@@ -124,7 +124,6 @@
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
         var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
-        $(document).trigger("ornament:show-js");
       });
 
     <%- end -%>
