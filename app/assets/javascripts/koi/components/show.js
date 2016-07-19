@@ -6,6 +6,10 @@
   "use strict";
 
   $(document).on("ornament:refresh", function () {
+    $(document).trigger("ornament:show-js");
+  });
+
+  $(document).on("ornament:show-js", function () {
 
     // Settings
     var $showListeners, controlSeperator;
@@ -70,7 +74,6 @@
         } else {
           valuesToCheck = [value];
         }
-        console.log(valuesToCheck);
         $.each(valuesToCheck, function(){
           var match = this;
           if($target.val() === match) {
@@ -195,6 +198,7 @@
           var splitName = fieldName.split("[");
           var fieldId = splitName[splitName.length - 1].replace("]","");
           var formName = fieldName.replace(fieldId, $thisField.data("show"));
+          console.log(fieldId, formName);
           $showTargets.push( $("[name='" + formName + "']") );
         } else {
           // Build the array

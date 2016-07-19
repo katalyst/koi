@@ -76,6 +76,7 @@
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
         insertedItem.children(".nested-inline-fields").toggle();
         insertedItem.children("h3").addClass("nested-fields-visible");
+        $(document).trigger("ornament:show-js");
       });
 
     <%- if is_orderable -%>
@@ -123,7 +124,7 @@
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
         var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
-        updateOrdinal(nested_inline_fields);
+        $(document).trigger("ornament:show-js");
       });
 
     <%- end -%>
