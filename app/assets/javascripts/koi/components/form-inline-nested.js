@@ -19,24 +19,26 @@
 
     // Show inline item regardless of current state
     var showNestedPane = function($pane) {
-      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
-      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").toggle();
+      $pane.addClass("active");
+      $pane.children("[data-inline-nested-field-heading]").addClass("nested-fields-visible");
+      // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+      $pane.children(".nested-inline-fields").slideDown('fast');
     }
 
     // Hide inline item regardless of current state
     var hideNestedPane = function($pane) {
-      $pane.children("[data-inline-nested-field-heading]").toggleClass("nested-fields-visible");
-      $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").toggle();
+      $pane.removeClass("active");
+      $pane.children("[data-inline-nested-field-heading]").removeClass("nested-fields-visible");
+      // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
+      $pane.children(".nested-inline-fields").slideUp('fast');
     }
 
     // Either show or hide based on current state
     var toggleNestedPane = function($pane) {
       if($pane.is(".active")) {
-        showNestedPane($pane);
-      } else {
         hideNestedPane($pane);
+      } else {
+        showNestedPane($pane);
       }
     }
 
