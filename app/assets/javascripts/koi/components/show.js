@@ -183,14 +183,26 @@
           $showOnControls = [showOn];
         }
 
-        // Build the array
-        $.each($showOnControls, function(){
-          $showTargets.push( $("#"+ this ) );
-        });
+        // Inline variation for fields
+        if($thisField.attr("data-show-inline")) {
+          // Build the array of closest items
+          var fieldName = $thisField.find("input").attr("name");
+          var splitName = fieldName.split("[");
+          var fieldId = splitName[splitName.length - 1].replace("]","");
+          var formName = fieldName.replace(fieldId, $thisField.data("show"));
+          console.log(formName);
+          $showTargets.push( $("[name='" + formName + "']") );
+        } else {
+          // Build the array
+          $.each($showOnControls, function(){
+            $showTargets.push( $("#"+ this ) );
+          });
+        }
 
         // Count the number of required fields
         var numberOfTargets = $showTargets.length;
         var numberOfTargetsHit = 0;
+
 
         // Loop through each of the targets
         $.each($showTargets, function(){
