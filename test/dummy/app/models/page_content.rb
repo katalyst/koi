@@ -15,7 +15,7 @@ class PageContent < ActiveRecord::Base
     "Heading",
     "Text",
     "Quote",
-    "WYSIWG",
+    "WYSIWYG",
     "File",
     "Gallery"
   ]
@@ -26,10 +26,11 @@ class PageContent < ActiveRecord::Base
     fields active:          { type: :boolean },
            content_type:    { type: :select, data: ContentTypes },
            # file_id:         { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           file:            { type: :image },
-           string:          { wrapper_data: { show: "content_type", show_option: "Heading_&_Quote", show_type: "any", show_inline: "true" } }
+           file:            { type: :file, wrapper_data: { show: "content_type", show_option: "File_&_Image", show_type: "any", show_inline: "true" } },
+           string:          { wrapper_data: { show: "content_type", show_option: "Heading_&_Quote", show_type: "any", show_inline: "true" } },
+           text:            { wrapper_data: { show: "content_type", show_option: "WYSIWYG_&_Text", show_type: "any", show_inline: "true" } }
     config :admin do
-      form  fields: [:content_type, :string,  :text, :file, :file_id]
+      form  fields: [:content_type, :string,  :text, :file]
     end
   end
 
@@ -40,6 +41,9 @@ class PageContent < ActiveRecord::Base
     elsif type.eql?("Text") ||
           type.eql?("WYSIWYG")
       text
+    elsif type.eql?("File") ||
+          type.eql?("Image") 
+      file
     end
   end
 

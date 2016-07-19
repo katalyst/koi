@@ -70,6 +70,7 @@
         } else {
           valuesToCheck = [value];
         }
+        console.log(valuesToCheck);
         $.each(valuesToCheck, function(){
           var match = this;
           if($target.val() === match) {
@@ -186,11 +187,14 @@
         // Inline variation for fields
         if($thisField.attr("data-show-inline")) {
           // Build the array of closest items
-          var fieldName = $thisField.find("input").attr("name");
+          var $input = $thisField.find("input");
+          if($input.length < 1) {
+            $input = $thisField.find("textarea");
+          } 
+          var fieldName = $input.attr("name");
           var splitName = fieldName.split("[");
           var fieldId = splitName[splitName.length - 1].replace("]","");
           var formName = fieldName.replace(fieldId, $thisField.data("show"));
-          console.log(formName);
           $showTargets.push( $("[name='" + formName + "']") );
         } else {
           // Build the array
