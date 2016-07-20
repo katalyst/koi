@@ -6,11 +6,11 @@
   margin-bottom: 0;
 }
 
-.nested-container {
+.inline-nested--container {
   border-top: 1px solid #ccc;
 }
 
-.nested-heading {
+.inline-nested--heading {
   background: #666;
   color: #fff;
   overflow: hidden;
@@ -96,7 +96,7 @@
   border-bottom: 1px solid #ccc;
 }
 
-.nested-container .links {
+.inline-nested--container .nested-links {
   background: #666;
   padding: 5px;
   overflow: hidden;
