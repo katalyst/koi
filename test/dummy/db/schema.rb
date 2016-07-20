@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711032313) do
+ActiveRecord::Schema.define(version: 20160603011328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "content_type"
     t.string   "string"
     t.text     "text"
+    t.text     "rich_text"
     t.string   "file_uid"
     t.string   "file_name"
     t.integer  "file_id"
@@ -244,7 +245,6 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "image_upload_crop"
     t.integer  "document_upload_id"
     t.string   "document_upload_crop"
-    t.string   "last_location_seen"
   end
 
   add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree

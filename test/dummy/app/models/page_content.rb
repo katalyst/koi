@@ -29,7 +29,7 @@ class PageContent < ActiveRecord::Base
            file:            { type: :file, wrapper_data: { show: "content_type", show_option: "File_&_Image", show_type: "any", show_inline: "true" } },
            string:          { wrapper_data: { show: "content_type", show_option: "Heading_&_Quote", show_type: "any", show_inline: "true" } },
            text:            { wrapper_data: { show: "content_type", show_option: "Text", show_type: "any", show_inline: "true" } },
-           rich_text:       { wrapper_data: { show: "content_type", show_option: "WYSIWYG", show_type: "any", show_inline: "true" } }
+           rich_text:       { type: :rich_text, wrapper_data: { show: "content_type", show_option: "WYSIWYG", show_type: "any", show_inline: "true" } }
     config :admin do
       form  fields: [:content_type, :string,  :text, :rich_text, :file]
     end
