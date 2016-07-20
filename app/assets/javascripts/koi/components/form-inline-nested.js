@@ -97,6 +97,7 @@
         nested_title_fields.removeClass("nested-fields-visible");
         nested_title_fields.children(".collapser").addClass("no-collapser").removeClass("collapser");
         nested_title_fields.children(".drag-handler").show().addClass("drag-me");
+        nested_fields.removeClass("active");
 
         nested_container.sortable({
           axis: "y",
