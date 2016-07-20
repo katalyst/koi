@@ -44,5 +44,4 @@ Rails.application.routes.draw do
   mount Koi::Engine => "/admin", as: "koi_engine"
 
   get '/:id' => 'pages#show', as: :page
-  get '/:id' => 'composable_pages#show', as: :compsable_page
 end
