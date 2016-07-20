@@ -1,0 +1,6 @@
+<%- content_for :title, @composable_page.title -%>
+
+<%- @composable_page.composable_contents.ordered.each do |content| -%>
+  <%= default_page_content_render(content) -%>
+<%- end -%>
+

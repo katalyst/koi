@@ -1,11 +1,10 @@
-class PageContent < ActiveRecord::Base
+class ComposableContent < ActiveRecord::Base
 
-  has_crud :orderable => true
-
-  has_many :page_page_contents
-  has_one :page, through: :page_page_contents
+  has_crud orderable: true
 
   validates :content_type, presence: true
+
+  belongs_to :composable, polymorphic: true
 
   dragonfly_accessor :file
 
@@ -36,14 +35,15 @@ class PageContent < ActiveRecord::Base
   end
 
   def data
-    if type.eql?("Heading") || 
-       type.eql?("Quote") 
+    if content_type.eql?("Heading") || 
+       content_type.eql?("Quote") 
       string
-    elsif type.eql?("Text") ||
-          type.eql?("WYSIWYG")
+    elsif content_type.eql?("Text") 
       text
-    elsif type.eql?("File") ||
-          type.eql?("Image") 
+    elsif content_type.eql?("WYSIWYG") 
+      rich_text
+    elsif content_type.eql?("File") ||
+          content_type.eql?("Image") 
       file
     end
   end

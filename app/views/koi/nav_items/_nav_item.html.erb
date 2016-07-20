@@ -50,6 +50,7 @@
                   <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
                   <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
                   <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id), class: "button") %>
+                  <%= content_tag :li, link_to("Composable Page"  , new_composable_page_path(site_parent: nav_item.id), class: "button") %>
                 </ul>
               </li>
               <li>

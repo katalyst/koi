@@ -42,6 +42,7 @@ Koi::Engine.routes.draw do
     put  :update_multiple, on: :collection
   end
   resources :pages
+  resources :composable_pages, as: :composable_pages
   resources :url_rewrites
   resources :friendly_id_slugs
   resources :admins, path: :site_users

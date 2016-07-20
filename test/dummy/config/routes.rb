@@ -16,9 +16,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, path: :members
-  resources :pages, as: :koi_pages do
-    resources :page_contents
-  end
+  resources :pages, as: :koi_pages
+  resources :composable_pages, as: :composable_pages
   resources :assets
   resources :images
   resources :documents
@@ -27,9 +26,6 @@ Rails.application.routes.draw do
   resources :kid_heros
 
   namespace :admin do
-    resources :page_contents do
-      collection { put 'sort' }
-    end
     resources :users, path: :members
     resources :super_heros
     resources :kid_heros
@@ -48,4 +44,5 @@ Rails.application.routes.draw do
   mount Koi::Engine => "/admin", as: "koi_engine"
 
   get '/:id' => 'pages#show', as: :page
+  get '/:id' => 'composable_pages#show', as: :compsable_page
 end

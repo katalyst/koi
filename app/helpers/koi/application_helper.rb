@@ -76,7 +76,7 @@ module Koi::ApplicationHelper
   def is_koi_core_class?(klass)
     ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem",
-     "FriendlyIdSlug", "UrlRewrite"].include? klass.name
+     "FriendlyIdSlug", "UrlRewrite", "ComposablePage"].include? klass.name
   end
 
   def ancestor_controllers
@@ -115,8 +115,8 @@ module Koi::ApplicationHelper
   end
 
   # Default renderer for page content types 
-  def default_page_content_render(page_content)
-    render "/page_contents/#{page_content.content_type.parameterize}", page_content: page_content
+  def default_page_content_render(content)
+    render "/composable_contents/#{content.content_type.parameterize}", content: content
   end
 
 end
