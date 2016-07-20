@@ -198,7 +198,6 @@
           var splitName = fieldName.split("[");
           var fieldId = splitName[splitName.length - 1].replace("]","");
           var formName = fieldName.replace(fieldId, $thisField.data("show"));
-          console.log(fieldId, formName);
           $showTargets.push( $("[name='" + formName + "']") );
         } else {
           // Build the array

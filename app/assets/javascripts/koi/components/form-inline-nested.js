@@ -77,6 +77,9 @@
         var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
         updateOrdinal(nested_inline_fields);
       }
+      // Trigger events after inserting
+      $(document).trigger("ornament:uploaders");
+      $(document).trigger("ornament:show-js");
     });
 
     // Changing the re-ordering checkbox 

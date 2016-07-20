@@ -1257,7 +1257,10 @@
 })(jQuery);
 
 $(document).on("ornament:refresh", function(){
+  $(document).trigger("ornament:uploaders");
+});
 
+$(document).on("ornament:uploaders", function(){
   $("[data-file-uploader]").each(function(){
 
     var $this = $(this);

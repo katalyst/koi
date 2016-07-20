@@ -15,8 +15,9 @@ class ComposableContent < ActiveRecord::Base
     "Text",
     "Quote",
     "WYSIWYG",
-    "File",
-    "Gallery"
+    "Image",
+    "Gallery",
+    "File"
   ]
 
   delegate :type, to: :content_type
@@ -24,8 +25,9 @@ class ComposableContent < ActiveRecord::Base
   crud.config do
     fields active:          { type: :boolean },
            content_type:    { type: :select, data: ContentTypes },
-           # file_id:         { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           file:            { type: :file, wrapper_data: { show: "content_type", show_option: "File_&_Image", show_type: "any", show_inline: "true" } },
+           file:            { type: :uploader, types: "jpg, png", max_size: 10, wrapper_data: { 
+                                show: "content_type", show_option: "File_&_Image", show_type: "any", show_inline: "true" 
+                            } },
            string:          { wrapper_data: { show: "content_type", show_option: "Heading_&_Quote", show_type: "any", show_inline: "true" } },
            text:            { wrapper_data: { show: "content_type", show_option: "Text", show_type: "any", show_inline: "true" } },
            rich_text:       { type: :rich_text, wrapper_data: { show: "content_type", show_option: "WYSIWYG", show_type: "any", show_inline: "true" } }
