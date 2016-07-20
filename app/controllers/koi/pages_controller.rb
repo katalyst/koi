@@ -1,6 +1,10 @@
 module Koi
   class PagesController < AdminCrudController
 
+    has_scope :type, default: 'Page', only: [:index] do |controller, scope, value|
+      scope.where('type = ? or type is null', value)
+    end
+
     defaults :route_prefix => ''
 
     def destroy

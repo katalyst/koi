@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603010951) do
+ActiveRecord::Schema.define(version: 20160720075050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,16 +82,6 @@ ActiveRecord::Schema.define(version: 20160603010951) do
 
   add_index "composable_contents", ["slug"], name: "index_composable_contents_on_slug", unique: true, using: :btree
 
-  create_table "composable_pages", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "composable_pages", ["slug"], name: "index_composable_pages_on_slug", unique: true, using: :btree
-
   create_table "contact_forms", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
@@ -157,6 +147,7 @@ ActiveRecord::Schema.define(version: 20160603010951) do
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree

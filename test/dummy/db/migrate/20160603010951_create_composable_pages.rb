@@ -1,13 +1,6 @@
 class CreateComposablePages < ActiveRecord::Migration
-  def change
 
-    create_table :composable_pages do |t|
-      t.string   :title
-      t.text     :description
-      t.string   :slug
-      t.timestamps
-    end
-    add_index :composable_pages, :slug, :unique => true
+  def change
 
     create_table :composable_contents do |t|
       t.string :content_type

@@ -1,4 +1,4 @@
-class ComposablePage < ActiveRecord::Base
+class ComposablePage < Page
 
   include Composable
 
