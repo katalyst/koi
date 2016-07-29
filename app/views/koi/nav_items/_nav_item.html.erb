@@ -31,8 +31,16 @@
 
     <!-- zone provides hoverable space between elements so there are no dead-spots -->
     <div class="zone">
-      <div class="body round-5px <%= nav_item.is_what? %> sitemap icon">
-        <div>
+      <div class="<%= nav_item.is_what? %> sitemap navitem--icon">
+        <div class="navitem--body">
+
+          <%- if Koi::Sitemap.toggles -%>
+            <div class="sitemap--toggler <%= "active" if already_visible -%>" data-toggle-anchor="toggle_<%= nav_item.id -%>"
+              <%- if Koi::Sitemap.one_only && nav_item.parent -%>
+                data-toggle-group="group_<%= nav_item.parent.id -%>"
+              <%- end -%>
+            >Toggle</div>
+          <%- end -%>
 
           <div class="information">
             <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
@@ -40,16 +48,16 @@
 
           <div class="controls">
             <ul class="hoverable menu ui-nestedSortable-no-nesting">
-              <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button") unless RootNavItem === nav_item %>
-              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
+              <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary") unless RootNavItem === nav_item %>
+              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__small button__primary") if current_admin.god? %>
 
               <li class="has-menu">
-                <a href="#" class="button">Add...</a>
+                <a href="#" class="button__small button__primary">Add...</a>
                 <ul class="vertical solid divided hoverable light-orange menu buttons">
-                  <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
-                  <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
-                  <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
-                  <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id), class: "button") %>
+                  <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") if current_admin.god? %>
+                  <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
+                  <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
+                  <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id), class: "button__primary button__full button__small") %>
                 </ul>
               </li>
               <li>
@@ -57,18 +65,10 @@
               </li>
             </ul>
           </div>
-
         </div>
       </div>
     </div>
     <% unless nav_item.children.empty? %>
-      <%- if Koi::Sitemap.toggles -%>
-        <div class="sitemap--toggler <%= "active" if already_visible -%>" data-toggle-anchor="toggle_<%= nav_item.id -%>"
-          <%- if Koi::Sitemap.one_only && nav_item.parent -%>
-            data-toggle-group="group_<%= nav_item.parent.id -%>"
-          <%- end -%>
-        >Toggle</div>
-      <%- end -%>
       <ol class="nav-items" 
         <%- if Koi::Sitemap.toggles -%>
           data-toggle="toggle_<%= nav_item.id -%>" 

@@ -121,6 +121,7 @@ $(document).on("ornament:refresh", function(){
       , tabSize: 25
       , tolerance: 'pointer'
       , toleranceElement: '> div'
+      , isTree: true
       })
       .addClass("enabled")
       .on ("sortupdate", save);

@@ -1,34 +1,4 @@
-.sitemap--group {
-  position: relative;
-}
-
-.sitemap--toggler {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #000;
-  text-indent: -9999px;
-
-  &:before {
-    content: "+";
-    text-indent: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
-
-  &.active:before {
-    content: "-";
-  }
-
-  .nav-item.level-0 > & {
-    display: none;
-  }
-}
+// Lock/Unlock Component
 
 @mixin sitemap-media-query {
   @media only screen and (max-width:1050px) and (min-width:($breakpoint-page + 1px)) { @content; }
