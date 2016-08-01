@@ -14,6 +14,9 @@
   var $tabAnchorForFirstError = $(".lightbox--content [data-toggle-anchor=" + firstErroredTabId + "]");
   $tabAnchorForFirstError.click();
 
+  // Resize lightbox
+  Ornament.globalLightboxSizing();
+
 <% else %>
   $.magnificPopup.close();
   $("#nav-item-<%= resource.id %>").replaceWith("<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>");
