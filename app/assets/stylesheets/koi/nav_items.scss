@@ -57,6 +57,10 @@
   @include align-items(center);
   @include justify-content(center);
 
+  .nav-item.is-hidden > .zone & {
+    border-right-style: dashed;
+  }
+
   .mjs-nestedSortable-branch > .zone & {
     @include display-flex;
   }
