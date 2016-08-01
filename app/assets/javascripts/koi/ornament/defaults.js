@@ -142,6 +142,7 @@ $(document).on("ornament:refresh", function(){
     Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
     Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
     Ornament.icons.close = $("[data-ornament-icon-close]").html();
+    Ornament.icons.spinner = $("[data-ornament-icon-spinner]").html();
     $("[data-ornament-icons]").remove();
   }
 });
