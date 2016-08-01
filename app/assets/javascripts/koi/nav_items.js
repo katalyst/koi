@@ -72,36 +72,7 @@ $(document).on("ornament:refresh", function(){
     var $rootList = $sitemap.component ('ol');
     var $rootItem = $sitemap.component ('.nav-item');
 
-    function buildtoggles () {
-      $.each($rootList.find(".nav-item"), function(){
-        var $this = $(this);
-        if(!$this.is("[data-toggleable]")) {
-          return false;
-        }
-        if($this.find(".nav-item").length > 0) {
-          if($this.find(".sitemap--toggler").length < 1) {
-            var thisId = $(this).attr("data-id");
-            var $childMenu = $this.children("ol");
-            var activeClass = $childMenu.is(":visible") ? "active" : "";
-            var $sitemapToggler = $("<div />").attr({
-              "class": "sitemap--toggler " + activeClass,
-              "data-toggle-anchor": "toggle_" + thisId,
-              "data-toggle-group": "group_" + thisId
-            });
-            $childMenu.before($sitemapToggler);
-            $sitemapToggler.on("click", function(e){
-              e.preventDefault();
-              Ornament.toggle($sitemapToggler, $childMenu);
-            });
-          }
-        } else {
-          $this.children(".sitemap--toggler").remove();
-        }
-      });
-    }
-
     function save (cb) {
-      buildtoggles ();
       $.post (path, { set: render () }, cb);
     }
 
@@ -112,19 +83,26 @@ $(document).on("ornament:refresh", function(){
     function bindSortable () {
       $rootList.not(".enabled").nestedSortable ({
         forcePlaceholderSize: true
-      , handle: 'div'
+      , handle: '.information'
       , helper: 'clone'
       , items: '.sortable'
       , opacity: .6
       , placeholder: 'placeholder'
       , revert: 250
-      , tabSize: 25
+      , tabSize: 32
       , tolerance: 'pointer'
       , toleranceElement: '> div'
+      , maxLevels: 0
       , isTree: true
+      , startCollapsed: false
       })
       .addClass("enabled")
       .on ("sortupdate", save);
+
+      $('.disclose').off('click').on('click', function() {
+        $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
+        $(this).children("span").toggleClass('ui-icon-plusthick').toggleClass('ui-icon-minusthick');
+      });
     }
 
     $(document).on("ornament:koi:sitemap:unlocked", function(){
@@ -139,23 +117,23 @@ $(document).on("ornament:refresh", function(){
 
   });
 
-  $ (".nav-item.application").application (true, function ($item)
-  {
-    var $zone = $item.component (".zone");
-    var $body = $item.component (".body");
-    var $link = $item.component (".pop-up");
-    var $menu = $item.component (".controls");
+  // $ (".nav-item.application").application (true, function ($item)
+  // {
+  //   var $zone = $item.component (".zone");
+  //   var $body = $item.component (".body");
+  //   var $link = $item.component (".pop-up");
+  //   var $menu = $item.component (".controls");
 
-    $link.click (function () { $.getScript (this.href); return false; });
+  //   $link.click (function () { $.getScript (this.href); return false; });
 
-    $zone.koiHover (25,
-      function () {
-        $menu.css ({ visibility: "visible" }).fadeIn (75);
-        $body.animate ({ backgroundColor:"#e8e8e8" }, 75);
-      },
-      function () {
-        $menu.delay(75).fadeOut (50);
-        $body.delay(75).animate ({ backgroundColor:"rgba(0, 0, 0, 0)" }, 50);
-      });
-  });
+  //   $zone.koiHover (25,
+  //     function () {
+  //       $menu.css ({ visibility: "visible" }).fadeIn (75);
+  //       $body.animate ({ backgroundColor:"#e8e8e8" }, 75);
+  //     },
+  //     function () {
+  //       $menu.delay(75).fadeOut (50);
+  //       $body.delay(75).animate ({ backgroundColor:"rgba(0, 0, 0, 0)" }, 50);
+  //     });
+  // });
 });

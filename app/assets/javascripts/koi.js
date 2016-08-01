@@ -12,6 +12,7 @@
 //= require koi/jquery-ui-timepicker-addon
 //= require koi/jquery.jcrop
 //= require koi/keyboardjs
+//= require koi/jquery.ui.touch-punch
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
