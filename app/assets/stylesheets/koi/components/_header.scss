@@ -24,7 +24,7 @@
   overflow: visible;
   outline: none;
 
-  .icon-close,
+  .icon-cross,
   .layout-open & .icon-menu {
     display: none;
   }
@@ -33,7 +33,7 @@
     @include icon-block(44px, 18px);
   }
 
-  .layout-open & .icon-close {
+  .layout-open & .icon-cross {
     display: block;
   }
 }
