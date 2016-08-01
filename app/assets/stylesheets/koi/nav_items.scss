@@ -12,7 +12,8 @@
   }
 
   .nav-item.is-hidden > .zone & {
-    background: lighten($passive-color, 5);
+    background: $white;
+    border-style: dashed;
 
     .icon {
       opacity: 0.7;
@@ -67,8 +68,8 @@
 
 .nav-item .placeholder {
   outline: 1px dashed $primary-color;
-  background: $passive-color;
   border-radius: $border-radius;
+  margin-top: 4px;
 }
 
 .nav-item .information {
