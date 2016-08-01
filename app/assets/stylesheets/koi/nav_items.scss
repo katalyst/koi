@@ -88,6 +88,10 @@
   }
 }
 
+.nav-item.level-0 > .zone .information {
+  @include font($bold-font);
+}
+
 .nav-item--title {
   padding-right: 8px;
 }

@@ -30,7 +30,7 @@
 
         <div class="information <%= nav_item.is_what? %>">
           <%- if level.eql?(0) -%>
-            Sitemap
+            Navigation
           <%- else -%>
 
             <div class="nav-item--icon">
@@ -78,7 +78,7 @@
       </div>
     </div>
     <% unless nav_item.children.empty? %>
-      <ol class="nav-items">
+      <ol class="nav-items <%= "sitemap--root" if level.eql?(0) -%>">
         <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
       </ol>
     <% end %>

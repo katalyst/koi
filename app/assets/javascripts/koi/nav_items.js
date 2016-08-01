@@ -69,7 +69,7 @@ $(document).on("ornament:refresh", function(){
   $ (".sitemap.application").application (function ($sitemap)
   {
     var path      = $sitemap.data ('uri-save');
-    var $rootList = $sitemap.component ('ol');
+    var $rootList = $sitemap.find ('.sitemap--root');
     var $rootItem = $sitemap.component ('.nav-item');
 
     function save (cb) {
