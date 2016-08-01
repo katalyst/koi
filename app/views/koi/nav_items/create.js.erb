@@ -21,11 +21,17 @@
   var rendered = "<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>";
   
   var $parent = $ ("#nav-item-<%= resource.parent.id %>");
-  var $children = $parent.component ("ol");
+  var $children = $parent.children ("ol");
 
-  if (! $children.length) $children = $parent.append ("<ol>");
+  if (! $children.length) {
+    var $children = $("<ol />");
+    $parent.append ($children);
+  } 
 
   $children.append (rendered);
+
+  // Show/hide toggles
+  $parent.addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded");
 
   $ ("#nav-item-<%= resource.id %>").slideDown ().effect ("highlight", {}, 3000);
 

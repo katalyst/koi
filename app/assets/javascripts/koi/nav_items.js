@@ -113,27 +113,13 @@ $(document).on("ornament:refresh", function(){
       $rootList.removeClass("enabled").nestedSortable("destroy");
     });
 
+    Ornament.bindSitemapSortable = function(){
+      $rootList.removeClass("enabled").nestedSortable("destroy");
+      $(".disclose").children("span").removeClass("ui-icon-plusthick").addClass("ui-icon-minusthick");
+      bindSortable();
+    }
+
     bindSortable();
 
   });
-
-  // $ (".nav-item.application").application (true, function ($item)
-  // {
-  //   var $zone = $item.component (".zone");
-  //   var $body = $item.component (".body");
-  //   var $link = $item.component (".pop-up");
-  //   var $menu = $item.component (".controls");
-
-  //   $link.click (function () { $.getScript (this.href); return false; });
-
-  //   $zone.koiHover (25,
-  //     function () {
-  //       $menu.css ({ visibility: "visible" }).fadeIn (75);
-  //       $body.animate ({ backgroundColor:"#e8e8e8" }, 75);
-  //     },
-  //     function () {
-  //       $menu.delay(75).fadeOut (50);
-  //       $body.delay(75).animate ({ backgroundColor:"rgba(0, 0, 0, 0)" }, 50);
-  //     });
-  // });
 });

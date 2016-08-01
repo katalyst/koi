@@ -18,5 +18,6 @@
   $.magnificPopup.close();
   $("#nav-item-<%= resource.id %>").replaceWith("<%= escape_javascript render("nav_item", nav_item: resource, level: resource.level) %>");
   $("#nav-item-<%= resource.id %> div:first").effect("highlight", {}, 3000);
+  Ornament.bindSitemapSortable();
 <% end %>
 
