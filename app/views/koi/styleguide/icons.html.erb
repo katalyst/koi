@@ -33,6 +33,14 @@
     <%= icon("image", width: 64, height: 64) -%><br />
     <code>icon("image", width: 64, height: 64)</code>
   </div>
+  <div class="content-spacing">
+    <p>
+      <strong>Note:</strong><br />
+      Try to keep the image sizing consistent with the <code>viewBox</code> attribute so that the size and aspect ratio of the icon is consistent across all browsers.<br />
+      For example, the <code>images</code> icon has a non-square viewbox attribute: <code>viewBox='0 0 18 16'</code>, which you can see when you open the icon partial in your editor of choice.<br />
+      So when sizing the <code>images</code> icon you would need use a width/height that divide to 18 and 16 respectively, eg. <code>icon("images", width: 36, height: 32)</code>. 
+    <p>
+  </div>
 
   <hr />
   <div class="content-spacing">
