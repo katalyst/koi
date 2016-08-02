@@ -163,22 +163,34 @@
 // buttons with icons
 .button__icon-left,
 .button__icon-right {
-  @include display-flex;  
+  @include display-inline-flex;  
   @include flex-direction(row);
   @include align-items(center);
 }
 
 .button__icon-left {
   svg {
-    padding-right: $xxx-small-unit;
+    width: 20px;
+    height: 20px;
+    margin-right: $xxxxx-small-unit;
     // @include order(-1);
+  }
+
+  path {
+    fill: $white;
   }
 }
 
 .button__icon-right {
   svg {
-    padding-left: $xxx-small-unit;
+    width: 20px;
+    height: 20px;
+    margin-left: $xxxxx-small-unit;
     // @include order(2);
+  }
+
+  path {
+    fill: $white;
   }
 }
 

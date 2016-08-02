@@ -163,15 +163,15 @@
           return false;
         }
         var existingText = $geolocate.text();
-        $geolocate.attr("disabled", true).text("Geolocating..."); 
+        $geolocate.addClass("button__icon-left").attr("disabled", true).html( Ornament.icons.spinner + "<span>Geolocating...</span>"); 
         navigator.geolocation.getCurrentPosition(function(position){
           var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           createPin(position);
-          $geolocate.attr("disabled", false).text(existingText); 
+          $geolocate.removeClass("button__icon-left").attr("disabled", false).text(existingText); 
           clearAutoSearch();
         }, function(status) {
           alert("Error geolocating. Error message is: " + status.message);
-          $geolocate.attr("disabled", false).text(existingText); 
+          $geolocate.removeClass("button__icon-left").attr("disabled", false).text(existingText); 
           console.log(status);
         });
       });
