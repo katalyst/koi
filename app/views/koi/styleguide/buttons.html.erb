@@ -59,6 +59,26 @@
   <hr />
 
   <div class="content-spacing">
+    <h2 class="heading-two">Icons</h2>
+    <p>You can use <code>button__icon-left</code> or <code>button__icon-right</code> class to use an icon in a button:</p>
+  </div>
+
+  <div>
+    <button class="button__icon-left button__primary"><%= icon("comment") -%> Comment</button>
+    <button class="button__icon-right button__primary"><%= icon("link") -%> Link</button>
+  </div>
+
+  <p>Or you can use <code>button__icon</code> to have a button with just an icon in it:</p>
+
+  <div>
+    <button class="button__icon button__primary"><%= icon("heart") -%></button>
+    <button class="button__icon button__save"><%= icon("zoom_in") -%></button>
+    <button class="button__icon button__error"><%= icon("home") -%></button>
+  </div>
+
+  <hr />
+
+  <div class="content-spacing">
     <h2 class="heading-two">Button Grouping</h2>
     <p>The <code>button-group</code> class will create consistent spacing no matter how large or small the area for the buttons are. Note as you make your window smaller the spacing around the buttons stays the same:</p>
   </div>

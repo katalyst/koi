@@ -161,36 +161,38 @@
 }
 
 // buttons with icons
+.button__icon,
 .button__icon-left,
 .button__icon-right {
   @include display-inline-flex;  
   @include flex-direction(row);
   @include align-items(center);
-}
 
-.button__icon-left {
+  &.button__full {
+    @include justify-content(center);
+  }
+
   svg {
-    width: 20px;
-    height: 20px;
-    margin-right: $xxxxx-small-unit;
-    // @include order(-1);
+    width: 21px;
+    height: 21px;
   }
 
   path {
     fill: $white;
+  }
+}
+
+.button__icon-left {
+  svg {
+    margin-right: $xxxxx-small-unit;
+    // @include order(-1);
   }
 }
 
 .button__icon-right {
   svg {
-    width: 20px;
-    height: 20px;
     margin-left: $xxxxx-small-unit;
-    // @include order(2);
-  }
-
-  path {
-    fill: $white;
+    @include order(2);
   }
 }
 
