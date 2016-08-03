@@ -1,21 +1,16 @@
 <% if resource.errors.any? -%>
 
-  $.magnificPopup.instance.currItem.inlineElement.html("<%= escape_javascript render ("modal_nav_item") %>");
-
-  // Rebind functionality
-  $(document).trigger("ornament:tabs");
-  $(document).trigger("ornament:toggles");
-  $(document).trigger("ornament:enhance-forms");
+  $.magnificPopup.instance.currItem.inlineElement.replaceWith("<%= escape_javascript render ("modal_nav_item") %>");
 
   // Open the first tab with errors
-  var $firstErrorField = $(".lightbox--content  .error-block").first()
+  var $firstErrorField = $(".lightbox--content .error-block").first()
   var $firstErroredTab = $firstErrorField.closest("[data-tab-for]");
   var firstErroredTabId = $firstErroredTab.attr("data-toggle");
   var $tabAnchorForFirstError = $(".lightbox--content [data-toggle-anchor=" + firstErroredTabId + "]");
   $tabAnchorForFirstError.click();
 
   // Resize lightbox
-  Ornament.globalLightboxSizing();
+  Ornament.popupOpened(true);
 
 <% else %>
 

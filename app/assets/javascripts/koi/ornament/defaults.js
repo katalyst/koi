@@ -38,13 +38,7 @@ Ornament = window.Ornament = {
           });
         }
 
-        // callback on open to trigger a refresh for google maps
-        $(document).trigger("ornament:map_refresh");
-
-        // trigger tabs
-        $(document).trigger("ornament:tabs");
-        $(document).trigger("ornament:toggles");
-        $(document).trigger("ornament:enhance-forms");
+        Ornament.popupOpened(true);
       },
       close: function(){
         var $anchor = $(this.ev.context);
@@ -61,7 +55,23 @@ Ornament = window.Ornament = {
       resize: function(){
         // Resize to viewport
         Ornament.sizeLightboxToViewport(this);
+      },
+      change: function() {
+        setTimeout(function(){
+          Ornament.popupOpened(true);
+        }, 10);
       }
+    }
+  },
+
+  popupOpened: function(resize){
+    resize = resize || false;
+    $(document).trigger("ornament:tabs");
+    $(document).trigger("ornament:toggles");
+    $(document).trigger("ornament:enhance-forms");
+    $(document).trigger("ornament:map_refresh");
+    if(resize) {
+      Ornament.globalLightboxSizing();
     }
   },
 
@@ -72,6 +82,8 @@ Ornament = window.Ornament = {
       maxScroll += parseInt($(this).outerHeight());
     });
     maxScroll = maxScroll - $element.outerHeight();
+
+    console.log(scrollTop, maxScroll);
 
     var showTopShadow = false;
     var showBottomShadow = false;
@@ -133,11 +145,13 @@ Ornament = window.Ornament = {
     }
   },
 
+  // Create a JS list of icons
   icons: {}
 
 };
 
 $(document).on("ornament:refresh", function(){
+  // Take the SVG icons and push them to Ornament.icons
   if($("[data-ornament-icons]").length > 0) {
     Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
     Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
