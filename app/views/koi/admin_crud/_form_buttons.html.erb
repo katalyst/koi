@@ -8,7 +8,7 @@
     </div>
     <%- if !resource.new_record? && is_allowed?(:destroy) -%>
       <div>
-        <%= link_to "Delete", resource_path, data: { confirm: "Are you sure?" }, method: :delete, class: "button__error" %>
+        <%= link_to "Delete", resource_path, data: { form_cleaner: "", confirm: "Are you sure?" }, method: :delete, class: "button__error" %>
       </div>
     <%- end -%>
     <div>
