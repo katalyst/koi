@@ -13,11 +13,6 @@
 
 <%- } } do -%>
 
-  <%- # JS HTML replacement is nuking the close button -%>
-  <%- unless resource.errors.blank? -%>
-    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-  <%- end -%>
-
   <%= simple_form_for resource, remote: true, html: { multipart: true, id: "sitemap-modal-form" } do |f| %>
 
     <div class="tabs" data-tabs="navitem_modal">
