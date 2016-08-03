@@ -1,6 +1,9 @@
 <% if resource.errors.any? -%>
 
-  $.magnificPopup.instance.currItem.inlineElement.replaceWith("<%= escape_javascript render ("modal_nav_item") %>");
+  // Replace the content of the current modal with the partial again in an errored state
+  var currentId = $.magnificPopup.instance.currItem.inlineElement.attr("id");
+  var $newContent = $("<%= escape_javascript render ("modal_nav_item") %>");
+  $("#"+currentId).html("").append($newContent.children());
 
   // Open the first tab with errors
   var $firstErrorField = $(".lightbox--content .error-block").first()

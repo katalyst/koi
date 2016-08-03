@@ -1,4 +1,4 @@
-<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), no_hide: true, footer: capture { -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), inline_id: "modal_nav_item", no_hide: true, footer: capture { -%>
 
   <div class="button-group">
     <div>

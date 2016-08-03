@@ -83,8 +83,6 @@ Ornament = window.Ornament = {
     });
     maxScroll = maxScroll - $element.outerHeight();
 
-    console.log(scrollTop, maxScroll);
-
     var showTopShadow = false;
     var showBottomShadow = false;
     var $topShadow = $element.parent().find("[data-shadow-top]");
