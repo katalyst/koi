@@ -1,0 +1,16 @@
+<%- content_for :scripts_bottom do -%>
+  <script>
+    // Warn users about leaving the page with a dirty form
+    $(document).on("ornament:refresh", function(){
+      var formsDirty = false;
+      $("form").on("change", function(){
+        if(!formsDirty) {
+          formsDirty = true;
+          $(window).bind('beforeunload', function(){
+            return 'Warning: There are unsaved changes.';
+          });
+        }
+      });
+    });
+  </script>
+<%- end -%>
