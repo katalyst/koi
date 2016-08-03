@@ -6,7 +6,7 @@
     </div>
     <%- unless resource.new_record? -%>
       <div>
-        <%= link_to "Delete", resource, data: { confirm: "Are you sure you want to delete this navigation item and all it's children? This will not delete the #{resource_class.title.downcase} it's associated to." }, method: :delete, remote: true, class: "button__cancel", form: "sitemap-modal-form"  %>
+        <%= link_to "Delete", resource, data: { confirm: "Are you sure you want to delete this navigation item and all it's children? This will not delete the module or page it's associated to." }, method: :delete, remote: true, class: "button__cancel", form: "sitemap-modal-form"  %>
       </div>
     <%- end -%>
   </div>
