@@ -177,6 +177,12 @@
     height: 21px;
   }
 
+  .small & svg,
+  &.small svg {
+    width: 12px;
+    height: 12px;
+  }
+
   path {
     fill: $white;
   }
@@ -187,12 +193,20 @@
     margin-right: $xxxxx-small-unit;
     // @include order(-1);
   }
+  .small & svg,
+  &.small svg {
+    margin-right: 6px;
+  }
 }
 
 .button__icon-right {
   svg {
     margin-left: $xxxxx-small-unit;
     @include order(2);
+  }
+  .small & svg,
+  &.small svg {
+    margin-left: 6px;
   }
 }
 
