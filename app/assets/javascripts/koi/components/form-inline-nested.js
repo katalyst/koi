@@ -74,7 +74,7 @@
       // need to update ordinals 
       var $inlineNested = insertedItem.closest("[data-inline-nested]");
       if($inlineNested.is("[data-inline-nested-sortable]")) {
-        var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
+        var nested_inline_fields = insertedItem.parent().children(".nested-fields");
         updateOrdinal(nested_inline_fields);
       }
     });
@@ -103,7 +103,7 @@
           axis: "y",
           handle: ".drag-me",
           stop: function( event, ui ) {
-            updateOrdinal(nested_inline_fields);
+            updateOrdinal(nested_fields);
           }
         });
 
