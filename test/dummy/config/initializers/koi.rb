@@ -1,6 +1,7 @@
-# Koi::KoiAsset::Document.extensions = [:pdf, :doc]
+Koi.setup do
+  # Koi::KoiAsset::Document.extensions = [:pdf, :doc]
 
-Koi::Menu.items = {
+  Koi::Menu.items = {
   "Modules": {
     "News"         => "/admin/news_items",
     "Categories"   => "/admin/categories",
@@ -14,23 +15,23 @@ Koi::Menu.items = {
     "URL History"  => "/admin/friendly_id_slugs",
     "URL Rewriter" => "/admin/url_rewrites"
   }
-}
+  }
 
-Koi::KoiAsset::Image.sizes = [
+  Koi::KoiAsset::Image.sizes = [
   { width: '200', title: '200 pixels wide' },
   { width: '400', title: '400 pixels wide' },
   { width: '600', title: '600 pixels wide' }
-]
+  ]
 
-# Look at FieldTypes in app/models/settings.rb for supported types
+  # Look at FieldTypes in app/models/settings.rb for supported types
 
-SettingOptions = {
+  SettingOptions = {
   'Option 1' => '1',
   'Option 2' => '2',
   'Option 3' => '3'
-}
+  }
 
-settings = {
+  settings = {
   title:       { label: "Title",            group: "SEO", field_type: 'string' },
   description: { label: "Meta Description", group: "SEO", field_type: 'text' },
   keywords:    { label: "Meta Keywords",    group: "SEO", field_type: 'text' },
@@ -47,22 +48,23 @@ settings = {
 
   news_tags:   { label: "News Tags", group: 'Tags', field_type: 'tags', data_source: Proc.new { ActsAsTaggableOn::Tag.all.map(&:name) } },
   faq_tags:    { label: "FAQ Tags",  group: 'Tags', field_type: 'tags' }
-}
+  }
 
-resource_settings = settings.merge({
+  resource_settings = settings.merge({
   resource_tags: { label: "Resource Tags",  group: 'Tags', field_type: 'tags' }
-})
+  })
 
-Koi::Settings.collection = settings
-Koi::Settings.resource = resource_settings
-Koi::Settings.skip_on_create = [:news_item]
+  Koi::Settings.collection = settings
+  Koi::Settings.resource = resource_settings
+  Koi::Settings.skip_on_create = [:news_item]
 
-# Sitemap settings
-Koi::Sitemap.toggles = true
-Koi::Sitemap.default_visible = [2]
+  # Sitemap settings
+  Koi::Sitemap.toggles = true
+  Koi::Sitemap.default_visible = [2]
 
-# Caching enabled by default
-Koi::Caching.enabled = true
+  # Caching enabled by default
+  Koi::Caching.enabled = true
 
-# Expiry in 60.minutes by default
-Koi::Caching.expires_in = 5.minutes
+  # Expiry in 60.minutes by default
+  Koi::Caching.expires_in = 5.minutes
+end

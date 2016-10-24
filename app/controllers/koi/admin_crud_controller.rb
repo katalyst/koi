@@ -6,6 +6,16 @@ module Koi
 
     before_filter :generate_reports, only: :index, if: :is_reportable?
 
+    # Fixes issue with dynamic inheritance
+    def self.name
+      super || "koi/admin_crud_controller"
+    end
+
+    # Fixes issue with dynamic inheritance
+    def self.controller_name
+      name.demodulize.sub(/Controller$/, '').underscore
+    end
+
   protected
 
     # Matches missing route methods of the form (action_)?koi_(controller)_path,

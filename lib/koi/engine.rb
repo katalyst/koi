@@ -1,4 +1,5 @@
 require_relative 'middleware/url_redirect'
+require 'pry'
 
 module Koi
   class Engine < ::Rails::Engine
@@ -12,6 +13,5 @@ module Koi
       app.middleware.insert_before "Rack::Sendfile", Koi::UrlRedirect
       app.config.assets.precompile += %w(koi/modernizr.js selectivizr.js css3-mediaqueries.js application_bottom.js koi.js koi/nav_items.js koi/assets.js)
     end
-
   end
 end

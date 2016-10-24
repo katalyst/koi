@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208235838) do
+ActiveRecord::Schema.define(version: 20160811053643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20160208235838) do
     t.string   "slug"
   end
 
+  create_table "cars", force: :cascade do |t|
+    t.string   "name"
+    t.float    "engine_size"
+    t.text     "description"
+    t.boolean  "classic"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.integer  "ordinal"
@@ -60,17 +69,6 @@ ActiveRecord::Schema.define(version: 20160208235838) do
   end
 
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
-
-  create_table "contact_forms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.integer  "postcode"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contact_forms", ["slug"], name: "index_contact_forms_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false

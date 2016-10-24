@@ -42,5 +42,7 @@ Rails.application.routes.draw do
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 
+  Koi.router.draw(self)
+
   get '/:id' => 'pages#show', as: :page
 end

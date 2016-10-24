@@ -17,3 +17,6 @@ passenger.3000.log
 passenger.3000.pid.lock
 
 test/dummy/config/application.yml
+
+/doc
+.yardoc/
