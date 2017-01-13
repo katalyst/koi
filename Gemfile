@@ -14,8 +14,13 @@ gemspec
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-                                  branch: 'master'
+# gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
+#                                   branch: 'master'
 
-gem 'sass-rails', '~> 5.0.0'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+
+gem 'sinatra', github: 'sinatra/sinatra'
+
+gem 'rails-observers', github: 'rails/rails-observers'
+
 gem 'ornament', github: 'katalyst/ornament'

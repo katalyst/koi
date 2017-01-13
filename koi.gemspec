@@ -18,23 +18,19 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'mime-types', '~> 2.3'
+  s.add_dependency 'mime-types'#, '~> 2.3'
 
-  s.add_dependency 'rails', '~> 4.2.1'
+  s.add_dependency 'rails', '~> 5.0.1'
 
-  s.add_dependency 'rails-observers'
+  # s.add_dependency 'rails-observers'
 
-  s.add_dependency 'active_model_serializers', '~> 0.8.2'
+  s.add_dependency 'active_model_serializers'#, '~> 0.8.2'
 
   s.add_dependency 'pg'
 
-  s.add_dependency 'compass-rails', '~> 2.0.2'
+  s.add_dependency 'compass-rails'#, '~> 2.0.2'
 
-  s.add_dependency 'compass', '~> 1.0.0'
-
-  s.add_dependency 'sass-rails', '~> 5.0.0'
-
-  s.add_dependency 'sass', '~> 3.4.12'
+  s.add_dependency 'compass'#, '~> 1.0.0'
 
   s.add_dependency 'uglifier'
 
@@ -65,19 +61,17 @@ Gem::Specification.new do |s|
   # Pagination
   s.add_dependency 'kaminari'
 
-  # Inherited Resources
-  s.add_dependency 'inherited_resources', '~> 1.6'
-  s.add_dependency 'has_scope', '0.6.0.rc'
-  s.add_dependency 'responders', '~> 2.1'
+  s.add_dependency 'has_scope'#, '0.6.0.rc'
+  s.add_dependency 'responders'#, '~> 2.1'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 3.14.0'
+  s.add_dependency 'simple-navigation'#, '~> 3.14.0'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on'
 
   # Scoped Search
-  s.add_dependency 'scoped_search', '~> 3.2.0'
+  s.add_dependency 'scoped_search'#, '~> 3.2.0'
 
   # Unique ID generation
   s.add_dependency 'uuidtools'
@@ -86,7 +80,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators', '~> 3.2.0'
+  s.add_dependency 'activevalidators'#, '~> 3.2.0'
 
   # Redis
   s.add_dependency 'redis'
@@ -94,8 +88,8 @@ Gem::Specification.new do |s|
   # Sidekiq (Background Server)
   s.add_dependency 'sidekiq'
 
-  # Required by Sidekiq Web
-  s.add_dependency 'sinatra'
+  # # Required by Sidekiq Web
+  # s.add_dependency 'sinatra'
 
   # Nice Multi Select
   s.add_dependency 'select2-rails'
@@ -116,5 +110,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'web-console', '~> 2.0'
+  # s.add_development_dependency 'web-console'#, '~> 2.0'
 end

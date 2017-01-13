@@ -2,7 +2,9 @@
   object                      = f.object
   attribute                   = object.send attr
   association                 = object.class.reflect_on_association attr
-  serialization               = object.class.serialized_attributes.symbolize_keys[attr]
+  # NOTE RAILS 5: SERALIZED ATTRIBUTES HAS BEEN REMOVED IN RAILS 5.
+  # consider removiong serialization stuff here. Will need to be tested with serialized attribute, say, super hero's powers.
+  serialization               = nil # object.class.serialized_attributes.symbolize_keys[attr]
   is_required                 = object.class.validates_presence_of? attr
   is_has_many_association     = association && association.macro == :has_many
   is_enumerable_serialization = serialization && serialization.object_class < Enumerable
