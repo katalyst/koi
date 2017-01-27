@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
 
   has_crud orderable: true, settings: true, navigation: true
   has_many :products, -> { order("ordinal ASC") }

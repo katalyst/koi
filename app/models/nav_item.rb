@@ -1,4 +1,4 @@
-class NavItem < ActiveRecord::Base
+class NavItem < ApplicationRecord
 
   before_save  :raise_abstract_error
   after_save   :touch_parent

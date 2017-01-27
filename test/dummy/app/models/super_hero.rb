@@ -1,4 +1,4 @@
-class SuperHero < ActiveRecord::Base
+class SuperHero < ApplicationRecord
 
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],

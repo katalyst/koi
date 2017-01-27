@@ -1,4 +1,4 @@
-class <%= class_name %> < ActiveRecord::Base
+class <%= class_name %> < ApplicationRecord
 
 <%- if @orderable -%>
   has_crud :orderable => true<%= @versioned ? ", :versioned => true" : "" %>

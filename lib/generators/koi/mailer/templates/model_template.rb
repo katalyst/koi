@@ -1,4 +1,4 @@
-class <%= class_name %> < ActiveRecord::Base
+class <%= class_name %> < ApplicationRecord
 
   has_crud settings: true
 

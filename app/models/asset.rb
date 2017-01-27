@@ -1,4 +1,4 @@
-class Asset < ActiveRecord::Base
+class Asset < ApplicationRecord
 
   has_crud paginate: false, settings: false
 

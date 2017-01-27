@@ -1,4 +1,4 @@
-class NewsItem < ActiveRecord::Base
+class NewsItem < ApplicationRecord
 
   has_crud navigation: true
 

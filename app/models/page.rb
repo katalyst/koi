@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   has_crud paginate: false, navigation: true,
            settings: true
 

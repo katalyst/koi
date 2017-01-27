@@ -1,4 +1,4 @@
-class Translation < ActiveRecord::Base
+class Translation < ApplicationRecord
 
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
