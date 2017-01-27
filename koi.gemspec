@@ -106,6 +106,9 @@ Gem::Specification.new do |s|
   # Application Settings
   s.add_dependency 'figaro'
 
+  # Puma server
+  s.add_dependency 'puma'
+
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'

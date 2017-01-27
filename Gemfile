@@ -17,8 +17,12 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 # gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
 #                                   branch: 'master'
 
+# Inherited Resources is now being maintained by the Active Admin team
+# If they ever release a version on RubyGems, put it in the gemspec instead
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
+# Waiting on sinatra 2.0 for Ruby 2.4 compatibility
+# TODO: put back in gemspec instead
 gem 'sinatra', github: 'sinatra/sinatra'
 
 gem 'rails-observers', github: 'rails/rails-observers'
