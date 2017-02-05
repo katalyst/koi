@@ -6,6 +6,10 @@
   "use strict";
 
   $(document).on("ornament:refresh", function () {
+    $(document).trigger("ornament:show-js");
+  });
+
+  $(document).on("ornament:show-js", function () {
 
     // Settings
     var $showListeners, controlSeperator;
@@ -59,13 +63,25 @@
 
     // Check for select matches
     var showHideCheckSelect = function($target, $field, instant) {
-      var showField = false;
       instant = instant || false;
+      var showField = false;
+      var value = $field.attr("data-show-option");
 
-      if( $target.val() == $field.attr("data-show-option") ) {
-        showField = true;
+      if($field.data("show-type") === "any") {
+        var valuesToCheck = [];
+        if(value.indexOf(controlSeperator)) {
+          valuesToCheck = value.split(controlSeperator);
+        } else {
+          valuesToCheck = [value];
+        }
+        $.each(valuesToCheck, function(){
+          var match = this;
+          if($target.val() === match) {
+            showField = true;
+          }
+        });
       } else {
-        showField = false;
+        showField = $target.val() === value;
       }
 
       showHideField($field, showField, instant);
@@ -103,7 +119,7 @@
       });
 
       // match any or all?
-      if( $field.data("show-type") == "any") {
+      if( $field.data("show-type") === "any") {
         if(numberOfTargetsHit > 0) {
           showField = true;
         } else {
@@ -171,14 +187,29 @@
           $showOnControls = [showOn];
         }
 
-        // Build the array
-        $.each($showOnControls, function(){
-          $showTargets.push( $("#"+ this ) );
-        });
+        // Inline variation for fields
+        if($thisField.attr("data-show-inline")) {
+          // Build the array of closest items
+          var $input = $thisField.find("input");
+          if($input.length < 1) {
+            $input = $thisField.find("textarea");
+          } 
+          var fieldName = $input.attr("name");
+          var splitName = fieldName.split("[");
+          var fieldId = splitName[splitName.length - 1].replace("]","");
+          var formName = fieldName.replace(fieldId, $thisField.data("show"));
+          $showTargets.push( $("[name='" + formName + "']") );
+        } else {
+          // Build the array
+          $.each($showOnControls, function(){
+            $showTargets.push( $("#"+ this ) );
+          });
+        }
 
         // Count the number of required fields
         var numberOfTargets = $showTargets.length;
         var numberOfTargetsHit = 0;
+
 
         // Loop through each of the targets
         $.each($showTargets, function(){

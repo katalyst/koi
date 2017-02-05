@@ -20,6 +20,7 @@ en:
     models:
       translation: Settings
       product: "Add products to this category"
+      composable_content: "Content"
     attributes:
       nav_item:
         is_mobile: "Show for mobile"

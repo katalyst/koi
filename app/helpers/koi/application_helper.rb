@@ -76,7 +76,7 @@ module Koi::ApplicationHelper
   def is_koi_core_class?(klass)
     ["Admin", "Page", "Setting", "Translation", "NavItem", "AliasNavItem",
      "ModuleNavItem", "ResourceNavItem", "FolderNavItem", "RootNavItem",
-     "FriendlyIdSlug", "UrlRewrite"].include? klass.name
+     "FriendlyIdSlug", "UrlRewrite", "ComposablePage"].include? klass.name
   end
 
   def ancestor_controllers
@@ -112,6 +112,11 @@ module Koi::ApplicationHelper
   def single_content_for(name, content = nil, &block)
     @view_flow.set(name, ActiveSupport::SafeBuffer.new)
     content_for(name, content, &block)
+  end
+
+  # Default renderer for page content types 
+  def default_page_content_render(content)
+    render "/composable_contents/#{content.content_type.parameterize}", content: content
   end
 
 end

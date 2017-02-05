@@ -1,5 +1,5 @@
 <%=
-  crud_settings = resource_class.crud.find(:fields, attr)
+  crud_settings = f.object.class.crud.find(:fields, attr)
 
   wrapper_opts = {
     class: "",
@@ -19,7 +19,7 @@
   else
     input_opts[:class] = "form--medium"
   end
-
+  
   begin
     render crud_partial(attr, :form, f.object.class), :f => f, :attr => attr, wrapper_opts: wrapper_opts, input_opts: input_opts
   rescue ActionView::MissingTemplate

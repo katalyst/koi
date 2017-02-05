@@ -18,7 +18,7 @@ module HasNavigation
       begin
       edit_polymorphic_path [:admin, self]
       rescue
-        Koi::Engine.routes.url_helpers.send :"edit_#{ self.class.name.singularize.parameterize '_' }_path", self
+        Koi::Engine.routes.url_helpers.send :"edit_#{ self.class.name.singularize.underscore }_path", self
       end
     end
 

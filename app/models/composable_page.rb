@@ -1,4 +1,7 @@
-class Page < ActiveRecord::Base
+class ComposablePage < Page
+
+  include Composable
+
   has_crud paginate: false, navigation: true,
            settings: true
 
@@ -13,14 +16,13 @@ class Page < ActiveRecord::Base
   end
 
   crud.config do
-    actions only: [:index, :show]
-    hide false
-    title collection: "Pages"
+
+    fields composable_contents: { type: :inline }
     
     config :admin do
-      actions except: [:new]
       index   fields: [:id, :title]
-      form    fields: [:title, :description]
+      form    fields: [:title, :composable_contents]
     end
   end
+
 end

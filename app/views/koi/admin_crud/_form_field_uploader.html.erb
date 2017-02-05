@@ -2,7 +2,7 @@
 
   object        = f.object
   klass         = object.class
-  crud_settings = resource_class.crud.find(:fields, attr)
+  crud_settings = klass.crud.find(:fields, attr)
 
   id_field = "#{attr}_id".to_sym
   crop_field = "#{attr}_crop".to_sym
@@ -38,12 +38,12 @@
   is_file = true if types.include?("docx")
 
   # if there's an existing image
-  if resource.send(id_field).nil?
+  if object.send(id_field).nil?
     existing_image = ""
     existing_name = ""
   else
-    if resource.send(id_field).is_a? Integer
-      existing_asset = Asset.find(resource.send(id_field)).data
+    if object.send(id_field).is_a? Integer
+      existing_asset = Asset.find(object.send(id_field)).data
       existing_image = existing_asset.url
       existing_name = existing_asset.name
     end
@@ -51,8 +51,8 @@
 
   # create a cropped existing image if necessary
   existing_image_original = existing_image
-  # if croppable && !crop_field.blank? && !resource.send(id_field).eql?(nil)
-  #   existing_image = resource.send(crop_field).url
+  # if croppable && !crop_field.blank? && !object.send(id_field).eql?(nil)
+  #   existing_image = object.send(crop_field).url
   # end
 
   wrapper_class = attr

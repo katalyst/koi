@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, path: :members
   resources :pages, as: :koi_pages
+  resources :composable_pages, as: :composable_pages
   resources :assets
   resources :images
   resources :documents
