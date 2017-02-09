@@ -6,6 +6,11 @@ class <%= class_name %> < ActiveRecord::Base
     <%= make_field_config(attr) -%>
   <%- end -%>
 
+  <%= render_enums %>
+  <%= render_associations %>
+  <%= render_images %>
+  <%= render_files %>
+  <%= render_urls %>
   crud.config do
     config :admin do
       exportable true

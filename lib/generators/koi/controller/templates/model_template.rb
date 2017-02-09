@@ -1,13 +1,15 @@
 class <%= class_name %> < ActiveRecord::Base
-  
+
 <%- if @orderable -%>
   has_crud :orderable => true<%= @versioned ? ", :versioned => true" : "" %>
 <%- else -%>
   has_crud<%= @versioned ? " :versioned => true" : "" %>
 <%- end -%>
 
-<%- model_attributes.each do |attr| -%>
-  <%= make_field_config(attr) -%>
-<%- end -%>
+<%= render_enums %>
+<%= render_associations %>
+<%= render_images %>
+<%= render_files %>
+<%= render_urls %>
 
 end

@@ -6,10 +6,11 @@ class <%= class_name %> < ActiveRecord::Base
   has_crud<%= @versioned ? " :versioned => true" : "" %>
 <%- end -%>
 
-<%- model_attributes.each do |attr| -%>
-  <%= make_field_config(attr) -%>
-<%- end -%>
-
+<%= render_enums %>
+<%= render_associations %>
+<%= render_images %>
+<%= render_files %>
+<%= render_urls %>
   crud.config do
     fields <%- model_attributes.each_with_index do |attr, i| -%>
   <%= make_field_type(attr, i) -%>

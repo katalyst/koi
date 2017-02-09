@@ -44,7 +44,7 @@ module Koi
       end
 
       def guess_field_type(name, data_type)
-        if data_type == 'text'
+        if field_is_rich_text?(name, data_type)
           '{ type: :rich_text }'
         elsif field_is_image?(name, data_type)
           '{ type: :image }'
@@ -61,8 +61,12 @@ module Koi
         elsif data_type == 'datetime'
           '{ type: :datetime }'
         else
-          '{ type: :string }'
+          '{ type: :default }'
         end
+      end
+
+      def field_is_rich_text?(name, data_type)
+        data_type == 'text' && name.exclude?('embed') && name.exclude?('short')
       end
 
       def field_is_enum?(name, data_type)
@@ -82,7 +86,7 @@ module Koi
       end
 
       def field_is_association?(name, data_type)
-        name.include?('_id')
+        name.include?('_id') || data_type == 'belongs_to'
       end
 
       # for keeping whitespace nice in form field type generation
@@ -123,26 +127,76 @@ module Koi
         @model_attributes.select{ |attr| field_is_image?(attr.name, attr.type) }
       end
 
-      # dragonfly accessors and validation for images/files, validation for urls, enum for statuses
-      def make_field_config(attr)
-        if field_is_enum?(attr.name, attr.type)
-         "#{attr.name.pluralize.upcase} = { active: 'Active', inactive: 'Inactive' }\n\s\s" \
-         "enum #{attr.name}: #{attr.name.pluralize.upcase}.keys\n\s\s" \
-         "validates :#{attr.name}, presence: true\n\n"
-        elsif field_is_image?(attr.name, attr.type)
-         "dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :image\n\s\s" \
-         "validates_property :format, of: :#{attr.name.chomp('_uid')}, in: ['jpeg', 'png', 'gif', 'png']\n\n"
-        elsif field_is_file?(attr.name, attr.type)
-         "dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :file\n\s\s" \
-         "validates_property :ext, of: :#{attr.name.chomp('_uid')}, in: ['pdf', 'doc', 'docx', 'csv', 'txt']\n\n"
-        elsif field_is_url?(attr.name, attr.type)
-         "validates :#{attr.name}, format: { with: URI::regexp, message: \"must be a valid url (including http:// or https://)\" }\n"
-        elsif field_is_association?(attr.name, attr.type)
-          "belongs_to :#{attr.name.chomp('_id')}\n\n"
-        else
-          ""
-        end
+
+      #
+      # RENDER METHODS FOR FIELD CONFIG
+      #
+      # these methods are used to generate dragonfly accessors, validation for images/files,
+      # validation for urls, enum for statuses, and belongs_to associations
+      #
+
+      def render_enums
+        # get likely enum attributes
+        enums = model_attributes.select{ |attr| field_is_enum?(attr.name, attr.type) }
+
+        # for each enum, create a constant, an enum field, and validation
+        enums.map{ |attr|
+          <<-code
+  #{attr.name.pluralize.upcase} = { active: 'Active', inactive: 'Inactive' }
+  enum #{attr.name}: #{attr.name.pluralize.upcase}.keys
+  validates :#{attr.name}, presence: true
+
+          code
+        }.join
       end
+
+      def render_images
+        images = model_attributes.select{ |attr| field_is_image?(attr.name, attr.type) }
+        images.map{ |attr|
+          <<-code
+  dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :image
+  validates_property :format, of: :#{attr.name.chomp('_uid')}, in: ['jpeg', 'png', 'gif', 'png']
+
+          code
+        }.join
+      end
+
+      def render_files
+        files = model_attributes.select{ |attr| field_is_file?(attr.name, attr.type) }
+        files.map{ |attr|
+          <<-code
+  dragonfly_accessor :#{attr.name.chomp('_uid')}, app: :file
+  validates_property :ext, of: :#{attr.name.chomp('_uid')}, in: ['pdf', 'doc', 'docx', 'csv', 'txt']
+
+          code
+        }.join
+      end
+
+      def render_urls
+        # get likely url fields
+        urls = model_attributes.select{ |attr| field_is_url?(attr.name, attr.type) }
+        urls.map{ |attr|
+          <<-code
+  validates :#{attr.name}, format: { with: URI::regexp, message: \"must be a valid url (including http:// or https://)\" }
+
+          code
+        }.join
+      end
+
+      def render_associations
+        associations = model_attributes.select{ |attr| field_is_association?(attr.name, attr.type) }
+        associations.map{ |attr|
+          <<-code
+  belongs_to :#{attr.name.chomp('_id')}
+
+          code
+        }.join
+      end
+
+      #
+      # END FIELD CONFIG RENDER METHODS
+      #
+
 
     end
   end
