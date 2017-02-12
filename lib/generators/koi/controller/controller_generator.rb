@@ -178,6 +178,14 @@ module Koi
         ActiveRecord::Generators::Base.next_migration_number(dirname)
       end
 
+      #for permitted params like :retained_image and :remove_image
+      def file_and_image_params
+        (file_attributes+image_attributes).map do |attr|
+          name = attr.name.chomp('_uid')
+          [:"retained_#{name}", :"remove_#{name}"]
+        end.flatten
+      end
+
     end
   end
 end
