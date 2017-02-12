@@ -11,6 +11,7 @@ class <%= class_name %> < ActiveRecord::Base
 <%= render_images %>
 <%= render_files %>
 <%= render_urls %>
+<%= render_booleans %>
   crud.config do
     fields <%- model_attributes.each_with_index do |attr, i| -%>
   <%= make_field_type(attr, i) -%>

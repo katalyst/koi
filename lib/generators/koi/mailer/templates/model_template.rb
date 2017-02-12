@@ -11,6 +11,7 @@ class <%= class_name %> < ActiveRecord::Base
   <%= render_images %>
   <%= render_files %>
   <%= render_urls %>
+  <%= render_booleans %>
   crud.config do
     config :admin do
       exportable true
