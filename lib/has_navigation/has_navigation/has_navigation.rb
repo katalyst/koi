@@ -21,6 +21,8 @@ module HasNavigation
   # Similarly, it assumes that your front end route is not nested. You may need to
   # override the `get_url` method to return the correct route based on the parent if so.
   #
+  # Be sure to implemement `to_s` in your model so that it correctly generates nav item titles
+  #
 
   def has_navigation(options={})
     # Include url helpers to generate default path.
@@ -39,7 +41,7 @@ module HasNavigation
         begin
           new_polymorphic_path [:admin, self], options
         rescue
-          Rails.application.routes.url_helpers.send :"new_admin_#{ self.name.singularize.parameterize '_' }_path", options
+          Rails.application.routes.url_helpers.send :"new_admin_#{ self.name.singularize.underscore }_path", options
         end
       end
     end
@@ -48,7 +50,7 @@ module HasNavigation
       begin
       edit_polymorphic_path [:admin, self]
       rescue
-        Koi::Engine.routes.url_helpers.send :"edit_admin_#{ self.class.name.singularize.parameterize '_' }_path", self, options
+        Koi::Engine.routes.url_helpers.send :"edit_admin_#{ self.class.name.singularize.underscore }_path", self, options
       end
     end
 
@@ -57,7 +59,13 @@ module HasNavigation
     end
 
     def get_title
-      respond_to?(:title) ? title : "#{self.class} - #{self.id}"
+      if respond_to? :title
+        title
+      elsif respond_to? :name
+        name
+      else
+        to_s
+      end
     end
 
     def get_setting_prefix
