@@ -17,4 +17,8 @@ class <%= plural_class_name %>Controller < CrudController
     end
   end
 
+  private
+
+  <%= make_permitted_params %>
+
 end
