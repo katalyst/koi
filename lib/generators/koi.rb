@@ -78,7 +78,7 @@ module Koi
       end
 
       def field_is_file?(attr)
-        attr.name.include?('_uid') && doc_names.any?{ |doc_name| attr.name.include?(doc_name) }
+        attr.name.include?('_uid') && !field_is_image?(attr)
       end
 
       def field_is_url?(attr)
