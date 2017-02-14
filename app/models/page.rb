@@ -22,4 +22,14 @@ class Page < ActiveRecord::Base
       form    except: [:type]
     end
   end
+
+  # overriding has_navigation methods to work with koi page route namespacing
+  def self.get_new_admin_url(options={})
+    Koi::Engine.routes.url_helpers.new_page_path(options)
+  end
+
+  def get_edit_admin_url(page, options={})
+    Koi::Engine.routes.url_helpers.edit_page_path(page, options)
+  end
+
 end
