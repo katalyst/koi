@@ -2,10 +2,6 @@ class <%= class_name %> < ActiveRecord::Base
 
   has_crud settings: true
 
-  <%- model_attributes.each do |attr| -%>
-    <%= make_field_config(attr) -%>
-  <%- end -%>
-
   <%= render_enums %>
   <%= render_associations %>
   <%= render_images %>

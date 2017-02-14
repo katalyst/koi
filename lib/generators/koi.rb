@@ -208,6 +208,30 @@ module Koi
       # END FIELD CONFIG RENDER METHODS
       #
 
+      #
+      # CONTROLLER CONFIG
+      #
+
+      def make_permitted_params
+        <<-code
+        
+  def permitted_params
+    params.permit(#{class_name.underscore}: #{crud_field_list + file_and_image_params})
+  end
+        code
+      end
+
+      # for permitted params like :retained_image and :remove_image
+      def file_and_image_params
+        (file_attributes+image_attributes).map do |attr|
+          name = attr.name.chomp('_uid')
+          [:"retained_#{name}", :"remove_#{name}"]
+        end.flatten
+      end
+
+      #
+      # END CONTROLLER CONFIG
+      #
 
     end
   end
