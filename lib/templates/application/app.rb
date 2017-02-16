@@ -34,7 +34,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: "v#{::Koi::VERSION}" #'v2.2.0'
+                                  tag: "v#{::Koi::VERSION}"
 
 # Compass
 gem 'compass'                   , "~> 1.0.0"
