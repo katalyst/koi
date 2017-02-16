@@ -1,3 +1,5 @@
+require_relative '../../koi/version'
+
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
 2.2.2
@@ -32,7 +34,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  branch: 'v2.2.0'
+                                  tag: "v#{::Koi::VERSION}" #'v2.2.0'
 
 # Compass
 gem 'compass'                   , "~> 1.0.0"
