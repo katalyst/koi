@@ -1,3 +1,4 @@
 <%% content_for :title, "<%= singular_name.titleize %>" %>
 
-<p>Thanks for your submission.</p>
+<% setting = "#{class_name}.setting(:thanks_message, '<p>Thanks for your submission.</p>', field_type: 'rich_text', role: 'Admin')" %>
+<%%= raw <%= setting %> %>
