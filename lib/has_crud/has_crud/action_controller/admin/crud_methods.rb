@@ -59,9 +59,9 @@ module HasCrud
           end
 
           def sort
-            order = params[singular_name(:symbol)]
-            resource_class.orderable(order)
-            render :text => nil
+            ordered_ids = params[singular_name(:symbol)]
+            collection.orderable(ordered_ids)
+            render text: nil
           end
 
           # FIXME: Imporve the sorting based on methods
