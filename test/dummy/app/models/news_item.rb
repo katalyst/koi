@@ -1,6 +1,6 @@
 class NewsItem < ActiveRecord::Base
 
-  has_crud
+  has_crud navigation: true
 
   crud.config do
     config :admin do
@@ -22,4 +22,3 @@ class NewsItem < ActiveRecord::Base
   end
 
 end
-
