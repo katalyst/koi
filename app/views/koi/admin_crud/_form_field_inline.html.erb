@@ -70,7 +70,6 @@
         $(this).parent("h3").toggleClass("nested-fields-visible");
         $(this).parent("h3").parent(".nested-fields").siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
         $(this).closest(".nested-fields").children(".nested-inline-fields").toggle();
-        reInitCkEditor();
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
@@ -108,7 +107,6 @@
             handle: ".drag-me",
             stop: function( event, ui ) {
               updateOrdinal(nested_inline_fields);
-              reInitCkEditor();
             }
           });
 
@@ -122,8 +120,15 @@
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
-        var nested_inline_fields = insertedItem.parent().children(".nested-fields").children(".nested-inline-fields");
+        var allNestedGroups = insertedItem.parent().children(".nested-fields");
+        var siblings = allNestedGroups.not(insertedItem);
+        var nested_inline_fields = allNestedGroups.children(".nested-inline-fields");
+        siblings.each(function(){
+          siblings.find(".nested-fields-visible").removeClass("nested-fields-visible");
+          siblings.find(".nested-inline-fields").hide();
+        });
         updateOrdinal(nested_inline_fields);
+        $(document).trigger("ornament:ck-editor");
       });
 
     <%- end -%>
