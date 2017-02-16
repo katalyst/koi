@@ -149,6 +149,22 @@ module CommonControllerActions
     sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
+  def seo(name)
+    begin
+      is_a_resource? ? resource.setting(name, nil, role: 'Admin') : resource_class.setting(name, nil, role: 'Admin')
+    rescue
+    end
+  end
+
+  # Is the current page an Inherited Resources resource?
+  def is_a_resource?
+    begin
+      !!resource
+    rescue
+      false
+    end
+  end
+
 end
 END
 
