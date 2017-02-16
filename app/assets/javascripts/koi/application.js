@@ -112,13 +112,6 @@
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
 
-      for(k in CKEDITOR.instances) {
-          var instance = CKEDITOR.instances[k];
-          if(instance) {
-            instance.destroy(true)
-          }
-      }
-
       $ ('.wysiwyg.source').each(function() {
         // FIXME: Duplicated in wysiwyg.js
         CKEDITOR.replace (this);

@@ -47,26 +47,12 @@
 <%- single_content_for :javascripts do -%>
   <script type="text/javascript">
 
-    var reInitCkEditor = function() {
-      for(k in CKEDITOR.instances) {
-          var instance = CKEDITOR.instances[k];
-          if(instance) {
-            instance.destroy(true)
-          }
-      }
-
-      $ ('.wysiwyg.source').each(function() {
-        CKEDITOR.replace (this);
-      });
-    }
-
     $(function() {
 
       $("body").on("click", ".collapser", function (event) {
         $(this).parent("h3").toggleClass("nested-fields-visible");
         $(this).parent("h3").parent(".nested-fields").siblings().find("h3").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
         $(this).closest(".nested-fields").children(".nested-inline-fields").toggle();
-        reInitCkEditor();
       });
 
       $('body').bind('cocoon:after-insert', function(event, insertedItem) {
@@ -104,7 +90,6 @@
             handle: ".drag-me",
             stop: function( event, ui ) {
               updateOrdinal(nested_inline_fields);
-              reInitCkEditor();
             }
           });
 
