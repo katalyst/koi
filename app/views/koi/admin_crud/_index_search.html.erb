@@ -6,18 +6,18 @@
     <%= hidden_field_tag :per, params[:per], id: "search_per" %>
 
     <div class="control-group">
-      <div class="control-label">
-        <label for="search">Search</label>
-      </div>
       <div class="controls">
         <div class="form-inline">
           <div class="form-inline--input">
             <input type="text"
                    name="search"
-                   placeholder="Enter search criteria"
+                   placeholder="Search"
                    value="<%= params[:search] %>" />
           </div>
           <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary form-inline--button" %>
+          <div class="form-inline--button">
+            <%= link_to "Reset", collection_path, class: "button button__full" %>
+          </div>
         </div>
       </div>
     </div>

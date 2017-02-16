@@ -27,6 +27,12 @@
       <%= render 'index_pagination_options' %>
     </div>
   <% end %>
+
+  <% if is_searchable? %>
+    <div class="listing--count--search">
+      <%= render 'index_search' %>
+    </div>
+  <% end %>
 </div>
 
 <%= render 'index_actions' %>
@@ -51,4 +57,4 @@
   <%= render "reports" %>
 <% end %>
 
-<%= render "index_filters" -%>
+<%#= render "index_filters" -%>

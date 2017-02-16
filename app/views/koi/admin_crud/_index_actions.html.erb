@@ -6,9 +6,6 @@
 
   <div class="align-box-right f">
     <div class="button-group">
-      <div>
-        <%= link_to "Filter", "#index-filters", class: "button__secondary button__small", data: { lightbox: "" } -%>
-      </div>
       <%- if is_exportable? %>
         <div>
           <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary button__small" %>

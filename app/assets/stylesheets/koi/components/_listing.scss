@@ -11,10 +11,6 @@
   }
 }
 
-.listing--pagination--search {
-  
-}
-
 .listing--pagination--options {
   margin-left: auto;
 
@@ -34,6 +30,7 @@
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
+  @include flex-wrap;
 
   @include media-query(550px) {
     @include flex-direction(column);
@@ -51,6 +48,12 @@
   @include media-query(550px) {
     margin-left: 0;
   }
+}
+
+.listing--count--search {
+  width: 100%;
+  @include display-flex;
+  @include align-items(center);
 }
 
 // Listing actions

@@ -370,8 +370,8 @@ abbr[title=required] {
   @include flex-grow(1);
 }
 
-.form-inline--button {
-  
+.form-inline--button + .form-inline--button {
+  margin-left: $xxxxx-small-unit;
 }
 
 // INLINE AND CONTAINED FIELD
