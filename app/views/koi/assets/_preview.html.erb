@@ -3,7 +3,12 @@
 <div class="asset--details">
   <h4 class="asset--filename"><%= resource.data.name %></h4>
   <div class="asset--thumbnail">
-    <%= link_to (image_tag resource.thumbnail(size: '400x')), resource.url, data: { lightbox: "image" } %>
+    <%- if resource.is_a?(Document) -%>
+      <%= image_tag resource.thumbnail(size: '400x') %>
+    <%- else -%>
+      <%= link_to (image_tag resource.data.thumb('400x>').url), resource.url, data: { lightbox: "image" } %>
+    <%- end -%>
+    
   </div>
   <div class="asset--information compressed">
     <p>
