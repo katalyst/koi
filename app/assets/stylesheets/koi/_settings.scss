@@ -150,7 +150,7 @@ $bold-font: ('Open Sans', sans-serif) normal bold;
 $bold-italic-font: ('Open Sans', sans-serif) italic bold;
 $heading-alpha-font: ('Open Sans', sans-serif) normal bold;
 $heading-alpha-font-italic: ('Open Sans', sans-serif) italic bold;
-$heading-beta-font: ('Open Sans Condensed', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif) normal bold;
+$heading-beta-font: ('Open Sans Condensed', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif) normal bold;
 $heading-beta-font-italic: ('Open Sans', sans-serif) italic bold;
 
 $input-typeface: $body-font;
@@ -164,7 +164,7 @@ $header-link-color: #fff;
 $header-link-hover: #fff;
 
 // Mobile pane
-$mobile-tray-shadow: 0 0 20px rgba(0,0,0,0.3);
+$mobile-tray-shadow: 0 0 20px rgba(0, 0, 0, .3);
 $mobile-pane-background: $black;
 $mobile-pane-action-background: $primary-color;
 $mobile-pane-borders: $primary-color;
@@ -173,11 +173,11 @@ $mobile-pane-max-depth: 20;
 $mobile-pane-link-color: #fff;
 $mobile-pane-link-hover: #fff;
 $mobile-pane-link-background: transparent;
-$mobile-pane-focus-background: rgba($mobile-pane-borders, 0.2);
+$mobile-pane-focus-background: rgba($mobile-pane-borders, .2);
 
 // Overlay
 $overlay-color: $black;
-$overlay-opacity: 0.5;
+$overlay-opacity: .5;
 $lightbox-overlay-color: $overlay-color;
 $lightbox-overlay-opacity: $overlay-opacity;
 $mobile-menu-overlay-color: $overlay-color;
@@ -187,7 +187,7 @@ $mobile-menu-overlay-opacity: $overlay-opacity;
 $button-large-padding: 12px 24px;
 $button-default-padding: 8px 12px;
 $button-small-padding: 4px 8px;
-$button-depressed-shadow: inset 2px 2px 4px 0px rgba(0,0,0,0.30);
+$button-depressed-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, .3);
 
 // Button Colours
 $button-primary-background: $primary-color;
@@ -204,3 +204,6 @@ $page-title-border: $divider-color;
 // Listing Tables
 $listing-actions-background: $dark-grey;
 $table-hover-background: $primary-color-x-light;
+
+// Grids
+$grid-breakpoint: $breakpoint-small;
