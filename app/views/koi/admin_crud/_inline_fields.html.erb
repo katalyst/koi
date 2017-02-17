@@ -10,7 +10,7 @@
       <%= (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
     </span>
     <span class="close-link">
-      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. " } -%>
+      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. ", confirm_no_override: "" } -%>
     </span>
     <span class="nested-fields__status collapser">
       <%= icon("chevron") -%>

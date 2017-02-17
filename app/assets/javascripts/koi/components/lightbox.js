@@ -71,6 +71,12 @@
       return true;
     }
 
+    // Over-ride this functionality to return to regular rails
+    // function 
+    if(element.is("[data-confirm-no-override]")) {
+      return confirm(message);
+    }
+
     // Clone the clicked element (probably a delete link) so we can use it in the dialog box.
     var $modalConfirm = element.clone()
       // We don't necessarily want the same styling as the original link/button.
