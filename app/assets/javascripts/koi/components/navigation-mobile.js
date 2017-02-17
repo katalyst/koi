@@ -37,7 +37,7 @@
       jumpToCurrent:              true, // jump to current page in the menu rather than starting at top-level
       showOverviewLinks:          false, // will show overview links on secodary panes
       keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
-      closeForAnchors:            true, // close menu when clicking on anchors
+      closeForAnchors:            false, // close menu when clicking on anchors
 
       // Customisable text strings
       viewOverviewText:           "View Overview",
