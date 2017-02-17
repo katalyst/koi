@@ -1,5 +1,7 @@
 Ornament = window.Ornament = {
 
+  Components: {},
+
   externalLinkExtensions: [],
   internalLinkSelectors: [],
   jQueryUISupport: true,
@@ -148,7 +150,10 @@ Ornament = window.Ornament = {
 
 };
 
+Ornament.C = Ornament.Components;
+
 $(document).on("ornament:refresh", function(){
+
   // Take the SVG icons and push them to Ornament.icons
   if($("[data-ornament-icons]").length > 0) {
     Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();

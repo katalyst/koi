@@ -3,10 +3,7 @@
   collection: attr.to_s.classify.constantize.all,
   include_blank: true,
   wrapper_html: { class: "form--medium" }, 
-  input_html: { id: id } %>
+  input_html: { id: id, data: { tag_input: "" } } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
-<script type='text/javascript'>
-  $(document).ready(function() {$("#<%= id %>").select2(); });
-</script>
