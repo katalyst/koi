@@ -13,20 +13,4 @@
     $(document).trigger("ornament:ck-editor");
   });
 
-  $(document).on("ornament:ck-editor", function () {
-
-    // $.each(CKEDITOR.instances, function(){
-    //   var instance = CKEDITOR.instances[$(this)[0]];
-    //   if(instance) {
-    //     instance.destroy(true);
-    //   }
-    // });
-
-    // $ ('.wysiwyg.source').each(function() {
-    //   // FIXME: Duplicated in wysiwyg.js
-    //   CKEDITOR.replace (this);
-    // });
-
-  });
-
 }(document, window, jQuery));
