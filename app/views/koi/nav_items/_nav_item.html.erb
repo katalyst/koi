@@ -70,7 +70,6 @@
                 <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") if current_admin.god? %>
                 <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
                 <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
-                <%= content_tag :li, link_to("Page"  , new_page_path(site_parent: nav_item.id), class: "button__primary button__full button__small") %>
                 <% has_navigation_models.each do |model| %>
                   <%= content_tag :li, link_to(model.to_s, model.get_new_admin_url(site_parent: nav_item.id), class: "button__primary button__full button__small")  %>
                 <% end %>
