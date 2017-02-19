@@ -1,4 +1,20 @@
+#
+# When working with this file, it might help to enable binding.pry
+#
+# require 'pry'
+# binding.pry
+
 require_relative '../../koi/version'
+
+#
+# override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
+# For consistency, any files we want to copy into the app should be placed inside rails_root,
+# following the rails folder structure.
+#
+
+def source_paths
+  Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
+end
 
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
@@ -123,6 +139,7 @@ module CommonControllerActions
     layout :layout_by_resource
     helper :all
     helper Koi::NavigationHelper
+    helper_method :seo
     before_filter :sign_in_as_admin! if Rails.env.development?
   end
 
@@ -151,6 +168,22 @@ module CommonControllerActions
     sign_in(:admin, Admin.first) unless Admin.all.empty?
   end
 
+  def seo(name)
+    begin
+      is_a_resource? ? resource.setting(name, nil, role: 'Admin') : resource_class.setting(name, nil, role: 'Admin')
+    rescue
+    end
+  end
+
+  # Is the current page an Inherited Resources resource?
+  def is_a_resource?
+    begin
+      !!resource
+    rescue
+      false
+    end
+  end
+
 end
 END
 
@@ -172,6 +205,9 @@ class CrudController < Koi::CrudController
 
 end
 END
+
+# import Pages controller
+copy_file 'app/controllers/pages_controller.rb'
 
 run 'bundle install'
 

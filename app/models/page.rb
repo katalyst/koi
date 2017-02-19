@@ -28,8 +28,8 @@ class Page < ActiveRecord::Base
     Koi::Engine.routes.url_helpers.new_page_path(options)
   end
 
-  def get_edit_admin_url(page, options={})
-    Koi::Engine.routes.url_helpers.edit_page_path(page, options)
+  def get_edit_admin_url(options={})
+    Koi::Engine.routes.url_helpers.edit_page_path(self, options)
   end
 
 end
