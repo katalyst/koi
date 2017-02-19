@@ -81,7 +81,10 @@
   @include display-flex;
   @include align-items(center);
   @include flex-grow(1);
-  cursor: move;
+
+  .ui-sortable & {
+    cursor: move;
+  }
 
   a {
     cursor: pointer;

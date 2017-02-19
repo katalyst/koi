@@ -8,7 +8,7 @@
 
   <li id="nav-item-<%= nav_item.id %>"
       class="nav-item sitemap--group application id-<%= nav_item_id %>
-             <%= "sortable cursor-move" if nav_item.draggable? %>
+             <%= "sortable" if nav_item.draggable? %>
              level-<%= level %>
              <%= 'is-hidden' if nav_item_is_hidden %> 
              <%= " mjs-nestedSortable-expanded" if level.eql?(0) -%>"

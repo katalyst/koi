@@ -32,20 +32,6 @@ $(document).on("ornament:refresh", function(){
     koiSetSitemapDragDropState("enabled");
   }
 
-  if(localStorage) {
-    // Set initial state
-    if(localStorage.koiSitemapDragDropDisabled) {
-      koiSetSitemapDragDropState("disabled");
-    } else {
-      koiSetSitemapDragDropState("enabled");
-    }
-    // Button press action
-    $lockButton.on("click", function(e) {
-      e.preventDefault();
-      toggleKoiSitemapDragDropState();
-    });
-  }
-
   function $toNestedSet ()
   {
     var nodes = [];
@@ -120,6 +106,20 @@ $(document).on("ornament:refresh", function(){
     }
 
     bindSortable();
+
+    if(localStorage) {
+      // Set initial state
+      if(localStorage.koiSitemapDragDropDisabled) {
+        koiSetSitemapDragDropState("disabled");
+      } else {
+        koiSetSitemapDragDropState("enabled");
+      }
+      // Button press action
+      $lockButton.on("click", function(e) {
+        e.preventDefault();
+        toggleKoiSitemapDragDropState();
+      });
+    }
 
   });
 });
