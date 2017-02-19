@@ -118,4 +118,8 @@
     $(document).trigger("ornament:ck-editor");
   });
 
+  $(document).on("ornament:tab-change", function () {  
+    $(document).trigger("ornament:ck-editor");
+  });
+
 }(document, window, jQuery));
