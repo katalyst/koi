@@ -14,7 +14,7 @@
     <%= content_tag :td, object.value %>
     <td class="nowrap">
       <ul class="unmarked-list floated-l-list spaced-r-list space-l-0 space-b-0 ">
-        <li><%= link_to "Edit", koi_engine.edit_setting_path(object), remote: true %></li>
+        <li><%= link_to "Edit", koi_engine.edit_setting_path(object), remote: true, data: { disable_with: "Please wait" } %></li>
       </ul>
     </td>
   </tr>

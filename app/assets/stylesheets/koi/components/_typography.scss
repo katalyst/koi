@@ -234,3 +234,16 @@ span.code,
 code {
   @include code;
 }
+
+// Disabled with for links
+
+.link-disabled {
+  .icon-spinner {
+    display: block;
+    width: 17px;
+    height: 17px;
+  }
+  .icon-spinner path {
+    fill: $primary-color;
+  }
+}

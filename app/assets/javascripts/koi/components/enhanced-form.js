@@ -104,10 +104,38 @@
       }
     },
 
+    isLinkAButton: function(element) {
+      return element.is(".button") || 
+             element.is(".button__small") || 
+             element.is(".button__save") || 
+             element.is(".button__delete");
+    },
+
+    disableLink: function(event){
+      var target = $(event.target);
+      var className = FormHelpers.isLinkAButton(target) ? "button__icon" : "link-disabled";
+      target.html(Ornament.icons.spinner).addClass(className);
+    },
+
+    enableLink: function(event) {
+      var target = $(event.target);
+      var className = FormHelpers.isLinkAButton(target) ? "button__icon" : "link-disabled";
+      target.removeClass(className);
+    },
+
+    bindCustomDisableLinks: function(){
+      $("a[data-disable-with]").each(function () {
+        var element = $(this);
+        element.off("ajax:before", FormHelpers.disableLink).on("ajax:before", FormHelpers.disableLink);
+        element.off("ajax:complete", FormHelpers.enableLink).on("ajax:complete", FormHelpers.enableLink);
+      });
+    },
+
     init: function(){
       FormHelpers.enhanceForms();
       FormHelpers.tagifyInputs();
       FormHelpers.bindDatepickers();
+      FormHelpers.bindCustomDisableLinks();
     }
 
   };

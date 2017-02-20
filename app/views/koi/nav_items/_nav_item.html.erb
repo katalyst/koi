@@ -62,14 +62,14 @@
 
         <div class="controls">
           <ul class="hoverable menu ui-nestedSortable-no-nesting">
-            <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary") unless RootNavItem === nav_item %>
+            <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary", data: { disable_with: "Loading" }) unless RootNavItem === nav_item %>
 
             <li class="has-menu">
               <a href="#" class="button__small button__primary">Add...</a>
               <ul class="vertical solid divided hoverable light-orange menu buttons">
-                <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") if current_admin.god? %>
-                <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
-                <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small") %>
+                <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) if current_admin.god? %>
+                <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
+                <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
                 <% has_navigation_models.each do |model| %>
                   <%= content_tag :li, link_to(model.to_s, model.get_new_admin_url(site_parent: nav_item.id), class: "button__primary button__full button__small")  %>
                 <% end %>
