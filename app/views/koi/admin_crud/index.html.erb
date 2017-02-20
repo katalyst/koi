@@ -23,7 +23,7 @@
     <span><%= pluralize(resource_class.count, "item") -%></span>
   </div>
   <% if is_paginated? %>
-    <div class="listing--count--per-page">
+    <div class="listing--count--per-page" id="index-pagination-options">
       <%= render 'index_pagination_options' %>
     </div>
   <% end %>
