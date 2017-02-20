@@ -98,7 +98,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sinatra'
 
   # Nice Multi Select
-  s.add_dependency 'select2-rails'
+  s.add_dependency 'select2-rails', '~> 3.5.9'
 
   # Nested Forms
   s.add_dependency 'cocoon'
