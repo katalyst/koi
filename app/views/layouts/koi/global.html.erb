@@ -69,38 +69,40 @@
           <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
             koi
           <% end %>
-          <ul class="header--actions">
-            <%- Koi::PriorityMenu.items.each do |menu_item| -%>
-              <li class="<%= "action" if menu_item[:icon] -%>">
-                <%- 
-                  link_opts = {}
-                  link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
-                  link_opts.merge!({title: menu_item[:label]})
-                  link_opts.merge!({ data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } }) if menu_item[:icon]
-                -%>
-                <%= link_to menu_item[:url], link_opts do -%>
-                  <%- if menu_item[:icon] -%>
-                    <%= icon(menu_item[:icon], menu_item[:icon_opts]) -%>
-                  <%- else -%>
-                    <%= menu_item[:label] -%>
+          <%- if Koi::PriorityMenu.present? -%>
+            <ul class="header--actions">
+              <%- Koi::PriorityMenu.items.each do |menu_item| -%>
+                <li class="<%= "action" if menu_item[:icon] -%>">
+                  <%- 
+                    link_opts = {}
+                    link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
+                    link_opts.merge!({title: menu_item[:label]})
+                    link_opts.merge!({ data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } }) if menu_item[:icon]
+                  -%>
+                  <%= link_to menu_item[:url], link_opts do -%>
+                    <%- if menu_item[:icon] -%>
+                      <%= icon(menu_item[:icon], menu_item[:icon_opts]) -%>
+                    <%- else -%>
+                      <%= menu_item[:label] -%>
+                    <%- end -%>
                   <%- end -%>
-                <%- end -%>
+                </li>
+              <%- end -%>
+              <%- if current_admin.god? -%>
+                <li class="action">
+                  <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
+                    <%= icon("refresh", fill: "#2ECC71") -%>
+                  <%- end -%>
+                </li>
+              <%- end -%>
+              <li>
+                <button class="layout--switch header--menu" data-mobile-menu-switch>
+                  <%= icon("menu", fill: "#ffffff") -%>
+                  <%= icon("cross", fill: "#ffffff") -%>
+                </button>
               </li>
-            <%- end -%>
-            <%- if current_admin.god? -%>
-              <li class="action">
-                <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
-                  <%= icon("refresh", fill: "#2ECC71") -%>
-                <%- end -%>
-              </li>
-            <%- end -%>
-            <li>
-              <button class="layout--switch header--menu" data-mobile-menu-switch>
-                <%= icon("menu", fill: "#ffffff") -%>
-                <%= icon("cross", fill: "#ffffff") -%>
-              </button>
-            </li>
-          </ul>
+            </ul>
+          <%- end -%>
         </header>
 
         <a id="main" name="main" tabindex="-1"></a>
