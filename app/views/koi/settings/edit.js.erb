@@ -5,7 +5,7 @@ $.magnificPopup.open({
   },
   callbacks: {
     open: function(){
-      $(document).trigger("ornament:ck-editor")
+      Ornament.CKEditor.bindForParent($("#modal-for-extra"), true);
     }
   }
 });
