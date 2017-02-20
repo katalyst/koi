@@ -33,7 +33,8 @@ class Setting < Translation
            prefix:     { type: :hidden },
            label:      { writable_method: :god? },
            role:       { type: :select, data: Admin::ROLES },
-           is_proc:    { type: :boolean }
+           is_proc:    { type: :boolean },
+           images:     { type: :inline }
 
     config :admin do
       index fields: [:label],
