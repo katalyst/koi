@@ -55,15 +55,5 @@
 </div>
 
 <%- content_for :javascripts do -%>
-  <script>
-    $(document).on("ornament:refresh", function(){
-      // When inserting a new item, call the inline-nested function to do stuff to the inserted element
-      $('body').unbind('cocoon:after-insert').bind('cocoon:after-insert', function(event, insertedItem) {
-        $(document).trigger("ornament:inline-nested:insert", [insertedItem]);
-      });
-    });
-  </script>
-
   <%= render "user_inline_javascript" -%>
-
 <%- end -%>

@@ -119,6 +119,10 @@
 
     });
 
+    $('body').unbind('cocoon:after-insert').bind('cocoon:after-insert', function(event, insertedItem) {
+      $(document).trigger("ornament:inline-nested:insert", [insertedItem]);
+    });
+
   });
 
 }(document, window, jQuery));
