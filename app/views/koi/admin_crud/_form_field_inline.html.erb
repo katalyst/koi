@@ -22,11 +22,15 @@
   <div class="inline-nested--heading spacing-xxxxx-tight">
     <h2 class="heading-three"><%= header %></h2>
     <%- if is_orderable -%>
-      <div class="inline-nested--orderable">
-        <div>
-          <label><input type="checkbox" name="show-inline-draggable" class="show-inline-draggable" value="1" data-inline-nested-sortable-toggle /> allow re-ordering</label>
+      <label class="control-group checkbox__single form--enhanced">
+        <div class="controls">
+          <div class="checkbox control-label">
+            <input class="boolean optional enhanced" value="1" type="checkbox" data-inline-nested-sortable-toggle>
+            <span class="form--enhanced--control"></span>
+            Allow re-ordering
+          </div>
         </div>
-      </div>
+      </label>
     <%- end -%>
   </div>
 

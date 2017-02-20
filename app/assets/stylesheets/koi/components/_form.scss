@@ -307,10 +307,10 @@ $radio-offset: 24px;
     position: relative;
   }
 
-  .controls label {
+  .controls .control-label {
     padding-left: $radio-offset;
   }
-  .controls label input {
+  .controls .control-label input {
     position: absolute;
     top: 5px;
     left: 0;
