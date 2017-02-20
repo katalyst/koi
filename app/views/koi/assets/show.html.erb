@@ -29,9 +29,10 @@
       <div>
         <button class="button__primary insert asset link">Add to Page</button>
         <%= link_to "Delete", url_for(:action => 'delete'),
-                          :confirm => "Are you sure you want to delete this #{ resource_class.name.downcase }?",
-                          :method  => 'delete',
-                          :class   => "button__error" %>
+                              data: { confirm: "Are you sure you want to delete this #{resource_class.name.downcase}?"},
+                              method: 'delete',
+                              class:  "button__error" 
+        %>
       </div>
 
     </form>
