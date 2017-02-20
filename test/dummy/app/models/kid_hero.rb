@@ -9,6 +9,7 @@ class KidHero < SuperHero
     form  fields: [:name, :gender]
 
     config :admin do
+      exportable true
       index fields: [:name, :gender]
       form  fields: [:name, :description, :gender]
     end

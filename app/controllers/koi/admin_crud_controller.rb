@@ -6,6 +6,13 @@ module Koi
 
     before_filter :generate_reports, only: :index, if: :is_reportable?
 
+    def index
+      respond_to do |format|
+        format.html
+        format.csv { respond_with_csv }
+      end
+    end
+
   protected
 
     # Matches missing route methods of the form (action_)?koi_(controller)_path,
