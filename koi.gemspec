@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 5.0.1'
 
-  # s.add_dependency 'rails-observers'
-
   s.add_dependency 'active_model_serializers'#, '~> 0.8.2'
 
   s.add_dependency 'pg'
@@ -88,9 +86,6 @@ Gem::Specification.new do |s|
   # Sidekiq (Background Server)
   s.add_dependency 'sidekiq'
 
-  # # Required by Sidekiq Web
-  # s.add_dependency 'sinatra'
-
   # Nice Multi Select
   s.add_dependency 'select2-rails'
 
@@ -108,6 +103,8 @@ Gem::Specification.new do |s|
 
   # Puma server
   s.add_dependency 'puma'
+
+  s.add_dependency 'inherited_resources', '~> 1.6'
 
   # Development Dependencies
   s.add_development_dependency 'karo'

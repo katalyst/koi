@@ -49,13 +49,14 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: "v#{::Koi::VERSION}"
+gem 'koi'                       , path: '/Users/bill/Katalyst/Projects/koi'
+                                  #github: 'katalyst/koi',
+                                  #tag: "v#{::Koi::VERSION}"
 
 # Compass
-gem 'compass'                   , "~> 1.0.0"
+gem 'compass'
 
-gem 'compass-rails'             , "~> 2.0.2"
+gem 'compass-rails'
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
@@ -71,11 +72,11 @@ gem 'newrelic_rpm'
 gem 'ey_config'
 
 gem 'sidekiq'
+gem 'redis-namespace'
 
 gem_group :development do
   gem 'karo'
   gem 'pry-rails'
-  gem 'web-console', '~> 2.0'
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'

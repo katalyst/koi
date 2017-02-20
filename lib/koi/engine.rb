@@ -5,12 +5,10 @@ module Koi
 
     isolate_namespace Koi
 
-    config.active_record.observers = :expire_cache_observer
-
     initializer 'static assets' do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
       app.middleware.insert_before "Rack::Sendfile", Koi::UrlRedirect
-      app.config.assets.precompile += %w(koi/modernizr.js selectivizr.js css3-mediaqueries.js application_bottom.js koi.js koi/nav_items.js koi/assets.js)
+      app.config.assets.precompile += %w(koi/modernizr.js selectivizr.js css3-mediaqueries.js application_bottom.js koi.js koi/nav_items.js koi/assets.js koi/application/logo-katalyst.png koi/application/logo-katalyst-devise.png)
     end
 
   end
