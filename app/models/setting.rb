@@ -32,7 +32,9 @@ class Setting < Translation
            value:      { type: :dynamic },
            prefix:     { type: :hidden },
            label:      { writable_method: :god? },
-           role:       { type: :select, data: Admin::ROLES }
+           role:       { type: :select, data: Admin::ROLES },
+           is_proc:    { type: :boolean }
+
     config :admin do
       index fields: [:label],
             title: "Settings"
