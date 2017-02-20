@@ -1,7 +1,7 @@
 $pagination-status-breakpoint: 950px;
 
 .pagination {
-  border: $divider;
+  border: 1px solid $border;
   margin-top: $default-unit;
   margin-bottom: $default-unit;
   @include flush-children;
