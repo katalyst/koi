@@ -167,7 +167,9 @@ module HasCrud
       end
 
       def setup_exportable
-        make_exportable unless self.options[:exportable] == false
+        # set exportable: true by default
+        self.options[:exportable] = true if self.options[:exportable].nil?
+        make_exportable if self.options[:exportable]
       end
 
     end
