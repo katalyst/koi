@@ -32,11 +32,14 @@ class Setting < Translation
            value:      { type: :dynamic },
            prefix:     { type: :hidden },
            label:      { writable_method: :god? },
-           role:       { type: :select, data: Admin::ROLES }
+           role:       { type: :select, data: Admin::ROLES },
+           is_proc:    { type: :boolean },
+           images:     { type: :inline }
+
     config :admin do
       index fields: [:label],
             title: "Settings"
-      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc, :images],
+      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc],
             title: { new: "Create new setting", edit: "Edit setting" }
     end
   end
@@ -55,4 +58,11 @@ class Setting < Translation
 Please check config/initializers/koi.rb correctly defines the data_source attribute for #{key}."
     Rails.logger.error error
   end
+
+  dragonfly_accessor :file
+  alias_method :document, :file
+  alias_method :document=, :file=
+  alias_method :image, :file
+  alias_method :image=, :file=
+
 end

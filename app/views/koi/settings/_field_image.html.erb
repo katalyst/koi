@@ -51,7 +51,7 @@
     </p>
 
     <% if !is_nil_or_new %>
-      <%= image_tag resource.send(attr).thumb('100x').url, :class => 'form--file-upload--fallback-image imgfix left space-r-1' %>
+      <%= image_tag object.send(attr).thumb('100x').url, :class => 'form--file-upload--fallback-image imgfix left space-r-1' %>
     <% end %>
 
   </div>

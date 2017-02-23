@@ -1,7 +1,7 @@
 <% if resource.errors.any? -%>
   $("#modal-for-extra").html("<%= escape_javascript render("modal_setting") %>");
 <% else %>
-  $("#modal-for-extra").modal('hide');
+  $.magnificPopup.close();
   $("#settings-list").html("<%= escape_javascript render("/koi/settings/settings_list",
                                         { settings: Setting.where(prefix: resource.prefix) }) %>");
 <% end %>

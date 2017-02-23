@@ -1,2 +1,11 @@
-$("#modal-for-extra").html("<%= escape_javascript render("modal_setting") %>");
-$("#modal-for-extra").modal('show');
+$("#modal-for-extra").html ("<%= escape_javascript render("modal_setting") %>");
+$.magnificPopup.open({
+  items: {
+    src: $("#modal-for-extra")
+  },
+  callbacks: {
+    open: function(){
+      $(document).trigger("ornament:ck-editor")
+    }
+  }
+});

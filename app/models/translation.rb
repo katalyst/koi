@@ -4,7 +4,8 @@ class Translation < ActiveRecord::Base
            orderable: false, settings: false
 
   # FIXME: Refactored from has
-  has_many :images
+  has_many :images, as: :attributable
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   # after_save :reset_memory_store_cache
 
