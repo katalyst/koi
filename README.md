@@ -15,37 +15,4 @@ This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-### v2.2.0
-
-Koi::Menu format has changed from:
-
-```
-Koi::Menu.items = {
-  "News"         => "/admin/news_items",
-  "Categories"   => "/admin/categories"
-}
-```
-
-To:
-
-```
-Koi::Menu.items = {
-  "Modules": {
-    "News"          => "/admin/news_items",
-    "Categories"    => "/admin/categories",
-    "Nested Module" => {
-      "Nested 1"    => "/admin/nested-1",
-      "Nested 2"    => "/admin/nested-2"
-    }
-  },
-  "Heroes": {
-    "Super Heros"  => "/admin/super_heros",
-    "Kid Heros"    => "/admin/kid_heros"
-  },
-  "Advanced": {
-    "Admins"       => "/admin/site_users",
-    "URL History"  => "/admin/friendly_id_slugs",
-    "URL Rewriter" => "/admin/url_rewrites"
-  }
-}
-```
+See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.  
