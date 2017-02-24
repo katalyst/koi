@@ -106,10 +106,14 @@ class SuperHero < ActiveRecord::Base
   end
 
   def cropped_image_upload
-    if image_upload_crop.blank?
-      Asset.find(image_upload_id).data
-    else
-      Asset.find(image_upload_id).data.thumb(image_upload_crop)
+    begin
+      if image_upload_crop.blank?
+        Asset.find(image_upload_id).data
+      else
+        Asset.find(image_upload_id).data.thumb(image_upload_crop)
+      end
+    rescue ActiveRecord::RecordNotFound
+      ""
     end
   end
 
