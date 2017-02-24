@@ -30,7 +30,7 @@
 
 .panel__warning {
   @extend .panel;
-  background: $notice-background;
+  background: $warning-background;
   color: $foreground-color;
 
   a {
@@ -46,12 +46,7 @@
   color: $error-color;
 }
 
-.panel__notice {
-  @extend .panel;
-  background: $notice-background;
-  color: $notice-color;
-}
-
+.panel__notice,
 .panel__success {
   @extend .panel;
   background: $success-background;

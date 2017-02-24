@@ -221,13 +221,6 @@
   color: $error-color;
 }
 
-.settings-preview--notice-color--value:before {
-  content: ""+$notice-color;
-}
-
-.settings-preview--notice-color--sample {
-  color: $notice-color;
-}
 
 .settings-preview--success-color--value:before {
   content: ""+$success-color;
