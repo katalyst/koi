@@ -1,7 +1,5 @@
-<div class="show--heading content--title">
-  <%- if @current_path && !@current_path.title.blank? %>
-    <%= content_tag :h1, @current_path.title, class: "heading-one" -%>
-  <%- else %>
-    <%= content_tag :h1, resource_class.crud.find(:admin, :title, :show) || resource, class: "heading-one" -%>
-  <%- end %>
-</div>
+<%- if @current_path && !@current_path.title.blank? %>
+  <%- content_for :title, @current_path.title -%>
+<%- else %>
+  <%- content_for :title, resource_class.crud.find(:admin, :title, :show) || resource -%>
+<%- end %>

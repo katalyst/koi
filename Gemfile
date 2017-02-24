@@ -19,3 +19,5 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
 
 gem 'sass-rails', '~> 5.0.0'
 gem 'ornament', github: 'katalyst/ornament'
+gem 'tzinfo-data', platforms: ['mingw', 'mswin']
+gem 'better_errors'

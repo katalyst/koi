@@ -1,5 +1,5 @@
 <%- id = "koi-#{ new_uuid }" -%>
-<%= f.input attr, as: :string, input_html: { id: id, style: 'width:550px' } %>
+<%= f.input attr, as: :string, wrapper_html: { class: "form--medium" }, input_html: { id: id } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 

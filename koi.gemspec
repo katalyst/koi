@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails'
+  s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
 
   # Authorization
   s.add_dependency 'devise'

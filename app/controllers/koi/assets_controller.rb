@@ -5,17 +5,23 @@ module Koi
     layout 'koi/assets'
 
     def new
+      @assets = collection.newest_first.page(params[:page]).per(20)
       params[:asset] = { :tag_list => [ @tags ] }
       super
     end
 
     def show
+      @assets = collection.newest_first.page(params[:page]).per(20)
+    end
+
+    def edit
+      @assets = collection.newest_first.page(params[:page]).per(20)
     end
 
     def create
       create! do |success, failure|
         success.html { redirect_to edit_resource_path }
-        success.js
+        success.js { render text: resource.id }
       end
     end
 

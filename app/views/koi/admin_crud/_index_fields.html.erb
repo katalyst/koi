@@ -6,7 +6,10 @@
       {
         var sortPath = "<%= url_for(:action => :sort) %>"
         var sortable = $ ('#sortable')
-        var notice   = $ ('<div>').addClass ('island__success hidden').prependTo ('#tab-main').html ('&nbsp;')
+        var notice   = $ ('<div>').addClass ('panel__flash panel__success panel__flash__fixed-bottom hidden');
+        var noticeInner = $("<div />").addClass("layout--container");
+        notice.append(noticeInner);
+        $("#index-fields").before(notice);
 
         var savingMessage = "Saving..."
         var successMessage = 'Save successful...'
@@ -17,18 +20,18 @@
 
         function showNotice (f)
         {
+          noticeInner.text (savingMessage);
           notice
             .stop (true, true)
             .addClass ('notice').removeClass ('hidden')
-            .text (savingMessage)
             .animate ({ opacity:1 }, f)
         }
 
         function hideNotice ()
         {
+          noticeInner.text (successMessage);
           notice
             .removeClass('notice')
-            .text (successMessage)
             .delay (1000)
             .animate ({ opacity:0 }, function(){
               notice.addClass('hidden');
@@ -63,7 +66,7 @@
   <% end %>
 <% end %>
 
-<div id="index-fields">
+<div id="index-fields" class="table-container">
   <table class="table space-b-0">
     <thead>
       <tr>
@@ -76,6 +79,9 @@
           <% end %>
         <% end %>
         <th class="table--actions">Actions</th>
+        <%- if is_orderable? -%>
+          <th width="29">&nbsp;</th>
+        <%- end -%>
       </tr>
     </thead>
     <%- if is_orderable? -%>
@@ -103,6 +109,11 @@
           <td class="nowrap">
             <%= render "index_fields_action", { :object => object } %>
           </td>
+          <% if is_orderable? %>
+            <td class="nowrap">
+              <%= image_tag "koi/application/icon-sortable.png", :class => "space-half" %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

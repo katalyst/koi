@@ -7,6 +7,7 @@
 
 // ORNAMENT SETTINGS
 @import "koi/settings";
+@import "koi/overrides";
 
 // COMPASS UTILITIES
 @import "compass/css3/border-radius";
@@ -40,10 +41,17 @@
 @import "koi/ornament/utilities/nested-link";
 @import "koi/ornament/utilities/background-cover";
 @import "koi/ornament/utilities/ratio";
+@import "koi/ornament/utilities/pretty-select";
+@import "koi/ornament/utilities/overlay";
 
 // VENDOR ASSETS
-@import "koi/jquery-ui-timepicker-addon";
+@import "select2";
+@import "rickshaw";
 @import "koi/jquery.jcrop";
+@import "koi/jquery/ui";
+@import "koi/jquery-ui-timepicker-addon";
+@import "koi/ornament/jquery-ui-theme";
+@import "koi/jquery/tagify";
 
 // ORNAMENT
 @import "koi/ornament/reset";

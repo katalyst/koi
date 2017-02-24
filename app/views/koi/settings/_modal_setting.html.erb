@@ -1,24 +1,16 @@
-<%- # JS HTML replacement is nuking the close button -%>
-<%- unless resource.errors.blank? -%>
-  <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-<%- end -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: "#{resource.new_record? ? "Add" : "Edit"} Setting", no_hide: true } do -%>
 
-<div class="lightbox--heading">
-  <h2 class="heading-two">
-    <%= "#{resource.new_record? ? "Add" : "Edit"} Setting" %>
-  </h2>
-</div>
-<div class="lightbox--content">
-
-  <%= simple_form_for resource, remote: true, html: { multipart: true, class: '' } do |f| %>
-    <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
-
-    <div class="inputs">
-      <%= render "form_fields", { f: f, object: resource } %>
-
-      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__primary" %>
-      <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button" if current_admin.god? unless resource.new_record? %>
+  <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+    <div class="panel--padding">
+      <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
+      <div class="inputs">
+        <%= render "form_fields", { f: f, object: resource } %>
+      </div>
+    </div>
+    <div class="panel--padding panel--padding-border">
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__confirm" %>
+      <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button__cancel" if current_admin.god? unless resource.new_record? %>
     </div>
   <% end %>
 
-</div>
+<%- end -%>

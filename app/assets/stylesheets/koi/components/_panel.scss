@@ -1,33 +1,21 @@
-$panel-border:          $background-color;
-
-// SINGLE PANELS
-
 .panel {
   @include border-radius($border-radius);
   @include pie-clearfix;
-  display: block;
-  background: $passive-color;
-  overflow: hidden;
 }
 
-a.panel {
-  display: block;
-  @include color-link($foreground-color, $foreground-color);
-  @include decorate-link(none,none);
+.panel__border {
+  border: $divider;
 }
 
-.panel__default {
-  @extend .panel;
-  @extend .panel--padding;
-}
-
+.panel--border-top,
 .panel--padding-border {
-  border-top: 1px solid $panel-border;
+  border-top: $divider;
 }
 
 // COLOUR VARIANTS
 
 .panel__primary {
+  @extend .panel;
   background: $primary-color;
   color: $white;
   a {
@@ -35,67 +23,71 @@ a.panel {
   }
 }
 
-.panel__error {
-  background: $error-color;
-  color: $white;
-  a {
-    @include color-link($white,$white);
-  }
+.panel__passive {
+  @extend .panel;
+  background: $passive-color;
 }
 
 .panel__warning {
-  background: $warning-color;
-  color: $white;
+  @extend .panel;
+  background: $notice-background;
+  color: $foreground-color;
+
   a {
-    @include color-link($white,$white);
+    @include color-link($foreground-color, $foreground-color);
+    @include decorate-link(underline, underline);
   }
+}
+
+.panel__alert,
+.panel__error {
+  @extend .panel;
+  background: $error-background;
+  color: $error-color;
+}
+
+.panel__notice {
+  @extend .panel;
+  background: $notice-background;
+  color: $notice-color;
 }
 
 .panel__success {
-  background: $success-color;
-  color: $white;
-  a {
-    @include color-link($white,$white);
-  }
+  @extend .panel;
+  background: $success-background;
+  color: $success-color;
 }
 
+.panel__flash {
+  padding-top: $panel-padding;
+  padding-bottom: $panel-padding;
+  // border-bottom: 1px solid currentColor;
+  @include border-radius(0);
+}
+
+.panel__flash--inner {
+  @include display-flex;
+  @include flex-direction(row);
+}
+
+.panel__flash--message {
+  @include flex-grow(1);
+  padding-right: $xxx-small-unit;
+}
+
+.panel__flash--close {
+  @include flex-shrink(0);
+  @include border-radius(50%);
+  @include icon-block(22px, 10px);
+  background: currentColor;
+  @include color-link(currentColor, currentColor);
+  cursor: pointer;
+}
 
 // PADDING VARIANTS
 
-@mixin panel-padding {
-  padding: $panel-padding;
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
-}
-
-@mixin panel-padding-large {
-  padding: $panel-padding-large;
-
-  @include media-query($breakpoint-medium) {
-    padding: $panel-padding;
-  }
-
-  @include media-query($breakpoint-tiny) {
-    padding: $panel-padding-small;
-  }
-}
-
-.panel--padding__x-tight {
-  padding: $panel-padding-tiny;
-}
-
-.panel--padding__tight {
-  padding: $panel-padding-small;
-}
-
 .panel--padding {
-  @include panel-padding;
-}
-
-.panel--padding__large {
-  @include panel-padding-large;
+  padding: $panel-padding;
 }
 
 // BORDER RADIUS VARIANTS
@@ -110,11 +102,33 @@ a.panel {
   @include border-bottom-right-radius(0);
 }
 
-// THINGS IN PANELS
+// PANEL SPACING
 
-.panel--avatar {
-  img {
-    display: block;
-    margin: 0 auto;
+.panel-spacing {
+  .panel + .panel,
+  .panel + .panel-spacer,
+  .panel-spacer + .panel-spacer,
+  .panel-spacer + .panel {
+    margin-top: $panel-spacing;
   }
+}
+
+// FIXED BOTTOM
+.panel__flash__fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+// PANEL LINKS
+.panel--links li,
+.panel--links__block li a {
+  display: block;
+  padding: $xxxx-small-unit $panel-padding;
+}
+
+.panel--links li + li,
+.panel--links__block li + li {
+  border-top: $divider;
 }

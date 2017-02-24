@@ -9,6 +9,4 @@
     <li><%= link_to "#{child.to_s.titleize}", [:admin, object, child] %></li>
   <% end %>
 </ul>
-<% if is_orderable? %>
-  <%= image_tag "koi/application/icon-sortable.png", :class => "space-half" %>
-<% end %>
+

@@ -1,7 +1,7 @@
 # Koi::KoiAsset::Document.extensions = [:pdf, :doc]
 
 Koi::Menu.items = {
-  "Modules": {
+  "Modules" => {
     "News"         => "/admin/news_items",
     "Categories"   => "/admin/categories",
     "Heroes"       => {
@@ -9,12 +9,25 @@ Koi::Menu.items = {
       "Kid Heros"    => "/admin/kid_heros"
     }
   },
-  "Advanced": {
+  "Advanced" => {
     "Admins"       => "/admin/site_users",
     "URL History"  => "/admin/friendly_id_slugs",
     "URL Rewriter" => "/admin/url_rewrites"
   }
 }
+
+Koi::PriorityMenu.items = [
+  {
+    label: "View Website",
+    url: "/",
+    icon: "planet_filled",
+    icon_opts: { fill: "#2ECC71" }
+  },
+  {
+    label: "Super Heros",
+    url: "/admin/super_heros"
+  }
+]
 
 Koi::KoiAsset::Image.sizes = [
   { width: '200', title: '200 pixels wide' },
@@ -57,9 +70,8 @@ Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
 Koi::Settings.skip_on_create = [:news_item]
 
-# Sitemap settings
+# Sitemap toggles
 Koi::Sitemap.toggles = true
-Koi::Sitemap.default_visible = [2]
 
 # Caching enabled by default
 Koi::Caching.enabled = true

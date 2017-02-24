@@ -7,18 +7,23 @@
     paginator:     the paginator that renders the pagination tags inside
 -%>
 <%= paginator.render do -%>
-  <nav class="pagination panel_light-blue panel--padding_x-tight" role="navigation">
+  <nav class="pagination" role="navigation">
     <%= first_page_tag %>
     <%= prev_page_tag %>
-    <% each_page do |page| -%>
-      <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
-        <%= page_tag page %>
-      <% elsif !page.was_truncated? -%>
-        <%= gap_tag %>
+    <div class="pagination--pages">
+      <% each_page do |page| -%>
+        <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
+          <%= page_tag page %>
+        <% elsif !page.was_truncated? -%>
+          <%= gap_tag %>
+        <% end -%>
       <% end -%>
-    <% end -%>
-    <%= last_page_tag %>
+    </div>
+    <div class="pagination--status">
+      Page <%= current_page -%> of <%= total_pages -%>
+    </div>
     <%= next_page_tag %>
+    <%= last_page_tag %>
   </nav>
 <% end -%>
 

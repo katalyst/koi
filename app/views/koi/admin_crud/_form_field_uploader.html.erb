@@ -43,9 +43,15 @@
     existing_name = ""
   else
     if resource.send(id_field).is_a? Integer
-      existing_asset = Asset.find(resource.send(id_field)).data
-      existing_image = existing_asset.url
-      existing_name = existing_asset.name
+      begin
+        existing_asset = Asset.find(resource.send(id_field)).data
+        existing_image = existing_asset.url
+        existing_name = existing_asset.name
+      rescue ActiveRecord::RecordNotFound
+        existing_asset = ""
+        existing_image = ""
+        existing_name = "Image missing"
+      end
     end
   end
 
@@ -128,7 +134,7 @@
         </div>
       </div>
       <div class="form--file-crop--footer">
-        <a href="#" class="button button__full" data-crop-save>Done</a>
+        <a href="#" class="button__confirm button__full" data-crop-save>Done</a>
       </div>
     </div>
   <%- end -%>

@@ -1,5 +1,3 @@
-@import "compass/utilities/general/clearfix";
-
 /* 
 -------------
 Functions
@@ -31,12 +29,20 @@ Mixins
   margin-right: ($gutterSize * .5) * -1;
 }
 
-@mixin row() {
+@mixin row($custom-gutter: false) {
   @include pie-clearfix;
-  @include rowGenerate($desktop-gutters);
-  @each $gutter in $site-gutters {
-    @include media-query(nth($gutter, 1)) {
-      @include rowGenerate(nth($gutter, 2));
+
+  @if($custom-gutter) {
+    @include rowGenerate($custom-gutter);
+  }
+  @else {
+    @include rowGenerate($desktop-gutters);
+    @each $gutter in $site-gutters {
+      @if $gutter != false {
+        @include media-query(nth($gutter, 1)) {
+          @include rowGenerate(nth($gutter, 2));
+        }
+      }
     }
   }
 }
@@ -46,11 +52,18 @@ Mixins
   margin-bottom: ($gutterSize * .5) * -1;
 }
 
-@mixin rowV(){
-  @include rowVGenerate($desktop-gutters);
-  @each $gutter in $site-gutters {
-    @include media-query(nth($gutter, 1)) {
-      @include rowVGenerate(nth($gutter, 2));
+@mixin rowV($custom-gutter: false){
+  @if($custom-gutter) {
+    @include rowVGenerate($custom-gutter);
+  }
+  @else {
+    @include rowVGenerate($desktop-gutters);
+    @each $gutter in $site-gutters {
+      @if $gutter != false {
+        @include media-query(nth($gutter, 1)) {
+          @include rowVGenerate(nth($gutter, 2));
+        }
+      }
     }
   }
 }
@@ -62,11 +75,18 @@ Mixins
   padding-right: $gutterSize * .5;
 }
 
-@mixin gutters() {
-  @include guttersGenerate($desktop-gutters);
-  @each $gutter in $site-gutters {
-    @include media-query(nth($gutter, 1)) {
-      @include guttersGenerate(nth($gutter, 2));
+@mixin gutters($custom-gutter: false) {
+  @if($custom-gutter) {
+    @include guttersGenerate($custom-gutter);
+  }
+  @else {
+    @include guttersGenerate($desktop-gutters);
+    @each $gutter in $site-gutters {
+      @if $gutter != false {
+        @include media-query(nth($gutter, 1)) {
+          @include guttersGenerate(nth($gutter, 2));
+        }
+      }
     }
   }
 }
@@ -76,29 +96,38 @@ Mixins
   padding-bottom: $gutterSize * .5;
 }
 
-@mixin guttersV() {
-  @include guttersVGenerate($desktop-gutters);
-  @each $gutter in $site-gutters {
-    @include media-query(nth($gutter, 1)) {
-      @include guttersVGenerate(nth($gutter, 2));
+@mixin guttersV($custom-gutter:false) {
+  @if($custom-gutter) {
+    @include guttersVGenerate($custom-gutter);
+  }
+  @else {
+    @include guttersVGenerate($desktop-gutters);
+    @each $gutter in $site-gutters {
+      @if $gutter != false {
+        @include media-query(nth($gutter, 1)) {
+          @include guttersVGenerate(nth($gutter, 2));
+        }
+      }
     }
   }
 }
 
 /* Create Column Widths & Apply Responsive Gutters */
 
-@mixin spang($columnCount, $totalCol, $mediaQuery:false) {
+@mixin spang($columnCount, $totalCol, $mediaQuery:false, $custom-gutter: false) {
   @if $mediaQuery != false {
     @include media-query($mediaQuery) {
       width: span($columnCount, $totalCol);
       float: left;
+      min-height: 1px;
       //@include gutters();
       // No gutters added. Assumes mixin has already been called without a media query.
     }
   } @else {
     width: span($columnCount, $totalCol);
     float: left;
-    @include gutters();
+    min-height: 1px;
+    @include gutters($custom-gutter);
   }
 }
 

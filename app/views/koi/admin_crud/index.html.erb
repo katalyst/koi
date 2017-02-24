@@ -8,48 +8,52 @@
   <%= render "index_title" %>
 <% end %>
 
-<div class="tabs">
-  <% if is_settable? || is_reportable? %>
+<% if is_settable? || is_reportable? %>
+  <%- content_for :title_tabs do -%>
     <%= render "index_settings_navigation" %>
+  <%- end -%>
+<% end %>
+
+<% if is_settable? || is_reportable? %>
+  <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
+<% end %>
+
+<div class="listing--count">
+  <div class="listing--count--items">
+    <span><%= pluralize(resource_class.count, "item") -%></span>
+  </div>
+  <% if is_paginated? %>
+    <div class="listing--count--per-page" id="index-pagination-options">
+      <%= render 'index_pagination_options' %>
+    </div>
   <% end %>
 
-  <div class="tabs--panes">
-    <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">
-
-      <% if is_searchable? || is_paginated? %>
-        <div class="listing--pagination listing--pagination__top small">
-          <% if is_searchable? %>
-            <%= render 'index_search' %>
-          <% end %>
-          <% if is_paginated? %>
-            <div id="index-pagination-options" class="listing--pagination--options small">
-              <%= render 'index_pagination_options' %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <div class="listing--count">
-        <span><%= pluralize(resource_class.count, "item") -%></span>
-      </div>
-      <%= render 'index_actions' %>
-      <%= render 'index_fields' %>
-
-      <% if is_paginated? && collection.total_pages != 0 %>
-        <br />
-        <div id="index-pagination">
-          <%= render 'index_pagination' %>
-        </div>
-      <% end %>
+  <% if is_searchable? %>
+    <div class="listing--count--search">
+      <%= render 'index_search' %>
     </div>
-
-    <% if is_settable? %>
-      <%= render "index_settings" %>
-    <% end %>
-
-    <% if is_reportable? %>
-      <%= render "reports" %>
-    <% end %>
-  </div>
-
+  <% end %>
 </div>
+
+<%= render 'index_actions' %>
+<%= render 'index_fields' %>
+
+<% if is_paginated? && collection.total_pages != 0 %>
+  <br />
+  <div id="index-pagination">
+    <%= render 'index_pagination' %>
+  </div>
+<% end %>
+
+<% if is_settable? || is_reportable? %>
+  </div>
+<% end %>
+
+<% if is_settable? %>
+  <%= render "index_settings" %>
+<% end %>
+
+<% if is_reportable? %>
+  <%= render "reports" %>
+<% end %>
+

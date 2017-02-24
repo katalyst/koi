@@ -1,17 +1,18 @@
-
-.icon-chevron-left {
-  @include grunticon("chevron-left-16-white", 16px);
-}
-
-.icon-chevron-right {
-  @include grunticon("chevron-right-16-white", 16px);
-}
-
-.icon-search {
-  @include grunticon("search-16-white", 16px);
-}
-
 // inline icons as a class
 .icon-inline {
   @include icon-inline;
+}
+
+// Spinner animation
+.icon-spinner {
+  @include animation(spinner-rotate 2s linear infinite);
+}
+
+@include keyframes(spinner-rotate) {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(359deg);
+  }
 }

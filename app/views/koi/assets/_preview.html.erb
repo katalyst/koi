@@ -1,12 +1,21 @@
-<div class="spacing-xxx-tight">
-  <%= image_tag resource.thumbnail(size: '210x210'), class: "space-b-1" %>
+<% host = request.url.match(/\w+:[\/]{2}[^\/]+/).to_s %>
 
-  <% host = request.url.match(/\w+:[\/]{2}[^\/]+/).to_s %>
-
-  <p>
-    Name: <b><%= resource.data.name.truncate(25) %></b> <br />
-    Link: <b><%= link_to "Right-click to Copy", resource.url, target: "_clipboard" %></b> <br/>
-    Size: <b><%= number_to_human_size(resource.data.size) %></b> <br />
-    Uploaded: <b><%= date_d_Month_yyyy resource.created_at %></b>
-  </p>
+<div class="asset--details">
+  <h4 class="asset--filename"><%= resource.data.name %></h4>
+  <div class="asset--thumbnail">
+    <%- if resource.is_a?(Document) -%>
+      <%= image_tag resource.thumbnail(size: '400x') %>
+    <%- else -%>
+      <%= link_to (image_tag resource.data.thumb('400x>').url), resource.url, data: { lightbox: "image" } %>
+    <%- end -%>
+    
+  </div>
+  <div class="asset--information compressed">
+    <p>
+      Size: <strong><%= number_to_human_size(resource.data.size) %></strong> <br />
+      Uploaded: <strong><%= date_d_Month_yyyy resource.created_at %></strong> <br />
+      Link: <strong><%= link_to "Right-click to Copy", resource.url, target: "_clipboard" %></strong> 
+    </p>
+  </div>
 </div>
+

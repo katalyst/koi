@@ -23,7 +23,7 @@
       menuNavItemClass:           "navigation-item", // list items that are navigation triggers for styling purposes
       menuReadyClass:             "ready", // ready class, only used so that scaffolding won't happen more than once
       backContainerClass:         "back", // class used for back button containers
-      backButtonClass:            "button", // class used for back buttons
+      backButtonClass:            "button__primary", // class used for back buttons
       descriptionClass:           "description",
       descriptionTitleClass:      "description--title",
       descriptionBodyClass:       "description--body",
@@ -35,9 +35,9 @@
       animationBuffer:            100, // buffer for good measure
       slideTransitionTime:        200, // transition between pane sliding
       jumpToCurrent:              true, // jump to current page in the menu rather than starting at top-level
-      showOverviewLinks:          true, // will show overview links on secodary panes
-      keepScrollPosition:         false, // keep scroll position when opening tabs, dangerous if button isn't fixed
-      closeForAnchors:            true, // close menu when clicking on anchors
+      showOverviewLinks:          false, // will show overview links on secodary panes
+      keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
+      closeForAnchors:            false, // close menu when clicking on anchors
 
       // Customisable text strings
       viewOverviewText:           "View Overview",
@@ -75,6 +75,29 @@
         }
       },
 
+      // Destroy the tab indexes of all the links in the mobile menu
+      // This is used to stop screen readers and tabbing 
+      destroyTabIndexes: function() {
+        mobileNav.tray.find(".pane").removeAttr("tabIndex");
+        mobileNav.tray.find("a").attr("tabIndex", "-1");
+      },
+
+      // Create tabindexes for the current visible pane
+      createTabIndexesForCurrentPane: function() {
+        var currentPane = mobileNav.getCurrentPane();
+        var tabIndex = 2;
+        currentPane.attr("tabIndex", 1);
+        currentPane.children("ul").children("li").children("a").each(function(){
+          tabIndex++;
+          $(this).attr("tabIndex", tabIndex);
+        });
+      },
+
+      destroyTabIndexesAndCreateForCurrentPane: function() {
+        mobileNav.destroyTabIndexes();
+        mobileNav.createTabIndexesForCurrentPane();
+      },
+
       // Close menu
       closeMenu: function(){
         mobileNav.layoutElement.removeClass(mobileNav.layoutOpenClass).addClass(mobileNav.layoutTransitionClass);
@@ -84,6 +107,10 @@
 
         if(mobileNav.keepScrollPosition) {
           setTimeout(function(){
+            $(".layout--main").css({
+              position: "static",
+              top: 0
+            });
             scrollTo(0,mobileNav.scrollPosition);
           }, mobileNav.animationDuration + mobileNav.animationBuffer);
         }
@@ -96,12 +123,16 @@
         }
 
         // get scroll position and update
-        mobileNav.scrollPosition = $(window).scrollTop();
+        if(mobileNav.keepScrollPosition) {
+          mobileNav.scrollPosition = $(window).scrollTop();
+          $(".layout--main").css({
+            position: "relative",
+            top: mobileNav.scrollPosition * -1
+          });
+        }
 
         // update classes on page
         mobileNav.layoutElement.addClass(mobileNav.layoutOpenClass + " " + mobileNav.layoutTransitionClass);
-
-        // get scroll position
 
         // clicking on content wilgl close menu
         mobileNav.contentElement.on("click", "*", function (event) {
@@ -112,6 +143,14 @@
         // start animation timings
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
+        mobileNav.updateMenuHeightWithDelay();
+
+        // Focus on the first link
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+          mobileNav.getCurrentPane().focus();
+        }, mobileNav.slideTransitionTime);
+
       },
 
       // Toggle menu. Open if closed, close if open.
@@ -135,6 +174,14 @@
 
       getNestedMenus: function(){
         return mobileNav.tray.find("ul ul");
+      },
+
+      getCurrentPane: function(){
+        if( mobileNav.currentLevel === 1 ) {
+          return mobileNav.tray.find("." + mobileNav.menuNavigationClass)
+        } else {
+          return mobileNav.getCurrentTab().children(".pane");
+        }
       },
 
       // Update mobile menu height based on content
@@ -187,6 +234,7 @@
           // Do this after it has animated back to the previous pane via timeout
           mobileNav.getCurrentTab().removeClass(mobileNav.menuSelectedClass);
           mobileNav.updateMenuHeight();
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
         }, mobileNav.slideTransitionTime);
       },
 
@@ -205,6 +253,9 @@
         mobileNav.markParentAsActive($tab);
         // update heights
         mobileNav.updateMenuHeightWithDelay();
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+        }, mobileNav.slideTransitionTime);
       },
 
       // Match an ID and navigate to it
@@ -232,6 +283,7 @@
         mobileNav.tray.find("."+mobileNav.menuSelectedClass).removeClass(mobileNav.menuSelectedClass);
         mobileNav.currentLevel = 1;
         mobileNav.tray.attr("data-level", mobileNav.currentLevel);
+        mobileNav.destroyTabIndexesAndCreateForCurrentPane();
       },
 
       // Mark a parent node as active
@@ -283,6 +335,9 @@
             mobileNav.currentLevel = mobileNav.currentLevel + 1;
             mobileNav.tray.attr("data-level", mobileNav.currentLevel);
             mobileNav.updateMenuHeightWithDelay();
+            setTimeout(function(){
+              mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+            }, mobileNav.slideTransitionTime);
           });
 
           // Making back buttons work
@@ -361,6 +416,9 @@
           var $parentNode = $(this);
           if($parentNode.children("div").length > 0) {
             $parentNode.addClass(mobileNav.hasChildren).attr("data-mobilenav-forward","");
+            $parentNode.children("a").append(Ornament.icons.plus);
+          } else {
+            $parentNode.children("a").append(Ornament.icons.chevron);
           }
         });
 
@@ -388,7 +446,7 @@
           $nestedNode.prepend($descriptionBlock);
 
           // add the back button
-          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + mobileNav.backText + "</a></li>");
+          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + Ornament.icons.chevron + mobileNav.backText + "</a></li>");
         });
 
         // Run bindings

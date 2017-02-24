@@ -48,7 +48,8 @@ class Product < ActiveRecord::Base
            banner: { type: :image },
            manual: { type: :file },
            products: { type: :multiselect_association },
-           product_images: { type: :inline }
+           product_images: { type: :inline },
+           description: { type: :rich_text }
 
     config :admin do
       index fields: [:name]

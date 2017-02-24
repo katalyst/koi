@@ -1,20 +1,22 @@
 <div class="nested-fields">
-  <h3 class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>">
+  <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
+  <div class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>" data-inline-nested-field-heading>
     <%- if is_orderable -%>
       <span class="drag-handler hidden">
         [Drag]
       </span>
     <%- end -%>
-    <span class="title">
+    <span class="title nested-fields__heading--title">
       <%= (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
     </span>
-    <span class="nested-fields__status collapser"></span>
     <span class="close-link">
-      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. " } -%>
+      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. ", confirm_no_override: "" } -%>
     </span>
-  </h3>
+    <span class="nested-fields__status collapser">
+      <%= icon("chevron") -%>
+    </span>
+  </div>
   <div class="nested-inline-fields inputs <%= "hidden" if f.object.errors.blank? %>">
     <%= render "form_fields", f: f %>
-    <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
   </div>
 </div>

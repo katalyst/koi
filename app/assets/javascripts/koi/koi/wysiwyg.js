@@ -27,7 +27,6 @@
         CKEditor.bindForTextarea(this, force);
       });
     }
-
   }
 
   $(document).on("ornament:ck-editor", function(){
@@ -127,6 +126,10 @@
   });
 
   $(document).on("ornament:refresh", function(){
+    $(document).trigger("ornament:ck-editor");
+  });
+
+  $(document).on("ornament:tab-change", function () {  
     $(document).trigger("ornament:ck-editor");
   });
 

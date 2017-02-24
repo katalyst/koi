@@ -26,7 +26,7 @@
   </div>
 
   <div class="bg-mediumgrey">
-    <%= f.button :submit, "Sign in", class: "button__primary" %>
+    <%= f.button :button, "Sign in", class: "button__primary" %>
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
       <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
     <% end -%>

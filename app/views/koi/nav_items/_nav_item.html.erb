@@ -3,82 +3,84 @@
   <%
     nav_item_type = nav_item.class.name.underscore.dasherize 
     nav_item_id = nav_item.id 
-
-    if Koi::Sitemap.toggles
-      if Koi::Sitemap.default_visible.empty? 
-        # show all top level nav items by default if there are no settings
-        already_visible = (level < 2 ? true : false) 
-      else
-        # show only those specified and foce show the home folder 
-        already_visible = Koi::Sitemap.default_visible.include?(nav_item.id) || nav_item.id.eql?(1)
-      end
-    end
+    nav_item_is_hidden = nav_item.read_attribute(:is_hidden) == true
   %>
 
   <li id="nav-item-<%= nav_item.id %>"
       class="nav-item sitemap--group application id-<%= nav_item_id %>
-             <%= "sortable cursor-move" if nav_item.draggable? %>
+             <%= "sortable" if nav_item.draggable? %>
              level-<%= level %>
-             <%= 'is-hidden' if nav_item.read_attribute(:is_hidden) == true %>"
+             <%= 'is-hidden' if nav_item_is_hidden %> 
+             <%= " mjs-nestedSortable-expanded" if level.eql?(0) -%>"
       data-type="<%= nav_item_type %>"
       data-id="<%= nav_item_id %>"
       data-left-ordinal="<%= nav_item.lft %>"
       data-right-ordinal="<%= nav_item.rgt %>"
-      <%- if Koi::Sitemap.toggles -%>
-        data-toggleable
-      <%- end -%>
     >
 
     <!-- zone provides hoverable space between elements so there are no dead-spots -->
     <div class="zone">
-      <div class="body round-5px <%= nav_item.is_what? %> sitemap icon">
-        <div>
+      <div class="nav-item--body">
 
-          <div class="information">
-            <%= link_to nav_item.title, (nav_item.admin_url.blank? ? "#" : nav_item.admin_url) %>
-          </div>
+        <%- if Koi::Sitemap.toggles -%>
+          <span title="Click to show/hide children" class="disclose">
+            <span class="ui-icon ui-icon-minusthick">Toggle</span>
+          </span>
+        <%- end -%>
 
-          <div class="controls">
-            <ul class="hoverable menu ui-nestedSortable-no-nesting">
-              <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button") unless RootNavItem === nav_item %>
-              <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
+        <div class="information <%= nav_item.is_what? %>">
+          <%- if level.eql?(0) -%>
+            Navigation Groups
+          <%- else -%>
 
-              <li class="has-menu">
-                <a href="#" class="button">Add...</a>
-                <ul class="vertical solid divided hoverable light-orange menu buttons">
-                  <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") if current_admin.god? %>
-                  <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
-                  <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button") %>
-                  <% has_navigation_models.each do |model| %>
-                    <%= content_tag :li, link_to(model.to_s, model.get_new_admin_url(site_parent: nav_item.id), class: "button")  %>
-                  <% end %>
-                </ul>
-              </li>
-              <li>
-                <div class="sort sitemap icon round-r-5px pad-r-1 inline move"><a></a></div>
-              </li>
-            </ul>
-          </div>
+            <div class="nav-item--icon">
+              <span class="<%= nav_item.is_what? %> icon" title="<%= nav_item.is_what? %>"></span>
+            </div>
 
+            <div class="nav-item--title">
+              <%- if nav_item.admin_url.blank? -%>
+                <%= nav_item.title -%>
+              <%- else -%>
+                <%= link_to nav_item.title, nav_item.admin_url %>
+              <%- end -%>
+            </div>
+
+            <%- if nav_item_is_hidden -%>
+              <div class="nav-item--hidden" title="This item is hidden and will not appear in navigation">
+                <%= icon("hidden") -%>
+              </div>
+            <%- end -%>
+
+            <%- unless nav_item.key.blank? -%>
+              <div class="nav-item--key" title="<%= nav_item.key -%>">
+                <%= icon("key") -%>
+              </div>
+            <%- end -%>
+
+          <%- end -%>
+        </div>
+
+        <div class="controls">
+          <ul class="hoverable menu ui-nestedSortable-no-nesting">
+            <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary", data: { disable_with: "Loading" }) unless RootNavItem === nav_item %>
+
+            <li class="has-menu">
+              <a href="#" class="button__small button__primary">Add...</a>
+              <ul class="vertical solid divided hoverable light-orange menu buttons">
+                <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) if current_admin.god? %>
+                <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
+                <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
+                <% has_navigation_models.each do |model| %>
+                  <%= content_tag :li, link_to(model.to_s, model.get_new_admin_url(site_parent: nav_item.id), class: "button__primary button__full button__small")  %>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
     <% unless nav_item.children.empty? %>
-      <%- if Koi::Sitemap.toggles -%>
-        <div class="sitemap--toggler <%= "active" if already_visible -%>" data-toggle-anchor="toggle_<%= nav_item.id -%>"
-          <%- if Koi::Sitemap.one_only && nav_item.parent -%>
-            data-toggle-group="group_<%= nav_item.parent.id -%>"
-          <%- end -%>
-        >Toggle</div>
-      <%- end -%>
-      <ol class="nav-items" 
-        <%- if Koi::Sitemap.toggles -%>
-          data-toggle="toggle_<%= nav_item.id -%>" 
-        <%- end -%>
-        <%- if already_visible -%>
-          data-toggle-default
-        <%- end -%>
-      >
+      <ol class="nav-items <%= "sitemap--root" if level.eql?(0) -%>">
         <%= render partial: 'nav_item', collection: nav_item.children, as: :nav_item, locals: { level: level + 1 } %>
       </ol>
     <% end %>

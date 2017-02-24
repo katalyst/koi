@@ -31,7 +31,8 @@ class Translation < ActiveRecord::Base
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },
            value:      { type: :dynamic },
-           role:       { type: :select, data: Admin::ROLES }
+           role:       { type: :select, data: Admin::ROLES },
+           is_proc:    { type: :boolean }
     config :admin do
       index fields: [:label],
             title: "Settings"

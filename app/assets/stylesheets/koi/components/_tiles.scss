@@ -1,18 +1,31 @@
-.tiles {
-  @include row();
+.tiles-group {
   margin-top: $default-unit;
-  @include content-children;
+  margin-bottom: $default-unit;
+  @include flush-children;
 }
 
+.tiles {
+  @include flex-row-fluid;
+}
+
+.tiles__dashboard .tiles--column,
 .tiles__four .tiles--column {
-  @include spang(1,4);
-  // @include spang(2,4,small);
-  // @include spanc(tiny);
+  @include flex-col-fluid(25%);
+  @include media-query(900px) {
+    @include flex-col-fluid(33.33%);
+  }
+  @include media-query(700px) {
+    @include flex-col-fluid(50%);
+  }
 }
 
 .tile {
   background: $light-grey;
+  height: 100%;
   overflow: hidden; 
+  @include display-flex;
+  @include flex-direction(column);
+  @include flex-grow(1);
   @include border-radius($border-radius);
 }
 
@@ -29,6 +42,7 @@
 
 .tile--body {
   padding: $xxxxx-small-unit;
+  @include flex-grow(1);
 
   .tile__report & {
     font-size: $default-unit;

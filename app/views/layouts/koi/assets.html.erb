@@ -1,50 +1,19 @@
-<% js_data :create_asset_url, collection_path %>
-<% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(',') %>
-<% content_for :head, javascript_include_tag("koi/assets") %>
+<% js_data :create_asset_url, collection_path(format: :js) %>
+<% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(', ') %>
 
+<%- if params[:CKEditor] -%>
+  <%- content_for :hide_header, "true" -%>
+<%- end -%>
+
+<%- content_for :scripts do -%>
+  <%= javascript_include_tag "koi/assets" %>
+<%- end -%>
+
+<%- content_for :title, "Select #{resource_class.name}" -%>
+
+<<<<<<< HEAD
 <% content_for :global do %>
-  <body>
-    <div class="assets">
-
-      <div class="lightbox--heading lightbox--heading__no-close">
-        <h2 class="heading-two">Select <%= resource_class.name %></h2>
-        <%= link_to "Upload New #{ resource_class.name }", collection_path, class: "button__primary" %>
-      </div>
-
-      <div class="lightbox--subheading assets--filters">
-        <ul class="list-horizontal-flush__small">
-
-          <li>
-            <span>Filter:</span>
-          </li>
-
-          <%# @all_tags = %w[ Untagged Guidelines Terms&Conditions Reports Other ] %>
-          <li>
-            <%= link_to "All", { tags: nil }, class: (@tags.empty? ? "button__black" : "button") %>
-          </li>
-
-          <% @all_tags.each do |tag| %>
-
-            <% selected = @tags.include? tag %>
-            <li>
-              <%= link_to tag.to_s, params.symbolize_keys.merge( tags: @tags.send( (selected ? :- : :+), [ tag ]) ), class: (selected ? "button__black" : "button") %>
-            </li>
-
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="assets--body">
-        <div class="assets--body--left" data-conform-slave="asset-manager">
-
-          <div class="assets--search form--tiny-search small">
-
-            <div class="assets--search--stats">
-              <p><%= pluralize collection.size, resource_class.name %></p>
-            </div>
-
-            <%= form_tag collection_path, :method => 'get', class: "simple_form form-inline pull-right" do %>
-
+=======
               <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
               <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
               <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
@@ -113,15 +82,17 @@
             </table>
 
           </div>
+>>>>>>> master
 
-        </div>
-        <div class="assets--body--right" data-conform="asset-manager">
-          <%= content_for?(:assets) ? yield(:assets) : yield %>
-        </div>
-      </div>
+  <div class="page__with-sidebar-right page__with-sidebar-top">
+    <div class="page--main">
+      <%= content_for?(:assets) ? yield(:assets) : yield %>
     </div>
-
-  </body>
+    <div class="page--sidebar">
+      <%= yield :side -%>
+    </div>
+  </div>
+  
 <% end %>
 
-<%= render file: 'layouts/koi/global' %>
+<%= render :file => "layouts/koi/global" %>

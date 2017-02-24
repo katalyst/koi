@@ -1,11 +1,11 @@
 <div class="show--actions">
   <%- if is_allowed?(:index) %>
-    <%= link_to "Back", collection_path, class: "button__primary" %>
+    <%= link_to "Back", collection_path, class: "button" %>
   <%- end %>
   <%- if is_allowed?(:edit) %>
-    <%= link_to "Edit", edit_resource_path, class: "button" %>
+    <%= link_to "Edit", edit_resource_path, class: "button__primary" %>
   <%- end %>
   <%- if is_allowed?(:destroy) %>
-    <%= link_to "Delete", resource_path, :confirm => 'Are you sure?', :method => :delete, class: "button__error" %>
+    <%= link_to "Delete", resource_path, data: { confirm: 'Are you sure?' }, :method => :delete, class: "button__error" %>
   <%- end %>
 </div>

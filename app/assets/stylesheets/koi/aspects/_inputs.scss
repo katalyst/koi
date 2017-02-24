@@ -1,0 +1,9 @@
+.inputs {
+  > * + * {
+    margin-top: $xxx-small-unit;
+  }
+}
+
+.inputs + .actions {
+  margin-top: $xxx-small-unit;
+}

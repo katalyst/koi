@@ -1,36 +1,13 @@
+.inline-nested--heading {
+  margin: $default-unit 0 $xxx-small-unit;
+}
+
 .inline-nested-form {
   margin-bottom: 20px;
-}
-
-.inline-actions label {
-  margin-bottom: 0;
-}
-
-.nested-container {
-  border-top: 1px solid #ccc;
+  @include flush-children;
 }
 
 .nested-heading {
-  background: #666;
-  color: #fff;
-  overflow: hidden;
-  padding: 10px;
-
-  strong {
-    float: left;
-  }
-
-  .inline-actions {
-    float: right;
-  }
-
-  .inline-actions input {
-    margin-top: -1px;
-  }
-  .inline-actions label {
-    cursor: pointer;
-  }
-
   .error-block {
     float: left;
     margin-top: 0;
@@ -41,49 +18,64 @@
 }
 
 .nested-fields {
-  border: 1px solid #ccc;
-  border-width: 0 1px;
+  margin-top: 4px;
+  border: $divider;
 
   &.ui-sortable-helper {
-    border-top: 1px solid #ccc;
+    background: $passive-color;
   }
 }
 
 .nested-fields__heading {
-  display: block;
-  padding: 10px;
-  background: #ececec;
-  border-bottom: 1px solid #ccc;
-  font-size: 1em;
+  background: $passive-color;
+  @include display-flex;
+  @include flex-direction(row);
+  border-bottom: $divider;
+
+  .nested-wrapper-ordering & {
+    padding-left: 4px;
+  }
+
+  .nested-fields__heading--title {
+    padding: $xxx-small-unit;
+    @include flex-grow(1);
+  }
 }
 
 .nested-fields .drag-handler {
-  float: left;
-  width: 20px;
-  height: 100%;
+  width: 44px;
   text-indent: -9999px;
   outline: none;
-  background: url("/assets/koi/lib/jquery/ui-sortable-handle.png") center left no-repeat;
+  background: url("/assets/koi/lib/jquery/ui-sortable-handle.png") center no-repeat;
   cursor: pointer;
 }
 
 .nested-fields .close-link {
-  float: right;
-  font-size: 0.9em;
+  @include display-flex;
+  @include align-items(center);
+  padding-right: $xxx-small-unit;
 }
 
 .nested-fields__status {
-  float: right;
-  border-left: 1px solid #ccc;
+  border-left: $divider;
   width: 50px;
-  height: 26px;
-  margin-left: 15px;
-  margin-right: -10px;
-  background: url("/assets/koi/application/icon-collapse-down.png") center no-repeat;
   cursor: pointer;
+  @include display-flex;
+  @include align-items(center);
+  @include justify-content(center);
 
-  .nested-fields-visible & {
-    background-image: url("/assets/koi/application/icon-collapse-up.png");
+  .icon-chevron {
+    width: 16px;
+    height: 11px;
+    @include transition(transform .2s);
+
+    .nested-fields-visible & {
+      @include transform(rotateZ(-180deg));
+    }
+
+    path {
+      stroke: $dark-grey;
+    }
   }
 
   .nested-wrapper-ordering & {
@@ -92,12 +84,10 @@
 }
 
 .nested-inline-fields {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: $panel-padding;
 }
 
-.nested-container .links {
-  background: #666;
-  padding: 5px;
+.nested-links {
   overflow: hidden;
+  margin-top: $xxx-small-unit;
 }

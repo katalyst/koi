@@ -1,4 +1,17 @@
-$table-border: 1px solid #ccc;
+$table-border: 1px solid $divider-color;
+$table-striped-odd: $passive-color;
+$table-striped-even: transparent;
+$table-stacked-breakpoint: 500px;
+$table-padding: $xxxxx-small-unit;
+
+// Display types
+.display-table {
+  display: table;
+  width: 100%;
+}
+.display-table-cell {
+  display: table-cell;
+}
 
 table {
   width: 100%;
@@ -16,6 +29,14 @@ table {
     border-top: 1px solid $border;
   }
 
+  // tr:nth-child(even) td {
+  //   background: #fcfcfc;
+  // }
+
+  tr:hover td {
+    background: $table-hover-background;
+  }
+
   th {
     background: $light-grey;
   }
@@ -27,21 +48,52 @@ table {
   a.nohover {
     @include color-link($foreground-color, $foreground-color);
   }
+}
 
+.table-col-heading {
+  background: $passive-color;
+  border-right: 1px solid $border;
+  @include font($bold-font);
+  width: 250px;
+  vertical-align: top;
+
+  @include media-query(500px) {
+    width: 150px;
+  }
 }
 
 .table-container {
+  position: relative;
   max-width: 100%;
   overflow: auto;
   -webkit-overflow-scroll: touch;
+
+  table {
+    min-width: 450px;
+  }
 }
 
 .table--actions {
   width: 140px;
 }
 
-// Sortable table icons
+// Specific table width types
+.table--image {
+  width: 80px;
+  min-width: 80px;
 
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  @include media-query(600px) {
+    width: 50px;
+    min-width: 50px;
+  }
+}
+
+// Sortable table icons
 table .icon.sort, 
 table .icon.sort:hover {
   min-height: 16px; 
@@ -52,4 +104,28 @@ table .icon.sort:hover {
 
   &.ascending, &.asc { background-image:   url(/assets/koi/application/icon-index-sort-ascending.png); }
   &.descending, &.desc { background-image: url(/assets/koi/application/icon-index-sort-descending.png); }
+}
+
+.table-container--outer {
+  position: relative;
+}
+
+.table-container--shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: red;
+  z-index: 5;
+  display: none;
+}
+
+.table-container--shadow__left {
+  left: 0;
+  background: linear-gradient(to left, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+}
+
+.table-container--shadow__right {
+  right: 0;
+  background: linear-gradient(to right, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
 }
