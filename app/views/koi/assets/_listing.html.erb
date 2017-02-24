@@ -88,18 +88,18 @@
                   <%= image_tag(asset.thumbnail(size: '80x80#')) %>
                 <%- end -%>
               <%- else -%>
-                <%= link_to resource_path asset, params.symbolize_keys do %>
+                <%= link_to resource_path asset do %>
                   <%= image_tag(asset.thumbnail(size: '80x80#')) %>
                 <% end %>
               <%- end -%>
             </td>
             <td>
-              <%= link_to resource_path asset, params.symbolize_keys do %>
+              <%= link_to resource_path asset do %>
                 <%= asset.data_name %>
               <% end %>
             </td>
             <td>
-              <%= link_to resource_path asset, params.symbolize_keys do %>
+              <%= link_to resource_path asset do %>
                 <%= date_d_Month_yyyy asset.created_at %>
               <% end %>
             </td>
