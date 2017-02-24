@@ -51,7 +51,7 @@ module HasCrud
           end
 
           def is_exportable?
-            !!resource_class.crud.find(:admin, :exportable)
+            resource_class.options[:exportable]
           end
 
           def is_ajaxable?

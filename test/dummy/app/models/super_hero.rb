@@ -49,7 +49,6 @@ class SuperHero < ActiveRecord::Base
                     :telephone]
 
     config :admin do
-      exportable true
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:id, :name, :image, :file]

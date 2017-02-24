@@ -2,25 +2,36 @@
 
   // Configuration ////////////////////////////////////////////////////////////
 
+  var CKEditor = Ornament.CKEditor = {
+
+    $selector: '.wysiwyg.source',
+
+    bindForTextarea: function(textarea, force){
+      force = force || false;
+      var instance = CKEDITOR.instances[textarea.id];
+      if (force || !instance) {
+        CKEDITOR.replace(textarea);
+      }
+    },
+
+    bindForParent: function(parent, force){
+      force = force || false;
+      parent.find(CKEditor.$selector).each(function(){
+        CKEditor.bindForTextarea(this, force);
+      });
+    },
+
+    bindAll: function(force){
+      force = force || false;
+      $(CKEditor.$selector).each(function(){
+        CKEditor.bindForTextarea(this, force);
+      });
+    }
+  }
+
   $(document).on("ornament:ck-editor", function(){
 
-    function wysiwyg() {
-      var instance = CKEDITOR.instances[this.id];
-      if (!instance) {
-        CKEDITOR.replace(this);
-      }
-    }
-
-    $.fn.wysiwyg = function() {
-      if($(this).is(".wysiwyg-enabled")) {
-        return false;
-      } else {
-        $(this).addClass("wysiwyg-enabled");
-      }
-      return this.each(wysiwyg);
-    }
-
-    $('.wysiwyg.source').wysiwyg();
+    Ornament.CKEditor.bindAll();
 
     //////////////////////////////////////////////////////////// Configuration //
 

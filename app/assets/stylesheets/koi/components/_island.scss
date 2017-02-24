@@ -46,8 +46,7 @@ $island-error-background:   mix($error-color, $white, 10);
 }
 
 // Colour variations
-.island__warning,
-.island__notice {
+.island__warning {
   @extend .island;
   background: $island-warning-background;
 
@@ -66,7 +65,8 @@ $island-error-background:   mix($error-color, $white, 10);
   }
 }
 
-.island__success {
+.island__success,
+.island__notice {
   @extend .island;
   background: $island-success-background;
 

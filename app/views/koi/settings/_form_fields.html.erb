@@ -7,7 +7,6 @@
     <%=
       assoc    = klass.reflect_on_association(attr)
       partial  = 'form_field'
-      #partial += '_nested' if assoc && !assoc.belongs_to? && assoc.is_nested?
       render partial, :f => f, :attr => attr
     %>
   <% end %>

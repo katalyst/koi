@@ -10,7 +10,6 @@ class <%= class_name %> < ActiveRecord::Base
   <%= render_booleans %>
   crud.config do
     config :admin do
-      exportable true
       actions only:  [:index, :show]
       index fields: <%= crud_field_list %>,
             order:  { created_at: :desc }

@@ -58,6 +58,7 @@ module HasCrud
         setup_scope
         setup_slug
         setup_pagination
+        setup_exportable
       end
 
       def setup_navigation
@@ -163,6 +164,12 @@ module HasCrud
         if self.options[:page_list].nil?
           self.options[:page_list] = [10, 20, 50, 100]
         end
+      end
+
+      def setup_exportable
+        # set exportable: true by default
+        self.options[:exportable] = true if self.options[:exportable].nil?
+        make_exportable if self.options[:exportable]
       end
 
     end

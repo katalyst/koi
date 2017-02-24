@@ -11,7 +11,78 @@
 
 <%- content_for :title, "Select #{resource_class.name}" -%>
 
+<<<<<<< HEAD
 <% content_for :global do %>
+=======
+              <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
+              <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
+              <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
+              <% unless params[:tags].blank? %>
+                <% params[:tags].each do |tag| %><%= hidden_field_tag "tags[]", tag %><% end %>
+              <% end %>
+
+              <label>Search</label>
+
+              <input type="text"
+                     name="search"
+                     placeholder="Enter search criteria"
+                     value="<%= params[:search] %>"
+                     class="input__tight" />
+
+              <div class="search--buttons">
+                <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", class: "button__primary" %>
+                <%= link_to "Reset", collection_path(params.symbolize_keys.merge search: nil), class: "button" %>
+              </div>
+            <% end %>
+
+          </div>
+
+          <div class="assets--listing clear">
+
+            <table class="table table-striped table-condensed txt-grey font-12px">
+              <thead>
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    <div>
+                      <%= sortable "data_name", "Name", style: "padding-right:15px;" %>
+                    </div>
+                  </th>
+                  <th>
+                    <%= sortable "created_at", "Uploaded", style: "padding-right:15px;" %>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% collection.each_with_index do |asset, i| %>
+                  <% begin %>
+                    <tr>
+                      <td>
+                        <%= link_to resource_path asset do %>
+                          <%= image_tag(asset.thumbnail(size: '16x16#'), width: 16, height: 16, class: "pad-t-4px") %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to resource_path asset do %>
+                          <%= asset.data_name %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to resource_path asset do %>
+                          <%= date_d_Month_yyyy asset.created_at %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% rescue Dragonfly::DataStorage::DataNotFound %>
+                  <% next %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+>>>>>>> master
 
   <div class="page__with-sidebar-right page__with-sidebar-top">
     <div class="page--main">
