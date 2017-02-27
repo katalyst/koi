@@ -9,6 +9,7 @@ module Koi
     def index
       respond_to do |format|
         format.html
+        format.js
         format.csv { respond_with_csv }
       end
     end
