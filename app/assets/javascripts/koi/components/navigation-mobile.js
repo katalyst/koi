@@ -440,6 +440,9 @@
               }
             }
           });
+          if(!mobileNav.filterZone.children().length) {
+            mobileNav.filterZone.append("<li class='navigation-mobile--filter--no-results'>There are no results for your filter search</li>");
+          }
           mobileNav.destroyTabIndexes();
           mobileNav.createTabIndexesForCurrentPane();
           mobileNav.updateMenuHeight();

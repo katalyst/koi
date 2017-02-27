@@ -37,6 +37,13 @@ $navigation-secondary-pane-link-color:  #fff;
   display: block;
 }
 
+.navigation-mobile--filter--no-results {
+  padding: $xxx-small-unit;
+  @include font($italic-font);
+  color: $white;
+  opacity: 0.6;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;
