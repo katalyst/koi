@@ -48,6 +48,7 @@
       anchor:                     $(".layout--switch"),
       contentElement:             $(".layout--content"),
       layoutElement:              $(".layout"),
+      filterElement:              $("[data-tray-filter]"),
 
       // Core Settings
       currentLevel: 1, // initial level
@@ -80,6 +81,7 @@
       destroyTabIndexes: function() {
         mobileNav.tray.find(".pane").removeAttr("tabIndex");
         mobileNav.tray.find("a").attr("tabIndex", "-1");
+        mobileNav.filterElement.attr("tabIndex", "-1");
       },
 
       // Create tabindexes for the current visible pane
@@ -87,10 +89,22 @@
         var currentPane = mobileNav.getCurrentPane();
         var tabIndex = 2;
         currentPane.attr("tabIndex", 1);
-        currentPane.children("ul").children("li").children("a").each(function(){
+        var currentFilter = currentPane.find("[data-tray-filter]");
+        if(currentFilter) {
           tabIndex++;
-          $(this).attr("tabIndex", tabIndex);
-        });
+          currentFilter.attr("tabIndex", tabIndex);
+        }
+        if(mobileNav.filterZone.is(":visible")) {
+          mobileNav.filterZone.find("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex);
+          });
+        } else {
+          currentPane.children("ul").children("li").children("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex);
+          });
+        }
       },
 
       destroyTabIndexesAndCreateForCurrentPane: function() {
@@ -148,7 +162,11 @@
         // Focus on the first link
         setTimeout(function(){
           mobileNav.destroyTabIndexesAndCreateForCurrentPane();
-          mobileNav.getCurrentPane().focus();
+          if(mobileNav.filterElement) {
+            mobileNav.filterElement.focus();
+          } else {
+            mobileNav.getCurrentPane().focus();
+          } 
         }, mobileNav.slideTransitionTime);
 
       },
@@ -377,6 +395,44 @@
 
       },
 
+      clearFilter: function(){
+        mobileNav.mainPane.show();
+        mobileNav.filterZone.hide();
+      },
+
+      filterMenu: function(search) {
+        search = search.toLowerCase();
+        // Clear the filter list
+        mobileNav.filterZone.html("");
+        // Clear the filters and show the main menu if search
+        // is empty
+        if(search === "") {
+          mobileNav.clearFilter();
+        } else {
+          mobileNav.mainPane.hide();
+          mobileNav.filterZone.show();
+          var items = mobileNav.tray.find(".navigation-item").not(".has-children");
+          items.each(function(){
+            var $item = $(this);
+            var $anchor = $item.children("a");
+            if($anchor) {
+              var itemText = $anchor.text().trim().toLowerCase();
+              if(Ornament.fuzzySearch(search, itemText)) {
+                mobileNav.filterZone.append($item.clone());
+              }
+            }
+          });
+          mobileNav.destroyTabIndexes();
+          mobileNav.createTabIndexesForCurrentPane();
+          mobileNav.updateMenuHeight();
+        }
+      },
+
+      _filterMenuEvent: function(event){
+        var search = event.target.value;
+        mobileNav.filterMenu(search);
+      },
+
       // Scaffold the complex mobile menu
       scaffoldMobileMenu: function(){
 
@@ -393,8 +449,13 @@
         var $currentTab = mobileNav.getCMSActivePage();
         $currentTab.parent("li").addClass(mobileNav.menuSelectedClass);
 
+        // Create a zone for filter results
+        mobileNav.filterZone = $("<ul class='navigation-mobile--filter-zone' />");
+        mobileNav.mainPane = $tray.find("."+mobileNav.nonPaneClass);
+        mobileNav.mainPane.after(mobileNav.filterZone);
+
         // Wrap each list in a pane div to assist in animation and sizing
-        $tray.find("ul").not("."+mobileNav.nonPaneClass).wrap("<div class='"+mobileNav.paneClass+"' />");
+        $tray.find("ul").not(mobileNav.mainPane).not(mobileNav.filterZone).wrap("<div class='"+mobileNav.paneClass+"' />");
 
         // Add helper class to first pane
         var $firstPane = $tray.find("."+mobileNav.paneClass).first();
@@ -451,6 +512,10 @@
 
         // Run bindings
         mobileNav.updateMenuBindings();
+
+        // Filter functions
+        mobileNav.filterElement.off("keyup").on("keyup", mobileNav._filterMenuEvent);
+        mobileNav.filterElement.off("search").on("search", mobileNav._filterMenuEvent);
 
         // Add ready class to prevent re-scaffolding
         $tray.addClass(mobileNav.menuReadyClass);

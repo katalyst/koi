@@ -25,6 +25,11 @@ $navigation-secondary-pane-link-color:  #fff;
   background: $navigation-tray-background;
 }
 
+.navigation-mobile--filter {
+  padding: $xxx-small-unit;
+  border-bottom: 1px solid $primary-color;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;
