@@ -39,8 +39,8 @@ class SuperHero < ActiveRecord::Base
            last_location_seen:   { type: :latlng },
            powers:               { type: :check_boxes, data: Powers },
            images:               { type: :inline },
-           published_at:         { type: :date, size: :small },
-           telephone:        { type: :readonly }
+           published_at:         { type: :date, size: :small, datepicker: { dateformat: "dd M yy", maxdate: "0" } },
+           telephone:            { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
