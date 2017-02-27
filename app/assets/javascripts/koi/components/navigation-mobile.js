@@ -421,7 +421,22 @@
             if($anchor) {
               var itemText = $anchor.text().trim().toLowerCase();
               if(Ornament.fuzzySearch(search, itemText)) {
-                mobileNav.filterZone.append($item.clone());
+                // build up a breadcrumb style of parent links
+                var $ancestors = $item.parents("li");
+                var $result = $item.clone();
+                if($ancestors.length) {
+                  var ancestorText = "";
+                  $ancestors.reverse().each(function(i){
+                    ancestorText += $(this).children("a").text().trim();
+                    if(i+1 !== $ancestors.length) {
+                      ancestorText += " › ";
+                    }
+                  });
+                  var $ancestorLabel = $("<small class='navigation-mobile--filter--ancestor' />");
+                  $ancestorLabel.text(ancestorText);
+                  $result.children("a").prepend($ancestorLabel);
+                }
+                mobileNav.filterZone.append($result.clone());
               }
             }
           });

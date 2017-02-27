@@ -30,6 +30,13 @@ $navigation-secondary-pane-link-color:  #fff;
   border-bottom: 1px solid $primary-color;
 }
 
+.navigation-mobile--filter--ancestor {
+  opacity: 0.6;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  display: block;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;
