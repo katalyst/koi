@@ -18,8 +18,7 @@
           event.stopPropagation();
         });
 
-        function showNotice (f)
-        {
+        function showNotice (f) {
           noticeInner.text (savingMessage);
           notice
             .stop (true, true)
@@ -27,8 +26,7 @@
             .animate ({ opacity:1 }, f)
         }
 
-        function hideNotice ()
-        {
+        function hideNotice () {
           noticeInner.text (successMessage);
           notice
             .removeClass('notice')
@@ -39,28 +37,28 @@
         }
 
         $ ('#sortable').sortable ({
-
-          placeholder: 'ui-state-placeholder'
-
-        , helper: function (e, ui) // preserves width of cells...
-          {
-            ui.children().each (function () { $ (this).width ($ (this).width()) })
-            return ui
+          placeholder: 'ui-state-placeholder', 
+          handle: "[data-table-sorter]",
+          axis: "y",
+          helper: function(e, ui) {
+            // preserves width of cells...
+            ui.children().each(function () { 
+              $(this).width($(this).width());
+            });
+            return ui;
+          }, 
+          update: function() {
+            showNotice(function() {
+              $.post(sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice);
+            });
+          },
+          start: function(event, ui) {
+            $("body").addClass("table-sorting-active");
+          },
+          stop: function(event, ui) {
+            $("body").removeClass("table-sorting-active");
           }
-
-        , update: function ()
-          {
-            showNotice (function ()
-            {
-              $.post (sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice)
-            })
-          }
-
-        })
-
-        .disableSelection()
-
-        .on ('selectstart', function () { return false })
+        }).disableSelection().on('selectstart', function() { return false });
       });
     </script>
   <% end %>
@@ -110,7 +108,7 @@
             <%= render "index_fields_action", { :object => object } %>
           </td>
           <% if is_orderable? %>
-            <td class="nowrap">
+            <td class="nowrap table--sorter" data-table-sorter>
               <%= image_tag "koi/application/icon-sortable.png", :class => "space-half" %>
             </td>
           <% end %>

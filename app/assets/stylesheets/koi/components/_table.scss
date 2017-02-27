@@ -68,6 +68,15 @@ table {
   overflow: auto;
   -webkit-overflow-scroll: touch;
 
+  .table-sorting-active & {
+    overflow: hidden;
+    position: static;
+  }
+
+  .ui-sortable-helper {
+    background: $passive-color;
+  }
+
   table {
     min-width: 450px;
   }
@@ -128,4 +137,8 @@ table .icon.sort:hover {
 .table-container--shadow__right {
   right: 0;
   background: linear-gradient(to right, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+}
+
+.table--sorter {
+  cursor: pointer;
 }
