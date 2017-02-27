@@ -56,9 +56,11 @@
                 <div class="navigation-mobile--header">
                   koi
                 </div>
-                <div class="navigation-mobile--filter">
-                  <input type="search" placeholder="Filter menu" data-tray-filter />
-                </div>
+                <%- if Koi::Menu.filterable -%>
+                  <div class="navigation-mobile--filter">
+                    <input type="search" placeholder="Filter menu" data-tray-filter />
+                  </div>
+                <%- end -%>
                 <%= render :partial => "layouts/koi/navigation" %>
               </div>
             </div>

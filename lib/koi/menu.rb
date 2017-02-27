@@ -5,5 +5,8 @@ module Koi
 
     mattr_accessor :advanced
     @@items = {}
+
+    mattr_accessor :filterable
+    @@filterable = true
   end
 end
