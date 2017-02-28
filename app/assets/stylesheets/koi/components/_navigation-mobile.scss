@@ -25,6 +25,29 @@ $navigation-secondary-pane-link-color:  #fff;
   background: $navigation-tray-background;
 }
 
+.navigation-mobile--filter {
+  padding: $xxx-small-unit;
+  border-bottom: 1px solid $primary-color;
+}
+
+.navigation-mobile--filter--ancestor {
+  opacity: 0.6;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  display: block;
+}
+
+.navigation-mobile--filter--no-results {
+  padding: $xxx-small-unit;
+  @include font($italic-font);
+  color: $white;
+  opacity: 0.6;
+}
+
+.navigation-mobile--filter-zone {
+  display: none;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;

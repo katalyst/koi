@@ -38,6 +38,7 @@
       showOverviewLinks:          false, // will show overview links on secodary panes
       keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
       closeForAnchors:            false, // close menu when clicking on anchors
+      filterUrls:                 false, // filter returns results for last URL component as well as title
 
       // Customisable text strings
       viewOverviewText:           "View Overview",
@@ -48,6 +49,7 @@
       anchor:                     $(".layout--switch"),
       contentElement:             $(".layout--content"),
       layoutElement:              $(".layout"),
+      filterElement:              $("[data-tray-filter]"),
 
       // Core Settings
       currentLevel: 1, // initial level
@@ -76,10 +78,11 @@
       },
 
       // Destroy the tab indexes of all the links in the mobile menu
-      // This is used to stop screen readers and tabbing 
+      // This is used to stop screen readers and tabbing
       destroyTabIndexes: function() {
         mobileNav.tray.find(".pane").removeAttr("tabIndex");
         mobileNav.tray.find("a").attr("tabIndex", "-1");
+        mobileNav.filterElement.attr("tabIndex", "-1");
       },
 
       // Create tabindexes for the current visible pane
@@ -87,10 +90,22 @@
         var currentPane = mobileNav.getCurrentPane();
         var tabIndex = 2;
         currentPane.attr("tabIndex", 1);
-        currentPane.children("ul").children("li").children("a").each(function(){
+        var currentFilter = currentPane.find("[data-tray-filter]");
+        if(currentFilter.length) {
           tabIndex++;
-          $(this).attr("tabIndex", tabIndex);
-        });
+          currentFilter.attr("tabIndex", tabIndex);
+        }
+        if(mobileNav.filterZone && mobileNav.filterZone.is(":visible")) {
+          mobileNav.filterZone.find("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex);
+          });
+        } else {
+          currentPane.children("ul").children("li").children("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex);
+          });
+        }
       },
 
       destroyTabIndexesAndCreateForCurrentPane: function() {
@@ -148,7 +163,11 @@
         // Focus on the first link
         setTimeout(function(){
           mobileNav.destroyTabIndexesAndCreateForCurrentPane();
-          mobileNav.getCurrentPane().focus();
+          if(mobileNav.filterElement.length) {
+            mobileNav.filterElement.focus();
+          } else {
+            mobileNav.getCurrentPane().focus();
+          }
         }, mobileNav.slideTransitionTime);
 
       },
@@ -377,6 +396,69 @@
 
       },
 
+      clearFilter: function(){
+        mobileNav.mainPane.show();
+        mobileNav.filterZone.hide();
+        mobileNav.destroyTabIndexes();
+        mobileNav.createTabIndexesForCurrentPane();
+        mobileNav.updateMenuHeight();
+      },
+
+      filterMenu: function(search) {
+        search = search.toLowerCase();
+        // Clear the filter list
+        mobileNav.filterZone.html("");
+        // Clear the filters and show the main menu if search
+        // is empty
+        if(search === "") {
+          mobileNav.clearFilter();
+        } else {
+          mobileNav.mainPane.hide();
+          mobileNav.filterZone.show();
+          var items = mobileNav.tray.find(".navigation-item").not(".has-children");
+          items.each(function(){
+            var $item = $(this);
+            var $anchor = $item.children("a");
+            if($anchor) {
+              var itemText = $anchor.text().trim().toLowerCase();
+              // grab the url and strip out slashes, underscores, and 'admin'
+              var itemUrl = $anchor.attr("href").replace('admin', '').replace(/\//g, ' ').replace(/_/g, ' ');
+              var isFound = Ornament.fuzzySearch(search, itemText) || 
+                            mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrl);
+              if(isFound) {
+                // build up a breadcrumb style of parent links
+                var $ancestors = $item.parents("li");
+                var $result = $item.clone();
+                if($ancestors.length) {
+                  var ancestorText = "";
+                  $ancestors.reverse().each(function(i){
+                    ancestorText += $(this).children("a").text().trim();
+                    if(i+1 !== $ancestors.length) {
+                      ancestorText += " › ";
+                    }
+                  });
+                  var $ancestorLabel = $("<small class='navigation-mobile--filter--ancestor' />");
+                  $ancestorLabel.text(ancestorText);
+                  $result.children("a").prepend($ancestorLabel);
+                }
+                mobileNav.filterZone.append($result.clone());
+              }
+            }
+          });
+          if(!mobileNav.filterZone.children().length) {
+            mobileNav.filterZone.append("<li class='navigation-mobile--filter--no-results'>There are no results for your filter search</li>");
+          }
+          mobileNav.destroyTabIndexes();
+          mobileNav.createTabIndexesForCurrentPane();
+          mobileNav.updateMenuHeight();
+        }
+      },
+
+      _filterMenuEvent: function(event){
+        var search = event.target.value;
+        mobileNav.filterMenu(search);
+      },
+
       // Scaffold the complex mobile menu
       scaffoldMobileMenu: function(){
 
@@ -393,8 +475,20 @@
         var $currentTab = mobileNav.getCMSActivePage();
         $currentTab.parent("li").addClass(mobileNav.menuSelectedClass);
 
+        // Create a zone for filter results
+        mobileNav.mainPane = $tray.find("."+mobileNav.nonPaneClass);
+        if(mobileNav.filterElement.length) {
+          mobileNav.filterZone = $("<ul class='navigation-mobile--filter-zone' />");
+          mobileNav.mainPane.after(mobileNav.filterZone);
+          if(mobileNav.filterElement.is("[data-tray-filter-urls]")) {
+            mobileNav.filterUrls = true;
+          }
+        } else {
+          mobileNav.filterZone = false;
+        }
+
         // Wrap each list in a pane div to assist in animation and sizing
-        $tray.find("ul").not("."+mobileNav.nonPaneClass).wrap("<div class='"+mobileNav.paneClass+"' />");
+        $tray.find("ul").not(mobileNav.mainPane).not(mobileNav.filterZone).wrap("<div class='"+mobileNav.paneClass+"' />");
 
         // Add helper class to first pane
         var $firstPane = $tray.find("."+mobileNav.paneClass).first();
@@ -451,6 +545,10 @@
 
         // Run bindings
         mobileNav.updateMenuBindings();
+
+        // Filter functions
+        mobileNav.filterElement.off("keyup").on("keyup", mobileNav._filterMenuEvent);
+        mobileNav.filterElement.off("search").on("search", mobileNav._filterMenuEvent);
 
         // Add ready class to prevent re-scaffolding
         $tray.addClass(mobileNav.menuReadyClass);

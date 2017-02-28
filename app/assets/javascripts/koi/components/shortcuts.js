@@ -10,6 +10,11 @@
     // Toggle the menu open/close
     keyboardJS.bind("alt + m", function(e) {
       mobileNav.toggleMenu();
+      if(mobileNav.filterElement) {
+        mobileNav.filterElement.blur();
+        mobileNav.filterElement.val("");
+        mobileNav.clearFilter();
+      }
     });
 
     // Close the menu or close a lightbox
