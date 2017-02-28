@@ -3,6 +3,7 @@ $(document).on("ornament:refresh", function(){
   var Sitemap = Ornament.C.Sitemap = {
 
     // Configuration
+    logging: true,
     disabledButtonClass: "button__depressed",
     closedNodeClass: 'mjs-nestedSortable-collapsed',
     expandedNodeClass: 'mjs-nestedSortable-expanded',
@@ -17,6 +18,12 @@ $(document).on("ornament:refresh", function(){
     lang: {
       enabledButton: "Lock Dragging",
       disabledButton: "Unlock Dragging"
+    },
+
+    log: function(log){
+      if(Sitemap.logging) {
+        console.log("[SITEMAP]", log);
+      }
     },
 
     getLockedStateFromLocalStorage: function(){
@@ -39,7 +46,7 @@ $(document).on("ornament:refresh", function(){
       } else {
         Sitemap.setSitemapDragStateDisabled();
       }
-  },
+    },
 
     // Disable dragging of sitemap
     setSitemapDragStateDisabled: function(){
@@ -75,21 +82,21 @@ $(document).on("ornament:refresh", function(){
       $container.toggleClass(Sitemap.closedNodeClass).toggleClass(Sitemap.expandedNodeClass);
       $label.toggleClass('ui-icon-plusthick').toggleClass('ui-icon-minusthick');
       if($container.hasClass(Sitemap.closedNodeClass)) {
-        console.log(nodeId + " is closed");
+        Sitemap.log(nodeId + " is closed");
         if(currentClosedNodes.indexOf(nodeId) === -1) {
-          console.log(nodeId + " adding to LS");
+          Sitemap.log(nodeId + " adding to LS");
           currentClosedNodes.push(nodeId);
           Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
-          console.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
+          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
         }
       } else {
-        console.log(nodeId + " is open");
+        Sitemap.log(nodeId + " is open");
         var nodeIndex = currentClosedNodes.indexOf(nodeId);
         if(nodeIndex > -1)  {
-          console.log(nodeId + " removing from LS");
+          Sitemap.log(nodeId + " removing from LS");
           currentClosedNodes.splice(nodeIndex, 1);
           Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
-          console.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
+          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
         }
       }
     },
