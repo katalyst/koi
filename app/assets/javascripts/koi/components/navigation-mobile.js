@@ -78,7 +78,7 @@
       },
 
       // Destroy the tab indexes of all the links in the mobile menu
-      // This is used to stop screen readers and tabbing 
+      // This is used to stop screen readers and tabbing
       destroyTabIndexes: function() {
         mobileNav.tray.find(".pane").removeAttr("tabIndex");
         mobileNav.tray.find("a").attr("tabIndex", "-1");
@@ -167,7 +167,7 @@
             mobileNav.filterElement.focus();
           } else {
             mobileNav.getCurrentPane().focus();
-          } 
+          }
         }, mobileNav.slideTransitionTime);
 
       },
@@ -421,8 +421,9 @@
             var $anchor = $item.children("a");
             if($anchor) {
               var itemText = $anchor.text().trim().toLowerCase();
+              // grab the url and strip out slashes, underscores, and 'admin'
               var itemUrl = $anchor.attr("href").split("/");
-              var itemUrlCandidate = itemUrl[itemUrl.length - 1];
+              var itemUrlCandidate = itemUrl.replace('admin', '').replace(/\//g, ' ').replace(/_/g, ' ')
               var isFound = Ornament.fuzzySearch(search, itemText) || 
                             mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrlCandidate);
               if(isFound) {
