@@ -422,10 +422,9 @@
             if($anchor) {
               var itemText = $anchor.text().trim().toLowerCase();
               // grab the url and strip out slashes, underscores, and 'admin'
-              var itemUrl = $anchor.attr("href").split("/");
-              var itemUrlCandidate = itemUrl.replace('admin', '').replace(/\//g, ' ').replace(/_/g, ' ')
+              var itemUrl = $anchor.attr("href").replace('admin', '').replace(/\//g, ' ').replace(/_/g, ' ');
               var isFound = Ornament.fuzzySearch(search, itemText) || 
-                            mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrlCandidate);
+                            mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrl);
               if(isFound) {
                 // build up a breadcrumb style of parent links
                 var $ancestors = $item.parents("li");
