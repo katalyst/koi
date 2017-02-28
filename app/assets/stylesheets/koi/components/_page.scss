@@ -28,13 +28,16 @@
 .page__with-sidebar-right {
   clear: both;
   @include flex-row($desktop-gutters);
+  @include media-query($breakpoint-page) {
+    @include flex-row($panel-spacing);
+  }
 }
 
 .page--main {
   @include flex-col(span(8,12), $desktop-gutters);
 
   @include media-query($breakpoint-page) {
-    @include flex-col(100%);
+    @include flex-col(100%, $panel-spacing);
   }
 
   .page__with-sidebar & {
@@ -47,7 +50,7 @@
   min-height: 1px;
 
   @include media-query($breakpoint-page) {
-    @include flex-col(100%);
+    @include flex-col(100%, $panel-spacing);
   }
 
   .page__with-sidebar-top & {

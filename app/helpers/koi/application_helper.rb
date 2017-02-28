@@ -134,4 +134,12 @@ module Koi::ApplicationHelper
     "Image missing"
   end
 
+  def partial_with_wrapper(&block)
+    begin
+      capture(&block)
+    rescue ActionView::MissingTemplate
+      nil 
+    end
+  end
+
 end

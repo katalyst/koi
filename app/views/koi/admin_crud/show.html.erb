@@ -1,4 +1,28 @@
-<%= render 'show_actions' %>
 <%= render 'show_title' %>
+<%= render 'show_actions' %>
+<%= partial_with_wrapper do -%>
+  <div class="listing--above-list">
+    <%= render partial: "show_above" -%>
+  </div>
+<%- end -%>
+<%- sidebar = partial_with_wrapper do -%>
+  <div class="page--sidebar">
+    <%= render partial: "show_sidebar" -%>
+  </div>
+<%- end -%>
+<%- if sidebar -%>
+  <div class="page__with-sidebar-right">
+    <div class="page--main">
+<%- end -%>
 <%= render 'show_fields' %>
+<%- if sidebar -%>
+    </div>
+    <%= sidebar -%>
+  </div>
+<%- end -%>
+<%= partial_with_wrapper do -%>
+  <div class="listing--below-list">
+    <%= render partial: "show_below" -%>
+  </div>
+<%- end -%>
 <%= render 'show_actions' %>

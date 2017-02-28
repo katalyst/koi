@@ -1,3 +1,9 @@
+<%- sidebar = partial_with_wrapper do -%>
+  <div class="page--sidebar">
+    <%= render partial: "index_sidebar" -%>
+  </div>
+<%- end -%>
+
 <% if is_ajaxable? %>
   <% content_for :head do %>
     <%= render "index_ajax" %>
@@ -17,6 +23,17 @@
 <% if is_settable? || is_reportable? %>
   <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
 <% end %>
+
+<%- if sidebar -%>
+  <div class="page__with-sidebar-right">
+    <div class="page--main">
+<%- end -%>
+
+<%= partial_with_wrapper do -%>
+  <div class="listing--above-list">
+    <%= render partial: "index_above_list" -%>
+  </div>
+<%- end -%>
 
 <div class="listing--count">
   <div class="listing--count--items">
@@ -45,6 +62,18 @@
   </div>
 <% end %>
 
+<%= partial_with_wrapper do -%>
+  <div class="listing--below-list">
+    <%= render partial: "index_below_list" -%>
+  </div>
+<%- end -%>
+
+<%- if sidebar -%>
+    </div>
+    <%= sidebar -%>
+  </div>
+<%- end -%>
+
 <% if is_settable? || is_reportable? %>
   </div>
 <% end %>
@@ -56,4 +85,3 @@
 <% if is_reportable? %>
   <%= render "reports" %>
 <% end %>
-
