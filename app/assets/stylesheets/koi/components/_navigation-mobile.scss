@@ -44,6 +44,10 @@ $navigation-secondary-pane-link-color:  #fff;
   opacity: 0.6;
 }
 
+.navigation-mobile--filter-zone {
+  display: none;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;

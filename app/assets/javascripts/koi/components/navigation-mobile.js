@@ -38,6 +38,7 @@
       showOverviewLinks:          false, // will show overview links on secodary panes
       keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
       closeForAnchors:            false, // close menu when clicking on anchors
+      filterUrls:                 false, // filter returns results for last URL component as well as title
 
       // Customisable text strings
       viewOverviewText:           "View Overview",
@@ -420,7 +421,11 @@
             var $anchor = $item.children("a");
             if($anchor) {
               var itemText = $anchor.text().trim().toLowerCase();
-              if(Ornament.fuzzySearch(search, itemText)) {
+              var itemUrl = $anchor.attr("href").split("/");
+              var itemUrlCandidate = itemUrl[itemUrl.length - 1];
+              var isFound = Ornament.fuzzySearch(search, itemText) || 
+                            mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrlCandidate);
+              if(isFound) {
                 // build up a breadcrumb style of parent links
                 var $ancestors = $item.parents("li");
                 var $result = $item.clone();
@@ -475,6 +480,9 @@
         if(mobileNav.filterElement.length) {
           mobileNav.filterZone = $("<ul class='navigation-mobile--filter-zone' />");
           mobileNav.mainPane.after(mobileNav.filterZone);
+          if(mobileNav.filterElement.is("[data-tray-filter-urls]")) {
+            mobileNav.filterUrls = true;
+          }
         } else {
           mobileNav.filterZone = false;
         }
