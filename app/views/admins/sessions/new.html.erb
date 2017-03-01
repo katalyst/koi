@@ -1,6 +1,4 @@
-<div class="titlebar">
-  <h1 class="heading-two">Sign in</h1>
-</div>
+<%- content_for :title, "Sign in" -%>
 
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.new_admin_session_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
 
