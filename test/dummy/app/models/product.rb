@@ -49,11 +49,12 @@ class Product < ActiveRecord::Base
            manual: { type: :file },
            products: { type: :multiselect_association },
            product_images: { type: :inline },
-           description: { type: :rich_text }
+           description: { type: :rich_text },
+           launch_date: { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do
       index fields: [:name]
-       form  fields: [:name, :description, :products, :product_images]
+       form  fields: [:name, :description, :launch_date, :products, :product_images]
     end
   end
 

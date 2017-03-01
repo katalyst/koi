@@ -194,6 +194,15 @@
       }
     },
 
+    bindInputMasks: function(){
+      $("[data-input-mask]").each(function(){
+        var $field = $(this);
+        var mask = $field.attr("data-input-mask");
+        var placeholder = mask.replace(/0/g, "_");
+        $field.mask(mask, { placeholder: placeholder });
+      });
+    },
+
     isLinkAButton: function(element) {
       return element.is(".button") || 
              element.is(".button__small") || 
@@ -226,6 +235,7 @@
       FormHelpers.tagifyInputs();
       FormHelpers.bindDatepickers();
       FormHelpers.bindCustomDisableLinks();
+      FormHelpers.bindInputMasks();
     }
 
   };
