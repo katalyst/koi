@@ -163,7 +163,7 @@
         // Focus on the first link
         setTimeout(function(){
           mobileNav.destroyTabIndexesAndCreateForCurrentPane();
-          if(mobileNav.filterElement.length) {
+          if(mobileNav.filterElement.length && mobileNav.currentLevel === 1) {
             mobileNav.filterElement.focus();
           } else {
             mobileNav.getCurrentPane().focus();
