@@ -194,6 +194,10 @@
       }
     },
 
+    bindColourPickers: function(){
+      $("[data-colourpicker]").minicolors();
+    },
+
     isLinkAButton: function(element) {
       return element.is(".button") || 
              element.is(".button__small") || 
@@ -226,6 +230,7 @@
       FormHelpers.tagifyInputs();
       FormHelpers.bindDatepickers();
       FormHelpers.bindCustomDisableLinks();
+      FormHelpers.bindColourPickers();
     }
 
   };
