@@ -180,7 +180,7 @@
         if( settings.format === 'rgb' ) {
             size = settings.opacity ? '25' : '20';
         } else {
-            size = settings.keywords ? '11' : '7';
+            size = settings.keywords ? '11' : '8';
         }
 
         // The input
