@@ -6,10 +6,11 @@
   }
 }
 
-.page--title--content {
+.page--title--wrapper {
   padding-top: $xx-large-unit;
   padding-bottom: $xx-large-unit;
-  @include media-query(800px) {
+
+  @include media-query($breakpoint-page) {
     padding-top: $large-unit;
     padding-bottom: $large-unit;
   }
@@ -22,6 +23,36 @@
 .page--title__border {
   border-bottom: 1px solid $page-title-border;
   margin-bottom: $default-unit;
+}
+
+.page--title--below {
+  padding-top: $xxx-small-unit;
+}
+
+.page--title--content {
+  @include display-flex;
+  @include flex-direction(row);
+
+  @include media-query($breakpoint-page, min) {
+    @include align-items(center);
+  }
+
+  @include media-query($breakpoint-page) {
+    @include flex-direction(column);
+  }
+
+  h1 {
+    @include flex-grow(1);
+  }
+}
+
+.page--title--actions {
+  @include flex-grow(0);
+
+  @include media-query($breakpoint-page) {
+    @include order(-1);
+    margin-bottom: $xxx-small-unit;
+  }
 }
 
 .page__with-sidebar,

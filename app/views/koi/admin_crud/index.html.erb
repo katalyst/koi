@@ -14,6 +14,18 @@
   <%= render "index_title" %>
 <% end %>
 
+<%- partial_with_wrapper do -%>
+  <%- content_for :below_title do -%>
+    <%= render partial: "index_below_title" -%>
+  <%- end -%>
+<%- end -%>
+
+<%- partial_with_wrapper do -%>
+  <%- content_for :title_actions do -%>
+    <%= render partial: "index_title_actions" -%>
+  <%- end -%>
+<%- end -%>
+
 <% if is_settable? || is_reportable? %>
   <%- content_for :title_tabs do -%>
     <%= render "index_settings_navigation" %>
