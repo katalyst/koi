@@ -1,6 +1,6 @@
 <div class="listing--pagination--search">
 
-  <%= form_tag collection_path, :method => 'get', class: "form-search space-0" do %>
+  <%= simple_form_for :search, url: collection_path, :method => 'get', class: "form-search space-0" do |f| %>
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
     <%= hidden_field_tag :sort, params[:sort], id: "search_sort" %>
     <%= hidden_field_tag :per, params[:per], id: "search_per" %>
@@ -10,14 +10,27 @@
         <div class="form-inline">
           <div class="form-inline--input">
             <input type="text"
-                   name="search"
+                   name="search[keyword]"
                    placeholder="Search"
-                   value="<%= params[:search] %>" />
+                   value="<%= params[:search].try(:[], :keyword) %>" />
           </div>
           <%= content_tag :button, "Go", type: "submit", name: "commit", value: "Search", :class => "button__primary form-inline--button" %>
           <div class="form-inline--button">
             <%= link_to "Reset", collection_path, class: "button button__full" %>
           </div>
+
+          <% filters = resource_class.crud.find(:admin, :index, :filters) %>
+          <% if filters.present? %>
+            <% resource_class.crud.find(:admin, :index, :filters).each do |attr| %>
+              <%=
+                begin
+                  render crud_partial(attr, :filter), { attr: attr, f: f }
+                rescue ActionView::MissingTemplate
+                  render "filter_default", { attr: :attr, f: f }
+                end
+               %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>

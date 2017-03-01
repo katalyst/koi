@@ -1,0 +1,2 @@
+<% selected = params[:search].try(:[], attr) %>
+<%= f.input attr, as: :select, collection: [["Yes", true], ["No", false]], selected: selected %>

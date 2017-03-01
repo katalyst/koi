@@ -42,17 +42,6 @@ module Exportable
         end
       end
 
-      # get field definitions from crud config, e.g.
-      #
-      #  [
-      #    active: { type: boolean },
-      #    description: { type: :rich_text },
-      #  ]
-      #
-      def field_definitions
-        @field_definitions ||= crud.find(:fields)
-      end
-
       # e.g.
       #
       #  format_field_for_csv(:boolean, <record>, :active)

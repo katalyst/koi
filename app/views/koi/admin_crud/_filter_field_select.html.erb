@@ -1,0 +1,2 @@
+<% selected = params[:search].try(:[], attr) %>
+<%= f.input attr, as: :select, collection: resource_class.crud.find(:fields, attr, :data), selected: selected %>

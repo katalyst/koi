@@ -51,13 +51,14 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
-      index   fields: [:id, :name, :image, :file]
+      index   fields: [:id, :name, :gender, :is_alive, :image, :file],
+              filters: [:is_alive, :gender]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :last_location_seen, :telephone, :image, :file, 
+                       :last_location_seen, :telephone, :image, :file,
                        :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :last_location_seen, :telephone, :image, :file, 
+                       :last_location_seen, :telephone, :image, :file,
                        :image_upload_id, :document_upload_id, :powers]
       reportable true
       charts [{
@@ -120,5 +121,51 @@ class SuperHero < ActiveRecord::Base
   def to_s
     name
   end
+
+
+  #
+  # TO BE PULLED INTO has_crud/active_record.rb, probably in a module of its own, maybe Filterable
+  #
+  scope :filter, ->(params) {
+    build_filter_conditions(params)
+  }
+
+  scope :filter_boolean, ->(attr, value) { where(:"#{attr}" => value) }
+  scope :filter_select, ->(attr, value) { where(:"#{attr}" => value) }
+
+  class << self
+
+    def build_filter_conditions(params)
+      params.each do |attr, value|
+        field_definition = field_definitions[attr]
+        field_type       = field_definition[:type] if field_definition.present?
+
+        if can_filter_by?(field_type)
+          current_scope.merge! send(filter_scope_name(field_type), attr, value)
+        else
+          guess_filter_scope(attr, value)
+        end
+      end
+
+      current_scope
+    end
+
+    def guess_filter_scope(attr, value)
+      case columns_hash[attr.to_s].sql_type
+      when "boolean"
+        current_scope.merge! filter_boolean(attr, value)
+      end
+    end
+
+    def can_filter_by?(field_type)
+      respond_to?(filter_scope_name(field_type), true) # `true` here ensures that it'll search for private methods
+    end
+
+    def filter_scope_name(field_type)
+      "filter_#{field_type}"
+    end
+
+  end
+
 
 end

@@ -9,8 +9,9 @@ module HasCrud
         base.send :include, InstanceMethods
         base.send :include, Admin::CollectionMethods
         base.send :has_scope, :search, :if => :is_searchable?,
+                  type: :hash,
                   :except => [ :create, :update, :destroy ] do |controller, scope, value|
-          scope.search_for(value)
+          scope.koi_search_for(value)
         end
         base.send :include, Admin::CrudMethods
         base.send :include, Koi::ApplicationHelper

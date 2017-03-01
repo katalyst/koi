@@ -32,6 +32,17 @@ module HasCrud
         false
       end
 
+      # get field definitions from crud config, e.g.
+      #
+      #  [
+      #    active: { type: boolean },
+      #    description: { type: :rich_text },
+      #  ]
+      #
+      def field_definitions
+        @field_definitions ||= crud.find(:fields).with_indifferent_access
+      end
+
       private
 
       def default_crud_config
@@ -118,7 +129,7 @@ module HasCrud
             setup_default_searchable
           end
 
-          scoped_search :on => self.options[:searchable]
+          setup_search_scopes
         end
       end
 
@@ -126,6 +137,31 @@ module HasCrud
         ignore_fields = [:created_at, :updated_at, :slug]
         self.options[:searchable] = column_names.collect { |c| c.to_sym } - ignore_fields
       end
+
+      def setup_search_scopes
+        scoped_search :on => self.options[:searchable]
+        setup_filter_scope
+        scope :koi_search_for, ->(params){
+          search_for(params[:keyword])
+             .filter(params)
+        }
+      end
+
+      def setup_filter_scope
+        # scope :filter, ->(params){
+        #   build_conditions(params)
+        # }
+      end
+
+      # def build_conditions(params)
+      #   params.each do |attr, value|
+      #     case columns_hash[attr.to_s].sql_type
+      #     when "boolean"
+      #       current_scope.merge! where(:"#{attr}" => value)
+      #     end
+      #   end
+      #   current_scope
+      # end
 
       def setup_scope
         scope = self.options[:scope]
