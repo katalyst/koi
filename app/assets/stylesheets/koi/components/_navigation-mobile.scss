@@ -6,7 +6,7 @@ $navigation-max-pane-depth:             $mobile-pane-max-depth;
 
 // Primary pane styles
 $navigation-first-pane-border:          $primary-color;
-$navigation-first-pane-selected:        $primary-color;
+$navigation-first-pane-selected:        $mobile-pane-focus-background;
 $navigation-first-pane-link-color:      $mobile-pane-link-color;
 $navigation-first-pane-link-hover:      $mobile-pane-link-hover;
 $navigation-first-pane-link-background: $mobile-pane-link-background;
@@ -141,7 +141,6 @@ $navigation-secondary-pane-link-color:  #fff;
       @include line-height-padding($navigation-forward-hitbox);
 
       &:focus {
-        background: $navigation-first-pane-focus;
         outline: none;
       }
     }
@@ -160,6 +159,10 @@ $navigation-secondary-pane-link-color:  #fff;
       padding-left: $navigation-first-pane-padding;
       padding-right: $button-height + $navigation-first-pane-padding;
       background: $navigation-first-pane-link-background;
+
+      &:focus {
+        background: $navigation-first-pane-focus;
+      }
 
       // Button Background
       &:before {

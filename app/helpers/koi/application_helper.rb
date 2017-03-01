@@ -138,4 +138,11 @@ module Koi::ApplicationHelper
     "Image missing"
   end
 
+  # Navigation helper to mark list item as active 
+  def navigation_helper(label, link_path, link_opts={})
+    li_opts = {}
+    li_opts = request.path.eql?(link_path) ? { class: "selected" } : {}
+    content_tag(:li, link_to(label, link_path, link_opts), li_opts)
+  end
+
 end

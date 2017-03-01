@@ -307,11 +307,11 @@
 
       // Mark a parent node as active
       markParentAsActive: function($node) {
-        var $parent = $node.parent("li").parent("ul").parent(".pane").parent("li");
+        var $parent = $node.parent("ul").parent(".pane").parent("li");
         if($parent.length) {
           $parent.addClass(mobileNav.menuSelectedClass);
           // Keep going up the tree until you can't go no mo.
-          mobileNav.markParentAsActive($parent.children("a"));
+          mobileNav.markParentAsActive($parent);
         }
       },
 
@@ -473,7 +473,7 @@
 
         // Add class to current tab
         var $currentTab = mobileNav.getCMSActivePage();
-        $currentTab.parent("li").addClass(mobileNav.menuSelectedClass);
+        $currentTab.parents("li").addClass(mobileNav.cmsActiveClass);
 
         // Create a zone for filter results
         mobileNav.mainPane = $tray.find("."+mobileNav.nonPaneClass);
@@ -499,7 +499,7 @@
 
         // Jump to current pane if required
         if(mobileNav.jumpToCurrent) {
-          mobileNav.goTo( mobileNav.getCurrentTab() );
+          mobileNav.goTo(mobileNav.getCMSActivePage())
         }
 
         // Update menu heights for first time
