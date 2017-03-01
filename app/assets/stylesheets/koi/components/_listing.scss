@@ -11,15 +11,6 @@
   }
 }
 
-.listing--pagination--options {
-  margin-left: auto;
-
-  @include media-query(780px) {
-    padding-top: $xxxxx-small-unit;
-    margin-left: 0;
-  }
-}
-
 .listing--thumbnail {
   width: auto;
   display: block;
@@ -29,10 +20,10 @@
   padding: $xxxxx-small-unit 0;
   @include display-flex;
   @include flex-direction(row);
-  @include align-items(center);
+  @include align-items(flex-end);
   @include flex-wrap;
 
-  @include media-query(550px) {
+  @include media-query($breakpoint-page) {
     @include flex-direction(column);
     @include align-items(flex-start);
   }
@@ -45,7 +36,8 @@
 .listing--count--per-page {
   margin-left: auto;
 
-  @include media-query(550px) {
+  @include media-query($breakpoint-page) {
+    margin-top: $xxxxx-small-unit;
     margin-left: 0;
   }
 }
