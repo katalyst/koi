@@ -14,6 +14,7 @@
 //= require koi/keyboardjs
 //= require koi/jquery.ui.touch-punch
 //= require koi/jquery.mask
+//= require koi/jquery.minicolors
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
