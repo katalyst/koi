@@ -1,5 +1,15 @@
 <%= render 'show_title' %>
 <%= render 'show_actions' %>
+<%- partial_with_wrapper do -%>
+  <%- content_for :below_title do -%>
+    <%= render partial: "show_below_title" -%>
+  <%- end -%>
+<%- end -%>
+<%- partial_with_wrapper do -%>
+  <%- content_for :title_actions do -%>
+    <%= render partial: "show_title_actions" -%>
+  <%- end -%>
+<%- end -%>
 <%= partial_with_wrapper do -%>
   <div class="listing--above-list">
     <%= render partial: "show_above" -%>
