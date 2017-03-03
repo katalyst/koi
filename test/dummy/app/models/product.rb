@@ -37,19 +37,18 @@ class Product < ActiveRecord::Base
   end
 
   crud.config do
-    fields launch_date: { type: :date },
-           short_description: { type: :text },
-           genre_list: { type: :nice_tags },
-           active: { type: :boolean },
-           size: { type: :select, data: Size },
-           countries: { type: :check_boxes, data: Countries },
-           colour: { type: :colour },
-           banner: { type: :image },
-           manual: { type: :file },
-           products: { type: :multiselect_association },
-           product_images: { type: :inline },
-           description: { type: :rich_text },
-           launch_date: { type: :mask, mask_type: "00/00/0000" }
+    fields short_description: { type: :text },
+           genre_list:        { type: :nice_tags },
+           active:            { type: :boolean },
+           size:              { type: :select, data: Size },
+           countries:         { type: :check_boxes, data: Countries },
+           colour:            { type: :colour },
+           banner:            { type: :image },
+           manual:            { type: :file },
+           products:          { type: :multiselect_association },
+           product_images:    { type: :inline },
+           description:       { type: :rich_text },
+           launch_date:       { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do
       index fields: [:name]
