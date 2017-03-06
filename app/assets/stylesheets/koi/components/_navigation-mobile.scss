@@ -57,6 +57,13 @@ $navigation-secondary-pane-link-color:  #fff;
   padding: 0 $navigation-first-pane-padding;
 }
 
+.navigation-mobile.complex.ready {
+  .pane-wrapper {
+    will-change: transform;
+    @include transition(.15s transform linear);
+  }
+}
+
 .navigation-mobile.complex {
   overflow: hidden;
   height: 100%;
@@ -66,7 +73,6 @@ $navigation-secondary-pane-link-color:  #fff;
     position: relative;
     height: 100%;
     @include transform(translateZ(0), translate(0%, 0));
-    @include transition(.15s linear);
     -webkit-backface-visibility: hidden;
 
     .no-csstransforms & {
