@@ -510,9 +510,10 @@
           var $parentNode = $(this);
           if($parentNode.children("div").length > 0) {
             $parentNode.addClass(mobileNav.hasChildren).attr("data-mobilenav-forward","");
-            $parentNode.children("a").append(Ornament.icons.plus);
-          } else {
+            // $parentNode.children("a").append(Ornament.icons.plus);
             $parentNode.children("a").append(Ornament.icons.chevron);
+          } else {
+            // $parentNode.children("a").append(Ornament.icons.chevron);
           }
         });
 
