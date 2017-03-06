@@ -35,6 +35,8 @@ body.lightbox-open {
 
   @include media-query($breakpoint-header, min) {
     @include order(2);
+    @include flex-grow(0);
+    @include flex-shrink(0);
   }
 
   @include media-query($breakpoint-header) {
