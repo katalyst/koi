@@ -59,6 +59,7 @@ $tab-inactive-color: #ECF0F1;
     height: 2px;
     background: $primary-color;
     width: 99999px;
+    pointer-events: none;
   }
   &:before {
     left: 100%;
