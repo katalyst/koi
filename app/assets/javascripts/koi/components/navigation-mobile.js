@@ -82,8 +82,9 @@
       destroyTabIndexes: function() {
         mobileNav.tray.find(".pane--navigation-container").removeAttr("tabIndex");
         mobileNav.tray.find(".pane").removeAttr("tabIndex");
-        mobileNav.tray.find("a").attr("tabIndex", "-1");
-        mobileNav.filterElement.attr("tabIndex", "-1");
+        mobileNav.tray.find(".description").attr("aria-hidden", true);
+        mobileNav.tray.find("a").attr("tabIndex", "-1").attr("aria-hidden", true);
+        mobileNav.filterElement.attr("tabIndex", "-1").attr("aria-hidden", true);
       },
 
       // Create tabindexes for the current visible pane
@@ -91,20 +92,21 @@
         var currentPane = mobileNav.getCurrentPane();
         var tabIndex = 2;
         currentPane.attr("tabIndex", 1);
+        currentPane.children("ul").children(".description").removeAttr("aria-hidden");
         var currentFilter = currentPane.find("[data-tray-filter]");
         if(currentFilter.length) {
           tabIndex++;
-          currentFilter.attr("tabIndex", tabIndex);
+          currentFilter.attr("tabIndex", tabIndex).removeAttr("aria-hidden");
         }
         if(mobileNav.filterZone && mobileNav.filterZone.is(":visible")) {
           mobileNav.filterZone.find("a").each(function(){
             tabIndex++;
-            $(this).attr("tabIndex", tabIndex);
+            $(this).attr("tabIndex", tabIndex).removeAttr("aria-hidden");
           });
         } else {
           currentPane.children("ul").children("li").children("a").each(function(){
             tabIndex++;
-            $(this).attr("tabIndex", tabIndex);
+            $(this).attr("tabIndex", tabIndex).removeAttr("aria-hidden");
           });
         }
       },
