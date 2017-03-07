@@ -50,6 +50,7 @@
       contentElement:             $(".layout--content"),
       layoutElement:              $(".layout"),
       filterElement:              $("[data-tray-filter]"),
+      positioner:                 $(".layout--main"),
 
       // Core Settings
       currentLevel: 1, // initial level
@@ -122,10 +123,11 @@
         mobileNav.contentElement.off("click", "*");
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
+        mobileNav.positioner.removeAttr("aria-hdiden");
 
         if(mobileNav.keepScrollPosition) {
           setTimeout(function(){
-            $(".layout--main").css({
+            mobileNav.positioner.css({
               position: "static",
               top: 0
             });
@@ -143,7 +145,7 @@
         // get scroll position and update
         if(mobileNav.keepScrollPosition) {
           mobileNav.scrollPosition = $(window).scrollTop();
-          $(".layout--main").css({
+          mobileNav.positioner.css({
             position: "relative",
             top: mobileNav.scrollPosition * -1
           });
@@ -151,8 +153,9 @@
 
         // update classes on page
         mobileNav.layoutElement.addClass(mobileNav.layoutOpenClass + " " + mobileNav.layoutTransitionClass);
+        mobileNav.positioner.attr("aria-hidden", "true");
 
-        // clicking on content wilgl close menu
+        // clicking on content will close menu
         mobileNav.contentElement.on("click", "*", function (event) {
           mobileNav.toggleMenu();
           return false;
