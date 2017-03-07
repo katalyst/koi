@@ -57,11 +57,6 @@ gem 'compass'                   , "~> 1.0.0"
 
 gem 'compass-rails'             , "~> 2.0.2"
 
-# i18n ActiveRecord backend
-gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
-                            require: 'i18n/active_record',
-                            ref: 'b26c2e62e32df2f3b9ae42083647725b7ecfdff0'
-
 gem 'active_model_serializers'
 
 gem 'unicorn'
