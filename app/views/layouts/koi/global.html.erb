@@ -40,16 +40,18 @@
     <!-- ETC -->
     <%= yield(:head) %>
 
-  </head>
-  <body>
-
     <%- if content_for?(:include_google_maps) -%>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjgOvjmIVHFO-1IVSYWeZN-1Yp_MkjeW0&libraries=places"></script>
     <%- end -%>
 
+  </head>
+  <body>
+
+    <a class="skip-link" href="#main">skip to content</a>
+
     <div class="layout <%= "layout__headerless" if content_for?(:hide_header) -%>">
       <div class="layout--mobile-tray">
-        <nav class="navigation-mobile" role="navigation">
+        <nav class="navigation-mobile" role="navigation" aria-label="Main Menu">
           <div class="pane-wrapper">
             <div class="pane">
               <div class="pane--navigation-container">
@@ -75,7 +77,7 @@
             koi
           <% end %>
           <%- if Koi::PriorityMenu.present? -%>
-            <ul class="header--actions" role="navigation">
+            <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
               <%- Koi::PriorityMenu.items.each do |menu_item| -%>
                 <li class="<%= "action" if menu_item[:icon] -%>">
                   <%- 
@@ -110,9 +112,7 @@
           <%- end -%>
         </header>
 
-        <a id="main" name="main" tabindex="-1"></a>
-
-        <main class="layout--main <%= yield(:layout_class) -%>">
+        <main class="layout--main <%= yield(:layout_class) -%>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">

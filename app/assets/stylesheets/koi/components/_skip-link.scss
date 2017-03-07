@@ -1,5 +1,15 @@
 .skip-link {
-  height: 0;
   position: absolute;
-  text-indent: -9999px;
+  top: -45px;
+  padding: $xxxxx-small-unit;
+  background: $primary-color;
+  z-index: 995;
+  @include color-link($white, $white);
+  @include transition(top .1s ease-in);
+
+  &:focus {
+    top: 0;
+    left: 0;
+    text-indent: 0;
+  }
 }
