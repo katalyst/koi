@@ -80,6 +80,7 @@
       // Destroy the tab indexes of all the links in the mobile menu
       // This is used to stop screen readers and tabbing
       destroyTabIndexes: function() {
+        mobileNav.tray.find(".pane--navigation-container").removeAttr("tabIndex");
         mobileNav.tray.find(".pane").removeAttr("tabIndex");
         mobileNav.tray.find("a").attr("tabIndex", "-1");
         mobileNav.filterElement.attr("tabIndex", "-1");
@@ -254,6 +255,7 @@
           mobileNav.getCurrentTab().removeClass(mobileNav.menuSelectedClass);
           mobileNav.updateMenuHeight();
           mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+          mobileNav.focusOnFirstPaneLink();
         }, mobileNav.slideTransitionTime);
       },
 
@@ -315,6 +317,10 @@
         }
       },
 
+      focusOnFirstPaneLink: function(){
+        mobileNav.getCurrentPane().focus();
+      },
+
       updateMenuBindingForAnchor: function(){
 
         // Binding clicks on anchor to toggle menu
@@ -356,6 +362,7 @@
             mobileNav.updateMenuHeightWithDelay();
             setTimeout(function(){
               mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+              mobileNav.focusOnFirstPaneLink();
             }, mobileNav.slideTransitionTime);
           });
 
