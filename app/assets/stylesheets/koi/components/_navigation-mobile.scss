@@ -58,6 +58,7 @@ $navigation-secondary-pane-link-color:  #fff;
 }
 
 .navigation-mobile.complex.ready {
+  visibility: visible;
   .pane-wrapper {
     will-change: transform;
     @include transition(.15s transform linear);
@@ -67,6 +68,7 @@ $navigation-secondary-pane-link-color:  #fff;
 .navigation-mobile.complex {
   overflow: hidden;
   height: 100%;
+  visibility: hidden;
 
   // wrapper div that contains all our panes
   .pane-wrapper {

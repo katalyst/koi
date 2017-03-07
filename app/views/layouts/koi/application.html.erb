@@ -20,7 +20,7 @@
     </div>
   <%- elsif content_for? :side_top -%>
     <div class="page__with-sidebar-right page__with-sidebar-top">
-      <div class="page--main">
+      <div class="page--main" role="main">
         <%= content_for?(:application) ? yield(:application) : yield %>
       </div>
       <div class="page--sidebar">
@@ -28,7 +28,9 @@
       </div>
     </div>
   <%- else -%>
-    <%= content_for?(:application) ? yield(:application) : yield %>
+    <div role="main">
+      <%= content_for?(:application) ? yield(:application) : yield %>
+    </div>
   <%- end -%>  
   
 <% end %>
