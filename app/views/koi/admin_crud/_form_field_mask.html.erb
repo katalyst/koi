@@ -1,5 +1,5 @@
 <%-
-  if crud_settings[:mask_type]
+  if crud_settings && crud_settings[:mask_type]
     input_opts[:data][:input_mask] = crud_settings[:mask_type]
   end
 -%>
