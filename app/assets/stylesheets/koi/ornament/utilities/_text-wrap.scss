@@ -2,3 +2,15 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+
+@mixin no-wrap {
+  white-space: nowrap;
+}
+
+.text-wrap {
+  @include text-wrap;
+}
+
+.no-wrap {
+  @include no-wrap;
+}
