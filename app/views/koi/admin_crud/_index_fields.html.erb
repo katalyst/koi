@@ -109,7 +109,9 @@
           </td>
           <% if is_orderable? %>
             <td class="nowrap table--sorter" data-table-sorter>
-              <%= image_tag "koi/application/icon-sortable.png", :class => "space-half" %>
+              <div class="table--sorter--container">
+                <%= image_tag "koi/application/icon-sortable.png" %>
+              </div>
             </td>
           <% end %>
         </tr>
