@@ -38,7 +38,9 @@
   }
 
   .layout-open & {
-    @include icon-block(44px, 18px);
+    @include media-query($breakpoint-header) {
+      @include icon-block(44px, 18px);
+    }
   }
 
   .layout-open & .icon-cross {
