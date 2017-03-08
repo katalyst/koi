@@ -45,22 +45,112 @@
       defaultSettings = defaultSettings || {};
       // List of settings we can check against
       var settingsToCheck = [
-        "dateFormat", 
-        "yearRange",
-        "timeFormat",
-        "showButtonPanel", 
+        // jQueryUI Datepicker Options
+        // http://api.jqueryui.com/datepicker/
+        "appendText",
+        "autoSize",
         "changeMonth",
         "changeYear",
-        "stepMinute",
+        "closeText",
+        "contrainInput",
+        "currentText",
+        "dateFormat", 
+        "dayNames",
+        "dayNamesMin",
+        "dayNamesShort",
+        "defaultDate",
+        "duration",
+        "firstDay",
+        "gotoCurrent",
+        "hideIfNoPrevNext",
+        "maxDate",
+        "minDate",
+        "monthNames",
+        "monthNamesShort",
+        "navigationAsDateFormat",
+        "nextText",
+        "prevText",
+        "selectOtherMonths",
+        "shortYearCutoff",
+        "showAnim",
+        "showButtonPanel", 
+        "showCurrentAtPos",
+        "showMonthAfterYear",
+        "showOptions",
+        "showOtherMonths",
+        "showWeek",
+        "stepMonths",
+        "weekHeader",
+        "yearRange",
+        "yearSuffix",
+        // jQueryUI Datetimepicker Options
+        // http://trentrichardson.com/examples/timepicker/
+        "amNames",
+        "pmNames",
+        "timeFormat",
+        "timeSuffix",
+        "timeOnlyTitle",
+        "timeText",
+        "hourText",
+        "minuteText",
+        "secondText",
+        "millisecText",
+        "microsecText",
+        "timezoneText",
         "controlType",
-        "showButtonPanel",
+        "showHour",
+        "showMinute",
+        "showSecond",
+        "showMillisec",
+        "showMicroset",
+        "showTimezone",
+        "showTime",
+        "stepHour",
+        "stepMinute",
+        "stepSecond",
+        "stepMillisec",
+        "stepMicrosec",
+        "hour",
+        "minute",
+        "second",
+        "millisec",
+        "microsec",
+        "timezone",
+        "hourMin",
+        "minuteMin",
+        "secondMin",
+        "millisecMin",
+        "microsecMin",
+        "hourGrid",
+        "minuteGrid",
+        "secondGrid",
+        "millisecGrid",
+        "microsecGrid",
+        "timeInput",
+        "timeOnly",
+        "timeOnlyShowDate",
+        "seperator",
+        "pickerTimeFormat",
+        "pickerTimeSuffix",
+        "showTimepicker",
+        "defaultValue",
+        "minTime",
+        "maxTime"
       ];
       // Loop over the array of options above and over-write 
       // the default settings with the new ones
       $.each(settingsToCheck, function(){
         var attribute = "data-datepicker-" + this.toLowerCase();
-        if($field.is("[data-datepicker-" + attribute + "]")) {
-          defaultSettings[this] = $field.attr(attribute);
+        if($field.is("[" + attribute + "]")) {
+          var value = $field.attr(attribute);
+          if(value === "true") {
+            value = true;
+          } else if (value === "false") {
+            value = false;
+          } else if (!isNaN(parseInt(value))) {
+            value = parseInt(value);
+          }
+          defaultSettings[this] = value;
         }
       });
       return defaultSettings;
@@ -92,7 +182,7 @@
         $("input.datepicker, .datepicker input").not(".datepicker__enabled").each(function(){
           var $datepicker = $(this);
           var settings = FormHelpers._buildDatepickerSettingsForField($datepicker, datePickerSettings);
-          $datepicker.datepicker().addClass("datepicker__enabled");
+          $datepicker.datepicker(settings).addClass("datepicker__enabled");
         });
 
         // Datetime Picker
@@ -102,6 +192,10 @@
           $datepicker.datetimepicker(settings).addClass("datetimepicker__enabled");
         });
       }
+    },
+
+    bindColourPickers: function(){
+      $("[data-colourpicker]").minicolors();
     },
 
     isLinkAButton: function(element) {
@@ -136,6 +230,7 @@
       FormHelpers.tagifyInputs();
       FormHelpers.bindDatepickers();
       FormHelpers.bindCustomDisableLinks();
+      FormHelpers.bindColourPickers();
     }
 
   };

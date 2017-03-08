@@ -22,7 +22,6 @@ class Product < ActiveRecord::Base
 
   Size = ["XL", "L", "M", "S", "XS"]
   Countries = ["Australia", "France", "Germany", "Greece"]
-  Colours = ["Red", "Blue", "Green"]
 
   validates :name, presence: true
 
@@ -44,7 +43,7 @@ class Product < ActiveRecord::Base
            active: { type: :boolean },
            size: { type: :select, data: Size },
            countries: { type: :check_boxes, data: Countries },
-           colour: { type: :radio, data: Colours },
+           colour: { type: :colour },
            banner: { type: :image },
            manual: { type: :file },
            products: { type: :multiselect_association },
@@ -53,7 +52,7 @@ class Product < ActiveRecord::Base
 
     config :admin do
       index fields: [:name]
-       form  fields: [:name, :description, :products, :product_images]
+       form  fields: [:name, :description, :products, :product_images, :colour]
     end
   end
 

@@ -23,7 +23,7 @@
       <div class="nav-item--body">
 
         <%- if Koi::Sitemap.toggles -%>
-          <span title="Click to show/hide children" class="disclose">
+          <span title="Click to show/hide children" class="disclose" data-node-id="<%= nav_item.id -%>">
             <span class="ui-icon ui-icon-minusthick">Toggle</span>
           </span>
         <%- end -%>

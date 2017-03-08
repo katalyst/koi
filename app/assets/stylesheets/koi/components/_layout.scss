@@ -1,11 +1,10 @@
-$layout-animation-duration:     0.5s;
+$layout-animation-duration:     0.2s;
 $layout-background:             $background-color;
-$layout-breakpoint:             $breakpoint-small;
 $layout-container-width:        $container-width;
 $layout-desktop-footer-gap:     $default-unit;
 $layout-desktop-header-gap:     100px;
 $layout-footer-height:          100px;
-$layout-mobile-tray-width:      250px;
+$layout-mobile-tray-width:      $tray-width;
 $layout-mobile-footer-gap:      $small-unit;
 $layout-mobile-header-gap:      100px;
 
@@ -23,10 +22,27 @@ body.lightbox-open {
 
 .layout {
   height: 100%;
+
+  @include media-query($breakpoint-header, min) {
+    @include display-flex;
+    @include flex-direction(row);
+    height: auto;
+  }
 }
 
 .layout--mobile-tray {
-  display: none;
+  width: $layout-mobile-tray-width;
+
+  @include media-query($breakpoint-header, min) {
+    @include order(2);
+    @include flex-grow(0);
+    @include flex-shrink(0);
+  }
+
+  @include media-query($breakpoint-header) {
+    display: none;
+    float: right;
+  }
 }
 
 .layout--content {
@@ -34,6 +50,11 @@ body.lightbox-open {
   background: $layout-background;
   min-height: 100%;
   overflow: hidden;
+
+  @include media-query($breakpoint-header, min) {
+    @include flex-grow(1);
+    @include flex-shrink(1);
+  }
 }
 
 .layout--content--aside {
@@ -61,27 +82,29 @@ body.lightbox-open {
   padding-bottom: $layout-desktop-footer-gap;
   padding-top: $header-height;
 
-  &:before {
-    content: "";
-    background: $mobile-menu-overlay-color;
-    opacity: 0;
-    @include transition(opacity .2s);
-  }
+  @include media-query($breakpoint-header) {
+    &:before {
+      content: "";
+      background: $mobile-menu-overlay-color;
+      opacity: 0;
+      @include transition(opacity .2s);
+    }
 
-  .layout-transitioning &:before,
-  .layout-open &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 100vh;
-    z-index: 100;
-    @include transition(opacity .6s);
-  }
+    .layout-transitioning &:before,
+    .layout-open &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: 100vh;
+      z-index: 100;
+      @include transition(opacity .6s);
+    }
 
-  .layout-open &:before {
-    opacity: $mobile-menu-overlay-opacity;
+    .layout-open &:before {
+      opacity: $mobile-menu-overlay-opacity;
+    }
   }
 
   .layout__headerless & {
@@ -94,7 +117,9 @@ body.lightbox-open {
 
 .layout-open {
   .layout--content {
-    @include translate(-($layout-mobile-tray-width), 0);
+    @include media-query($breakpoint-header) {
+      @include translate(-($layout-mobile-tray-width), 0);
+    }
   }
 
 }
@@ -111,21 +136,18 @@ body.lightbox-open {
 // SHARED MENU TRANSITIONING AND OPEN
 .layout-transitioning,
 .layout-open {
-
-  .layout--mobile-tray {
-    display: block;
-    min-height: 100%;
-    float: right;
-    width: $layout-mobile-tray-width;
+  @include media-query($breakpoint-header) {
+    .layout--mobile-tray {
+      display: block;
+      min-height: 100%;
+    }
+    .layout--content {
+      height: 100%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      @include box-shadow($mobile-tray-shadow);
+    }
   }
-
-  .layout--content {
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    @include box-shadow($mobile-tray-shadow);
-  }
-
 }

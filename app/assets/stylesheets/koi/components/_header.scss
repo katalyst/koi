@@ -13,6 +13,10 @@
   @include align-items(center);
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
 
+  @include media-query($breakpoint-header, min) {
+    right: $tray-width;
+  }
+
   .layout__headerless & {
     display: none;
   }
@@ -23,6 +27,10 @@
   background: $header-menu-background;
   overflow: visible;
   outline: none;
+
+  @include media-query($breakpoint-header, min) {
+    display: none;
+  }
 
   .icon-cross,
   .layout-open & .icon-menu {

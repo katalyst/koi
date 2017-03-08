@@ -50,16 +50,15 @@
 <div class="listing--count">
   <div class="listing--count--items">
     <span><%= pluralize(resource_class.count, "item") -%></span>
+    <% if is_searchable? %>
+      <div class="listing--count--search">
+        <%= render 'index_search' %>
+      </div>
+    <% end %>
   </div>
   <% if is_paginated? %>
     <div class="listing--count--per-page" id="index-pagination-options">
       <%= render 'index_pagination_options' %>
-    </div>
-  <% end %>
-
-  <% if is_searchable? %>
-    <div class="listing--count--search">
-      <%= render 'index_search' %>
     </div>
   <% end %>
 </div>

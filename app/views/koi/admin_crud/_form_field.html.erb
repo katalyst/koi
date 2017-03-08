@@ -7,11 +7,22 @@
   }
 
   input_opts = {
-    class: ""
+    class: "",
+    data: {}
   }
 
-  if crud_settings && crud_settings[:wrapper_data]
-    wrapper_opts[:data] = crud_settings[:wrapper_data]
+  if crud_settings 
+    if crud_settings[:wrapper_data]
+      wrapper_opts[:data] = crud_settings[:wrapper_data]
+    end
+    if crud_settings[:input_data]
+      input_opts[:data] = crud_settings[:input_data]
+    end
+    if crud_settings[:datepicker]
+      crud_settings[:datepicker].each do |opt,val| 
+        input_opts[:data]["datepicker_#{opt}"] = val
+      end
+    end
   end
 
   if crud_settings && crud_settings[:size]

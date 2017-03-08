@@ -1,12 +1,12 @@
 $navigation-tray-background:            $mobile-pane-background;
 $navigation-forward-hitbox:             44px;
-$navigation-forward-background:         $mobile-pane-action-background;
+$navigation-forward-background:         transparent;
 $navigation-forward-selected:           $primary-color;
 $navigation-max-pane-depth:             $mobile-pane-max-depth;
 
 // Primary pane styles
 $navigation-first-pane-border:          $primary-color;
-$navigation-first-pane-selected:        $primary-color;
+$navigation-first-pane-selected:        $mobile-pane-focus-background;
 $navigation-first-pane-link-color:      $mobile-pane-link-color;
 $navigation-first-pane-link-hover:      $mobile-pane-link-hover;
 $navigation-first-pane-link-background: $mobile-pane-link-background;
@@ -25,6 +25,29 @@ $navigation-secondary-pane-link-color:  #fff;
   background: $navigation-tray-background;
 }
 
+.navigation-mobile--filter {
+  padding: $xxx-small-unit;
+  border-bottom: 1px solid $primary-color;
+}
+
+.navigation-mobile--filter--ancestor {
+  opacity: 0.6;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  display: block;
+}
+
+.navigation-mobile--filter--no-results {
+  padding: $xxx-small-unit;
+  @include font($italic-font);
+  color: $white;
+  opacity: 0.6;
+}
+
+.navigation-mobile--filter-zone {
+  display: none;
+}
+
 .navigation-mobile--header {
   border-bottom: $mobile-pane-header-border;
   line-height: 44px;
@@ -34,16 +57,24 @@ $navigation-secondary-pane-link-color:  #fff;
   padding: 0 $navigation-first-pane-padding;
 }
 
+.navigation-mobile.complex.ready {
+  visibility: visible;
+  .pane-wrapper {
+    will-change: transform;
+    @include transition(.15s transform linear);
+  }
+}
+
 .navigation-mobile.complex {
   overflow: hidden;
   height: 100%;
+  visibility: hidden;
 
   // wrapper div that contains all our panes
   .pane-wrapper {
     position: relative;
     height: 100%;
     @include transform(translateZ(0), translate(0%, 0));
-    @include transition(.15s linear);
     -webkit-backface-visibility: hidden;
 
     .no-csstransforms & {
@@ -118,7 +149,6 @@ $navigation-secondary-pane-link-color:  #fff;
       @include line-height-padding($navigation-forward-hitbox);
 
       &:focus {
-        background: $navigation-first-pane-focus;
         outline: none;
       }
     }
@@ -137,6 +167,10 @@ $navigation-secondary-pane-link-color:  #fff;
       padding-left: $navigation-first-pane-padding;
       padding-right: $button-height + $navigation-first-pane-padding;
       background: $navigation-first-pane-link-background;
+
+      &:focus {
+        background: $navigation-first-pane-focus;
+      }
 
       // Button Background
       &:before {

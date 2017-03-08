@@ -13,13 +13,17 @@ module Koi::ApplicationHelper
   end
 
   def sortable(column, title = column.titleize, link_opt = {})
-    link_params = params.merge sort: column, direction: "asc", page: nil
-    link_opt.merge! data: { get_script: true }
-    if column == sort_column.to_s
-      link_params.merge! direction: (sort_direction.to_s == "asc" ? "desc" : "asc")
-      link_opt.merge! class: "sort icon pad-r-15px #{ sort_direction }"
+    if resource_class.column_names.include?(column) 
+      link_params = params.merge sort: column, direction: "asc", page: nil
+      link_opt.merge! data: { get_script: true }
+      if column == sort_column.to_s
+        link_params.merge! direction: (sort_direction.to_s == "asc" ? "desc" : "asc")
+        link_opt.merge! class: "sort icon pad-r-15px #{ sort_direction }"
+      end
+      link_to title, link_params, link_opt
+    else
+      content_tag(:span, title)
     end
-    link_to title, link_params, link_opt
   end
 
   def is_settable?
@@ -133,13 +137,20 @@ module Koi::ApplicationHelper
   rescue Dragonfly::Job::Fetch::NotFound
     "Image missing"
   end
-
+  
   def partial_with_wrapper(&block)
     begin
       capture(&block)
     rescue ActionView::MissingTemplate
       nil 
     end
+  end
+  
+  # Navigation helper to mark list item as active 
+  def navigation_helper(label, link_path, link_opts={})
+    li_opts = {}
+    li_opts = request.path.eql?(link_path) ? { class: "selected" } : {}
+    content_tag(:li, link_to(label, link_path, link_opts), li_opts)
   end
 
 end
