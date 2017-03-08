@@ -135,8 +135,15 @@
           <% if content_for? :title %>
             <div class="page--title <%= "page--title__border" unless content_for?(:title_tabs) -%>">
               <div class="layout--container">
-                <div class="page--title--content">
-                  <h1 class="heading-one"><%= yield :title %></h1>
+                <div class="page--title--wrapper">
+                  <div class="page--title--content">
+                    <h1 class="heading-one"><%= yield :title %></h1>
+                    <%- if content_for?(:title_actions) -%>
+                      <div class="page--title--actions">
+                        <%= yield(:title_actions) -%>
+                      </div>
+                    <%- end -%>
+                  </div>
                   <%- if content_for?(:below_title) -%>
                     <div class="page--title--below">
                       <%= yield(:below_title) -%>

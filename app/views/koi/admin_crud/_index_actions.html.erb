@@ -6,6 +6,11 @@
 
   <div class="align-box-right f">
     <div class="button-group">
+      <%= partial_with_wrapper do -%>
+        <div>
+          <%= render partial: "index_custom_actions" -%>
+        </div>
+      <%- end -%>
       <%- if is_exportable? %>
         <div>
           <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary button__small" %>

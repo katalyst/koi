@@ -137,7 +137,15 @@ module Koi::ApplicationHelper
   rescue Dragonfly::Job::Fetch::NotFound
     "Image missing"
   end
-
+  
+  def partial_with_wrapper(&block)
+    begin
+      capture(&block)
+    rescue ActionView::MissingTemplate
+      nil 
+    end
+  end
+  
   # Navigation helper to mark list item as active 
   def navigation_helper(label, link_path, link_opts={})
     li_opts = {}

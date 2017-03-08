@@ -1,5 +1,13 @@
 // Koi module listing pages
 
+.listing--above-list {
+  margin-bottom: $panel-spacing;
+}
+
+.listing--below-list {
+  margin-top: $panel-spacing;
+}
+
 .listing--pagination {
   padding-bottom: $xxx-small-unit;
   @include display-flex;
