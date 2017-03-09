@@ -160,6 +160,12 @@ ActiveRecord::Schema.define(version: 20160711032313) do
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
+  add_index "powers", ["slug"], name: "index_powers_on_slug", unique: true, using: :btree
+
+  create_table "powers_super_heros", id: false, force: :cascade do |t|
+    t.integer "power_id"
+    t.integer "super_hero_id"
+  end
 
   create_table "product_images", force: :cascade do |t|
     t.integer  "product_id"

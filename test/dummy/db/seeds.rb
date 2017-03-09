@@ -69,5 +69,5 @@ generic_hero_details = {
 }
 
 # heros.each do |name|
-#   SuperHero.create!({ name: name, gender: SuperHero::Gender.sample, powers: SuperHero::Powers.sample(3) }.merge(generic_hero_details))
+#   SuperHero.create!({ name: name, gender: SuperHero::Gender.sample }.merge(generic_hero_details))
 # end

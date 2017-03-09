@@ -6,7 +6,8 @@ Koi::Menu.items = {
     "Categories"   => "/admin/categories",
     "Heroes"       => {
       "Super Heros"  => "/admin/super_heros",
-      "Kid Heros"    => "/admin/kid_heros"
+      "Kid Heros"    => "/admin/kid_heros",
+      "Powers"       => "/admin/powers"
     }
   },
   "Advanced" => {

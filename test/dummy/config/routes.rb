@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :kid_heros
 
   namespace :admin do
+    resources :powers
     resources :users, path: :members
     resources :super_heros
     resources :kid_heros

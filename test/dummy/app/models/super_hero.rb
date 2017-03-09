@@ -9,17 +9,16 @@ class SuperHero < ActiveRecord::Base
   has_many :images, as: :attributable
   accepts_nested_attributes_for :images, allow_destroy: true
 
+  has_and_belongs_to_many :powers
+
   dragonfly_accessor :image
   dragonfly_accessor  :file
-  serialize :powers, Array
 
   scope :alphabetical, -> { order("name DESC") }
 
   default_scope -> { alphabetical }
 
   Gender = ["Male", "Female", "Robot"]
-  Powers = ["X-RAY VISION", "REGENERATION", "TOTAL RECALL", "TELEPORTATION",
-            "WEATHER CONTROL", "FORCE FIELDS", "UNDERWATER BREATHING", "SUPER STRENGTH"]
 
   validates :name, :description, presence: true
 
@@ -37,7 +36,7 @@ class SuperHero < ActiveRecord::Base
            is_alive:             { type: :boolean },
            url:                  { type: :disabled, wrapper_data: { show: "super_hero_is_alive" } },
            last_location_seen:   { type: :latlng },
-           powers:               { type: :check_boxes, data: Powers },
+           powers:               { type: :multiselect_association },
            images:               { type: :inline },
            published_at:         { type: :date, size: :small },
            telephone:            { type: :readonly }
@@ -52,7 +51,7 @@ class SuperHero < ActiveRecord::Base
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :image, :file],
-              filters: [:is_alive, :gender, :created_at, :birthdate]
+              filters: [:is_alive, :gender, :created_at, :birthdate, :powers]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
@@ -144,6 +143,14 @@ class SuperHero < ActiveRecord::Base
       scope.merge! after_datetime(attr, values[:after]) if values[:after].present?
       scope.merge! before_datetime(attr, values[:before]) if values[:before].present?
     end
+  }
+
+  scope :filter_multiselect_association, ->(attr, values = []) {
+    # basically
+    #   joins(:powers).where(powers: { id: values })
+    # but using a subquery to avoid duplicate record issues
+    query = joins(attr.to_sym).where(:"#{attr}" => { id: values.reject(&:blank?) }).select(:id).to_sql
+    where("#{table_name}.id in (#{query})")
   }
 
   scope :after_datetime, ->(attr, datetime) {

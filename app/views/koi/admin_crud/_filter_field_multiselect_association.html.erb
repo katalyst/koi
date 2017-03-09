@@ -1,0 +1,11 @@
+<%-
+  id = "koi-#{ new_uuid }"
+  selected = params[:search][attr] if params[:search]
+-%>
+<%= f.input attr,
+  as: :select,
+  collection: attr.to_s.classify.constantize.all,
+  include_blank: true,
+  selected: selected,
+  wrapper_html: { class: "form--medium" },
+  input_html: { id: id, multiple: true, data: { tag_input: "" } } %>
