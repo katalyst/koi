@@ -134,6 +134,10 @@ table {
     background: $passive-color;
   }
 
+  th,td {
+    min-width: 100px;
+  }
+
   table {
     min-width: 450px;
   }
@@ -200,6 +204,14 @@ table {
   border-left: $divider;
   text-align: center;
   padding: 0;
+}
+
+.table__th__sorter,
+.table__td__sorter {
+  .table-container & {
+    width: 44px;
+    min-width: 44px;
+  }
 }
 
 .table--sorter--container {
