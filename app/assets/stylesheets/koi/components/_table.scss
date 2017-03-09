@@ -134,8 +134,9 @@ table {
     background: $passive-color;
   }
 
-  th,td {
+  .table--listing-span {
     min-width: 100px;
+    display: inline-block;
   }
 
   table {
@@ -211,12 +212,11 @@ table {
   .table-container & {
     width: 44px;
     min-width: 44px;
+    max-width: 44px;
   }
 }
 
 .table--sorter--container {
-  width: 44px;
-
   img {
     display: block;
     margin: 0 auto;
@@ -248,6 +248,10 @@ table .icon.sort:hover {
   background: red;
   z-index: 5;
   display: none;
+}
+
+.table__td__sorter {
+  cursor: move;
 }
 
 .table-container--shadow__left {
