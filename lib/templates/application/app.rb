@@ -15,10 +15,11 @@ end
 
 # Method to lookup the version of koi
 def koi_version
-  version_data = open('https://raw.github.com/katalyst/koi/bug/dynamic-tag-version/lib/koi/version.rb') {|f| f.read }
-  # extract version number from file data
-  # =>  "module Koi\n  VERSION = \"2.2.1\"\nend\n"
-  version_data.split("\n")[1].split('=').last.strip.gsub(/\"/, '')
+  version_file_path = self.rails_template[/.*(?=templates)/]
+  version_file_path += 'koi/version.rb'
+  version_data = open(version_file_path) {|f| f.read }
+
+  version = version_data.split("\n")[1].split('=').last.strip.gsub(/\"/, '')
 end
 
 # Add .ruby-version for RVM/RBENV.
