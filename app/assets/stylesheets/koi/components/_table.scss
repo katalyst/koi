@@ -1,4 +1,5 @@
 $table-border: 1px solid $divider-color;
+$table-soft-border: $light-grey;
 $table-striped-odd: $passive-color;
 $table-striped-even: transparent;
 $table-stacked-breakpoint: 500px;
@@ -62,9 +63,39 @@ table {
   }
 }
 
+.table__soft {
+  td,th {
+    padding: $xxxxx-small-unit;
+  }
+  thead th {
+    border-bottom: 2px solid $table-soft-border;
+  }
+  tbody tr + tr td {
+    border-top: 1px solid $table-soft-border;
+  }
+  tr:hover td {
+    background: $table-hover-background;
+  }
+}
+
 .table__striped {
   tr:nth-child(even) td {
     background: #fcfcfc;
+  }
+  &.table tr:nth-child(even):hover td,
+  &.table__soft tr:nth-child(even):hover td {
+    background: $table-hover-background;
+  }
+}
+
+.table__flush-x {
+  tr th:first-child,
+  tr td:first-child {
+    padding-left: 0;
+  }
+  tr th:last-child,
+  tr td:last-child {
+    padding-right: 0;
   }
 }
 
