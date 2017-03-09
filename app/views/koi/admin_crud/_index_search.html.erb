@@ -26,7 +26,7 @@
                 begin
                   render crud_partial(attr, :filter), { attr: attr, f: f }
                 rescue ActionView::MissingTemplate
-                  render "filter_default", { attr: :attr, f: f }
+                  render "filter_field_default", { attr: attr, f: f }
                 end
                %>
             <% end %>

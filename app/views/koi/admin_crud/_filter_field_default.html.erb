@@ -1,0 +1,11 @@
+<%
+  type = resource_class.guess_type_from_sql_type(attr)
+%>
+
+<%=
+  begin
+    render "filter_field_#{type}", attr: attr, f: f
+  rescue ActionView::MissingTemplate
+    nil
+  end
+%>

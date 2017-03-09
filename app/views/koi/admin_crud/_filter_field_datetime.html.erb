@@ -1,0 +1,12 @@
+<%-
+  values = params[:search].try(:[], attr) || {}
+  after = DateTime.parse(values[:after]).strftime('%a, %b %e %Y at %l:%M %p') if values[:after].present?
+  before = DateTime.parse(values[:before]).strftime('%a, %b %e %Y at %l:%M %p') if values[:before].present?
+
+  input_opts = {}
+  input_opts[:class] = "datetime input datetimepicker"
+  label = attr.to_s.gsub(/(_at|_on|_date)/, '').titleize
+-%>
+
+<%= f.input "#{attr}[after]", as: :string, label: "#{label} after", input_html: input_opts.merge(value: after) %>
+<%= f.input "#{attr}[before]", as: :string, label: "#{label} before", input_html: input_opts.merge(value: before) %>

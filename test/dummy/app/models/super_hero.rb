@@ -40,7 +40,7 @@ class SuperHero < ActiveRecord::Base
            powers:               { type: :check_boxes, data: Powers },
            images:               { type: :inline },
            published_at:         { type: :date, size: :small },
-           telephone:        { type: :readonly }
+           telephone:            { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -51,8 +51,8 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
-      index   fields: [:id, :name, :gender, :is_alive, :image, :file],
-              filters: [:is_alive, :gender]
+      index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :image, :file],
+              filters: [:is_alive, :gender, :created_at, :updated_at]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
@@ -131,7 +131,28 @@ class SuperHero < ActiveRecord::Base
   }
 
   scope :filter_boolean, ->(attr, value) { where(:"#{attr}" => value) }
-  scope :filter_select, ->(attr, value) { where(:"#{attr}" => value) }
+  scope :filter_select, ->(attr, values = []) {
+    values = values.reject(&:blank?)
+    # build query, e.g. where('my_table.my_attr = ? OR my_table.my_attr = ?', val1, val2)
+    clause = values.map{ |v| "#{table_name}.#{attr} = ?" }.join(' OR ')
+    where(clause, *values)
+  }
+
+  # expects hash of { before: datetime, after: datetime }
+  scope :filter_datetime, ->(attr, values = {}) {
+    current_scope.tap do |scope|
+      scope.merge! after_datetime(attr, values[:after]) if values[:after].present?
+      scope.merge! before_datetime(attr, values[:before]) if values[:before].present?
+    end
+  }
+
+  scope :after_datetime, ->(attr, datetime) {
+    where("#{table_name}.#{attr} > ?", DateTime.parse(datetime))
+  }
+
+  scope :before_datetime, ->(attr, datetime) {
+    where("#{table_name}.#{attr} < ?", DateTime.parse(datetime))
+  }
 
   class << self
 
@@ -143,7 +164,7 @@ class SuperHero < ActiveRecord::Base
         if can_filter_by?(field_type)
           current_scope.merge! send(filter_scope_name(field_type), attr, value)
         else
-          guess_filter_scope(attr, value)
+          current_scope.merge! guess_filter_scope(attr, value)
         end
       end
 
@@ -151,10 +172,20 @@ class SuperHero < ActiveRecord::Base
     end
 
     def guess_filter_scope(attr, value)
-      case columns_hash[attr.to_s].sql_type
+      case guess_type_from_sql_type(attr)
       when "boolean"
-        current_scope.merge! filter_boolean(attr, value)
+        filter_boolean(attr, value)
+      when 'datetime'
+        filter_datetime(attr, value)
+      else
+        all
       end
+    end
+
+    def guess_type_from_sql_type(attr)
+      sql_type = columns_hash[attr.to_s].sql_type
+      type = sql_type
+      type = 'datetime' if sql_type.include?('timestamp')
     end
 
     def can_filter_by?(field_type)
