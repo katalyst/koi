@@ -143,6 +143,21 @@ table {
 // Cell styling, widths and variations 
 // =========================================================================
 
+.table-row__error td {
+  background: $error-background;
+  color: $error-color-light;
+}
+
+.table-row__warning td {
+  background: $warning-background;
+  color: $warning-color;
+}
+
+.table-row__success td {
+  background: $success-background;
+  color: $success-color;
+}
+
 .table__th__actions,
 .table--actions--container {
   text-align: right;
