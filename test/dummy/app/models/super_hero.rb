@@ -213,7 +213,7 @@ class SuperHero < ActiveRecord::Base
     def guess_field_type_for_filter(attr)
       type = ''
       # if attr is a regular column
-      if column_names.include?(attr)
+      if column_names.include?(attr.to_s)
         sql_type = columns_hash[attr.to_s].sql_type
         if sql_type.include?('timestamp')
           type = 'datetime'
@@ -224,6 +224,7 @@ class SuperHero < ActiveRecord::Base
       elsif reflect_on_all_associations(:has_and_belongs_to_many).any?{ |a| a.name == attr.to_sym }
         type = 'multiselect_association'
       end
+      raise "No filter field type could be guessed for #{attr}" if type == ''
       type
     end
 
