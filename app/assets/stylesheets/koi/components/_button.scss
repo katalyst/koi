@@ -259,3 +259,39 @@
     float: right;
   }
 }
+
+// =========================================================================
+// Label buttons
+// =========================================================================
+
+@mixin button__pill($background:$passive-color, $color:foreground-color) {
+  border-radius: $border-radius;
+  padding: 4px 8px;
+  font-size: $small-font-size;
+  @include font($bold-font);
+  background-color: $background;
+  color: $color;
+  display: inline-block;
+
+  .table td & {
+    margin-top: -4px;
+    margin-bottom: -4px;
+  }
+}
+
+.button__pill {
+  @include button__pill;
+}
+
+.button__pill__success,
+.button__pill__confirm {
+  @include button__pill($success-background, $success-color);
+}
+
+.button__pill__error {
+  @include button__pill($error-background, $error-color);
+}
+
+.button__pill__warning {
+  @include button__pill($warning-background, $warning-color);
+}
