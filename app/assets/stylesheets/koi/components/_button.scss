@@ -289,7 +289,7 @@
 }
 
 .button__pill__error {
-  @include button__pill($error-background, $error-color);
+  @include button__pill($error-background, $error-color-light);
 }
 
 .button__pill__warning {
