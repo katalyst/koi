@@ -112,6 +112,8 @@ Gem::Specification.new do |s|
   # Application Settings
   s.add_dependency 'figaro'
 
+  s.add_dependency 'htmlentities', '~> 4.3.3'
+
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'

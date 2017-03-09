@@ -4,80 +4,84 @@
   <%= render "sidebar" -%>
 <%- end -%>
 
-<div class="content">
+<div class="content-spacing">
 
   <h2>Basic Grid</h2>
 
-  <div>
-    <div class="row">
-      <div class="col-1-2">
-        <div class="panel__passive">
-          .col-1-2
-        </div>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid" } do -%>
+<div>
+  <div class="row">
+    <div class="col-1-2">
+      <div class="panel__passive">
+        .col-1-2
       </div>
-      <div class="col-1-2">
-        <div class="panel__passive">
-          .col-1-2
-        </div>
+    </div>
+    <div class="col-1-2">
+      <div class="panel__passive">
+        .col-1-2
       </div>
+    </div>
 
-      <div class="col-1-3">
-        <div class="panel__passive">
-          .col-1-3
-        </div>
+    <div class="col-1-3">
+      <div class="panel__passive">
+        .col-1-3
       </div>
-      <div class="col-1-3">
-        <div class="panel__passive">
-          .col-1-3
-        </div>
+    </div>
+    <div class="col-1-3">
+      <div class="panel__passive">
+        .col-1-3
       </div>
-      <div class="col-1-3">
-        <div class="panel__passive">
-          .col-1-3
-        </div>
+    </div>
+    <div class="col-1-3">
+      <div class="panel__passive">
+        .col-1-3
       </div>
+    </div>
 
-      <div class="col-1-4">
-        <div class="panel__passive">
-          .col-1-4
-        </div>
+    <div class="col-1-4">
+      <div class="panel__passive">
+        .col-1-4
       </div>
-      <div class="col-1-4">
-        <div class="panel__passive">
-          .col-1-4
-        </div>
+    </div>
+    <div class="col-1-4">
+      <div class="panel__passive">
+        .col-1-4
       </div>
-      <div class="col-1-2">
-        <div class="panel__passive">
-          .col-1-2
-        </div>
+    </div>
+    <div class="col-1-2">
+      <div class="panel__passive">
+        .col-1-2
       </div>
     </div>
   </div>
+</div>
+  <%- end -%>
 
   <hr />
 
   <h2>Responsive Grid</h2>
 
-  <div>
-    <div class="row">
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4.col1-2m
-        </div>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-responsive" } do -%>
+<div>
+  <div class="row">
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4.col1-2m
       </div>
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4 .col1-2m
-        </div>
+    </div>
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4 .col1-2m
       </div>
-      <div class="col-1-2 col-1-1m">
-        <div class="panel__passive">
-          .col-1-2.col1-1m
-        </div>
+    </div>
+    <div class="col-1-2 col-1-1m">
+      <div class="panel__passive">
+        .col-1-2.col1-1m
       </div>
     </div>
   </div>
+</div>
+  <%- end -%>
 
   <hr />
 
@@ -85,46 +89,50 @@
 
   <p>tight:</p>
 
-  <div>
-    <div class="row__tight">
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4.col1-2m
-        </div>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-tight" } do -%>
+<div>
+  <div class="row__tight">
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4.col1-2m
       </div>
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4.col1-2m
-        </div>
+    </div>
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4.col1-2m
       </div>
-      <div class="col-1-2 col-1-1m">
-        <div class="panel__passive">
-          .col-1-2.col1-1m
-        </div>
+    </div>
+    <div class="col-1-2 col-1-1m">
+      <div class="panel__passive">
+        .col-1-2.col1-1m
       </div>
     </div>
   </div>
+</div>
+  <%- end -%>
 
   <p>x-tight:</p>
 
-  <div>
-    <div class="row__x-tight">
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4.col1-2m
-        </div>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-x-tight" } do -%>
+<div>
+  <div class="row__x-tight">
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4.col1-2m
       </div>
-      <div class="col-1-4 col-1-2m">
-        <div class="panel__passive">
-          .col-1-4.col1-2m
-        </div>
+    </div>
+    <div class="col-1-4 col-1-2m">
+      <div class="panel__passive">
+        .col-1-4.col1-2m
       </div>
-      <div class="col-1-2 col-1-1m">
-        <div class="panel__passive">
-          .col-1-2.col1-1m
-        </div>
+    </div>
+    <div class="col-1-2 col-1-1m">
+      <div class="panel__passive">
+        .col-1-2.col1-1m
       </div>
     </div>
   </div>
+</div>
+  <%- end -%>
   
 </div>

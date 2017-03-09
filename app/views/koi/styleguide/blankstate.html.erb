@@ -11,15 +11,17 @@
     <p>Show an empty panel with centered content:</p>
   </div>
 
-  <div class="blankstate">
-    <div class="blankstate--content content">
-      <p>
-        <strong>There are no products</strong>
-      </p>
-      <p>
-        <a href="#" class="button__save">Add your first product</a>
-      </p>
-    </div>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "blankstate" } do -%>
+<div class="blankstate">
+  <div class="blankstate--content content">
+    <p>
+      <strong>There are no products</strong>
+    </p>
+    <p>
+      <a href="#" class="button__save">Add your first product</a>
+    </p>
   </div>
+</div>
+  <%- end -%>
 
 </div>

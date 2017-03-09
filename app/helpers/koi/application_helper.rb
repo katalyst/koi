@@ -1,3 +1,5 @@
+require 'htmlentities'
+
 module Koi::ApplicationHelper
 
   def kt(args={})
@@ -151,6 +153,17 @@ module Koi::ApplicationHelper
     li_opts = {}
     li_opts = request.path.eql?(link_path) ? { class: "selected" } : {}
     content_tag(:li, link_to(label, link_path, link_opts), li_opts)
+  end
+
+  # Render source code
+  def render_source(code)
+    begin
+      @html_encoder ||= HTMLEntities.new
+      raw(@html_encoder.encode(code))
+    rescue NameError
+      raw("<div class='panel--padding'>Error rendering HTML, HTMLEntities gem is possibly missing</div>")
+    end
+
   end
 
 end
