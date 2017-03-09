@@ -1,2 +1,2 @@
-<% selected = params[:search].try(:[], attr) %>
-<%= f.input attr, as: :select, collection: resource_class.crud.find(:fields, attr, :data), selected: selected %>
+<% checked = params[:search].try(:[], attr) %>
+<%= f.input attr, as: :check_boxes, collection: resource_class.crud.find(:fields, attr, :data), checked: checked %>
