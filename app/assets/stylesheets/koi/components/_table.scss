@@ -4,7 +4,10 @@ $table-striped-even: transparent;
 $table-stacked-breakpoint: 500px;
 $table-padding: $xxxxx-small-unit;
 
+// =========================================================================
 // Display types
+// =========================================================================
+
 .display-table {
   display: table;
   width: 100%;
@@ -13,9 +16,17 @@ $table-padding: $xxxxx-small-unit;
   display: table-cell;
 }
 
+// =========================================================================
+// Default tables
+// =========================================================================
+
 table {
   width: 100%;
 }
+
+// =========================================================================
+// Table types
+// =========================================================================
 
 .table__fixed-width {
   table-layout: fixed;
@@ -34,10 +45,6 @@ table {
     vertical-align: top;
   }
 
-  // tr:nth-child(even) td {
-  //   background: #fcfcfc;
-  // }
-
   tr:hover td {
     background: $table-hover-background;
   }
@@ -55,6 +62,16 @@ table {
   }
 }
 
+.table__striped {
+  tr:nth-child(even) td {
+    background: #fcfcfc;
+  }
+}
+
+// =========================================================================
+// Column heading variation
+// =========================================================================
+
 .table-col-heading {
   background: $passive-color;
   border-right: 1px solid $border;
@@ -66,6 +83,10 @@ table {
     width: 150px;
   }
 }
+
+// =========================================================================
+// Scrollable tables
+// =========================================================================
 
 .table-container {
   position: relative;
@@ -87,27 +108,15 @@ table {
   }
 }
 
-.table--actions {
-  width: 140px;
+// =========================================================================
+// Cell styling, widths and variations 
+// =========================================================================
+
+.table__th__actions,
+.table--actions--container {
+  text-align: right;
 }
 
-.table td.table--sorter {
-  vertical-align: middle;
-  border-left: $divider;
-  text-align: center;
-  padding: 0;
-}
-
-.table--sorter--container {
-  width: 44px;
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-// Specific table width types
 .table--image {
   width: 80px;
   min-width: 80px;
@@ -120,6 +129,35 @@ table {
   @include media-query(600px) {
     width: 50px;
     min-width: 50px;
+  }
+}
+
+.table__id {
+  width: 55px;
+}
+
+.table__td__email {
+  @include text-wrap;
+  max-width: 150px;
+}
+
+// =========================================================================
+// Sorting and  ordering 
+// =========================================================================
+
+.table td.table__td__sorter {
+  vertical-align: middle;
+  border-left: $divider;
+  text-align: center;
+  padding: 0;
+}
+
+.table--sorter--container {
+  width: 44px;
+
+  img {
+    display: block;
+    margin: 0 auto;
   }
 }
 

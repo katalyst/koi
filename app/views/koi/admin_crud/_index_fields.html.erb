@@ -71,12 +71,12 @@
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
           <% label = raw t("simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize) %>
           <% if is_sortable? %>
-            <th class="sort-icon"><%= sortable attr.to_s, label, :class => "nohover" %></th>
+            <th class="sort-icon table__th__<%= label.parameterize -%>"><%= sortable attr.to_s, label, :class => "nohover" %></th>
           <% else %>
-            <th><%= label %></th>
+            <th class="table__th__<%= label.parameterize -%>"><%= label %></th>
           <% end %>
         <% end %>
-        <th class="table--actions">Actions</th>
+        <th class="table__th__actions">Actions</th>
         <%- if is_orderable? -%>
           <th width="29">&nbsp;</th>
         <%- end -%>
@@ -94,7 +94,8 @@
         <tr>
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
-            <td>
+            <td class="table__td__<%= attr -%>">
+              <span class="table__span__<%= attr -%>">
                 <%=
                 begin
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
@@ -102,13 +103,14 @@
                   render "index_field_default", { :attr => attr, :object => object }
                 end
                 %>
+              </span>
             </td>
           <% end %>
-          <td class="nowrap">
+          <td class="table__td__actions">
             <%= render "index_fields_action", { :object => object } %>
           </td>
           <% if is_orderable? %>
-            <td class="nowrap table--sorter" data-table-sorter>
+            <td class="table__td__sorter" data-table-sorter>
               <div class="table--sorter--container">
                 <%= image_tag "koi/application/icon-sortable.png" %>
               </div>
