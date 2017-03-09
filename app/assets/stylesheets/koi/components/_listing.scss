@@ -56,6 +56,14 @@
   @include align-items(center);
 }
 
+.listing--colour {
+  display: inline-block;
+  width: $xxx-small-unit;
+  height: $xxx-small-unit;
+  border-radius: 4px;
+  vertical-align: text-top;
+}
+
 // Listing actions
 
 .listing--actions {
