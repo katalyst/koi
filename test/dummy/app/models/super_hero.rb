@@ -149,7 +149,10 @@ class SuperHero < ActiveRecord::Base
     # basically
     #   joins(:powers).where(powers: { id: values })
     # but using a subquery to avoid duplicate record issues
-    query = joins(attr.to_sym).where(:"#{attr}" => { id: values.reject(&:blank?) }).select(:id).to_sql
+    query = joins(attr.to_sym)
+              .where(attr => { id: values.reject(&:blank?) })
+              .select(:id)
+              .to_sql
     where("#{table_name}.id in (#{query})")
   }
 
@@ -179,25 +182,35 @@ class SuperHero < ActiveRecord::Base
     end
 
     def guess_filter_scope(attr, value)
-      case guess_type_from_sql_type(attr)
+      case guess_field_type_for_filter(attr)
       when "boolean"
         filter_boolean(attr, value)
       when 'datetime'
         filter_datetime(attr, value)
       when 'date'
         filter_datetime(attr, value)
+      when 'multiselect_association'
+        filter_multiselect_association(attr, value)
       else
         all
       end
     end
 
-    def guess_type_from_sql_type(attr)
-      sql_type = columns_hash[attr.to_s].sql_type
-      if sql_type.include?('timestamp')
-        'datetime'
-      else
-        sql_type
+    def guess_field_type_for_filter(attr)
+      type = ''
+      # if attr is a regular column
+      if column_names.include?(attr)
+        sql_type = columns_hash[attr.to_s].sql_type
+        if sql_type.include?('timestamp')
+          type = 'datetime'
+        else
+          type = sql_type
+        end
+      # else if it's a has_and_belongs_to_many association
+      elsif reflect_on_all_associations(:has_and_belongs_to_many).any?{ |a| a.name == attr.to_sym }
+        type = 'multiselect_association'
       end
+      type
     end
 
     def can_filter_by?(field_type)

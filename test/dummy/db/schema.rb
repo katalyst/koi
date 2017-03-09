@@ -240,7 +240,6 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "file_uid"
     t.string   "file_name"
     t.integer  "value"
-    t.string   "powers"
     t.string   "slug"
     t.integer  "ordinal"
     t.datetime "created_at"
