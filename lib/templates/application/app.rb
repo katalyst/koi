@@ -3,9 +3,6 @@
 #
 # require 'pry'
 # binding.pry
-
-require_relative '../../koi/version'
-
 #
 # override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
@@ -14,6 +11,15 @@ require_relative '../../koi/version'
 
 def source_paths
   Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
+end
+
+# Method to lookup the version of koi
+def koi_version
+  version_file_path = self.rails_template[/.*(?=templates)/]
+  version_file_path += 'koi/version.rb'
+  version_data = open(version_file_path) {|f| f.read }
+
+  version = version_data.split("\n")[1].split('=').last.strip.gsub(/\"/, '')
 end
 
 # Add .ruby-version for RVM/RBENV.
@@ -50,7 +56,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: "v#{::Koi::VERSION}"
+                                  tag: "v#{koi_version}"
 
 # Compass
 gem 'compass'                   , "~> 1.0.0"
@@ -207,7 +213,23 @@ end
 END
 
 # import Pages controller
-copy_file 'app/controllers/pages_controller.rb'
+create_file 'app/controllers/pages_controller.rb', <<-END
+class PagesController < Koi::CrudController
+
+  # Stop accidental leakage of unwanted actions to frontend
+
+  def index
+    redirect_to '/'
+  end
+
+  alias :index :create
+  alias :index :destroy
+  alias :index :update
+  alias :index :edit
+  alias :index :new
+
+end
+END
 
 run 'bundle install'
 
