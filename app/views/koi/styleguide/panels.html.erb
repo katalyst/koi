@@ -45,11 +45,11 @@
   <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested" } do -%>
 <div class="panel__passive panel__border">
   <div class="panel--padding">
-    panel--padding
+    <h2 class="heading-four">My module</h2>
   </div>
-  <div class="panel--padding panel--border-top">
-    panel--padding<br />
-    panel--border-top"
+  <div class="panel--padding panel--border-top compressed">
+    <p>This is some content for the panel.</p>
+    <p>This is a grey panel.</p>
   </div>
 </div>
   <%- end -%>
@@ -57,11 +57,11 @@
   <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested-white" } do -%>
 <div class="panel panel__border">
   <div class="panel--padding">
-    panel--padding
+    <h2 class="heading-four">My module</h2>
   </div>
   <div class="panel--padding panel--border-top">
-    panel--padding<br />
-    panel--border-top
+    <p>This is some content for the panel.</p>
+    <p>This is a plain white panel.</p>
   </div>
 </div>
   <%- end -%>
