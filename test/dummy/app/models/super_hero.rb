@@ -19,6 +19,13 @@ class SuperHero < ActiveRecord::Base
   default_scope -> { alphabetical }
 
   Gender = ["Male", "Female", "Robot"]
+  Popularities = {
+    popular: "Popular",
+    unpopular: "Unpopular",
+    hated: "Hated",
+  }
+
+  enum popularity: Popularities.keys
 
   validates :name, :description, presence: true
 
@@ -39,7 +46,8 @@ class SuperHero < ActiveRecord::Base
            powers:               { type: :multiselect_association },
            images:               { type: :inline },
            published_at:         { type: :date, size: :small },
-           telephone:            { type: :readonly }
+           telephone:            { type: :readonly },
+           popularity:           { type: :select, data: Popularities.invert }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -51,11 +59,11 @@ class SuperHero < ActiveRecord::Base
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :image, :file],
-              filters: [:is_alive, :gender, :created_at, :birthdate, :powers]
+              filters: [:is_alive, :gender, :created_at, :birthdate, :powers, :popularity]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
-                       :image_upload, :document_upload, :powers]
+                       :image_upload, :document_upload, :powers, :popularity]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
                        :image_upload_id, :document_upload_id, :powers]
@@ -131,7 +139,13 @@ class SuperHero < ActiveRecord::Base
 
   scope :filter_boolean, ->(attr, value) { where(:"#{attr}" => value) }
   scope :filter_select, ->(attr, values = []) {
+    # strip values of blank strings
     values = values.reject(&:blank?)
+    # if field is enum, get integers that represent the values
+    if defined_enums.keys.include?(attr)
+      # e.g. values = statuses.values_at('open', 'closed')
+      values = send(attr.pluralize).values_at(*values)
+    end
     # build query, e.g. where('my_table.my_attr = ? OR my_table.my_attr = ?', val1, val2)
     clause = values.map{ |v| "#{table_name}.#{attr} = ?" }.join(' OR ')
     where(clause, *values)
