@@ -3,9 +3,6 @@
 #
 # require 'pry'
 # binding.pry
-
-require_relative '../../koi/version'
-
 #
 # override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
