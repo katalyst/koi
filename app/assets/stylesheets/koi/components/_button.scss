@@ -268,6 +268,7 @@
   border-radius: $border-radius;
   padding: 4px 8px;
   font-size: $small-font-size;
+  line-height: $base-line-height;
   @include font($bold-font);
   background-color: $background;
   color: $color;
@@ -294,4 +295,48 @@
 
 .button__pill__warning {
   @include button__pill($warning-background, $warning-color);
+}
+
+// =========================================================================
+// Badges
+// =========================================================================
+
+@mixin button__badge($background-color:$primary-color, $color:$white) {
+  border-radius: 50px;
+  background-color: $background-color;
+  color: $color;
+  padding: 0 5px;
+  font-size: $small-font-size;
+  line-height: $base-line-height;
+  @include color-link($color, $color);
+  margin-left: 4px;
+  margin-right: 4px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.button__badge {
+  @include button__badge;
+}
+
+.button__badge__success {
+  @include button__badge($success-background, $success-color);
+}
+
+.button__badge__warning {
+  @include button__badge($warning-background, $warning-color);
+}
+
+.button__badge__error {
+  @include button__badge($error-background, $error-color-light);
+}
+
+.button__badge__white {
+  @include button__badge($white, $foreground-color);
 }

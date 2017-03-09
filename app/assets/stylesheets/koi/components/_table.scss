@@ -158,6 +158,10 @@ table {
   color: $success-color;
 }
 
+.table-row__highlight td {
+  background: $table-hover-background;
+}
+
 .table__th__actions,
 .table--actions--container {
   text-align: right;
