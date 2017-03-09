@@ -2,6 +2,9 @@
   > * + * {
     margin-top: $xxx-small-unit;
   }
+  > * + hr {
+    margin: $small-unit 0;
+  }
 }
 
 .inputs + .actions {
