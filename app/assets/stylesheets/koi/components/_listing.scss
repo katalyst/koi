@@ -56,6 +56,10 @@
   @include align-items(center);
 }
 
+.listing--colour--wrapper {
+  @include no-wrap;
+}
+
 .listing--colour {
   display: inline-block;
   width: $xxx-small-unit;
