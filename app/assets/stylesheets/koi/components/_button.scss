@@ -108,6 +108,7 @@
 .button__primary {
   @include button-primary;
 }
+.button__success,
 .button__save,
 .button__confirm {
   @include button-base;
