@@ -1,10 +1,24 @@
 <%-
+  # Pass in time: false to make this a regular datepicker rather than a datetime picker
+
+  time = true unless time == false
+
+  format_str = '%a, %b %e %Y at %l:%M %p'
+  date_class = DateTime
+  css_class  = "datetime input datetimepicker"
+
+  if !time
+    format_str = '%d/%m/%Y'
+    date_class = Date
+    css_class  = 'datepicker input'
+  end
+  
   values = params[:search].try(:[], attr) || {}
-  after = DateTime.parse(values[:after]).strftime('%a, %b %e %Y at %l:%M %p') if values[:after].present?
-  before = DateTime.parse(values[:before]).strftime('%a, %b %e %Y at %l:%M %p') if values[:before].present?
+  after = date_class.parse(values[:after]).strftime(format_str) if values[:after].present?
+  before = date_class.parse(values[:before]).strftime(format_str) if values[:before].present?
 
   input_opts = {}
-  input_opts[:class] = "datetime input datetimepicker"
+  input_opts[:class] = css_class
   label = attr.to_s.gsub(/(_at|_on|_date)/, '').titleize
 -%>
 

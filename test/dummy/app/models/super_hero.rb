@@ -52,7 +52,7 @@ class SuperHero < ActiveRecord::Base
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :image, :file],
-              filters: [:is_alive, :gender, :created_at, :updated_at]
+              filters: [:is_alive, :gender, :created_at, :birthdate]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
@@ -177,6 +177,8 @@ class SuperHero < ActiveRecord::Base
         filter_boolean(attr, value)
       when 'datetime'
         filter_datetime(attr, value)
+      when 'date'
+        filter_datetime(attr, value)
       else
         all
       end
@@ -184,8 +186,11 @@ class SuperHero < ActiveRecord::Base
 
     def guess_type_from_sql_type(attr)
       sql_type = columns_hash[attr.to_s].sql_type
-      type = sql_type
-      type = 'datetime' if sql_type.include?('timestamp')
+      if sql_type.include?('timestamp')
+        'datetime'
+      else
+        sql_type
+      end
     end
 
     def can_filter_by?(field_type)

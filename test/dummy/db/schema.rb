@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.integer  "document_upload_id"
     t.string   "document_upload_crop"
     t.string   "last_location_seen"
+    t.date     "birthdate"
   end
 
   add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
