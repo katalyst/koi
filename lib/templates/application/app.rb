@@ -16,6 +16,14 @@ def source_paths
   Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
 end
 
+# Method to lookup the version of koi
+def koi_version
+  version_data = open('https://raw.github.com/katalyst/koi/bug/dynamic-tag-version/lib/koi/version.rb') {|f| f.read }
+  # extract version number from file data
+  # =>  "module Koi\n  VERSION = \"2.2.1\"\nend\n"
+  version_data.split("\n")[1].split('=').last.strip.gsub(/\"/, '')
+end
+
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
 2.2.2
@@ -50,7 +58,7 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
 gem 'koi'                       , github: 'katalyst/koi',
-                                  tag: "v#{::Koi::VERSION}"
+                                  tag: "v#{koi_version}"
 
 # Compass
 gem 'compass'                   , "~> 1.0.0"
