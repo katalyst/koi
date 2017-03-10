@@ -1,0 +1,9 @@
+<%-
+  values       = params[:search].try(:[], attr) || {}
+  greater_than = values[:greater_than]
+  less_than    = values[:less_than]
+  label        = attr.to_s.titleize
+-%>
+
+<%= f.input "#{attr}[greater_than]", as: :string, label: "#{label} greater than", input_html: { value: greater_than } %>
+<%= f.input "#{attr}[less_than]", as: :string, label: "#{label} less than", input_html: { value: less_than } %>

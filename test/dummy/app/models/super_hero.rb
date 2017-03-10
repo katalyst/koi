@@ -21,13 +21,14 @@ class SuperHero < ActiveRecord::Base
   Gender = ["Male", "Female", "Robot"]
   Popularities = {
     popular: "Popular",
-    unpopular: "Unpopular",
+    not_popular: "Not popular",
     hated: "Hated",
   }
 
   enum popularity: Popularities.keys
 
   validates :name, :description, presence: true
+  validates :power_level, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
 
   crud.config do
     map image_uid: :image
@@ -58,15 +59,15 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
-      index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :image, :file],
-              filters: [:is_alive, :gender, :created_at, :birthdate, :powers, :popularity]
+      index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :power_level, :image],
+              filters: [:is_alive, :gender, :created_at, :birthdate, :powers, :popularity, :power_level]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
-                       :image_upload, :document_upload, :powers, :popularity]
+                       :image_upload, :document_upload, :powers, :popularity, :power_level]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
-                       :image_upload_id, :document_upload_id, :powers]
+                       :image_upload_id, :document_upload_id, :powers, :power_level]
       reportable true
       charts [{
         span:     :created_at,
@@ -134,10 +135,17 @@ class SuperHero < ActiveRecord::Base
   # TO BE PULLED INTO has_crud/active_record.rb, probably in a module of its own, maybe Filterable
   #
   scope :filter, ->(params) {
-    build_filter_conditions(params)
+    build_filter_conditions params
   }
 
-  scope :filter_boolean, ->(attr, value) { where(:"#{attr}" => value) }
+  scope :filter_boolean, ->(attr, value) { where :"#{attr}" => value }
+
+  #
+  # Expects values to be an array of possible values of the attr field
+  #
+  # E.g. SuperHero.filter_select(:gender, ["Female", "Robot"])
+  # Which would return all records with a gender of either "Female" or "Robot"
+  #
   scope :filter_select, ->(attr, values = []) {
     # strip values of blank strings
     values = values.reject(&:blank?)
@@ -148,18 +156,53 @@ class SuperHero < ActiveRecord::Base
     end
     # build query, e.g. where('my_table.my_attr = ? OR my_table.my_attr = ?', val1, val2)
     clause = values.map{ |v| "#{table_name}.#{attr} = ?" }.join(' OR ')
-    where(clause, *values)
+    where clause, *values
   }
 
-  # expects hash of { before: datetime, after: datetime }
-  scope :filter_datetime, ->(attr, values = {}) {
+  #
+  # DATETIME FILTERS
+  #
+
+  #
+  # Expects values to be a hash of { before: datetime, after: datetime }
+  #
+  scope :filter_between_datetime, ->(attr, values = {}) {
     current_scope.tap do |scope|
       scope.merge! after_datetime(attr, values[:after]) if values[:after].present?
       scope.merge! before_datetime(attr, values[:before]) if values[:before].present?
     end
   }
 
-  scope :filter_multiselect_association, ->(attr, values = []) {
+  scope :after_datetime, ->(attr, datetime) {
+    where "#{table_name}.#{attr} > ?", DateTime.parse(datetime)
+  }
+
+  scope :before_datetime, ->(attr, datetime) {
+    where "#{table_name}.#{attr} < ?", DateTime.parse(datetime)
+  }
+
+  scope :filter_datetime, ->(attr, values = {}) {
+    filter_between_datetime attr, values
+  }
+
+  scope :filter_date, ->(attr, values = {}) {
+    filter_between_datetime attr, values
+  }
+
+  #
+  # ASSOCIATION FILTERS
+  #
+
+  #
+  # Expects values to be a list of ids of has_and_belongs_to_many records
+  #
+  # e.g.
+  #
+  #   SuperHero.filter_habtm(:powers, ["1, 2, 3"])
+  #
+  # returns an ActiveRecord_Relation of all the superheros with powers of id 1, 2 or 3>
+  #
+  scope :filter_habtm, ->(attr, values = []) {
     # basically
     #   joins(:powers).where(powers: { id: values })
     # but using a subquery to avoid duplicate record issues
@@ -170,12 +213,43 @@ class SuperHero < ActiveRecord::Base
     where("#{table_name}.id in (#{query})")
   }
 
-  scope :after_datetime, ->(attr, datetime) {
-    where("#{table_name}.#{attr} > ?", DateTime.parse(datetime))
+  scope :filter_multiselect_association, ->(attr, values){
+    filter_habtm attr, values
   }
 
-  scope :before_datetime, ->(attr, datetime) {
-    where("#{table_name}.#{attr} < ?", DateTime.parse(datetime))
+  #
+  # NUMBER RANGE FILTERS
+  #
+
+  #
+  # Expects values to be a hash of { greater_than: x, less_than: y }
+  # Either of these values can be blank, and the scope will just return the current scope.
+  #
+  scope :filter_between_numbers, ->(attr, values) {
+    current_scope.tap do |scope|
+      scope.merge! attr_greater_than(attr, values[:greater_than]) if values[:greater_than].present?
+      scope.merge! attr_less_than(attr, values[:less_than]) if values[:less_than].present?
+    end
+  }
+
+  scope :attr_greater_than, ->(attr, value){
+    where "#{table_name}.#{attr} > ?", value
+  }
+
+  scope :attr_less_than, ->(attr, value){
+    where "#{table_name}.#{attr} < ?", value
+  }
+
+  scope :filter_integer, ->(attr, values) {
+    filter_between_numbers attr, values
+  }
+
+  scope :filter_float, ->(attr, values) {
+    filter_between_numbers attr, values
+  }
+
+  scope :filter_decimal, ->(attr, values) {
+    filter_between_numbers attr, values
   }
 
   class << self
@@ -196,15 +270,17 @@ class SuperHero < ActiveRecord::Base
     end
 
     def guess_filter_scope(attr, value)
-      case guess_field_type_for_filter(attr)
+      case guess_field_type_for_filter attr
       when "boolean"
-        filter_boolean(attr, value)
+        filter_boolean attr, value
       when 'datetime'
-        filter_datetime(attr, value)
+        filter_datetime attr, value
       when 'date'
-        filter_datetime(attr, value)
+        filter_datetime attr, value
       when 'multiselect_association'
-        filter_multiselect_association(attr, value)
+        filter_habtm attr, value
+      when 'integer'
+        filter_between_numbers attr, value
       else
         all
       end
@@ -213,9 +289,9 @@ class SuperHero < ActiveRecord::Base
     def guess_field_type_for_filter(attr)
       type = ''
       # if attr is a regular column
-      if column_names.include?(attr.to_s)
+      if column_names.include? attr.to_s
         sql_type = columns_hash[attr.to_s].sql_type
-        if sql_type.include?('timestamp')
+        if sql_type.include? 'timestamp'
           type = 'datetime'
         else
           type = sql_type

@@ -252,6 +252,7 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "last_location_seen"
     t.date     "birthdate"
     t.integer  "popularity"
+    t.integer  "power_level"
   end
 
   add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
