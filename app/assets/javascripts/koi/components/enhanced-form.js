@@ -7,44 +7,10 @@
 
   var FormHelpers = Ornament.Components.FormHelpers = {
 
-    enhanceForms: function(){
-      // Enhance simple_form
-      $(".form--enhanced input").not(".enhanced").each(function(){
-        $(this).addClass("enhanced").after("<span class='form--enhanced--control'></span>");
-      });
-    },
-
-    tagifyInputs: function(){
-      $("[data-tag-input]").each(function(){
-        var $tagInput = $(this);
-
-        // Abort this iteration if already select2
-        if($tagInput.data("select2")) {
-          return true;
-        }
-
-        var select2options = {
-          tokenSeparators: [","," "]
-        };
-
-        if($tagInput.is("[data-tag-list]")) {
-          select2options.tags = JSON.parse($tagInput.attr("data-tag-list"));
-        }
-
-        $tagInput.select2(select2options);
-        $tagInput.select2("container").find("ul.select2-choices").sortable({
-          containment: 'parent',
-          start:  function() { $tagInput.select2("onSortStart"); },
-          update: function() { $tagInput.select2("onSortEnd"); }
-        });
-      });
-    },
-
-    // Build settings from a field
-    _buildDatepickerSettingsForField: function($field, defaultSettings) {
-      defaultSettings = defaultSettings || {};
-      // List of settings we can check against
-      var settingsToCheck = [
+    passwordRevealerInitialisedClass: "password-revealer__enabled",
+    passwordScoreSelector: "[data-password-score]",
+    passwordRevealerSelector: "[data-password-reveal]",
+    datePickerSettingsList: [
         // jQueryUI Datepicker Options
         // http://api.jqueryui.com/datepicker/
         "appendText",
@@ -136,10 +102,47 @@
         "defaultValue",
         "minTime",
         "maxTime"
-      ];
+      ],
+
+    enhanceForms: function(){
+      // Enhance simple_form
+      $(".form--enhanced input").not(".enhanced").each(function(){
+        $(this).addClass("enhanced").after("<span class='form--enhanced--control'></span>");
+      });
+    },
+
+    tagifyInputs: function(){
+      $("[data-tag-input]").each(function(){
+        var $tagInput = $(this);
+
+        // Abort this iteration if already select2
+        if($tagInput.data("select2")) {
+          return true;
+        }
+
+        var select2options = {
+          tokenSeparators: [","," "]
+        };
+
+        if($tagInput.is("[data-tag-list]")) {
+          select2options.tags = JSON.parse($tagInput.attr("data-tag-list"));
+        }
+
+        $tagInput.select2(select2options);
+        $tagInput.select2("container").find("ul.select2-choices").sortable({
+          containment: 'parent',
+          start:  function() { $tagInput.select2("onSortStart"); },
+          update: function() { $tagInput.select2("onSortEnd"); }
+        });
+      });
+    },
+
+    // Build settings from a field
+    _buildDatepickerSettingsForField: function($field, defaultSettings) {
+      defaultSettings = $.extend({}, defaultSettings || {});
       // Loop over the array of options above and over-write 
       // the default settings with the new ones
-      $.each(settingsToCheck, function(){
+      $.each(FormHelpers.datePickerSettingsList, function(){
         var attribute = "data-datepicker-" + this.toLowerCase();
         if($field.is("[" + attribute + "]")) {
           var value = $field.attr(attribute);
@@ -207,6 +210,38 @@
       $("[data-colourpicker]").minicolors();
     },
 
+    _isPasswordFieldRevealed: function($field){
+      return $field[0].type === "text";
+    },
+
+    _togglePasswordRevealer: function($field) {
+      var $button = $field.siblings("[data-password-revealer-button]");
+      if(FormHelpers._isPasswordFieldRevealed($field)) {
+        $field[0].type = "password";
+        // $button.removeClass("button__depressed");
+        $button.html(Ornament.icons.visible);
+      } else {
+        $field[0].type = "text";
+        // $button.addClass("button__depressed");
+        $button.html(Ornament.icons.hidden);
+      }
+    },
+
+    _scaffoldPasswordRevealer: function($field){
+      var $revealer = $("<button data-password-revealer-button />").attr("aria-label", "Toggle visibility of password").addClass("button button__icon").html(Ornament.icons.visible);
+      $revealer.off("click").on("click", function(){
+        FormHelpers._togglePasswordRevealer($field);
+      });
+      $field.wrap("<div class='form--password-revealer' />").after($revealer);
+    },
+
+    bindPasswordRevealers: function(){
+      $(FormHelpers.passwordRevealerSelector).not("." + FormHelpers.passwordRevealerInitialisedClass).each(function(){
+        var $field = $(this).addClass(FormHelpers.passwordRevealerInitialisedClass);
+        FormHelpers._scaffoldPasswordRevealer($field);
+      });
+    },
+
     isLinkAButton: function(element) {
       return element.is(".button") || 
              element.is(".button__small") || 
@@ -241,6 +276,7 @@
       FormHelpers.bindCustomDisableLinks();
       FormHelpers.bindInputMasks();
       FormHelpers.bindColourPickers();
+      FormHelpers.bindPasswordRevealers();
     }
 
   };

@@ -150,6 +150,7 @@ textarea,
     cursor: not-allowed;
   }
 
+  &.form--tight,
   &.input__tight {
     padding: 6px 8px;
   }
@@ -159,8 +160,8 @@ textarea,
 
 @include input-placeholder {
   color: $input-border-color;
-}
 
+}
 select {
   width: 100%;
   font: inherit;
@@ -484,7 +485,10 @@ $file-thumbnail-width: 100px;
   }
 }
 
-// SELECT 2 MODIFICATIONS 
+// =========================================================================
+// Select 2 theming 
+// =========================================================================
+
 .select2-container {
   width: 100%;
 }
@@ -526,5 +530,31 @@ $file-thumbnail-width: 100px;
     @include display-flex;
     @include align-items(center);
     @include flex-shrink(0);
+  }
+}
+
+// =========================================================================
+// Password revealer
+// =========================================================================
+
+.form--password-revealer {
+  position: relative;
+
+  input {
+    padding-right: 80px;
+
+    ::ms-clear,
+    ::ms-reveal {
+      display: none;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    right: 4px;
+    text-transform: uppercase;
+    outline: none;
   }
 }
