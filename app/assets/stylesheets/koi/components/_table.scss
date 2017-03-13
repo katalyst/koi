@@ -1,4 +1,5 @@
 $table-border: 1px solid $divider-color;
+$table-soft-border: $light-grey;
 $table-striped-odd: $passive-color;
 $table-striped-even: transparent;
 $table-stacked-breakpoint: 500px;
@@ -62,9 +63,39 @@ table {
   }
 }
 
+.table__soft {
+  td,th {
+    padding: $xxxxx-small-unit;
+  }
+  thead th {
+    border-bottom: 2px solid $table-soft-border;
+  }
+  tbody tr + tr td {
+    border-top: 1px solid $table-soft-border;
+  }
+  tr:hover td {
+    background: $table-hover-background;
+  }
+}
+
 .table__striped {
   tr:nth-child(even) td {
     background: #fcfcfc;
+  }
+  &.table tr:nth-child(even):hover td,
+  &.table__soft tr:nth-child(even):hover td {
+    background: $table-hover-background;
+  }
+}
+
+.table__flush-x {
+  tr th:first-child,
+  tr td:first-child {
+    padding-left: 0;
+  }
+  tr th:last-child,
+  tr td:last-child {
+    padding-right: 0;
   }
 }
 
@@ -103,6 +134,11 @@ table {
     background: $passive-color;
   }
 
+  .table--listing-span {
+    min-width: 100px;
+    display: inline-block;
+  }
+
   table {
     min-width: 450px;
   }
@@ -111,6 +147,25 @@ table {
 // =========================================================================
 // Cell styling, widths and variations 
 // =========================================================================
+
+.table-row__error td {
+  background: $error-background;
+  color: $error-color-light;
+}
+
+.table-row__warning td {
+  background: $warning-background;
+  color: $warning-color;
+}
+
+.table-row__success td {
+  background: $success-background;
+  color: $success-color;
+}
+
+.table-row__highlight td {
+  background: $table-hover-background;
+}
 
 .table__th__actions,
 .table--actions--container {
@@ -152,9 +207,16 @@ table {
   padding: 0;
 }
 
-.table--sorter--container {
-  width: 44px;
+.table__th__sorter,
+.table__td__sorter {
+  .table-container & {
+    width: 44px;
+    min-width: 44px;
+    max-width: 44px;
+  }
+}
 
+.table--sorter--container {
   img {
     display: block;
     margin: 0 auto;
@@ -186,6 +248,10 @@ table .icon.sort:hover {
   background: red;
   z-index: 5;
   display: none;
+}
+
+.table__td__sorter {
+  cursor: move;
 }
 
 .table-container--shadow__left {

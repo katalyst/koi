@@ -176,13 +176,15 @@ Ornament = window.Ornament = {
 Ornament.C = Ornament.Components;
 
 $(document).on("ornament:refresh", function(){
-
   // Take the SVG icons and push them to Ornament.icons
-  if($("[data-ornament-icons]").length > 0) {
-    Ornament.icons.chevron = $("[data-ornament-icon-chevron]").html();
-    Ornament.icons.plus = $("[data-ornament-icon-plus]").html();
-    Ornament.icons.close = $("[data-ornament-icon-close]").html();
-    Ornament.icons.spinner = $("[data-ornament-icon-spinner]").html();
-    $("[data-ornament-icons]").remove();
+  var $iconsContainer = $("[data-ornament-icons]");
+  if($iconsContainer.length > 0) {
+    $iconsContainer.children().each(function(){
+      var $container = $(this);
+      var iconName = Object.keys($container.data())[0].split("ornamentIcon")[1].toLowerCase();
+      var iconMarkup = $container.html();
+      Ornament.icons[iconName] = iconMarkup;
+    });
+    $iconsContainer.remove();
   }
 });

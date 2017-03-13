@@ -108,6 +108,7 @@
 .button__primary {
   @include button-primary;
 }
+.button__success,
 .button__save,
 .button__confirm {
   @include button-base;
@@ -258,4 +259,85 @@
   .button__forward {
     float: right;
   }
+}
+
+// =========================================================================
+// Label buttons
+// =========================================================================
+
+@mixin button__pill($background:$passive-color, $color:foreground-color) {
+  border-radius: $border-radius;
+  padding: 4px 8px;
+  font-size: $small-font-size;
+  line-height: $base-line-height;
+  @include font($bold-font);
+  background-color: $background;
+  color: $color;
+  display: inline-block;
+
+  .table td & {
+    margin-top: -4px;
+    margin-bottom: -4px;
+  }
+}
+
+.button__pill {
+  @include button__pill;
+}
+
+.button__pill__success,
+.button__pill__confirm {
+  @include button__pill($success-background, $success-color);
+}
+
+.button__pill__error {
+  @include button__pill($error-background, $error-color-light);
+}
+
+.button__pill__warning {
+  @include button__pill($warning-background, $warning-color);
+}
+
+// =========================================================================
+// Badges
+// =========================================================================
+
+@mixin button__badge($background-color:$primary-color, $color:$white) {
+  border-radius: 50px;
+  background-color: $background-color;
+  color: $color;
+  padding: 0 5px;
+  font-size: $small-font-size;
+  line-height: $base-line-height;
+  @include color-link($color, $color);
+  margin-left: 4px;
+  margin-right: 4px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.button__badge {
+  @include button__badge;
+}
+
+.button__badge__success {
+  @include button__badge($success-background, $success-color);
+}
+
+.button__badge__warning {
+  @include button__badge($warning-background, $warning-color);
+}
+
+.button__badge__error {
+  @include button__badge($error-background, $error-color-light);
+}
+
+.button__badge__white {
+  @include button__badge($white, $foreground-color);
 }

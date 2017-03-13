@@ -104,15 +104,14 @@ $background-color: #fff;
 $link-color: $primary-color;
 $link-hover-color: false;
 
-$error-color: #E74C3C;
 $error-color: #990000;
+$error-color-light: #E74C3C;
 $error-background: #ffcccc;
 
 $warning-color: #d2aa0e;
 $warning-background: #ffffcc;
 
 $success-color: #2ECC71;
-$success-color: #2ecc71;
 $success-background: #ccffcc;
 
 $input-border-color: #c5cbd4;
@@ -126,7 +125,6 @@ $divider-color: #E1E3E6;
 $divider: 1px solid $divider-color;
 $image-border: 0;
 $border: #ccc;
-
 
 // INPUTS
 
@@ -152,6 +150,7 @@ $heading-alpha-font: ('Open Sans', sans-serif) normal bold;
 $heading-alpha-font-italic: ('Open Sans', sans-serif) italic bold;
 $heading-beta-font: ('Open Sans Condensed', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif) normal bold;
 $heading-beta-font-italic: ('Open Sans', sans-serif) italic bold;
+$code-font: Consolas, "Liberation Mono", Courier, monospace;
 
 $input-typeface: $body-font;
 

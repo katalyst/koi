@@ -146,10 +146,10 @@
         "data-toggle": $pane.attr("data-tab-for"),
         "data-toggle-tab-pane": ""
       }).removeAttr("data-tab-for");
+      if($pane.is(":first-child")) {
+        $pane.addClass("tabs--pane__active");
+      }
     });
-
-    // Set first as active
-    $tabPanes.first().addClass("tabs--pane__active");
 
     var loadTab = function(paneId){
       var $pane = $tabPanes.filter("[data-toggle-tab-pane][data-toggle=" + paneId + "]");

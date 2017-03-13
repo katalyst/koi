@@ -38,12 +38,12 @@
 //= require koi/components/show
 //= require koi/components/tabs
 //= require koi/components/fotorama
-//= require koi/components/sticky-header
+//= require koi/components/sticky
 //= require koi/components/enhanced-form
 //= require koi/components/navigation-mobile
-//= require koi/components/menu-aim
+// require koi/components/menu-aim
 //= require koi/components/kat-image-upload
-//= require koi/components/navigation
+// require koi/components/navigation
 //= require koi/components/tooltip
 //= require koi/components/pagination-helper
 //= require koi/components/select-link
@@ -57,6 +57,7 @@
 //= require koi/components/form-latlng
 //= require koi/components/form-inline-nested
 //= require koi/components/table
+//= require koi/components/styleguide
 
 //= require koi/ckeditor
 //= require koi/common

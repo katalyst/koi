@@ -78,7 +78,7 @@
         <% end %>
         <th class="table__th__actions">Actions</th>
         <%- if is_orderable? -%>
-          <th width="29">&nbsp;</th>
+          <th class="table__td__sorter">&nbsp;</th>
         <%- end -%>
       </tr>
     </thead>
@@ -95,7 +95,7 @@
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
             <td class="table__td__<%= attr -%>">
-              <span class="table__span__<%= attr -%>">
+              <span class="table--listing-span table__span__<%= attr -%>">
                 <%=
                 begin
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
