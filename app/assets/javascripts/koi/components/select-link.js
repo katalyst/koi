@@ -7,28 +7,34 @@
 
   $(document).on("ornament:refresh", function () {
 
-    var $linkableSelects = $("[data-select-link]");
-    var currentUrl = document.location.pathname;
+    var SelectLinks = Ornament.C.SelectLinks = {
 
-    // On click change
-    $linkableSelects.each(function(){
-
-      var $thisSelect = $(this);
-
-      $thisSelect.on("change", function(){
-        var url = $thisSelect.val();
-        if(url != "") {
-          document.location = url;
+      markAsActiveForUrl: function($select, url) {
+        if ( $select.find("option[value='"+url+"']").length > 0 ) {
+          $select.val(url);
         }
-      });
+      },
 
-      // Default state
-      if ( $thisSelect.find("option[value='"+currentUrl+"']").length > 0 ) {
-        $thisSelect.val(currentUrl);
+      bindSelectLink: function($select){
+        $select.on("change", function(){
+          var url = $select.val();
+          if(url != "") {
+            document.location = url;
+          }
+        });
+        SelectLinks.markAsActiveForUrl($select, SelectLinks.currentUrl);
+      },
+
+      init: function(){
+        SelectLinks.$linkableSelects = $("[data-select-link]");
+        SelectLinks.currentUrl = document.location.pathname;
+        SelectLinks.$linkableSelects.each(function(){
+          SelectLinks.bindSelectLink($(this));
+        });
       }
+    }
 
-    });
-
+    SelectLinks.init();
   });
 
 }(document, window, jQuery));
