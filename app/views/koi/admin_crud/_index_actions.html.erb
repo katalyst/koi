@@ -8,7 +8,7 @@
     <div class="button-group">
       <%- if is_exportable? %>
         <div>
-          <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary button__small" %>
+          <%= link_to title_for(:action_csv), collection_path({format: :csv}.merge(params)), :class => "button__primary button__small" %>
         </div>
       <% end %>
       <%- if is_allowed?(:new) %>
