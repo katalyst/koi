@@ -2,7 +2,7 @@
   content_for(:include_google_maps, "true") 
   wrapper_opts[:class] += " form--latlng" 
   latlng_data = { latlng_from: attr }
-  input_opts[:data] ? input_opts[:data].merge(latlng_data) : input_opts[:data] = latlng_data
+  input_opts[:data].present? ? input_opts[:data].merge(latlng_data) : input_opts[:data] = latlng_data
 -%>
 
 <%= f.input attr, wrapper_html: wrapper_opts, input_html: input_opts %>
