@@ -20,7 +20,7 @@
 
 <div class="listing--count">
   <div class="listing--count--items">
-    <span><%= pluralize(resource_class.count, "item") -%></span>
+    <span><%= pluralize(is_paginated? ? collection.total_count : collection.count, "item") -%></span>
   </div>
   <% if is_paginated? %>
     <div class="listing--count--per-page" id="index-pagination-options">
@@ -56,4 +56,3 @@
 <% if is_reportable? %>
   <%= render "reports" %>
 <% end %>
-
