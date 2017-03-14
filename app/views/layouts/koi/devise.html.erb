@@ -44,25 +44,17 @@
   <body>
 
     <div class="layout--container devise">
-      <div class="align-center">
-        <%= image_tag "koi/application/logo-katalyst-devise.png"%>
+      <div class="devise--logo">
+        <h1>Koi</h1>
+        <small>v<%= ::Koi::VERSION -%></small>
       </div>
       <div class="devise--body">
-        <%- if content_for?(:title) -%>
-          <div class="titlebar">
-            <h1 class="heading-two"><%= yield :title -%></h1>
-          </div>
-        <%- end -%>
         <%= render "/koi/shared/flash_messages" -%>
         <%= content_for?(:devise) ? yield(:devise) : yield %>
       </div>
     </div>
 
-    <%- # Make icons accessible via JS -%>
-    <div style="display: none;" data-ornament-icons>
-      <div data-ornament-icon-chevron><%= icon("chevron") -%></div>
-    </div>
-
+    <%= render "/layouts/koi/icons" -%>
 
   </body>
 </html>

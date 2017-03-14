@@ -229,7 +229,8 @@
 
     _scaffoldPasswordRevealer: function($field){
       var $revealer = $("<button data-password-revealer-button />").attr("aria-label", "Toggle visibility of password").addClass("button button__icon").html(Ornament.icons.visible);
-      $revealer.off("click").on("click", function(){
+      $revealer.off("click").on("click", function(e){
+        e.preventDefault();
         FormHelpers._togglePasswordRevealer($field);
       });
       $field.wrap("<div class='form--password-revealer' />").after($revealer);
