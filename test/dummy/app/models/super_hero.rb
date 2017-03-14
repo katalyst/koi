@@ -2,8 +2,7 @@ class SuperHero < ActiveRecord::Base
 
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
-           orderable: false, settings: true,
-           paginate: false
+           orderable: false, settings: true
 
   # FIXME: Refactored from has
   has_many :images, as: :attributable
@@ -59,7 +58,7 @@ class SuperHero < ActiveRecord::Base
     config :admin do
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
-      index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :power_level, :image],
+      index   fields: [:created_at, :updated_at, :name, :gender, :is_alive, :popularity, :power_level, :image],
               filters: [:is_alive, :gender, :created_at, :birthdate, :powers, :popularity, :power_level]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
