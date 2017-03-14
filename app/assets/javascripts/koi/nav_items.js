@@ -6,7 +6,7 @@ $(document).on("ornament:refresh", function(){
     // Configuration
     // =========================================================================
 
-    logging: true,
+    logging: false,
     disabledButtonClass: "button__depressed",
     closedNodeClass: 'mjs-nestedSortable-collapsed',
     expandedNodeClass: 'mjs-nestedSortable-expanded',
