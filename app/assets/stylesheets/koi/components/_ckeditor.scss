@@ -5,6 +5,11 @@
   vertical-align: middle;
 }
 
+// Fixing height of image previews when attaching via the asset manager
+.cke_dialog_ui_hbox .ImagePreviewLoader {
+  height: auto !important;
+}
+
 // Restore select boxes to regular appearance type
 // for some reason "initial" doesn't work here
 select.cke_dialog_ui_input_select {
