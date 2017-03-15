@@ -38,3 +38,15 @@
   background: $light-grey;
   padding: $xxx-small-unit $panel-padding;
 }
+
+.devise .button-group {
+  @include media-query(450px) {
+    > div {
+      width: 100%;
+    }
+    a,button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
