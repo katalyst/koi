@@ -1,7 +1,6 @@
 class SuperHero < ActiveRecord::Base
 
-  has_crud ajaxable: true,
-           searchable: [:id, :name, :gender, :powers],
+  has_crud searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true
 
   # FIXME: Refactored from has
@@ -205,11 +204,17 @@ class SuperHero < ActiveRecord::Base
     # basically
     #   joins(:powers).where(powers: { id: values })
     # but using a subquery to avoid duplicate record issues
-    query = joins(attr.to_sym)
-              .where(attr => { id: values.reject(&:blank?) })
-              .select(:id)
-              .to_sql
-    where("#{table_name}.id in (#{query})")
+    values = values.reject(&:blank?)
+    if values.present?
+      query = unscoped
+                .joins(attr.to_sym)
+                .where(attr => { id:  values})
+                .select(:id)
+                .to_sql
+      where("#{table_name}.id in (#{query})")
+    else
+      current_scope
+    end
   }
 
   scope :filter_multiselect_association, ->(attr, values){
@@ -254,18 +259,23 @@ class SuperHero < ActiveRecord::Base
   class << self
 
     def build_filter_conditions(params)
+      filter_scope = current_scope
       params.each do |attr, value|
+        # skip if value is empty string, empty array, or hash with empty values
+        next if value.blank? ||
+                value.try(:all?, &:blank?) ||
+                value.try(:values).try(:all?, &:blank?)
+
         field_definition = field_definitions[attr]
         field_type       = field_definition[:type] if field_definition.present?
 
         if can_filter_by?(field_type)
-          current_scope.merge! send(filter_scope_name(field_type), attr, value)
+          filter_scope = filter_scope.merge send(filter_scope_name(field_type), attr, value)
         else
-          current_scope.merge! guess_filter_scope(attr, value)
+          filter_scope = filter_scope.merge guess_filter_scope(attr, value)
         end
       end
-
-      current_scope
+      filter_scope
     end
 
     def guess_filter_scope(attr, value)
@@ -281,7 +291,7 @@ class SuperHero < ActiveRecord::Base
       when 'integer'
         filter_between_numbers attr, value
       else
-        all
+        current_scope
       end
     end
 
