@@ -2,14 +2,19 @@ $(document).on("ornament:refresh", function(){
 
   var Sitemap = Ornament.C.Sitemap = {
 
+    // =========================================================================
     // Configuration
-    logging: true,
+    // =========================================================================
+
+    logging: false,
     disabledButtonClass: "button__depressed",
     closedNodeClass: 'mjs-nestedSortable-collapsed',
     expandedNodeClass: 'mjs-nestedSortable-expanded',
     selectors: {
       tree: ".sitemap.application",
       lockButtonSelector: "[data-sitemap-lock]",
+      closeAllSelector: "[data-sitemap-close-all]",
+      openAllSelector: "[data-sitemap-open-all]"
     },
     storageKeys: {
       dragDisabledKey: "koiSitemapDragDropDisabled",
@@ -26,88 +31,9 @@ $(document).on("ornament:refresh", function(){
       }
     },
 
-    getLockedStateFromLocalStorage: function(){
-      return store.get(Sitemap.storageKeys.dragDisabledKey);
-    },
-
-    getClosedNodesFromLocalStorage: function(){
-      return store.get(Sitemap.storageKeys.closedNodeIds);
-    },
-
-    setClosedNodesInLocalStorage: function(arrayOfSelections) {
-      arrayOfSelections = arrayOfSelections || [];
-      store.set(Sitemap.storageKeys.closedNodeIds, arrayOfSelections);
-    },
-
-    // Toggle the sitemap state
-    toggleSitemapDragState: function(){
-      if(Sitemap.getLockedStateFromLocalStorage()) {
-        Sitemap.setSitemapDragStateEnabled();
-      } else {
-        Sitemap.setSitemapDragStateDisabled();
-      }
-    },
-
-    // Disable dragging of sitemap
-    setSitemapDragStateDisabled: function(){
-      store.set(Sitemap.storageKeys.dragDisabledKey, "true");
-      Sitemap.$lockButton.addClass(Sitemap.disabledButtonClass);
-      Sitemap.$lockButton.text(Sitemap.lang.disabledButton);
-      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
-    },
-
-    // Enable dragging of sitemep
-    setSitemapDragStateEnabled: function() {
-      store.remove(Sitemap.storageKeys.dragDisabledKey);
-      Sitemap.$lockButton.removeClass(Sitemap.disabledButtonClass);
-      Sitemap.$lockButton.text(Sitemap.lang.enabledButton);
-      Sitemap._bindSortableTree();
-    },
-
-    // Set the sitemap state based on string
-    setSitemapDragState: function(state) {
-      if(state === "enabled") {
-        Sitemap.setSitemapDragStateEnabled();
-      } else if (state === "disabled") {
-        Sitemap.setSitemapDragStateDisabled();
-      }
-    },
-
-    toggleNode: function($node){
-      var currentClosedNodes = Sitemap.getClosedNodesFromLocalStorage() || [];
-      $node = $node.is("[data-node-id]") ? $node : $node.closest("[data-node-id]");
-      var nodeId = $node.attr("data-node-id");
-      var $container = $node.closest('li');
-      var $label = $node.children("span");
-      $container.toggleClass(Sitemap.closedNodeClass).toggleClass(Sitemap.expandedNodeClass);
-      $label.toggleClass('ui-icon-plusthick').toggleClass('ui-icon-minusthick');
-      if($container.hasClass(Sitemap.closedNodeClass)) {
-        Sitemap.log(nodeId + " is closed");
-        if(currentClosedNodes.indexOf(nodeId) === -1) {
-          Sitemap.log(nodeId + " adding to LS");
-          currentClosedNodes.push(nodeId);
-          Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
-          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
-        }
-      } else {
-        Sitemap.log(nodeId + " is open");
-        var nodeIndex = currentClosedNodes.indexOf(nodeId);
-        if(nodeIndex > -1)  {
-          Sitemap.log(nodeId + " removing from LS");
-          currentClosedNodes.splice(nodeIndex, 1);
-          Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
-          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
-        }
-      }
-    },
-
-    closeNodes: function(arrayOfNodes){
-      $.each(arrayOfNodes, function(){
-        var $node = $("[data-node-id='" + this + "']");
-        $node.closest('li').addClass(Sitemap.closedNodeClass).removeClass(Sitemap.expandedNodeClass);
-        $node.children("span").addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick');
-      });
-    },
+    // =========================================================================
+    // Internals
+    // =========================================================================
 
     _$toNestedSet: function() {
       var nodes = [];
@@ -156,10 +82,6 @@ $(document).on("ornament:refresh", function(){
       Sitemap.toggleNode($(e.target));
     },
 
-    _bindToggleButtons: function(){
-      Sitemap.$tree.find('.disclose').off('click').on('click', Sitemap._toggleNodeEvent);
-    },
-
     _renderAsJSON: function(){
       return JSON.stringify (Sitemap.$rootItem.call (Sitemap._$toNestedSet));
     },
@@ -169,9 +91,251 @@ $(document).on("ornament:refresh", function(){
       Sitemap.toggleSitemapDragState();
     },
 
+    _openAllEvent: function(e) {
+      e.preventDefault();
+      Sitemap.openAllNodes();
+    },
+
+    _closeAllEvent: function(e) {
+      e.preventDefault();
+      Sitemap.closeAllNodes();
+    },
+
+    _bindToggleButtons: function(){
+      Sitemap.getToggleButtons().off('click').on('click', Sitemap._toggleNodeEvent);
+    },
+
+    _bindToggleAllButtons: function(){
+      Sitemap.$openAllButton.off("click").on("click", Sitemap._openAllEvent);
+      Sitemap.$closeAllButton.off("click").on("click", Sitemap._closeAllEvent);
+    },
+
+    // =========================================================================
+    // Getters
+    // =========================================================================
+
+    // Get locked state from local storage
+    getLockedStateFromLocalStorage: function(){
+      return store.get(Sitemap.storageKeys.dragDisabledKey);
+    },
+
+    // Get array of closed nodes from localstorage
+    getClosedNodesFromLocalStorage: function(){
+      return store.get(Sitemap.storageKeys.closedNodeIds);
+    },
+
+    // Get the toggle buttons
+    // Optionally, get only the visible ones
+    getToggleButtons: function(visible){
+      visible = visible || false;
+      var $toggles = Sitemap.$tree.find('.disclose');
+      if(visible) {
+        return $toggles.filter(":visible");
+      } else {
+        return $toggles;
+      }
+    },
+
+    // Get the parent container for the toggle button
+    getToggleContainer: function($toggle){
+      return $toggle.closest('li');
+    },
+
+    // Get the icon for the toggle button
+    getToggleIcon: function($toggle) {
+      return $toggle.children("span");
+    },
+
+    // Get toggle-all container
+    getToggleAllContainer: function($toggle) {
+      var $parent = $toggle.parent("li");
+      if($parent.length) {
+        return $parent;
+      } else {
+        return $toggle;
+      }
+    },
+
+    // =========================================================================
+    // Setters
+    // =========================================================================
+
+    // Update closed nodes in LocalStorage
+    setClosedNodesInLocalStorage: function(arrayOfSelections) {
+      arrayOfSelections = arrayOfSelections || [];
+      store.set(Sitemap.storageKeys.closedNodeIds, arrayOfSelections);
+    },
+
+    // Disable dragging of sitemap
+    setSitemapDragStateDisabled: function(){
+      store.set(Sitemap.storageKeys.dragDisabledKey, "true");
+      Sitemap.$lockButton.addClass(Sitemap.disabledButtonClass);
+      Sitemap.$lockButton.text(Sitemap.lang.disabledButton);
+      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
+    },
+
+    // Enable dragging of sitemep
+    setSitemapDragStateEnabled: function() {
+      store.remove(Sitemap.storageKeys.dragDisabledKey);
+      Sitemap.$lockButton.removeClass(Sitemap.disabledButtonClass);
+      Sitemap.$lockButton.text(Sitemap.lang.enabledButton);
+      Sitemap._bindSortableTree();
+    },
+
+    // Set the sitemap state based on string
+    setSitemapDragState: function(state) {
+      if(state === "enabled") {
+        Sitemap.setSitemapDragStateEnabled();
+      } else if (state === "disabled") {
+        Sitemap.setSitemapDragStateDisabled();
+      }
+    },
+
+    // Check if the open all / close all buttons need to be visible
+    // and set accordingly
+    setToggleAllVisibility: function(){
+      if(Sitemap.areAllNodesClosed()) {
+        Sitemap.getToggleAllContainer(Sitemap.$closeAllButton).hide();
+      } else {
+        Sitemap.getToggleAllContainer(Sitemap.$closeAllButton).show();
+      }
+      if(Sitemap.areAllNodesOpen()) {
+        Sitemap.getToggleAllContainer(Sitemap.$openAllButton).hide();
+      } else {
+        Sitemap.getToggleAllContainer(Sitemap.$openAllButton).show();
+      }
+    },
+
+    // =========================================================================
+    // Booleans
+    // =========================================================================
+
+    // Check if all nodes are currently closed
+    areAllNodesClosed: function(){
+      var allClosed = true;
+      Sitemap.getToggleButtons(true).each(function(){
+        var $node = $(this);
+        if(Sitemap.getToggleContainer($node).is("." + Sitemap.expandedNodeClass)) {
+          Sitemap.log("[ALLNODES]" + $node.attr("data-node-id") + "is open");
+          allClosed = false;
+          return false;
+        }
+      });
+      return allClosed;
+    },
+
+    // Check if all nodes are currently open
+    areAllNodesOpen: function(){
+      var allOpen = true;
+      Sitemap.getToggleButtons(true).each(function(){
+        var $node = $(this);
+        if(Sitemap.getToggleContainer($node).is("." + Sitemap.closedNodeClass)) {
+          Sitemap.log("[ALLNODES]" + $node.attr("data-node-id") + "is closed");
+          allOpen = false;
+          return false;
+        }
+      });
+      return allOpen;
+    },
+
+    isNodeOpen: function($node){
+      return Sitemap.getToggleContainer($node).hasClass(Sitemap.closedNodeClass);
+    },
+
+    // =========================================================================
+    // Actions
+    // =========================================================================
+
+    // Toggle the sitemap state
+    toggleSitemapDragState: function(){
+      if(Sitemap.getLockedStateFromLocalStorage()) {
+        Sitemap.setSitemapDragStateEnabled();
+      } else {
+        Sitemap.setSitemapDragStateDisabled();
+      }
+    },
+
+    // Toggle a nodes visibility
+    toggleNode: function($node){
+      $node = $node.is("[data-node-id]") ? $node : $node.closest("[data-node-id]");
+      var nodeId = $node.attr("data-node-id");
+      if(Sitemap.isNodeOpen($node)) {
+        Sitemap.log(nodeId + " is closed");
+        Sitemap.openNode($node);
+      } else {
+        Sitemap.log(nodeId + " is open");
+        Sitemap.closeNode($node);
+      }
+    },
+
+    // Open a node
+    openNode: function($node, storage){
+      storage = storage || true;
+      Sitemap.getToggleContainer($node).removeClass(Sitemap.closedNodeClass).addClass(Sitemap.expandedNodeClass);
+      Sitemap.getToggleIcon($node).removeClass('ui-icon-plusthick').addClass('ui-icon-minusthick');
+      Sitemap.setToggleAllVisibility();
+      if(storage) {
+        var currentClosedNodes = Sitemap.getClosedNodesFromLocalStorage() || [];
+        var nodeId = $node.attr("data-node-id");
+        var nodeIndex = currentClosedNodes.indexOf(nodeId);
+        if(nodeIndex > -1)  {
+          Sitemap.log(nodeId + " removing from LS");
+          currentClosedNodes.splice(nodeIndex, 1);
+          Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
+          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
+        }
+      }
+    },
+
+    // Close a node
+    closeNode: function($node, storage) {
+      storage = storage || true;
+      Sitemap.getToggleContainer($node).addClass(Sitemap.closedNodeClass).removeClass(Sitemap.expandedNodeClass);
+      Sitemap.getToggleIcon($node).addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick');
+      Sitemap.setToggleAllVisibility();
+      if(storage) {
+        var currentClosedNodes = Sitemap.getClosedNodesFromLocalStorage() || [];
+        var nodeId = $node.attr("data-node-id");
+        if(currentClosedNodes.indexOf(nodeId) === -1) {
+          Sitemap.log(nodeId + " adding to LS");
+          currentClosedNodes.push(nodeId);
+          Sitemap.setClosedNodesInLocalStorage(currentClosedNodes);
+          Sitemap.log(store.get(Ornament.C.Sitemap.storageKeys.closedNodeIds));
+        }
+      }
+    },
+
+    // Close an array of nodes
+    closeNodes: function(arrayOfNodes){
+      $.each(arrayOfNodes, function(){
+        var $node = $("[data-node-id='" + this + "']");
+        Sitemap.closeNode($node, false);
+      });
+    },
+
+    // Close all nodes
+    closeAllNodes: function(){
+      Sitemap.getToggleButtons().each(function(){
+        Sitemap.closeNode($(this));
+      });
+    },
+
+    // Open all nodes 
+    openAllNodes: function() {
+      Sitemap.getToggleButtons().each(function(){
+        Sitemap.openNode($(this));
+      });
+    },
+
+    // =========================================================================
+    // Initialisation
+    // =========================================================================
+
     init: function(){
       // Find elements on the page
       Sitemap.$lockButton = $(Sitemap.selectors.lockButtonSelector);
+      Sitemap.$closeAllButton = $(Sitemap.selectors.closeAllSelector);
+      Sitemap.$openAllButton = $(Sitemap.selectors.openAllSelector);
       Sitemap.$tree = $(Sitemap.selectors.tree);
 
       // Button press action
@@ -192,6 +356,7 @@ $(document).on("ornament:refresh", function(){
         // Bind sortable on list
         Sitemap._bindSortableTree();
         Sitemap._bindToggleButtons();
+        Sitemap._bindToggleAllButtons();
 
         // Set initial state if LocalStorage is available
         if(Sitemap.getLockedStateFromLocalStorage()) {
@@ -206,6 +371,10 @@ $(document).on("ornament:refresh", function(){
           Sitemap.closeNodes(existingHiddenNodes);
         }
       });
+
+      // Show/hide the toggle all buttons
+      Sitemap.setToggleAllVisibility();
+
     }
 
   }

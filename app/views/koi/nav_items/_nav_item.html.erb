@@ -4,6 +4,7 @@
     nav_item_type = nav_item.class.name.underscore.dasherize 
     nav_item_id = nav_item.id 
     nav_item_is_hidden = nav_item.read_attribute(:is_hidden) == true
+    is_root_nav_item = nav_item.is_a?(RootNavItem)
   %>
 
   <li id="nav-item-<%= nav_item.id %>"
@@ -22,7 +23,7 @@
     <div class="zone">
       <div class="nav-item--body">
 
-        <%- if Koi::Sitemap.toggles -%>
+        <%- if Koi::Sitemap.toggles && !is_root_nav_item -%>
           <span title="Click to show/hide children" class="disclose" data-node-id="<%= nav_item.id -%>">
             <span class="ui-icon ui-icon-minusthick">Toggle</span>
           </span>
@@ -62,7 +63,17 @@
 
         <div class="controls">
           <ul class="hoverable menu ui-nestedSortable-no-nesting">
-            <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary", data: { disable_with: "Loading" }) unless RootNavItem === nav_item %>
+
+            <%- if is_root_nav_item -%>
+              <li>
+                <button class="button__small button__primary" data-sitemap-open-all>Open all</button>
+              </li>
+              <li>
+                <button class="button__small button__primary" data-sitemap-close-all>Close all</button>
+              </li>
+            <%- end -%>
+
+            <%= content_tag :li, link_to("Modify", [:edit, nav_item], remote: true, class: "button__small button__primary", data: { disable_with: "Loading" }) unless is_root_nav_item %>
 
             <li class="has-menu">
               <a href="#" class="button__small button__primary">Add...</a>
