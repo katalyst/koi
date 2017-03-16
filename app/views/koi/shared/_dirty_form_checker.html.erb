@@ -1,27 +1,65 @@
 <%- content_for :scripts_bottom do -%>
   <script>
-    // Warn users about leaving the page with a dirty form
     $(document).on("ornament:refresh", function(){
-      var formsDirty = false;
 
-      // Changing any form on the page will mark forms as dirty
-      $("form").on("change", function(){
-        formsDirty = true;
-      });
+      // Warn users about leaving the page with a dirty form
+      var DirtyForms = Ornament.C.DirtyForms = {
+        isDirty: false,
+        bindingsToWatch: "change, keyup",
+        forceClean: false,
 
-      // Clicking on designated cleaner buttons with the attribute of 
-      // data-form-cleaner will mark the forms as clean again
-      $("[data-form-cleaner]").on("click", function(){
-        formsDirty = false;
-      });
+        // Changing any form on the page will mark forms as dirty
+        _bindDirtyFormChecker: function(){
+          DirtyForms.$forms.on(DirtyForms.bindingsToWatch, function(){
+            DirtyForms.isDirty = true;
+          });
+        },
 
-      // Set a beforeunload function to warn the user if forms are dirty
-      // and they try to leave the page. 
-      $(window).bind('beforeunload', function(){
-        if(formsDirty) {
-          return 'Warning: There are unsaved changes.';
+        // Clicking on designated cleaner buttons with the attribute of 
+        // data-form-cleaner will mark the forms as clean again
+        _bindFormCleaners: function(){
+          DirtyForms.$cleaners.on("click", DirtyForms.cleanForms);
+        },
+
+        // Check if any CKEditors are dirty
+        anyCKEditorsDirty: function(){
+          for (var i in CKEDITOR.instances) {
+            if(CKEDITOR.instances[i].checkDirty()) {
+              return true;
+            }
+          }
+        },
+
+        // Force disabling of dirty checker
+        // Used when leaving the page via a save method
+        cleanForms: function() {
+          DirtyForms.forceClean = true;
+        },
+
+        // Check if CKEditor or our internal checker are dirty
+        anyDirtyForms: function(){
+          return DirtyForms.anyCKEditorsDirty() || DirtyForms.isDirty;
+        },
+
+        init: function(){
+          // Get our elements
+          DirtyForms.$forms = $("form");
+          DirtyForms.$cleaners = $("[data-form-cleaner]");
+          // Bind those elements
+          DirtyForms._bindDirtyFormChecker();
+          DirtyForms._bindFormCleaners();
+          // Set a beforeunload function to warn the user if forms are dirty
+          // and they try to leave the page. 
+          $(window).bind('beforeunload', function(){
+            if(!DirtyForms.forceClean && DirtyForms.anyDirtyForms()) {
+              return 'Warning: There are unsaved changes.';
+            }
+          });
         }
-      });
+      }
+
+      DirtyForms.init();
+
     });
   </script>
-<%- end -%>
+<%- end -%> 
