@@ -4,7 +4,7 @@
     nav_item_type = nav_item.class.name.underscore.dasherize 
     nav_item_id = nav_item.id 
     nav_item_is_hidden = nav_item.read_attribute(:is_hidden) == true
-    is_root_nav_item = RootNavItem === nav_item
+    is_root_nav_item = nav_item.is_a?(RootNavItem)
   %>
 
   <li id="nav-item-<%= nav_item.id %>"
