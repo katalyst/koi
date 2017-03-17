@@ -14,3 +14,5 @@ gemspec
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
 gem 'ornament', github: 'katalyst/ornament'
+gem 'tzinfo-data', platforms: ['mingw', 'mswin']
+gem 'better_errors'

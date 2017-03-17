@@ -5,12 +5,14 @@
       <% overview = @report_data.first[:class] == 'overview' %>
 
       <% if overview %>
-        <div class="tiles tiles__four" data-conform-columns="reports">
-          <% @report_data.each_with_index do |report, index| %>
-            <% if report[:class].eql?('overview') %>
-              <%= render "report_#{report[:class]}", report: report, index: index %>
+        <div class="tiles-group">
+          <div class="tiles tiles__four">
+            <% @report_data.each_with_index do |report, index| %>
+              <% if report[:class].eql?('overview') %>
+                <%= render "report_#{report[:class]}", report: report, index: index %>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       <% end %>
 

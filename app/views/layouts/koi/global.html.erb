@@ -15,8 +15,12 @@
     <% end  %>
     <%= yield :meta %>
 
+    <!-- APPLIACTION -->
+    <meta name="theme-color" content="#ff521f" />
+
     <!-- DATA -->
-    <%= js_data if defined?(js_data) %><!-- FIXME: helper isn't loaded by DeviseController -->
+    <!-- FIXME: helper isn't loaded by DeviseController -->
+    <%= js_data if defined?(js_data) %>
 
     <!-- WEBFONTS -->
     <%= render "layouts/koi/webfonts" -%>
@@ -36,6 +40,164 @@
     <!-- ETC -->
     <%= yield(:head) %>
 
+    <%- if content_for?(:include_google_maps) -%>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjgOvjmIVHFO-1IVSYWeZN-1Yp_MkjeW0&libraries=places"></script>
+    <%- end -%>
+
   </head>
-  <%= yield :global %>
+  <body>
+
+    <a class="skip-link" href="#main">skip to content</a>
+
+    <div class="layout <%= "layout__headerless" if content_for?(:hide_header) -%>">
+      <div class="layout--mobile-tray">
+        <nav class="navigation-mobile" role="navigation" aria-label="Main Menu">
+          <div class="pane-wrapper">
+            <div class="pane">
+              <div class="pane--navigation-container">
+                <div class="navigation-mobile--header">
+                  Koi
+                </div>
+                <%- if Koi::Menu.filterable -%>
+                  <div class="navigation-mobile--filter">
+                    <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls -%> />
+                  </div>
+                <%- end -%>
+                <%= render :partial => "layouts/koi/navigation" %>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="layout--content">
+
+        <header class="header global-header" role="banner">
+          <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
+            Koi
+          <% end %>
+          <%- if Koi::PriorityMenu.present? -%>
+            <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
+              <%- Koi::PriorityMenu.items.each do |menu_item| -%>
+                <li class="<%= "action" if menu_item[:icon] -%>">
+                  <%- 
+                    link_opts = {}
+                    link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
+                    link_opts.merge!({title: menu_item[:label]})
+                    link_opts.merge!({ data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } }) if menu_item[:icon]
+                  -%>
+                  <%= link_to menu_item[:url], link_opts do -%>
+                    <%- if menu_item[:icon] -%>
+                      <%= icon(menu_item[:icon], menu_item[:icon_opts]) -%>
+                    <%- else -%>
+                      <%= menu_item[:label] -%>
+                    <%- end -%>
+                  <%- end -%>
+                </li>
+              <%- end -%>
+              <%- if current_admin.god? -%>
+                <li class="action">
+                  <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
+                    <%= icon("refresh", fill: "#2ECC71") -%>
+                  <%- end -%>
+                </li>
+              <%- end -%>
+              <li>
+                <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
+                  <%= icon("menu", fill: "#ffffff") -%>
+                  <%= icon("cross", fill: "#ffffff") -%>
+                </button>
+              </li>
+            </ul>
+          <%- end -%>
+        </header>
+
+        <main class="layout--main <%= yield(:layout_class) -%>" id="main">
+          <!--[if lte IE 10 ]>
+            <div class="browser-warning">
+              <div class="browser-warning--inner compressed">
+                <p>It looks like you're using an out-dated version of Internet Explorer.</p>
+                <p>Please either use at least Internet Explorer 11, or try a free alternative browser such as <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>.</p>
+              </div>
+            </div>
+          <![endif]-->
+
+          <%= render "/koi/shared/flash_messages" -%>
+
+          <% if content_for?(:breadcrumbs) %>
+            <div class="breadcrumbs">
+              <div class="layout--container" role="navigation">
+                <%= yield :breadcrumbs %>
+              </div>
+            </div>
+          <% end %>
+
+          <% if content_for? :title %>
+            <div class="page--title <%= "page--title__border" unless content_for?(:title_tabs) -%>">
+              <div class="layout--container">
+                <div class="page--title--wrapper">
+                  <div class="page--title--content">
+                    <h1 class="heading-one"><%= yield :title %></h1>
+                    <%- if content_for?(:title_actions) -%>
+                      <div class="page--title--actions">
+                        <%= yield(:title_actions) -%>
+                      </div>
+                    <%- end -%>
+                  </div>
+                  <%- if content_for?(:below_title) -%>
+                    <div class="page--title--below">
+                      <%= yield(:below_title) -%>
+                    </div>
+                  <%- end -%>
+                </div>
+                <%= yield :title_tabs -%>
+              </div>
+            </div>
+          <% end %>
+
+          <%= yield :above_layout -%>
+          <%- if content_for?(:global) || !yield.blank? -%>
+            <div class="layout--container">
+              <%= content_for?(:global) ? yield(:global) : yield %>
+            </div>
+          <%- end -%>
+
+        </main>
+        
+        <%= yield :below_layout -%>
+
+      </div>
+    </div>
+
+    <div id="void" class="hidden">
+
+      <div koi="ask" class="modal hide fade">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 koi:bind="question">What?</h3>
+        </div>
+        <div class="modal-body">
+          <input class="input-xlarge" name="answer" koi:bind="answer" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="cancel" class="btn close" data-dismiss="modal">Cancel</button>
+          <button type="button" name="submit" class="space-r-1 btn btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+
+    </div>
+
+    <%- # Make icons accessible via JS -%>
+    <div style="display: none;" data-ornament-icons>
+      <div data-ornament-icon-chevron><%= icon("chevron") -%></div>
+      <div data-ornament-icon-plus><%= icon("plus_thin") -%></div>
+      <div data-ornament-icon-close><%= icon("close") -%></div>
+      <div data-ornament-icon-spinner><%= icon("spinner") -%></div>
+      <div data-ornament-icon-visible><%= icon("visible") -%></div>
+      <div data-ornament-icon-hidden><%= icon("hidden") -%></div>
+    </div>
+
+    <%= yield :scripts_bottom %>
+
+  </body>
 </html>

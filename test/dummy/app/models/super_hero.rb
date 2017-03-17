@@ -27,17 +27,20 @@ class SuperHero < ApplicationRecord
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:            { type: :image },
-           file:             { type: :file },
-           document_upload:  { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           image_upload:     { type: :uploader, croppable: true, ratio: "2/1" },
-           gender:           { type: :select, data: Gender, size: :small },
-           is_alive:         { type: :boolean },
-           url:              { wrapper_data: { show: "super_hero_is_alive" } },
-           powers:           { type: :check_boxes, data: Powers },
-           images:           { type: :inline },
-           published_at:     { type: :date, size: :small },
-           telephone:        { type: :readonly }
+    fields image:                { type: :image },
+           file:                 { type: :file },
+           document_upload:      { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
+           document_upload_id:   { type: :uploader },
+           image_upload:         { type: :uploader, croppable: true, ratio: "2/1" },
+           image_upload_id:      { type: :uploader },
+           gender:               { type: :select, data: Gender, size: :small },
+           is_alive:             { type: :boolean },
+           url:                  { type: :disabled, wrapper_data: { show: "super_hero_is_alive" } },
+           last_location_seen:   { type: :latlng },
+           powers:               { type: :check_boxes, data: Powers },
+           images:               { type: :inline },
+           published_at:         { type: :date, size: :small, datepicker: { dateformat: "dd M yy", maxdate: "0" } },
+           telephone:            { type: :readonly }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -46,15 +49,16 @@ class SuperHero < ApplicationRecord
                     :telephone]
 
     config :admin do
-      exportable true
       actions only: [:show, :edit, :new, :destroy, :index]
       csv     except: [:image_name, :file_name]
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :image_upload, :document_upload, :powers]
+                       :last_location_seen, :telephone, :image, :file, 
+                       :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :telephone, :image, :file, :powers]
+                       :last_location_seen, :telephone, :image, :file, 
+                       :image_upload_id, :document_upload_id, :powers]
       reportable true
       charts [{
         span:     :created_at,
@@ -99,6 +103,18 @@ class SuperHero < ApplicationRecord
 
   def except_these_groups
     ["SEO"]
+  end
+
+  def cropped_image_upload
+    begin
+      if image_upload_crop.blank?
+        Asset.find(image_upload_id).data
+      else
+        Asset.find(image_upload_id).data.thumb(image_upload_crop)
+      end
+    rescue ActiveRecord::RecordNotFound
+      ""
+    end
   end
 
   def to_s

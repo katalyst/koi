@@ -13,13 +13,17 @@ module Koi::ApplicationHelper
   end
 
   def sortable(column, title = column.titleize, link_opt = {})
-    link_params = params.merge sort: column, direction: "asc", page: nil
-    link_opt.merge! data: { get_script: true }
-    if column == sort_column.to_s
-      link_params.merge! direction: (sort_direction.to_s == "asc" ? "desc" : "asc")
-      link_opt.merge! class: "sort icon pad-r-15px #{ sort_direction }"
+    if resource_class.column_names.include?(column) 
+      link_params = params.merge sort: column, direction: "asc", page: nil
+      link_opt.merge! data: { get_script: true }
+      if column == sort_column.to_s
+        link_params.merge! direction: (sort_direction.to_s == "asc" ? "desc" : "asc")
+        link_opt.merge! class: "sort icon pad-r-15px #{ sort_direction }"
+      end
+      link_to title, link_params, link_opt
+    else
+      content_tag(:span, title)
     end
-    link_to title, link_params, link_opt
   end
 
   def is_settable?
@@ -112,6 +116,41 @@ module Koi::ApplicationHelper
   def single_content_for(name, content = nil, &block)
     @view_flow.set(name, ActiveSupport::SafeBuffer.new)
     content_for(name, content, &block)
+  end
+
+  # Icon Helper
+  # <%= icon("close", width: 24, height: 24, stroke: "#BADA55", fill: "purple") -%>
+  def icon(icon_path, options={})
+    options[:width] = 24 unless options[:width].present?
+    options[:height] = 24 unless options[:height].present?
+    options[:stroke] = "#000000" unless options[:stroke].present?
+    options[:fill] = "#000000" unless options[:fill].present?
+    options[:class] = "" unless options[:class].present?
+    render("koi/shared/icons/#{icon_path}", options: options)
+  end
+
+  # SVG Image Helper
+  # Converts a dragonfly-stored SVG image to inline SVG with a missing
+  # asset fallback. 
+  def svg_image(image)
+    raw image.data
+  rescue Dragonfly::Job::Fetch::NotFound
+    "Image missing"
+  end
+  
+  def partial_with_wrapper(&block)
+    begin
+      capture(&block)
+    rescue ActionView::MissingTemplate
+      nil 
+    end
+  end
+  
+  # Navigation helper to mark list item as active 
+  def navigation_helper(label, link_path, link_opts={})
+    li_opts = {}
+    li_opts = request.path.eql?(link_path) ? { class: "selected" } : {}
+    content_tag(:li, link_to(label, link_path, link_opts), li_opts)
   end
 
 end

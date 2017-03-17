@@ -1,18 +1,16 @@
-<header class="titlebar">
-  <h2 class="pad-t-1">
-    <%= "#{resource.new_record? ? "Add" : "Edit"} Setting" %>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: "#{resource.new_record? ? "Add" : "Edit"} Setting", no_hide: true } do -%>
 
-    <a href="#" id="close-settings-modal" class="txt-orange pull-right space-r-2">&times;</a>
-  </h2>
-</header>
+  <%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
+    <div class="panel--padding">
+      <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
+      <div class="inputs">
+        <%= render "form_fields", { f: f, object: resource } %>
+      </div>
+    </div>
+    <div class="panel--padding panel--padding-border">
+      <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__confirm" %>
+      <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "button__cancel" if current_admin.god? unless resource.new_record? %>
+    </div>
+  <% end %>
 
-<%= simple_form_for resource, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
-  <div class="tabbable space-1">
-    <input type="hidden" name="prefix" value="<%= params[:prefix] %>">
-    
-    <%= render "form_fields", { f: f, object: resource } %>
-
-    <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "btn btn-primary" %>
-    <%= link_to "Delete", resource, data: { confirm: "Are you sure?" }, method: :delete, remote: true, class: "btn" if current_admin.god? unless resource.new_record? %>
-  </div>
-<% end %>
+<%- end -%>

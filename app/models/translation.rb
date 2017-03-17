@@ -4,7 +4,8 @@ class Translation < ApplicationRecord
            orderable: false, settings: false
 
   # FIXME: Refactored from has
-  has_many :images
+  has_many :images, as: :attributable
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   # after_save :reset_memory_store_cache
 
@@ -30,7 +31,8 @@ class Translation < ApplicationRecord
   crud.config do
     fields field_type: { type: :select, data: FieldTypes },
            value:      { type: :dynamic },
-           role:       { type: :select, data: Admin::ROLES }
+           role:       { type: :select, data: Admin::ROLES },
+           is_proc:    { type: :boolean }
     config :admin do
       index fields: [:label],
             title: "Settings"

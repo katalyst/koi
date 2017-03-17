@@ -9,7 +9,6 @@ class ResourceNavItem < NavItem
   crud.config do
     fields parent_id:     { type: :hidden },
            is_hidden:     { type: :boolean },
-           is_mobile:     { type: :boolean },
            alias_id:      { type: :tree },
            if:            { type: :code },
            unless:        { type: :code },
@@ -19,7 +18,7 @@ class ResourceNavItem < NavItem
 
     config :admin do
       index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :is_mobile, :parent_id]
+      form  fields: [:title, :url, :is_hidden, :parent_id]
     end
   end
 

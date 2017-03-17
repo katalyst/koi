@@ -2,16 +2,29 @@ $file-upload-thumbnail-width: 80px;
 $file-upload-thumbnail-background: transparent;
 $file-upload-breakpoint: 545px;
 
+@include keyframes(indefinite) {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 .file-uploader--drop-zone {
-  position: relative;
-  padding: 8px;
   border: 1px dashed $primary-color;
-  @include pie-clearfix();
   margin: 8px 0;
+}
+
+.file-uploader--drop-zone,
+.file-upload--gallery-item {
+  padding: 8px;
+  position: relative;
+  overflow: hidden;
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
-  overflow: hidden;
+  @include pie-clearfix();
 
   progress {
     display: none;
@@ -27,6 +40,7 @@ $file-upload-breakpoint: 545px;
     -webkit-appearance: none;
     border: none;
     background-size: auto;
+    background: transparent;
     z-index: 1;
   }
 
@@ -40,8 +54,13 @@ $file-upload-breakpoint: 545px;
   progress::-webkit-progress-value {
     background: $success-color;
     opacity: 0.1;
+    @include transition(width .2s);
   }
   progress::-moz-progress-bar {
+    background: $success-color;
+    opacity: 0.1;
+  }
+  progress::-ms-fill {
     background: $success-color;
     opacity: 0.1;
   }
@@ -71,17 +90,27 @@ $file-upload-breakpoint: 545px;
     z-index: 1;
     @include animation(indefinite 1.5s linear infinite);
   }
-}
 
-@include keyframes(indefinite) {
-  0% {
-    left: -50%;
-  }
-  100% {
-    left: 100%;
+  &.error {
+    background: $error-background;
   }
 }
 
+// Gallery items
+.file-upload--gallery-item {
+  border: 1px solid $grey;
+  background: $white;
+}
+
+.file-upload--gallery-item--status {
+  padding-left: 8px;
+}
+
+.file-upload--gallery-item + .file-upload--gallery-item {
+  margin-top: 8px;
+}
+
+// Single thumbnail
 .file-upload--thumbnail {
   float: left;
   // display: none;
@@ -89,6 +118,8 @@ $file-upload-breakpoint: 545px;
   height: $file-upload-thumbnail-width;
   background: $file-upload-thumbnail-background;
   border: 2px solid $primary-color;
+  position: relative;
+  z-index: 2;
 
   .file-upload--image {
     margin-top: 0;
@@ -173,6 +204,7 @@ $file-upload-breakpoint: 545px;
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
+  @include flex-wrap;
   position: relative;
   z-index: 2;
 }
@@ -183,6 +215,11 @@ $file-upload-breakpoint: 545px;
   &:before {
     content: "Error: ";
   }
+}
+.file-uploader--error,
+.file-uploader--success {
+  @include flex-grow(1);
+  width: 100%;
 }
 .file-uploader--notes {
   @include pie-clearfix();
@@ -196,6 +233,10 @@ $file-upload-breakpoint: 545px;
 }
 .file-uploader--file-type {
   float: right;
+  @include media-query(500px) {
+    float: left;
+    clear: both;
+  }
 }
 
 // Thumbnail container and undo styles
@@ -237,11 +278,15 @@ $file-upload-breakpoint: 545px;
 // gallery zone
 .file-upload--gallery {
   @include pie-clearfix;
-  margin: $default-unit 0;
+  padding: 8px;
+  border: 1px solid $input-border-color;
+  background: $passive-color;
+  border-bottom: 0;
+  margin-top: 8px;
 
-  .thumb:hover,
-  .thumb:hover img,
-  .thumb:hover .file {
+  .file-upload--gallery-item[draggable]:hover,
+  .file-upload--gallery-item[draggable]:hover img,
+  .file-upload--gallery-item[draggable]:hover .file {
     cursor: move;
   }
 
@@ -257,6 +302,24 @@ $file-upload-breakpoint: 545px;
   .dragover {
     opacity: 0.2;
   }
+
+  & + .file-uploader--drop-zone {
+    margin-top: 0;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .thumbnail-container {
+    width: 80px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .thumbnail-container.file {
+    width: 40px;
+  }
 }
 
 // Crop button
@@ -266,8 +329,8 @@ $file-upload-breakpoint: 545px;
 
 // Crop modal styles
 .form--file-crop {
-  overflow: hidden;
-  @include display-flex;
+  overflow: hidden; 
+  @include display-flex;  
   @include flex-direction(column);  
 
   // img {
@@ -279,7 +342,7 @@ $file-upload-breakpoint: 545px;
 .form--file-crop--container {
   @include flex-grow(1);
   @include flex-shrink(1);
-  background: $primary-color;
+  background: $black;
   padding: 5px;
 }
 

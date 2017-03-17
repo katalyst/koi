@@ -1,0 +1,27 @@
+<%- content_for :scripts_bottom do -%>
+  <script>
+    // Warn users about leaving the page with a dirty form
+    $(document).on("ornament:refresh", function(){
+      var formsDirty = false;
+
+      // Changing any form on the page will mark forms as dirty
+      $("form").on("change", function(){
+        formsDirty = true;
+      });
+
+      // Clicking on designated cleaner buttons with the attribute of 
+      // data-form-cleaner will mark the forms as clean again
+      $("[data-form-cleaner]").on("click", function(){
+        formsDirty = false;
+      });
+
+      // Set a beforeunload function to warn the user if forms are dirty
+      // and they try to leave the page. 
+      $(window).bind('beforeunload', function(){
+        if(formsDirty) {
+          return 'Warning: There are unsaved changes.';
+        }
+      });
+    });
+  </script>
+<%- end -%>

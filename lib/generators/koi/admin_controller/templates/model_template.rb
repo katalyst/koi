@@ -17,7 +17,6 @@ class <%= class_name %> < ApplicationRecord
   <%- end -%>
 
     config :admin do
-      exportable true
       actions only:  [:index, :show, :new, :edit]
       index fields: <%= crud_field_list %>,
             order:  { created_at: :desc }

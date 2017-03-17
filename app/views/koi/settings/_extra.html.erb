@@ -2,7 +2,7 @@
   <div class="extra">
     <div class="listing--actions small">
       <div class="align-right">
-        <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "button__primary" %>
+        <%= link_to "Add Setting", koi_engine.new_setting_path(prefix: settings_prefix), remote: true, class: "button__confirm button__small", data: { disable_with: "Loading" } %>
       </div>
     </div>
     <div id="index-fields">
@@ -13,7 +13,7 @@
               <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
             <% end %>
             <%= content_tag :th, "Key" if current_admin.god? %>
-            <th class="table--actions">Actions</th>
+            <th class="table__th__actions">Actions</th>
           </tr>
         </thead>
         <tbody id="settings-list">

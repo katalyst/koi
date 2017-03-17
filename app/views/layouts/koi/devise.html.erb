@@ -1,14 +1,69 @@
-<% content_for :global do %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta -->
+    <meta charset="UTF-8" />
+
+    <!-- title -->
+    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+
+    <!-- META -->
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
+    <% unless Rails.env == "production" %>
+      <meta name="robots" content="noindex,nofollow"/>
+    <% end  %>
+    <%= yield :meta %>
+
+    <!-- APPLIACTION -->
+    <meta name="theme-color" content="#ff521f" />
+
+    <!-- DATA -->
+    <!-- FIXME: helper isn't loaded by DeviseController -->
+    <%= js_data if defined?(js_data) %>
+
+    <!-- WEBFONTS -->
+    <%= render "layouts/koi/webfonts" -%>
+
+    <!-- STYLES -->
+    <%= stylesheet_link_tag "koi/application" %>
+    <%= yield :styles %>
+    <%= yield :stylesheets %>
+
+    <!-- SCRIPTS -->
+    <%= javascript_include_tag "koi/modernizr" %>
+    <%= javascript_include_tag "koi" %>
+    <%= render 'koi/custom_javascripts' %>
+    <%= yield :javascripts %>
+    <%= yield :scripts %>
+
+    <!-- ETC -->
+    <%= yield(:head) %>
+
+  </head>
   <body>
+
     <div class="layout--container devise">
       <div class="align-center">
         <%= image_tag "koi/application/logo-katalyst-devise.png"%>
       </div>
       <div class="devise--body">
+        <%- if content_for?(:title) -%>
+          <div class="titlebar">
+            <h1 class="heading-two"><%= yield :title -%></h1>
+          </div>
+        <%- end -%>
+        <%= render "/koi/shared/flash_messages" -%>
         <%= content_for?(:devise) ? yield(:devise) : yield %>
       </div>
     </div>
-  </body>
-<% end %>
 
-<%= render file: 'layouts/koi/global' %>
+    <%- # Make icons accessible via JS -%>
+    <div style="display: none;" data-ornament-icons>
+      <div data-ornament-icon-chevron><%= icon("chevron") -%></div>
+    </div>
+
+
+  </body>
+</html>
+

@@ -3,7 +3,10 @@ $tab-inactive-color: #ECF0F1;
 // TABS
 
 .tabs--links {
-  overflow: hidden;
+
+  &.tabs--links__flush {
+    overflow: hidden;
+  }
 
   ul {
     @include pie-clearfix;
@@ -23,8 +26,8 @@ $tab-inactive-color: #ECF0F1;
   display: block;
   // border: 1px solid $grey;
   // border-bottom-width: 0;
-  background: $tab-inactive-color;
-  @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
+  // background: $tab-inactive-color;
+  // @include background-image(linear-gradient($tab-inactive-color 0%, $tab-inactive-color 85%, #cad0d2 100%));
   cursor: pointer;
   color: $foreground-color;
   @include color-link($foreground-color, $foreground-color);
@@ -33,14 +36,19 @@ $tab-inactive-color: #ECF0F1;
   @include line-height-padding($button-height);
   @include transition(border-color .2s);
   @include border-radius($border-radius $border-radius 0 0);
+
+  .tabs--links__flush & {
+    @include border-radius(0);
+  }
 }
 
-.tabs--link__active {
+.tabs--link.active {
   background: $primary-color;
   // border-color: $primary-color;
   position: relative;
   color: $white;
   @include color-link($white, $white);
+  @include decorate-link(none, none);
 
   &:before,
   &:after {
@@ -51,6 +59,7 @@ $tab-inactive-color: #ECF0F1;
     height: 2px;
     background: $primary-color;
     width: 99999px;
+    pointer-events: none;
   }
   &:before {
     left: 100%;
@@ -64,14 +73,23 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--pane {
   display: none;
+  padding-top: $default-unit;
+
+  .tabs--panes__flush & {
+    padding: $panel-padding;
+  }
 
   .tabs--links + .tabs--panes & {
     padding: $default-unit 0;
   }
 
+  .tabs--links + .tabs--panes &.tabs--pane__flush {
+    padding-top: 0;
+  }
+
   .tabs__filled & {
     background: $passive-color;
-    @include panel-padding;
+    padding: $panel-padding;
     @include border-bottom-left-radius($border-radius);
     @include border-bottom-right-radius($border-radius);
   }
@@ -102,5 +120,112 @@ $tab-inactive-color: #ECF0F1;
   &.shadow-right:after {
     right: 0;
     @include box-shadow(inset -8px 0px 11px -7px rgba(0,0,0,0.8));
+  }
+}
+
+
+// =========================================================================
+// Styleguide feature tabs
+// =========================================================================
+
+$sg-feature-border: $border;
+$sg-feature-background: $background-color;
+
+.sg-feature {
+  margin-top: $default-unit;
+  margin-bottom: $default-unit;
+  @include flush-children;
+  @include box-shadow(1px 1px 3px rgba(0,0,0,0.1));
+}
+
+.sg-feature > .tabs--links {
+  background: $passive-color;
+  border: 1px solid $sg-feature-border;
+  border-bottom: 0;
+}
+
+.sg-feature > .tabs--links ul {
+  @include display-flex;
+  overflow: hidden;
+
+  li {
+    float: none;
+    @include display-flex;
+  }
+}
+
+.sg-feature > .tabs--links > ul > li > .tabs--link {
+  border: 1px solid transparent;
+  border-width: 0 1px;
+  border-bottom: 0;
+  @include color-link($dark-grey, $dark-grey);
+  @include decorate-link(none, none);
+  font-size: $small-font-size;
+  text-transform: uppercase;
+  @include border-radius(0);
+}
+
+.sg-feature > .tabs--links > ul > li:first-child > .tabs--link {
+  border-left: 0;
+}
+
+.sg-feature > .tabs--links > ul > li + li > .tabs--link {
+  margin: 0;
+}
+
+.sg-feature > .tabs--links > ul > li > .tabs--link.active {
+  background: $sg-feature-background;
+  border-color: $sg-feature-border;
+  @include color-link($foreground-color, $foreground-color);
+
+  &:hover {
+    background: $sg-feature-background;
+  }
+
+  &:before,
+  &:after {
+    height: 1px;
+    background: $sg-feature-border;
+  }
+}
+
+.sg-feature > .tabs--panes > .tabs--pane {
+  padding: $panel-padding;
+  background: $sg-feature-background;
+  border: 1px solid $sg-feature-border;
+  border-top: 0;
+  position: relative;
+
+  [data-copy-code] + pre {
+    margin-top: 0;
+  }
+}
+
+[data-styleguide-code-sample] {
+  position: relative;
+}
+
+[data-copy-code] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+  display: block;
+  background: $primary-color;
+  @include border-bottom-left-radius($border-radius);
+  @include color-link($white, $white);
+  text-transform: uppercase;
+  font-size: $small-font-size;
+}
+
+.sg-feature > .tabs--panes > .tabs--pane__flush {
+  padding: 0;
+
+  pre.code,
+  pre.prettyprint {
+    background: transparent;
+    border: 0 !important;
+    @include box-shadow(none);
+    padding: $panel-padding;
   }
 }

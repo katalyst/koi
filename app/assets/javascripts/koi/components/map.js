@@ -5,176 +5,81 @@
 
   "use strict";
 
-  $(document).on("ornament:refresh", function () {
+  $(document).on("ornament:load-maps", function () {
 
     if(typeof(google) == "undefined") {
       return false;
+    } else {
+      if(typeof(google.maps) == "undefined") {
+        return false;
+      }
     }
 
     // Settings
-    var mapPinImage = false; // "/assets/pin.png"
+    var mapPinImage = false; // "/assets/pin.png";
+    var mapPinLocation = false; // /assets/pin.png";
     var mapDefaultZoom = 15;
     var allMapsColoured = false;
     var allMapsMobileLocked = false;
     var allMapsStatic = false;
+    var geocode = false;
+
+    // Cluster settings
+    var clusterConfig = {
+      // zoomOnClick: false,
+      maxZoom: 15,
+      gridSize: 50
+    }
 
     // Strings and Colours
     var mapLockedMessage = "<h2 class='heading-two'>Locked</h2><p>Click to unlock map</p>";
     var mapUnlockedMessage = "Click here to lock the map.";
-    var mapColours = [
-      {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#0182c6"
-          }
-        ]
-      },
-      {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [
-        {
-          "color": "#7ac043"
-        }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-        {
-          "color": "#7ac043"
-        }
-        ]
-      },
-      {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#7ac043"
-          },
-          {
-            "lightness": -40
-          }
-        ]
-      },
-      {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#7ac043"
-          },
-          {
-            "lightness": -20
-          }
-        ]
-      },
-      {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#7ac043"
-          },
-          {
-            "lightness": -17
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          {
-            "color": "#ffffff"
-          },
-          {
-            "visibility": "on"
-          },
-          {
-            "weight": 0.9
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "visibility": "on"
-          },
-          {
-            "color": "#ffffff"
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "labels",
-        "stylers": [
-          {
-            "visibility": "simplified"
-          }
-        ]
-      },
-      {
-        "elementType": "labels.icon",
-        "stylers": [
-          {
-            "visibility": "off"
-          }
-        ]
-      },
-      {
-        "featureType": "transit",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#7ac043"
-          },
-          {
-            "lightness": -10
-          }
-        ]
-      },
-      {},
-      {
-        "featureType": "administrative",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#7ac043"
-          },
-          {
-            "weight": 0.7
-          }
-        ]
-      }
-    ]
+    var mapColours = Ornament.mapColours;
 
     // Empty infowindow
     // This makes it so that only one infowindow can be open at a time
     var infowindow = new google.maps.InfoWindow();
 
+    // Global geocoder variable for later
+    var geocoder;
+
+    // empty array for clustered markers for later
+    var clusterMarkers = [];
+
     // Get google latlng from a string of latlng
-    var getGoogleLocation = function(string){
-      var floatLat = parseFloat(string.split(",")[0]);
-      var floatLng = parseFloat(string.split(",")[1]);
-      return new google.maps.LatLng(floatLat, floatLng);
+    var getGoogleLocation = function(_string, map, cluster, $pin){
+      var $pin = $pin || false;
+      if(geocode || ($pin && $pin.is("[data-map-pin-geocode]"))) {
+        // https://developers.google.com/maps/documentation/javascript/geocoding
+        geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': _string  }, function(results, status) {
+          if(status === google.maps.GeocoderStatus.OK) {
+            // create pin
+            var pinLatLng = results[0].geometry.location;
+            addMarkersToMap(map, $pin, cluster, pinLatLng);
+            // center
+            if(map) {
+              map.setCenter(pinLatLng);
+            }
+          }
+        });
+      } else {
+        var floatLat = parseFloat(_string.split(",")[0]);
+        var floatLng = parseFloat(_string.split(",")[1]);
+        return new google.maps.LatLng(floatLat, floatLng);
+      }
     }
 
     // Get google latlng from a pin
-    var getGoogleLocationFromPin = function($pin) {
-      return getGoogleLocation($pin.attr("data-map-pin"));
+    var getGoogleLocationFromPin = function($pin, map, cluster) {
+      return getGoogleLocation($pin.attr("data-map-pin"), map, cluster, $pin);
     }
 
     // Adding pins to a map
-    var addMarkersToMap = function(map, $pin) {
+    var addMarkersToMap = function(map, $pin, cluster, pinLatLng) {
 
       // Get latLng from pin element
-      var pinLatLng = getGoogleLocationFromPin($pin);
+      pinLatLng = pinLatLng || getGoogleLocationFromPin($pin, map, cluster);
 
       // Create pin on map
       var marker = new google.maps.Marker({
@@ -187,6 +92,10 @@
       // Custom marker
       if(mapPinImage) {
         marker.icon = mapPinImage;
+      }
+
+      if($pin.is("[data-map-pin-image]")) {
+        marker.icon = $pin.attr("data-map-pin-image");
       }
 
       // Titles
@@ -208,16 +117,18 @@
         })(marker, $pin));
       }
 
+      if(cluster) {
+        clusterMarkers.push(marker);
+      }
+
     }
 
-    // Map Creation
-    $("[data-map]").not(".map__init").each(function(i){
+    var buildMap = function($mapContainer, mapIteration, userLocation) {
 
-      var $mapContainer = $(this);
       var $mapPinElements = $mapContainer.find("[data-map-pin]");
-      var firstLatLng = getGoogleLocationFromPin($mapPinElements.first());
-      var mapIteration = i;
+      var firstLatLng = getGoogleLocationFromPin($mapPinElements.first(), map, $mapContainer.is("[data-map-cluster]"));
       var numberOfPins = $mapPinElements.length;
+      var userLocation = userLocation || false;
 
       // Add a map canvas to the map container
       var $map = $("<div class='map-canvas' id='map-canvas-"+mapIteration+"' />");
@@ -253,12 +164,7 @@
       }
 
       // Get latlong
-      var defaultLocation = firstLatLng;
-
-      // Update default position if a custom position has been passed in
-      if($mapContainer.is("[data-map-position]")) {
-        defaultLocation = getGoogleLocation($mapContainer.attr("data-map-position"));
-      }
+      var defaultLocation = userLocation || firstLatLng;
 
       // Map Options
       var mapOptions = {
@@ -269,6 +175,11 @@
       // Conditional Option - Disable UI
       if($mapContainer.attr("data-map-controls") == "false") {
         mapOptions.disableDefaultUI = true;
+      } else if($mapContainer.attr("data-map-controls") == "minimal") {
+        mapOptions.navigationControl = false;
+        mapOptions.mapTypeControl = false;
+        mapOptions.streetViewControl = false;
+        mapOptions.scrollwheel = false;
       }
 
       // Conditional Option - Map Colours
@@ -277,28 +188,68 @@
       }
 
       // Conditional Option - Custom Zoom Level
-      if($mapContainer.is("[data-map-zoom]")) {
-       mapOptions.zoom = parseInt($mapContainer.attr("data-map-zoom"));
+      if($mapContainer.is("[data-map-zoom]") && !$mapContainer.is("[data-map-bounds]") && !$mapContainer.is("[data-map-geolocate]")) {
+        mapOptions.zoom = parseInt($mapContainer.attr("data-map-zoom"));
+      }
+
+      // Update default position if a custom position has been passed in
+      if($mapContainer.is("[data-map-position]") && !$mapContainer.is("[data-map-bounds]")) {
+        mapOptions.center = getGoogleLocation($mapContainer.attr("data-map-position"));
       }
 
       // Create map
       var map = new google.maps.Map(document.getElementById("map-canvas-"+mapIteration), mapOptions);
 
-      // Add marker to map
+      // Add markers to map
       $mapPinElements.each(function(){
-        addMarkersToMap(map, $(this));
+        addMarkersToMap(map, $(this), $mapContainer.is("[data-map-cluster]"));
       });
 
-      // Update zoom and position to so that all pins are visible on the map
-      if($mapContainer.is("[data-map-bounds]")) {
-        var bounds = new google.maps.LatLngBounds();
+      // Clusters
+      if($mapContainer.is("[data-map-cluster]")) {
+        var cluster = new MarkerClusterer(map, clusterMarkers, clusterConfig);
+        // Disabling click-through to clusters when dragging map
+        google.maps.event.addListener(map,'dragstart',function(){cluster.zoomOnClick_=false;});
+        google.maps.event.addListener(map,'mouseup',function(){setTimeout(function(){cluster.zoomOnClick_=true;},50);});
+      }
 
-        $mapPinElements.each(function(){
-          bounds.extend( getGoogleLocationFromPin($(this)) );
+      // If user location is available
+      if(userLocation) {
+        
+        // Create pin on map
+        var userMarker = new google.maps.Marker({
+          position: userLocation,
+          map: map
         });
 
-        // Apply the bounds to the map
-        map.fitBounds (bounds);
+        // Custom marker
+        if(mapPinLocation) {
+          userMarker.icon = mapPinLocation;
+        }
+
+        // Infowindow for user location
+        google.maps.event.addListener(userMarker, 'click', (function(userMarker) {
+          // create an infowindow and add some content
+          return function() {
+            infowindow.setContent("Your Location");
+            infowindow.open(map, userMarker);
+          }
+        })(userMarker));
+        
+      } else {
+
+        // Update zoom and position to so that all pins are visible on the map
+        if($mapContainer.is("[data-map-bounds]")) {
+          var bounds = new google.maps.LatLngBounds();
+
+          $mapPinElements.each(function(){
+            bounds.extend( getGoogleLocationFromPin($(this)), map, $mapContainer.is("[data-map-cluster]"));
+          });
+
+          // Apply the bounds to the map
+          map.fitBounds (bounds);
+        }
+
       }
 
       // Resizing window re-centers map
@@ -315,9 +266,42 @@
         google.maps.event.trigger(map, "resize");
         map.setCenter(center);
       });
+    }
+
+    // Map Creation
+    $("[data-map]").not(".map__init").each(function(i){
+
+      var $mapContainer = $(this);
+
+      if($mapContainer.is("[data-map-geolocate]")) {
+        if(Ornament.geolocationAvailable) {
+          $mapContainer.before("<p id='map-detecting'>Waiting for location</p>");
+          navigator.geolocation.getCurrentPosition(function(position){
+            $("#map-detecting").remove();
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            buildMap($mapContainer, i, pos);
+          }, function(status) {
+            $("#map-detecting").text("Access to location was denied, using basic map");
+            if(status.code === 1) {
+              console.log("user denied access to location");
+              buildMap($mapContainer, i);
+            }
+          });
+        } else {
+          // Do something for people that don't have geolocation support
+          console.log("no location available");
+          buildMap($mapContainer, i);
+        }
+      } else {
+        buildMap($mapContainer, i);
+      }
 
     }).addClass("map__init");
 
+  });
+
+  $(document).on("ornament:refresh", function () {  
+    $(document).trigger("ornament:load-maps");
   });
 
 }(document, window, jQuery));

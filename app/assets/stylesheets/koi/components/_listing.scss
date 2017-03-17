@@ -1,17 +1,22 @@
 // Koi module listing pages
 
+.listing--above-list {
+  margin-bottom: $panel-spacing;
+}
+
+.listing--below-list {
+  margin-top: $panel-spacing;
+}
+
 .listing--pagination {
-  margin-bottom: $default-unit;
-  @include pie-clearfix;
-}
+  padding-bottom: $xxx-small-unit;
+  @include display-flex;
+  @include flex-direction(column);
 
-.listing--pagination--search {
-  float: left;
-  width: 50%;
-}
-
-.listing--pagination--options {
-  float: right;
+  @include media-query(780px,min) {
+    @include flex-direction(row);
+    @include align-items(center);
+  }
 }
 
 .listing--thumbnail {
@@ -20,15 +25,53 @@
 }
 
 .listing--count {
-  // background: $light-grey;
   padding: $xxxxx-small-unit 0;
-  border-top: 1px solid $border;
+  @include display-flex;
+  @include flex-direction(row);
+  @include align-items(flex-end);
+  @include flex-wrap;
+
+  @include media-query($breakpoint-page) {
+    @include flex-direction(column);
+    @include align-items(flex-start);
+  }
+}
+
+.listing--count--items {
+  padding-right: $xxx-small-unit;
+}
+
+.listing--count--per-page {
+  margin-left: auto;
+
+  @include media-query($breakpoint-page) {
+    margin-top: $xxxxx-small-unit;
+    margin-left: 0;
+  }
+}
+
+.listing--count--search {
+  width: 100%;
+  @include display-flex;
+  @include align-items(center);
+}
+
+.listing--colour--wrapper {
+  @include no-wrap;
+}
+
+.listing--colour {
+  display: inline-block;
+  width: $xxx-small-unit;
+  height: $xxx-small-unit;
+  border-radius: 4px;
+  vertical-align: text-top;
 }
 
 // Listing actions
 
 .listing--actions {
-  background: $dark-grey;
+  background: $listing-actions-background;
   padding: $xxxxx-small-unit;
   @include pie-clearfix;
 }

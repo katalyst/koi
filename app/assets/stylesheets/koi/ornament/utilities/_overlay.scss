@@ -1,0 +1,25 @@
+@mixin overlay($percentage:0.5, $color:$black, $content-element:".overlay--content") {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color, $percentage);
+    z-index: 1;
+  }
+
+  #{$content-element} {
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+
+}
+
+.overlay {
+  @include overlay;
+}

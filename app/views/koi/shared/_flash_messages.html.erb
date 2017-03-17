@@ -1,6 +1,16 @@
-<% flash.each do |key, value| %>
-  <%= content_tag :div, class: "island island__#{key.to_s} alert-block island__with-close" do %>
-    <a href="" class="close" data-dismiss="island">&times;</a>
-    <p><%= value %></p>
+<%- unless content_for?(:flash_messages) %>
+  <% flash.to_hash.slice("alert", "success", "notice", "error").each do |key, value| %>
+    <div id="flash" class="panel__flash panel__<%= key.to_s %>" data-toggle="flash-message" data-toggle-default>
+      <div class="layout--container">
+        <div class="panel__flash--inner">
+          <div class="panel__flash--message">
+            <p><%= raw value %></p>
+          </div>
+          <button class="panel__flash--close active" data-toggle-anchor="flash-message">
+            <%= icon("close", stroke: "#fff") -%>
+          </button>
+        </div>
+      </div>
+    </div>
   <% end %>
-<% end %>
+<%- end -%>

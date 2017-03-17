@@ -12,6 +12,35 @@
 <%#= form_path.length %>
 <%#= form_path %>
 
+<%- partial_with_wrapper do -%>
+  <%- content_for :below_title do -%>
+    <%= render partial: "form_below_title" -%>
+  <%- end -%>
+<%- end -%>
+
+<%- partial_with_wrapper do -%>
+  <%- content_for :title_actions do -%>
+    <%= render partial: "form_title_actions" -%>
+  <%- end -%>
+<%- end -%>
+
+<%- sidebar = partial_with_wrapper do -%>
+  <div class="page--sidebar">
+    <%= render partial: "form_sidebar" -%>
+  </div>
+<%- end -%>
+
+<%- if sidebar -%>
+  <div class="page__with-sidebar-right">
+    <div class="page--main">
+<%- end -%>
+
+<%= partial_with_wrapper do -%>
+  <div class="listing--above-list">
+    <%= render partial: "form_above" -%>
+  </div>
+<%- end -%>
+
 <%= simple_form_for form_path, html: { multipart: true, autocomplete: 'off', class: 'form-vertical' }  do |f| %>
     <%= render "form_parent",  { :f => f } %>
     <div class="inputs">
@@ -20,3 +49,17 @@
       <%= render "form_buttons", { :f => f } %>
     </div>
 <% end %>
+
+<%= partial_with_wrapper do -%>
+  <div class="listing--below-list">
+    <%= render partial: "form_below" -%>
+  </div>
+<%- end -%>
+
+<%- if sidebar -%>
+    </div>
+    <%= sidebar -%>
+  </div>
+<%- end -%>
+
+<%= render "koi/shared/dirty_form_checker" -%>

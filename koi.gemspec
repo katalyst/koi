@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails'
+  s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
 
   # Authorization
   s.add_dependency 'devise'
@@ -87,7 +87,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sidekiq'
 
   # Nice Multi Select
-  s.add_dependency 'select2-rails'
+  s.add_dependency 'select2-rails', '~> 3.5.9'
 
   # Nested Forms
   s.add_dependency 'cocoon'
@@ -105,6 +105,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'puma'
 
   s.add_dependency 'inherited_resources', '~> 1.6'
+
+  s.add_dependency 'htmlentities', '~> 4.3.3'
 
   # Development Dependencies
   s.add_development_dependency 'karo'

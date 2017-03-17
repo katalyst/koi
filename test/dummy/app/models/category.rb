@@ -12,6 +12,7 @@ class Category < ApplicationRecord
       form  fields:    [:name, :products]
       index fields:    [:name],
             relations: [:products]
+      csv   fields:    [:created_at, :name, :products]
     end
   end
 

@@ -1,0 +1,57 @@
+.compressed {
+  p {
+    margin-top: $xxxxx-small-unit;
+    margin-bottom: $xxxxx-small-unit;
+    @include flush-children;
+  }
+
+  .heading-one {
+    margin-top: $default-unit;
+    margin-bottom: $default-unit;
+    @include flush-children;
+
+    @include media-query($breakpoint-typography) {
+      margin-top: $small-unit;
+      margin-bottom: $small-unit;
+    }
+  }
+
+  .heading-two {
+    margin-top: $xx-small-unit;
+    margin-bottom: $xx-small-unit;
+    @include flush-children;
+
+    @include media-query($breakpoint-typography) {
+      margin-top: $xxx-small-unit;
+      margin-bottom: $xxx-small-unit;
+    }
+  }
+
+  .heading-three {
+    margin-top: $xx-small-unit;
+    margin-bottom: $xx-small-unit;
+    @include flush-children;
+
+    @include media-query($breakpoint-typography) {
+      margin-top: $xxx-small-unit;
+      margin-bottom: $xxx-small-unit;
+    }
+  }
+
+  .heading-four {
+    margin-top: $xx-small-unit;
+    margin-bottom: $xx-small-unit;
+    @include flush-children;
+
+    @include media-query($breakpoint-typography) {
+      margin-top: $xxx-small-unit;
+      margin-bottom: $xxx-small-unit;
+    }
+  }
+
+  .buttons {
+    margin-top: $xx-small-unit;
+    margin-bottom: $xx-small-unit;
+    @include flush-children;
+  }
+}

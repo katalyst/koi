@@ -1,10 +1,9 @@
 class NewsItem < ApplicationRecord
 
-  has_crud navigation: true
+  has_crud navigation: true, exportable: false
 
   crud.config do
     config :admin do
-      exportable true
       reportable true
       charts [{
         span:     :created_at,

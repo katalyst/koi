@@ -23,7 +23,7 @@
       menuNavItemClass:           "navigation-item", // list items that are navigation triggers for styling purposes
       menuReadyClass:             "ready", // ready class, only used so that scaffolding won't happen more than once
       backContainerClass:         "back", // class used for back button containers
-      backButtonClass:            "button", // class used for back buttons
+      backButtonClass:            "button__primary", // class used for back buttons
       descriptionClass:           "description",
       descriptionTitleClass:      "description--title",
       descriptionBodyClass:       "description--body",
@@ -35,9 +35,10 @@
       animationBuffer:            100, // buffer for good measure
       slideTransitionTime:        200, // transition between pane sliding
       jumpToCurrent:              true, // jump to current page in the menu rather than starting at top-level
-      showOverviewLinks:          true, // will show overview links on secodary panes
-      keepScrollPosition:         false, // keep scroll position when opening tabs, dangerous if button isn't fixed
-      closeForAnchors:            true, // close menu when clicking on anchors
+      showOverviewLinks:          false, // will show overview links on secodary panes
+      keepScrollPosition:         true, // keep scroll position when opening tabs, dangerous if button isn't fixed
+      closeForAnchors:            false, // close menu when clicking on anchors
+      filterUrls:                 false, // filter returns results for last URL component as well as title
 
       // Customisable text strings
       viewOverviewText:           "View Overview",
@@ -48,6 +49,8 @@
       anchor:                     $(".layout--switch"),
       contentElement:             $(".layout--content"),
       layoutElement:              $(".layout"),
+      filterElement:              $("[data-tray-filter]"),
+      positioner:                 $(".layout--main"),
 
       // Core Settings
       currentLevel: 1, // initial level
@@ -75,15 +78,59 @@
         }
       },
 
+      // Destroy the tab indexes of all the links in the mobile menu
+      // This is used to stop screen readers and tabbing
+      destroyTabIndexes: function() {
+        mobileNav.tray.find(".pane--navigation-container").removeAttr("tabIndex");
+        mobileNav.tray.find(".pane").removeAttr("tabIndex");
+        mobileNav.tray.find(".description").attr("aria-hidden", true);
+        mobileNav.tray.find("a").attr("tabIndex", "-1").attr("aria-hidden", true);
+        mobileNav.filterElement.attr("tabIndex", "-1").attr("aria-hidden", true);
+      },
+
+      // Create tabindexes for the current visible pane
+      createTabIndexesForCurrentPane: function() {
+        var currentPane = mobileNav.getCurrentPane();
+        var tabIndex = 2;
+        currentPane.attr("tabIndex", 1);
+        currentPane.children("ul").children(".description").removeAttr("aria-hidden");
+        var currentFilter = currentPane.find("[data-tray-filter]");
+        if(currentFilter.length) {
+          tabIndex++;
+          currentFilter.attr("tabIndex", tabIndex).removeAttr("aria-hidden");
+        }
+        if(mobileNav.filterZone && mobileNav.filterZone.is(":visible")) {
+          mobileNav.filterZone.find("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex).removeAttr("aria-hidden");
+          });
+        } else {
+          currentPane.children("ul").children("li").children("a").each(function(){
+            tabIndex++;
+            $(this).attr("tabIndex", tabIndex).removeAttr("aria-hidden");
+          });
+        }
+      },
+
+      destroyTabIndexesAndCreateForCurrentPane: function() {
+        mobileNav.destroyTabIndexes();
+        mobileNav.createTabIndexesForCurrentPane();
+      },
+
       // Close menu
       closeMenu: function(){
         mobileNav.layoutElement.removeClass(mobileNav.layoutOpenClass).addClass(mobileNav.layoutTransitionClass);
         mobileNav.contentElement.off("click", "*");
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
+        mobileNav.positioner.removeAttr("aria-hdiden");
 
         if(mobileNav.keepScrollPosition) {
           setTimeout(function(){
+            mobileNav.positioner.css({
+              position: "static",
+              top: 0
+            });
             scrollTo(0,mobileNav.scrollPosition);
           }, mobileNav.animationDuration + mobileNav.animationBuffer);
         }
@@ -96,14 +143,19 @@
         }
 
         // get scroll position and update
-        mobileNav.scrollPosition = $(window).scrollTop();
+        if(mobileNav.keepScrollPosition) {
+          mobileNav.scrollPosition = $(window).scrollTop();
+          mobileNav.positioner.css({
+            position: "relative",
+            top: mobileNav.scrollPosition * -1
+          });
+        }
 
         // update classes on page
         mobileNav.layoutElement.addClass(mobileNav.layoutOpenClass + " " + mobileNav.layoutTransitionClass);
+        mobileNav.positioner.attr("aria-hidden", "true");
 
-        // get scroll position
-
-        // clicking on content wilgl close menu
+        // clicking on content will close menu
         mobileNav.contentElement.on("click", "*", function (event) {
           mobileNav.toggleMenu();
           return false;
@@ -112,6 +164,18 @@
         // start animation timings
         mobileNav.clearMenuTimeout();
         mobileNav.startMenuTimeout();
+        mobileNav.updateMenuHeightWithDelay();
+
+        // Focus on the first link
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+          if(mobileNav.filterElement.length && mobileNav.currentLevel === 1) {
+            mobileNav.filterElement.focus();
+          } else {
+            mobileNav.getCurrentPane().focus();
+          }
+        }, mobileNav.slideTransitionTime);
+
       },
 
       // Toggle menu. Open if closed, close if open.
@@ -135,6 +199,14 @@
 
       getNestedMenus: function(){
         return mobileNav.tray.find("ul ul");
+      },
+
+      getCurrentPane: function(){
+        if( mobileNav.currentLevel === 1 ) {
+          return mobileNav.tray.find("." + mobileNav.menuNavigationClass)
+        } else {
+          return mobileNav.getCurrentTab().children(".pane");
+        }
       },
 
       // Update mobile menu height based on content
@@ -187,6 +259,8 @@
           // Do this after it has animated back to the previous pane via timeout
           mobileNav.getCurrentTab().removeClass(mobileNav.menuSelectedClass);
           mobileNav.updateMenuHeight();
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+          mobileNav.focusOnFirstPaneLink();
         }, mobileNav.slideTransitionTime);
       },
 
@@ -205,6 +279,9 @@
         mobileNav.markParentAsActive($tab);
         // update heights
         mobileNav.updateMenuHeightWithDelay();
+        setTimeout(function(){
+          mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+        }, mobileNav.slideTransitionTime);
       },
 
       // Match an ID and navigate to it
@@ -232,16 +309,21 @@
         mobileNav.tray.find("."+mobileNav.menuSelectedClass).removeClass(mobileNav.menuSelectedClass);
         mobileNav.currentLevel = 1;
         mobileNav.tray.attr("data-level", mobileNav.currentLevel);
+        mobileNav.destroyTabIndexesAndCreateForCurrentPane();
       },
 
       // Mark a parent node as active
       markParentAsActive: function($node) {
-        var $parent = $node.parent("li").parent("ul").parent(".pane").parent("li");
+        var $parent = $node.parent("ul").parent(".pane").parent("li");
         if($parent.length) {
           $parent.addClass(mobileNav.menuSelectedClass);
           // Keep going up the tree until you can't go no mo.
-          mobileNav.markParentAsActive($parent.children("a"));
+          mobileNav.markParentAsActive($parent);
         }
+      },
+
+      focusOnFirstPaneLink: function(){
+        mobileNav.getCurrentPane().focus();
       },
 
       updateMenuBindingForAnchor: function(){
@@ -283,6 +365,10 @@
             mobileNav.currentLevel = mobileNav.currentLevel + 1;
             mobileNav.tray.attr("data-level", mobileNav.currentLevel);
             mobileNav.updateMenuHeightWithDelay();
+            setTimeout(function(){
+              mobileNav.destroyTabIndexesAndCreateForCurrentPane();
+              mobileNav.focusOnFirstPaneLink();
+            }, mobileNav.slideTransitionTime);
           });
 
           // Making back buttons work
@@ -322,6 +408,69 @@
 
       },
 
+      clearFilter: function(){
+        mobileNav.mainPane.show();
+        mobileNav.filterZone.hide();
+        mobileNav.destroyTabIndexes();
+        mobileNav.createTabIndexesForCurrentPane();
+        mobileNav.updateMenuHeight();
+      },
+
+      filterMenu: function(search) {
+        search = search.toLowerCase();
+        // Clear the filter list
+        mobileNav.filterZone.html("");
+        // Clear the filters and show the main menu if search
+        // is empty
+        if(search === "") {
+          mobileNav.clearFilter();
+        } else {
+          mobileNav.mainPane.hide();
+          mobileNav.filterZone.show();
+          var items = mobileNav.tray.find(".navigation-item").not(".has-children");
+          items.each(function(){
+            var $item = $(this);
+            var $anchor = $item.children("a");
+            if($anchor) {
+              var itemText = $anchor.text().trim().toLowerCase();
+              // grab the url and strip out slashes, underscores, and 'admin'
+              var itemUrl = $anchor.attr("href").replace('admin', '').replace(/\//g, ' ').replace(/_/g, ' ');
+              var isFound = Ornament.fuzzySearch(search, itemText) || 
+                            mobileNav.filterUrls && Ornament.fuzzySearch(search, itemUrl);
+              if(isFound) {
+                // build up a breadcrumb style of parent links
+                var $ancestors = $item.parents("li");
+                var $result = $item.clone();
+                if($ancestors.length) {
+                  var ancestorText = "";
+                  $ancestors.reverse().each(function(i){
+                    ancestorText += $(this).children("a").text().trim();
+                    if(i+1 !== $ancestors.length) {
+                      ancestorText += " › ";
+                    }
+                  });
+                  var $ancestorLabel = $("<small class='navigation-mobile--filter--ancestor' />");
+                  $ancestorLabel.text(ancestorText);
+                  $result.children("a").prepend($ancestorLabel);
+                }
+                mobileNav.filterZone.append($result.clone());
+              }
+            }
+          });
+          if(!mobileNav.filterZone.children().length) {
+            mobileNav.filterZone.append("<li class='navigation-mobile--filter--no-results'>There are no results for your filter search</li>");
+          }
+          mobileNav.destroyTabIndexes();
+          mobileNav.createTabIndexesForCurrentPane();
+          mobileNav.updateMenuHeight();
+        }
+      },
+
+      _filterMenuEvent: function(event){
+        var search = event.target.value;
+        mobileNav.filterMenu(search);
+      },
+
       // Scaffold the complex mobile menu
       scaffoldMobileMenu: function(){
 
@@ -336,10 +485,22 @@
 
         // Add class to current tab
         var $currentTab = mobileNav.getCMSActivePage();
-        $currentTab.parent("li").addClass(mobileNav.menuSelectedClass);
+        $currentTab.parents("li").addClass(mobileNav.cmsActiveClass);
+
+        // Create a zone for filter results
+        mobileNav.mainPane = $tray.find("."+mobileNav.nonPaneClass);
+        if(mobileNav.filterElement.length) {
+          mobileNav.filterZone = $("<ul class='navigation-mobile--filter-zone' />");
+          mobileNav.mainPane.after(mobileNav.filterZone);
+          if(mobileNav.filterElement.is("[data-tray-filter-urls]")) {
+            mobileNav.filterUrls = true;
+          }
+        } else {
+          mobileNav.filterZone = false;
+        }
 
         // Wrap each list in a pane div to assist in animation and sizing
-        $tray.find("ul").not("."+mobileNav.nonPaneClass).wrap("<div class='"+mobileNav.paneClass+"' />");
+        $tray.find("ul").not(mobileNav.mainPane).not(mobileNav.filterZone).wrap("<div class='"+mobileNav.paneClass+"' />");
 
         // Add helper class to first pane
         var $firstPane = $tray.find("."+mobileNav.paneClass).first();
@@ -350,7 +511,7 @@
 
         // Jump to current pane if required
         if(mobileNav.jumpToCurrent) {
-          mobileNav.goTo( mobileNav.getCurrentTab() );
+          mobileNav.goTo(mobileNav.getCMSActivePage())
         }
 
         // Update menu heights for first time
@@ -361,6 +522,10 @@
           var $parentNode = $(this);
           if($parentNode.children("div").length > 0) {
             $parentNode.addClass(mobileNav.hasChildren).attr("data-mobilenav-forward","");
+            // $parentNode.children("a").append(Ornament.icons.plus);
+            $parentNode.children("a").append(Ornament.icons.chevron);
+          } else {
+            // $parentNode.children("a").append(Ornament.icons.chevron);
           }
         });
 
@@ -388,11 +553,15 @@
           $nestedNode.prepend($descriptionBlock);
 
           // add the back button
-          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + mobileNav.backText + "</a></li>");
+          $nestedNode.prepend("<li class='" + mobileNav.backContainerClass + "'><a href='#' class='" + mobileNav.backButtonClass + "' data-mobilenav-back>" + Ornament.icons.chevron + mobileNav.backText + "</a></li>");
         });
 
         // Run bindings
         mobileNav.updateMenuBindings();
+
+        // Filter functions
+        mobileNav.filterElement.off("keyup").on("keyup", mobileNav._filterMenuEvent);
+        mobileNav.filterElement.off("search").on("search", mobileNav._filterMenuEvent);
 
         // Add ready class to prevent re-scaffolding
         $tray.addClass(mobileNav.menuReadyClass);

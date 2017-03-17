@@ -150,6 +150,7 @@
         var isFile = $thisField.is("[data-file-document]");
         var imageRatio = $thisField.attr("data-file-image-ratio") || "1/1";
         var imageRatioInt = imageRatio.split("/")[0] / imageRatio.split("/")[1];
+        var uploadxhr = false;
 
         // Image Settings
         var previewWidth = 0;
@@ -163,12 +164,13 @@
         var tempCropString = "";
 
         // Demo settings
-        var demoTiming = 1000;
-        var demoChunks = 4;
+        var demoTiming = 4000;
+        var demoChunks = 8;
         var demoSavingTime = 1000;
+        var demoCancelled = false;
 
         // Gallery settings
-        var gallery = true;
+        var gallery = $thisField.is("[data-file-gallery]");
         if(maxCount === 1) {
           gallery = false;
         }
@@ -206,6 +208,10 @@
         // STATES
         // ===============================================
 
+        var hideThumbnail = function() {
+          $thumbnailContainer.find(".thumb").hide();
+        }
+
         var stateClasses = "idle uploading saving uploaded error";
 
         var setState = function(stateString) {
@@ -217,6 +223,9 @@
           $messageUploading.hide();
           $messageSaving.hide();
           $messageError.hide();
+          $okayButton.hide();
+          $cancelUpload.hide();
+          $messageSuccess.hide();
 
           if(croppable) {
             $cropButton.hide();
@@ -231,11 +240,15 @@
           // track some flags for binding
           var removeButtonVisible = false;
           var cropButtonVisible = false;
+          var cancelButtonVisible = false;
+          var okayButtonVisible = false;
 
           if(stateString === "idle") {
             $messageDefault.css("display", "inline-block");
           } else if(stateString === "uploading") {
             $messageUploading.css("display", "inline-block");
+            $cancelUpload.css("display", "inline-block");
+            cancelButtonVisible = true;
           } else if (stateString === "saving") {
             $messageSaving.css("display", "inline-block");
           } else if (stateString === "uploaded") {
@@ -247,33 +260,82 @@
             }
             // positionThumbnailAfterLoad();
           } else if (stateString === "error") {
-            $messageDefault.css("display", "inline-block");
+            // show error message and okay button
             $messageError.css("display", "inline-block");
+            $okayButton.css("display", "inline-block");
+            okayButtonVisible = true;
+            // reset progress bar
+            updateProgressBar(0);
+            // hide thumbnail
+            hideThumbnail();
+            // cancel xhr
+            if(uploadxhr) {
+              uploadxhr.abort();
+              uploadxhr = false;
+            }
           }
 
           // Remove action
           if(removeButtonVisible) {
             $thumbnailRemove.off("click").on("click", function(e){
               e.preventDefault();
-              // hide remove button and crop button
-              $thumbnailRemove.hide();
-              if(croppable) {
-                $cropButton.hide();
+              if(confirm("Are you sure you want to remove this file?")) {
+                // hide remove button and crop button
+                $thumbnailRemove.hide();
+                if(croppable) {
+                  $cropButton.hide();
+                }
+                // remove thumbnail
+                hideThumbnail();
+                // show default message
+                $messageDefault.show();
+                // remove id from field
+                $hiddenField.val("");
+                // remove crop string field
+                if(croppable) {
+                  $cropStringField.val(""); 
+                }
+                // callback for crop etc.
+                $thisField.trigger("uploader:image-removed");
+                // reset crop string and tempcropstring
+                cropString = "";
+                tempCropString = "";
+                // set state for posterity
+                setState("idle");
               }
-              // remove thumbnail
-              $thumbnailContainer.find(".thumb").hide();
-              // show default message
-              $messageDefault.show();
-              // remove id from field
-              $hiddenField.val("");
-              // remove crop string field
-              if(croppable) {
-                $cropStringField.val(""); 
+            });
+          }
+
+          // Cancel upload button
+          if(cancelButtonVisible) {
+            $cancelUpload.off("click").on("click", function(e){
+              e.preventDefault();
+              if(confirm("Are you sure you want to remove this file?")) {
+                setState("idle");
+                $thisField.trigger("uploader:upload-cancelled");
+                // reset progress bar
+                updateProgressBar(0);
+                // remove thumbnail
+                hideThumbnail();
+                // cancel upload xhr
+                if(uploadxhr) {
+                  uploadxhr.abort();
+                  uploadxhr = false;
+                }
+                // cancel demo
+                if(options.demo) {
+                  demoCancelled = true;
+                }
               }
-              // callback for crop etc.
-              $thisField.trigger("uploader:image-removed");
-              // set state for posterity
+            });
+          }
+
+          // Error okay button
+          if(okayButtonVisible) {
+            $okayButton.off("click").on("click", function(e){
+              e.preventDefault();
               setState("idle");
+              $thisField.trigger("uploader:error-reset");
             });
           }
 
@@ -283,73 +345,78 @@
               e.preventDefault();
 
               // Open modal
-              $.magnificPopup.open({
-                mainClass: "lightbox--main lightbox__cropper",
-                removalDelay: 300,
-                closeOnBgClick: false,
-                items: {
-                  type: "inline",
-                  src: $cropModal
-                },
-                callbacks: {
-
-                  // Resize and add crop widget when opening modal
-                  open: function(){
-
-                    // Reset image size
-                    var $previewImage = $cropModal.find("[data-crop-image] > img");
-                    $previewImage.height("auto").width("auto");
-
-                    // Resize image to available space
-                    var $button = $(".form--file-crop a.button__full");
-                    var buttonHeight = $button.outerHeight();
-                    var windowHeight = Ornament.windowHeight() * 0.8;
-                    var windowWidth = Ornament.windowWidth() * 0.9;
-                    var idealWindowHeight = windowHeight - buttonHeight;
-
-                    if($previewImage.outerHeight() > idealWindowHeight) {
-                      $previewImage.height(idealWindowHeight);
-                    } else if($previewImage.outerHeight() > windowHeight) {
-                      $previewImage.width(windowWidth);
-                    }
-
-                    // Update preview widths and actual widths
-                    updateDifferences();
-
-                    // Update crop string
-                    if( $cropStringField.val() ) {
-                      var dragonflyObject;
-                      dragonflyObject = Ornament.uploader.dragonflyToCropObject($cropStringField.val());
-                      dragonflyObject = Ornament.uploader.cropObjectToPreviewSize(dragonflyObject, actualWidthDifference, actualHeightDifference);
-                      currentCrop = Ornament.uploader.getJcrop(dragonflyObject);
-                    } else {
-                      // initialise a default crop in the center
-                      var centre = centreCoords();
-                      currentCrop = [centre.x,centre.y,previewWidth,previewHeight];
-                    }
-
-                    // Initialise the crop tool
-                    if(jcropApi) {
-                      jcropApi = false;
-                      $previewImage.next("div").remove();
-                      $previewImage.show();
-                    }
-
-                    initialiseCrop($previewImage, currentCrop);
-
-                    $thisField.trigger("uploader:modal-opened");
-
-                    // Resize the modal to auto width
-                    $(".mfp-content").width("auto");
-
-                  },
-
-                  // Destroy the crop widget when closing the modal
-                  close: function(){
-                    jcropApi.destroy();
-                  }
+              if(Ornament && Ornament.popupOptions) {
+                var popupOptions = $.extend({}, Ornament.popupOptions);
+              } else {
+                var popupOptions = {
+                  removalDelay: 300,
+                  closeOnBgClick: false
                 }
-              });
+              }
+
+              popupOptions.mainClass = popupOptions.mainClass + " lightbox__with-close"
+              popupOptions.showCloseBtn = true;
+              popupOptions.items = {
+                type: "inline",
+                src: $cropModal
+              };
+
+              // Resize and add crop widget when opening modal
+              popupOptions.callbacks.open = function(){
+                // Reset image size
+                var $previewImage = $cropModal.find("[data-crop-image] > img");
+                $previewImage.height("auto").width("auto");
+
+                // Resize image to available space
+                var $button = $(".form--file-crop a.button__full");
+                var buttonHeight = $button.outerHeight();
+                var windowHeight = Ornament.windowHeight() * 0.8;
+                var windowWidth = Ornament.windowWidth() * 0.9;
+                var idealWindowHeight = windowHeight - buttonHeight;
+
+                if($previewImage.outerHeight() > idealWindowHeight) {
+                  $previewImage.height(idealWindowHeight);
+                } else if($previewImage.outerHeight() > windowHeight) {
+                  $previewImage.width(windowWidth);
+                }
+
+                // Update preview widths and actual widths
+                updateDifferences();
+
+                // Update crop string
+                if( $cropStringField.val() ) {
+                  var dragonflyObject;
+                  dragonflyObject = Ornament.uploader.dragonflyToCropObject($cropStringField.val());
+                  dragonflyObject = Ornament.uploader.cropObjectToPreviewSize(dragonflyObject, actualWidthDifference, actualHeightDifference);
+                  currentCrop = Ornament.uploader.getJcrop(dragonflyObject);
+                } else {
+                  // initialise a default crop in the center
+                  var centre = centreCoords();
+                  currentCrop = [centre.x,centre.y,previewWidth,previewHeight];
+                }
+
+                // Initialise the crop tool
+                if(jcropApi) {
+                  jcropApi = false;
+                  $previewImage.next("div").remove();
+                  $previewImage.show();
+                }
+
+                initialiseCrop($previewImage, currentCrop);
+
+                $thisField.trigger("uploader:modal-opened");
+
+                // Resize the modal to auto width
+                $(".mfp-content").width("auto");
+
+              },
+
+              // Destroy the crop widget when closing the modal
+              popupOptions.callbacks.close = function(){
+                jcropApi.destroy();
+              }
+
+              $.magnificPopup.open(popupOptions);
             });
           }
 
@@ -402,11 +469,11 @@
           $thumbnailContainer.attr("style", "");
           var originalWidth = $thumbnailContainer.outerWidth();
           var originalHeight = $thumbnailContainer.outerHeight();
-          if(imageRatioInt > 1) {
-            $thumbnailContainer.width(originalWidth * imageRatioInt);
-          } else if (imageRatioInt < 1) {
+          // if(imageRatioInt > 1) {
+            // $thumbnailContainer.width(originalWidth * imageRatioInt);
+          // } else if (imageRatioInt < 1) {
             $thumbnailContainer.height(originalHeight / imageRatioInt);
-          }
+          // }
         }
 
         var createThumbnail = function(image){
@@ -590,33 +657,6 @@
         }
 
         // ===============================================
-        // UNDO REMOVAL
-        // ===============================================
-
-        var undoRemoveImage = function() {
-          debug(" ");
-          debug("Undoing, getting last image from rubbish bin.");
-          debug("Rubbish bin contents: " + $rubbishBin.html());
-          // hide undo button
-          $undoButton.remove();
-          // find image in rubbish bin
-          // restore image to gallery or thumbnail
-          $rubbishBin.find(".thumbnail-container").first().appendTo(thumbnailTarget);
-          updateDropZoneIfMaxed();
-          // update orderability on restored image
-          // rebindOrdering();
-          // updateInputOrder();
-        }
-
-        var showUndo = function(){
-          thumbnailTarget.append($undoButton);
-          $undoButton.off("click").on("click", function(e) {
-            e.preventDefault();
-            undoRemoveImage();
-          });
-        }
-
-        // ===============================================
         // ALTERING FILE UPLOAD DOM
         // ===============================================
 
@@ -631,10 +671,19 @@
         var $dropZoneText = $("<div class='file-uploader--controls' />");
         var $dropZoneBrowse = $("<a href='#' class='file-upload--browse-button'>browse</a>");
         var $messageDefault = $("<span data-file-message=\"default\">"+options.browseMessage+"</span>").append($dropZoneBrowse)
-        var $messageError = $("<span data-file-message=\"error\" class=\"file-uploader--error\"></span>");
+        var $messageError = $("<span data-file-message=\"error\" class=\"file-uploader--error\">Upload failed</span>");
         var $messageUploading = $("<span data-file-message=\"uploading\">Uploading...</span>");
+        var $cancelUpload = $("<a href='#' data-file-cancel>Cancel</a>");
+        var $okayButton = $("<a href='#' date-file-reset>Okay</a>");
         var $messageSaving = $("<span data-file-message=\"saving\">Saving...</span>");
-        $dropZoneText.append($messageDefault).append($messageUploading).append($messageSaving).append($messageError);
+        var $messageSuccess = $("<div data-file-success class='file-uploader--success' />").text("Successfully uploaded");
+        $dropZoneText.append($messageDefault)
+                     .append($messageUploading)
+                     .append($messageSuccess)
+                     .append($messageSaving)
+                     .append($messageError)
+                     .append($okayButton)
+                     .append($cancelUpload);
 
         // creating hint message
         var $dropZoneHint = $("<div class='file-uploader--notes' />");
@@ -720,6 +769,47 @@
         }
 
         // ===============================================
+        // CREATE A GALLERY ITEM
+        // ===============================================
+
+        var createGalleryItem = function(f, type){
+          var type = type || "image";
+          var $galleryItem = $("<div class='file-upload--gallery-item' data-file-gallery-item />");
+          if(type === "image") {
+            var $thumbnailContainer = $("<div class='thumbnail-container' />");
+            var $imageContainer = $("<div class='thumb'><img src='" + f + "' /></div>");
+            $thumbnailContainer.append($imageContainer);
+          } else {
+            var $thumbnailContainer = createFileThumbnail(f);
+          }
+          var $progressBar = $("<progress value='0' max='100' data-file-gallery-item-progress />");
+          var $status = $("<div data-file-gallery-item-status class='file-upload--gallery-item--status' />").text("uploading");
+          var $remove = $("<div data-file-gallery-item-remove class='file-upload--gallery-item--status' />").text("remove");
+          var $success = $("<div data-file-gallery-item-success class='file-upload--gallery-item--status' />").text("uploaded");
+
+          $remove.hide();
+          $success.hide();
+          $galleryItem.append($thumbnailContainer).append($progressBar).append($status).append($remove).append($success);
+          thumbnailTarget.append($galleryItem);
+          bindGalleryActions($galleryItem);
+          // setThumbnailRatio();
+
+          // return the container in case we want to do something with it after we've made it
+          return $galleryItem;
+        }
+
+        var bindGalleryActions = function($galleryItem) {
+          var $remove = $galleryItem.find("[data-file-gallery-item-remove]");
+          $remove.off("click").on("click", function(e){
+            e.preventDefault();
+            if(confirm("Are you sure you want to remove this file?")) {
+              $galleryItem.remove();
+              updateInputOrder();
+            }
+          });
+        }
+
+        // ===============================================
         // REPOSITION THUMBNAIL IN UPLOADER WIDGET
         // ===============================================
 
@@ -797,7 +887,7 @@
         // ===============================================
 
         var getGalleryItems = function(){
-          return thumbnailTarget.find(".thumbnail-container");
+          return thumbnailTarget.find("[data-file-gallery-item]");
         }
 
         var getGalleryCount = function(){
@@ -858,13 +948,24 @@
 
                 // append image to thumbnail if only one image
                 // if in gallery mode, append each image to the bottom of the drop zone
-                var thumbnail = createThumbnail(e.target.result);
+                if(gallery) {
+                  var thumbnail = createGalleryItem(e.target.result, "image");
+                } else {
+                  var thumbnail = createThumbnail(e.target.result);
+                }
+
                 positionThumbnailAfterLoad();
                 updateDropZoneIfMaxed();
 
               // Document thumbnail:
               } else {
-                var thumbnail = createFileThumbnail(f);
+
+                if(gallery) {
+                  var thumbnail = createGalleryItem(f, "document");
+                } else {
+                  var thumbnail = createFileThumbnail(f);
+                }
+
                 updateDropZoneIfMaxed();
               }
 
@@ -876,77 +977,175 @@
 
               if(options.demo) {
 
-                setState("uploading");
-                positionThumbnailAfterLoad();
                 var demoSingleTiming = demoTiming / demoChunks;
                 var progressCounter = 0;
+                var demoId = Math.floor(Math.random() * (100 - 12)) + 12;
 
-                var progressInterval = setInterval(function(){
-                  progressCounter += ( 100 / demoChunks );
-                  updateProgressBar(progressCounter);
-                }, demoSingleTiming);
+                if(gallery) {
 
-                setTimeout(function(){
-                  clearInterval(progressInterval);
-                  setState("saving");
-                  positionThumbnailAfterLoad();
-                  if($progressBar.val() !== 100) {
-                    updateProgressBar(100);
-                  }
+                  var progressCounter = 0;
+                  var galleryItemCancelled = false;
+                  var galleryItemProgress = thumbnail.find("[data-file-gallery-item-progress]");
+                  thumbnail.addClass("uploading");
+
+                  var progressInterval = setInterval(function(){
+                    if(galleryItemCancelled) {
+                      clearInterval(progressInterval);
+                      return false;
+                    }
+                    progressCounter += ( 100 / demoChunks );
+                    galleryItemProgress.val(progressCounter);
+                  }, demoSingleTiming);
+
                   setTimeout(function(){
-                    $hiddenField.val("12");
-                    uploadFinished();
-                  }, demoSavingTime);
-                }, demoTiming);
+                    clearInterval(progressInterval);
+                    if(galleryItemCancelled) {
+                      return false;
+                    }
+                    thumbnail.addClass("saving").removeClass("uploading");
+                    thumbnail.find("[data-file-gallery-item-status]").text("Saving");
+                    positionThumbnailAfterLoad();
+                    if(galleryItemProgress.val() !== 100) {
+                      galleryItemProgress.val(100);
+                    }
+                    setTimeout(function(){
+                      if(galleryItemCancelled) {
+                        return false;
+                      }
+                      if($hiddenField.val()) {
+                        $hiddenField.val($hiddenField.val() + "," + demoId);
+                      } else {
+                        $hiddenField.val(demoId);
+                      }
+                      thumbnail.addClass("uploaded").removeClass("saving");
+                      thumbnail.find(".thumbnail-container").attr("data-file-gallery-item-id", demoId);
+                      thumbnail.find("[data-file-gallery-item-status]").hide();
+                      thumbnail.find("[data-file-gallery-item-remove]").show();
+                      if(options.orderable) {
+                        thumbnail.attr("draggable", true);
+                        rebindOrdering();
+                      }
+                    }, demoSavingTime);
+                  }, demoTiming);
+
+                } else {
+
+                  demoCancelled = false;
+                  setState("uploading");
+                  positionThumbnailAfterLoad();
+
+                  var progressInterval = setInterval(function(){
+                    if(demoCancelled) {
+                      clearInterval(progressInterval);
+                      return false;
+                    }
+                    progressCounter += ( 100 / demoChunks );
+                    updateProgressBar(progressCounter);
+                  }, demoSingleTiming);
+
+                  setTimeout(function(){
+                    clearInterval(progressInterval);
+                    if(demoCancelled) {
+                      return false;
+                    }
+                    setState("saving");
+                    positionThumbnailAfterLoad();
+                    if($progressBar.val() !== 100) {
+                      updateProgressBar(100);
+                    }
+                    setTimeout(function(){
+                      if(demoCancelled) {
+                        return false;
+                      }
+                      $hiddenField.val(demoId);
+                      uploadFinished();
+                    }, demoSavingTime);
+                  }, demoTiming);
+
+                }
 
               } else {
 
-                $.ajax({
+                if(gallery) {
+                  var progressCounter = 0;
+                  thumbnail.addClass("uploading");
+                  var galleryItemProgress = thumbnail.find("[data-file-gallery-item-progress]");
+                }
+
+                uploadxhr = $.ajax({
                   type: "POST",
                   url: options.uploadPath,
                   enctype: 'multipart/form-data',
                   processData: false,
                   contentType: false,
                   data: fd,
+
                   xhr: function() {
                     // customising the xhr so we can add in progress
                     var xhr = new window.XMLHttpRequest();
-                    $dropZone.addClass("uploading");
-                    // listen for progress intervals and update bar
-                    xhr.upload.addEventListener("progress", function(e){
-                      var pc = parseInt(e.loaded / e.total * 100);
-                      updateProgressBar(pc);
-                      debug("progress updated to: " + pc);
-                    }, false);
-                    xhr.addEventListener("loadend", function(e){
-                      setState("saving");
-                    });
+
+                    if(gallery) {
+
+                      xhr.upload.addEventListener("progress", function(e){
+                        var pc = parseInt(e.loaded / e.total * 100);
+                         galleryItemProgress.val(pc);
+                        debug("gallery progress updated to: " + pc);
+                      }, false);
+                      xhr.addEventListener("loadend", function(e){
+                        // thumbnail.addClass("saving").removeClass("uploading");
+                        // thumbnail.find("[data-file-gallery-item-status]").text("Saving");
+                        // galleryItemProgress.val(100);
+                        positionThumbnailAfterLoad();
+                      });
+
+                    } else {
+
+                      $dropZone.addClass("uploading");
+                      // listen for progress intervals and update bar
+                      xhr.upload.addEventListener("progress", function(e){
+                        var pc = parseInt(e.loaded / e.total * 100);
+                        updateProgressBar(pc);
+                        debug("progress updated to: " + pc);
+                      }, false);
+
+                      xhr.addEventListener("loadend", function(e){
+                        // $dropZone.addClass("saving").removeClass("uploading");
+                      });
+                    }
                     return xhr;
                   },
 
                   success: function(result) {
-                    setTimeout(function(){
+
+                    if(gallery) {
+                      if($hiddenField.val()) {
+                        $hiddenField.val($hiddenField.val() + "," + result);
+                      } else {
+                        $hiddenField.val("1");
+                      }
+                      thumbnail.addClass("uploaded").removeClass("saving uploading");
+                      thumbnail.find(".thumbnail-container").attr("data-file-gallery-item-id", "1");
+                      thumbnail.find("[data-file-gallery-item-status]").hide();
+                      thumbnail.find("[data-file-gallery-item-success]").show().append($("<br /><small class='grey'>" + f.name + "</small>"));
+                      if(options.orderable) {
+                        // thumbnail.attr("draggable", true);
+                        // rebindOrdering();
+                      }
+                      $thisField.trigger("uploader:gallery-item:after-upload", [ $uploader,thumbnail, result ]);
+                    } else {
                       var oldValue = $hiddenField.val();
                       // assign received ids to input value
                       $hiddenField.val(result);
-                      uploadFinished();
-                    }, 200);
+                      uploadFinished(f);
+                      uploadxhr = false;
+                    }
                   },
 
                   error: function(result) {
-                    alert("image upload failed");
-                    setTimeout(function(){
-                      setState("idle");
-                      $thumbnailContainer.find(".thumb").hide();
-                    },200);
+                    setState("error");
+                    uploadxhr = false;
                   }
                 });
-              }
-
-              // update orderability on new images
-              if(options.orderable) {
-                thumbnail.attr("draggable", true);
-                rebindOrdering();
               }
 
               // remove thumbnail on click
@@ -960,9 +1159,11 @@
           reader.readAsDataURL(f);
         }
 
-        var uploadFinished = function(){
+        var uploadFinished = function(f){
           
           setState("uploaded");
+          $messageSuccess.html("uploaded<br /><small class='grey'>" + f.name + "</small><br />");
+          $messageSuccess.show();
 
           // Copy the image to the crop modal
           if(croppable) {
@@ -999,10 +1200,13 @@
             }
 
             // Prevent users from adding too many images
-            if( (maxCount != 0 && i >= maxCount) ||
-                (getGalleryCount() >= maxCount) ||
-                (getGalleryCount() + i >= maxCount) ) {
-              return false;
+            if(gallery && maxCount !== 0) {
+              if( (i >= maxCount) ||
+                  (getGalleryCount() >= maxCount) ||
+                  (getGalleryCount() + i >= maxCount) ) {
+                debug("gallery maxed");
+                return false;
+              }
             }
 
             // Get info about file
@@ -1165,12 +1369,18 @@
 
           $galleryItems.each(function(){
             var $thisGalleryItem = $(this);
-            var thisGalleryId = $thisGalleryItem.find(".thumb").attr("data-id");
+            var thisGalleryId = $thisGalleryItem.find("[data-file-gallery-item-id]").attr("data-file-gallery-item-id");
 
             // if thisGalleryId == undefined, it's an existing image
             // we need to retain that somehow
 
-            updatedInputValue = updatedInputValue + "," + thisGalleryId;
+            if(updatedInputValue === "") {
+              updatedInputValue = thisGalleryId;
+            } else {
+              updatedInputValue = updatedInputValue + "," + thisGalleryId;
+            }
+
+            // console.log(thisGalleryId);
           });
 
           // update hidden field with new order
@@ -1229,10 +1439,13 @@
                 dragSrcEl.innerHTML = this.innerHTML;
                 this.innerHTML = e.originalEvent.dataTransfer.getData('text/html');
                 $galleryItems.removeClass("dragging dragover");
+
+                bindGalleryActions($thisGalleryItem);
+                bindGalleryActions($(dragSrcEl));
               }
 
-              // rebindOrdering();
-              // updateInputOrder();
+              rebindOrdering();
+              updateInputOrder();
 
               return false;
             });
@@ -1258,11 +1471,14 @@
 
 $(document).on("ornament:refresh", function(){
 
-  $("[data-file-uploader]").each(function(){
+  var $uploads = $("[data-file-uploader]");
+
+  $uploads.each(function(){
 
     var $this = $(this);
     var isFile = $this.is("[data-file-document]");
     var isDemo = $this.is("[data-file-demo]");
+    var isDebug = $this.is("[data-file-debug]");
 
     // Set upload path
     var path = "/admin/uploads/image";
@@ -1271,10 +1487,20 @@ $(document).on("ornament:refresh", function(){
     }
 
     // Initialise uploader
-    $this.not(".file-upload__init").katFileUpload({
+    $this.katFileUpload({
       uploadPath: path,
-      demo: isDemo
-    }).addClass("file-upload__init");
+      demo: isDemo,
+      debug: isDebug
+    });
 
   });
+
+  // Warn users about leaving the page while uploads are
+  // still in progress
+  $(window).bind('beforeunload', function(){
+    if($(".file-uploader--drop-zone.uploading").length) {
+      return 'There may be uploads still in progress.';
+    }
+  });
+
 });

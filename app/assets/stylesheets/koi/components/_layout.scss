@@ -1,13 +1,10 @@
-$layout-animation-duration:     0.5s;
+$layout-animation-duration:     0.2s;
 $layout-background:             $background-color;
-$layout-breakpoint:             $breakpoint-small;
 $layout-container-width:        $container-width;
-$layout-desktop-edge-gap:       0;
 $layout-desktop-footer-gap:     $default-unit;
 $layout-desktop-header-gap:     100px;
 $layout-footer-height:          100px;
-$layout-mobile-tray-width:      250px;
-$layout-mobile-edge-gap:        $small-unit;
+$layout-mobile-tray-width:      $tray-width;
 $layout-mobile-footer-gap:      $small-unit;
 $layout-mobile-header-gap:      100px;
 
@@ -19,115 +16,138 @@ body {
   background: $background-color;
 }
 
+body.lightbox-open {
+  overflow: hidden;
+}
+
 .layout {
   height: 100%;
+
+  @include media-query($breakpoint-header, min) {
+    @include display-flex;
+    @include flex-direction(row);
+    height: auto;
+  }
 }
 
 .layout--mobile-tray {
-  display: none;
+  width: $layout-mobile-tray-width;
+
+  @include media-query($breakpoint-header, min) {
+    @include order(2);
+    @include flex-grow(0);
+    @include flex-shrink(0);
+  }
+
+  @include media-query($breakpoint-header) {
+    display: none;
+    float: right;
+  }
 }
 
 .layout--content {
   @include single-transition(transform, $layout-animation-duration);
   background: $layout-background;
   min-height: 100%;
-  @include row();
-}
+  overflow: hidden;
 
-.layout--content--main {
-  @include spang(19,24);
-}
-
-.layout--content--main__full {
-  @include spang(1,1);
+  @include media-query($breakpoint-header, min) {
+    @include flex-grow(1);
+    @include flex-shrink(1);
+  }
 }
 
 .layout--content--aside {
   @include spang(5,24);
 }
 
-.layout--switch {
-  background: red;
-  float: right;
-  @include media-query($layout-breakpoint,min) {
-    display: none;
-  }
-}
-
 .layout--container {
-  min-width: 950px; 
-  max-width: $layout-container-width;
-  width: $container-percentage;
+  padding-left: $desktop-gutters;
+  padding-right: $desktop-gutters;
   margin: 0 auto;
+
+  @include media-query(600px) {
+    padding-left: $small-gutters;
+    padding-right: $small-gutters;
+  }
+
+  @include media-query(420px) {
+    padding-left: $x-small-gutters;
+    padding-right: $x-small-gutters;
+  }
 }
 
 .layout--main {
   background: $layout-background;
   padding-bottom: $layout-desktop-footer-gap;
-  padding-left: $layout-desktop-edge-gap;
-  padding-right: $layout-desktop-edge-gap;
-  padding-top: 58px;
+  padding-top: $header-height;
 
-  @media only screen and (min-height:$breakpoint-header-sticky) { 
-    padding-top: $layout-desktop-header-gap;
+  @include media-query($breakpoint-header) {
+    &:before {
+      content: "";
+      background: $mobile-menu-overlay-color;
+      opacity: 0;
+      @include transition(opacity .2s);
+    }
+
+    .layout-transitioning &:before,
+    .layout-open &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: 100vh;
+      z-index: 100;
+      @include transition(opacity .6s);
+    }
+
+    .layout-open &:before {
+      opacity: $mobile-menu-overlay-opacity;
+    }
+  }
+
+  .layout__headerless & {
+    padding-top: 0;
   }
 }
 
-@include media-query($layout-breakpoint) {
+// MENU OPEN
+//
 
-  // MENU OPEN
-  //
-
-  .layout-open {
-
-    .layout--mobile-tray {
-      display: block;
-      min-height: 100%;
-      float: right;
-      width: $layout-mobile-tray-width;
-    }
-
-    .layout--content {
+.layout-open {
+  .layout--content {
+    @include media-query($breakpoint-header) {
       @include translate(-($layout-mobile-tray-width), 0);
-      height: 100%;
-      left: 0;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      @include box-shadow(0 0 10px rgba(0,0,0,0.2));
     }
-
-    .layout--switch {
-      background: green;
-    }
-
   }
 
-  // MENU TRANSITIONING
-  //
+}
 
-  .layout-transitioning {
+// MENU TRANSITIONING
+//
 
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+.layout-transitioning {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
 
+// SHARED MENU TRANSITIONING AND OPEN
+.layout-transitioning,
+.layout-open {
+  @include media-query($breakpoint-header) {
     .layout--mobile-tray {
       display: block;
       min-height: 100%;
-      float: right;
-      width: $layout-mobile-tray-width;
     }
-
     .layout--content {
       height: 100%;
       left: 0;
       position: fixed;
       top: 0;
       width: 100%;
-      @include box-shadow(0 0 10px rgba(0,0,0,0.1));
+      @include box-shadow($mobile-tray-shadow);
     }
-
   }
-
 }

@@ -6,36 +6,23 @@
 
 
 // BASE UNITS
-//
-//
-// The base font size should be set in pixels.
-//
-// The base line height should be unitless (ratio of line height to font size).
-//
 
-$base-pixel:          14px;
+$base-font-size:      14px;
 
 $small-font-size:     12px;
-$base-font-size:      $base-pixel;
-$large-font-size:     1.1em;
+$base-font-size:      $base-font-size;
+$large-font-size:     16px;
 $base-line-height:    1.5;
 $base-line-size:      $base-font-size * $base-line-height;
 
 
 // CONTAINER WIDTH
-//
-// Width of the container (desktop only).
-//
 
 $container-width: 1072px;
 $container-percentage: 92%;
 
 
 // SIZES
-//
-//
-// Setup a sizing units.
-//
 
 $xxxxx-small-unit:      8px;
 $xxxx-small-unit:       12px;
@@ -57,22 +44,21 @@ $xxxxxxx-large-unit:    80px;
 $border-radius:   4px;
 $button-height:   44px;
 
-$panel-padding-large:   $x-large-unit;
 $panel-padding:         $xx-small-unit;
 $panel-padding-small:   $xxx-small-unit;
-$panel-padding-tiny:    $xxxx-small-unit;
+$panel-spacing:         $xx-small-unit;
 
+$tray-width: 250px;
 
 // BREAKPOINTS
-//
-// Desktop first breakpoints. Used in conjunction with media-query util. (Breakpoint keyword, Desktop first breakpoint)
-//
 
 $breakpoint-typography: 480px;
 $breakpoint-large: 1080px;
 $breakpoint-medium: 935px;
 $breakpoint-small: 780px;
 $breakpoint-tiny: 620px;
+$breakpoint-header: 1200px;
+$breakpoint-page: 780px;
 
 $site-breakpoints:
   (tiny, $breakpoint-tiny),
@@ -81,76 +67,66 @@ $site-breakpoints:
   (large, $breakpoint-large)
 ;
 
-$breakpoint-header-sticky: 400px;
-
 // GUTTERS
-//
-// Site gutters to be used at desktop and specific breakpoints. Used within grids util. (Breakpoint keyword, Gutter size)
-//
 
-$desktop-gutters: $default-unit;
-
-$large-gutter:    $default-unit;
-$medium-gutter:   $small-unit;
-$small-gutter:    $small-unit;
-$tiny-gutter:     $small-unit;
+$desktop-gutters:     $default-unit;
+$small-gutters:       $xx-small-unit;
+$x-small-gutters:     $xxx-small-unit;
 
 $site-gutters:
-  (large, $large-gutter),
-  (medium, $medium-gutter),
-  (small, $small-gutter),
-  (tiny, $tiny-gutter)
+  false
 ;
 
-// COLORS
-//
-// Default colors.
-//
+// DEFAULT COLORS
 
-$primary-color: #ff521f;
-$orange:        #fc6b02;
-$light-green:   #bde9d5;
-$green:         #00a362;
+$primary-color:           #ff521f;
+$primary-color-light:     lighten($primary-color, 20);
+$primary-color-x-light:   lighten($primary-color, 40);
 
-$black:         #2e2e2e;
-$white:         #fff;
-$x-light-grey:  #f4f4f4;
-$light-grey:    #ececec;
-$grey:          #999999;
-$dark-grey:     #666;
+$secondary-color:          #999;
+$orange:                   #fc6b02;
+$light-green:              #bde9d5;
+$green:                    #00a362;
 
-$border:        #ccc;
+$x-light-grey:             #f4f4f4;
+$light-grey:               #ececec;
+$grey:                     #999999;
+$dark-grey:                #666;
 
-$error-color: #E74C3C;
-$success-color: #2ECC71;
-$warning-color: #F1C40F;
-$passive-color: #ECF0F1;
+$black:                    #2e2e2e;
+$white:                    #fff;
+
+$passive-color: #f2f4f5;
 
 $foreground-color: #222;
 $background-color: #fff;
+
 $link-color: $primary-color;
 $link-hover-color: false;
+
+$error-color: #990000;
+$error-color-light: #E74C3C;
+$error-background: #ffcccc;
+
+$warning-color: #d2aa0e;
+$warning-background: #ffffcc;
+
+$success-color: #2ECC71;
+$success-background: #ccffcc;
 
 $input-border-color: #c5cbd4;
 $input-border-focus-color: darken($input-border-color,20);
 
-/*
-$error-color: #990000;
-$error-background: red;
-$notice-color: #ff6600;
-$success-color: green;
-*/
+$facebook: #3b5998;
+$twitter: #44ccf6;
+$linkedin: #1b86bd;
 
-$white: #fff;
-$facebook: #5e78aa;
-
+$divider-color: #E1E3E6;
+$divider: 1px solid $divider-color;
 $image-border: 0;
-
+$border: #ccc;
 
 // INPUTS
-//
-// Input styling.
-//
 
 $checkbox-radio-padding:  -0.2em 0 0 0.2em;
 $input-background:        #ffffff;
@@ -160,3 +136,73 @@ $input-color:             $foreground-color;
 $input-padding:           0.3em 0.2em 0.1em;
 $input-width:             100%;
 $textarea-height:         $base-line-size*5;
+
+// DEFAULT THEME
+// These vairables (and other things) can be overridden 
+// in overrides.scss in your application
+
+// Fonts
+$body-font: ('Open Sans', sans-serif) normal normal;
+$italic-font: ('Open Sans', sans-serif) italic normal;
+$bold-font: ('Open Sans', sans-serif) normal bold;
+$bold-italic-font: ('Open Sans', sans-serif) italic bold;
+$heading-alpha-font: ('Open Sans', sans-serif) normal bold;
+$heading-alpha-font-italic: ('Open Sans', sans-serif) italic bold;
+$heading-beta-font: ('Open Sans Condensed', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif) normal bold;
+$heading-beta-font-italic: ('Open Sans', sans-serif) italic bold;
+$code-font: Consolas, "Liberation Mono", Courier, monospace;
+
+$input-typeface: $body-font;
+
+// Header
+$header-height: 48px;
+$header-background: $black;
+$header-border: 4px solid $primary-color;
+$header-menu-background: $primary-color;
+$header-link-color: #fff;
+$header-link-hover: #fff;
+
+// Mobile pane
+$mobile-tray-shadow: 0 0 20px rgba(0, 0, 0, .3);
+$mobile-pane-background: $black;
+$mobile-pane-action-background: $primary-color;
+$mobile-pane-borders: $primary-color;
+$mobile-pane-header-border: $header-border;
+$mobile-pane-max-depth: 20;
+$mobile-pane-link-color: #fff;
+$mobile-pane-link-hover: #fff;
+$mobile-pane-link-background: transparent;
+$mobile-pane-focus-background: rgba($mobile-pane-borders, .2);
+
+// Overlay
+$overlay-color: $black;
+$overlay-opacity: .5;
+$lightbox-overlay-color: $overlay-color;
+$lightbox-overlay-opacity: $overlay-opacity;
+$mobile-menu-overlay-color: $overlay-color;
+$mobile-menu-overlay-opacity: $overlay-opacity;
+
+// Buttons
+$button-large-padding: 12px 24px;
+$button-default-padding: 8px 12px;
+$button-small-padding: 4px 8px;
+$button-depressed-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, .3);
+
+// Button Colours
+$button-primary-background: $primary-color;
+$button-error-background: $error-color;
+$button-inactive-background: $grey;
+$button-secondary-background: $secondary-color;
+$button-success-background: $success-color;
+$button-disabled-background: $grey;
+
+// Page Title
+$page-title-background: linear-gradient(to top, $passive-color 0%, $white 100%);
+$page-title-border: $divider-color;
+
+// Listing Tables
+$listing-actions-background: $dark-grey;
+$table-hover-background: $primary-color-x-light;
+
+// Grids
+$grid-breakpoint: $breakpoint-small;

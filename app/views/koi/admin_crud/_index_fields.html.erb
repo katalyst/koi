@@ -6,7 +6,10 @@
       {
         var sortPath = "<%= url_for(:action => :sort) %>"
         var sortable = $ ('#sortable')
-        var notice   = $ ('<div>').addClass ('island__success hidden').prependTo ('#tab-main').html ('&nbsp;')
+        var notice   = $ ('<div>').addClass ('panel__flash panel__success panel__flash__fixed-bottom hidden');
+        var noticeInner = $("<div />").addClass("layout--container");
+        notice.append(noticeInner);
+        $("#index-fields").before(notice);
 
         var savingMessage = "Saving..."
         var successMessage = 'Save successful...'
@@ -15,20 +18,18 @@
           event.stopPropagation();
         });
 
-        function showNotice (f)
-        {
+        function showNotice (f) {
+          noticeInner.text (savingMessage);
           notice
             .stop (true, true)
             .addClass ('notice').removeClass ('hidden')
-            .text (savingMessage)
             .animate ({ opacity:1 }, f)
         }
 
-        function hideNotice ()
-        {
+        function hideNotice () {
+          noticeInner.text (successMessage);
           notice
             .removeClass('notice')
-            .text (successMessage)
             .delay (1000)
             .animate ({ opacity:0 }, function(){
               notice.addClass('hidden');
@@ -36,46 +37,49 @@
         }
 
         $ ('#sortable').sortable ({
-
-          placeholder: 'ui-state-placeholder'
-
-        , helper: function (e, ui) // preserves width of cells...
-          {
-            ui.children().each (function () { $ (this).width ($ (this).width()) })
-            return ui
+          placeholder: 'ui-state-placeholder', 
+          handle: "[data-table-sorter]",
+          axis: "y",
+          helper: function(e, ui) {
+            // preserves width of cells...
+            ui.children().each(function () { 
+              $(this).width($(this).width());
+            });
+            return ui;
+          }, 
+          update: function() {
+            showNotice(function() {
+              $.post(sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice);
+            });
+          },
+          start: function(event, ui) {
+            $("body").addClass("table-sorting-active");
+          },
+          stop: function(event, ui) {
+            $("body").removeClass("table-sorting-active");
           }
-
-        , update: function ()
-          {
-            showNotice (function ()
-            {
-              $.post (sortPath, '_method=put&' + sortable.sortable ('serialize'), hideNotice)
-            })
-          }
-
-        })
-
-        .disableSelection()
-
-        .on ('selectstart', function () { return false })
+        }).disableSelection().on('selectstart', function() { return false });
       });
     </script>
   <% end %>
 <% end %>
 
-<div id="index-fields">
+<div id="index-fields" class="table-container">
   <table class="table space-b-0">
     <thead>
       <tr>
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
           <% label = raw t("simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize) %>
           <% if is_sortable? %>
-            <th class="sort-icon"><%= sortable attr.to_s, label, :class => "nohover" %></th>
+            <th class="sort-icon table__th__<%= label.parameterize -%>"><%= sortable attr.to_s, label, :class => "nohover" %></th>
           <% else %>
-            <th><%= label %></th>
+            <th class="table__th__<%= label.parameterize -%>"><%= label %></th>
           <% end %>
         <% end %>
-        <th class="table--actions">Actions</th>
+        <th class="table__th__actions">Actions</th>
+        <%- if is_orderable? -%>
+          <th class="table__td__sorter">&nbsp;</th>
+        <%- end -%>
       </tr>
     </thead>
     <%- if is_orderable? -%>
@@ -90,7 +94,8 @@
         <tr>
         <%- end -%>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
-            <td>
+            <td class="table__td__<%= attr -%>">
+              <span class="table--listing-span table__span__<%= attr -%>">
                 <%=
                 begin
                   render crud_partial(attr, :index), { :attr => attr, :object => object }
@@ -98,11 +103,19 @@
                   render "index_field_default", { :attr => attr, :object => object }
                 end
                 %>
+              </span>
             </td>
           <% end %>
-          <td class="nowrap">
+          <td class="table__td__actions">
             <%= render "index_fields_action", { :object => object } %>
           </td>
+          <% if is_orderable? %>
+            <td class="table__td__sorter" data-table-sorter>
+              <div class="table--sorter--container">
+                <%= image_tag "koi/application/icon-sortable.png" %>
+              </div>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -5,8 +5,10 @@
 Run this to create a new app:
 
 ```bash
+rbenv local 2.2.2
+# rvm use 2.2.2
 gem install rails -v 4.2.1
-rails _4.2.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.2.0/lib/templates/application/app.rb
+rails _4.2.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.2.1/lib/templates/application/app.rb
 ```
 
 ## License
@@ -15,37 +17,4 @@ This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-### v2.2.0
-
-Koi::Menu format has changed from:
-
-```
-Koi::Menu.items = {
-  "News"         => "/admin/news_items",
-  "Categories"   => "/admin/categories"
-}
-```
-
-To:
-
-```
-Koi::Menu.items = {
-  "Modules": {
-    "News"          => "/admin/news_items",
-    "Categories"    => "/admin/categories",
-    "Nested Module" => {
-      "Nested 1"    => "/admin/nested-1",
-      "Nested 2"    => "/admin/nested-2"
-    }
-  },
-  "Heroes": {
-    "Super Heros"  => "/admin/super_heros",
-    "Kid Heros"    => "/admin/kid_heros"
-  },
-  "Advanced": {
-    "Admins"       => "/admin/site_users",
-    "URL History"  => "/admin/friendly_id_slugs",
-    "URL Rewriter" => "/admin/url_rewrites"
-  }
-}
-```
+See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.  
