@@ -551,10 +551,19 @@ $file-thumbnail-width: 100px;
 
   button {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
-    right: 4px;
+    top: 1px;
+    bottom: 1px;
+    right: 1px;
+    background: transparent;
     text-transform: uppercase;
     outline: none;
+  }
+
+  button,button:hover {
+    background: transparent;
+  }
+  
+  .button__icon path {
+    fill: $black;
   }
 }
