@@ -61,6 +61,10 @@
         showHideShadows($tableContainer);
       });
 
+      $(document).on("ornament:table-shows", function(){
+        showHideShadows($tableContainer);
+      });
+
       showHideShadows($tableContainer);
 
     });

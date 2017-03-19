@@ -168,6 +168,7 @@
         // (#thing = thing)
         var hash = hash.substr(1,hash.length); 
         loadTab(hash);
+        $(document).trigger("ornament:table-shows");
       }
     }
 
