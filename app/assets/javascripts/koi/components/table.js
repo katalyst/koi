@@ -61,7 +61,7 @@
         showHideShadows($tableContainer);
       });
 
-      $(document).on("ornament:table-shows", function(){
+      $(document).on("ornament:table-shadows", function(){
         showHideShadows($tableContainer);
       });
 

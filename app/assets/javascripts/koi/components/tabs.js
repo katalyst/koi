@@ -157,6 +157,7 @@
         // click the appropriate toggle
         var $anchor = $("[data-toggle-tab][data-toggle-anchor=" + paneId + "]");
         $anchor.trigger("ornament:toggle-on");
+        $(document).trigger("ornament:table-shadows");
       }
     }
 
@@ -168,7 +169,6 @@
         // (#thing = thing)
         var hash = hash.substr(1,hash.length); 
         loadTab(hash);
-        $(document).trigger("ornament:table-shows");
       }
     }
 
