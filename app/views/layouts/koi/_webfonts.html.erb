@@ -1,12 +1,30 @@
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/webfont/1.5.2/webfont.js" ></script>
+<%=
+  # Attempt to load the webfonts file from the application
+  begin
+    use_script = false
+    render "/layouts/webfonts"
+  rescue ActionView::MissingTemplate
+    use_script = true
+    nil
+  end
+-%>  
+
+<%- if use_script # If no file in application, render the script in Koi -%>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/webfont/1.5.2/webfont.js" ></script>
+<%- end -%>
+
 <script type="text/javascript">
-  WebFont.load({
-    google: {
-      families: ['Open Sans:400,300,600', 'Open Sans Condensed:700']
-    },
-    active: function(){
-      // trigger some scripts after web-fonts have loaded
-      // $(document).trigger("ornament:column-conform");
-    }
-  });
+  function loadKoiFont() {
+    WebFont.load({
+      google: {
+        families: ['Open Sans:400,300,600', 'Open Sans Condensed:700']
+      }
+    });
+  }
+  if(typeof(WebFontConfig) === "undefined") {
+    loadKoiFont();
+  } else {
+    WebFontConfig.active = loadKoiFont;
+    WebFontConfig.inactive = loadKoiFont;
+  }
 </script>
