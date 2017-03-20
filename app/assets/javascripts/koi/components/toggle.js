@@ -55,9 +55,9 @@
       if($toggleAnchor.is("[data-toggle-tab]")) {
         $toggleContent.addClass("tabs--pane__active");
       } else if($toggleAnchor.is("[data-toggle-speed]")) {
-        $toggleContent.slideDown(parseInt($toggleAnchor.attr("data-toggle-speed")), afterSlide());
+        $toggleContent.stop().slideDown(parseInt($toggleAnchor.attr("data-toggle-speed")), afterSlide());
       } else {
-        $toggleContent.slideDown(200, afterSlide());
+        $toggleContent.stop().slideDown(200, afterSlide());
       }
 
       $toggleAnchor.trigger("ornament:toggle:after-toggle-on");
@@ -79,9 +79,9 @@
       if($toggleContent.is("[data-toggle-tab-pane]")) {
         $toggleContent.removeClass("tabs--pane__active");
       } else if($toggleAnchor.is("[data-toggle-speed]")) {
-        $toggleContent.slideUp(parseInt($toggleAnchor.attr("data-toggle-speed")));
+        $toggleContent.stop().slideUp(parseInt($toggleAnchor.attr("data-toggle-speed")));
       } else {
-        $toggleContent.slideUp(200);
+        $toggleContent.stop().slideUp(200);
       }
 
       // Scroll if needed

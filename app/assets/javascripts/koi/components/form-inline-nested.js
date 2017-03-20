@@ -22,7 +22,7 @@
       $pane.addClass("active");
       $pane.children("[data-inline-nested-field-heading]").addClass("nested-fields-visible");
       // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").slideDown('fast');
+      $pane.children(".nested-inline-fields").stop().slideDown('fast');
     }
 
     // Hide inline item regardless of current state
@@ -30,7 +30,7 @@
       $pane.removeClass("active");
       $pane.children("[data-inline-nested-field-heading]").removeClass("nested-fields-visible");
       // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").slideUp('fast');
+      $pane.children(".nested-inline-fields").stop().slideUp('fast');
     }
 
     // Either show or hide based on current state
@@ -62,6 +62,7 @@
 
     // Clicking on collapser will toggle the pane
     $("body").off("click", ".collapser").on("click", ".collapser", function (event) {
+      event.preventDefault();
       toggleNestedPane($(this).closest(".nested-fields"));
     });
 
