@@ -22,7 +22,9 @@
       $pane.addClass("active");
       $pane.children("[data-inline-nested-field-heading]").addClass("nested-fields-visible");
       // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").stop().slideDown('fast');
+      $pane.children(".nested-inline-fields").stop().slideDown('fast', function(){
+        Ornament.globalLightboxSizing();
+      });
     }
 
     // Hide inline item regardless of current state
@@ -30,7 +32,9 @@
       $pane.removeClass("active");
       $pane.children("[data-inline-nested-field-heading]").removeClass("nested-fields-visible");
       // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").stop().slideUp('fast');
+      $pane.children(".nested-inline-fields").stop().slideUp('fast', function(){
+        Ornament.globalLightboxSizing();
+      });
     }
 
     // Either show or hide based on current state

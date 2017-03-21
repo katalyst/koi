@@ -15,3 +15,8 @@
 select.cke_dialog_ui_input_select {
   -webkit-appearance: menulist; 
 }
+
+.cke_screen_reader_only {
+  top: 0;
+  left: 0;
+}

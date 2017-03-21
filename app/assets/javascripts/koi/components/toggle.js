@@ -39,8 +39,9 @@
       }
 
       // Setup afterSlide function
-      var afterSlide = function(){
-        if(focusOnField) {
+      var afterSlide = function($toggleContent, $toggleAnchor, on){
+        var on = on || false;
+        if(on && focusOnField) {
           var $inputs = $toggleContent.find("input");
           var $textareas = $toggleContent.find("textarea");
           if($inputs.length) {
@@ -49,15 +50,17 @@
             $textareas.first().focus();
           }
         }
+        Ornament.globalLightboxSizing();
       }
 
       // Toggle sliding
       if($toggleAnchor.is("[data-toggle-tab]")) {
         $toggleContent.addClass("tabs--pane__active");
-      } else if($toggleAnchor.is("[data-toggle-speed]")) {
-        $toggleContent.stop().slideDown(parseInt($toggleAnchor.attr("data-toggle-speed")), afterSlide());
       } else {
-        $toggleContent.stop().slideDown(200, afterSlide());
+        var speed = $toggleAnchor.is("[data-toggle-speed]") ? parseInt($toggleAnchor.attr("data-toggle-speed")) : 200;
+        $toggleContent.stop().slideDown(speed, function(){
+          afterSlide($toggleContent, $toggleAnchor, true);
+        });
       }
 
       $toggleAnchor.trigger("ornament:toggle:after-toggle-on");
@@ -78,10 +81,11 @@
       // Slide content
       if($toggleContent.is("[data-toggle-tab-pane]")) {
         $toggleContent.removeClass("tabs--pane__active");
-      } else if($toggleAnchor.is("[data-toggle-speed]")) {
-        $toggleContent.stop().slideUp(parseInt($toggleAnchor.attr("data-toggle-speed")));
       } else {
-        $toggleContent.stop().slideUp(200);
+        var speed = $toggleAnchor.is("[data-toggle-speed]") ? parseInt($toggleAnchor.attr("data-toggle-speed")) : 200;
+        $toggleContent.stop().slideUp(speed, function(){
+          afterSlide($toggleContent, $toggleAnchor);
+        });
       }
 
       // Scroll if needed
