@@ -52,6 +52,7 @@
   padding-left: $xxx-small-unit;
   @include font($bold-font);
   font-size: 18px;
+  line-height: 44px;
   @include color-link($white, $white);
   @include decorate-link(none, none);
 }
