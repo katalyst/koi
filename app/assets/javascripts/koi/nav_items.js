@@ -180,6 +180,7 @@ $(document).on("ornament:refresh", function(){
       Sitemap.$lockButton.removeClass(Sitemap.disabledButtonClass);
       Sitemap.$lockButton.text(Sitemap.lang.enabledButton);
       Sitemap._bindSortableTree();
+      Sitemap.closeNodesInLocalStorage();
     },
 
     // Set the sitemap state based on string
@@ -327,6 +328,32 @@ $(document).on("ornament:refresh", function(){
       });
     },
 
+    closeNodesInLocalStorage: function(){
+      var existingHiddenNodes = Sitemap.getClosedNodesFromLocalStorage();
+      if(existingHiddenNodes) {
+        Sitemap.closeNodes(existingHiddenNodes);
+      }
+    },
+
+    // Cleanup bad localstorage nodes
+    // This shouldn't get in a bad state but if it does we can fix it
+    // Removes all nulls from localstorage
+    cleanLocalStorage: function(){
+      var nodes = Sitemap.getClosedNodesFromLocalStorage();
+      if(nodes.indexOf(null) > -1) {
+        console.warn("Found null values in sitemap... attempting to clean");
+        // Create a new list of values to work with 
+        var newNodes = [];
+        nodes.map(function(node){
+          if(node !== null) {
+            newNodes.push(node);
+          }
+        });
+        // Update node in local storage with new values
+        Sitemap.setClosedNodesInLocalStorage(newNodes);
+      }
+    },
+
     // =========================================================================
     // Initialisation
     // =========================================================================
@@ -366,14 +393,14 @@ $(document).on("ornament:refresh", function(){
         }
 
         // Close the nodes set in localStorage
-        var existingHiddenNodes = Sitemap.getClosedNodesFromLocalStorage();
-        if(existingHiddenNodes) {
-          Sitemap.closeNodes(existingHiddenNodes);
-        }
+        Sitemap.closeNodesInLocalStorage();
       });
 
       // Show/hide the toggle all buttons
       Sitemap.setToggleAllVisibility();
+
+      // Clean localstorage if needed
+      Sitemap.cleanLocalStorage();
 
     }
 
