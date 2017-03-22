@@ -365,6 +365,9 @@ $(document).on("ornament:refresh", function(){
       Sitemap.$openAllButton = $(Sitemap.selectors.openAllSelector);
       Sitemap.$tree = $(Sitemap.selectors.tree);
 
+      // Clean localstorage if needed
+      Sitemap.cleanLocalStorage();
+
       // Button press action
       Sitemap.$lockButton.on("click", Sitemap._lockButtonEvent);
 
@@ -398,9 +401,6 @@ $(document).on("ornament:refresh", function(){
 
       // Show/hide the toggle all buttons
       Sitemap.setToggleAllVisibility();
-
-      // Clean localstorage if needed
-      Sitemap.cleanLocalStorage();
 
     }
 
