@@ -577,7 +577,7 @@ $file-thumbnail-width: 100px;
     }
   }
 
-  button {
+  .form--password-revealer--button {
     position: absolute;
     top: 1px;
     bottom: 1px;
@@ -587,7 +587,8 @@ $file-thumbnail-width: 100px;
     outline: none;
   }
 
-  button,button:hover {
+  .form--password-revealer--button,
+  .form--password-revealer--button:hover {
     background: transparent;
   }
   
