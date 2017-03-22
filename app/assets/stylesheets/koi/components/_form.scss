@@ -545,6 +545,22 @@ $file-thumbnail-width: 100px;
   display: none;
 }
 
+// Tags
+.select2-container-multi .select2-choices .select2-search-choice {
+  border: 1px solid $light-grey;
+  background: $passive-color;
+  color: $foreground-color;
+  font-size: $small-font-size;
+  padding: 5px 5px 5px 18px;
+}
+.select2-container-multi .select2-choices .select2-search-field {
+  margin-top: 3px;
+}
+.select2-container-multi .select2-search-choice-close {
+  left: 4px;
+  margin-top: 2px;
+}
+
 // =========================================================================
 // Password revealer
 // =========================================================================
