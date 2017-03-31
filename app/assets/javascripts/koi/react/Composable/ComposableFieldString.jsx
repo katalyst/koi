@@ -2,13 +2,23 @@ class ComposableFieldString extends React.Component {
   render() {
     var options = this.props.fieldSettings.data || [];
     var className = this.props.fieldSettings.className || "form--medium";
+    var props = {
+      type: "text",
+      className: className,
+      value: this.props.value,
+      onChange: (event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)
+    };
+    if(this.props.fieldSettings.placeholder) {
+      props.placeholder = this.props.fieldSettings.placeholder;
+    }
+    var inputData = this.props.fieldSettings.inputData;
+    if(inputData) {
+      Object.keys(inputData).map(key => {
+        props["data-" + key] = inputData[key];
+      })
+    }
     return(
-      <input type="text" 
-             className={className} 
-             value={this.props.value} 
-             placeholder={this.props.fieldSettings.placeholder} 
-             onChange={(event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)} 
-      />
+      <input {...props} />
     );
   }
 }

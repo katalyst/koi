@@ -90,6 +90,15 @@ class Page < ApplicationRecord
         type: "string",
         className: "form--large"
       },{
+        name: "date",
+        label: "Datepicker",
+        hint: "Only future dates",
+        placeholder: "Choose a date",
+        type: "date",
+        inputData: {
+          "datepicker-mindate": 0
+        }
+      },{
         name: "text",
         label: "Textarea",
         type: "textarea"

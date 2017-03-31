@@ -76,6 +76,8 @@ class Composable extends React.Component {
     data.push(datum);
     this.setState({
       data: data
+    }, () => {
+      Ornament.C.FormHelpers.init();
     });
     return false;
   }
