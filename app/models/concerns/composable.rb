@@ -35,6 +35,14 @@ module Composable
 
   end
 
+  class_methods do 
+
+    def field_types
+      Composable.field_types
+    end
+
+  end
+
   # Overridable field types
   def self.field_types
     [{
