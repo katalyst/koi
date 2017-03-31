@@ -12,7 +12,7 @@ class Composable extends React.Component {
   constructor(props) {
     super(props),
     this.state = {
-      data: this.props.data
+      data: this.props.data || []
     };
     this.getTemplateForField = this.getTemplateForField.bind(this);
     this.addField = this.addField.bind(this);
@@ -139,7 +139,8 @@ class Composable extends React.Component {
           dataTypes={component.props.dataTypes} 
           addField={component.addField} 
         />
-        <div className="composable--fields--debug spacing-xxx-tight">
+        <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.data)} readOnly />
+        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
           <p><strong>Debug:</strong></p>
           <pre>data: {JSON.stringify(this.state.data, null, 2)}</pre>
         </div>

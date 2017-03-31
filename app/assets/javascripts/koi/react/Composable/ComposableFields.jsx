@@ -11,7 +11,7 @@ class ComposableFields extends React.Component {
             return(
               <div className="composable--field" key={key}>
                 <div className="composable--field-heading">
-                  <span className="composable--field-heading--type">{template.name}</span>
+                  <span className="composable--field-heading--type">{template ? template.name : `Unsupported field type (${datum.type})` }</span>
                   <button className="composable--field-heading--remove" type="button" onClick={() => this.props.removeField(index)}>Remove</button>
                   {data.length > 1 && index !== 0
                     ? <button className="composable--field-heading--up" type="button" onClick={(event) => this.props.moveFieldBy(datum,-1)}>-1</button>
@@ -31,7 +31,9 @@ class ComposableFields extends React.Component {
                       fieldIndex={index} 
                       onChange={this.props.onFieldChange}
                     />
-                  : <p>There is no available template for this field type</p>
+                  : <div className="composable--field--unsupported">
+                      <p>There is no available template for this field type</p>
+                    </div>
                 }
               </div>
             );

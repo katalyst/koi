@@ -1,4 +1,6 @@
 class Page < ApplicationRecord
+  include Composable
+
   has_crud paginate: false, navigation: true,
            settings: true
 
@@ -13,13 +15,14 @@ class Page < ApplicationRecord
   end
 
   crud.config do
+    fields composable_data: { type: :composable }
     actions only: [:index, :show]
     hide false
     title collection: "Pages"
     config :admin do
       actions except: [:new]
       index   fields: [:id, :title]
-      form    except: [:type]
+      form    fields: [:title, :description, :composable_data]
     end
   end
 
