@@ -178,6 +178,11 @@ Ornament = window.Ornament = {
     return matches.indexOf(whatInput.ask()) > -1;
   },
 
+  // Parameterize function
+  parameterize: function(url) {
+    return url.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  },
+
   // Create a JS list of icons
   icons: {}
 

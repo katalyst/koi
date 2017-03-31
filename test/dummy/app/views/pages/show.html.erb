@@ -2,37 +2,47 @@
 
 <%- 
 
-  composable_data = [{
-    type: "full_banner",
-    banner: "thing"
-  },{
-    type: "section",
-    section_type: "blue"
-  },{
-    type: "text",
-    text: "......"
-  },{
-    type: "image",
-    alignment: "center"
-  },{
-    type: "text",
-    text: "........."
-  },{
-    type: "section",
-    section_type: "body"
-  },{
-    type: "text",
-    text: "...."
-  },{
-    type: "heading",
-    heading: "This is a heading",
-    size: 3
-  },{
-    type: "text",
-    text: "..........."
-  }]
+  composable_data =  [
+  {
+    "id": 1490936960847,
+    "type": "heading",
+    "text": "This is a heading",
+    "heading_size": "3"
+  },
+  {
+    "id": 1490936962168,
+    "type": "text",
+    "body": "This is some text"
+  },
+  {
+    "id": 1490936999845,
+    "type": "section",
+    "section_type": "fullwidth"
+  },
+  {
+    "id": 1490937009975,
+    "type": "heading",
+    "text": "Full width heading",
+    "heading_size": "1"
+  },
+  {
+    "id": 1490937010700,
+    "type": "text",
+    "body": "Fullwidth body text"
+  },
+  {
+    "id": 1490937011998,
+    "type": "section",
+    "section_type": "body"
+  },
+  {
+    "id": 1490937013749,
+    "type": "text",
+    "body": "This is some body text"
+  }
+]
 
-  Koi::Composables.section_fallbacks = {
+  section_fallbacks = {
     "video": "fullscreen",
     "full_banner": "fullscreen"
   }
