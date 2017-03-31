@@ -6,6 +6,7 @@ class ComposableFieldString extends React.Component {
       <input type="text" 
              className={className} 
              value={this.props.value} 
+             placeholder={this.props.fieldSettings.placeholder} 
              onChange={(event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)} 
       />
     );
@@ -13,6 +14,8 @@ class ComposableFieldString extends React.Component {
 }
 
 ComposableField.propTypes = {
+  fieldIndex: React.PropTypes.number,
   fieldSettings: React.PropTypes.string,
-  value: React.PropTypes.string
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func
 };

@@ -83,7 +83,8 @@ button::-moz-focus-inner {
 // Spacing between inputs and labels
 .input,
 .control-group {
-  .controls {
+  .control-label + .controls,
+  .hint-block + .controls {
     margin-top: $xxxx-small-unit;
   }
   label {
@@ -304,6 +305,14 @@ $radio-offset: 24px;
   position: relative;
   @include pie-clearfix;
 
+  .composable & > .control-label {
+    display: none;
+  }
+
+  .composable & > .controls {
+    margin-top: 0;
+  }
+
   .controls {
     position: relative;
   }
@@ -326,7 +335,7 @@ $radio-offset: 24px;
 }
 
 .input .hint,
-p.hint-block {
+.hint-block {
   color: $hint-color;
   font-style: italic;
   font-size: $small-font-size;

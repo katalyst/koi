@@ -1,14 +1,5 @@
 class Composable extends React.Component {
-
-  /*
-
-    Composable page fields using React 
-
-    Sortable: 
-    https://github.com/clauderic/react-sortable-hoc
-
-  */
-
+  
   constructor(props) {
     super(props),
     this.state = {
@@ -18,6 +9,9 @@ class Composable extends React.Component {
     this.addField = this.addField.bind(this);
     this.removeField = this.removeField.bind(this);
     this.onFieldChange = this.onFieldChange.bind(this);
+    this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
+    this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
+    this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
     this.moveFieldBy = this.moveFieldBy.bind(this);
   }
 
@@ -72,7 +66,9 @@ class Composable extends React.Component {
     // build a template of default values 
     dataType.fields.map(template => {
       datum[template.name] = "";
-      if(template.data) {
+      if(template.defaultValue) {
+        datum[template.name] = template.defaultValue;
+      } else if(template.type === "select" && template.data) {
         datum[template.name] = template.data[0];
       }
     })
@@ -115,6 +111,17 @@ class Composable extends React.Component {
     Update the field value 
   */
   onFieldChange(event, fieldIndex, template) {
+    if(template.type === "boolean") {
+      this.onFieldChangeBoolean(event, fieldIndex, template);
+    } else if (["check_boxes", "rich_text"].indexOf(template.type) > -1) {
+      // note: event in this case is the array of selections
+      this.onFieldChangeValue(event, fieldIndex, template);
+    } else {
+      this.onFieldChangeDefault(event, fieldIndex, template);
+    }
+  }
+
+  onFieldChangeDefault(event, fieldIndex, template) {
     var value = event.target.value;
     var data = this.state.data;
     data[fieldIndex][template.name] = value;
@@ -123,10 +130,27 @@ class Composable extends React.Component {
     });
   }
 
+  onFieldChangeBoolean(event, fieldIndex, template) {
+    var value = event.target.checked;
+    var data = this.state.data;
+    data[fieldIndex][template.name] = value;
+    this.setState({
+      data: data
+    });
+  }
+
+  onFieldChangeValue(newData, fieldIndex, template) {
+    var data = this.state.data;
+    data[fieldIndex][template.name] = newData;
+    this.setState({
+      data: data
+    });
+  }
+
   render() {
     var component = this;
     return(      
-      <div className="composable">
+      <div className="composable form--enhanced">
         <ComposableFields 
           dataTypes={component.props.dataTypes} 
           data={component.state.data} 
@@ -157,7 +181,6 @@ class Composable extends React.Component {
 
 */
 var defaultDataTypes = [{
-
   name: "Section",
   slug: "section",
   fields: [{
@@ -167,9 +190,7 @@ var defaultDataTypes = [{
     className: "form--auto",
     data: ["body", "fullwidth"] 
   }]
-
 },{
-
   name: "Heading",
   slug: "heading",
   fields: [{
@@ -184,16 +205,13 @@ var defaultDataTypes = [{
     data: ["1", "2", "3", "4", "5", "6"],
     className: "form--auto"
   }]
-
 },{
-
   name: "Text",
   slug: "text",
   fields: [{
     name: "body",
     type: "textarea"
   }]
-
 }];
 
 Composable.propTypes = {

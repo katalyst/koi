@@ -8,7 +8,7 @@ class ComposableFieldSelect extends React.Component {
               onChange={(event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)}>
         {options.map(option => {
           return(
-            <option value={option} key={"option__" + Ornament.parameterize(option) }>{option}</option>
+            <option value={option.value} key={"option__" + Ornament.parameterize(option.name) }>{option.name}</option>
           );
         })}
       </select>
@@ -17,6 +17,8 @@ class ComposableFieldSelect extends React.Component {
 }
 
 ComposableField.propTypes = {
+  fieldIndex: React.PropTypes.number,
   fieldSettings: React.PropTypes.string,
-  value: React.PropTypes.string
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func
 };
