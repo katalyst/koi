@@ -502,6 +502,22 @@ $file-thumbnail-width: 100px;
 }
 
 // =========================================================================
+// Range and number input
+// =========================================================================
+
+.form--range__with-value {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap;
+  @include align-items(center);
+
+  input[type=range] {
+    margin-right: $xxx-small-unit;
+  }
+}
+
+
+// =========================================================================
 // Select 2 theming 
 // =========================================================================
 

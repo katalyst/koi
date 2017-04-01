@@ -6,6 +6,11 @@ class ComposableFieldRichtext extends React.Component {
     this.afterUnmount = this.afterUnmount.bind(this);
   }
 
+  /*
+    After mounting this textarea, bind the CKEditor functions
+    and start watching for changes to push back up to 
+    the main composable component
+  */
   afterMount() {
     var component = this;
     var $editor = $("#" + this.props.id)[0];
@@ -21,6 +26,10 @@ class ComposableFieldRichtext extends React.Component {
     }
   }
 
+  /*
+    When a richtext editor is removed we want to unbind CKEditor
+    to stop it listening for things that no longer exist 
+  */
   afterUnmount() {
     var instance = CKEDITOR.instances[this.props.id];
     if(instance) {
@@ -37,6 +46,8 @@ class ComposableFieldRichtext extends React.Component {
     // add on mount/unmount callbacks
     props.afterMount = this.afterMount;
     props.afterUnmount = this.afterUnmount;
+    // remove default onChange event, this is now routed through the CKEditor.on("change")
+    // event in the afterMount callback above
     props.onChange = (event, index, template) => { return false; }
 
     return(
