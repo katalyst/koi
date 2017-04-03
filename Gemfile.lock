@@ -1,8 +1,19 @@
 GIT
-  remote: git://github.com/katalyst/ornament.git
-  revision: 774aa81cadb0876ad1291ffacf09d637a45724f3
+  remote: git://github.com/activeadmin/inherited_resources.git
+  revision: eea3aa21f3867dc182e4db24d1c765bdbcb3df34
+  branch: master
   specs:
-    ornament (1.2.4)
+    inherited_resources (1.7.0)
+      actionpack (>= 3.2, < 5.1)
+      has_scope (~> 0.6)
+      railties (>= 3.2, < 5.1)
+      responders
+
+GIT
+  remote: git://github.com/katalyst/ornament.git
+  revision: 2a0f6ac1f6f2b4e590fa72091fca1b548eecda14
+  specs:
+    ornament (1.2.5)
       rails (>= 3.0.0)
 
 GIT
@@ -14,7 +25,7 @@ GIT
 PATH
   remote: .
   specs:
-    koi (2.2.1)
+    koi (3.0.0)
       active_model_serializers
       activevalidators
       acts-as-taggable-on
@@ -30,14 +41,13 @@ PATH
       garb
       has_scope
       htmlentities (~> 4.3.3)
-      inherited_resources (~> 1.6)
       jquery-rails
       jquery-ui-rails (~> 5.0.3)
       kaminari
       mime-types
       pg
       puma
-      rails (~> 5.0.1)
+      rails (~> 5.1.0.rc1)
       redis
       responders
       rickshaw_rails
@@ -53,44 +63,44 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    actioncable (5.0.1)
-      actionpack (= 5.0.1)
-      nio4r (~> 1.2)
+    actioncable (5.1.0.rc1)
+      actionpack (= 5.1.0.rc1)
+      nio4r (~> 2.0)
       websocket-driver (~> 0.6.1)
-    actionmailer (5.0.1)
-      actionpack (= 5.0.1)
-      actionview (= 5.0.1)
-      activejob (= 5.0.1)
+    actionmailer (5.1.0.rc1)
+      actionpack (= 5.1.0.rc1)
+      actionview (= 5.1.0.rc1)
+      activejob (= 5.1.0.rc1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (5.0.1)
-      actionview (= 5.0.1)
-      activesupport (= 5.0.1)
+    actionpack (5.1.0.rc1)
+      actionview (= 5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
       rack (~> 2.0)
       rack-test (~> 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.0.1)
-      activesupport (= 5.0.1)
+    actionview (5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
       builder (~> 3.1)
-      erubis (~> 2.7.0)
+      erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+      rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_model_serializers (0.10.5)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
-    activejob (5.0.1)
-      activesupport (= 5.0.1)
+    activejob (5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
       globalid (>= 0.3.6)
-    activemodel (5.0.1)
-      activesupport (= 5.0.1)
-    activerecord (5.0.1)
-      activemodel (= 5.0.1)
-      activesupport (= 5.0.1)
-      arel (~> 7.0)
-    activesupport (5.0.1)
+    activemodel (5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
+    activerecord (5.1.0.rc1)
+      activemodel (= 5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
+      arel (~> 8.0)
+    activesupport (5.1.0.rc1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -105,9 +115,9 @@ GEM
       rake
     acts-as-taggable-on (4.0.0)
       activerecord (>= 4.0)
-    addressable (2.5.0)
+    addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    arel (7.1.4)
+    arel (8.0.0)
     awesome_nested_set (3.1.1)
       activerecord (>= 4.0.0, < 5.1)
     bcrypt (3.1.11)
@@ -115,7 +125,7 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
-    builder (3.2.2)
+    builder (3.2.3)
     byebug (9.0.6)
     case_transform (0.2)
       activesupport
@@ -138,7 +148,7 @@ GEM
       compass (~> 1.0.0)
       sass-rails (< 5.1)
       sprockets (< 4.0)
-    concurrent-ruby (1.0.4)
+    concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     countries (1.2.5)
       currencies (~> 0.4.2)
@@ -160,6 +170,7 @@ GEM
       addressable (~> 2.3)
       multi_json (~> 1.0)
       rack (>= 1.3)
+    erubi (1.6.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -176,14 +187,9 @@ GEM
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
     htmlentities (4.3.4)
-    i18n (0.7.0)
+    i18n (0.8.1)
     i18n_data (0.7.0)
-    inherited_resources (1.7.0)
-      actionpack (>= 3.2, < 5.1)
-      has_scope (~> 0.6)
-      railties (>= 3.2, < 5.1)
-      responders
-    jquery-rails (4.2.2)
+    jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -216,18 +222,18 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
-    nio4r (1.2.1)
-    nokogiri (1.7.0.1)
+    nio4r (2.0.0)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.20.0)
-    phony (2.15.41)
+    phony (2.15.42)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-rails (0.3.4)
-      pry (>= 0.9.10)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.1)
@@ -235,26 +241,26 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (5.0.1)
-      actioncable (= 5.0.1)
-      actionmailer (= 5.0.1)
-      actionpack (= 5.0.1)
-      actionview (= 5.0.1)
-      activejob (= 5.0.1)
-      activemodel (= 5.0.1)
-      activerecord (= 5.0.1)
-      activesupport (= 5.0.1)
+    rails (5.1.0.rc1)
+      actioncable (= 5.1.0.rc1)
+      actionmailer (= 5.1.0.rc1)
+      actionpack (= 5.1.0.rc1)
+      actionview (= 5.1.0.rc1)
+      activejob (= 5.1.0.rc1)
+      activemodel (= 5.1.0.rc1)
+      activerecord (= 5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 5.0.1)
+      railties (= 5.1.0.rc1)
       sprockets-rails (>= 2.0.0)
     rails-dom-testing (2.0.2)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    railties (5.0.1)
-      actionpack (= 5.0.1)
-      activesupport (= 5.0.1)
+    railties (5.1.0.rc1)
+      actionpack (= 5.1.0.rc1)
+      activesupport (= 5.1.0.rc1)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
@@ -274,18 +280,18 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    scoped_search (4.0.0)
+    scoped_search (4.1.0)
       activerecord (>= 4.2.0)
     select2-rails (3.5.10)
       thor (~> 0.14)
     sendgrid (1.2.4)
       json
-    sidekiq (4.2.9)
+    sidekiq (4.2.10)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    simple-navigation (4.0.4)
+    simple-navigation (4.0.5)
       activesupport (>= 2.3.2)
     simple_form (3.4.0)
       actionpack (> 4, < 5.1)
@@ -299,17 +305,16 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (0.19.4)
-    thread_safe (0.3.5)
-    tilt (2.0.6)
-    tzinfo (1.2.2)
+    thread_safe (0.3.6)
+    tilt (2.0.7)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    uglifier (3.1.7)
+    uglifier (3.1.11)
       execjs (>= 0.3.0, < 3)
-    unicode_utils (1.4.0)
     uuidtools (2.1.5)
     warden (1.2.7)
       rack (>= 1.0)
-    websocket-driver (0.6.4)
+    websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
 
@@ -319,6 +324,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   byebug
+  inherited_resources!
   karo
   koi!
   koi_config!

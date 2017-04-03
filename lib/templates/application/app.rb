@@ -149,7 +149,7 @@ module CommonControllerActions
     helper :all
     helper Koi::NavigationHelper
     helper_method :seo
-    before_filter :sign_in_as_admin! if Rails.env.development?
+    before_action :sign_in_as_admin! if Rails.env.development?
   end
 
   protected

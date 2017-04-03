@@ -4,7 +4,7 @@ module Koi
     has_crud :admin => true
     defaults :route_prefix => 'admin'
 
-    before_filter :generate_reports, only: :index, if: :is_reportable?
+    before_action :generate_reports, only: :index, if: :is_reportable?
 
     def index
       respond_to do |format|

@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types'#, '~> 2.3'
 
-  s.add_dependency 'rails', '~> 5.0.1'
+  s.add_dependency 'rails', '~> 5.1.0.rc1'
 
   s.add_dependency 'active_model_serializers'#, '~> 0.8.2'
 
@@ -104,7 +104,7 @@ Gem::Specification.new do |s|
   # Puma server
   s.add_dependency 'puma'
 
-  s.add_dependency 'inherited_resources', '~> 1.6'
+  # s.add_dependency 'inherited_resources', '~> 1.7'
 
   s.add_dependency 'htmlentities', '~> 4.3.3'
 

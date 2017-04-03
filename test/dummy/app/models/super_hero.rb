@@ -3,7 +3,7 @@ class SuperHero < ApplicationRecord
   has_crud ajaxable: true,
            searchable: [:id, :name, :gender, :powers],
            orderable: false, settings: true,
-           paginate: false
+           paginate: true
 
   # FIXME: Refactored from has
   has_many :images, as: :attributable
@@ -54,10 +54,10 @@ class SuperHero < ApplicationRecord
       index   fields: [:id, :name, :image, :file]
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :last_location_seen, :telephone, :image, :file, 
+                       :last_location_seen, :telephone, :image, :file,
                        :image_upload, :document_upload, :powers]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
-                       :last_location_seen, :telephone, :image, :file, 
+                       :last_location_seen, :telephone, :image, :file,
                        :image_upload_id, :document_upload_id, :powers]
       reportable true
       charts [{

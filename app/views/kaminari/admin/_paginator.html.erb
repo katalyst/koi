@@ -23,7 +23,7 @@
       Page <%= current_page -%> of <%= total_pages -%>
       <select data-select-link>
         <% each_page do |page| -%>
-          <option value="<%= "#{@template.url_for}?#{params.merge(page: page.to_s).to_param}" -%>" <%= "selected" if page.to_s.eql?(current_page.to_s) -%>>Page <%= page -%></option>
+          <option value="<%= "#{@template.url_for}?#{params.merge(page: page.to_s).to_h.to_param}" -%>" <%= "selected" if page.to_s.eql?(current_page.to_s) -%>>Page <%= page -%></option>
         <% end %>
       </select>
     </div>
@@ -31,4 +31,3 @@
     <%= last_page_tag %>
   </nav>
 <% end -%>
-
