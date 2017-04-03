@@ -466,21 +466,28 @@ abbr[title=required] {
 // FILE UPLOAD
 $file-thumbnail-width: 100px;
 .form--file-upload {
-  position: relative;
+  @include flex-row($xx-small-unit);
+  @include align-items(flex-start);
 
   .form--file-upload--thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: auto;
+    @include flex-col($file-thumbnail-width, $xx-small-unit);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
   }
 
   .form--file-upload--body {
-    padding-left: ($file-thumbnail-width + $xx-small-unit);
-    min-height: $file-thumbnail-width;
+    @include flex-col(auto, $xx-small-unit);
+
+    .controls {
+      margin-top: 0;
+    }
 
     label {
-      display: block;
+      float: none;
     }
   }
 }

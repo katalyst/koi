@@ -19,13 +19,15 @@
   <%= f.hint attr -%>
 
   <div class="form--file-upload controls">
-    <% unless is_nil_or_new %>
-      <%= attachment_image_tag(value, class: "form--file-upload--thumbnail") %>
-    <% else %>
-      <%= placeholder_image_tag("No File", size: "100x100", class: "form--file-upload--thumbnail") %>
-    <% end %>
+    <div class="form--file-upload--thumbnail">
+      <% unless is_nil_or_new %>
+        <%= attachment_image_tag(value) %>
+      <% else %>
+        <%= placeholder_image_tag("No File", size: "100x100") %>
+      <% end %>
+    </div>
 
-    <div class="form--file-upload--body">
+    <div class="form--file-upload--body inputs">
       <% if value.respond_to?(:name) %>
         <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
       <% end %>
