@@ -7,7 +7,11 @@ module Koi::IconHelper
   #     image_thumbnail(file, width: 200, height: 200) # => /media/gtoZWlnaHRpaQ/example.png
   #
   def image_thumbnail(image, options={})
-    image.thumb("#{options[:width]}x#{options[:height]}").url
+    if image.ext && image.ext.downcase.eql?("svg")
+      raw image.url
+    else
+      image.thumb("#{options[:width]}x#{options[:height]}").url
+    end
   end
 
   # Gets the icon for a document. This uses the Koi::KoiAsset::Document.icons config.
