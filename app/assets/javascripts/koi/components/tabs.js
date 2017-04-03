@@ -157,6 +157,7 @@
         // click the appropriate toggle
         var $anchor = $("[data-toggle-tab][data-toggle-anchor=" + paneId + "]");
         $anchor.trigger("ornament:toggle-on");
+        $(document).trigger("ornament:table-shadows");
       }
     }
 

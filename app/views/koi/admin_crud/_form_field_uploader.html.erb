@@ -11,7 +11,7 @@
   max_count ||= "1"
 
   # max file size of each file in megabytes
-  max_size = crud_settings[:max_size] || "5"
+  max_size = crud_settings[:max_size] || Koi::KoiAsset.size_limit / 1024 / 1024
 
   # allowed file types
   types = crud_settings[:types] || "jpg, jpeg, gif, png"
@@ -30,12 +30,15 @@
   ratio = crud_settings[:ratio] || "1/1"
 
   # deterime if image or file type
-  is_file = false
-  is_file = true if types.include?("pdf")
-  is_file = true if types.include?("xls")
-  is_file = true if types.include?("xlsx")
-  is_file = true if types.include?("doc")
-  is_file = true if types.include?("docx")
+  is_file ||= "guess"
+  if is_file.eql?("guess")
+    is_file = false
+    is_file = true if types.include?("pdf")
+    is_file = true if types.include?("xls")
+    is_file = true if types.include?("xlsx")
+    is_file = true if types.include?("doc")
+    is_file = true if types.include?("docx")
+  end
 
   # if there's an existing image
   if resource.send(id_field).nil?

@@ -16,7 +16,8 @@
 //= require koi/jquery.ui.touch-punch
 //= require koi/jquery.mask
 //= require koi/jquery.minicolors
-//= require koi/flying-focus
+// require koi/flying-focus
+//= require koi/what-input
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts

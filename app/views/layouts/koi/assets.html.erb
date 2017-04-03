@@ -5,10 +5,6 @@
   <%- content_for :hide_header, "true" -%>
 <%- end -%>
 
-<%- content_for :scripts do -%>
-  <%= javascript_include_tag "koi/assets" %>
-<%- end -%>
-
 <%- content_for :title, "Select #{resource_class.name}" -%>
 
 <% content_for :global do %>

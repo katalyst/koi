@@ -1,28 +1,52 @@
 .devise {
   padding-top: $large-unit;
+  padding-bottom: $large-unit;
+  min-height: 100%;
+  @include display-flex;
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+}
+
+.devise--logo {
+  text-align: center;
+
+  h1 {
+    @include heading-one;
+  }
+}
+
+.devise--body .panel__notice {
+  border-bottom: 1px solid $border;
 }
 
 .devise--body {
   margin: 0 auto;
-  max-width: 500px;
+  width: 100%;
+  max-width: 320px;
   margin-top: $large-unit;
-}
-
-.devise .titlebar {
-  background: $black;
-  color: $white;
-  border-bottom: 5px solid $primary-color;
-  padding: $x-small-unit;
-  @include border-top-left-radius($border-radius);
-  @include border-top-right-radius($border-radius);
+  border: 1px solid $border;
 }
 
 .devise .bg-lightgrey {
   background: $x-light-grey;
-  padding: $x-small-unit;
+  padding: $panel-padding;
 }
 
 .devise .bg-mediumgrey {
+  border-top: 1px solid $border;
   background: $light-grey;
-  padding: $x-small-unit;
+  padding: $xxx-small-unit $panel-padding;
+}
+
+.devise .button-group {
+  @include media-query(450px) {
+    > div {
+      width: 100%;
+    }
+    a,button {
+      width: 100%;
+      text-align: center;
+    }
+  }
 }

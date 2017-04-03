@@ -20,7 +20,12 @@
   z-index: 1043;
   position: fixed;
   outline: none !important;
-  -webkit-backface-visibility: hidden; }
+  -webkit-backface-visibility: hidden; 
+}
+
+.lightbox-open .mfp-wrap {
+  overflow: hidden !important;
+}
 
 .mfp-container {
   text-align: center;

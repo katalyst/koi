@@ -14,22 +14,26 @@
         <p class="error"><%= flash[:alert] %></p>
       <% end %>
 
-      <%= f.input :email, required: true, autofocus: true, input_html: { class: "w-510" } %>
+      <%= f.input :email, required: true, autofocus: true, input_html: { class: "form--medium" } %>
 
-      <%= f.input :password, required: true, input_html: { class: "w-510" } %>
+      <%= f.input :password, required: true, input_html: { class: "form--medium", data: { password_reveal: "" } } %>
 
-      <%= f.input :remember_me, as: :boolean, wrapper: :checkbox, wrapper_html: { class: "checkbox__single" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
+      <%= f.input :remember_me, as: :boolean, wrapper: :checkbox, wrapper_html: { class: "checkbox__single form--enhanced" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
 
     </div>
   </div>
 
   <div class="bg-mediumgrey">
-    <%= f.button :button, "Sign in", class: "button__primary" %>
-    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-      <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
-    <% end -%>
-      <%#= render "devise/shared/links" %>
-    </ul>
+    <div class="button-group">
+      <div>
+        <%= f.button :button, "Sign in", class: "button__success" %>
+      </div>
+      <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+        <div>
+          <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
+        </div>
+      <% end -%>
+    </div>
   </div>
 
 <% end %>

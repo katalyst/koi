@@ -124,6 +124,7 @@ Ornament = window.Ornament = {
     var topOffset = 20;
     var bottomOffset = 20;
     var windowHeight = Ornament.windowHeight();
+    var scrollPosition = $lightboxContent.scrollTop() || 0;
     var maxLightboxHeightInPixels = (windowHeight - topOffset - bottomOffset) - $lightboxHeader.outerHeight() - $lightboxFooter.outerHeight();
     $lightboxContent.height("auto");
 
@@ -135,6 +136,8 @@ Ornament = window.Ornament = {
     $lightboxContent.off("scroll").on("scroll", function(){
       Ornament.showHideXYShadows($lightboxContent);
     });
+
+    $lightboxContent.scrollTop(scrollPosition);
   },
 
   // Size all lightboxes to the screen

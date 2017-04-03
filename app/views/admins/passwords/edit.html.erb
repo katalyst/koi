@@ -1,6 +1,4 @@
-<div class="titlebar">
-  <h2 class="heading-two">Change your password</h2>
-</div>
+<%- content_for :title, "Change your password" -%>
 
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :put, class: "form-vertical" }) do |f| %>
 

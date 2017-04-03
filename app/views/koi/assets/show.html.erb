@@ -10,7 +10,7 @@
       <div class="button-group">
         <% resource.tags.each do |tag| %>
           <div>
-            <span class="button button__small small"><%= tag.name %></span>
+            <span class="button__pill"><%= tag.name %></span>
           </div>
         <% end %>
       </div>
@@ -19,7 +19,7 @@
 
   <form class="asset--form insert asset application">
 
-    <%- if params[:CKEditor] -%>
+    <%- if params[:CKEditorFuncNum] -%>
       <div>
         <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
         <%= render "options" %>
@@ -27,7 +27,7 @@
     <%- end -%>
 
     <div class="button-group">
-      <%- if params[:CKEditor] -%>
+      <%- if params[:CKEditorFuncNum] -%>
         <div>
           <button class="button__confirm insert asset application link">Add to Page</button>
         </div>

@@ -123,7 +123,7 @@ textarea,
 
   .layout--main & {
     border: $input-border;
-    @include box-shadow(inset 1px 1px 3px 0px rgba(0,0,0,0.20));
+    @include box-shadow($input-shadow);
   }
 
   .layout--main .error &,
@@ -466,21 +466,28 @@ abbr[title=required] {
 // FILE UPLOAD
 $file-thumbnail-width: 100px;
 .form--file-upload {
-  position: relative;
+  @include flex-row($xx-small-unit);
+  @include align-items(flex-start);
 
   .form--file-upload--thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: auto;
+    @include flex-col($file-thumbnail-width, $xx-small-unit);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
   }
 
   .form--file-upload--body {
-    padding-left: ($file-thumbnail-width + $xx-small-unit);
-    min-height: $file-thumbnail-width;
+    @include flex-col(auto, $xx-small-unit);
+
+    .controls {
+      margin-top: 0;
+    }
 
     label {
-      display: block;
+      float: none;
     }
   }
 }
@@ -492,9 +499,6 @@ $file-thumbnail-width: 100px;
 .select2-container {
   width: 100%;
 }
-.select2-search-choice {
-  
-}
 .select2-container-multi .select2-choices .select2-search-field input {
   padding: 0;
 }
@@ -502,8 +506,9 @@ $file-thumbnail-width: 100px;
   margin-left: 0;
   margin-right: 5px;
 }
+.select2-drop.select2-drop.select2-display-none.select2-drop-active,
 .select2-drop.select2-drop-multi.select2-display-none.select2-drop-active {
-  border: $input-border;
+  border: 1px solid $input-border-focus-color;
   margin-top: -3px;
 }
 .select2-container--default .select2-search--inline .select2-search__field {
@@ -512,25 +517,55 @@ $file-thumbnail-width: 100px;
 }
 .select2-container .select2-selection--multiple {
   padding: 5px;
-  @include box-shadow(inset 1px 1px 3px 0px rgba(0,0,0,0.20));
+  @include box-shadow($input-shadow);
 }
 
-.form--latlng {
-  .controls {
-    @include display-flex;
-    @include flex-direction(row);
-  }
-  .controls input {
-    @include border-top-right-radius(0);
-    @include border-bottom-right-radius(0);
-  }
-  .controls a {
-    @include border-top-left-radius(0);
-    @include border-bottom-left-radius(0);
-    @include display-flex;
-    @include align-items(center);
-    @include flex-shrink(0);
-  }
+.select2-container .select2-choice {
+  // input styles
+  background: $input-background;
+  border: $input-border;
+  color: $input-color;
+  width: $input-width;
+  line-height: $base-line-size;
+  @include line-height-padding($form-line-height);
+  padding-left: $xxxx-small-unit;
+  @include box-shadow($input-shadow);
+  min-height: $form-inline-height;
+  @include transition(border-color .2s);
+  height: 100%;
+
+  // select styles
+  background-image: url('/assets/koi/application/select_arrow.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 36px;
+}
+
+// Focus styles
+.select2-container-active.select2-container-multi .select2-choices,
+.select2-container-active .select2-choice {
+  border-color: $input-border-focus-color;
+}
+
+// Removing default arrow, instead using the select one
+.select2-container .select2-choice .select2-arrow {
+  display: none;
+}
+
+// Tags
+.select2-container-multi .select2-choices .select2-search-choice {
+  border: 1px solid $light-grey;
+  background: $passive-color;
+  color: $foreground-color;
+  font-size: $small-font-size;
+  padding: 5px 5px 5px 18px;
+}
+.select2-container-multi .select2-choices .select2-search-field {
+  margin-top: 3px;
+}
+.select2-container-multi .select2-search-choice-close {
+  left: 4px;
+  margin-top: 2px;
 }
 
 // =========================================================================
@@ -549,12 +584,44 @@ $file-thumbnail-width: 100px;
     }
   }
 
-  button {
+  .form--password-revealer--button {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
-    right: 4px;
+    top: 1px;
+    bottom: 1px;
+    right: 1px;
+    background: transparent;
     text-transform: uppercase;
     outline: none;
+  }
+
+  .form--password-revealer--button,
+  .form--password-revealer--button:hover {
+    background: transparent;
+  }
+  
+  .button__icon path {
+    fill: $black;
+  }
+}
+
+// =========================================================================
+// LatLong Field Type
+// =========================================================================
+
+.form--latlng {
+  .controls {
+    @include display-flex;
+    @include flex-direction(row);
+  }
+  .controls input {
+    @include border-top-right-radius(0);
+    @include border-bottom-right-radius(0);
+  }
+  .controls a {
+    @include border-top-left-radius(0);
+    @include border-bottom-left-radius(0);
+    @include display-flex;
+    @include align-items(center);
+    @include flex-shrink(0);
   }
 }

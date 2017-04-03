@@ -63,6 +63,8 @@
   @include display-flex;
   @include align-items(center);
   @include justify-content(center);
+  @include flex-grow(0);
+  @include flex-shrink(0);
 
   .icon-chevron {
     width: 16px;
