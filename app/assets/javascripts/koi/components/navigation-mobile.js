@@ -170,7 +170,13 @@
         setTimeout(function(){
           mobileNav.destroyTabIndexesAndCreateForCurrentPane();
           if(mobileNav.filterElement.length && mobileNav.currentLevel === 1) {
-            mobileNav.filterElement.focus();
+            // Focus on search if search is available and the user is
+            // using the keyboard or mouse (not touch)
+            if(["keyboard","mouse"].indexOf($("html").attr("data-whatintent")) > -1) {
+              mobileNav.filterElement.focus();
+            } else {
+              mobileNav.getCurrentPane().focus();
+            }
           } else {
             mobileNav.getCurrentPane().focus();
           }
