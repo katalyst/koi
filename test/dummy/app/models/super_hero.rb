@@ -11,7 +11,9 @@ class SuperHero < ApplicationRecord
 
   dragonfly_accessor :image
   dragonfly_accessor  :file
-  serialize :powers, Array
+  attribute :powers, :string, array: true, default: []
+
+  validates :powers, length: { minimum: 1 }
 
   scope :alphabetical, -> { order("name DESC") }
 
