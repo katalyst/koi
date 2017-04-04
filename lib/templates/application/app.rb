@@ -86,6 +86,7 @@ gem_group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'ornament', github: 'katalyst/ornament'
+  gem 'rack-mini-profiler'
 end
 
 # Setup mailer host
