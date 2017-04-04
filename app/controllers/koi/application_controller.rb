@@ -2,6 +2,7 @@ require 'garb'
 
 module Koi
   class ApplicationController < ActionController::Base
+    protect_from_forgery
     helper :all
     layout :layout_by_resource
     before_action :authenticate_admin, except: :login
