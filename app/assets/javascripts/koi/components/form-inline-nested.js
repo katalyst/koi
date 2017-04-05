@@ -8,6 +8,9 @@
   $(document).on("ornament:refresh", function () {
 
     var $nestedFields = $("[data-inline-nested]");
+    var visibleClass = "nested-fields-visible";
+    var visibleContainerClass = "active";
+    var onlyOneNested = false;
 
     // Generic initialising of CKEditor on new elements
     var initCkEditorOn = function(parentElement) {
@@ -17,22 +20,45 @@
       });
     }
 
+    var getHeadingForPane = function($pane) {
+      return $pane.find("[data-inline-nested-field-heading]");
+    }
+
+    var getContentForPane = function($pane) {
+      return $pane.children(".nested-inline-fields");
+    }
+
+    var getToggleButtonForPane = function($pane) {
+      return $pane.find("[data-inline-nested-field-toggle]");
+    }
+
     // Show inline item regardless of current state
     var showNestedPane = function($pane) {
-      $pane.addClass("active");
-      $pane.children("[data-inline-nested-field-heading]").addClass("nested-fields-visible");
-      // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").stop().slideDown('fast', function(){
+      $pane.addClass(visibleContainerClass);
+      getHeadingForPane($pane).addClass(visibleClass);
+      getToggleButtonForPane($pane).attr("aria-expanded", true);
+      getContentForPane($pane).stop().slideDown('fast', function(){
         Ornament.globalLightboxSizing();
       });
+      // Hide other ones if configured
+      if(onlyOneNested) {
+        $pane.siblings().each(function(){
+          var $siblingPane = $(this);
+          $siblingPane.removeClass(visibleContainerClass);
+          var $heading = getHeadingForPane($siblingPane);
+          $heading.removeClass(visibleClass);
+          getContentForPane($siblingPane).hide();
+          getToggleButtonForPane($siblingPane).attr("aria-expanded", false);
+        });
+      }
     }
 
     // Hide inline item regardless of current state
     var hideNestedPane = function($pane) {
-      $pane.removeClass("active");
-      $pane.children("[data-inline-nested-field-heading]").removeClass("nested-fields-visible");
-      // $pane.siblings().find("[data-inline-nested-field-heading]").removeClass("nested-fields-visible").next(".nested-inline-fields").hide();
-      $pane.children(".nested-inline-fields").stop().slideUp('fast', function(){
+      $pane.removeClass(visibleContainerClass);
+      getHeadingForPane($pane).removeClass(visibleClass);
+      getToggleButtonForPane($pane).attr("aria-expanded", false);
+      getContentForPane($pane).stop().slideUp('fast', function(){
         Ornament.globalLightboxSizing();
       });
     }
@@ -82,6 +108,16 @@
       if($inlineNested.is("[data-inline-nested-sortable]")) {
         var nested_inline_fields = insertedItem.parent().children(".nested-fields");
         updateOrdinal(nested_inline_fields);
+      }
+      // Focus on the field
+      var $item = $(insertedItem).find(".nested-inline-fields");
+      var $fields = $item.find("input,textarea,select");
+      if($fields.length) {
+        setTimeout(function(){
+          $fields.first().focus();
+        }, 300);
+      } else {
+        $item.find("[data-inline-nested-field-heading-name]").focus();
       }
     });
 
