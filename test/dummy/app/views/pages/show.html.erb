@@ -1,4 +1,12 @@
 <%- content_for :title, @page.title -%>
 
+<pre>
+<%= JSON.pretty_generate @page.composable_data -%>
+</pre>
+
+<pre>
+<%= JSON.pretty_generate @page.composable_sections -%>
+</pre>
+
 <%= render "/shared/composables", data: @page.composable_sections if @page.is_composable? -%>
 
