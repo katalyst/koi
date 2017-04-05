@@ -13,6 +13,21 @@
     var toggleOnClass = "active";
     var headerBreakpoint = Ornament.headerBreakpoint;
 
+    // Setup afterSlide function
+    var afterSlide = function($toggleContent, $toggleAnchor, on){
+      var on = on || false;
+      if(on && focusOnField) {
+        var $inputs = $toggleContent.find("input");
+        var $textareas = $toggleContent.find("textarea");
+        if($inputs.length) {
+          $inputs.first().focus();
+        } else if($textareas.length) {
+          $textareas.first().focus();
+        }
+      }
+      Ornament.globalLightboxSizing();
+    }
+
     var toggleOn = function($toggleAnchor, $toggleContent) {
       var toggleId = $toggleAnchor.attr("data-toggle-anchor");
       var $thisToggleAnchors = $("[data-toggle-anchor="+toggleId+"]");
@@ -36,21 +51,6 @@
           var $otherToggleContent = $("[data-toggle="+otherToggleId+"]");
           toggleOff($otherToggleAnchor, $otherToggleContent);
         });
-      }
-
-      // Setup afterSlide function
-      var afterSlide = function($toggleContent, $toggleAnchor, on){
-        var on = on || false;
-        if(on && focusOnField) {
-          var $inputs = $toggleContent.find("input");
-          var $textareas = $toggleContent.find("textarea");
-          if($inputs.length) {
-            $inputs.first().focus();
-          } else if($textareas.length) {
-            $textareas.first().focus();
-          }
-        }
-        Ornament.globalLightboxSizing();
       }
 
       // Toggle sliding
