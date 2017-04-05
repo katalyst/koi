@@ -171,6 +171,13 @@ Ornament = window.Ornament = {
     return true;
   },
 
+  matchWhatInput: function(matches){
+    if(typeof(matches) !== "object") {
+      matches = [matches];
+    }
+    return matches.indexOf(whatInput.ask()) > -1;
+  },
+
   // Create a JS list of icons
   icons: {}
 

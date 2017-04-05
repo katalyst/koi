@@ -110,14 +110,16 @@
         updateOrdinal(nested_inline_fields);
       }
       // Focus on the field
-      var $item = $(insertedItem).find(".nested-inline-fields");
-      var $fields = $item.find("input,textarea,select");
-      if($fields.length) {
-        setTimeout(function(){
-          $fields.first().focus();
-        }, 300);
-      } else {
-        $item.find("[data-inline-nested-field-heading-name]").focus();
+      if(Ornament.matchWhatInput(["keyboard", "mouse"])) {
+        var $item = $(insertedItem).find(".nested-inline-fields");
+        var $fields = $item.find("input,textarea,select");
+        if($fields.length) {
+          setTimeout(function(){
+            $fields.first().focus();
+          }, 300);
+        } else {
+          $item.find("[data-inline-nested-field-heading-name]").focus();
+        }
       }
     });
 
