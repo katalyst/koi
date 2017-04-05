@@ -1,7 +1,7 @@
 #
 # When working with this file, it might help to enable binding.pry
 #
-# require 'pry'
+require 'pry'
 # binding.pry
 #
 # override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
@@ -17,6 +17,7 @@ end
 def koi_version
   version_file_path = self.rails_template[/.*(?=templates)/]
   version_file_path += 'koi/version.rb'
+  binding.pry
   version_data = open(version_file_path) {|f| f.read }
 
   version = version_data.split("\n")[1].split('=').last.strip.gsub(/\"/, '')
