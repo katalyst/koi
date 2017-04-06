@@ -170,6 +170,10 @@ table {
 .table__th__actions,
 .table--actions--container {
   text-align: right;
+
+  .icon-spinner {
+    margin-left: auto;
+  }
 }
 
 .table--image {
