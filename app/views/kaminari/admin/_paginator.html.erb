@@ -22,9 +22,9 @@
     <div class="pagination--status">
       Page <%= current_page -%> of <%= total_pages -%>
       <select data-select-link>
-        <% each_page do |page| -%>
+        <%- (1..total_pages).each do |page| -%>
           <option value="<%= "#{@template.url_for}?#{params.merge(page: page.to_s).to_param}" -%>" <%= "selected" if page.to_s.eql?(current_page.to_s) -%>>Page <%= page -%></option>
-        <% end %>
+        <%- end -%>
       </select>
     </div>
     <%= next_page_tag %>
