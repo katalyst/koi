@@ -1,4 +1,4 @@
-class AddUrlRewriter < ActiveRecord::Migration
+class AddUrlRewriter < ActiveRecord::Migration[5.0]
   def change
     create_table :url_rewrites do |t|
       t.text    :from

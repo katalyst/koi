@@ -12,7 +12,7 @@ class Asset < ApplicationRecord
 
   acts_as_ordered_taggable
 
-  belongs_to :attributable, polymorphic: true
+  belongs_to :attributable, polymorphic: true, optional: true
 
   validates_presence_of :data
   validates_property :mime_type, of: :data,

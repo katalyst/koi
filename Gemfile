@@ -13,7 +13,10 @@ gemspec
 # Koi
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
-gem 'ornament', github: 'katalyst/ornament'
+gem 'ornament', github: 'katalyst/ornament', branch: 'feature/koi-3-rails-upgrade'
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources', branch: 'master'
+# TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
+gem 'awesome_nested_set', github: 'jhawthorn/awesome_nested_set', branch: 'rails_5_1'
+gem 'devise', github: 'plataformatec/devise', branch: 'master'
+gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'

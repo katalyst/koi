@@ -1,4 +1,4 @@
-class AddPrefixToTranslation < ActiveRecord::Migration
+class AddPrefixToTranslation < ActiveRecord::Migration[5.0]
   def up
     add_column   :translations, :prefix, :string
     remove_index :translations, :key

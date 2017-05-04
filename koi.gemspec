@@ -20,13 +20,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types'#, '~> 2.3'
 
-  s.add_dependency 'rails', '~> 5.1.0.rc1'
+  s.add_dependency 'rails', '~> 5.1.0'
 
   s.add_dependency 'active_model_serializers'#, '~> 0.8.2'
 
   s.add_dependency 'pg'
 
-  s.add_dependency 'compass-rails'#, '~> 2.0.2'
+  s.add_dependency 'compass-rails', '> 3.0.0'
 
   s.add_dependency 'compass'#, '~> 1.0.0'
 
@@ -39,13 +39,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
 
   # Authorization
-  s.add_dependency 'devise'
+  # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
+  # s.add_dependency 'devise'
 
   # Form
   s.add_dependency 'simple_form'
 
-  # Tree
-  s.add_dependency 'awesome_nested_set'
+  # Nav items (tree structure)
+  # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
+  # s.add_dependency 'awesome_nested_set', '~> 3.1.2'
 
   # Mailer
   s.add_dependency 'sendgrid'
@@ -104,13 +106,12 @@ Gem::Specification.new do |s|
   # Puma server
   s.add_dependency 'puma'
 
-  # s.add_dependency 'inherited_resources', '~> 1.7'
+  s.add_dependency 'inherited_resources'
 
-  s.add_dependency 'htmlentities', '~> 4.3.3'
+  s.add_dependency 'htmlentities'#, '~> 4.3.3'
 
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'pry-rails'
-  # s.add_development_dependency 'web-console'#, '~> 2.0'
 end

@@ -24,7 +24,7 @@ end
 
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-2.2.2
+2.4.1
 END
 
 # Add .ruby-gemset for RVM
@@ -42,11 +42,14 @@ create_file '.envrc', <<-END
 PATH_add ./bin
 END
 
+# TODO: remove this when `rails new` generator doesn't generate sass gem referencing github
+gsub_file "Gemfile", "gem 'sass-rails', github: \"rails/sass-rails\"", ""
+
 # jQuery UI
-gem "jquery-ui-rails"
+gem 'jquery-ui-rails', '~> 5.0.3'
 
 # Airbrake
-gem "airbrake"                  , '4.3'
+gem "airbrake"                 # , '4.3'
 
 # Nested fields
 gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
@@ -55,16 +58,12 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-# TEMPORARILY use local path for testing
-gem 'koi'                       , path: '/Users/bill/Katalyst/Projects/koi'
-
+# Temporarily use local path for testing
+gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+# TODO: re-enable when solid
 # gem 'koi'                       , github: 'katalyst/koi',
 #                                   tag: "v#{koi_version}"
 
-# Compass
-gem 'compass'
-
-gem 'compass-rails'
 
 # i18n ActiveRecord backend
 gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
@@ -82,13 +81,18 @@ gem 'ey_config'
 gem 'sidekiq'
 gem 'redis-namespace'
 
+# TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
+gem 'awesome_nested_set', github: 'jhawthorn/awesome_nested_set', branch: 'rails_5_1'
+gem 'devise', github: 'plataformatec/devise', branch: 'master'
+gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
+
 gem_group :development do
   gem 'karo'
   gem 'pry-rails'
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'feature/koi-3-rails-upgrade'
 end
 
 # Setup mailer host
@@ -338,18 +342,18 @@ END
 create_file 'config/initializers/datetime_formats.rb', <<-END
 Time::DATE_FORMATS[:pretty] = lambda { |time| time.strftime("%a, %b %e at %l:%M") + time.strftime("%p").downcase }
 Date::DATE_FORMATS[:default] = "%d %b %Y"
-Time::DATE_FORMATS[:default] = "%a, %b %e at %l:%M %p"
+Time::DATE_FORMATS[:default] = "%l:%M %p, %a %e %b %Y"
 Time::DATE_FORMATS[:short] = "%d.%m.%Y"
 END
 
 # Setup Airbrake
 create_file 'config/initializers/airbrake.rb', <<-END
 Airbrake.configure do |config|
-  config.api_key    = Figaro.env.airbrake_api_key
-  config.host       = Figaro.env.airbrake_host
-  config.port       = Figaro.env.airbrake_port.to_i
-  config.secure     = Figaro.env.airbrake_secure == 'true'
-  config.project_id = Figaro.env.airbrake_api_key
+  config.project_key         = Figaro.env.airbrake_project_key
+  config.project_id          = Figaro.env.airbrake_project_id
+  config.host                = Figaro.env.airbrake_host
+  config.environment         = Rails.env
+  config.ignore_environments = %w(development test)
 end
 
 class Airbrake::Sender
@@ -410,17 +414,16 @@ END
 
 # Setup Fiagro application.yml
 application_yml = <<-END
-MANDRILL_USERNAME:  ''
-MANDRILL_PASSWORD:  ''
-MAILTRAP_USERNAME:  ''
-MAILTRAP_PASSWORD:  ''
-SECRET_KEY_BASE:    ''
-AIRBRAKE_API_KEY:   ''
-AIRBRAKE_HOST:      'errbit.katalyst.com.au'
-AIRBRAKE_PORT:      '443'
-AIRBRAKE_SECURE:    'true'
-DEFAULT_TO_ADDRESS: 'admin@katalyst.com.au'
-NO_REPLY_ADDRESS:   'no-reply@katalyst.com.au'
+MANDRILL_USERNAME:    ''
+MANDRILL_PASSWORD:    ''
+MAILTRAP_USERNAME:    ''
+MAILTRAP_PASSWORD:    ''
+SECRET_KEY_BASE:      ''
+AIRBRAKE_PROJECT_KEY: ''
+AIRBRAKE_PROJECT_ID:  ''
+AIRBRAKE_HOST:        'https://errbit.katalyst.com.au:443'
+DEFAULT_TO_ADDRESS:   'admin@katalyst.com.au'
+NO_REPLY_ADDRESS:     'no-reply@katalyst.com.au'
 END
 
 create_file 'config/application.yml.example', application_yml

@@ -1,17 +1,14 @@
 require 'compass-rails'
 require 'sass-rails'
 require 'csv'
-require 'devise'
 require 'dragonfly'
 require 'scoped_search'
 require 'acts-as-taggable-on'
-require 'awesome_nested_set'
 require 'kaminari'
 require 'friendly_id'
 require 'inherited_resources'
 require 'has_scope'
 require 'koi_config'
-require 'simple_form'
 require 'simple_navigation'
 require 'uuidtools'
 require 'redis'
@@ -38,6 +35,10 @@ require 'koi/sitemap'
 require 'koi/caching'
 require 'koi/engine'
 require 'reports/reporting'
+# TODO: re-enable when these gems are re-enabled in gemspec
+# require 'simple_form'
+# require 'awesome_nested_set'
+# require 'devise'
 
 module Koi
 end
