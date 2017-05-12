@@ -24,9 +24,10 @@ en:
       nav_item:
         is_mobile: "Show for mobile"
   views:
-    pagination:
-      first: "« First"
-      last: "Last »"
-      previous: "‹ Prev"
-      next: "Next ›"
-      truncate: "..."
+    koi: 
+      pagination:
+        first: "« First"
+        last: "Last »"
+        previous: "‹ Prev"
+        next: "Next ›"
+        truncate: "..."
