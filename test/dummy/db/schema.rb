@@ -61,17 +61,6 @@ ActiveRecord::Schema.define(version: 20160711032313) do
 
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
-  create_table "contact_forms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.integer  "postcode"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contact_forms", ["slug"], name: "index_contact_forms_on_slug", unique: true, using: :btree
-
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -119,37 +108,6 @@ ActiveRecord::Schema.define(version: 20160711032313) do
   end
 
   add_index "news_items", ["slug"], name: "index_news_items_on_slug", unique: true, using: :btree
-
-  create_table "page_contents", force: :cascade do |t|
-    t.string   "content_type"
-    t.string   "string"
-    t.text     "text"
-    t.string   "file_uid"
-    t.string   "file_name"
-    t.integer  "file_id"
-    t.string   "file_ids"
-    t.integer  "module_limit"
-    t.string   "module_ordered_by"
-    t.boolean  "module_paginated"
-    t.string   "module_category"
-    t.boolean  "active"
-    t.integer  "ordinal"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "page_contents", ["slug"], name: "index_page_contents_on_slug", unique: true, using: :btree
-
-  create_table "page_page_contents", force: :cascade do |t|
-    t.integer  "page_id"
-    t.integer  "page_content_id"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "page_page_contents", ["slug"], name: "index_page_page_contents_on_slug", unique: true, using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
