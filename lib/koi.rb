@@ -35,9 +35,9 @@ require 'koi/sitemap'
 require 'koi/caching'
 require 'koi/engine'
 require 'reports/reporting'
+require 'awesome_nested_set'
 # TODO: re-enable when these gems are re-enabled in gemspec
 # require 'simple_form'
-# require 'awesome_nested_set'
 # require 'devise'
 
 module Koi

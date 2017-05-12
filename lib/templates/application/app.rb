@@ -58,9 +58,10 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-# Temporarily use local path for testing
-gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
-# TODO: re-enable when solid
+gem 'koi'                       , github: 'katalyst/koi', branch: 'master'
+# NOTE: For building projects with the local version, uncomment this
+# gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+# TODO: re-enable this for a release
 # gem 'koi'                       , github: 'katalyst/koi',
 #                                   tag: "v#{koi_version}"
 
@@ -82,7 +83,6 @@ gem 'sidekiq'
 gem 'redis-namespace'
 
 # TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
-gem 'awesome_nested_set', github: 'jhawthorn/awesome_nested_set', branch: 'rails_5_1'
 gem 'devise', github: 'plataformatec/devise', branch: 'master'
 gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
 

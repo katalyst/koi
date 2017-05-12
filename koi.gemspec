@@ -46,8 +46,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'
 
   # Nav items (tree structure)
-  # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
-  # s.add_dependency 'awesome_nested_set', '~> 3.1.2'
+  s.add_dependency 'awesome_nested_set', '~> 3.1.3'
 
   # Mailer
   s.add_dependency 'sendgrid'
