@@ -58,9 +58,9 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-gem 'koi'                       , github: 'katalyst/koi', branch: 'master'
+# gem 'koi'                       , github: 'katalyst/koi', branch: 'master'
 # NOTE: For building projects with the local version, uncomment this
-# gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
 # TODO: re-enable this for a release
 # gem 'koi'                       , github: 'katalyst/koi',
 #                                   tag: "v#{koi_version}"

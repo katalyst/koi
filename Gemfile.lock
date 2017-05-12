@@ -37,39 +37,39 @@ PATH
   remote: .
   specs:
     koi (3.0.0)
-      active_model_serializers
-      activevalidators
-      acts-as-taggable-on
+      active_model_serializers (~> 0.10.6)
+      activevalidators (~> 4.0.2)
+      acts-as-taggable-on (~> 4.0.0)
       awesome_nested_set (~> 3.1.3)
-      cocoon
-      compass
-      compass-rails (> 3.0.0)
-      countries
-      dragonfly
-      figaro
-      friendly_id
-      garb
-      has_scope
-      htmlentities
-      inherited_resources
-      jquery-rails
+      cocoon (~> 1.2.10)
+      compass (~> 1.0.3)
+      compass-rails (~> 3.0.2)
+      countries (~> 1.2.5)
+      dragonfly (~> 1.1.2)
+      figaro (~> 1.1.1)
+      friendly_id (~> 5.2.1)
+      garb (~> 0.9.8)
+      has_scope (~> 0.7.1)
+      htmlentities (~> 4.3.4)
+      inherited_resources (~> 1.7.2)
+      jquery-rails (~> 4.3.1)
       jquery-ui-rails (~> 5.0.3)
-      kaminari
-      mime-types
+      kaminari (~> 1.0.1)
+      mime-types (~> 3.1)
       pg
-      puma
+      puma (~> 3.8.2)
       rails (~> 5.1.0)
-      redis
-      responders
-      rickshaw_rails
-      scoped_search
+      redis (~> 3.3.3)
+      responders (~> 2.4.0)
+      rickshaw_rails (~> 1.4.5)
+      scoped_search (~> 4.1.0)
       select2-rails (~> 3.5.9)
-      sendgrid
-      sidekiq
-      simple-navigation
+      sendgrid (~> 1.2.4)
+      sidekiq (~> 5.0.0)
+      simple-navigation (~> 4.0.5)
       simple_form
-      uglifier
-      uuidtools
+      uglifier (~> 3.2.0)
+      uuidtools (~> 2.1.5)
 
 GEM
   remote: http://rubygems.org/
@@ -319,7 +319,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode_utils (1.4.0)
     uuidtools (2.1.5)
     warden (1.2.7)
       rack (>= 1.0)
