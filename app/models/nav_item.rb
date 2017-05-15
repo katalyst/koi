@@ -1,8 +1,9 @@
-class NavItem < ActiveRecord::Base
+class NavItem < ApplicationRecord
 
   before_save  :raise_abstract_error
-  after_save   :touch_parent
+  after_save   :after_save
   after_touch  :touch_parent
+  after_destroy :after_destroy
 
   acts_as_nested_set
   has_crud searchable: [:id, :title, :url], settings: false
@@ -156,6 +157,20 @@ class NavItem < ActiveRecord::Base
 
   def touch_parent
     parent.touch if parent
+  end
+
+  def after_save
+    touch_parent
+    clear_cache("saving") if Koi::Caching.enabled
+  end
+
+  def after_destroy
+    clear_cache("deleting") if Koi::Caching.enabled
+  end
+
+  def clear_cache(msg)
+    Rails.logger.warn("[CACHE CLEAR] - Clearning entire cache after #{msg} #{self.class} #{self.id}")
+    Rails.cache.clear
   end
 
 end

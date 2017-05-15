@@ -1,4 +1,4 @@
-class ProductImage < ActiveRecord::Base
+class ProductImage < ApplicationRecord
 
   belongs_to :product
   dragonfly_accessor :image

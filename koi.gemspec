@@ -18,105 +18,99 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'mime-types', '~> 2.3'
+  s.add_dependency 'mime-types', '~> 3.1'
 
-  s.add_dependency 'rails', '~> 4.2.1'
+  s.add_dependency 'rails', '~> 5.1.1'
 
-  s.add_dependency 'rails-observers'
-
-  s.add_dependency 'active_model_serializers', '~> 0.8.2'
+  s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
   s.add_dependency 'pg'
 
-  s.add_dependency 'compass-rails', '~> 2.0.2'
+  s.add_dependency 'compass-rails', '~> 3.0.2'
 
-  s.add_dependency 'compass', '~> 1.0.0'
+  s.add_dependency 'compass', '~> 1.0.3'
 
-  s.add_dependency 'sass-rails', '~> 5.0.0'
-
-  s.add_dependency 'sass', '~> 3.4.12'
-
-  s.add_dependency 'uglifier'
+  s.add_dependency 'uglifier', '~> 3.2.0'
 
   # Overwrite for default rails
-  s.add_dependency 'jquery-rails'
+  s.add_dependency 'jquery-rails', '~> 4.3.1'
 
   # jQuery UI
   s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
 
   # Authorization
-  s.add_dependency 'devise'
+  # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
+  # s.add_dependency 'devise'
 
   # Form
   s.add_dependency 'simple_form'
 
-  # Tree
-  s.add_dependency 'awesome_nested_set'
+  # Nav items (tree structure)
+  s.add_dependency 'awesome_nested_set', '~> 3.1.3'
 
   # Mailer
-  s.add_dependency 'sendgrid'
+  s.add_dependency 'sendgrid', '~> 1.2.4'
 
   # File Handling
-  s.add_dependency 'dragonfly'
+  s.add_dependency 'dragonfly', '~> 1.1.2'
 
   # User Friendly Slugs
-  s.add_dependency 'friendly_id'
+  s.add_dependency 'friendly_id', '~> 5.2.1'
 
   # Pagination
-  s.add_dependency 'kaminari'
+  s.add_dependency 'kaminari', '~> 1.0.1'
 
-  # Inherited Resources
-  s.add_dependency 'inherited_resources', '~> 1.6'
-  s.add_dependency 'has_scope', '0.6.0.rc'
-  s.add_dependency 'responders', '~> 2.1'
+  s.add_dependency 'has_scope', '~> 0.7.1'
+  s.add_dependency 'responders', '~> 2.4.0'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 3.14.0'
+  s.add_dependency 'simple-navigation', '~> 4.0.5'
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency 'acts-as-taggable-on', '~> 4.0.0'
 
   # Scoped Search
-  s.add_dependency 'scoped_search', '~> 3.2.0'
+  s.add_dependency 'scoped_search', '~> 4.1.0'
 
   # Unique ID generation
-  s.add_dependency 'uuidtools'
+  s.add_dependency 'uuidtools', '~> 2.1.5'
 
   # Google Analytics
-  s.add_dependency 'garb'
+  s.add_dependency 'garb', '~> 0.9.8'
 
   # Validators
-  s.add_dependency 'activevalidators', '~> 3.2.0'
+  s.add_dependency 'activevalidators', '~> 4.0.2'
 
   # Redis
-  s.add_dependency 'redis'
+  s.add_dependency 'redis', '~> 3.3.3'
 
   # Sidekiq (Background Server)
-  s.add_dependency 'sidekiq', '~> 3.3.2'
-
-  # Required by Sidekiq Web
-  s.add_dependency 'sinatra'
+  s.add_dependency 'sidekiq', '~> 5.0.0'
 
   # Nice Multi Select
   s.add_dependency 'select2-rails', '~> 3.5.9'
 
   # Nested Forms
-  s.add_dependency 'cocoon'
+  s.add_dependency 'cocoon', '~> 1.2.10'
 
   # Admin Graphing
-  s.add_dependency 'countries'
+  s.add_dependency 'countries', '~> 1.2.5'
 
   # Admin Graphing
-  s.add_dependency 'rickshaw_rails'
+  s.add_dependency 'rickshaw_rails', '~> 1.4.5'
 
   # Application Settings
-  s.add_dependency 'figaro'
+  s.add_dependency 'figaro', '~> 1.1.1'
 
-  s.add_dependency 'htmlentities', '~> 4.3.3'
+  # Puma server
+  s.add_dependency 'puma', '~> 3.8.2'
+
+  s.add_dependency 'inherited_resources', '~> 1.7.2'
+
+  s.add_dependency 'htmlentities', '~> 4.3.4'
 
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'web-console', '~> 2.0'
 end

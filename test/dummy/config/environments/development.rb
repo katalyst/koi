@@ -41,4 +41,8 @@ Rails.application.configure do
 
   config.action_mailer.asset_host = 'http://localhost:3000'
   config.action_mailer.default_url_options = { host: config.action_mailer.asset_host.gsub("http://", "") }
+
+  # depends on 'listen' gem
+  # new in rails 5
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end

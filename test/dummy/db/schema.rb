@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -33,10 +32,9 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "assets", force: :cascade do |t|
     t.string   "data_uid"
@@ -57,31 +55,18 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
   end
-
-  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
-
-  create_table "contact_forms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.integer  "postcode"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contact_forms", ["slug"], name: "index_contact_forms_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 40
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "nav_items", force: :cascade do |t|
     t.string   "type"
@@ -105,17 +90,17 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.datetime "updated_at"
     t.boolean  "is_mobile",      default: false
     t.string   "setting_prefix"
+    t.index ["navigable_id"], name: "index_nav_items_on_navigable_id", using: :btree
+    t.index ["navigable_type"], name: "index_nav_items_on_navigable_type", using: :btree
+    t.index ["url"], name: "index_nav_items_on_url", using: :btree
   end
-
-  add_index "nav_items", ["navigable_id"], name: "index_nav_items_on_navigable_id", using: :btree
-  add_index "nav_items", ["navigable_type"], name: "index_nav_items_on_navigable_type", using: :btree
-  add_index "nav_items", ["url"], name: "index_nav_items_on_url", using: :btree
 
   create_table "news_items", force: :cascade do |t|
     t.string   "title"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["slug"], name: "index_news_items_on_slug", unique: true, using: :btree
   end
 
   add_index "news_items", ["slug"], name: "index_news_items_on_slug", unique: true, using: :btree
@@ -157,9 +142,8 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
   end
-
-  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "product_images", force: :cascade do |t|
     t.integer  "product_id"
@@ -171,9 +155,8 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["slug"], name: "index_product_images_on_slug", unique: true, using: :btree
   end
-
-  add_index "product_images", ["slug"], name: "index_product_images_on_slug", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
     t.integer  "category_id"
@@ -195,9 +178,8 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "colour"
     t.boolean  "active",            default: true
     t.integer  "ordinal"
+    t.index ["slug"], name: "index_products_on_slug", unique: true, using: :btree
   end
-
-  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
 
   create_table "related_products", id: false, force: :cascade do |t|
     t.integer  "product_a_id", null: false
@@ -244,30 +226,27 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "image_upload_crop"
     t.integer  "document_upload_id"
     t.string   "document_upload_crop"
+    t.index ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
     t.string   "last_location_seen"
   end
 
-  add_index "super_heros", ["slug"], name: "index_super_heros_on_slug", unique: true, using: :btree
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
-    t.integer  "taggable_id"
     t.string   "taggable_type"
-    t.integer  "tagger_id"
+    t.integer  "taggable_id"
     t.string   "tagger_type"
+    t.integer  "tagger_id"
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
   end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "translations", force: :cascade do |t|
     t.string   "locale",           default: "en"
@@ -287,9 +266,8 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "file_name"
     t.text     "serialized_value"
     t.string   "group"
+    t.index ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true, using: :btree
   end
-
-  add_index "translations", ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true, using: :btree
 
   create_table "url_rewrites", force: :cascade do |t|
     t.text     "from"
@@ -312,9 +290,8 @@ ActiveRecord::Schema.define(version: 20160711032313) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

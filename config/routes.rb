@@ -66,7 +66,7 @@ Koi::Engine.routes.draw do
     mount Sidekiq::Web => '/sidekiq', as: :sidekiq
   end
 
-  get '/styleguide/:action' => 'styleguide'
+  get '/styleguide/:page' => 'styleguide#page'
   get '/styleguide' => 'styleguide#index'
 
 end

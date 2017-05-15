@@ -1,4 +1,4 @@
-class FriendlyIdSlug < ActiveRecord::Base
+class FriendlyIdSlug < ApplicationRecord
 
   has_crud ajaxable: true, slugged: false
 

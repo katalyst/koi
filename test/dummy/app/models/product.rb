@@ -1,4 +1,4 @@
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
 
   has_crud orderable: true, settings: true
   has_many :product_images

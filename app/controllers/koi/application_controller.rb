@@ -2,9 +2,10 @@ require 'garb'
 
 module Koi
   class ApplicationController < ActionController::Base
+    protect_from_forgery
     helper :all
     layout :layout_by_resource
-    before_filter :authenticate_admin, except: :login
+    before_action :authenticate_admin, except: :login
 
     def login
       if admin_signed_in?
@@ -17,7 +18,7 @@ module Koi
     def clear_cache
       Rails.logger.warn("[CACHE CLEAR] - Clearning entire cache manually by #{current_admin} request")
       Rails.cache.clear
-      redirect_to :back
+      redirect_back(fallback_location: koi_engine.root_path)
     end
 
     def index

@@ -1,4 +1,4 @@
-class Create<%= class_name.pluralize.delete('::') %> < ActiveRecord::Migration
+class Create<%= class_name.pluralize.delete('::') %> < ActiveRecord::Migration[5.1]
   def change
     create_table :<%= table_name %> do |t|
 <%- model_attributes.each do |attribute| -%>

@@ -1,6 +1,6 @@
 require 'garb'
 
-class Report < ActiveRecord::Base
+class Report < ApplicationRecord
   extend Garb::Model
 
   Humanize = {

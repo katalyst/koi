@@ -1,4 +1,4 @@
-class UrlRewrite < ActiveRecord::Base
+class UrlRewrite < ApplicationRecord
 
   has_crud
 

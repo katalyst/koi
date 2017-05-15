@@ -1,6 +1,6 @@
-module Koi
+  module Koi
   class AssetsController < AdminCrudController
-    before_filter :init
+    before_action :init
 
     layout 'koi/assets'
 
@@ -21,7 +21,7 @@ module Koi
     def create
       create! do |success, failure|
         success.html { redirect_to edit_resource_path }
-        success.js { render text: resource.id }
+        success.js { render plain: resource.id }
       end
     end
 

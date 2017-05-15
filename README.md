@@ -5,10 +5,10 @@
 Run this to create a new app:
 
 ```bash
-rbenv local 2.2.2
-# rvm use 2.2.2
-gem install rails -v 4.2.1
-rails _4.2.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.3.1/lib/templates/application/app.rb
+rbenv local 2.4.1
+# rvm use 2.4.1
+gem install rails -v 5.1.0
+rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/master/lib/templates/application/app.rb
 ```
 
 ## License

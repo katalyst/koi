@@ -13,11 +13,9 @@ gemspec
 # Koi
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
-# i18n ActiveRecord backend
-gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-                                  branch: 'master'
-
-gem 'sass-rails', '~> 5.0.0'
-gem 'ornament', github: 'katalyst/ornament'
+gem 'ornament', github: 'katalyst/ornament', branch: 'master'
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
+# TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
+gem 'devise', github: 'plataformatec/devise', branch: 'master'
+gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
