@@ -340,7 +340,7 @@ $(document).on("ornament:refresh", function(){
     // Removes all nulls from localstorage
     cleanLocalStorage: function(){
       var nodes = Sitemap.getClosedNodesFromLocalStorage();
-      if(nodes.indexOf(null) > -1) {
+      if(nodes && nodes.indexOf(null) > -1) {
         console.warn("Found null values in sitemap... attempting to clean");
         // Create a new list of values to work with 
         var newNodes = [];

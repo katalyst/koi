@@ -172,7 +172,7 @@
           if(mobileNav.filterElement.length && mobileNav.currentLevel === 1) {
             // Focus on search if search is available and the user is
             // using the keyboard or mouse (not touch)
-            if(["keyboard","mouse"].indexOf($("html").attr("data-whatintent")) > -1) {
+            if(Ornament.matchWhatInput(["keyboard", "mouse"])) {
               mobileNav.filterElement.focus();
             } else {
               mobileNav.getCurrentPane().focus();

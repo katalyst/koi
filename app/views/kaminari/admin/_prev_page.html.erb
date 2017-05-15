@@ -8,6 +8,6 @@
 -%>
 
 <div class="pagination--previous <%= "disabled" if current_page.first? -%>">
-  <%= link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, :rel => 'prev', :remote => remote, title: "Go to previous page" %>
+  <%= link_to_unless current_page.first?, raw(t 'views.koi.pagination.previous'), url, :rel => 'prev', :remote => remote, title: "Go to previous page" %>
 </div>
 
