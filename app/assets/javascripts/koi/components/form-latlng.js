@@ -20,7 +20,7 @@
       var id = $actualInput.attr("data-latlng-from");
 
       // Add our button in to the control-group wrapper
-      var $button = $('<a href="#" class="button__primary" data-latlng-lightbox-for="' + id + '">Find Location</a>');
+      var $button = $('<button type="button" class="button__primary" data-latlng-lightbox-for="' + id + '">Find Location</button>');
       $actualInput.closest(".controls").append($button);
 
       // Get all our relevant elements identified by the id

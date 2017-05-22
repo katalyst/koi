@@ -7,6 +7,7 @@
 //= require koi/store
 //= require select2
 //= require cocoon
+//= require turbolinks
 //= require koi/velocity
 //= require koi/jquery.touchSwipe
 //= require koi/jquery.placeholder
@@ -70,5 +71,6 @@
 //= require koi/koi/nestedFields
 //= require koi/koi/wysiwyg
 //= require koi/koi/assets
+//= require koi/nav_items
 
 //= require rickshaw_with_d3

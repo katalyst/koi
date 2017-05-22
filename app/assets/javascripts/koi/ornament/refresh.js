@@ -5,12 +5,21 @@
 
   "use strict";
 
-  $(document).on("ready page:change", function () {
+  var turbolinks = true;
+
+  Ornament.refresh = function(){
     $(document).trigger("ornament:refresh");
-  });
+    Ornament.ready = true;
+  }
 
   $(document).on("pjax:end", "*", function () {
-    $(document).trigger("ornament:refresh");
+    Ornament.refresh();
   });
+
+  if(!Ornament.features.turbolinks) {
+    $(document).on("ready", function () {
+      Ornament.refresh();
+    });
+  }
 
 }(document, window, jQuery));
