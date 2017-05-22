@@ -198,16 +198,16 @@
     },
 
     bindInputMasks: function(){
-      $("[data-input-mask]").each(function(){
+      $("[data-input-mask]").not(".init").each(function(){
         var $field = $(this);
         var mask = $field.attr("data-input-mask");
         var placeholder = mask.replace(/0/g, "_");
-        $field.mask(mask, { placeholder: placeholder });
+        $field.mask(mask, { placeholder: placeholder }).addClass("init");
       });
     },
 
     bindColourPickers: function(){
-      $("[data-colourpicker]").minicolors();
+      $("[data-colourpicker]").not(".init").minicolors().addClass("init");
     },
 
     _isPasswordFieldRevealed: function($field){

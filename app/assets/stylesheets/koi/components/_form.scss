@@ -617,7 +617,8 @@ $file-thumbnail-width: 100px;
     @include border-top-right-radius(0);
     @include border-bottom-right-radius(0);
   }
-  .controls a {
+  .controls a,
+  .controls button {
     @include border-top-left-radius(0);
     @include border-bottom-left-radius(0);
     @include display-flex;

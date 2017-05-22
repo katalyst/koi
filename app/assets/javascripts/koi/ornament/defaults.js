@@ -251,35 +251,6 @@ Ornament.componentise = function(name, component){
   Ornament.C[name] = component.public;
 }
 
-// OnLoad
-// If ornament has already triggered, run it now
-// If ornament isn't ready yet, wait until the refresh trigger
-Ornament.onLoad = function(callback) {
-  if(Ornament.ready) { callback; }
-  $(document).on("ornament:refresh", callback);
-}
-
-// =========================================================================
-// Event Listeners
-// Ornament.onScroll(function(){ console.log("hi") });
-// =========================================================================
-
-Ornament.onScroll = function(func) {
-  $(window).off("scroll", func).on("scroll", func);
-}
-
-Ornament.onResize = function(func) {
-  $(window).off("resize", func).on("resize", func);
-}
-
-// =========================================================================
-// Things to set after page is loaded
-// =========================================================================
-Ornament.onLoad(function(){
-  Ornament.features.ie8 = $("body").hasClass("ie8");
-  Ornament.loadIcons();
-});
-
 // =========================================================================
 // SVG Icons via JS
 // =========================================================================
@@ -298,6 +269,35 @@ Ornament.loadIcons = function() {
     $iconsContainer.remove();
   }
 };
+
+// =========================================================================
+// Event Listeners
+// Ornament.onScroll(function(){ console.log("hi") });
+// =========================================================================
+
+// OnLoad
+// If ornament has already triggered, run it now
+// If ornament isn't ready yet, wait until the refresh trigger
+Ornament.onLoad = function(callback) {
+  if(Ornament.ready) { callback; }
+  $(document).on("ornament:refresh", callback);
+}
+
+Ornament.onScroll = function(func) {
+  $(window).off("scroll", func).on("scroll", func);
+}
+
+Ornament.onResize = function(func) {
+  $(window).off("resize", func).on("resize", func);
+}
+
+// =========================================================================
+// Things to set after page is loaded
+// =========================================================================
+Ornament.onLoad(function(){
+  Ornament.features.ie8 = $("body").hasClass("ie8");
+  Ornament.loadIcons();
+});
 
 Ornament.C = Ornament.Components;
 
