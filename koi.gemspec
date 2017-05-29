@@ -109,6 +109,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
+  s.add_dependency 'turbolinks'
+
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'

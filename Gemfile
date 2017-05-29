@@ -19,3 +19,4 @@ gem 'better_errors'
 # TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
 gem 'devise', github: 'plataformatec/devise', branch: 'master'
 gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
+gem 'turbolinks'
