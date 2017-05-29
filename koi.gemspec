@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails', '~> 4.3.1'
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
+  s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
 
   # Authorization
   # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
