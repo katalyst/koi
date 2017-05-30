@@ -16,4 +16,10 @@
     <%= render "index_settings" %>
   <% end %>
 
+  <%- if is_reportable? -%>
+    <div class="tabs--pane" id="tab-reports" data-tab-for="tab-reports">
+      <!-- Placeholder for reports link showing on records -->
+    </div>
+  <%- end -%>
+
 </div>
