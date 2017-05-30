@@ -53,7 +53,7 @@ $(document).on("ornament:refresh", function(){
       return nodes;
     },
 
-    _bindSortableTree: function($rootList) {
+    _bindSortableTree: function() {
       Sitemap.$rootList.not(".enabled").nestedSortable ({
         forcePlaceholderSize: true,
         handle: '.information',
@@ -262,16 +262,16 @@ $(document).on("ornament:refresh", function(){
       var nodeId = $node.attr("data-node-id");
       if(Sitemap.isNodeOpen($node)) {
         Sitemap.log(nodeId + " is closed");
-        Sitemap.openNode($node);
+        Sitemap.openNode($node, true);
       } else {
         Sitemap.log(nodeId + " is open");
-        Sitemap.closeNode($node);
+        Sitemap.closeNode($node, true);
       }
     },
 
     // Open a node
     openNode: function($node, storage){
-      storage = storage || true;
+      storage = storage || false;
       Sitemap.getToggleContainer($node).removeClass(Sitemap.closedNodeClass).addClass(Sitemap.expandedNodeClass);
       Sitemap.getToggleIcon($node).removeClass('ui-icon-plusthick').addClass('ui-icon-minusthick');
       Sitemap.setToggleAllVisibility();
@@ -290,7 +290,7 @@ $(document).on("ornament:refresh", function(){
 
     // Close a node
     closeNode: function($node, storage) {
-      storage = storage || true;
+      storage = storage || false;
       Sitemap.getToggleContainer($node).addClass(Sitemap.closedNodeClass).removeClass(Sitemap.expandedNodeClass);
       Sitemap.getToggleIcon($node).addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick');
       Sitemap.setToggleAllVisibility();
@@ -310,21 +310,21 @@ $(document).on("ornament:refresh", function(){
     closeNodes: function(arrayOfNodes){
       $.each(arrayOfNodes, function(){
         var $node = $("[data-node-id='" + this + "']");
-        Sitemap.closeNode($node, false);
+        Sitemap.closeNode($node);
       });
     },
 
     // Close all nodes
     closeAllNodes: function(){
       Sitemap.getToggleButtons().each(function(){
-        Sitemap.closeNode($(this));
+        Sitemap.closeNode($(this), true);
       });
     },
 
     // Open all nodes 
     openAllNodes: function() {
       Sitemap.getToggleButtons().each(function(){
-        Sitemap.openNode($(this));
+        Sitemap.openNode($(this), true);
       });
     },
 
@@ -384,7 +384,7 @@ $(document).on("ornament:refresh", function(){
         Sitemap.savePath = path;
 
         // Bind sortable on list
-        Sitemap._bindSortableTree();
+        // Sitemap._bindSortableTree();
         Sitemap._bindToggleButtons();
         Sitemap._bindToggleAllButtons();
 
