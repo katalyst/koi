@@ -6,20 +6,22 @@
       </div>
     </div>
     <div id="index-fields">
-      <table class="table space-b-0">
-        <thead>
-          <tr>
-            <% Setting.admin_attributes(:index).each_with_index do |attr,i| %>
-              <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
-            <% end %>
-            <%= content_tag :th, "Key" if current_admin.god? %>
-            <th class="table__th__actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="settings-list">
-          <%= render "koi/settings/settings_list" %>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="table space-b-0">
+          <thead>
+            <tr>
+              <% Setting.admin_attributes(:index).each_with_index do |attr,i| %>
+                <%= content_tag :th, t("simple_form.labels.#{resource_class.model_name}.settings.#{attr}", default: attr.to_s.titleize) %>
+              <% end %>
+              <%= content_tag :th, "Key" if current_admin.god? %>
+              <th class="table__th__actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="settings-list">
+            <%= render "koi/settings/settings_list" %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
