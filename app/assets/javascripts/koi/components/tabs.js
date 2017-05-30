@@ -40,7 +40,12 @@
           $fallbackSelect.val(activePane);
         }
       }
+    }
 
+    var updateSelects = function() {
+      $tabSets.each(function(){
+        updateSelect($(this));
+      });
     }
 
     // Check if a select menu should be visible or not as a fallback for tabs
@@ -75,8 +80,6 @@
           // loadTab($tabset, pane);
           // pushHashToLocation($tabset, pane);
         });
-        // update selected option if required
-        updateSelect($tabset);
       }
 
       // show the select menu if the tabs need to wrap
@@ -136,7 +139,6 @@
 
       // Fallback to select menu if necessary
       checkIfTabsNeedSelectMenu($(this));
-      
     });
 
     // Update pane attributes to use toggle attributes
@@ -159,6 +161,8 @@
         $anchor.trigger("ornament:toggle-on");
         $(document).trigger("ornament:table-shadows");
       }
+      // update selected option if required
+      updateSelects();
     }
 
     // Deeplinking
@@ -190,8 +194,10 @@
       var hash = document.location.hash;
       if(hash) {
         loadTabFromHash();
+        updateSelects();
       } else if($tabPanes.length) {
         loadTab($tabPanes.first().attr("data-toggle"));
+        updateSelects();
       }
     });
 
