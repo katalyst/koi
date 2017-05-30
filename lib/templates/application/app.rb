@@ -29,12 +29,12 @@ END
 
 # Add .ruby-gemset for RVM
 create_file '.ruby-gemset', <<-END
-koiv2-gem
+koiv3-gem
 END
 
 # Add .rbenv-gemsets for RBENV
 create_file '.rbenv-gemsets', <<-END
-koiv2-gem
+koiv3-gem
 END
 
 # Add .envrc for direnv to autoload ./bin in PATH
@@ -44,9 +44,6 @@ END
 
 # TODO: remove this when `rails new` generator doesn't generate sass gem referencing github
 gsub_file "Gemfile", "gem 'sass-rails', github: \"rails/sass-rails\"", ""
-
-# jQuery UI
-gem 'jquery-ui-rails', '~> 5.0.3'
 
 # Airbrake
 gem "airbrake"                 # , '4.3'
@@ -99,6 +96,10 @@ end
 # Setup mailer host
 application(nil, :env => 'development') do
   "config.action_mailer.asset_host = \"http://localhost:3000\""
+end
+
+application(nil, env: "production") do
+  "config.force_ssl = true"
 end
 
 # Create Version File
