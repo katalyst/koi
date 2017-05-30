@@ -8,7 +8,7 @@ Run this to create a new app:
 rbenv local 2.4.1
 # rvm use 2.4.1
 gem install rails -v 5.1.0
-rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/master/lib/templates/application/app.rb
+rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/<BRANCH|TAG>/lib/templates/application/app.rb
 ```
 
 ## License
