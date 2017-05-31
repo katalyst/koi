@@ -4,31 +4,77 @@
 
   <% content_for :head do %>
     <script type="text/javascript">
-      jQuery (function ($)
-      {
-        twitterFetcher.fetch('<%= twitter_widget_id %>', 'twitter-query', 4, true, true, true, "default");
-      })
+      $(function(){
+        twitterFetcher.fetch('', '', 4, true, true, true, "default");
+
+        // Twitter target
+        var $twitterTarget = $("#twitter-query");
+
+        // Custom HTML template for twitter posts being run
+        // through twitterFetcher
+        var koiTemplate = function(twitterData){
+          $twitterTarget.html("");
+          $.each(twitterData, function(i, tweet){
+
+            // Clean up some data
+            var $htmlTweet = $.parseHTML(tweet);
+            var $tweetUser = $htmlTweet[0];
+            var $tweetPost = $htmlTweet[1];
+            var $tweetTimeAgo = $htmlTweet[2];
+
+            // Add styling classes and whatnot
+            $($tweetTimeAgo).addClass("grey small");
+            $($tweetPost).addClass("text-wrap");
+
+            // Build tweet item
+            var $newTweet = $("<div class='twitter-list--item compressed' />");
+            $newTweet.append($tweetUser).append($tweetTimeAgo).append($tweetPost);
+
+            // make links open in new window
+            $newTweet.find("a").attr("target","_blank");
+
+            // Add tweet to page
+            $twitterTarget.append($newTweet);
+          });
+        }
+
+        // Load twitter posts
+        twitterFetcher.fetch({
+          "id": '<%= twitter_widget_id %>',
+          "domId": '',
+          "maxTweets": 4,
+          "enableLinks": true,
+          "showUser": true,
+          "showTime": true,
+          "dateFunction": '',
+          "showRetweet": true,
+          "customCallback": koiTemplate,
+          "showInteraction": false
+        });
+      });
+
     </script>
 
     <style>
-      #twitter-query li {
-        margin-bottom: 20px;
+      .twitter-list--item + .twitter-list--item {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #ccc;
       }
-      #twitter-query .user img {
-        float: left; 
-        margin: 0 5px 5px 0;
+      .twitter-list--item .user a {
+        overflow: hidden;
       }
-      #twitter-query .user span {
+      .twitter-list--item .user a > span {
         display: block;
       }
-      #twitter-query .tweet {
-        clear: both;
-      }
-      #twitter-query .timePosted {
-        font-style: italic;
-      }
-      #twitter-query .interact {
+      .twitter-list--item .user a > span[data-scribe='element:verified_badge'] {
         display: none;
+      }
+      .twitter-list--item .user a > span:first-child {
+        width: 20px;
+        float: left;
+        margin-right: 8px;
+        margin-top: 4px;
       }
     </style>
   <% end %>
@@ -36,9 +82,11 @@
   
   <% content_for :side do %>
 
-    <div class="spacing">
+    <div class="spacing twitter-list">
       <h3 class="heading-three">Latest Tweets</h3>
-      <div id="twitter-query">searching twitter...</div>
+      <div id="twitter-query" class="twitter-list--items">
+        <em>Searching twitter...</em>
+      </div>
     </div>
 
   <% end %>
