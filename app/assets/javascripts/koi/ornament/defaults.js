@@ -37,6 +37,7 @@ Ornament.features = {}
 Ornament.features.serviceWorker = "serviceWorker" in navigator;
 Ornament.features.geolocation = "geolocation" in navigator;
 Ornament.features.turbolinks = typeof(Turbolinks) !== "undefined" && Turbolinks.supported;
+Ornament.features.jQueryUISupport = true;
 
 // =========================================================================
 // Popup Defaults

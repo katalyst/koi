@@ -180,7 +180,7 @@
       };
 
       // jQuery Components
-      if(Ornament.jQueryUISupport) {
+      if(Ornament.features.jQueryUISupport) {
         // Datepicker
         $("input.datepicker, .datepicker input").not(".datepicker__enabled").each(function(){
           var $datepicker = $(this);
