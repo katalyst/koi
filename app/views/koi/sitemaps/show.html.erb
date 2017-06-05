@@ -16,28 +16,32 @@
   </div>
 <%- end -%>
 
-<%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__mobile" -%>
+<%- if @nav_item.present? -%>
 
-<div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
-  <ol>
-    <%= render '/koi/nav_items/nav_item', nav_item: @nav_item, level: 0 %>
-  </ol>
-</div>
+  <%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__mobile" -%>
 
-<div id="modal-for-nav-item">&nbsp;</div>
-
-<% content_for :side do %>
-
-  <div class="content-spacing">
-
-    <%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__desktop" -%>
-
-    <h2 class="heading-two">Adding a page</h2>
-    
-    <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
-    <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
-    <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
-
+  <div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
+    <ol>
+      <%= render '/koi/nav_items/nav_item', nav_item: @nav_item, level: 0 %>
+    </ol>
   </div>
 
-<% end %>
+  <div id="modal-for-nav-item">&nbsp;</div>
+
+  <% content_for :side do %>
+
+    <div class="content-spacing">
+
+      <%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__desktop" -%>
+
+      <h2 class="heading-two">Adding a page</h2>
+      
+      <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
+      <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
+      <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
+
+    </div>
+
+  <% end %>
+
+<%- end -%>

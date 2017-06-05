@@ -7,10 +7,10 @@ module Koi
       @nav_item = NavItem.find_by_key(slug)
       if !@nav_item.present? 
         if koi_navitem.present?
-          @warning = "Generating new sitemap"
+          flash.now[:notice] = "Generating new sitemap"
           @nav_item = RootNavItem.create!(koi_navitem)
         else
-          @warning = koi_navitem
+          flash.now[:error] = "Unknown Sitemap"
         end
       end
     end
