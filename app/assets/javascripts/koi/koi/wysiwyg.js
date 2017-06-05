@@ -12,6 +12,12 @@
       if (force || !instance) {
         CKEDITOR.replace(textarea);
       }
+      $(document).on("turbolinks:before-cache", function(){
+        var instanceToDestroy = CKEDITOR.instances[textarea.id];
+        if(instanceToDestroy) {
+          instanceToDestroy.destroy(true);
+        }
+      });
     },
 
     bindForParent: function(parent, force){
@@ -126,6 +132,7 @@
   });
 
   $(document).on("ornament:refresh", function(){
+    console.log("refresh wow");
     $(document).trigger("ornament:ck-editor");
   });
 
