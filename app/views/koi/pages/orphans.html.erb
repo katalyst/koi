@@ -1,0 +1,58 @@
+<%- content_for :title, "Orphaned Pages" -%>
+
+<%- partial_with_wrapper do -%>
+  <%- content_for :below_title do -%>
+    <%= render partial: "index_below_title" -%>
+  <%- end -%>
+<%- end -%>
+
+<%= partial_with_wrapper do -%>
+  <div class="listing--above-list">
+    <%= render partial: "index_above_list" -%>
+  </div>
+<%- end -%>
+
+<%- if @pages.blank? -%>
+  <div class="panel panel--padding panel__notice compressed">
+    <p>You have no orphaned pages, yay!</p>
+  </div>
+<%- else -%>
+  <div id="index-fields" class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="table__th__id">Id</th>
+          <th>Page name</th>
+          <th class="table__th__actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- @pages.each do |page| -%>
+          <tr>
+            <td>
+              <%= page.id -%>
+            </td>
+            <td>
+              <%= link_to page.title, edit_page_path(page) -%>
+            </td>
+            <td class="table__td__actions table--actions--container">
+              <%= link_to "Add to sitemap", restore_orphan_page_path(page) -%>
+            </td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+<%- end -%>
+
+<% if @pages.total_pages != 0 %>
+  <div id="index-pagination">
+    <%= render 'index_pagination' %>
+  </div>
+<% end %>
+
+<%= partial_with_wrapper do -%>
+  <div class="listing--below-list">
+    <%= render partial: "index_below_list" -%>
+  </div>
+<%- end -%>

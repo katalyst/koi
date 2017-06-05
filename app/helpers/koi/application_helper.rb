@@ -153,4 +153,12 @@ module Koi::ApplicationHelper
     content_tag(:li, link_to(label, link_path, link_opts), li_opts)
   end
 
+  # Get all Pages that don't have an NavItem 
+  # Used to populate orphan pages list and to show the orphan pages 
+  # link on the sitemap page 
+  def get_orphan_pages
+    page_navids = NavItem.where(navigable_type: "Page").collect { |n| n.navigable_id }
+    Page.where(['id NOT IN (?)', page_navids])
+  end
+
 end
