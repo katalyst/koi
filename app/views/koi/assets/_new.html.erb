@@ -44,7 +44,7 @@
   <script>
     $(document).on("ornament:refresh", function(){
 
-      $("[data-asset-uploader]").each(function(){
+      $("[data-asset-uploader]").not(".file-upload__init").each(function(){
 
         var $this = $(this);
 
@@ -52,9 +52,9 @@
         $this.attr("data-file-types", jsData.acceptedExtensions);
 
         // Initialise uploader
-        $this.not(".file-upload__init").katFileUpload({
+        $this.katFileUpload({
           uploadPath: jsData.createAssetUrl 
-        }).addClass("file-upload__init");
+        });
 
         $this.on("uploader:gallery-item:after-upload", function(event, $uploader, thumbnail, assetId){
           var $successMessage = thumbnail.find("[data-file-gallery-item-success]");
@@ -63,6 +63,8 @@
           $assetActions.append($editLink);
           $successMessage.append($assetActions);
         });
+
+        $this.addClass("file-upload__init");
 
       });
     });
