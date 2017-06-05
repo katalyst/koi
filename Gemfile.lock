@@ -68,6 +68,7 @@ PATH
       sidekiq (~> 5.0.0)
       simple-navigation (~> 4.0.5)
       simple_form
+      turbolinks
       uglifier (~> 3.2.0)
       uuidtools (~> 2.1.5)
 
