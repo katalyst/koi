@@ -5,7 +5,7 @@
 <%- end -%>
 
 <% if is_ajaxable? %>
-  <% content_for :head do %>
+  <% content_for :scripts_bottom do %>
     <%= render "index_ajax" %>
   <% end %>
 <% end %>

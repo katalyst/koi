@@ -59,6 +59,7 @@
 //= require koi/components/form-latlng
 //= require koi/components/form-inline-nested
 //= require koi/components/table
+//= require koi/components/dirty-forms
 //= require koi/components/styleguide
 
 //= require koi/ckeditor
