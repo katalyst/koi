@@ -132,7 +132,6 @@
   });
 
   $(document).on("ornament:refresh", function(){
-    console.log("refresh wow");
     $(document).trigger("ornament:ck-editor");
   });
 

@@ -168,4 +168,9 @@
     $(document).trigger("ornament:lightbox");
   });
 
+  // Close popups when turbolinks triggers
+  $(document).on("page:change", function() {
+    $.magnificPopup.close();
+  });
+
 }(document, window, jQuery));
