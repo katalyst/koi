@@ -1,4 +1,4 @@
-# Koi::KoiAsset::Document.extensions = [:pdf, :doc]
+7# Koi::KoiAsset::Document.extensions = [:pdf, :doc]
 
 Koi::Menu.items = {
   "Modules" => {
@@ -72,6 +72,20 @@ Koi::Settings.skip_on_create = [:news_item]
 
 # Sitemap toggles
 Koi::Sitemap.toggles = true
+
+# Sitemaps 
+Koi::Sitemap.root_items = [
+  { 
+    "title" => "Home", 
+    "url" =>  "/", 
+    "key" =>   "home" 
+  },
+  { 
+    "title" => "My Other Sitemap", 
+    "url" =>  " /other", 
+    "key" =>   "sitemap2" 
+  }
+]
 
 # Caching enabled by default
 Koi::Caching.enabled = true

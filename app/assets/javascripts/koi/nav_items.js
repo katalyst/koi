@@ -405,6 +405,4 @@ $(document).on("ornament:refresh", function(){
     }
 
   }
-
-  Sitemap.init();
 });

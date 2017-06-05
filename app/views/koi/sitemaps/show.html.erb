@@ -2,24 +2,26 @@
   <%= javascript_include_tag "koi/nav_items" %>
   <script>
     $(document).on("ornament:refresh", function(){
+      Ornament.C.Sitemap.storageKeys.closedNodeIds = "koiSitemapClosedNodes_<%= @nav_item.try(:key) -%>";
       Ornament.C.Sitemap.init();
     });
   </script>
 <% end %>
 
-<% content_for :title, "Sitemap" %>
+<% content_for :title, "Sitemap: #{@nav_item.try(:title) || "Unknown"}" %>
 
-<%= render "lock_sitemap", panel_class: "sitemap--lock__mobile" -%>
+<%- if @warning.present? -%>
+  <div class="panel__error panel--padding">
+    <%= @warning -%>
+  </div>
+<%- end -%>
 
-<div class="spacing">
-  <%- RootNavItem.all.each do |nav_item| -%>
-    <h2 class="heading-four"><%= nav_item.title -%></h2>
-    <div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
-      <ol>
-        <%= render 'nav_item', nav_item: nav_item, level: 0 %>
-      </ol>
-    </div>
-  <%- end -%>
+<%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__mobile" -%>
+
+<div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
+  <ol>
+    <%= render '/koi/nav_items/nav_item', nav_item: @nav_item, level: 0 %>
+  </ol>
 </div>
 
 <div id="modal-for-nav-item">&nbsp;</div>
@@ -28,7 +30,7 @@
 
   <div class="content-spacing">
 
-    <%= render "lock_sitemap", panel_class: "sitemap--lock__desktop" -%>
+    <%= render "/koi/nav_items/lock_sitemap", panel_class: "sitemap--lock__desktop" -%>
 
     <h2 class="heading-two">Adding a page</h2>
     

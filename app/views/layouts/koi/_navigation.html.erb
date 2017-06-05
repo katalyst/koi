@@ -1,8 +1,19 @@
 <ul class="non-pane">
   <li><%= link_to "View site", "/" -%></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) -%>
-  <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) -%>
-
+  <%- if Koi::Sitemap.root_items.length > 1 -%>
+    <li>
+      <a href="#">Sitemaps</a>
+      <ul>
+        <%- Koi::Sitemap.root_items.each do |sitemap_item| -%>
+          <%= navigation_helper(sitemap_item["title"], koi_engine.sitemap_path(sitemap_item["key"])) =%>
+        <%- end -%>
+      </ul>
+    </li>
+  <%- else -%>
+    <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) 
+    -%>
+  <%- end -%>
   <%- Koi::Menu.items.each do |menu_name,menu_items| -%>
     <li>
       <a href="#"><%= menu_name -%></a>
