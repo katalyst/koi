@@ -157,8 +157,8 @@ module Koi::ApplicationHelper
   # Used to populate orphan pages list and to show the orphan pages 
   # link on the sitemap page 
   def get_orphan_pages
-    page_navids = NavItem.where(navigable_type: "Page").collect { |n| n.navigable_id }
-    Page.where(['id NOT IN (?)', page_navids])
+    page_navids = NavItem.where(navigable_type: "Page").pluck(:navigable_id)
+    Page.where.not(id: page_navids)
   end
 
 end
