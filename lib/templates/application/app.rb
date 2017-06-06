@@ -93,6 +93,31 @@ application(nil, env: "production") do
   "config.force_ssl = true"
 end
 
+application(nil) do<<-CONFIG
+  #
+  # Uncomment this block if your application required Cross Origin Resource Sharing.
+  # Allows specified resources to be accessed from another domain
+  # You will nee to add the following to the gem file and bundle
+  #   gem 'rack-cors', require: 'rack/cors'
+  # See https://github.com/cyu/rack-cors for more details
+  #
+  # config.middleware.insert_before 0, "Rack::Cors" do
+  #   allow do
+  #     # This should be made more restrictive, as * allows access from all domains
+  #     origins '*'
+  #
+  #     # Change the path to the required access endpoint
+  #     resource '/path/to/endpoint',
+  #       :headers => :any,
+  #       :methods => [:get, :options],
+  #       :credentials => true,
+  #       :max_age => 0
+  #
+  #   end
+  # end
+  CONFIG
+end
+
 # Create Version File
 create_file 'VERSION', <<-END
 1.0.0
