@@ -161,7 +161,32 @@
             </div>
             <div class="card--body">
               <div class="card--body--section">
-                Configuration settings go here.
+                <div class="control-group check_boxes optional super_hero_powers form--enhanced">
+                  <label class="control-label">Size</label>
+                  <div class="controls">
+                    <span class="radio">
+                      <label>
+                        <input class="check_boxes required" id="size_large" type="radio" name="<%= index -%>_size" value="true">
+                        Large
+                      </label>
+                    </span>
+                    <span class="radio">
+                      <label>
+                        <input class="check_boxes required" id="size_medium" type="radio" name="<%= index -%>_size" value="true">
+                        Medium
+                      </label>
+                    </span>
+                    <span class="radio">
+                      <label>
+                        <input class="check_boxes required" id="size_small" type="radio" name="<%= index -%>_size" value="true">
+                        Small
+                      </label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card--body--section">
+                Widget-specific settings
               </div>
             </div>
           </div>
