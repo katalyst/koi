@@ -1,0 +1,118 @@
+$card-padding: $panel-padding;
+
+// =========================================================================
+// Cards
+// =========================================================================
+
+.card {
+  background: $white;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  border: $divider;
+  border-radius: $border-radius; 
+  transition: box-shadow .2s, height .2s;
+
+  &:hover {
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+  }
+}
+
+.card--heading {
+  padding: $xxx-small-unit $card-padding;
+  @include font($bold-font);
+  display: flex;
+  flex-direction: row;
+}
+
+.card--heading--label {
+  flex: 1 1 auto;
+}
+
+.card--heading--icon {
+  flex: 0 0 auto;
+
+  svg {
+    width: 16px;
+    display: block;
+  }
+}
+
+.card--body {
+  border-top: $divider;
+  flex-grow: 1;
+}
+
+.card--body--section {
+  padding: $card-padding;
+
+  big {
+    @include heading-four;
+  }
+}
+
+.card--body--section + .card--body--section {
+  border-top: $divider;
+}
+
+.card--body--section__totals {
+  text-align: center;
+}
+
+.card--body--section__good {
+  background: $success-background;
+  color: $success-color;
+}
+
+.card--body--section__bad {
+  background: $error-background;
+  color: $error-color;
+}
+
+.card--footer {
+  padding: $xxx-small-unit $card-padding;
+  background: $passive-color;
+  font-size: $small-font-size;
+  border-top: $divider;
+}
+
+.card--body--section__loading {
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+  svg path {
+    fill: $primary-color;
+  }
+}
+
+// =========================================================================
+// Flippable Cards
+// =========================================================================
+
+.flipppable_cards {
+  .card {
+    perspective: 1000;
+    -webkit-perspective: 1000;
+  }
+  .card--sides {
+    transform-style: preserve-3d;
+    transition: transform .2s;
+    height: 100%;
+  }
+  .card--front,
+  .card--back {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: $white;
+    backface-visibility: hidden;
+  }
+  .card--back {
+    transform: rotateY(-180deg);
+  }
+  .card__flipped .card--sides {
+    transform: rotateY(180deg);
+  }
+}

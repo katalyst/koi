@@ -178,6 +178,20 @@ Ornament = window.Ornament = {
     return matches.indexOf(whatInput.ask()) > -1;
   },
 
+  findData: function(selector, value, scope){
+    var value = value || false;
+    var selection = "[" + selector;
+    if(value) {
+      selection += "='" + value + "'";
+    }
+    selection += "]";
+    if(scope) {
+      return scope.find(selection);
+    } else {
+      return $(selection);
+    }
+  },
+
   // Create a JS list of icons
   icons: {}
 

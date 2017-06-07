@@ -109,6 +109,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
+  # Reporting APIs
+  s.add_dependency 'google-api-client', '~> 0.11'
+
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'

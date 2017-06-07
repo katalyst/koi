@@ -5,6 +5,7 @@
 //= require jquery_ujs
 //= require koi/picturefill
 //= require koi/store
+//= require koi/lodash
 //= require select2
 //= require cocoon
 //= require koi/velocity
@@ -18,6 +19,8 @@
 //= require koi/jquery.minicolors
 // require koi/flying-focus
 //= require koi/what-input
+//= require koi/chartist
+//= require koi/chartist-tooltips
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts

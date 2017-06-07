@@ -24,6 +24,10 @@
 }
 
 // Columns
+.col-1-1 {
+  @include col-for-row(100%);
+}
+
 .col-1-2 {
   @include col-for-row(50%);
 }
