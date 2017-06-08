@@ -5,8 +5,14 @@
 <%#= render 'reports' %>
 
 <%- 
+
+  # Build up our API configs
+  apis = {}
+  apis[:google_analytics_token] = GoogleAnalytics.get_access_token if defined?(GoogleAnalytics)
+
+  # Build up our widgets
   widgets = [{
-    title: "Weekly page views",
+    title: "Weekly page views (GA)",
     footer: "This is a footer message",
     type: "google_analytics",
     size: "Small",
@@ -39,21 +45,41 @@
     type: "loading",
     size: "Small"
   },{
-    title: "Something else",
+    title: "Monthly Orders",
     type: "chart",
     size: "Medium",
     chart: {
       type: "line",
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
       series: [
         [1, 5, 2, 10, 15],
-        [1, 3, 4, 5, 6]
+        [1, 3, 4, 10, 6]
       ],
+      series_labels: ["Orders", "Returns"], 
+      show_variances: true,
       settings: {
         simple: false
       },
       chart: {
         showArea: true,
+        low: 0
+      }
+    }
+  },{
+    title: "Donate Clicks This Month",
+    type: "chart",
+    size: "Medium",
+    chart: {
+      type: "bar",
+      labels: ['Header', 'Footer', 'Mobile'],
+      series: [
+        [10, 15, 14]
+      ],
+      series_labels: ["Clicks"], 
+      settings: {
+        simple: false
+      },
+      chart: {
         low: 0
       }
     }
@@ -72,6 +98,9 @@
     }
   }]
 -%>
+
+<%= GoogleAnalytics.setup if apis[:google_analytics_token] -%>
+<%# Other API setups here if required %>
 
 <div class="row flipppable_cards">
   <%- widgets.each_with_index do |widget,index| -%>
@@ -179,141 +208,6 @@
     </div>
   <%- end -%>
 </div>
-
-<script>
-
-  $(document).on("ornament:refresh", function(){
-
-    // ===========================
-    // Setup
-    // ===========================
-
-    var Cards = Ornament.Cards = {};
-    Cards.selectors = {
-      card: "data-card",
-      cardFront: "data-card-front",
-      cardBack: "data-card-back",
-      cardFlipper: "data-card-toggle"
-    }
-    Cards.classes = {
-      flipped: "card__flipped"
-    }
-    Cards.settings = {
-      flipTiming: 200
-    }
-
-    // ===========================
-    // Helpers
-    // ===========================
-
-    Cards.isCardFlipped = function($card) {
-      return $card.is("." + Cards.classes.flipped);
-    }
-
-    Cards.getVisibleSide = function($card) {
-      if(Cards.isCardFlipped($card)) {
-        return Ornament.findData(Cards.selectors.cardBack, false, $card);
-      } else {
-        return Ornament.findData(Cards.selectors.cardFront, false, $card);
-      }
-    }
-
-    // ===========================
-    // Behaviours
-    // ===========================
-
-    // Flip a card
-    Cards.flipCard = function($card, side){
-      side = side || false;
-      if(!side) {
-        var flipped = Cards.isCardFlipped($card);
-        side = flipped ? "front" : "back";
-      }
-      if(side && side === "front") {
-        $card.removeClass(Cards.classes.flipped);
-      } else if(side && side === "back") {
-        $card.addClass(Cards.classes.flipped);
-      }
-      setTimeout(_ => {
-         Cards.sizeCard($card);
-      }, Cards.settings.flipTiming);
-      return $card;
-    }
-
-    Cards.safeClone = function($card) {
-      var $clone = $card.clone();
-      $clone.css({
-        "position": "static",
-        "visibility": "hidden"
-      });
-      $clone.find("[name]").each(function(){
-        var $el = $(this);
-        var oldName = $el.attr("name", $el.attr("name") + "__clone");
-      });
-      return $clone;
-    }
-
-    // Resize card to the visible side
-    Cards.sizeCard = function($card) {
-      var $card = $($card);
-      var $visibleSide = Cards.getVisibleSide($card);
-      var $cloneSide = Cards.safeClone($visibleSide);
-      $card.append($cloneSide);
-      var height = $cloneSide.outerHeight();
-      $cloneSide.remove();
-      $card.height(height);
-      return height;
-    }
-
-    Cards.sizeCardForClosest = function($element) {
-      var $card = $element.closest("[" + Ornament.Cards.selectors.card + "]");
-      Cards.sizeCard($card);
-    };
-
-    // ===========================
-    // Events and Binds
-    // ===========================
-
-    Cards.toggleEvent = function(event) {
-      event.preventDefault();
-      var $flipper = $(event.target);
-      var side = $flipper.attr(Cards.selectors.cardFlipper);
-      var $card = $flipper.closest("[" + Cards.selectors.card + "]");
-      Cards.flipCard($card, side);
-      return true;
-    }
-
-    // ===========================
-    // Init Cards
-    // ===========================
-
-    Cards.init = function(){
-      Cards.$cards = Ornament.findData(Cards.selectors.card);
-      Cards.$toggles = Ornament.findData(Cards.selectors.cardFlipper);
-      if(Cards.$cards) {
-        $.each(Cards.$cards, function(){
-          Cards.sizeCard($(this));
-        });
-      }
-      if(Cards.$toggles) {
-        $.each(Cards.$toggles, function() {
-          $(this).off("click", Cards.toggleEvent).on("click", Cards.toggleEvent);
-        });
-      }
-    }
-
-    // Run it all 
-    Cards.init();
-
-    // ===========================
-    // Widget Types
-    // ===========================
-
-    Widgets = Ornament.Widgets = {};
-
-  });
-
-</script>
 
 <style>
   .twitter-list--item + .twitter-list--item {

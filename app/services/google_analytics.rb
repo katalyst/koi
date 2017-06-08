@@ -5,7 +5,7 @@ require 'googleauth'
 include Google::Apis::AnalyticsreportingV4
 include Google::Auth
 
-class Analytics
+class GoogleAnalytics
 
   def self.view_id
     "ga:126984837"
@@ -83,40 +83,6 @@ class Analytics
         .DateRangeSelector-item {
           padding: 10px;
         }
-        /* Loading charts */
-        .chart-loading {
-          background: #eee;
-          text-align: center;
-          border-radius: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 250px;
-        }
-        .chart-loading__error {
-          background: #f3c1c1;
-          color: #F50F0F;
-        }
-        .chart-loading__empty {
-          opacity: 0.6;
-        }
-        .chart-loading-inner {
-          text-align: center;
-          padding: 20px;
-        }
-        /* Report Styling */
-        .report {
-          margin-top: 20px;
-        }
-        .report h2 {
-          margin-bottom: 20px;
-        }
-        .report > div {
-          text-align: center;
-        }
-        .report button {
-          margin-top: 10px;
-        }
       </style>
       <script>
       (function(w,d,s,g,js,fs){
@@ -132,13 +98,14 @@ class Analytics
       <script src="/assets/koi/chart.js"></script>
       <script src="/assets/koi/koi-analytics.js"></script>
       <script>
-        Analytics.access_token = "#{Analytics.get_access_token}";
-        Analytics.view_id = "#{Analytics.view_id}";
-        Analytics.defaultDateRange = {
+        KoiGoogleAnalytics = {}
+        KoiGoogleAnalytics.access_token = "#{GoogleAnalytics.get_access_token}";
+        KoiGoogleAnalytics.view_id = "#{GoogleAnalytics.view_id}";
+        KoiGoogleAnalytics.defaultDateRange = {
           'start-date': '#{(Time.zone.now - 12.weeks).strftime("%Y-%m-%d")}',
           'end-date': 'yesterday'
         };
-        Analytics.charts = [];
+        KoiGoogleAnalytics.charts = [];
       </script>
     ).html_safe
   end

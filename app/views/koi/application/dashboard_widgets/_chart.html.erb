@@ -25,21 +25,47 @@
         ]
       }
       var options = _.merge(defaultOptions, <%= raw data[:chart].to_json -%>);
-      var chart = new Chartist.Line($element[0], {
-        labels: <%= raw data[:labels].to_json -%>,
-        series: <%= raw data[:series].to_json -%>
-      }, options);
+      <%- if data[:type].eql?("bar") -%>
+        var chart = new Chartist.Bar($element[0], {
+          labels: <%= raw data[:labels].to_json -%>,
+          series: <%= raw data[:series].to_json -%>
+        }, options);
+      <%- else -%>
+        var chart = new Chartist.Line($element[0], {
+          labels: <%= raw data[:labels].to_json -%>,
+          series: <%= raw data[:series].to_json -%>
+        }, options);
+      <%- end -%>
       chart.on('created', function(data){
-        Ornament.Cards.sizeCardForClosest($element);
+        Ornament.C.Cards.sizeCardForClosest($element);
       });
     });
   </script>
 </div>
-<div class="card--body--section card--body--section__totals card--body--section__good">
-  <p>
-    <big>5,000</big>
-  </p>
-  <p>
-    Pageviews
-  </p>
-</div>
+<%- if data[:show_variances] && data[:show_variances].eql?(true) -%>
+  <%- data[:series_labels].each_with_index do |series_label,index| -%>
+    <%- 
+      series = data[:series][index]
+      past_value = series[series.length - 2]
+      current_value = series[series.length - 1]
+      variance = current_value - past_value
+      variance_text = variance
+      if variance > 0
+        variance_text = "+#{variance}"
+        variance_class = "card--body--section__good"
+      elsif variance < 0
+        variance_class = "card--body--section__bad"
+      else
+        variance_class = "card--body--section__neutral"
+      end
+    -%>
+    <div class="card--body--section card--body--section__totals <%= variance_class -%>">
+      <p>
+        <big><%= variance_text -%></big>
+      </p>
+      <p>
+        <%= series_label -%>
+      </p>
+    </div>
+  <%- end -%>
+<%- end -%>

@@ -62,6 +62,8 @@
 //= require koi/components/form-inline-nested
 //= require koi/components/table
 //= require koi/components/styleguide
+//= require koi/components/cards
+//= require koi/components/google-analytics
 
 //= require koi/ckeditor
 //= require koi/common
