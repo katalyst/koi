@@ -129,26 +129,29 @@
               <div class="card--heading--label">
                 <%= widget[:title] -%>
               </div>
-              <div class="card--heading--icon">
-                <a href="#" data-card-toggle>
-                  <%= icon("cog_filled") -%>
-                </a>
-              </div>
             </div>
             <div class="card--body">
               <div class="card--body--section">
-                <div class="control-group check_boxes optional super_hero_powers form--enhanced">
-                  <label class="control-label">Size</label>
-                  <div class="controls">
-                    <%- size_options = ["Small", "Medium", "Large"] -%>
-                    <%- size_options.each do |size| -%>
-                      <span class="radio">
-                        <label>
-                          <input class="check_boxes required" id="size_<%= size.downcase -%>" type="radio" name="<%= index -%>_size" value="true" <%= "checked" if size.eql?(widget[:size]) -%>>
-                          <%= size -%>
-                        </label>
-                      </span>
-                    <%- end -%>
+                <div class="inputs">
+                  <div class="control-group check_boxes optional super_hero_powers form--enhanced">
+                    <label class="control-label">Widget Title</label>
+                    <div class="controls">
+                      <input type="text" value="<%= widget[:title] -%>" />
+                    </div>
+                  </div>
+                  <div class="control-group check_boxes optional super_hero_powers form--enhanced">
+                    <label class="control-label">Size</label>
+                    <div class="controls">
+                      <%- size_options = ["Small", "Medium", "Large"] -%>
+                      <%- size_options.each do |size| -%>
+                        <span class="radio">
+                          <label>
+                            <input class="check_boxes required" id="size_<%= size.downcase -%>" type="radio" name="<%= index -%>_size" value="true" <%= "checked" if size.eql?(widget[:size]) -%>>
+                            <%= size -%>
+                          </label>
+                        </span>
+                      <%- end -%>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -159,6 +162,16 @@
                   nil
                 end
               -%>
+              <div class="card--body--section">
+                <div class="button-group">
+                  <div>
+                    <button class="button__success" data-card-toggle>Save</button>
+                  </div>
+                  <div>
+                    <button class="button__cancel" data-card-toggle>Cancel</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
