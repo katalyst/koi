@@ -442,6 +442,8 @@ AIRBRAKE_PROJECT_ID:  ''
 AIRBRAKE_HOST:        'https://errbit.katalyst.com.au:443'
 DEFAULT_TO_ADDRESS:   'admin@katalyst.com.au'
 NO_REPLY_ADDRESS:     'no-reply@katalyst.com.au'
+RECAPTCHA_SITE_KEY:   ''
+RECAPTCHA_SECRET_KEY: ''
 END
 
 create_file 'config/application.yml.example', application_yml

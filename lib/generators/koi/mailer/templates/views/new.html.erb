@@ -16,6 +16,13 @@
     <%- end -%>
     </div>
 
+    <%- unless @skip_recaptcha -%>
+      <%%= recaptcha_tags -%>
+      <%% unless @contact.errors[:base].empty? -%>
+        <p><span class="error-block"><%%= @<%= instance_name %>.errors[:base].first %></span></p>
+      <%% end %>
+    <%- end -%>
+
     <div class="actions">
       <%%= f.button :submit %>
     </div>
