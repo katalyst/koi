@@ -1,0 +1,49 @@
+<%- data = widget[:google_analytics] -%>
+<div class="card--body--section card--body--section__chart">
+  <div class="ct-chart_<%= index -%>"></div>
+  <script>
+    $(document).on("ornament:refresh", function(){
+      var $element = $(".ct-chart_<%= index -%>");
+      var defaultOptions = {
+        fullWidth: true,
+        <%- if data[:settings][:simple].eql?(true) -%>
+          axisX: {
+            offset: 0,
+            showGrid: false,
+            showLabel: false
+          },
+          axisY: {
+            offset: 0,
+            showGrid: false,
+            showLabel: false,
+          },
+        <%- end -%>
+        plugins: [
+          Chartist.plugins.tooltip({
+            appendToBody: true
+          })
+        ]
+      }
+      var options = _.merge(defaultOptions, <%= raw data[:chart].to_json -%>);
+      var chart = new Chartist.Line($element[0], {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        series: [
+          [12, 9, 7, 8, 5],
+          [2, 1, 3.5, 7, 3],
+          [1, 3, 4, 5, 6]
+        ]
+      }, options);
+      chart.on('created', function(data){
+        Ornament.Cards.sizeCardForClosest($element);
+      });
+    });
+  </script>
+</div>
+<div class="card--body--section card--body--section__totals card--body--section__good">
+  <p>
+    <big>5,000</big>
+  </p>
+  <p>
+    Pageviews
+  </p>
+</div>

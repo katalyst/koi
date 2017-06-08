@@ -1,0 +1,48 @@
+<%- data = widget[:twitter] -%>
+
+<div class="card--body--section card--body--section__twitter">
+  <div data-twitter-id="twitter-widget_<%= index -%>"></div>
+  <script>
+    var $twitterContainer = $("[data-twitter-id='twitter-widget_<%= index -%>']");
+
+    var koiTwitterTemplate = function(twitterData){
+      $twitterContainer.html("");
+      $.each(twitterData, function(i, tweet) {
+
+        // Clean up some data
+        var $htmlTweet = $.parseHTML(tweet);
+        var $tweetUser = $htmlTweet[0];
+        var $tweetPost = $htmlTweet[1];
+        var $tweetTimeAgo = $htmlTweet[2];
+
+        $($tweetTimeAgo).addClass("grey small");
+        $($tweetPost).addClass("text-wrap");
+
+        // Build tweet item
+        var $newTweet = $("<div class='twitter-list--item compressed' />");
+        $newTweet.append($tweetUser).append($tweetTimeAgo).append($tweetPost);
+
+        // make links open in new window
+        $newTweet.find("a").attr("target","_blank");
+
+        // Add tweet to page
+        $twitterContainer.append($newTweet);
+      });
+      Ornament.Cards.sizeCardForClosest($twitterContainer);
+    }
+
+    var defaultOptions = {
+      "domId": '',
+      "maxTweets": 4,
+      "enableLinks": true,
+      "showUser": true,
+      "showTime": true,
+      "dateFunction": '',
+      "showRetweet": true,
+      "customCallback": koiTwitterTemplate,
+      "showInteraction": false
+    }
+    var twitterOptions = _.merge(defaultOptions, <%= raw data.to_json -%>);
+    twitterFetcher.fetch(twitterOptions);
+  </script>
+</div>

@@ -5,7 +5,6 @@
 <%#= render 'reports' %>
 
 <%- 
-  allow_analytics = 
   widgets = [{
     title: "Weekly page views",
     footer: "This is a footer message",
@@ -27,36 +26,36 @@
       }
     }
   },{
+    title: "Test alert",
+    type: "message",
+    size: "Small",
+    message: {
+      className: "error",
+      body: "This is a custom alert"
+    }
+  },{
     title: "This will never load",
     footer: "Isn't the wait exciting, though?",
     type: "loading",
     size: "Small"
   },{
     title: "Something else",
-    type: "google_analytics",
-    size: "Small",
-    google_analytics: {
-      type: "KoiLineChart",
-      query: {
-        dimensions: "ga:yearWeek",
-        metrics: "ga:pageviews",
-        sort: "ga:yearWeek"
-      },
+    type: "chart",
+    size: "Medium",
+    chart: {
+      type: "line",
+      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      series: [
+        [1, 5, 2, 10, 15],
+        [1, 3, 4, 5, 6]
+      ],
       settings: {
-        simple: true
+        simple: false
       },
       chart: {
         showArea: true,
         low: 0
       }
-    }
-  },{
-    title: "Test alert",
-    type: "message",
-    size: "Medium",
-    message: {
-      className: "error",
-      body: "This is a custom alert"
     }
   },{
     title: "Twitter Feed",
@@ -100,117 +99,23 @@
               </div>
             </div>
             <div class="card--body">
-              <%- if type.eql?("google_analytics") -%>
-                <%- data = widget[:google_analytics] -%>
-                <div class="card--body--section card--body--section__chart">
-                  <div class="ct-chart_<%= index -%>"></div>
-                  <script>
-                    $(document).on("ornament:refresh", function(){
-                      var $element = $(".ct-chart_<%= index -%>");
-                      var defaultOptions = {
-                        fullWidth: true,
-                        <%- if data[:settings][:simple].eql?(true) -%>
-                          axisX: {
-                            offset: 0,
-                            showGrid: false,
-                            showLabel: false
-                          },
-                          axisY: {
-                            offset: 0,
-                            showGrid: false,
-                            showLabel: false,
-                          },
-                        <%- end -%>
-                        plugins: [
-                          Chartist.plugins.tooltip({
-                            appendToBody: true
-                          })
-                        ]
-                      }
-                      var options = _.merge(defaultOptions, <%= raw data[:chart].to_json -%>);
-                      var chart = new Chartist.Line($element[0], {
-                        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                        series: [
-                          [12, 9, 7, 8, 5],
-                          [2, 1, 3.5, 7, 3],
-                          [1, 3, 4, 5, 6]
-                        ]
-                      }, options);
-                      chart.on('created', function(data){
-                        Ornament.Cards.sizeCardForClosest($element);
-                      });
-                    });
-                  </script>
-                </div>
-                <div class="card--body--section card--body--section__totals card--body--section__good">
-                  <p>
-                    <big>5,000</big>
-                  </p>
-                  <p>
-                    Pageviews
-                  </p>
-                </div>
-              <%- elsif type.eql?("message") -%>
+              <%- if type.eql?("message") -%>
                 <%- data = widget[:message] -%>
                 <div class="card--body--section <%= data[:className] -%>">
                   <%= data[:body] -%>
-                </div>
-              <%- elsif type.eql?("twitter") -%>
-                <%- data = widget[:twitter] -%>
-                <div class="card--body--section card--body--section__twitter">
-                  <div data-twitter-id="twitter-widget_<%= index -%>"></div>
-                  <script>
-                    var $twitterContainer = $("[data-twitter-id='twitter-widget_<%= index -%>']");
-
-                    var koiTwitterTemplate = function(twitterData){
-                      $twitterContainer.html("");
-                      $.each(twitterData, function(i, tweet) {
-
-                        // Clean up some data
-                        var $htmlTweet = $.parseHTML(tweet);
-                        var $tweetUser = $htmlTweet[0];
-                        var $tweetPost = $htmlTweet[1];
-                        var $tweetTimeAgo = $htmlTweet[2];
-
-                        $($tweetTimeAgo).addClass("grey small");
-                        $($tweetPost).addClass("text-wrap");
-
-                        // Build tweet item
-                        var $newTweet = $("<div class='twitter-list--item compressed' />");
-                        $newTweet.append($tweetUser).append($tweetTimeAgo).append($tweetPost);
-
-                        // make links open in new window
-                        $newTweet.find("a").attr("target","_blank");
-
-                        // Add tweet to page
-                        $twitterContainer.append($newTweet);
-                      });
-                      Ornament.Cards.sizeCardForClosest($twitterContainer);
-                    }
-
-                    var defaultOptions = {
-                      "domId": '',
-                      "maxTweets": 4,
-                      "enableLinks": true,
-                      "showUser": true,
-                      "showTime": true,
-                      "dateFunction": '',
-                      "showRetweet": true,
-                      "customCallback": koiTwitterTemplate,
-                      "showInteraction": false
-                    }
-                    var twitterOptions = _.merge(defaultOptions, <%= raw data.to_json -%>);
-                    twitterFetcher.fetch(twitterOptions);
-                  </script>
                 </div>
               <%- elsif type.eql?("loading") -%>
                 <div class="card--body--section card--body--section__loading">
                   <%= icon("spinner") -%>
                 </div>
               <%- else -%>
-                <div class="card--body--section card--body--section__unknown">
-                  Unknown widget type
-                </div>
+                <%= 
+                  begin 
+                    render("/koi/application/dashboard_widgets/#{type}", widget: widget, index: index) 
+                  rescue ActionView::MissingTemplate
+                    render("/koi/application/dashboard_widgets/unknown_widget_type")
+                  end
+                -%>
               <%- end -%>
             </div>
             <%- if widget[:footer] -%>
@@ -235,30 +140,25 @@
                 <div class="control-group check_boxes optional super_hero_powers form--enhanced">
                   <label class="control-label">Size</label>
                   <div class="controls">
-                    <span class="radio">
-                      <label>
-                        <input class="check_boxes required" id="size_large" type="radio" name="<%= index -%>_size" value="true">
-                        Large
-                      </label>
-                    </span>
-                    <span class="radio">
-                      <label>
-                        <input class="check_boxes required" id="size_medium" type="radio" name="<%= index -%>_size"x value="true">
-                        Medium
-                      </label>
-                    </span>
-                    <span class="radio">
-                      <label>
-                        <input class="check_boxes required" id="size_small" type="radio" name="<%= index -%>_size"x value="true">
-                        Small
-                      </label>
-                    </span>
+                    <%- size_options = ["Small", "Medium", "Large"] -%>
+                    <%- size_options.each do |size| -%>
+                      <span class="radio">
+                        <label>
+                          <input class="check_boxes required" id="size_<%= size.downcase -%>" type="radio" name="<%= index -%>_size" value="true" <%= "checked" if size.eql?(widget[:size]) -%>>
+                          <%= size -%>
+                        </label>
+                      </span>
+                    <%- end -%>
                   </div>
                 </div>
               </div>
-              <div class="card--body--section">
-                Widget-specific settings
-              </div>
+              <%= 
+                begin 
+                  render("/koi/application/dashboard_widgets/#{type}_options", widget: widget, index: index) 
+                rescue ActionView::MissingTemplate
+                  nil
+                end
+              -%>
             </div>
           </div>
         </div>
@@ -327,14 +227,24 @@
       return $card;
     }
 
+    Cards.safeClone = function($card) {
+      var $clone = $card.clone();
+      $clone.css({
+        "position": "static",
+        "visibility": "hidden"
+      });
+      $clone.find("[name]").each(function(){
+        var $el = $(this);
+        var oldName = $el.attr("name", $el.attr("name") + "__clone");
+      });
+      return $clone;
+    }
+
     // Resize card to the visible side
     Cards.sizeCard = function($card) {
       var $card = $($card);
       var $visibleSide = Cards.getVisibleSide($card);
-      var $cloneSide = $visibleSide.clone().css({
-        "position": "static",
-        "visibility": "hidden"
-      });
+      var $cloneSide = Cards.safeClone($visibleSide);
       $card.append($cloneSide);
       var height = $cloneSide.outerHeight();
       $cloneSide.remove();
