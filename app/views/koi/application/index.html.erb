@@ -1,15 +1,6 @@
 <% content_for :title, 'Dashboard' %>
 
-<%#= render 'google_analytics' rescue nil %>
-<%#= render 'twitter_feed' %>
-<%#= render 'reports' %>
-
 <%- 
-
-  # Build up our API configs
-  apis = {}
-  apis[:google_analytics_token] = GoogleAnalytics.get_access_token if defined?(GoogleAnalytics)
-
   widgets = [{
     title: "Weekly pageviews",
     type: "chart",
@@ -67,35 +58,6 @@
   }]
 -%>
 
-<%= GoogleAnalytics.setup if apis[:google_analytics_token] -%>
-<%# Other API setups here if required %>
-
-<%- if false -%>
-  <%- content_for :above_layout do -%>
-    <div class="panel panel__passive" style="padding-top: 20px; padding-bottom: 20px; margin-top: -32px; margin-bottom: 32px;">
-      <div class="layout--container">
-        <div class="dashboard--dates">
-          <div class="dashboard--dates--field control-group">
-            <label class="control-label">Start date:</label>
-            <div class="controls">
-              <input type="date" name="start_date" />
-            </div>
-          </div>
-          <div class="dashboard--dates--field control-group">
-            <label class="control-label">End date:</label>
-            <div class="controls">
-              <input type="date" name="end_date" />
-            </div>
-          </div>
-          <div class="dashboard--dates--submit">
-            <button class="button button__large">Submit</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <%- end -%>
-<%- end -%>
-
 <div class="row flipppable-cards">
   <%- widgets.each_with_index do |widget,index| -%>
     <%- 
@@ -122,24 +84,13 @@
               </div>
             </div>
             <div class="card--body">
-              <%- if type.eql?("message") -%>
-                <%- data = widget[:message] -%>
-                <div class="card--body--section <%= data[:className] -%>">
-                  <%= data[:body] -%>
-                </div>
-              <%- elsif type.eql?("loading") -%>
-                <div class="card--body--section card--body--section__loading">
-                  <%= icon("spinner") -%>
-                </div>
-              <%- else -%>
-                <%= 
-                  begin 
-                    render("/koi/application/dashboard_widgets/#{type}", widget: widget, index: index) 
-                  rescue ActionView::MissingTemplate
-                    render("/koi/application/dashboard_widgets/unknown_widget_type")
-                  end
-                -%>
-              <%- end -%>
+              <%= 
+                begin 
+                  render("/koi/application/dashboard_widgets/#{type}", widget: widget, index: index) 
+                rescue ActionView::MissingTemplate
+                  render("/koi/application/dashboard_widgets/unknown_widget_type")
+                end
+              -%>
             </div>
             <%- if widget[:footer] -%>
               <div class="card--footer">
