@@ -58,6 +58,19 @@
       className: "error",
       body: "This is a custom alert"
     }
+  },{
+    title: "Twitter Feed",
+    type: "twitter",
+    size: "Medium",
+    twitter: {
+      id: "389900838295965696",
+      maxTweets: 4,
+      enableLinks: true,
+      showUser: true,
+      showTime: true,
+      dateFunction: '',
+      showRetweet: true
+    }
   }]
 -%>
 
@@ -73,7 +86,7 @@
       end
     -%>
     <div class="<%= className -%>">
-      <div class="card" data-card>
+      <div class="card card__widget-<%= type.parameterize -%>" data-card>
         <div class="card--sides">
           <div class="card--front" data-card-front>
             <div class="card--heading">
@@ -124,8 +137,7 @@
                         ]
                       }, options);
                       chart.on('created', function(data){
-                        var $card = $element.closest("[" + Ornament.Cards.selectors.card + "]");
-                        Ornament.Cards.sizeCard($card);
+                        Ornament.Cards.sizeCardForClosest($element);
                       });
                     });
                   </script>
@@ -143,9 +155,61 @@
                 <div class="card--body--section <%= data[:className] -%>">
                   <%= data[:body] -%>
                 </div>
+              <%- elsif type.eql?("twitter") -%>
+                <%- data = widget[:twitter] -%>
+                <div class="card--body--section card--body--section__twitter">
+                  <div data-twitter-id="twitter-widget_<%= index -%>"></div>
+                  <script>
+                    var $twitterContainer = $("[data-twitter-id='twitter-widget_<%= index -%>']");
+
+                    var koiTwitterTemplate = function(twitterData){
+                      $twitterContainer.html("");
+                      $.each(twitterData, function(i, tweet) {
+
+                        // Clean up some data
+                        var $htmlTweet = $.parseHTML(tweet);
+                        var $tweetUser = $htmlTweet[0];
+                        var $tweetPost = $htmlTweet[1];
+                        var $tweetTimeAgo = $htmlTweet[2];
+
+                        $($tweetTimeAgo).addClass("grey small");
+                        $($tweetPost).addClass("text-wrap");
+
+                        // Build tweet item
+                        var $newTweet = $("<div class='twitter-list--item compressed' />");
+                        $newTweet.append($tweetUser).append($tweetTimeAgo).append($tweetPost);
+
+                        // make links open in new window
+                        $newTweet.find("a").attr("target","_blank");
+
+                        // Add tweet to page
+                        $twitterContainer.append($newTweet);
+                      });
+                      Ornament.Cards.sizeCardForClosest($twitterContainer);
+                    }
+
+                    var defaultOptions = {
+                      "domId": '',
+                      "maxTweets": 4,
+                      "enableLinks": true,
+                      "showUser": true,
+                      "showTime": true,
+                      "dateFunction": '',
+                      "showRetweet": true,
+                      "customCallback": koiTwitterTemplate,
+                      "showInteraction": false
+                    }
+                    var twitterOptions = _.merge(defaultOptions, <%= raw data.to_json -%>);
+                    twitterFetcher.fetch(twitterOptions);
+                  </script>
+                </div>
               <%- elsif type.eql?("loading") -%>
                 <div class="card--body--section card--body--section__loading">
                   <%= icon("spinner") -%>
+                </div>
+              <%- else -%>
+                <div class="card--body--section card--body--section__unknown">
+                  Unknown widget type
                 </div>
               <%- end -%>
             </div>
@@ -278,6 +342,11 @@
       return height;
     }
 
+    Cards.sizeCardForClosest = function($element) {
+      var $card = $element.closest("[" + Ornament.Cards.selectors.card + "]");
+      Cards.sizeCard($card);
+    };
+
     // ===========================
     // Events and Binds
     // ===========================
@@ -313,6 +382,35 @@
     // Run it all 
     Cards.init();
 
+    // ===========================
+    // Widget Types
+    // ===========================
+
+    Widgets = Ornament.Widgets = {};
+
   });
 
 </script>
+
+<style>
+  .twitter-list--item + .twitter-list--item {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #ccc;
+  }
+  .twitter-list--item .user a {
+    overflow: hidden;
+  }
+  .twitter-list--item .user a > span {
+    display: block;
+  }
+  .twitter-list--item .user a > span[data-scribe='element:verified_badge'] {
+    display: none;
+  }
+  .twitter-list--item .user a > span:first-child {
+    width: 20px;
+    float: left;
+    margin-right: 8px;
+    margin-top: 4px;
+  }
+</style>
