@@ -96,13 +96,42 @@
       dateFunction: '',
       showRetweet: true
     }
+  },{
+    title: "This has failed",
+    type: "errored",
+    size: "Small",
+    error_message: "This is a sample error message"
   }]
 -%>
 
 <%= GoogleAnalytics.setup if apis[:google_analytics_token] -%>
 <%# Other API setups here if required %>
 
-<div class="row flipppable_cards">
+<%- content_for :above_layout do -%>
+  <div class="panel panel__passive" style="padding-top: 20px; padding-bottom: 20px; margin-top: -32px; margin-bottom: 32px;">
+    <div class="layout--container">
+      <div class="dashboard--dates">
+        <div class="dashboard--dates--field control-group">
+          <label class="control-label">Start date:</label>
+          <div class="controls">
+            <input type="date" name="start_date" />
+          </div>
+        </div>
+        <div class="dashboard--dates--field control-group">
+          <label class="control-label">End date:</label>
+          <div class="controls">
+            <input type="date" name="end_date" />
+          </div>
+        </div>
+        <div class="dashboard--dates--submit">
+          <button class="button button__large">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<%- end -%>
+
+<div class="row flipppable-cards">
   <%- widgets.each_with_index do |widget,index| -%>
     <%- 
       type = widget[:type]
@@ -210,6 +239,23 @@
 </div>
 
 <style>
+  .dashboard--dates--container {
+    margin-bottom: 20px;
+  }
+  .dashboard--dates {
+    display: flex;
+    margin: -10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .dashboard--dates--submit {
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .dashboard--dates--field {
+    padding: 10px;
+  }
   .twitter-list--item + .twitter-list--item {
     margin-top: 16px;
     padding-top: 16px;

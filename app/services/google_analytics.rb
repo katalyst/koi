@@ -75,14 +75,6 @@ class GoogleAnalytics
           display: inline-block;
           margin-bottom: 5px;
         }
-        .DateRangeSelector {
-          display: flex;
-          margin: -10px;
-          flex-direction: row;
-        }
-        .DateRangeSelector-item {
-          padding: 10px;
-        }
       </style>
       <script>
       (function(w,d,s,g,js,fs){

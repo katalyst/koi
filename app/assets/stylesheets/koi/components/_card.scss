@@ -88,7 +88,7 @@ $card-padding: $panel-padding;
 // Flippable Cards
 // =========================================================================
 
-.flipppable_cards {
+.flipppable-cards {
   .card {
     perspective: 1000;
     -webkit-perspective: 1000;
@@ -114,5 +114,20 @@ $card-padding: $panel-padding;
   }
   .card__flipped .card--sides {
     transform: rotateY(180deg);
+  }
+}
+
+.flippable-cards__full {
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+  .card {
+    flex-grow: 1;
+  }
+  .card--front,
+  .card--back {
+    display: flex;
+    flex-direction: column;
   }
 }
