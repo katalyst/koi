@@ -1,0 +1,18 @@
+<%- data = widget[:list] -%>
+
+<div class="card--body--section__list">
+  <ul class="card--list">
+    <%- data.each do |datum| -%>
+      <li>
+        <div class="card--list--label">
+          <%= datum[:label] -%>
+        </div>
+        <div class="card--list--actions">
+          <%- datum[:actions].each do |action| -%>
+            <%= link_to action[0], action[1] -%>
+          <%- end -%>
+        </div>
+      </li>
+    <%- end -%>
+  </ul>
+</div>

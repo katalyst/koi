@@ -1,4 +1,5 @@
 $card-padding: $panel-padding;
+$card-padding-small: $xxx-small-unit;
 
 // =========================================================================
 // Cards
@@ -17,7 +18,7 @@ $card-padding: $panel-padding;
 }
 
 .card--heading {
-  padding: $xxx-small-unit $card-padding;
+  padding: $card-padding-small $card-padding;
   @include font($bold-font);
   display: flex;
   flex-direction: row;
@@ -68,7 +69,7 @@ $card-padding: $panel-padding;
 }
 
 .card--footer {
-  padding: $xxx-small-unit $card-padding;
+  padding: $card-padding-small $card-padding;
   background: $passive-color;
   font-size: $small-font-size;
   border-top: $divider;
@@ -82,6 +83,33 @@ $card-padding: $panel-padding;
   svg path {
     fill: $primary-color;
   }
+}
+
+// =========================================================================
+// List cards
+// =========================================================================
+
+.card--list {
+  li + li {
+    border-top: $divider;
+  }
+  li {
+    padding: $card-padding-small $card-padding;
+    display: flex;
+  }
+}
+
+.card--list--label {
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding-right: $card-padding;
+  @include text-wrap;
+}
+
+.card--list--actions {
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: right;
 }
 
 // =========================================================================
