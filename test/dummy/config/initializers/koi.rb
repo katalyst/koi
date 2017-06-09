@@ -76,5 +76,23 @@ Koi::Sitemap.toggles = true
 # Caching enabled by default
 Koi::Caching.enabled = true
 
+# NAV ITEM GOD TAB
+#
+# Enable the 'god' tab when editing / creating nav items
+# This allows highlights_on/if/unless logic to be put in these fields.
+# e.g. if you want a nav item to show up only if a user is logged in and is rich,
+# you could put something like this in the "if" field:
+#
+#   user_signed_in? && current_user.is_rich?
+#
+# Or if you want a nav item to be highlighted when on a specific page, in the "highlights on"
+# field you could put:
+#
+#   request.path =~ /contact-form/
+#
+# Caveat: this enables a different, less robust form of caching, and should be avoided
+# on extremely traffic heavy sites.
+Koi::Caching.god_nav_tab_enabled = true
+
 # Expiry in 60.minutes by default
 Koi::Caching.expires_in = 5.minutes
