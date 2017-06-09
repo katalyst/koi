@@ -354,6 +354,14 @@ $(document).on("ornament:refresh", function(){
       }
     },
 
+    // After the sitemap updates, rebind the new nodes
+    afterUpdate: function(){
+      Sitemap.setSitemapDragStateDisabled();
+      Sitemap.setSitemapDragStateEnabled();
+      Sitemap._bindToggleButtons();
+      Sitemap._bindToggleAllButtons();
+    },
+
     // =========================================================================
     // Initialisation
     // =========================================================================
