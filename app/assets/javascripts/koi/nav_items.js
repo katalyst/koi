@@ -60,6 +60,7 @@ $(document).on("ornament:refresh", function(){
         helper: 'clone',
         items: '.sortable',
         opacity: .6,
+        distance: 8,
         placeholder: 'placeholder',
         revert: 250,
         tabSize: 32,
@@ -67,7 +68,20 @@ $(document).on("ornament:refresh", function(){
         toleranceElement: '> div',
         maxLevels: 0,
         isTree: true,
-        startCollapsed: false
+        startCollapsed: false,
+        start: function(event, ui) {
+          keyboardJS.bind("esc", Sitemap.cancelDrag);
+        },
+        stop: function(event, ui) {
+          keyboardJS.unbind("esc", Sitemap.cancelDrag);
+          if(Sitemap.$rootList.hasClass("cancelling")) {
+            // Cancel drag and drop if asked to cancel 
+            Sitemap.$rootList
+              .sortable("cancel")
+              .removeClass("cancelling")
+              .sortable("option", "revert", 250)
+          }
+        }
       })
       .addClass("enabled draggable")
       .on ("sortupdate", Sitemap._saveSort);
@@ -361,6 +375,10 @@ $(document).on("ornament:refresh", function(){
     reBindSortable: function(){
       Sitemap.destroy();
       Sitemap._bindSortableTree();
+    },
+
+    cancelDrag: function() {
+      Sitemap.$rootList.addClass("cancelling").sortable("option", "revert", 0).trigger("mouseup");
     },
 
     // After the sitemap updates, rebind the new nodes
