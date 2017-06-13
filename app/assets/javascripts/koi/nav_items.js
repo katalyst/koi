@@ -69,7 +69,7 @@ $(document).on("ornament:refresh", function(){
         isTree: true,
         startCollapsed: false
       })
-      .addClass("enabled")
+      .addClass("enabled draggable")
       .on ("sortupdate", Sitemap._saveSort);
     },
 
@@ -168,18 +168,16 @@ $(document).on("ornament:refresh", function(){
 
     // Disable dragging of sitemap
     setSitemapDragStateDisabled: function(){
-      store.set(Sitemap.storageKeys.dragDisabledKey, "true");
       Sitemap.$lockButton.addClass(Sitemap.disabledButtonClass);
       Sitemap.$lockButton.text(Sitemap.lang.disabledButton);
-      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
+      Sitemap.$rootList.removeClass("draggable").nestedSortable("disable");
     },
 
     // Enable dragging of sitemep
     setSitemapDragStateEnabled: function() {
-      store.remove(Sitemap.storageKeys.dragDisabledKey);
       Sitemap.$lockButton.removeClass(Sitemap.disabledButtonClass);
       Sitemap.$lockButton.text(Sitemap.lang.enabledButton);
-      Sitemap._bindSortableTree();
+      Sitemap.$rootList.addClass("draggable").nestedSortable("enable");
       Sitemap.closeNodesInLocalStorage();
     },
 
@@ -250,8 +248,10 @@ $(document).on("ornament:refresh", function(){
     // Toggle the sitemap state
     toggleSitemapDragState: function(){
       if(Sitemap.getLockedStateFromLocalStorage()) {
+        store.remove(Sitemap.storageKeys.dragDisabledKey);
         Sitemap.setSitemapDragStateEnabled();
       } else {
+        store.set(Sitemap.storageKeys.dragDisabledKey, "true");
         Sitemap.setSitemapDragStateDisabled();
       }
     },
@@ -354,12 +354,24 @@ $(document).on("ornament:refresh", function(){
       }
     },
 
+    destroy: function(){
+      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
+    },
+
+    reBindSortable: function(){
+      Sitemap.destroy();
+      Sitemap._bindSortableTree();
+    },
+
     // After the sitemap updates, rebind the new nodes
     afterUpdate: function(){
-      Sitemap.setSitemapDragStateDisabled();
-      Sitemap.setSitemapDragStateEnabled();
       Sitemap._bindToggleButtons();
       Sitemap._bindToggleAllButtons();
+      Sitemap.reBindSortable();
+      Sitemap.setSitemapDragStateEnabled();
+      if(Sitemap.getLockedStateFromLocalStorage()) {
+        Sitemap.setSitemapDragStateDisabled();
+      }
     },
 
     // =========================================================================
@@ -392,7 +404,7 @@ $(document).on("ornament:refresh", function(){
         Sitemap.savePath = path;
 
         // Bind sortable on list
-        // Sitemap._bindSortableTree();
+        Sitemap._bindSortableTree();
         Sitemap._bindToggleButtons();
         Sitemap._bindToggleAllButtons();
 
