@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'responders', '~> 2.4.0'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 4.0.5'
+  s.add_dependency 'simple-navigation', '~> 3.14'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on', '~> 4.0.0'

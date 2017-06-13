@@ -12,6 +12,9 @@ module Koi::NavigationHelper
     request_path = request.path.parameterize if request.path
     cache_key = "#{request_path}_#{cache_key}"
 
+    # don't cache at this level if nav highlghts/if/unless etc is enabled
+    return get_render_navigation(nav_items_fetch_key, options) if Koi::Caching.god_nav_tab_enabled
+    # otherwise, cache the html output
     Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
       get_render_navigation(nav_items_fetch_key, options)
     end
@@ -24,6 +27,8 @@ module Koi::NavigationHelper
 
   def get_nav_items(key)
     if Koi::Caching.enabled
+      # don't cache at this level if nav highlghts/if/unless etc is enabled
+      return NavItem.navigation(key, binding()) if Koi::Caching.god_nav_tab_enabled
       Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
         NavItem.navigation(key, binding())
       end

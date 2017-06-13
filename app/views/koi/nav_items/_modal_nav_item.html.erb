@@ -23,9 +23,9 @@
           </li>
           <% if current_admin.god? %>
             <li><a href="#tab_advanced" class="tabs--link" data-tab="tab_advanced">Advanced</a></li>
-            <!--
+            <% if Koi::Caching.god_nav_tab_enabled %>
               <li><a href="#tab_god" class="tabs--link" data-tab="tab_god">God</a></li>
-            -->
+            <% end %>
           <% end %>
         </ul>
       </div>
@@ -41,9 +41,11 @@
         <div class="tabs--pane" id="tab_advanced" data-tab-for="tab_advanced">
           <%= render "advanced_form_fields", { f: f } %>
         </div>
-        <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
-          <%= render "god_form_fields", { f: f } %>
-        </div>
+        <% if Koi::Caching.god_nav_tab_enabled %>
+          <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
+            <%= render "god_form_fields", { f: f } %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 
