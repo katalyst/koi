@@ -80,11 +80,12 @@ $(document).on("ornament:refresh", function(){
               .sortable("cancel")
               .removeClass("cancelling")
               .sortable("option", "revert", 250)
+          } else {
+            Sitemap._saveSort();
           }
         }
       })
-      .addClass("enabled draggable")
-      .on ("sortupdate", Sitemap._saveSort);
+      .addClass("enabled draggable");
     },
 
     _saveSort: function(cb){
