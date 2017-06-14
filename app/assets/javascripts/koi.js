@@ -19,6 +19,9 @@
 // require koi/flying-focus
 //= require koi/what-input
 
+//= require koi/dirty-forms
+//= require koi/dirty-forms-ckeditor 
+
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
 //= require koi/jquery/twitter-fetcher
@@ -59,6 +62,7 @@
 //= require koi/components/form-inline-nested
 //= require koi/components/table
 //= require koi/components/styleguide
+//= require koi/components/dirty-forms
 
 //= require koi/ckeditor
 //= require koi/common
