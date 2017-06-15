@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711032313) do
+ActiveRecord::Schema.define(version: 20170331054027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,43 +105,13 @@ ActiveRecord::Schema.define(version: 20160711032313) do
 
   add_index "news_items", ["slug"], name: "index_news_items_on_slug", unique: true, using: :btree
 
-  create_table "page_contents", force: :cascade do |t|
-    t.string   "content_type"
-    t.string   "string"
-    t.text     "text"
-    t.string   "file_uid"
-    t.string   "file_name"
-    t.integer  "file_id"
-    t.string   "file_ids"
-    t.integer  "module_limit"
-    t.string   "module_ordered_by"
-    t.boolean  "module_paginated"
-    t.string   "module_category"
-    t.boolean  "active"
-    t.integer  "ordinal"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "page_contents", ["slug"], name: "index_page_contents_on_slug", unique: true, using: :btree
-
-  create_table "page_page_contents", force: :cascade do |t|
-    t.integer  "page_id"
-    t.integer  "page_content_id"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "page_page_contents", ["slug"], name: "index_page_page_contents_on_slug", unique: true, using: :btree
-
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb    "composable_data"
     t.index ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
   end
 

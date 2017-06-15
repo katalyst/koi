@@ -1,0 +1,13 @@
+<%- data.each do |section| -%>
+  <div class="section__<%= section[:section_type] -%>">
+    <%- section[:section_data].each do |datum| -%>
+      <%= 
+        begin
+          render "shared/composable_fields/#{datum["type"]}", data: datum 
+        rescue ActionView::MissingTemplate
+          "Unknown field type: #{datum["type"]}"
+        end
+      -%>
+    <%- end -%>
+  </div>
+<%- end -%>

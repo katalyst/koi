@@ -1,0 +1,135 @@
+.composable {
+  margin-top: $default-unit;
+}
+
+// =========================================================================
+// Field containers
+// =========================================================================
+
+.composable--fields__empty {
+  background: $passive-color;
+  padding: $panel-padding;
+  border: $divider;
+  text-align: center;
+}
+
+.composable--fields--debug {
+  margin-top: $xxx-small-unit;
+}
+
+.composable--fields--debug pre {
+  border: $divider;
+  padding: $panel-padding;
+  background: #fefefe;
+  // max-height: 250px;
+  overflow: auto;
+  @include box-shadow(inset 2px 2px 5px rgba(0,0,0,0.2));
+}
+
+// =========================================================================
+// Fields
+// =========================================================================
+
+.composable--field {
+  border: $divider;
+}
+
+.composable--field-heading {
+  background: $passive-color;
+  border-bottom: $divider;
+  @include display-flex;
+}
+
+.composable--field-heading--type {
+  padding: 8px $panel-padding;
+}
+
+.composable--field-heading--remove {
+  padding-left: $xxx-small-unit;
+  padding-right: $xxx-small-unit;
+}
+
+.composable--field-heading--up,
+.composable--field-heading--down {
+  width: 44px;
+  text-align: center;
+  border-left: $divider;
+  position: relative;
+  text-indent: -9999px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -3px;
+    margin-left: -6px;
+    border: 6px solid transparent;
+  }
+}
+
+.composable--field-heading--up:before {
+  border-top-width: 0;
+  border-bottom-color: $primary-color;
+}
+
+.composable--field-heading--down:before {
+  border-bottom-width: 0;
+  border-top-color: $primary-color;
+}
+
+.composable--field-heading .drag-handler {
+  display: none;
+  width: 44px;
+  text-indent: -9999px;
+  outline: none;
+  background: url("/assets/koi/lib/jquery/ui-sortable-handle.png") center no-repeat;
+  cursor: pointer;
+  border-left: $divider;
+}
+
+.composable--field + .composable--field {
+  margin-top: $xxx-small-unit;
+}
+
+.composable--field-heading--type {
+  @include flex-grow(1);
+  margin-right: auto;
+}
+
+.composable--field-template {
+  padding: $panel-padding;
+}
+
+.composable--field--unsupported {
+  padding: $panel-padding;
+  background: $error-background;
+}
+
+// =========================================================================
+// Add new toolbar
+// =========================================================================
+
+.composable--add {
+  margin-top: $xxx-small-unit;
+  border: $divider;
+}
+
+.composable--add--wrapper {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap;
+
+  > div {
+    border-right: $divider;
+  }
+}
+
+.composable--add--label {
+  background: $passive-color;
+}
+
+.composable--add--label,
+.composable--add--wrapper button {
+  padding: 8px $xxx-small-unit;
+}
