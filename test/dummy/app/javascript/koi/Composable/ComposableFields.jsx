@@ -48,7 +48,7 @@ export default class ComposableFields extends React.Component {
     } else {
       return(
         <div className="composable--fields__empty">
-          <p>There are no fields</p>
+          <p>Add your first composable component</p>
         </div>
       );
     }
