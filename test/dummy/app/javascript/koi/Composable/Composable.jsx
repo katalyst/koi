@@ -1,4 +1,10 @@
-class Composable extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import ComposableAdd from './ComposableAdd';
+import ComposableFields from './ComposableFields';
+
+export default class Composable extends React.Component {
   
   constructor(props) {
     super(props),

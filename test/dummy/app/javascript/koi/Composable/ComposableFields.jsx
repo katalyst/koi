@@ -1,4 +1,9 @@
-class ComposableFields extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import ComposableField from "./ComposableField";
+
+export default class ComposableFields extends React.Component {
   render() {
     var component = this;
     var data = this.props.data;

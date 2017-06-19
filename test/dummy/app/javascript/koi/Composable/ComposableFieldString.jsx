@@ -1,4 +1,8 @@
-class ComposableFieldString extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+export default class ComposableFieldString extends React.Component {
   render() {
     var options = this.props.fieldSettings.data || [];
     var className = this.props.fieldSettings.className || "form--medium";
@@ -28,9 +32,9 @@ class ComposableFieldString extends React.Component {
   }
 }
 
-ComposableField.propTypes = {
+ComposableFieldString.propTypes = {
   fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.string,
+  fieldSettings: React.PropTypes.object,
   inputType: React.PropTypes.string,
   value: React.PropTypes.string,
   onChange: React.PropTypes.func

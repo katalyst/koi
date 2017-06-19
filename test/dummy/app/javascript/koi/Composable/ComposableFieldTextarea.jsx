@@ -1,4 +1,8 @@
-class ComposableFieldTextarea extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+export default class ComposableFieldTextarea extends React.Component {
 
   constructor(props) {
     super(props),
@@ -32,10 +36,10 @@ class ComposableFieldTextarea extends React.Component {
   }
 }
 
-ComposableField.propTypes = {
+ComposableFieldTextarea.propTypes = {
   id: React.PropTypes.string,
   fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.string,
+  fieldSettings: React.PropTypes.object,
   value: React.PropTypes.string,
   onChange: React.PropTypes.func,
   afterMount: React.PropTypes.func,

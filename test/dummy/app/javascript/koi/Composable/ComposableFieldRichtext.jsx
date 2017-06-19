@@ -1,4 +1,9 @@
-class ComposableFieldRichtext extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import ComposableFieldTextarea from "./ComposableFieldTextarea";
+
+export default class ComposableFieldRichtext extends React.Component {
 
   constructor(props) {
     super(props),
@@ -15,7 +20,7 @@ class ComposableFieldRichtext extends React.Component {
     var component = this;
     var $editor = $("#" + this.props.id)[0];
     Ornament.CKEditor.bindForTextarea($editor);
-    instance = CKEDITOR.instances[this.props.id];
+    var instance = CKEDITOR.instances[this.props.id];
     if(instance) {
       instance.on("change", event => {
         var value = event.editor.getData();
@@ -56,9 +61,9 @@ class ComposableFieldRichtext extends React.Component {
   }
 }
 
-ComposableField.propTypes = {
+ComposableFieldRichtext.propTypes = {
   fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.string,
+  fieldSettings: React.PropTypes.object,
   value: React.PropTypes.string,
   onChange: React.PropTypes.func
 };

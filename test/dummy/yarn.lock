@@ -4637,6 +4637,10 @@ webpack@^2.6.1:
     webpack-sources "^0.2.3"
     yargs "^6.0.0"
 
+webpacker-react@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/webpacker-react/-/webpacker-react-0.3.0.tgz#176d4537d997772f66641d565b796f33dfbb0272"
+
 websocket-driver@>=0.5.1:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/websocket-driver/-/websocket-driver-0.6.5.tgz#5cb2556ceb85f4373c6d8238aa691c8454e13a36"

@@ -1,4 +1,8 @@
-class ComposableAdd extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+export default class ComposableAdd extends React.Component {
   render() {
     var component = this;
     return(

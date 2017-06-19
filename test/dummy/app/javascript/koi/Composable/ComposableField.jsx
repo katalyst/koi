@@ -1,4 +1,9 @@
-class ComposableField extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import * as ComposableTypes from './ComposableFieldTypes';
+
+export default class ComposableField extends React.Component {
 
   constructor(props) {
     super(props),
@@ -27,7 +32,7 @@ class ComposableField extends React.Component {
           var key = this.props.parentKey + "__" + field.name;
           var fieldType = field.type.replace(/_/g, "");
           var capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
-          var FieldTypeComponent = window["ComposableField" + capitalisedFirstType] || false;
+          var FieldTypeComponent = ComposableTypes["ComposableField" + capitalisedFirstType];
           var wrapperClass = field.wrapperClass || "";
           if(field.data && field.data.length) {
             field.data = this.standardiseData(field.data);
@@ -52,7 +57,7 @@ class ComposableField extends React.Component {
                                       id={this.props.parentKey + "__" + field.name} 
                                       onChange={this.props.onChange} 
                   />
-                </div>
+                </div>  
               </div>
             );
           } else {
@@ -76,5 +81,7 @@ class ComposableField extends React.Component {
 ComposableField.propTypes = {
   data: React.PropTypes.object,
   template: React.PropTypes.array,
-  parentKey: React.PropTypes.string
+  parentKey: React.PropTypes.string,
+  fieldIndex: React.PropTypes.number,
+  onChange: React.PropTypes.func
 };

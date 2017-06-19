@@ -1,4 +1,8 @@
-class ComposableFieldRadiobuttons extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+export default class ComposableFieldRadiobuttons extends React.Component {
 
   render() {
     var options = this.props.fieldSettings.data || [];
@@ -27,9 +31,9 @@ class ComposableFieldRadiobuttons extends React.Component {
   }
 }
 
-ComposableField.propTypes = {
+ComposableFieldRadiobuttons.propTypes = {
   fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.string,
+  fieldSettings: React.PropTypes.object,
   value: React.PropTypes.string,
   onChange: React.PropTypes.func
 };

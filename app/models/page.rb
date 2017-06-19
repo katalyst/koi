@@ -58,7 +58,7 @@ class Page < ApplicationRecord
         label: "Size",
         name: "heading_size",
         type: "select",
-        data: ["1", "2", "3", "4", "5", "6"],
+        data: ["2", "3", "4", "5", "6"],
         className: "form--auto"
       }]
     },{

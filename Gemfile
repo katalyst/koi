@@ -16,7 +16,8 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 gem 'ornament', github: 'katalyst/ornament', branch: 'master'
 
 gem 'sass-rails', '~> 5.0.0'
-gem 'react-rails', '~> 1.10.0'
+gem 'react-rails', '~> 2.2.0'
+gem 'webpacker-react', '~> 0.3.1'
 
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
@@ -24,4 +25,4 @@ gem 'better_errors'
 gem 'devise', github: 'plataformatec/devise', branch: 'master'
 gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
 gem 'webpacker' 
-gem 'foreman'
+gem 'foreman' 
