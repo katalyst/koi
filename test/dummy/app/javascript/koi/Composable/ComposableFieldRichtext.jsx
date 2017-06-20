@@ -9,14 +9,10 @@ export default class ComposableFieldRichtext extends React.Component {
     super(props),
     this.afterMount = this.afterMount.bind(this);
     this.afterUnmount = this.afterUnmount.bind(this);
+    this.triggerBindings = this.triggerBindings.bind(this);
   }
 
-  /*
-    After mounting this textarea, bind the CKEditor functions
-    and start watching for changes to push back up to 
-    the main composable component
-  */
-  afterMount() {
+  triggerBindings() {
     var component = this;
     var $editor = $("#" + this.props.id)[0];
     Ornament.CKEditor.bindForTextarea($editor);
@@ -29,6 +25,18 @@ export default class ComposableFieldRichtext extends React.Component {
     } else {
       console.warn("Unable to bind CKEditor on change event, possibly too quick?");
     }
+  }
+
+  /*
+    After mounting this textarea, bind the CKEditor functions
+    and start watching for changes to push back up to 
+    the main composable component
+  */
+  afterMount() {
+    this.triggerBindings();
+    $(document).on("ornament:composable:re-attach-ckeditors", () => {
+      this.triggerBindings();
+    });
   }
 
   /*

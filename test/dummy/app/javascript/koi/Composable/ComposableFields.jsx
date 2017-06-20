@@ -31,7 +31,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
               template={template.fields} 
               data={datum} 
               parentKey={parentKey} 
-              fieldIndex={index} 
+              fieldIndex={fieldIndex} 
               onChange={component.props.onFieldChange} 
             />
           : <div className="composable--field--unsupported">
@@ -43,7 +43,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
   );
 });
 
-const SortableList = SortableContainer(({data, onSortEnd, component}) => {
+const SortableList = SortableContainer(({data, onSortStart, onSortEnd, component}) => {
   return(
     <div className="composabe--fields">
       {data.map((datum, index) => {
@@ -64,10 +64,19 @@ export default class ComposableFields extends React.Component {
 
   constructor(props) {
     super(props),
+    this.onSortStart = this.onSortStart.bind(this);
     this.onSortEnd = this.onSortEnd.bind(this);
   }
 
+  onSortStart({node, index, collection}, event) {
+    var $node = $(ReactDOM.findDOMNode(this));
+    Ornament.CKEditor.destroyForParent($node);
+  }
+
   onSortEnd({oldIndex, newIndex, collection}, event) {
+    var $node = $(ReactDOM.findDOMNode(this));
+    Ornament.CKEditor.bindForParent($node);
+    $(document).trigger("ornament:composable:re-attach-ckeditors");
     this.props.dragMove(oldIndex, newIndex, $(this.listElement.node).closest(".composable--fields"));
   }
 
@@ -77,6 +86,7 @@ export default class ComposableFields extends React.Component {
     if(data.length) {
       return(
         <SortableList data={data} 
+                      onSortStart={this.onSortStart} 
                       onSortEnd={this.onSortEnd} 
                       component={component} 
                       useDragHandle={true} 
