@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import {arrayMove} from 'react-sortable-hoc';
 
 import ComposableAdd from './ComposableAdd';
 import ComposableFields from './ComposableFields';
@@ -10,7 +11,9 @@ export default class Composable extends React.Component {
   constructor(props) {
     super(props),
     this.state = {
-      data: this.props.data || []
+      data: this.props.data || {
+        data: []
+      }
     };
     this.getTemplateForField = this.getTemplateForField.bind(this);
     this.addField = this.addField.bind(this);
@@ -20,6 +23,8 @@ export default class Composable extends React.Component {
     this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
     this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
     this.moveFieldBy = this.moveFieldBy.bind(this);
+    this.dragMove = this.dragMove.bind(this);
+    this.collapseToggleField = this.collapseToggleField.bind(this);
   }
 
   /* 
@@ -62,7 +67,7 @@ export default class Composable extends React.Component {
   */
   addField(event, dataType) {
     // get current data
-    var data = this.state.data;
+    var data = this.state.data.data;
     // create a new datum
     // createdAt is a cheap way to make keys when 
     // index is unreliable (these are orderable)
@@ -82,7 +87,9 @@ export default class Composable extends React.Component {
     // push datum in to data and then set state
     data.push(datum);
     this.setState({
-      data: data
+      data: {
+        data: data
+      }
     }, () => {
       Ornament.C.FormHelpers.init();
     });
@@ -95,11 +102,13 @@ export default class Composable extends React.Component {
   removeField(fieldIndex) {
     if(confirm("Are you sure?")) {
       // get current data
-      var data = this.state.data;
+      var data = this.state.data.data;
       // remove this index from data and set state
       data.splice(fieldIndex, 1);
       this.setState({
-        data: data
+        data: {
+          data: data
+        }
       });
     }
     return false;
@@ -109,10 +118,39 @@ export default class Composable extends React.Component {
     Moving a field by an offset value
   */
   moveFieldBy(field, offset) {
-    var data = this.state.data;
+    var data = this.state.data.data;
     var newPositions = this.moveArrayElement(data, field, offset);
     this.setState({
-      data: newPositions
+      data: {
+        data: newPositions
+      }
+    });
+  }
+
+  /*
+    Reordering the data set by dragging 
+  */
+  dragMove(oldIndex, newIndex, $listElement) {
+    var newData = arrayMove(this.state.data.data, oldIndex, newIndex);
+    // Destroy CKEditors
+    // Ornament.CKEditor.sizeContainerAndDestroy($listElement);
+    this.setState({
+      data: {
+        data: newData
+      }
+    }, () => {
+      // Refresh CKEditors 
+      // Ornament.CKEditor.bindAndReleaseSizing($listElement);
+    });
+  }
+
+  collapseToggleField(fieldIndex) {
+    var newData = this.state.data.data;
+    newData[fieldIndex].collapsed = !newData[fieldIndex].collapsed;
+    this.setState({
+      data: {
+        data: newData
+      }
     });
   }
 
@@ -132,27 +170,33 @@ export default class Composable extends React.Component {
 
   onFieldChangeDefault(event, fieldIndex, template) {
     var value = event.target.value;
-    var data = this.state.data;
+    var data = this.state.data.data;
     data[fieldIndex][template.name] = value;
     this.setState({
-      data: data
+      data: {
+        data: data
+      }
     });
   }
 
   onFieldChangeBoolean(event, fieldIndex, template) {
     var value = event.target.checked;
-    var data = this.state.data;
+    var data = this.state.data.data;
     data[fieldIndex][template.name] = value;
     this.setState({
-      data: data
+      data: {
+        data: data
+      }
     });
   }
 
   onFieldChangeValue(newData, fieldIndex, template) {
-    var data = this.state.data;
+    var data = this.state.data.data;
     data[fieldIndex][template.name] = newData;
     this.setState({
-      data: data
+      data: {
+        data: data
+      }
     });
   }
 
@@ -162,20 +206,22 @@ export default class Composable extends React.Component {
       <div className="composable form--enhanced">
         <ComposableFields 
           dataTypes={component.props.dataTypes} 
-          data={component.state.data} 
+          data={component.state.data.data} 
           removeField={component.removeField} 
           moveFieldBy={component.moveFieldBy} 
+          dragMove={component.dragMove} 
           onFieldChange={component.onFieldChange} 
           getTemplateForField={component.getTemplateForField} 
+          collapseToggleField={component.collapseToggleField} 
         />
         <ComposableAdd 
           dataTypes={component.props.dataTypes} 
           addField={component.addField} 
         />
         <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.data)} readOnly />
-        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
+        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "block"}}>
           <p><strong>Debug:</strong></p>
-          <pre>data: {JSON.stringify(this.state.data, null, 2)}</pre>
+          <pre>data: {JSON.stringify(this.state.data.data, null, 2)}</pre>
         </div>
       </div>
     );
@@ -224,13 +270,15 @@ var defaultDataTypes = [{
 }];
 
 Composable.propTypes = {
-  data: React.PropTypes.array,
+  data: React.PropTypes.object,
   dataTypes: React.PropTypes.array 
 };
 
 /* Passing default field types in as default props */
 Composable.defaultProps = {
-  data: [],
+  data: {
+    data: []
+  },
   dataTypes: defaultDataTypes
 };
 7

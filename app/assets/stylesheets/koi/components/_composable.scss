@@ -29,9 +29,23 @@
 // =========================================================================
 // Fields
 // =========================================================================
+$composable-field-gutters: $xxx-small-unit;
+
+.composable--fields {
+  margin-top: $composable-field-gutters * -1;
+}
+
+.composable--field--wrapper {
+  padding-top: $composable-field-gutters;
+}
 
 .composable--field {
   border: $divider;
+  background: $white;
+
+  body > .composable--field--wrapper & {
+    @include box-shadow(2px 2px 6px rgba(0,0,0,0.1));
+  }
 }
 
 .composable--field-heading {
@@ -50,7 +64,8 @@
 }
 
 .composable--field-heading--up,
-.composable--field-heading--down {
+.composable--field-heading--down,
+.composable--field-heading--collapse {
   width: 44px;
   text-align: center;
   border-left: $divider;
@@ -68,28 +83,26 @@
   }
 }
 
+.composable--field-heading--collapse:before,
 .composable--field-heading--up:before {
   border-top-width: 0;
   border-bottom-color: $primary-color;
 }
 
+.composable--field__collapsed .composable--field-heading--collapse:before,
 .composable--field-heading--down:before {
   border-bottom-width: 0;
+  border-top-width: 6px;
   border-top-color: $primary-color;
 }
 
 .composable--field-heading .drag-handler {
-  display: none;
   width: 44px;
   text-indent: -9999px;
   outline: none;
   background: url("/assets/koi/lib/jquery/ui-sortable-handle.png") center no-repeat;
   cursor: pointer;
   border-left: $divider;
-}
-
-.composable--field + .composable--field {
-  margin-top: $xxx-small-unit;
 }
 
 .composable--field-heading--type {
@@ -99,6 +112,10 @@
 
 .composable--field-template {
   padding: $panel-padding;
+
+  .composable--field__collapsed & {
+    display: none;
+  }
 }
 
 .composable--field--unsupported {
@@ -112,7 +129,6 @@
 
 .composable--add {
   margin-top: $xxx-small-unit;
-  border: $divider;
 }
 
 .composable--add--wrapper {

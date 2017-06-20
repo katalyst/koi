@@ -15,7 +15,7 @@ module.exports = merge(sharedConfig, {
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
-      sourceMap: true,
+      sourceMap: false,
 
       compress: {
         warnings: false

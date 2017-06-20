@@ -1,1 +1,9 @@
-<%= react_component("Composable", data: f.object.send(attr), attr: "#{f.object_name}[#{attr}]", dataTypes: resource_class.field_types) -%>
+<%- 
+  value = f.object.send(attr)
+  # fix for data not saving in JSON format 
+  if value.is_a?(String) 
+    value = JSON.parse(value)
+  end
+-%>
+
+<%= react_component("Composable", data: value, attr: "#{f.object_name}[#{attr}]", dataTypes: resource_class.field_types) -%>
