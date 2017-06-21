@@ -74,8 +74,27 @@ class Page < ApplicationRecord
       fields: [{
         name: "hero_id",
         type: "select",
+        label: "Superhero",
         className: "form--auto",
         data: SuperHero.all.map { |hero| { name: hero.name, value: hero.id } }
+      },{
+        name: "image_size",
+        type: "select",
+        label: "Image size",
+        defaultValue: "120x120#",
+        data: [{
+          name: "None",
+          value: "none"
+        },{
+          name: "Small",
+          value: "80x80#"
+        },{
+          name: "Medium",
+          value: "120x120#"
+        },{
+          name: "Large",
+          value: "250x250#"
+        }]
       },{
         name: "show_link",
         type: "boolean",

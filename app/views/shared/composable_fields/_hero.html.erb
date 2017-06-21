@@ -1,7 +1,16 @@
 <%- hero = SuperHero.find(data["hero_id"]) -%>
 <%- if hero -%>
+  <%- 
+    hero_image = hero.cropped_image_upload
+    hero_image_size = data["image_size"]
+  -%>
   <div class="content-spacing">
     <h2 class="heading-four"><%= hero.name -%></h2>
+    <%- unless hero_image_size.eql?("none") -%>
+      <%- if hero_image.present? -%>
+        <%= image_tag hero_image.thumb(hero_image_size).url -%>
+      <%- end -%>
+    <%- end -%>
     <p>Published: <%= hero.published_at -%></p>
     <p>Gender: <%= hero.gender -%></p>
     <%- if data["show_link"].eql?(true) -%>

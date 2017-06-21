@@ -30,7 +30,9 @@ module Composable
     end
 
     def composable_json
-      JSON.parse(composable_data)
+      if composable_data.present?
+        JSON.parse(composable_data)
+      end
     end
 
     def composable_sections
