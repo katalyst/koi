@@ -1,12 +1,15 @@
 <%- content_for :title, @page.title -%>
 
+<h2 class="heading-two">Composable JSON</h2>
 <pre>
-<%= JSON.pretty_generate @page.composable_data -%>
+<%= JSON.pretty_generate @page.composable_json -%>
 </pre>
 
+<h2 class="heading-two">Structured composable data</h2>
 <pre>
 <%= JSON.pretty_generate @page.composable_sections -%>
 </pre>
 
+<h2 class="heading-two">Composable partials</h2>
 <%= render "/shared/composables", data: @page.composable_sections if @page.is_composable? -%>
 

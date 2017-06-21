@@ -29,6 +29,10 @@ module Composable
       composable_data.present?
     end
 
+    def composable_json
+      JSON.parse(composable_data)
+    end
+
     def composable_sections
       Composable.format_composable_data(composable_data) if is_composable?
     end
@@ -94,34 +98,39 @@ module Composable
     # Group page sections as nested data
     current_composable_section = false
     composable_sections = []
-    data.each_with_index do |datum,index|
-      # create new section if there is no current section and this
-      # isn't a new section
-      if !current_composable_section && !datum["type"].eql?("section")
-        current_composable_section = {
-          section_type: field_type_section_fallbacks[datum[:type]] || "body",
-          section_data: []
-        }
-      end
-      # create a new section if this is a new section
-      if datum["type"].eql?("section")
-        # push current page section to page sections if there's one available
-        composable_sections << current_composable_section if current_composable_section
-        # create a new section from this datum
-        current_composable_section = {
-          section_type: datum["section_type"] || "body",
-          section_data: []
-        }
-      # push datum to current page section
-      else
-        current_composable_section[:section_data] << datum
-      end
+    if data.is_a?(String) 
+      data = JSON.parse(data)
     end
-    # push last section to composable_sections
-    if current_composable_section && !composable_sections.include?(current_composable_section)
-      composable_sections << current_composable_section
+    if data["data"].present?
+      data["data"].each_with_index do |datum,index|
+        # create new section if there is no current section and this
+        # isn't a new section
+        if !current_composable_section && !datum["type"].eql?("section")
+          current_composable_section = {
+            section_type: field_type_section_fallbacks[datum[:type]] || "body",
+            section_data: []
+          }
+        end
+        # create a new section if this is a new section
+        if datum["type"].eql?("section")
+          # push current page section to page sections if there's one available
+          composable_sections << current_composable_section if current_composable_section
+          # create a new section from this datum
+          current_composable_section = {
+            section_type: datum["section_type"] || "body",
+            section_data: []
+          }
+        # push datum to current page section
+        else
+          current_composable_section[:section_data] << datum
+        end
+      end
+      # push last section to composable_sections
+      if current_composable_section && !composable_sections.include?(current_composable_section)
+        composable_sections << current_composable_section
+      end
+      composable_sections
     end
-    composable_sections
   end
 
 end

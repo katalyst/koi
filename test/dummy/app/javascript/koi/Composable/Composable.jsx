@@ -219,7 +219,7 @@ export default class Composable extends React.Component {
           addField={component.addField} 
         />
         <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.data)} readOnly />
-        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "block"}}>
+        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
           <p><strong>Debug:</strong></p>
           <pre>data: {JSON.stringify(this.state.data.data, null, 2)}</pre>
         </div>
