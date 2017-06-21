@@ -302,11 +302,11 @@ $radio-offset: 24px;
   position: relative;
   @include pie-clearfix;
 
-  .composable & > .control-label {
+  .composable--field & > .control-label {
     display: none;
   }
 
-  .composable & > .controls {
+  .composable--field & > .controls {
     margin-top: 0;
   }
 

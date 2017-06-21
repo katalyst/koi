@@ -203,7 +203,7 @@ export default class Composable extends React.Component {
   render() {
     var component = this;
     return(      
-      <div className="composable form--enhanced">
+      <div className="composable">
         <ComposableFields 
           dataTypes={component.props.dataTypes} 
           data={component.state.data.data} 

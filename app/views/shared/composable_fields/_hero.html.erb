@@ -1,0 +1,13 @@
+<%- hero = SuperHero.find(data["hero_id"]) -%>
+<%- if hero -%>
+  <div class="content-spacing">
+    <h2 class="heading-four"><%= hero.name -%></h2>
+    <p>Published: <%= hero.published_at -%></p>
+    <p>Gender: <%= hero.gender -%></p>
+    <%- if data["show_link"].eql?(true) -%>
+      <p><%= link_to "View hero", hero -%>
+    <%- end -%>
+  </div>
+<%- else -%>
+  <p>No hero found for id: <%= data.hero_id -%></p>
+<%- end -%>

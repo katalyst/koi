@@ -18,7 +18,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
     ariaExpanded = "false";
   }
   return(
-    <div className="composable--field--wrapper">
+    <div className="composable--field--wrapper form--enhanced">
       <div className={className}>
         <div className="composable--field-heading">
           <span className="composable--field-heading--type">{template ? template.name : `Unsupported field type (${datum.type})` }</span>

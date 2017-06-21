@@ -69,6 +69,20 @@ class Page < ApplicationRecord
         type: "textarea"
       }]
     },{
+      name: "Hero",
+      slug: "hero",
+      fields: [{
+        name: "hero_id",
+        type: "select",
+        className: "form--auto",
+        data: SuperHero.all.map { |hero| { name: hero.name, value: hero.id } }
+      },{
+        name: "show_link",
+        type: "boolean",
+        label: "Show link to hero page",
+        defaultValue: true
+      }]
+    },{
       name: "Kitchen Sink",
       slug: "kitchen_sink",
       fields: [{
