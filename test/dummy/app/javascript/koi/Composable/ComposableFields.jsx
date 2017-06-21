@@ -22,7 +22,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
       <div className={className}>
         <div className="composable--field-heading">
           <span className="composable--field-heading--type">{template ? template.name : `Unsupported field type (${datum.type})` }</span>
-          <button className="composable--field-heading--remove" type="button" onClick={() => this.props.removeField(index)}>Remove</button>
+          <button className="composable--field-heading--remove" type="button" onClick={() => component.props.removeField(fieldIndex)}>Remove</button>
           <button className="composable--field-heading--collapse" type="button" aria-expanded={ariaExpanded} title={collapseText} onClick={() => component.props.collapseToggleField(fieldIndex)}>{collapseText}</button>
           <DragHandle />
         </div>

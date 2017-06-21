@@ -13,6 +13,14 @@ $hint-color:          $grey;
   @include border-bottom-left-radius(0);
 }
 
+.input__flat-left {
+  @include input__flat-left;
+}
+
+.input__flat-right {
+  @include input__flat-right;
+}
+
 // FORMS NORMALISATION
 fieldset {
   @include inline-block;
@@ -121,23 +129,12 @@ textarea,
   margin: 0;
   @include transition(border-color .2s);
   @include border-radius($input-border-radius);
-
-  .layout--main & {
-    border: $input-border;
-    @include box-shadow($input-shadow);
-  }
+  @include box-shadow($input-shadow);
 
   .layout--main .error &,
   .layout--main .fieldWithErrors & {
     border-color: $error-color;
     @include box-shadow(inset 2px 2px 2px 0px rgba($error-color,0.20));
-  }
-
-  &.input__flat-right {
-    @include input__flat-right;
-  }
-  &.input__flat-left {
-    @include input__flat-left;
   }
 
   &:focus {
