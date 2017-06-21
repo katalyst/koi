@@ -1,0 +1,15 @@
+<%-
+  size = data["heading_size"].to_sym
+  classes = {
+    "2": "heading-two",
+    "3": "heading-three",
+    "4": "heading-four",
+    "5": "heading-five",
+    "6": "heading-six"
+  }
+  className = classes[size] ? classes[size] : ""
+-%>
+
+<h<%= size -%> class="<%= className -%>">
+  <%= data["text"] -%>
+</h<%= size -%>>

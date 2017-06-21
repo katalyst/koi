@@ -5,7 +5,7 @@
     hero_image_size = data["image_size"]
   -%>
   <div class="content-spacing">
-    <h2 class="heading-four"><%= hero.name -%></h2>
+    <p><strong><%= hero.name -%></strong></p>
     <%- unless hero_image_size.eql?("none") -%>
       <%- if hero_image.present? -%>
         <%= image_tag hero_image.thumb(hero_image_size).url -%>

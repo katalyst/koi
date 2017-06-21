@@ -1,13 +1,27 @@
 <%- data.each do |section| -%>
-  <div class="section__<%= section[:section_type] -%>">
+
+  <%- # Build mark up for the data inside this section for use later -%>
+  <%- section_contents = capture do -%>
     <%- section[:section_data].each do |datum| -%>
+      <%- datum_type = datum["type"] -%>
       <%= 
         begin
-          render "shared/composable_fields/#{datum["type"]}", data: datum 
+          render "shared/composable_components/#{datum_type}", data: datum 
         rescue ActionView::MissingTemplate
-          "Unknown field type: #{datum["type"]}"
+          "Unknown component type: #{datum_type}"
         end
       -%>
     <%- end -%>
-  </div>
+  <%- end -%>
+
+  <%- # Build markup for our section and insert our data -%>
+  <%- section_type = section[:section_type] -%>
+  <%= 
+    begin
+      render "shared/composable_sections/#{section_type}", section: section, section_contents: section_contents 
+    rescue ActionView::MissingTemplate
+      render "shared/composable_sections/default", section: section, section_contents: section_contents 
+    end
+  -%>
+
 <%- end -%>
