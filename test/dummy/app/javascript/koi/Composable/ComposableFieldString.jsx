@@ -8,6 +8,7 @@ export default class ComposableFieldString extends React.Component {
     var className = this.props.fieldSettings.className || "form--medium";
     var props = {
       type: this.props.inputType || "text",
+      id: this.props.id,
       className: className,
       value: this.props.value || "",
       onChange: (event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)

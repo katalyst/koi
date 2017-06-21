@@ -34,6 +34,7 @@ export default class ComposableField extends React.Component {
           var capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
           var FieldTypeComponent = ComposableTypes["ComposableField" + capitalisedFirstType];
           var wrapperClass = field.wrapperClass || "";
+          var fieldId = this.props.parentKey + "__" + field.name;
           if(field.data && field.data.length) {
             field.data = this.standardiseData(field.data);
           }
@@ -41,7 +42,7 @@ export default class ComposableField extends React.Component {
             return(
               <div className={"control-group " + wrapperClass + " " + field.type} key={key}>
                 {field.label
-                  ? <label className="control-label">{field.label}</label>
+                  ? <label className="control-label" htmlFor={fieldId}>{field.label}</label>
                   : false
                 }
                 {field.hint 
@@ -54,7 +55,7 @@ export default class ComposableField extends React.Component {
                   <FieldTypeComponent fieldSettings={field} 
                                       value={this.props.data[field.name]} 
                                       fieldIndex={this.props.fieldIndex} 
-                                      id={this.props.parentKey + "__" + field.name} 
+                                      id={fieldId} 
                                       onChange={this.props.onChange} 
                   />
                 </div>  
