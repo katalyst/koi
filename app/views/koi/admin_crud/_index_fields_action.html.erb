@@ -13,7 +13,7 @@
 
   <%= partial_with_wrapper do -%>
     <div class="listing--custom-actions">
-      <%= render partial: "index_fields_custom_actions", object: object -%>
+      <%= render partial: "index_fields_custom_actions", locals: { object: object } -%>
     </div>
   <%- end -%>
 </div>
