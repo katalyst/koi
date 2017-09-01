@@ -16,7 +16,8 @@ class Translation < ActiveRecord::Base
 
   before_validation :set_default_values
 
-  scope :non_prefixed, -> { where("prefix IS NULL OR prefix = ''") }
+  scope :site_settings, -> { where("prefix IS NULL OR prefix = '' OR prefix = 'site'") }
+  scope :by_created, -> { order('created_at ASC') }
 
   FieldTypes = {
                  "String"    => "string",

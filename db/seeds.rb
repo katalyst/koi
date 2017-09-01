@@ -34,8 +34,8 @@ AliasNavItem.create!({ title: "Contact Us", alias_id: contact_us_page.id, parent
 Page.create!({ title: "Privacy Policy" }).to_navigator!(parent_id: footer.id)
 
 # Settings
-Translation.create!({ label: "Site Title", key: "site.title", value: "", field_type: "string", role: "Admin" })
-Translation.create!({ label: "Site Meta Description", key: "site.meta_description", value: "", field_type: "text", role: "Admin" })
-Translation.create!({ label: "Site Meta Keywords", key: "site.meta_keywords", value: "", field_type: "text", role: "Admin" })
-Translation.create!({ label: "Google Analytics Profile ID", key: "site.google_analytics.profile_id", value: "", field_type: "string", role: "Admin" })
-Translation.create!({ label: "Twitter Search Query", key: "site.twitter.widget_id", value: "", field_type: "string", role: "Admin" })
+Translation.create!({ prefix: "site", label: "Site Title", key: "site.title", value: "", field_type: "string", role: "Admin" })
+Translation.create!({ prefix: "site", label: "Site Meta Description", key: "site.meta_description", value: "", field_type: "text", role: "Admin" })
+Translation.create!({ prefix: "site", label: "Site Meta Keywords", key: "site.meta_keywords", value: "", field_type: "text", role: "Admin" })
+Translation.create!({ prefix: "site", label: "Google Analytics Profile ID", key: "site.google_analytics.profile_id", value: "", field_type: "string", role: "Admin" })
+Translation.create!({ prefix: "site", label: "Twitter Search Query", key: "site.twitter.widget_id", value: "", field_type: "string", role: "Admin" })
