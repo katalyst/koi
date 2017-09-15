@@ -58,6 +58,12 @@
               </div>
             <%- end -%>
 
+            <%- if nav_item.read_attribute(:link_to_first_child) -%>
+              <div class="nav-item--links-to-child" title="This navitem will link to it's first child">
+                <%= icon("links_to_child") -%>
+              </div>
+            <%- end -%>
+
           <%- end -%>
         </div>
 
