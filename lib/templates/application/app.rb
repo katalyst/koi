@@ -468,11 +468,11 @@ if mock_smtp_indicator.exist?
   }
 elsif Rails.env.production?
   ActionMailer::Base.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
-    port: '587',
+    address: Figaro.env.smtp_address,
+    port: Figaro.env.smtp_port,
     authentication: :plain,
-    user_name: Figaro.env.mandrill_username,
-    password: Figaro.env.mandrill_password
+    user_name: Figaro.env.smtp_username,
+    password: Figaro.env.smtp_password
   }
 else
   ActionMailer::Base.smtp_settings = {
