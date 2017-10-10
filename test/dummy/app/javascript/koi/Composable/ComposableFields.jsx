@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ComposableField from "./ComposableField";
+import ComposableHeader from './ComposableHeader';
 import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
 
 const DragHandle = SortableHandle(() => <span className="drag-handler">Drag to Reorder</span>);
@@ -85,17 +86,23 @@ export default class ComposableFields extends React.Component {
     var data = this.props.data;
     if(data.length) {
       return(
-        <SortableList data={data} 
-                      onSortStart={this.onSortStart} 
-                      onSortEnd={this.onSortEnd} 
-                      component={component} 
-                      useDragHandle={true} 
-                      lockAxis="y" 
-                      lockToContainerEdges={true} 
-                      hideSortableGhost={true} 
-                      useWindowAsScrollContainer={true} 
-                      ref={(element) => { this.listElement = element; }}
-        />
+        <div>
+          <ComposableHeader 
+            collapseAll={component.props.collapseAll} 
+            showAll={component.props.showAll} 
+          />
+          <SortableList data={data} 
+            onSortStart={this.onSortStart} 
+            onSortEnd={this.onSortEnd} 
+            component={component} 
+            useDragHandle={true} 
+            lockAxis="y" 
+            lockToContainerEdges={true} 
+            hideSortableGhost={true} 
+            useWindowAsScrollContainer={true} 
+            ref={(element) => { this.listElement = element; }}
+          />
+        </div>
       );
     } else {
       return(

@@ -2,6 +2,15 @@
   margin-top: $default-unit;
 }
 
+.composable--header {
+  text-align: right;
+  font-size: $small-font-size;
+
+  button + button {
+    margin-left: $xxxxx-small-unit;
+  }
+}
+
 // =========================================================================
 // Field containers
 // =========================================================================

@@ -25,6 +25,9 @@ export default class Composable extends React.Component {
     this.moveFieldBy = this.moveFieldBy.bind(this);
     this.dragMove = this.dragMove.bind(this);
     this.collapseToggleField = this.collapseToggleField.bind(this);
+    this.collapseAll = this.collapseAll.bind(this);
+    this.showAll = this.showAll.bind(this);
+    this.toggleCollapsedAll = this.toggleCollapsedAll.bind(this);
   }
 
   /* 
@@ -154,6 +157,27 @@ export default class Composable extends React.Component {
     });
   }
 
+  collapseAll() {
+    this.toggleCollapsedAll(true);
+  }
+
+  showAll() {
+    this.toggleCollapsedAll(false);
+  }
+
+  toggleCollapsedAll(collapsed) {
+    var newData = this.state.data.data;
+    newData.map(datum => {
+      datum.collapsed = collapsed;
+    })
+    this.setState({
+      data: {
+        data: newData
+      }
+    })
+    
+  }
+
   /*
     Update the field value 
   */
@@ -213,6 +237,8 @@ export default class Composable extends React.Component {
           onFieldChange={component.onFieldChange} 
           getTemplateForField={component.getTemplateForField} 
           collapseToggleField={component.collapseToggleField} 
+          collapseAll={component.collapseAll} 
+          showAll={component.showAll} 
         />
         <ComposableAdd 
           dataTypes={component.props.dataTypes} 
@@ -281,4 +307,3 @@ Composable.defaultProps = {
   },
   dataTypes: defaultDataTypes
 };
-7
