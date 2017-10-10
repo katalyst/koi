@@ -11,6 +11,21 @@ gem install rails -v 5.1.0
 rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/<BRANCH|TAG>/lib/templates/application/app.rb
 ```
 
+## Running in development
+
+Requirements:
+* [yarn](https://yarnpkg.com/en/)  
+* [foreman](https://github.com/ddollar/foreman)  
+
+There is a test dummy app available in `/test/dummy` 
+Due to the requirement for webpacker, you must first install the yarn dependancies and run the server using the foreman. 
+
+```
+cd test/dummy  
+yarn
+foreman start -f Procfile
+```
+
 ## License
 
 This project rocks and uses MIT-LICENSE.
