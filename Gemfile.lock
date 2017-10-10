@@ -285,8 +285,6 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.2.2)
-      rake
     rake (12.1.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
@@ -297,12 +295,6 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    react_on_rails (9.0.3)
-      addressable
-      connection_pool
-      execjs (~> 2.5)
-      rails (>= 3.2)
-      rainbow (~> 2.2)
     redis (3.3.3)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -370,8 +362,6 @@ DEPENDENCIES
   koi_config!
   ornament!
   pry-rails
-  react-rails (~> 2.2.0)
-  react_on_rails (~> 9.0.3)
   sass-rails (~> 5.0.0)
   simple_form!
   tzinfo-data
@@ -379,4 +369,4 @@ DEPENDENCIES
   webpacker-react (~> 0.3.1)
 
 BUNDLED WITH
-   1.15.1
+   1.15.4
