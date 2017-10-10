@@ -66,7 +66,7 @@ export default class ComposableAdd extends React.Component {
 }
 
 ComposableAdd.propTypes = {
-  dataTypes: React.PropTypes.array,
-  addField: React.PropTypes.func
+  dataTypes: PropTypes.array,
+  addField: PropTypes.func
 };
 

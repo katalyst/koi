@@ -108,10 +108,10 @@ export default class ComposableFields extends React.Component {
 }
 
 ComposableFields.propTypes = {
-  data: React.PropTypes.array,
-  dataTypes: React.PropTypes.array,
-  removeField: React.PropTypes.func,
-  moveFieldBy: React.PropTypes.func,
-  onFieldChange: React.PropTypes.func,
-  getTemplateForField: React.PropTypes.func
+  data: PropTypes.array,
+  dataTypes: PropTypes.array,
+  removeField: PropTypes.func,
+  moveFieldBy: PropTypes.func,
+  onFieldChange: PropTypes.func,
+  getTemplateForField: PropTypes.func
 };

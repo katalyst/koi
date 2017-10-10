@@ -37,11 +37,11 @@ export default class ComposableFieldTextarea extends React.Component {
 }
 
 ComposableFieldTextarea.propTypes = {
-  id: React.PropTypes.string,
-  fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.object,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  afterMount: React.PropTypes.func,
-  afterUnmount: React.PropTypes.func
+  id: PropTypes.string,
+  fieldIndex: PropTypes.number,
+  fieldSettings: PropTypes.object,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  afterMount: PropTypes.func,
+  afterUnmount: PropTypes.func
 };

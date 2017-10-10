@@ -23,7 +23,7 @@ export default class ComposableFieldSelect extends React.Component {
 }
 
 ComposableFieldSelect.propTypes = {
-  fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.object,
-  onChange: React.PropTypes.func
+  fieldIndex: PropTypes.number,
+  fieldSettings: PropTypes.object,
+  onChange: PropTypes.func
 };

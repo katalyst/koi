@@ -270,8 +270,8 @@ var defaultDataTypes = [{
 }];
 
 Composable.propTypes = {
-  data: React.PropTypes.object,
-  dataTypes: React.PropTypes.array 
+  data: PropTypes.object,
+  dataTypes: PropTypes.array 
 };
 
 /* Passing default field types in as default props */

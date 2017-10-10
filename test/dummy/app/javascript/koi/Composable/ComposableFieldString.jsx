@@ -34,9 +34,9 @@ export default class ComposableFieldString extends React.Component {
 }
 
 ComposableFieldString.propTypes = {
-  fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.object,
-  inputType: React.PropTypes.string,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func
+  fieldIndex: PropTypes.number,
+  fieldSettings: PropTypes.object,
+  inputType: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };

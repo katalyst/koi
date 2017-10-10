@@ -80,9 +80,9 @@ export default class ComposableField extends React.Component {
 */
 
 ComposableField.propTypes = {
-  data: React.PropTypes.object,
-  template: React.PropTypes.array,
-  parentKey: React.PropTypes.string,
-  fieldIndex: React.PropTypes.number,
-  onChange: React.PropTypes.func
+  data: PropTypes.object,
+  template: PropTypes.array,
+  parentKey: PropTypes.string,
+  fieldIndex: PropTypes.number,
+  onChange: PropTypes.func
 };

@@ -17,8 +17,8 @@ export default class ComposableFieldColour extends React.Component {
 }
 
 ComposableFieldColour.propTypes = {
-  fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.object,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func
+  fieldIndex: PropTypes.number,
+  fieldSettings: PropTypes.object,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };

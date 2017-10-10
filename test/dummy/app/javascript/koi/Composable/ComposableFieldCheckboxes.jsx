@@ -51,12 +51,12 @@ export default class ComposableFieldCheckboxes extends React.Component {
 }
 
 ComposableFieldCheckboxes.propTypes = {
-  fieldIndex: React.PropTypes.number,
-  fieldSettings: React.PropTypes.object,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  fieldIndex: PropTypes.number,
+  fieldSettings: PropTypes.object,
+  value: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  onChange: React.PropTypes.func
+  onChange: PropTypes.func
 };
