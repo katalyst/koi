@@ -2,6 +2,38 @@
 
 <%- 
   widgets = [{
+    title: "Latest Unfilled Orders",
+    type: "list",
+    size: "Medium",
+    list: [{
+      label: "<strong>Item 1</strong><br /><span class='grey'>2017-04-01 6:12AM</span>",
+      actions: {
+        "View": "#"
+      }
+    },{
+      label: "<strong>Item 2</strong><br /><span class='grey'>2017-03-12 1:05PM</span>",
+      actions: {
+        "View": "#"
+      }
+    }],
+    footer: "<div class='align-right'><a href='#'>View all orders ›</a></div>"
+  },{
+    title: "Latest Contacts",
+    type: "list",
+    size: "Medium",
+    list: [{
+      label: "<strong>Hello</strong><br /><span class='grey'>Admin [admin@katalyst.com.au]<br />2017-03-02 12:32PM</span>",
+      actions: {
+        "View": "#"
+      }
+    },{
+      label: "<strong>Question about a product</strong><br /><span class='grey'>Joe [joe@katalyst.com.au]<br />2017-03-10 8:15PM</span>",
+      actions: {
+        "View": "#"
+      }
+    }],
+    footer: "<div class='align-right'><a href='#'>View all submissions ›</a></div>"
+  },{
     title: "Weekly pageviews",
     type: "chart",
     size: "Small",
@@ -40,22 +72,7 @@
         showArea: true
       }
     }
-  },{
-    title: "Latest Unfilled Orders",
-    type: "list",
-    size: "Large",
-    list: [{
-      label: "Item 1",
-      actions: {
-        "View": "#"
-      }
-    },{
-      label: "Item 2",
-      actions: {
-        "View": "#"
-      }
-    }]
-  }]
+  },]
 -%>
 
 <div class="row flipppable-cards">
@@ -94,7 +111,7 @@
             </div>
             <%- if widget[:footer] -%>
               <div class="card--footer">
-                <%= widget[:footer] -%>
+                <%= raw widget[:footer] -%>
               </div>
             <%- end -%>
           </div>

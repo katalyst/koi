@@ -5,7 +5,7 @@
     <%- data.each do |datum| -%>
       <li>
         <div class="card--list--label">
-          <%= datum[:label] -%>
+          <%= raw datum[:label] -%>
         </div>
         <div class="card--list--actions">
           <%- datum[:actions].each do |action| -%>
