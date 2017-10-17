@@ -110,6 +110,10 @@ $card-padding-small: $xxx-small-unit;
   flex-grow: 0;
   flex-shrink: 0;
   text-align: right;
+
+  a + a {
+    margin-left: $xxxxx-small-unit;
+  }
 }
 
 // =========================================================================

@@ -2,18 +2,26 @@
 
 <%- 
   widgets = [{
-    title: "Latest Unfilled Orders",
+    title: "Unfilled Orders",
     type: "list",
     size: "Medium",
     list: [{
       label: "<strong>Item 1</strong><br /><span class='grey'>2017-04-01 6:12AM</span>",
       actions: {
-        "View": "#"
+        "View": "#",
+        "Fill": "#"
       }
     },{
       label: "<strong>Item 2</strong><br /><span class='grey'>2017-03-12 1:05PM</span>",
       actions: {
-        "View": "#"
+        "View": "#",
+        "Fill": "#"
+      }
+    },{
+      label: "<strong>Item 3</strong><br /><span class='grey'>2017-03-10 5:15PM</span>",
+      actions: {
+        "View": "#",
+        "Fill": "#"
       }
     }],
     footer: "<div class='align-right'><a href='#'>View all orders ›</a></div>"
