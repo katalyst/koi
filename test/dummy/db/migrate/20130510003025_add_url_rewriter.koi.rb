@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20130509235316)
-class AddUrlRewriter < ActiveRecord::Migration
+class AddUrlRewriter < ActiveRecord::Migration[4.2]
   def change
     create_table :url_rewrites do |t|
       t.text    :from

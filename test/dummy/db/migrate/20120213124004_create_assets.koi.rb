@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20120108235235)
-class CreateAssets < ActiveRecord::Migration
+class CreateAssets < ActiveRecord::Migration[4.2]
   def change
     create_table :assets do |t|
       t.string   :data_uid
