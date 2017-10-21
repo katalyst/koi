@@ -11,7 +11,7 @@ module Composable
   #           :composable_data
   # Render wherever needed:
   # <% if resource.composable? %>
-  #  <%= render 'shared/composables', data: composable_data %>
+  #  <%= render 'shared/composables', data: resource.composable_sections %>
   # <% end %>
   #
 
@@ -25,7 +25,7 @@ module Composable
       end
     end
 
-    def is_composable?
+    def composable?
       composable_data.present?
     end
 
@@ -36,30 +36,30 @@ module Composable
     end
 
     def composable_sections
-      Composable.format_composable_data(composable_data) if is_composable?
+      Composable.format_composable_data(composable_data) if composable?
     end
 
   end
 
-  class_methods do 
+  class_methods do
 
-    def field_types
-      Composable.field_types
+    def composable_field_types
+      Composable.composable_field_types
     end
 
   end
 
   # Overridable field types
-  def self.field_types
+  def self.composable_field_types
     [{
       name: "Section",
       slug: "section",
       fields: [{
         label: "Section Type",
         name: "section_type",
-        type: "select", 
+        type: "select",
         className: "form--auto",
-        data: ["body", "fullwidth"] 
+        data: ["body", "fullwidth"]
       }]
     },{
       name: "Heading",
@@ -87,8 +87,8 @@ module Composable
   end
 
   # When you add a field type to a page, but don't specify a
-  # section, use this hash to override what section it gets 
-  # wrapped in 
+  # section, use this hash to override what section it gets
+  # wrapped in
   def self.field_type_section_fallbacks
     {
       "video": "fullscreen",
@@ -100,7 +100,7 @@ module Composable
     # Group page sections as nested data
     current_composable_section = false
     composable_sections = []
-    if data.is_a?(String) 
+    if data.is_a?(String)
       data = JSON.parse(data)
     end
     if data["data"].present?

@@ -11,5 +11,4 @@
 </pre>
 
 <h2 class="heading-two">Composable partials</h2>
-<%= render "/shared/composables", data: @page.composable_sections if @page.is_composable? -%>
-
+<%= render "/shared/composables", data: @page.composable_sections if @page.composable? -%>
