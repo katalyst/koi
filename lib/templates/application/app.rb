@@ -215,7 +215,7 @@ END
 
 # import Pages controller
 create_file 'app/controllers/pages_controller.rb', <<-END
-class PagesController < Koi::CrudController
+class PagesController < CrudController
 
   # Stop accidental leakage of unwanted actions to frontend
 
