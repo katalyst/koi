@@ -76,7 +76,10 @@ class Page < ApplicationRecord
         type: "select",
         label: "Superhero",
         className: "form--auto",
-        data: SuperHero.all.map { |hero| { name: hero.name, value: hero.id } }
+        data: [{ name: "", value: "" }] + SuperHero.all.map { |hero| { name: hero.name, value: hero.id } },
+        fieldAttributes: {
+          required: true
+        }
       },{
         name: "image_size",
         type: "select",
