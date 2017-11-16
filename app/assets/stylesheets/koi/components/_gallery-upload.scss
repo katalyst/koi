@@ -30,7 +30,7 @@
   @include align-items(center);
   @include justify-content(center);
   width: 100px;
-  max-height: 100px;
+  // max-height: 100px;
   border-right: $divider;
   background: $passive-color;
   padding: 4px;
