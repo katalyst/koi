@@ -187,8 +187,6 @@ GEM
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
-    foreman (0.84.0)
-      thor (~> 0.19.1)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
     garb (0.9.8)
@@ -356,7 +354,6 @@ DEPENDENCIES
   better_errors
   byebug
   devise!
-  foreman
   karo
   koi!
   koi_config!

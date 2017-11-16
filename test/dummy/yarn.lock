@@ -1847,6 +1847,10 @@ file-loader@^0.11.2:
   dependencies:
     loader-utils "^1.0.2"
 
+fileapi@^2.0.21:
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/fileapi/-/fileapi-2.0.21.tgz#e8f01b408005147a8426e9247f7c064b581ded2d"
+
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"

@@ -1,0 +1,21 @@
+<%-
+  # value = f.object.send(attr)
+  # # fix for data not saving in JSON format
+  # if value.is_a?(String)
+  #   value = JSON.parse(value)
+  # end
+-%>
+
+<div class="control-group control-group__gallery <%= "error" if f.error(attr) -%>">
+  <%= f.label attr %>
+  <%= f.hint attr %>
+  <%= react_component("Gallery",
+    max: 5,
+    types: "jpg,png",
+    data: [],
+    fields: {
+      caption: "string"
+    }
+  ) -%>
+  <%= f.error attr %>
+</div>

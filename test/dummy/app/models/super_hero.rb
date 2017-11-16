@@ -42,7 +42,8 @@ class SuperHero < ApplicationRecord
            powers:               { type: :check_boxes, data: Powers },
            images:               { type: :inline },
            published_at:         { type: :date, size: :small, datepicker: { dateformat: "dd M yy", maxdate: "0" } },
-           telephone:            { type: :readonly }
+           telephone:            { type: :readonly },
+           gallery:              { type: :gallery }
 
     index  fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                     :telephone]
@@ -57,7 +58,7 @@ class SuperHero < ApplicationRecord
               # order:  { name: :asc }
       form    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
-                       :image_upload, :document_upload, :powers]
+                       :image_upload, :document_upload, :powers, :gallery]
       show    fields: [:name, :description, :published_at, :gender, :is_alive, :url,
                        :last_location_seen, :telephone, :image, :file,
                        :image_upload_id, :document_upload_id, :powers]
