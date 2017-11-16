@@ -171,6 +171,7 @@ export default class Gallery extends React.Component {
           FileAPI.Image(uploadItem.file).get((error, img) => {
             if (!error) {
               uploadItem.thumbnail = img;
+              uploadItem.originalThumbnail = img;
               hasThumbnail = true;
             }
           });
@@ -222,7 +223,6 @@ export default class Gallery extends React.Component {
     let xhr = new window.XMLHttpRequest();
     xhr.upload.addEventListener("progress", event => {
       let percent = Math.round(event.loaded / event.total * 100);
-      console.log(uploadItem.key);
       this.setPropertyOnQueueItem(uploadItem.key, {
         progress: percent
       });
@@ -369,7 +369,6 @@ export default class Gallery extends React.Component {
           ? <GalleryItems
               helpers={helperFunctions}
               items={uploads}
-              heading="Uploading"
               onCancel={this.cancelUpload}
               showProgress={true}
             />

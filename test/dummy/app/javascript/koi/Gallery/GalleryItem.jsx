@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FileAPI from 'fileapi';
 
+import GalleryCropModal from "./GalleryCropModal";
+
 export default class GalleryItem extends React.Component {
 
   constructor(props) {
@@ -12,13 +14,15 @@ export default class GalleryItem extends React.Component {
         height: ""
       }
     }
+    this.showCropModal = this.showCropModal.bind(this);
   }
 
   componentDidMount() {
     // Replace the placeholder image with the generated
     // image thumbnail 
     if(this.props.item.isImage && this.props.item.thumbnail) {
-      this.thumbnail.parentNode.replaceChild(this.props.item.thumbnail, this.thumbnail);
+      this.thumbnail.append(this.props.item.thumbnail);
+      this.thumbnail.style.paddingTop = (this.props.item.info.height / this.props.item.info.width * 100) + "%";
     }
   }
 
@@ -30,13 +34,22 @@ export default class GalleryItem extends React.Component {
     return labels[status] || status;
   }
 
+  showCropModal() {
+    var popupOptions = $.extend({}, Ornament.popupOptions);
+    popupOptions.items = {
+      src: this.cropModal
+    }
+    popupOptions.modal = true;
+    $.magnificPopup.open(popupOptions);
+  }
+
   render(){
     return(
       <div className="gallery--item">
         <div className="gallery--item--main">
           {this.props.item.isImage
             ? <div className="gallery--item--thumbnail">
-                <img ref={el => this.thumbnail = el} />
+                <div ref={el => this.thumbnail = el}></div>
               </div>
             : <div className="gallery--item--thumbnail">
                 FILE<br />
@@ -70,6 +83,18 @@ export default class GalleryItem extends React.Component {
                 ? <p>
                     <button type="button" onClick={e => this.props.onRemove(this.props.item)}>Remove</button>
                   </p>
+                : false
+              }
+              {this.props.croppable && this.props.item.isImage
+                ? <div>
+                    <button type="button" onClick={this.showCropModal}>Crop</button>
+                    <div className="mfp-hide" ref={el => this.cropModal = el}>
+                      <GalleryCropModal 
+                        item={this.props.item}
+                        helpers={this.props.helpers}
+                      />
+                    </div>
+                  </div>
                 : false
               }
             </div>
