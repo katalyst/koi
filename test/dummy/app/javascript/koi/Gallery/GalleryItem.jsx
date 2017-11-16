@@ -22,6 +22,14 @@ export default class GalleryItem extends React.Component {
     }
   }
 
+  statusLabel(status) {
+    let labels = {
+      "timeout": "Upload timed out",
+      "error": "Upload error"
+    }
+    return labels[status] || status;
+  }
+
   render(){
     return(
       <div className="gallery--item">
@@ -40,7 +48,12 @@ export default class GalleryItem extends React.Component {
               : false
             }
             <div className="gallery--item--details--content">
-              <strong>{this.props.item.status}</strong><br />
+              {this.props.item.status !== "gallery"
+                ? <div>
+                    <strong>{this.statusLabel(this.props.item.status)}</strong>
+                  </div>
+                : false
+              }
               {this.props.item.file.name}<br />
               {this.props.helpers.prettyFileSize(this.props.item.file.size)}
               {this.props.item.isImage && this.props.item.info

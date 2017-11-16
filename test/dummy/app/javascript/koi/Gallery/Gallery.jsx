@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import GalleryDropper from './GalleryDropper';
-import GalleryItem from './GalleryItem';
 import GalleryItems from "./GalleryItems";
+import GalleryItem from './GalleryItem';
+import GalleryItemLoading from './GalleryItemLoading';
 
 export default class Gallery extends React.Component {
 
@@ -103,6 +104,25 @@ export default class Gallery extends React.Component {
   // Queue management 
   // =========================================================================
 
+  // Build a queue item object from a file
+  createNewQueueItem(file, index, status) {
+    index = index || 0;
+    status = status || "gallery";
+    let uploadItem = {
+      key: this.generateGalleryKey(index),
+      file: file,
+      cropString: null,
+      xhr: null,
+      status: status,
+      isImage: this.isImage(file.type),
+      data: {
+        caption: "string"
+      },
+      dataVisible: false
+    };
+    return uploadItem;
+  }
+
   // Take a list of files and add them to the upload queue
   addNewFiles(files) {
     files = files || [];
@@ -120,22 +140,13 @@ export default class Gallery extends React.Component {
         overLimit = true;
         return true;
       }
-      let uploadItem = {
-        key: this.generateGalleryKey(index),
-        file: file,
-        xhr: null,
-        status: "checking",
-        isImage: this.isImage(file.type),
-        data: {},
-        dataVisible: false,
-      };
+      let uploadItem = this.createNewQueueItem(file, index, "waiting");
       items.push(uploadItem);
       newUploads.push(uploadItem);
     });
     if(overLimit) {
-      alert("over limit!");
+      this.showOverLimitMessage();
     }
-    console.log("NEW UPLOADS", items.length);
     this.setState({
       items: items
     }, () => {
@@ -169,6 +180,14 @@ export default class Gallery extends React.Component {
       })
     });
   }
+
+  showOverLimitMessage() {
+    alert("over limit!");
+  }
+
+  // =========================================================================
+  // Uploading
+  // =========================================================================
   
   createFormDataForUpload(file) {
     const formData = new FormData();
@@ -240,6 +259,7 @@ export default class Gallery extends React.Component {
     }
     this.setPropertyOnQueueItem(uploadItem.key, {
       status: "gallery",
+      assetId: result,
       xhr: null
     });
   }
@@ -274,6 +294,10 @@ export default class Gallery extends React.Component {
       this.setState({
         items: uploads
       });
+      // TODO: Remove asset
+      if(uploadItem.assetId) {
+        //
+      }
     }
   }
   
@@ -352,11 +376,16 @@ export default class Gallery extends React.Component {
           : false
         }
         {waiting.length
-          ? <GalleryItems
-              helpers={helperFunctions}
-              heading="Checking"
-              items={waiting}
-            />
+          ? <div className="gallery--items">
+              {waiting.map(item => {
+                return(
+                  <GalleryItemLoading 
+                    item={item} 
+                    key={item.key}
+                  />
+                )
+              })}
+            </div>
           : false
         }
         {overFileLimit

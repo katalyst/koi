@@ -18,3 +18,4 @@ passenger.3000.pid.lock
 
 test/dummy/config/application.yml
 test/dummy/node_modules
+test/dummy/public/packs
