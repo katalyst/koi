@@ -36,6 +36,7 @@ export default class GalleryItem extends React.Component {
 
   showCropModal() {
     var popupOptions = $.extend({}, Ornament.popupOptions);
+    popupOptions.mainClass += " lightbox__fullscreen";
     popupOptions.items = {
       src: this.cropModal
     }
@@ -45,14 +46,14 @@ export default class GalleryItem extends React.Component {
 
   render(){
     return(
-      <div className="gallery--item">
+      <div className={"gallery--item " + (this.props.item.dataVisible ? "gallery--item__data-visible" : "")}>
         <div className="gallery--item--main">
           {this.props.item.isImage
             ? <div className="gallery--item--thumbnail">
                 <div ref={el => this.thumbnail = el}></div>
               </div>
             : <div className="gallery--item--thumbnail">
-                FILE<br />
+                FILE
               </div>
           }
           <div className="gallery--item--details">
@@ -100,9 +101,7 @@ export default class GalleryItem extends React.Component {
             </div>
           </div>
           {this.props.toggleData
-            ? <button type="button" onClick={e => this.props.toggleData(this.props.item)}>
-                Data
-              </button>
+            ? <button type="button" onClick={e => this.props.toggleData(this.props.item)} className="gallery--item--toggle-data-anchor" dangerouslySetInnerHTML={{__html: Ornament.icons.chevron }}></button>
             : false
           }
         </div>

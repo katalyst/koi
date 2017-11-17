@@ -26,6 +26,11 @@ $lightbox-padding-y-bottom: $small-unit;
   .lightbox__with-close & {
     margin-top: 50px;
   }
+
+  .lightbox__fullscreen & {
+    width: 100%;
+    max-width: 90%;
+  }
 }
 
 .mfp-image-holder .mfp-content {

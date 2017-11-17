@@ -82,6 +82,23 @@
   padding: $xxx-small-unit;
 }
 
+.gallery--item--toggle-data-anchor {
+  width: 48px;
+  padding-left: $xxx-small-unit;
+  padding-right: $xxx-small-unit;
+  border-left: $divider;
+
+  svg {
+    width: 16px;
+    height: 11px;
+    transition: .2s transform;
+  }
+
+  .gallery--item__data-visible & svg {
+    transform: rotateZ(180deg);
+  }
+}
+
 // =========================================================================
 // Cropping
 // =========================================================================
