@@ -1,11 +1,19 @@
-<%- id = "koi-#{ new_uuid }" -%>
-<%= f.input attr, as: :string, wrapper_html: { class: "form--medium" }, input_html: { id: id } %>
+<%
+  id            = "koi-#{ new_uuid }"
+  klass         = f.object.class
+  tag_list_name = attr.to_s.chomp('_list')
+
+  tag_counts  = klass.tag_counts_on(tag_list_name)
+  tag_counts += klass.tag_counts_on(tag_list_name.pluralize)
+%>
+
+<%= f.input attr, as: :string, wrapper_html: { class: "form--medium" }, input_html: { id: id, value: f.object.send(attr).join(',') } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
 
 <script type='text/javascript'>
   $("#<%= id %>").select2({
-  	tags: <%= raw f.object.class.tag_counts_on(attr.to_s.chomp('_list')).collect { |t| t.name } %>,
+  	tags: <%= raw tag_counts.map(&:name) %>,
     tokenSeparators: [","]
   });
 </script>
