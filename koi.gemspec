@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 4.2.1'
 
-  s.add_dependency 'rails-observers'
+  s.add_dependency 'rails-observers', '0.1.2'
 
   s.add_dependency 'active_model_serializers', '~> 0.8.2'
 
@@ -89,7 +89,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activevalidators', '~> 3.2.0'
 
   # Redis
-  s.add_dependency 'redis'
+  s.add_dependency 'redis', '3.2.1'
 
   # Sidekiq (Background Server)
   s.add_dependency 'sidekiq', '~> 3.3.2'
