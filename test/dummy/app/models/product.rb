@@ -51,8 +51,10 @@ class Product < ActiveRecord::Base
            launch_date:       { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do
-      index fields: [:name]
-       form  fields: [:name, :description, :launch_date, :colour, :products, :product_images, :genre_list]
+      index fields: [:name, :countries]
+      form  fields: [:name, :description, :launch_date, :colour, 
+                     :products, :genre_list, :countries, 
+                     :product_images]
     end
   end
 
