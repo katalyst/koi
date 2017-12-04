@@ -1,0 +1,7 @@
+// Removes the focus ring around an element when a mouse input is detected.
+// Stolen from Foundation: https://github.com/zurb/foundation-sites/blob/v6.4/scss/util/_mixins.scss
+@mixin disable-mouse-outline {
+  [data-whatinput='mouse'] & {
+    outline: 0;
+  }
+}
