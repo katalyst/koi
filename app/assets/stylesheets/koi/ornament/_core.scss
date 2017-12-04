@@ -60,6 +60,9 @@
 @import "koi/ornament/reset";
 @import "koi/components/typography";
 
+// ADDITIONAL OVERRIDES
+@import "koi/additions";
+
 .svg {
   @import "koi/grunticon/icon-svg";
 }
