@@ -5,3 +5,7 @@
     outline: 0;
   }
 }
+
+.disable-mouse-outline {
+  @include disable-mouse-outline;
+}
