@@ -274,6 +274,10 @@ Devise.setup do |config|
 end
 END
 
+# Create some customisable Koi stylesheets
+create_file 'app/assets/stylesheets/koi/_overrides.scss'
+create_file 'app/assets/stylesheets/koi/_additions.scss'
+
 # Generate Devise Config
 generate('devise:install -f')
 
