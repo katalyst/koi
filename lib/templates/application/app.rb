@@ -81,7 +81,6 @@ gem 'sidekiq'
 gem_group :development do
   gem 'karo'
   gem 'pry-rails'
-  gem 'web-console', '~> 2.0'
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
