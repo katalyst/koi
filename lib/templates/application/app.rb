@@ -310,7 +310,7 @@ rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
-route 'resources :pages, only: [:index, :show], as: :koi_pages'
+route 'resources :pages, only: [:show], as: :koi_pages'
 route 'resources :assets, only: [:show]'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
