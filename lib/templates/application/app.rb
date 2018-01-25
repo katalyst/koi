@@ -88,6 +88,9 @@ gem_group :development do
   gem 'rack-mini-profiler'
 end
 
+# Forcing Postgres version to fix release issues with 1.0.0
+gsub_file "Gemfile", "gem 'pg'", "gem 'pg', '~> 0.21'"
+
 # Setup mailer host
 application(nil, :env => 'development') do
   "config.action_mailer.asset_host = \"http://localhost:3000\""
