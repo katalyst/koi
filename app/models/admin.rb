@@ -1,4 +1,6 @@
 class Admin < ApplicationRecord
+  extend Devise::Models
+  
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 

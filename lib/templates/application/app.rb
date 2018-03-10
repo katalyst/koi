@@ -70,9 +70,8 @@ gem 'ey_config'
 gem 'sidekiq'
 gem 'redis-namespace'
 
-# TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
-gem 'devise', github: 'plataformatec/devise', branch: 'master'
-gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
+gem 'devise', '~> 4.3.0'
+gem 'simple_form', '~> 3.5.0'
 
 gem_group :development do
   gem 'karo'
@@ -239,7 +238,7 @@ END
 
 # import Pages controller
 create_file 'app/controllers/pages_controller.rb', <<-END
-class PagesController < Koi::CrudController
+class PagesController < CrudController
 
   # Stop accidental leakage of unwanted actions to frontend
 
@@ -288,8 +287,6 @@ route 'mount Koi::Engine => "/admin", as: "koi_engine"'
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
-rake 'db:drop'
-rake 'db:create'
 
 # HACK: To by pass devise checking for secret key without initialization
 create_file 'config/initializers/devise.rb', <<-END
@@ -306,6 +303,8 @@ gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret
 gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
+rake 'db:drop'
+rake 'db:create'
 rake 'db:migrate'
 
 route "root to: 'pages#index'"
