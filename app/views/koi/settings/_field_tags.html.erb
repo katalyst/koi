@@ -4,5 +4,5 @@
   tag_list.sort!
 %>
 
-<%= f.input :tag_list, as: :string, input_html: { class: "form--medium", data: { tag_input: "", tag_list: tag_list } }, label: label %>
+<%= f.input :tag_list, as: :string, input_html: { class: "form--medium", data: { tag_input: "", tag_list: tag_list } }, label: label, hint: hint %>
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>

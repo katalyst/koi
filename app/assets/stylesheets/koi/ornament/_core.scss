@@ -27,6 +27,7 @@
 @import "koi/ornament/utilities/arrows";
 @import "koi/ornament/utilities/color-link";
 @import "koi/ornament/utilities/decorate-link";
+@import "koi/ornament/utilities/disable-mouse-outline";
 @import "koi/ornament/utilities/font";
 @import "koi/ornament/utilities/icon-tools";
 @import "koi/ornament/utilities/line-height-padding";
@@ -58,6 +59,9 @@
 // ORNAMENT
 @import "koi/ornament/reset";
 @import "koi/components/typography";
+
+// ADDITIONAL OVERRIDES
+@import "koi/additions";
 
 .svg {
   @import "koi/grunticon/icon-svg";

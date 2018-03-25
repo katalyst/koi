@@ -1,6 +1,6 @@
 <% data = object.data_source.call if object.data_source %>
 <% if data.nil? %>
-  <%= f.input attr.to_sym, :as => :radio_buttons, label: label %>
+  <%= f.input attr.to_sym, :as => :radio_buttons, label: label, hint: hint %>
 <% else %>
-  <%= f.input attr.to_sym, :as => :radio_buttons, collection: data, label: label %>
+  <%= f.input attr.to_sym, :as => :radio_buttons, collection: data, label: label, hint: hint %>
 <% end %>

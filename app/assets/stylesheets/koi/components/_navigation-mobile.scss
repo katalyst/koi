@@ -150,10 +150,7 @@ $navigation-secondary-pane-link-color:  #fff;
       @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-hover);
       @include font($bold-font);
       @include line-height-padding($navigation-forward-hitbox);
-
-      &:focus {
-        outline: none;
-      }
+      @include disable-mouse-outline;
     }
     .selected > a,
     .selected > .faux-link {

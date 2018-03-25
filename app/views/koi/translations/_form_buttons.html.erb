@@ -4,7 +4,7 @@
       <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "button__save", data: { form_cleaner: "" } %>
     </div>
     <div>
-      <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue" %>
+      <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue", data: { form_cleaner: "" } %>
     </div>
     <% if !resource.new_record? && current_admin.god? %>
       <div>
