@@ -481,8 +481,8 @@ else
   ActionMailer::Base.smtp_settings = {
     user_name: Figaro.env.mailtrap_username,
     password: Figaro.env.mailtrap_password,
-    address: 'mailtrap.io',
-    domain: 'mailtrap.io',
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
     port: '2525',
     authentication: :cram_md5,
     enable_starttls_auto: true
