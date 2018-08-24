@@ -13,9 +13,9 @@ rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/kata
 
 ## Development
 
-The current version of Koi is 3.0.0, which requires Rails 5. Other versions should check out the required tag.
+The current version of Koi is 3.0.0, which requires Rails 5.1. Rails 4 apps should use `v2.x`. Version 2 is maintained but has no active development.
 
-Work on version 3 should branch from the `3.0-dev` branch.
+Work on version 3 should use the `3.0-dev` branch.
 
 ## License
 
