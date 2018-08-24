@@ -110,6 +110,7 @@ Gem::Specification.new do |s|
 
   # Development Dependencies
   s.add_development_dependency 'byebug'
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'karo'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rspec-rails', '~> 3.7'
