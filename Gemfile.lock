@@ -347,6 +347,8 @@ GEM
       thor (~> 0.14)
     sendgrid (1.2.4)
       json
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     sidekiq (5.0.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -398,6 +400,7 @@ DEPENDENCIES
   react_on_rails (~> 11.1.4)
   rspec-rails (~> 3.7)
   sass-rails (~> 5.0.0)
+  shoulda-matchers (~> 3.1)
   tzinfo-data
   webpacker (~> 3.0)
 
