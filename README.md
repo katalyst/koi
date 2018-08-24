@@ -11,10 +11,16 @@ gem install rails -v 5.1.0
 rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/<BRANCH|TAG>/lib/templates/application/app.rb
 ```
 
+## Development
+
+The current version of Koi is 3.0.0, which requires Rails 5. Other versions should check out the required tag.
+
+Work on version 3 should branch from the `3.0-dev` branch.
+
 ## License
 
 This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.  
+See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.
