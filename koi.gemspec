@@ -7,16 +7,16 @@ require "koi/version"
 Gem::Specification.new do |s|
   s.name          = "koi"
   s.version       = Koi::VERSION
-  s.authors       = ["Rahul Trikha"]
-  s.email         = ["rahul@katalyst.com.au"]
-  s.homepage      = "https://github.com/katalyst/koi"
-  s.summary       = "Koi CMS admin framework"
-  s.description   = "Framework to provide rapid application development"
+  s.authors       = ['Rahul Trikha', 'Bill Pearce', 'Matt Redmond']
+  s.email         = ['rahul@katalyst.com.au', 'bill@katalyst.com.au', 'matt@katalyst.com.au']
+  s.homepage      = 'https://github.com/katalyst/koi'
+  s.summary       = 'Koi CMS admin framework'
+  s.description   = 'Framework to provide rapid application development'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
 
   s.add_dependency 'mime-types', '~> 3.1'
 
@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
-  s.add_dependency 'pg'
+  s.add_dependency 'pg', '~> 1.0.0'
 
   s.add_dependency 'compass-rails', '~> 3.0.2'
 
@@ -115,4 +115,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'karo'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'engineyard'
+  s.add_development_dependency 'rspec-rails', '~> 3.7'
 end
