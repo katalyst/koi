@@ -112,6 +112,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'react_on_rails', '~> 11.1.4'
 
   # Development Dependencies
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'karo'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'engineyard'
