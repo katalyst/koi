@@ -1,11 +1,11 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "koi/version"
+require 'koi/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name          = "koi"
+  s.name          = 'koi'
   s.version       = Koi::VERSION
   s.authors       = ['Rahul Trikha', 'Bill Pearce', 'Matt Redmond']
   s.email         = ['rahul@katalyst.com.au', 'bill@katalyst.com.au', 'matt@katalyst.com.au']
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
   s.add_dependency 'mime-types', '~> 3.1'
