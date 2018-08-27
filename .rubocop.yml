@@ -10,6 +10,7 @@ AllCops:
     - 'spec/support/*'
     - 'bin/*'
     - 'vendor/**/*'
+    - '*.gemspec'
 
 # allow up to 120 character lines before complaining
 
@@ -41,3 +42,14 @@ Metrics/AbcSize:
 
 Metrics/ClassLength:
   Max: 150
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'Rakefile'
+    - 'Guardfile'
+    - '**/*.rake'
+
+Style/HashSyntax:
+  Exclude:
+    - '**/*.rake'
+    - 'Rakefile'
