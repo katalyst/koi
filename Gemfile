@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "http://rubygems.org"
 
 # Declare your gem's dependencies in koi.gemspec.
@@ -17,3 +19,7 @@ gem 'ornament', github: 'katalyst/ornament', branch: 'master'
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
 # TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
+
+group :development, :test do
+  gem 'guard-rspec', require: false
+end
