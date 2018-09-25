@@ -1,9 +1,9 @@
 <%# cache "nav_item/admin/#{nav_item.id}-#{nav_item.updated_at}/sitemap", expires_in: 7.days do %>
 
   <%
-    nav_item_type = nav_item.class.name.underscore.dasherize 
-    nav_item_id = nav_item.id 
-    nav_item_is_hidden = nav_item.read_attribute(:is_hidden) == true
+    nav_item_type = nav_item.class.name.underscore.dasherize
+    nav_item_id = nav_item.id
+    nav_item_is_hidden = nav_item.is_hidden?
     is_root_nav_item = nav_item.is_a?(RootNavItem)
   %>
 
@@ -55,6 +55,12 @@
             <%- unless nav_item.key.blank? -%>
               <div class="nav-item--key" title="<%= nav_item.key -%>">
                 <%= icon("key") -%>
+              </div>
+            <%- end -%>
+
+            <%- if nav_item.link_to_first_child? -%>
+              <div class="nav-item--links-to-child" title="This navitem will link to it's first child">
+                <%= icon("links_to_child") -%>
               </div>
             <%- end -%>
 

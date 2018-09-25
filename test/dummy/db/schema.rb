@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20171021135838) do
     t.datetime "updated_at"
     t.boolean "is_mobile", default: false
     t.string "setting_prefix"
+    t.boolean "link_to_first_child"
     t.index ["navigable_id"], name: "index_nav_items_on_navigable_id"
     t.index ["navigable_type"], name: "index_nav_items_on_navigable_type"
     t.index ["url"], name: "index_nav_items_on_url"

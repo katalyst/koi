@@ -9,9 +9,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w(
-  koi/application/logo-katalyst-devise.png
-  koi/application/logo-katalyst.png
-  koi/application/placeholder-image-none.png
-  koi/application/icon-sortable.png
-  koi/application/icon-file-unknown.png
+  koi/application/*
 )

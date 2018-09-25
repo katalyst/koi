@@ -11,11 +11,15 @@ gem install rails -v 5.1.0
 rails _5.1.0_ new my_app -d postgresql -m https://raw.githubusercontent.com/katalyst/koi/<BRANCH|TAG>/lib/templates/application/app.rb
 ```
 
-## Running in development
+## Development
 
 Requirements:
 * [yarn](https://yarnpkg.com/en/)  
 * [foreman](https://github.com/ddollar/foreman)  
+
+The current version of Koi is 3.0.0, which requires Rails 5.1. Rails 4 apps should use `v2.x`. Version 2 is maintained but has no active development.
+
+Work on version 3 should use the `3.0-dev` branch.
 
 There is a test dummy app available in `/test/dummy` 
 Due to the requirement for webpacker, you must first install the yarn dependancies and run the server using the foreman. 
@@ -32,4 +36,4 @@ This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.  
+See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.

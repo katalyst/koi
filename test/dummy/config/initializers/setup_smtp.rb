@@ -18,8 +18,8 @@ else
   ActionMailer::Base.smtp_settings = {
     user_name: ENV["MAILTRAP_USERNAME"],
     password: ENV["MAILTRAP_PASSWORD"],
-    address: 'mailtrap.io',
-    domain: 'mailtrap.io',
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
     port: '2525',
     authentication: :cram_md5,
     enable_starttls_auto: true

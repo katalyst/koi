@@ -18,6 +18,7 @@ class ProductImage < ApplicationRecord
 
     config :admin do
       form  fields: [:product_type, :title, :image]
+      show fields: [:product_type, :title, :image]
     end
   end
 

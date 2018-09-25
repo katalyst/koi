@@ -1,4 +1,5 @@
 .bundle/
+bin
 tmp
 log/*.log
 pkg
