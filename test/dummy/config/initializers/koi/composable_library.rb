@@ -58,7 +58,7 @@ module Koi
               type: "select",
               label: "Superhero",
               className: "form--auto",
-              data: [{ name: "", value: "" }], # + SuperHero.all.map { |hero| { name: hero.name, value: hero.id } },
+              data: [{ name: "", value: "" }] + SuperHero.all.map { |hero| { name: hero.name, value: hero.id } },
               fieldAttributes: {
                 required: true
               }
