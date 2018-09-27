@@ -35,4 +35,8 @@ class Page < ApplicationRecord
     Koi::Engine.routes.url_helpers.edit_page_path(self, options)
   end
 
+  def self.composable_field_types
+    ["section", "text", "heading", "hero", "kitchen_sink"]
+  end
+
 end
