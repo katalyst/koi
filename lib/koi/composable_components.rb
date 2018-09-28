@@ -1,7 +1,7 @@
 module Koi
   module ComposableContent
 
-    LIBRARY =
+    COMPONENTS =
       [
 
         {
