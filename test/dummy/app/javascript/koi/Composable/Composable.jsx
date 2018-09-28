@@ -35,14 +35,7 @@ export default class Composable extends React.Component {
     eg. "heading" -> dataTypes.where("type": "heading")
   */
   getTemplateForField(fieldType) {
-    var type = false;
-    this.props.dataTypes.map(template => {
-      if(template.slug === fieldType) {
-        type = template;
-        return true;
-      }
-    });
-    return type;
+    return this.props.dataTypes.filter(template => template.slug === fieldType)[0] || false;
   }
 
   /* 

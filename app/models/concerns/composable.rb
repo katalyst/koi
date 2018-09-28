@@ -1,20 +1,6 @@
 module Composable
   extend ActiveSupport::Concern
 
-  #
-  # TO USE:
-  #
-  # include this module in any model
-  # add to fields:
-  #            composable_data: { type: :composable }
-  # add to form fields:
-  #           :composable_data
-  # Render wherever needed:
-  # <% if resource.composable? %>
-  #  <%= render 'shared/composables', data: resource.composable_sections %>
-  # <% end %>
-  #
-
   included do
 
     def composable_data
