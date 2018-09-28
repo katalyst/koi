@@ -43,18 +43,17 @@ module Composable
 
   class_methods do
     def composable_field_types
-      Composable.composable_field_types
+      # Try getting settings from crud config
+      self.crud.settings.try(:[], :admin).try(:[], :form).try(:[], :composable) ||
+      
+      # Fallback to defaults
+      ["section", "heading", "text"]
     end
 
     # Take the composable_field_types and retrieve the config from the library
     def composable_config
       Koi::ComposableContent::COMPONENTS.select { |type| self.composable_field_types.include?(type[:slug]) }
     end
-  end
-
-  # Overridable field types
-  def self.composable_field_types
-    ["section", "heading", "text"]
   end
 
   # When you add a field type to a page, but don't specify a

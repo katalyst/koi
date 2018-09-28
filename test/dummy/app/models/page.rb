@@ -22,7 +22,8 @@ class Page < ApplicationRecord
     config :admin do
       actions except: [:new]
       index   fields: [:id, :title]
-      form    fields: [:title, :description, :composable_data]
+      form    fields: [:title, :description, :composable_data],
+              composable: ["section", "text", "heading", "hero", "kitchen_sink"]
     end
   end
 
@@ -33,10 +34,6 @@ class Page < ApplicationRecord
 
   def get_edit_admin_url(options={})
     Koi::Engine.routes.url_helpers.edit_page_path(self, options)
-  end
-
-  def self.composable_field_types
-    ["section", "text", "heading", "hero", "kitchen_sink"]
   end
 
 end
