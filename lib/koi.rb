@@ -39,6 +39,7 @@ require 'reports/reporting'
 require 'awesome_nested_set'
 require 'simple_form'
 require 'devise'
+require 'react_on_rails'
 
 module Koi
 end

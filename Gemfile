@@ -17,7 +17,7 @@ gem 'ornament', github: 'katalyst/ornament', branch: 'master'
 
 gem 'sass-rails', '~> 5.0.0'
 gem 'webpacker', '~> 3.0' 
-gem 'webpacker-react', '~> 0.3.1'
+gem 'react_on_rails', '~> 11.1.4'
 
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'

@@ -55,9 +55,9 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
+#gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
 # NOTE: For building projects with the local version, uncomment this
-# gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
 
 gem 'active_model_serializers'
 
@@ -79,7 +79,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'master'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'develop'
   gem 'rack-mini-profiler'
 end
 
@@ -299,6 +299,11 @@ END
 create_file 'app/assets/stylesheets/koi/_overrides.scss'
 create_file 'app/assets/stylesheets/koi/_additions.scss'
 
+# Create database
+rake 'db:drop'
+rake 'db:create'
+rake 'db:migrate'
+
 # Generate Devise Config
 generate('devise:install -f')
 
@@ -306,10 +311,6 @@ generate('devise:install -f')
 gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
-
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
@@ -525,8 +526,6 @@ public/system/**/*
 /node_modules
 END
 
-generate('ornament -f') if yes?("Do you want to generate ornament?")
-
 git :init
 git add: '.'
 git commit: "-m 'Initial Commit'"
@@ -534,5 +533,52 @@ git commit: "-m 'Initial Commit'"
 run 'ey init'
 git add: '.'
 git commit: "-m 'Generated EngineYard Config'"
+
+if yes?("Do you want to generate ornament?")
+
+  generate('ornament -f')
+
+  git add: '.'
+  git commit: "-m 'Generated Ornament'"
+
+  # TODO: Check if react/react_on_rails is installed
+  # Ornament will be generating these soon
+  # TODO: Is there a way to generate webpacker:react without 
+  # these sample files?
+  run "rails webpacker:install:react"
+  remove_file "app/frontend/packs/hello_react.jsx"
+
+  gem "react_on_rails", "~> 11.1.4"
+  run "bundle install"
+
+  # Note: Composable pages depends on Ornament due to both
+  # depending on webpacker being generated. Ornament will add, install
+  # and configure webpacker itself
+  directory "../../../../test/dummy/app/frontend/javascripts/koi", "app/frontend/javascripts/koi"
+  directory "../../../../test/dummy/app/frontend/packs/koi", "app/frontend/packs/koi"
+  copy_file "../../../../test/dummy/app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
+  directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
+  directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
+
+  # TODO: Copy components library file
+
+  # Add yarn dependencies
+  run "yarn add react-sortable-hoc"
+  git add: '.'
+  git commit: "-m 'Generated Composable Pages and added React on Rails'"
+
+  # Generate react on rails
+  run "rails generate react_on_rails:install"
+  
+  # Clean up after react on rails
+  remove_file "app/controllers/hello_world_controller.rb"
+  remove_file "app/javascript"
+  remove_file "app/views/layouts/hello_world.html.erb"
+  remove_file "app/views/hello_world"
+
+  git add: '.'
+  git commit: "-m 'Generated React On Rails'"
+
+end
 
 rake 'db:seed'

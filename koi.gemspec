@@ -109,7 +109,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
   # React for composable pages
-  s.add_dependency 'react-rails', '2.2.0'
+  s.add_dependency 'react_on_rails'
 
   # Development Dependencies
   s.add_development_dependency 'karo'
