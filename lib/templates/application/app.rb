@@ -538,19 +538,6 @@ if yes?("Do you want to generate ornament?")
 
   generate('ornament -f')
 
-  git add: '.'
-  git commit: "-m 'Generated Ornament'"
-
-  # TODO: Check if react/react_on_rails is installed
-  # Ornament will be generating these soon
-  # TODO: Is there a way to generate webpacker:react without 
-  # these sample files?
-  run "rails webpacker:install:react"
-  remove_file "app/frontend/packs/hello_react.jsx"
-
-  gem "react_on_rails", "~> 11.1.4"
-  run "bundle install"
-
   # Note: Composable pages depends on Ornament due to both
   # depending on webpacker being generated. Ornament will add, install
   # and configure webpacker itself
@@ -562,22 +549,8 @@ if yes?("Do you want to generate ornament?")
 
   # TODO: Copy components library file
 
-  # Add yarn dependencies
+  # Add composable yarn dependencies
   run "yarn add react-sortable-hoc"
-  git add: '.'
-  git commit: "-m 'Generated Composable Pages and added React on Rails'"
-
-  # Generate react on rails
-  run "rails generate react_on_rails:install"
-  
-  # Clean up after react on rails
-  remove_file "app/controllers/hello_world_controller.rb"
-  remove_file "app/javascript"
-  remove_file "app/views/layouts/hello_world.html.erb"
-  remove_file "app/views/hello_world"
-
-  git add: '.'
-  git commit: "-m 'Generated React On Rails'"
 
 end
 
