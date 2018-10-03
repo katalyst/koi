@@ -10,5 +10,7 @@
 <%= JSON.pretty_generate @page.composable_sections -%>
 </pre>
 
-<h2 class="heading-two">Composable partials</h2>
-<%= render "/shared/composables", data: @page.composable_sections if @page.composable? -%>
+<% if @page.composable? %>
+  <h2 class="heading-two">Composable partials</h2>
+  <%= render "/shared/composables", sections: @page.composable_sections %>
+<% end %>

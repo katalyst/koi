@@ -1,14 +1,14 @@
-<%- data.each do |section| -%>
+<%- sections.each do |section| -%>
 
   <%- # Build mark up for the data inside this section for use later -%>
   <%- section_contents = capture do -%>
-    <%- section[:section_data].each do |datum| -%>
-      <%- datum_type = datum["type"] -%>
+    <%- section[:section_data].each do |component| -%>
+      <%- component_type = component["type"] -%>
       <%= 
         begin
-          render "shared/composable_components/#{datum_type}", data: datum 
+          render "shared/composable_components/#{component_type}", data: component 
         rescue ActionView::MissingTemplate
-          "Unknown component type: #{datum_type}"
+          "Unknown component type: #{component_type}"
         end
       -%>
     <%- end -%>
