@@ -55,9 +55,9 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-#gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
+gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
 # NOTE: For building projects with the local version, uncomment this
-gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+#gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
 
 gem 'active_model_serializers'
 
@@ -541,13 +541,18 @@ if yes?("Do you want to generate ornament?")
   # Note: Composable pages depends on Ornament due to both
   # depending on webpacker being generated. Ornament will add, install
   # and configure webpacker itself
+
+  # Copy over the javascript files
   directory "../../../../test/dummy/app/frontend/javascripts/koi", "app/frontend/javascripts/koi"
   directory "../../../../test/dummy/app/frontend/packs/koi", "app/frontend/packs/koi"
+
+  # Copy over the sample views
   copy_file "../../../../test/dummy/app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
   directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
   directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
 
-  # TODO: Copy components library file
+  # Copy components library file
+  copy_file "../../../koi/composable_components.rb", "config/initializers/koi/composable_components.rb"
 
   # Add composable yarn dependencies
   run "yarn add react-sortable-hoc"
