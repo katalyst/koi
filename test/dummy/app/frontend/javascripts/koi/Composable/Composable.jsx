@@ -77,7 +77,11 @@ export default class Composable extends React.Component {
       if(template.defaultValue) {
         datum[template.name] = template.defaultValue;
       } else if(template.type === "select" && template.data) {
-        datum[template.name] = template.data[0];
+        let firstValue = template.data[0];
+        if(firstValue.value) {
+          firstValue = firstValue.value;
+        }
+        datum[template.name] = firstValue;
       }
     })
     // push datum in to data and then set state
