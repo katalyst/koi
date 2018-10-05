@@ -69,14 +69,14 @@ export default class Composable extends React.Component {
     // index is unreliable (these are orderable)
     var datum = {
       id: Date.now(),
-      type: dataType.slug
+      component_type: dataType.slug
     }
     // build a template of default values 
     dataType.fields.map(template => {
       datum[template.name] = "";
       if(template.defaultValue) {
         datum[template.name] = template.defaultValue;
-      } else if(template.type === "select" && template.data) {
+      } else if(template.component_type === "select" && template.data) {
         let firstValue = template.data[0];
         if(firstValue.value) {
           firstValue = firstValue.value;
@@ -179,9 +179,9 @@ export default class Composable extends React.Component {
     Update the field value 
   */
   onFieldChange(event, fieldIndex, template) {
-    if(template.type === "boolean") {
+    if(template.component_type === "boolean") {
       this.onFieldChangeBoolean(event, fieldIndex, template);
-    } else if (["check_boxes", "rich_text"].indexOf(template.type) > -1) {
+    } else if (["check_boxes", "rich_text"].indexOf(template.component_type) > -1) {
       // note: event in this case is the array of selections
       this.onFieldChangeValue(event, fieldIndex, template);
     } else {
@@ -251,47 +251,6 @@ export default class Composable extends React.Component {
   }
 }
 
-/*
-
-  Default field types for Composable pages
-  These can be passed in to the component to customise 
-  the field types present in the composable component 
-
-*/
-var defaultDataTypes = [{
-  name: "Section",
-  slug: "section",
-  fields: [{
-    label: "Section Type",
-    name: "section_type",
-    type: "select", 
-    className: "form--auto",
-    data: ["body", "fullwidth"] 
-  }]
-},{
-  name: "Heading",
-  slug: "heading",
-  fields: [{
-    label: "Heading Text",
-    name: "text",
-    type: "string",
-    className: "form--medium"
-  },{
-    label: "Size",
-    name: "heading_size",
-    type: "select",
-    data: ["1", "2", "3", "4", "5", "6"],
-    className: "form--auto"
-  }]
-},{
-  name: "Text",
-  slug: "text",
-  fields: [{
-    name: "body",
-    type: "textarea"
-  }]
-}];
-
 Composable.propTypes = {
   data: PropTypes.object,
   dataTypes: PropTypes.array 
@@ -301,6 +260,5 @@ Composable.propTypes = {
 Composable.defaultProps = {
   data: {
     data: []
-  },
-  dataTypes: defaultDataTypes
+  }
 };

@@ -8,8 +8,8 @@ import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable
 const DragHandle = SortableHandle(() => <span className="drag-handler">Drag to Reorder</span>);
 
 const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => {
-  var template = component.props.getTemplateForField(datum.type);
-  var parentKey = "composable_index_" + datum.id + "_type_" + datum.type; 
+  var template = component.props.getTemplateForField(datum.component_type);
+  var parentKey = "composable_index_" + datum.id + "_type_" + datum.component_type; 
   var className = "composable--field";
   var collapseText = "Collapse";
   var ariaExpanded = "true";
@@ -22,7 +22,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
     <div className="composable--field--wrapper form--enhanced">
       <div className={className}>
         <div className="composable--field-heading">
-          <span className="composable--field-heading--type">{template ? template.name : `Unsupported field type (${datum.type})` }</span>
+          <span className="composable--field-heading--type">{template ? template.name : `Unsupported field type (${datum.component_type})` }</span>
           <button className="composable--field-heading--remove" type="button" onClick={() => component.props.removeField(fieldIndex)}>Remove</button>
           <button className="composable--field-heading--collapse" type="button" aria-expanded={ariaExpanded} title={collapseText} onClick={() => component.props.collapseToggleField(fieldIndex)}>{collapseText}</button>
           <DragHandle />
@@ -53,7 +53,7 @@ const SortableList = SortableContainer(({data, onSortStart, onSortEnd, component
                         fieldIndex={index} 
                         datum={datum} 
                         component={component} 
-                        key={"composable_index_" + datum.id + "_type_" + datum.type} 
+                        key={"composable_index_" + datum.id + "_type_" + datum.component_type} 
           />
         );
       })}

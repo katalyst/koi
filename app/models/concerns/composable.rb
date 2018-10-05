@@ -63,14 +63,14 @@ module Composable
       data["data"].each_with_index do |datum,index|
         # create new section if there is no current section and this
         # isn't a new section
-        if !current_composable_section && !datum["type"].eql?("section")
+        if !current_composable_section && !datum["component_type"].eql?("section")
           current_composable_section = {
-            section_type: field_type_section_fallbacks[datum[:type]] || "body",
+            section_type: field_type_section_fallbacks[datum[:component_type]] || "body",
             section_data: []
           }
         end
         # create a new section if this is a new section
-        if datum["type"].eql?("section")
+        if datum["component_type"].eql?("section")
           # push current page section to page sections if there's one available
           composable_sections << current_composable_section if current_composable_section
           # create a new section from this datum
