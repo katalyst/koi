@@ -146,7 +146,7 @@ export default class Composable extends React.Component {
 
   collapseToggleField(fieldIndex) {
     var newData = this.state.data.data;
-    newData[fieldIndex].collapsed = !newData[fieldIndex].collapsed;
+    newData[fieldIndex].component_collapsed = !newData[fieldIndex].component_collapsed;
     this.setState({
       data: {
         data: newData
@@ -165,7 +165,7 @@ export default class Composable extends React.Component {
   toggleCollapsedAll(collapsed) {
     var newData = this.state.data.data;
     newData.map(datum => {
-      datum.collapsed = collapsed;
+      datum.component_collapsed = collapsed;
     })
     this.setState({
       data: {

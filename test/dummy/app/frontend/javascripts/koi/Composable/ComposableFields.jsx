@@ -13,7 +13,7 @@ const SortableItem = SortableElement(({index, fieldIndex, datum, component}) => 
   var className = "composable--field";
   var collapseText = "Collapse";
   var ariaExpanded = "true";
-  if(datum.collapsed) {
+  if(datum.component_collapsed) {
     className += " composable--field__collapsed";
     collapseText = "Reveal";
     ariaExpanded = "false";
