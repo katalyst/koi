@@ -557,6 +557,9 @@ if yes?("Do you want to generate ornament?")
   # Add composable yarn dependencies
   run "yarn add react-sortable-hoc"
 
+  git add: '.'
+  git commit: "-m 'Generated Ornament & Composable Pages'"
+
 end
 
 rake 'db:seed'
