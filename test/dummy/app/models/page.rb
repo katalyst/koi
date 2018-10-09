@@ -22,7 +22,7 @@ class Page < ApplicationRecord
     config :admin do
       actions except: [:new]
       index   fields: [:id, :title]
-      form    fields: [:title, :description, :composable_data],
+      form    fields: [:title, :composable_data],
               composable: ["section", "text", "heading", "hero", "kitchen_sink"]
     end
   end

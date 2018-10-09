@@ -1,160 +1,82 @@
 .composable {
-  margin-top: $default-unit;
-}
-
-.composable--header {
-  text-align: right;
-  font-size: $small-font-size;
-
-  button + button {
-    margin-left: $xxxxx-small-unit;
-  }
+  display: flex;
 }
 
 // =========================================================================
-// Field containers
+// Library of components
 // =========================================================================
 
-.composable--fields__empty {
-  background: $passive-color;
-  padding: $panel-padding;
+.composable--library {
+  margin-left: auto;
   border: $divider;
-  text-align: center;
+  border-radius: $border-radius;
+  padding: $xxx-small-unit;
+  min-width: 250px;
 }
 
-.composable--fields--debug {
+.composable--library--component {
+  background: $passive-color;
+  border-radius: $border-radius;
+  padding: $xxx-small-unit;
+  border: $divider;
+}
+
+.composable--library--component + .composable--library--component {
   margin-top: $xxx-small-unit;
 }
 
-.composable--fields--debug pre {
+// =========================================================================
+// Composition
+// =========================================================================
+
+.composable--composition {
+  margin-right: $default-unit;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.composable--composition--empty {
+  padding: $default-unit;
   border: $divider;
-  padding: $panel-padding;
-  background: #fefefe;
-  // max-height: 250px;
-  overflow: auto;
-  @include box-shadow(inset 2px 2px 5px rgba(0,0,0,0.2));
+  border-radius: $border-radius;
 }
 
 // =========================================================================
-// Fields
+// Component Header
 // =========================================================================
-$composable-field-gutters: $xxx-small-unit;
 
-.composable--fields {
-  margin-top: $composable-field-gutters * -1;
-}
-
-.composable--field--wrapper {
-  padding-top: $composable-field-gutters;
-}
-
-.composable--field {
+.composable--component {
   border: $divider;
-  background: $white;
-
-  body > .composable--field--wrapper & {
-    @include box-shadow(2px 2px 6px rgba(0,0,0,0.1));
-  }
+  border-radius: $border-radius;
+  margin-bottom: $xxx-small-unit;
 }
 
-.composable--field-heading {
+.composable--component--meta {
   background: $passive-color;
   border-bottom: $divider;
-  @include display-flex;
+  display: flex;
 }
 
-.composable--field-heading--type {
-  padding: 8px $panel-padding;
+.composable--component--meta--label,
+.composable--component--meta--text-action {
+  padding: $xxx-small-unit;
 }
 
-.composable--field-heading--remove {
-  padding-left: $xxx-small-unit;
-  padding-right: $xxx-small-unit;
-}
-
-.composable--field-heading--up,
-.composable--field-heading--down,
-.composable--field-heading--collapse {
-  width: 44px;
-  text-align: center;
-  border-left: $divider;
-  position: relative;
-  text-indent: -9999px;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -3px;
-    margin-left: -6px;
-    border: 6px solid transparent;
-  }
-}
-
-.composable--field-heading--collapse:before,
-.composable--field-heading--up:before {
-  border-top-width: 0;
-  border-bottom-color: $primary-color;
-}
-
-.composable--field__collapsed .composable--field-heading--collapse:before,
-.composable--field-heading--down:before {
-  border-bottom-width: 0;
-  border-top-width: 6px;
-  border-top-color: $primary-color;
-}
-
-.composable--field-heading .drag-handler {
-  width: 44px;
-  text-indent: -9999px;
-  outline: none;
-  background: url("/assets/koi/lib/jquery/ui-sortable-handle.png") center no-repeat;
-  cursor: pointer;
-  border-left: $divider;
-}
-
-.composable--field-heading--type {
-  @include flex-grow(1);
+.composable--component--meta--label {
   margin-right: auto;
 }
 
-.composable--field-template {
-  padding: $panel-padding;
-
-  .composable--field__collapsed & {
-    display: none;
-  }
+.composable--component--meta--text-action,
+.composable--component--meta--drag {
+  border-left: $divider;
 }
 
-.composable--field--unsupported {
-  padding: $panel-padding;
-  background: $error-background;
-}
-
-// =========================================================================
-// Add new toolbar
-// =========================================================================
-
-.composable--add {
-  margin-top: $xxx-small-unit;
-}
-
-.composable--add--wrapper {
-  @include display-flex;
-  @include flex-direction(row);
-  @include flex-wrap;
-
-  > div {
-    border-right: $divider;
-  }
-}
-
-.composable--add--label {
+.composable--component--meta--drag {
   background: $passive-color;
+  width: $button-height;
 }
 
-.composable--add--label,
-.composable--add--wrapper button {
-  padding: 8px $xxx-small-unit;
+.composable--component--body {
+  padding: $xxx-small-unit;
+  background: $white;
 }

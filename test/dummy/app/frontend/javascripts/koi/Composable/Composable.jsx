@@ -1,34 +1,41 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import {arrayMove} from 'react-sortable-hoc';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-import ComposableAdd from './ComposableAdd';
-import ComposableFields from './ComposableFields';
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 export default class Composable extends React.Component {
   
   constructor(props) {
     super(props),
     this.state = {
-      data: this.props.data || {
-        data: []
-      }
+      composition: this.props.composition || [],
     };
-    this.getTemplateForField = this.getTemplateForField.bind(this);
-    this.addField = this.addField.bind(this);
-    this.removeField = this.removeField.bind(this);
-    this.onFieldChange = this.onFieldChange.bind(this);
-    this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
-    this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
-    this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
-    this.moveFieldBy = this.moveFieldBy.bind(this);
-    this.dragMove = this.dragMove.bind(this);
-    this.collapseToggleField = this.collapseToggleField.bind(this);
-    this.collapseAll = this.collapseAll.bind(this);
-    this.showAll = this.showAll.bind(this);
-    this.toggleCollapsedAll = this.toggleCollapsedAll.bind(this);
+
+    this._temporaryAddComponent = this._temporaryAddComponent.bind(this);
+    this.addNewComponent = this.addNewComponent.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onDragUpdate = this.onDragUpdate.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
+
+  // =========================================================================
+  // TEMPORARY - This will be DND interface later
+  // =========================================================================
+
+  _temporaryAddComponent(component) {
+    this.addNewComponent(component);
+  }
+
+  // =========================================================================
+  // Component data structures
+  // =========================================================================
 
   /* 
     Get the DataType template for a field type name
@@ -38,227 +45,192 @@ export default class Composable extends React.Component {
     return this.props.dataTypes.filter(template => template.slug === fieldType)[0] || false;
   }
 
-  /* 
-    Generic move element function
-  */
-  moveArrayElement(array, value, offset) {
-    var oldIndex = array.indexOf(value);
-    if(oldIndex > -1) {
-      var newIndex = (oldIndex + offset);
-      if(newIndex < 0) {
-        newIndex = 0;
-      } else if (newIndex >= array.length) {
-        newIndex = array.length;
-      }
-      var arrayClone = array.slice();
-      arrayClone.splice(oldIndex,1);
-      arrayClone.splice(newIndex,0,value);
-      return arrayClone;
+  addNewComponent(type){
+    const component = this.getTemplateForField(type);
+    if(!component) {
+      alert(`Cannot find component template for ${type}`);
+      return;
     }
-    return array;
-  }
 
-  /* 
-    Adding a new field to the interface
-  */
-  addField(event, dataType) {
-    // get current data
-    var data = this.state.data.data;
-    // create a new datum
-    // createdAt is a cheap way to make keys when 
-    // index is unreliable (these are orderable)
-    var datum = {
+    let composition = this.state.composition;
+
+    // Create a component structure
+    let newComponent = {
       id: Date.now(),
-      component_type: dataType.slug
+      component_type: component.slug
     }
-    // build a template of default values 
-    dataType.fields.map(template => {
-      datum[template.name] = "";
-      if(template.defaultValue) {
-        datum[template.name] = template.defaultValue;
-      } else if(template.component_type === "select" && template.data) {
-        let firstValue = template.data[0];
-        if(firstValue.value) {
-          firstValue = firstValue.value;
-        }
-        datum[template.name] = firstValue;
-      }
-    })
-    // push datum in to data and then set state
-    data.push(datum);
-    this.setState({
-      data: {
-        data: data
-      }
-    }, () => {
-      Ornament.C.FormHelpers.init();
-    });
-    return false;
-  }
 
-  /* 
-    Remove a field from the interface
-  */
-  removeField(fieldIndex) {
-    if(confirm("Are you sure?")) {
-      // get current data
-      var data = this.state.data.data;
-      // remove this index from data and set state
-      data.splice(fieldIndex, 1);
-      this.setState({
-        data: {
-          data: data
+    // Add default data for this component
+    if(component.fields) {
+      component.fields.forEach(template => {
+        // Defaulting to empty
+        newComponent[template.name] = "";
+        // Default to defaultValue if required
+        if(template.defaultValue) {
+          newComponent[template.name] = template.defaultValue;
+        // Default to first item in select menu
+        } else if(template.component_type === "select" && template.data) {
+          let firstValue = template.data[0];
+          if(firstValue.value) {
+            firstValue = firstValue.value;
+          }
+          newComponent[template.name] = firstValue;
         }
-      });
+      })
     }
-    return false;
-  }
 
-  /* 
-    Moving a field by an offset value
-  */
-  moveFieldBy(field, offset) {
-    var data = this.state.data.data;
-    var newPositions = this.moveArrayElement(data, field, offset);
+    // Push and setState
+    composition.push(newComponent);
     this.setState({
-      data: {
-        data: newPositions
-      }
-    });
-  }
-
-  /*
-    Reordering the data set by dragging 
-  */
-  dragMove(oldIndex, newIndex, $listElement) {
-    var newData = arrayMove(this.state.data.data, oldIndex, newIndex);
-    // Destroy CKEditors
-    // Ornament.CKEditor.sizeContainerAndDestroy($listElement);
-    this.setState({
-      data: {
-        data: newData
-      }
+      composition,
     }, () => {
-      // Refresh CKEditors 
-      // Ornament.CKEditor.bindAndReleaseSizing($listElement);
+      this.afterComponentAdd();
     });
   }
 
-  collapseToggleField(fieldIndex) {
-    var newData = this.state.data.data;
-    newData[fieldIndex].component_collapsed = !newData[fieldIndex].component_collapsed;
-    this.setState({
-      data: {
-        data: newData
-      }
-    });
+  // =========================================================================
+  // Drag and Drop functions
+  // =========================================================================
+
+  onDragStart() {
+
   }
 
-  collapseAll() {
-    this.toggleCollapsedAll(true);
-  }
-
-  showAll() {
-    this.toggleCollapsedAll(false);
-  }
-
-  toggleCollapsedAll(collapsed) {
-    var newData = this.state.data.data;
-    newData.map(datum => {
-      datum.component_collapsed = collapsed;
-    })
-    this.setState({
-      data: {
-        data: newData
-      }
-    })
+  onDragUpdate() {
     
   }
 
-  /*
-    Update the field value 
-  */
-  onFieldChange(event, fieldIndex, template) {
-    if(template.component_type === "boolean") {
-      this.onFieldChangeBoolean(event, fieldIndex, template);
-    } else if (["check_boxes", "rich_text"].indexOf(template.component_type) > -1) {
-      // note: event in this case is the array of selections
-      this.onFieldChangeValue(event, fieldIndex, template);
-    } else {
-      this.onFieldChangeDefault(event, fieldIndex, template);
+  onDragEnd(result) {
+    const { source, destination } = result;
+
+    // Dropped outside of list
+    if(!destination) {
+      return;
+    }
+
+    // Dropped on composition
+    if(destination.droppableId !== "library") {
+
+      // Create new component
+      if(source.droppableId === "library") {
+        this.addNewComponent(result.draggableId);
+
+      // Reorder
+      } else {
+        const composition = reorder(
+          this.state.composition,
+          source.index,
+          destination.index,
+        );
+        this.setState({
+          composition,
+        });
+      }
     }
   }
 
-  onFieldChangeDefault(event, fieldIndex, template) {
-    var value = event.target.value;
-    var data = this.state.data.data;
-    data[fieldIndex][template.name] = value;
-    this.setState({
-      data: {
-        data: data
-      }
-    });
+  afterComponentAdd() {
+
   }
 
-  onFieldChangeBoolean(event, fieldIndex, template) {
-    var value = event.target.checked;
-    var data = this.state.data.data;
-    data[fieldIndex][template.name] = value;
-    this.setState({
-      data: {
-        data: data
-      }
-    });
-  }
-
-  onFieldChangeValue(newData, fieldIndex, template) {
-    var data = this.state.data.data;
-    data[fieldIndex][template.name] = newData;
-    this.setState({
-      data: {
-        data: data
-      }
-    });
-  }
+  // =========================================================================
+  // Render
+  // =========================================================================
 
   render() {
-    var component = this;
-    return(      
-      <div className="composable">
-        <ComposableFields 
-          dataTypes={component.props.dataTypes} 
-          data={component.state.data.data} 
-          removeField={component.removeField} 
-          moveFieldBy={component.moveFieldBy} 
-          dragMove={component.dragMove} 
-          onFieldChange={component.onFieldChange} 
-          getTemplateForField={component.getTemplateForField} 
-          collapseToggleField={component.collapseToggleField} 
-          collapseAll={component.collapseAll} 
-          showAll={component.showAll} 
-        />
-        <ComposableAdd 
-          dataTypes={component.props.dataTypes} 
-          addField={component.addField} 
-        />
-        <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.data)} readOnly />
-        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
-          <p><strong>Debug:</strong></p>
-          <pre>data: {JSON.stringify(this.state.data.data, null, 2)}</pre>
+    return(
+      <DragDropContext
+        onDragStart={this.onDragStart}
+        onDragUpdate={this.onDragUpdate}
+        onDragEnd={this.onDragEnd}
+      >
+        <div className="composable">
+          <div className="composable--composition">
+            <Droppable droppableId="composition">
+              {(droppableProvided, droppableSnapshot) => (
+                <div ref={droppableProvided.innerRef}>
+                  {this.state.composition.length > 0
+                    ? <React.Fragment>
+                        {this.state.composition.map((component, index) => (
+                          <Draggable key={component.id} draggableId={component.id} index={index}>
+                            {(draggableProvided, draggableSnapshot) => (
+                              <div
+                                ref={draggableProvided.innerRef}
+                                className="composable--component"
+                                {...draggableProvided.draggableProps}
+                              >
+                                <div className="composable--component--meta">
+                                  <div className="composable--component--meta--label">
+                                    <strong>{component.component_type}</strong>
+                                  </div>
+                                  <button onClick={e => this.removeComponent(component)} className="composable--component--meta--text-action">Remove</button>
+                                  <div {...draggableProvided.dragHandleProps} className="composable--component--meta--drag">Drag</div>
+                                </div>
+                                <div className="composable--component--body">
+                                  Fields for this component go here!
+                                </div>
+                                <div className="composable--component--nested">
+                                  <Droppable droppableId={`${component.id}-nested`}>
+                                    {(nestedDroppableProvided, nestedDroppableSnapshot) => (
+                                      <div ref={nestedDroppableProvided.innerRef}>
+                                        <span>Nested</span>
+                                      </div>
+                                    )}
+                                  </Droppable>
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      </React.Fragment>
+                    : <div className="composable--composition--empty">
+                        Drag a component here to start.
+                      </div>
+                  }
+                  {droppableProvided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+          <div className="composable--library">
+            <Droppable droppableId="library">
+              {(provided, snapshot) => (
+                <div ref={provided.innerRef}>
+                  {this.props.dataTypes.map((component, index) => {
+                    return(
+                      <Draggable
+                        draggableId={component.slug}
+                        index={index}
+                        key={component.slug}
+                      >
+                        {(provided, snapshot) => (
+                          <div
+                            className="composable--library--component"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <div>
+                              {component.slug}
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
+                    )
+                    /*
+                    return(
+                      <div key={component.slug}>
+                        <button type="button" onClick={e => this._temporaryAddComponent(component)}>Add {component.slug}</button>
+                      </div>
+                    )
+                    */
+                  })}
+                </div>
+              )}
+            </Droppable>
+          </div>
         </div>
-      </div>
+      </DragDropContext>
     );
   }
 }
-
-Composable.propTypes = {
-  data: PropTypes.object,
-  dataTypes: PropTypes.array 
-};
-
-/* Passing default field types in as default props */
-Composable.defaultProps = {
-  data: {
-    data: []
-  }
-};

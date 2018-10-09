@@ -7,6 +7,7 @@ module Koi
         {
           name: "Section",
           slug: "section",
+          nestable: true,
           fields: [
             {
               label: "Section Type",
