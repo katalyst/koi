@@ -8,6 +8,7 @@ module Koi
           name: "Section",
           slug: "section",
           nestable: true,
+          icon: "folder",
           fields: [
             {
               label: "Section Type",
@@ -22,6 +23,7 @@ module Koi
         {
           name: "Heading",
           slug: "heading",
+          icon: "comment",
           fields: [
             {
               label: "Heading Text",
@@ -42,6 +44,7 @@ module Koi
         {
           name: "Text",
           slug: "text",
+          icon: "menu",
           fields: [
             {
               name: "body",
@@ -53,6 +56,7 @@ module Koi
         {
           name: "Hero",
           slug: "hero",
+          icon: "image",
           fields: [
             {
               name: "hero_id",
@@ -96,6 +100,7 @@ module Koi
         {
           name: "Kitchen Sink",
           slug: "kitchen_sink",
+          icon: "stack",
           fields: [
             {
               name: "small_field",

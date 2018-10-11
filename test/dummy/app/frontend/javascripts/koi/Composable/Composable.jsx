@@ -1,6 +1,9 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
+import ComposableComponent from "./ComposableComponent";
+import ComposableLibrary from "./ComposableLibrary";
+
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -13,24 +16,22 @@ const reorder = (list, startIndex, endIndex) => {
 export default class Composable extends React.Component {
   
   constructor(props) {
-    super(props),
+    super(props);
     this.state = {
       composition: this.props.composition || [],
     };
 
-    this._temporaryAddComponent = this._temporaryAddComponent.bind(this);
-    this.addNewComponent = this.addNewComponent.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragUpdate = this.onDragUpdate.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-  }
 
-  // =========================================================================
-  // TEMPORARY - This will be DND interface later
-  // =========================================================================
+    this.addNewComponent = this.addNewComponent.bind(this);
+    this.removeComponent = this.removeComponent.bind(this);
 
-  _temporaryAddComponent(component) {
-    this.addNewComponent(component);
+    this.onFieldChange = this.onFieldChange.bind(this);
+    this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
+    this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
+    this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
   }
 
   // =========================================================================
@@ -39,13 +40,13 @@ export default class Composable extends React.Component {
 
   /* 
     Get the DataType template for a field type name
-    eg. "heading" -> dataTypes.where("type": "heading")
+    eg. "heading" -> composableTypes.where("type": "heading")
   */
   getTemplateForField(fieldType) {
-    return this.props.dataTypes.filter(template => template.slug === fieldType)[0] || false;
+    return this.props.composableTypes.filter(template => template.slug === fieldType)[0] || false;
   }
 
-  addNewComponent(type){
+  addNewComponent(type, atIndex=false){
     const component = this.getTemplateForField(type);
     if(!component) {
       alert(`Cannot find component template for ${type}`);
@@ -69,7 +70,7 @@ export default class Composable extends React.Component {
         if(template.defaultValue) {
           newComponent[template.name] = template.defaultValue;
         // Default to first item in select menu
-        } else if(template.component_type === "select" && template.data) {
+        } else if(template.type === "select" && template.data) {
           let firstValue = template.data[0];
           if(firstValue.value) {
             firstValue = firstValue.value;
@@ -80,7 +81,11 @@ export default class Composable extends React.Component {
     }
 
     // Push and setState
-    composition.push(newComponent);
+    if(atIndex !== false) {
+      composition.splice(atIndex, 0, newComponent);
+    } else {
+      composition.push(newComponent);
+    }
     this.setState({
       composition,
     }, () => {
@@ -88,19 +93,73 @@ export default class Composable extends React.Component {
     });
   }
 
+  removeComponent(component) {
+    if(confirm("Are you sure you want to remove this component?")) {
+      let composition = this.state.composition;
+      let index = composition.indexOf(component);
+      composition.splice(index, 1);
+      this.setState({
+        composition,
+      },() => {
+        // After component remove
+      });
+    }
+  }
+
+  // =========================================================================
+  // Field data structures
+  // =========================================================================
+
+  onFieldChange(event, fieldIndex, template) {
+    if(template.component_type === "boolean") {
+      this.onFieldChangeBoolean(event, fieldIndex, template);
+    } else if (["check_boxes", "rich_text"].indexOf(template.component_type) > -1) {
+      // note: event in this case is the array of selections
+      this.onFieldChangeValue(event, fieldIndex, template);
+    } else {
+      this.onFieldChangeDefault(event, fieldIndex, template);
+    }
+  }
+
+  onFieldChangeDefault(event, fieldIndex, template) {
+    const value = typeof event === "string" ? event : event.target.value;
+    const composition = this.state.composition;
+    composition[fieldIndex][template.name] = value;
+    this.setState({
+      composition,
+    });
+  }
+
+  onFieldChangeBoolean(event, fieldIndex, template) {
+    const value = event.target.checked;
+    const composition = this.state.composition;
+    composition[fieldIndex][template.name] = value;
+    this.setState({
+      composition,
+    });
+  }
+
+  onFieldChangeValue(newData, fieldIndex, template) {
+    const composition = this.state.composition;
+    composition[fieldIndex][template.name] = newData;
+    this.setState({
+      composition,
+    });
+  }
+
   // =========================================================================
   // Drag and Drop functions
   // =========================================================================
 
-  onDragStart() {
-
+  onDragStart(start, provided) {
+    
   }
 
   onDragUpdate() {
     
   }
 
-  onDragEnd(result) {
+  onDragEnd(result, provided) {
     const { source, destination } = result;
 
     // Dropped outside of list
@@ -113,7 +172,7 @@ export default class Composable extends React.Component {
 
       // Create new component
       if(source.droppableId === "library") {
-        this.addNewComponent(result.draggableId);
+        this.addNewComponent(result.draggableId, destination.index);
 
       // Reorder
       } else {
@@ -138,6 +197,15 @@ export default class Composable extends React.Component {
   // =========================================================================
 
   render() {
+
+    const composableHelpers = {
+      composition: this.state.composition,
+      removeComponent: this.removeComponent,
+      addNewComponent: this.addNewComponent,
+      onFieldChange: this.onFieldChange,
+      icons: this.props.icons,
+    };
+
     return(
       <DragDropContext
         onDragStart={this.onDragStart}
@@ -147,88 +215,38 @@ export default class Composable extends React.Component {
         <div className="composable">
           <div className="composable--composition">
             <Droppable droppableId="composition">
-              {(droppableProvided, droppableSnapshot) => (
-                <div ref={droppableProvided.innerRef}>
+              {(compositionProvided, compositionSnapshot) => (
+                <div ref={compositionProvided.innerRef} className="spacing-xxx-tight">
                   {this.state.composition.length > 0
                     ? <React.Fragment>
                         {this.state.composition.map((component, index) => (
-                          <Draggable key={component.id} draggableId={component.id} index={index}>
-                            {(draggableProvided, draggableSnapshot) => (
-                              <div
-                                ref={draggableProvided.innerRef}
-                                className="composable--component"
-                                {...draggableProvided.draggableProps}
-                              >
-                                <div className="composable--component--meta">
-                                  <div className="composable--component--meta--label">
-                                    <strong>{component.component_type}</strong>
-                                  </div>
-                                  <button onClick={e => this.removeComponent(component)} className="composable--component--meta--text-action">Remove</button>
-                                  <div {...draggableProvided.dragHandleProps} className="composable--component--meta--drag">Drag</div>
-                                </div>
-                                <div className="composable--component--body">
-                                  Fields for this component go here!
-                                </div>
-                                <div className="composable--component--nested">
-                                  <Droppable droppableId={`${component.id}-nested`}>
-                                    {(nestedDroppableProvided, nestedDroppableSnapshot) => (
-                                      <div ref={nestedDroppableProvided.innerRef}>
-                                        <span>Nested</span>
-                                      </div>
-                                    )}
-                                  </Droppable>
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
+                          <ComposableComponent
+                            key={component.id}
+                            component={component}
+                            index={index}
+                            template={this.getTemplateForField(component.component_type)}
+                            helpers={composableHelpers}
+                          />
                         ))}
                       </React.Fragment>
                     : <div className="composable--composition--empty">
                         Drag a component here to start.
                       </div>
                   }
-                  {droppableProvided.placeholder}
+                  {compositionProvided.placeholder}
                 </div>
               )}
             </Droppable>
           </div>
-          <div className="composable--library">
-            <Droppable droppableId="library">
-              {(provided, snapshot) => (
-                <div ref={provided.innerRef}>
-                  {this.props.dataTypes.map((component, index) => {
-                    return(
-                      <Draggable
-                        draggableId={component.slug}
-                        index={index}
-                        key={component.slug}
-                      >
-                        {(provided, snapshot) => (
-                          <div
-                            className="composable--library--component"
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <div>
-                              {component.slug}
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
-                    )
-                    /*
-                    return(
-                      <div key={component.slug}>
-                        <button type="button" onClick={e => this._temporaryAddComponent(component)}>Add {component.slug}</button>
-                      </div>
-                    )
-                    */
-                  })}
-                </div>
-              )}
-            </Droppable>
-          </div>
+          <ComposableLibrary
+            composableTypes={this.props.composableTypes}
+            helpers={composableHelpers}
+          />
+        </div>
+        <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
+        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
+          <p><strong>Debug:</strong></p>
+          <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
         </div>
       </DragDropContext>
     );

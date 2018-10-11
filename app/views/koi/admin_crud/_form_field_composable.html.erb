@@ -7,7 +7,14 @@
 -%>
 
 <%= react_component("Composable", props: {
-  data: value,
-  attr: "#{f.object_name}[#{attr}]",
-  dataTypes: f.object.class.composable_config
+  composition: value,
+  composableTypes: f.object.class.composable_config,
+  icons: {
+    image: icon("image"),
+    stack: icon("stack"),
+    folder: icon("folder"),
+    comment: icon("comment"),
+    menu: icon("menu"),
+  },
+  attr: "#{f.object_name}[#{attr}]"
 }) %>

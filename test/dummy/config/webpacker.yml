@@ -23,6 +23,7 @@ default: &default
 
 development:
   <<: *default
+  compile: false
 
   dev_server:
     host: 0.0.0.0

@@ -8,10 +8,18 @@
 
 .composable--library {
   margin-left: auto;
-  border: $divider;
-  border-radius: $border-radius;
-  padding: $xxx-small-unit;
   min-width: 250px;
+  position: relative;
+
+  > div {
+    border: $divider;
+    border-radius: $border-radius;
+    padding: $xxx-small-unit;
+  }
+
+  &.composable--library__fixed > div {
+    position: fixed;
+  }
 }
 
 .composable--library--component {
@@ -19,10 +27,25 @@
   border-radius: $border-radius;
   padding: $xxx-small-unit;
   border: $divider;
+  display: flex;
+  align-items: center;
 }
 
-.composable--library--component + .composable--library--component {
-  margin-top: $xxx-small-unit;
+.composable--library--icon {
+  margin-right: $xxx-small-unit;
+  width: 1rem;
+
+  svg {
+    display: block;
+  }
+
+  [fill] {
+    fill: $grey;
+  }
+
+  [stroke] {
+    stroke: $grey;
+  }
 }
 
 // =========================================================================
@@ -33,6 +56,7 @@
   margin-right: $default-unit;
   flex-grow: 1;
   flex-shrink: 1;
+  padding-bottom: $xxx-large-unit;
 }
 
 .composable--composition--empty {
@@ -48,7 +72,10 @@
 .composable--component {
   border: $divider;
   border-radius: $border-radius;
-  margin-bottom: $xxx-small-unit;
+}
+
+.composable--component__dragging {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .composable--component--meta {
@@ -72,11 +99,25 @@
 }
 
 .composable--component--meta--drag {
-  background: $passive-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: $button-height;
+  text-shadow: 1px 1px 0 rgba(#fff, .25);
+
+  &:hover,
+  &:focus,
+  .composable--component__dragging & {
+    background: rgba($grey, .5);
+  }
 }
 
-.composable--component--body {
+.composable--component--body,
+.composable--component--nested {
   padding: $xxx-small-unit;
   background: $white;
+}
+
+.composable--component--nested {
+  border-top: $divider;
 }
