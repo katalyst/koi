@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd-next';
 
 import ComposableComponent from "./ComposableComponent";
 import ComposableLibrary from "./ComposableLibrary";
@@ -28,6 +28,7 @@ export default class Composable extends React.Component {
     this.addNewComponent = this.addNewComponent.bind(this);
     this.removeComponent = this.removeComponent.bind(this);
     this.collapseComponent = this.collapseComponent.bind(this);
+    this.collapseAllComponents = this.collapseAllComponents.bind(this);
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
@@ -126,6 +127,16 @@ export default class Composable extends React.Component {
     this.setState({
       composition,
     })
+  }
+
+  collapseAllComponents(collapse) {
+    const composition = this.state.composition;
+    composition.map(component => {
+      component.collapsed = collapse;
+    });
+    this.setState({
+      composition,
+    });
   }
 
   // =========================================================================
@@ -235,6 +246,10 @@ export default class Composable extends React.Component {
         onDragUpdate={this.onDragUpdate}
         onDragEnd={this.onDragEnd}
       >
+        <div className="composable--header">
+          <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> | 
+          <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
+        </div>
         <div className="composable">
           <div className="composable--composition">
             <Droppable droppableId="composition" ignoreContainerClipping={true}>

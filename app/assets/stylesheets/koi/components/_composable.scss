@@ -3,6 +3,14 @@
 }
 
 // =========================================================================
+// Header tools
+// =========================================================================
+
+.composable--header {
+  margin-bottom: $xxx-small-unit;
+}
+
+// =========================================================================
 // Library of components
 // =========================================================================
 
@@ -119,8 +127,8 @@
     top: 50%;
     left: 50%;
     border: 8px solid transparent;
-    border-top-color: $primary-color;
-    border-bottom-width: 0;
+    border-bottom-color: $primary-color;
+    border-top-width: 0;
     margin-left: -8px;
     margin-top: -4px;
     transition: transform .2s;

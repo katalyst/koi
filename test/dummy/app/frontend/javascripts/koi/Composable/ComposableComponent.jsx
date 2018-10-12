@@ -1,5 +1,5 @@
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd-next';
 import ComposableField from "./ComposableFIeld";
 
 export default class ComposableComponent extends React.Component {
