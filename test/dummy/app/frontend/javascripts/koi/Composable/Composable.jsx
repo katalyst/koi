@@ -1,8 +1,8 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd-next';
 
-import ComposableComponent from "./ComposableComponent";
 import ComposableLibrary from "./ComposableLibrary";
+import ComposableComposition from "./ComposableComposition";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -25,6 +25,7 @@ export default class Composable extends React.Component {
     this.onDragUpdate = this.onDragUpdate.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
 
+    this.getTemplateForField = this.getTemplateForField.bind(this);
     this.addNewComponent = this.addNewComponent.bind(this);
     this.removeComponent = this.removeComponent.bind(this);
     this.collapseComponent = this.collapseComponent.bind(this);
@@ -75,7 +76,7 @@ export default class Composable extends React.Component {
         // Default to first item in select menu
         } else if(template.type === "select" && template.data) {
           let firstValue = template.data[0];
-          if(firstValue.value) {
+          if(typeof template.data[0].value !== "undefined") {
             firstValue = firstValue.value;
           }
           newComponent[template.name] = firstValue;
@@ -233,6 +234,7 @@ export default class Composable extends React.Component {
 
     const composableHelpers = {
       composition: this.state.composition,
+      getTemplateForField: this.getTemplateForField,
       removeComponent: this.removeComponent,
       addNewComponent: this.addNewComponent,
       onFieldChange: this.onFieldChange,
@@ -255,22 +257,9 @@ export default class Composable extends React.Component {
             <Droppable droppableId="composition" ignoreContainerClipping={true}>
               {(compositionProvided, compositionSnapshot) => (
                 <div ref={compositionProvided.innerRef} className={`spacing-xxx-tight ${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
-                  {this.state.composition.length > 0
-                    ? <React.Fragment>
-                        {this.state.composition.map((component, index) => (
-                          <ComposableComponent
-                            key={component.id}
-                            component={component}
-                            index={index}
-                            template={this.getTemplateForField(component.component_type)}
-                            helpers={composableHelpers}
-                          />
-                        ))}
-                      </React.Fragment>
-                    : <div className="composable--composition--empty">
-                        Drag a component here to start.
-                      </div>
-                  }
+                  <ComposableComposition
+                    helpers={composableHelpers}
+                  />
                   {compositionProvided.placeholder}
                 </div>
               )}

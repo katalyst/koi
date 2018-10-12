@@ -59,8 +59,8 @@ module Composable
     if data.is_a?(String)
       data = JSON.parse(data)
     end
-    if data["data"].present?
-      data["data"].each_with_index do |datum,index|
+    if data.present?
+      data.each_with_index do |datum,index|
         # create new section if there is no current section and this
         # isn't a new section
         if !current_composable_section && !datum["component_type"].eql?("section")

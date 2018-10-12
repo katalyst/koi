@@ -31,6 +31,26 @@ export default class ComposableComponent extends React.Component {
     const { component, index, template, helpers } = this.props;
     const hasFields = template && template.fields && template.fields.length;
 
+    let preview = "";
+    if(hasFields) {
+      const primaryField = template.primary;
+      const primaryFieldSettings = template.fields.filter(field => field.name === primaryField)[0];
+      preview = component[primaryField] || false;
+
+      // If field has data (eg. select field)
+      if(primaryFieldSettings.data) {
+        const object = primaryFieldSettings.data.filter(datum => datum.value + "" === preview)[0];
+        if(object && object.name) {
+          preview = object.name;
+        }
+      }
+
+      // If preview is potentially an object (eg. select values)
+      if(typeof preview === "object") {
+        preview = "[object]";
+      }
+    }
+
     return(
       <Draggable key={component.id} draggableId={component.id} index={index}>
         {(draggableProvided, draggableSnapshot) => (
@@ -42,6 +62,11 @@ export default class ComposableComponent extends React.Component {
             <div className="composable--component--meta">
               <div className="composable--component--meta--label">
                 <strong>{template.name || template.slug || component.section_type}</strong>
+              </div>
+              <div className="composable--component--preview grey small">
+                <div>
+                  <span>{preview}</span>
+                </div>
               </div>
               <button
                 type="button"

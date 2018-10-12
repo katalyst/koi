@@ -23,7 +23,7 @@ class Page < ApplicationRecord
       actions except: [:new]
       index   fields: [:id, :title]
       form    fields: [:title, :composable_data],
-              composable: ["section", "text", "heading", "hero", "kitchen_sink"]
+              composable: ["section", "text", "heading", "hero", "hero_list", "kitchen_sink"]
     end
   end
 

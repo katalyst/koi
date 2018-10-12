@@ -16,6 +16,8 @@ class SuperHero < ApplicationRecord
   validates :powers, length: { minimum: 1 }
 
   scope :alphabetical, -> { order("name DESC") }
+  scope :male, -> { where(gender: "Male") }
+  scope :female, -> { where(gender: "Female") }
 
   default_scope -> { alphabetical }
 

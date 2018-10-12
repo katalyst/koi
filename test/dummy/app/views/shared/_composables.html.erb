@@ -3,7 +3,7 @@
   <%- # Build mark up for the data inside this section for use later -%>
   <%- section_contents = capture do -%>
     <%- section[:section_data].each do |component| -%>
-      <%- component_type = component["type"] -%>
+      <%- component_type = component["component_type"] -%>
       <%= 
         begin
           render "shared/composable_components/#{component_type}", data: component 

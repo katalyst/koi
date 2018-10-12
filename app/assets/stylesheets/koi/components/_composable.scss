@@ -109,8 +109,31 @@
   padding: $xxx-small-unit;
 }
 
-.composable--component--meta--label {
+.composable--component--preview {
   margin-right: auto;
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  // Position absolute to avoid issues with
+  // flexbox children + white-space: nowrap
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: $xxx-small-unit;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  > div > span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .composable--component--meta--section {
@@ -119,6 +142,8 @@
 
 .composable--component--meta--collapser {
   width: $button-height;
+  flex-grow: 0;
+  flex-shrink: 0;
   position: relative;
 
   &::before {
@@ -144,6 +169,8 @@
   align-items: center;
   justify-content: center;
   width: $button-height;
+  flex-grow: 0;
+  flex-shrink: 0;
   text-shadow: 1px 1px 0 rgba(#fff, .25);
 
   .composable--component__dragging & {

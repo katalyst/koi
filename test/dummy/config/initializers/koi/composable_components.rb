@@ -9,6 +9,7 @@ module Koi
           slug: "section",
           nestable: true,
           icon: "folder",
+          primary: "section_type",
           fields: [
             {
               label: "Section Type",
@@ -24,6 +25,7 @@ module Koi
           name: "Heading",
           slug: "heading",
           icon: "comment",
+          primary: "text",
           fields: [
             {
               label: "Heading Text",
@@ -45,6 +47,7 @@ module Koi
           name: "Text",
           slug: "text",
           icon: "menu",
+          primary: "body",
           fields: [
             {
               name: "body",
@@ -57,6 +60,7 @@ module Koi
           name: "Hero",
           slug: "hero",
           icon: "image",
+          primary: "hero_id",
           fields: [
             {
               name: "hero_id",
@@ -96,11 +100,28 @@ module Koi
             }
           ]
         },
+
+        {
+          name: "Hero List",
+          slug: "hero_list",
+          icon: "image",
+          primary: "list_type",
+          fields: [
+            {
+              name: "list_type",
+              type: "select",
+              label: "List Type",
+              className: "form--auto",
+              data: ["", "Male", "Female"],
+            },
+          ]
+        },
         
         {
           name: "Kitchen Sink",
           slug: "kitchen_sink",
           icon: "stack",
+          primary: "small_field",
           fields: [
             {
               name: "small_field",
