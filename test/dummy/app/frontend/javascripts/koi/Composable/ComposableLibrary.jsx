@@ -13,11 +13,11 @@ export default class ComposableLibrary extends React.Component {
   }
 
   componentDidMount(){
-    window.addEventListener("scroll", this.debouncedStickyLibrary, { passive: true });
+    // window.addEventListener("scroll", this.debouncedStickyLibrary, { passive: true });
   }
 
   componentWillUnmount(){
-    window.removeEventListener("scroll", this.debouncedStickyLibrary);
+    // window.removeEventListener("scroll", this.debouncedStickyLibrary);
   }
 
   stickyLibrary() {

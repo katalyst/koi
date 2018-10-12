@@ -19,6 +19,8 @@
 
   &.composable--library__fixed > div {
     position: fixed;
+    top: 64px;
+    width: 250px;
   }
 }
 
@@ -56,12 +58,22 @@
   margin-right: $default-unit;
   flex-grow: 1;
   flex-shrink: 1;
-  padding-bottom: $xxx-large-unit;
+
+  > div {
+    padding-bottom: $xxx-large-unit;
+  }
 }
 
 .composable--composition--empty {
   padding: $default-unit;
   border: $divider;
+  border-radius: $border-radius;
+}
+
+.composable--composition--drag-space {
+  // background: $passive-color;
+  outline: 2px dashed $primary-color;
+  outline-offset: 4px;
   border-radius: $border-radius;
 }
 
@@ -93,9 +105,30 @@
   margin-right: auto;
 }
 
-.composable--component--meta--text-action,
-.composable--component--meta--drag {
+.composable--component--meta--section {
   border-left: $divider;
+}
+
+.composable--component--meta--collapser {
+  width: $button-height;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 8px solid transparent;
+    border-top-color: $primary-color;
+    border-bottom-width: 0;
+    margin-left: -8px;
+    margin-top: -4px;
+    transition: transform .2s;
+  }
+
+  .composable--component__collapsed &::before {
+    transform: rotateZ(180deg);
+  }
 }
 
 .composable--component--meta--drag {
@@ -105,9 +138,15 @@
   width: $button-height;
   text-shadow: 1px 1px 0 rgba(#fff, .25);
 
-  &:hover,
-  &:focus,
   .composable--component__dragging & {
+    background: rgba($grey, .5);
+  }
+}
+
+.composable--component--meta--drag,
+.composable--component--meta--collapser {
+  &:hover,
+  &:focus {
     background: rgba($grey, .5);
   }
 }

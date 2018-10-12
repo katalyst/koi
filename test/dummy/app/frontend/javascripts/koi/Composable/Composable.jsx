@@ -27,6 +27,7 @@ export default class Composable extends React.Component {
 
     this.addNewComponent = this.addNewComponent.bind(this);
     this.removeComponent = this.removeComponent.bind(this);
+    this.collapseComponent = this.collapseComponent.bind(this);
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
@@ -58,7 +59,8 @@ export default class Composable extends React.Component {
     // Create a component structure
     let newComponent = {
       id: Date.now(),
-      component_type: component.slug
+      component_type: component.slug,
+      collapsed: false,
     }
 
     // Add default data for this component
@@ -104,6 +106,26 @@ export default class Composable extends React.Component {
         // After component remove
       });
     }
+  }
+
+  // toggle - collapseComponent(12);
+  // collapse - collapseComponent(12, "collapse");
+  // show - collapseComponent(12, "show");
+  collapseComponent(componentIndex, direction) {
+    const composition = this.state.composition;
+    const component = composition[componentIndex];
+    if(!component) {
+      console.warn("Unable to find component with index of " + componentIndex);
+      return;
+    }
+    if(direction) {
+      component.collapsed = direction === "collapse" ? true : false;
+    } else {
+      component.collapsed = !component.collapsed;
+    }
+    this.setState({
+      composition,
+    })
   }
 
   // =========================================================================
@@ -204,6 +226,7 @@ export default class Composable extends React.Component {
       addNewComponent: this.addNewComponent,
       onFieldChange: this.onFieldChange,
       icons: this.props.icons,
+      collapseComponent: this.collapseComponent,
     };
 
     return(
@@ -214,9 +237,9 @@ export default class Composable extends React.Component {
       >
         <div className="composable">
           <div className="composable--composition">
-            <Droppable droppableId="composition">
+            <Droppable droppableId="composition" ignoreContainerClipping={true}>
               {(compositionProvided, compositionSnapshot) => (
-                <div ref={compositionProvided.innerRef} className="spacing-xxx-tight">
+                <div ref={compositionProvided.innerRef} className={`spacing-xxx-tight ${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
                   {this.state.composition.length > 0
                     ? <React.Fragment>
                         {this.state.composition.map((component, index) => (
