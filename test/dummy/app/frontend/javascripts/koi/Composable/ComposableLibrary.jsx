@@ -56,11 +56,19 @@ export default class ComposableLibrary extends React.Component {
                           {...libraryDraggableProvided.draggableProps}
                           {...libraryDraggableProvided.dragHandleProps}
                         >
-                          {component.icon && this.props.helpers.icons && this.props.helpers.icons[component.icon] &&
-                            <div
-                              className="composable--library--icon"
-                              dangerouslySetInnerHTML={{__html: this.props.helpers.icons[component.icon]}}
-                            ></div>
+                          {this.props.helpers.icons &&
+                            <React.Fragment>
+                              {component.icon && this.props.helpers.icons[component.icon]
+                                ? <div
+                                    className="composable--library--icon"
+                                    dangerouslySetInnerHTML={{__html: this.props.helpers.icons[component.icon]}}
+                                  ></div>
+                                : <div
+                                    className="composable--library--icon"
+                                    dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                                  ></div>
+                              }
+                            </React.Fragment>
                           }
                           <div>
                             {component.name || component.slug}
