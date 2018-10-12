@@ -80,7 +80,8 @@ module Composable
           }
         # push datum to current page section
         else
-          current_composable_section[:section_data] << datum.except!("component_collapsed", "id")
+          next if datum["component_draft"].eql?(true)
+          current_composable_section[:section_data] << datum.except!("component_collapsed", "component_draft", "id")
         end
       end
       # push last section to composable_sections

@@ -56,7 +56,12 @@ export default class ComposableComponent extends React.Component {
         {(draggableProvided, draggableSnapshot) => (
           <div
             ref={draggableProvided.innerRef}
-            className={`composable--component ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} ${component.collapsed ? "composable--component__collapsed" : ""}`}
+            className={`
+              composable--component 
+              ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 
+              ${component.component_collapsed ? "composable--component__collapsed" : ""} 
+              ${component.component_draft ? "composable--component__draft" : ""} 
+            `}
             {...draggableProvided.draggableProps}
           >
             <div className="composable--component--meta">
@@ -68,6 +73,17 @@ export default class ComposableComponent extends React.Component {
                   <span>{preview}</span>
                 </div>
               </div>
+              <button
+                type="button"
+                className="composable--component--meta--section composable--component--meta--icon"
+                onClick={e => helpers.draftComponent(index)}
+                aria-label="Toggle draft mode"
+              >
+                {component.component_draft
+                  ? <span dangerouslySetInnerHTML={{__html: helpers.icons.hidden}}></span>
+                  : <span dangerouslySetInnerHTML={{__html: helpers.icons.visible}}></span>
+                }
+              </button>
               <button
                 type="button"
                 onClick={e => helpers.removeComponent(component)}
@@ -84,7 +100,7 @@ export default class ComposableComponent extends React.Component {
                 {...draggableProvided.dragHandleProps}
               >☰</div>
             </div>
-            {!component.collapsed &&
+            {!component.component_collapsed &&
               <React.Fragment>
                 {template
                   ? <div className="composable--component--body">

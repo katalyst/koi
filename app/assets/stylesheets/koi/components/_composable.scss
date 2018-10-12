@@ -98,6 +98,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
+.composable--component__draft {
+  opacity: .4;
+}
+
 .composable--component--meta {
   background: $passive-color;
   border-bottom: $divider;
@@ -164,6 +168,7 @@
   }
 }
 
+.composable--component--meta--icon,
 .composable--component--meta--drag {
   display: flex;
   align-items: center;
@@ -172,18 +177,34 @@
   flex-grow: 0;
   flex-shrink: 0;
   text-shadow: 1px 1px 0 rgba(#fff, .25);
+}
 
-  .composable--component__dragging & {
-    background: rgba($grey, .5);
+.composable--component--meta--icon {
+  svg {
+    display: block;
+  }
+
+  [fill] {
+    fill: $primary-color;
+  }
+
+  [stroke] {
+    stroke: $primary-color;
   }
 }
 
+.composable--component--meta--text-action,
+.composable--component--meta--icon,
 .composable--component--meta--drag,
 .composable--component--meta--collapser {
   &:hover,
   &:focus {
-    background: rgba($grey, .5);
+    background: rgba($grey, .25);
   }
+}
+
+.composable--component__dragging .composable--component--meta--drag {
+  background: rgba($grey, .25);
 }
 
 .composable--component--body,

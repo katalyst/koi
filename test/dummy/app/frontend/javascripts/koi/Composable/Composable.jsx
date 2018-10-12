@@ -30,6 +30,7 @@ export default class Composable extends React.Component {
     this.removeComponent = this.removeComponent.bind(this);
     this.collapseComponent = this.collapseComponent.bind(this);
     this.collapseAllComponents = this.collapseAllComponents.bind(this);
+    this.draftComponent = this.draftComponent.bind(this);
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
@@ -62,7 +63,8 @@ export default class Composable extends React.Component {
     let newComponent = {
       id: Date.now(),
       component_type: component.slug,
-      collapsed: false,
+      component_collapsed: false,
+      component_draft: false,
     }
 
     // Add default data for this component
@@ -121,20 +123,40 @@ export default class Composable extends React.Component {
       return;
     }
     if(direction) {
-      component.collapsed = direction === "collapse" ? true : false;
+      component.component_collapsed = direction === "collapse" ? true : false;
     } else {
-      component.collapsed = !component.collapsed;
+      component.component_collapsed = !component.component_collapsed;
     }
     this.setState({
       composition,
-    })
+    });
   }
 
   collapseAllComponents(collapse) {
     const composition = this.state.composition;
     composition.map(component => {
-      component.collapsed = collapse;
+      component.component_collapsed = collapse;
     });
+    this.setState({
+      composition,
+    });
+  }
+
+  // toggle - draftComponent(10);
+  // draft - draftComponent(10, "draft");
+  // undraft - draftComponent(10, "enable");
+  draftComponent(componentIndex, visibility) {
+    const composition = this.state.composition;
+    const component = composition[componentIndex];
+    if(!component) {
+      console.warn("Unable to find component with index of " + componentIndex);
+      return;
+    }
+    if(visibility) {
+      component.component_draft = visibility === "draft" ? true : false;
+    } else {
+      component.component_draft = !component.component_draft;
+    }
     this.setState({
       composition,
     });
@@ -240,6 +262,7 @@ export default class Composable extends React.Component {
       onFieldChange: this.onFieldChange,
       icons: this.props.icons,
       collapseComponent: this.collapseComponent,
+      draftComponent: this.draftComponent,
     };
 
     return(
