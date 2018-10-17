@@ -10,11 +10,11 @@
   <%= JSON.pretty_generate @page.composable_json -%>
   </pre>
 
-  <h2 class="heading-two">Structured composable data</h2>
+  <h2 class="heading-two">Structured composable data (including drafts)</h2>
   <pre>
-  <%= JSON.pretty_generate @page.composable_sections -%>
+  <%= JSON.pretty_generate @page.composable_sections_with_drafts -%>
   </pre>
 
   <h2 class="heading-two">Composable partials</h2>
-  <%= render "/shared/composables", sections: @page.composable_sections %>
+  <%= render "/shared/composables", sections: @page.composable_sections_with_drafts %>
 <% end %>

@@ -25,6 +25,10 @@ module Composable
       Composable.format_composable_data(composable_data) if composable?
     end
 
+    def composable_sections_with_drafts
+      Composable.format_composable_data(composable_data, true) if composable?
+    end
+
   end
 
   class_methods do
@@ -52,7 +56,7 @@ module Composable
     }
   end
 
-  def self.format_composable_data(data)
+  def self.format_composable_data(data, include_drafts=false)
     # Group page sections as nested data
     current_composable_section = false
     composable_sections = []
@@ -80,8 +84,8 @@ module Composable
           }
         # push datum to current page section
         else
-          next if datum["component_draft"].eql?(true)
-          current_composable_section[:section_data] << datum.except!("component_collapsed", "component_draft", "id")
+          next if !include_drafts && datum["component_draft"].eql?(true)
+          current_composable_section[:section_data] << datum.except!("component_collapsed", "id")
         end
       end
       # push last section to composable_sections

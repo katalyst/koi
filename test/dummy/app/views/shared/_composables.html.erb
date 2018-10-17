@@ -3,7 +3,13 @@
   <%- # Build mark up for the data inside this section for use later -%>
   <%- section_contents = capture do -%>
     <%- section[:section_data].each do |component| -%>
+      <% is_draft = component["component_draft"] %>
+      <%- next if is_draft && !admin_signed_in? %>
       <%- component_type = component["component_type"] -%>
+      <% if is_draft %>
+        <div style="padding: 10px; border: 2px dotted #ccc; opacity: .9">
+          <div>DRAFT - Admin Only</div>
+      <% end %>
       <%= 
         begin
           render "shared/composable_components/#{component_type}", data: component 
@@ -11,6 +17,9 @@
           "Unknown component type: #{component_type}"
         end
       -%>
+      <% if is_draft %>
+        </div>
+      <% end %>
     <%- end -%>
   <%- end -%>
 
