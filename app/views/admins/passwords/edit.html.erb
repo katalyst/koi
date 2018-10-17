@@ -3,12 +3,12 @@
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :put, class: "form-vertical" }) do |f| %>
 
   <div class="bg-lightgrey">
-    <%= f.input :reset_password_token, :as => :hidden %>
+    <%= f.input :reset_password_token, wrapper: :koi, :as => :hidden %>
     <%= f.full_error :reset_password_token %>
 
     <div class="inputs">
-      <%= f.input :password, :label => "New password", required: true, autofocus: true, input_html: { class: "w-510" } %>
-      <%= f.input :password_confirmation, :label => "Confirm your new password", required: true, input_html: { class: "w-510" } %>
+      <%= f.input :password, wrapper: :koi, :label => "New password", required: true, autofocus: true, input_html: { class: "w-510" } %>
+      <%= f.input :password_confirmation, wrapper: :koi, :label => "Confirm your new password", required: true, input_html: { class: "w-510" } %>
     </div>
   </div>
   <div class="bg-mediumgrey">

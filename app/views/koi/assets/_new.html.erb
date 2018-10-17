@@ -26,7 +26,7 @@
       </div>
 
       <div class="assets--upload--tags" style="display: none;">
-        <%= f.input :tag_list, as: :text, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify input__tight" }, label_html: { class: "" } %>
+        <%= f.input :tag_list, as: :text, wrapper: :koi, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "tagify input__tight" }, label_html: { class: "" } %>
         <div>
           <div id="upload-button-upload" class="align-box-left">
             <%= f.button :button, "Upload", disabled: "disabled", class: "button" %>

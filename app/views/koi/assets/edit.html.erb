@@ -16,7 +16,7 @@
         <div class="inputs">
           <%= f.error_notification %>
 
-          <%= f.input :tag_list, as: :string, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "", tag_list: tag_list } } %>
+          <%= f.input :tag_list, as: :string, wrapper: :koi, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "", tag_list: tag_list } } %>
         </div>
 
         <div class="actions">

@@ -46,7 +46,7 @@
           <label class="radio"><%= f.radio_button remove, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
         </div>
       </div>
-      <%= f.input_field attr, as: :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
+      <%= f.input_field attr, as: :file, wrapper: :koi, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
     </div>
   </div>
 
