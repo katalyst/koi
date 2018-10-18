@@ -625,3 +625,17 @@ $file-thumbnail-width: 100px;
     @include flex-shrink(0);
   }
 }
+
+// =========================================================================
+// Missing wrapper warning
+// =========================================================================
+.form__needs-wrapper {
+  padding: $xxx-small-unit;
+  background: $error-background;
+  color: $error-color;
+
+  &:before {
+    display: block;
+    content: "Warning: This form field requires a wrapper attribute to avoid conflicts with front-end simple_form configuration."
+  }
+}
