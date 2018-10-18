@@ -77,13 +77,13 @@ The full list of available options are:
 |key|required|type| |
 |--|--|--|--|
 |name|required|string|The name as it appears to the user|
-|slug|required|parameterized string|Used for internal referencing, required and must be unique|
+|slug|required|parameterized string|Required and must be unique, also used to determine which partial to render on the front-end|
 |icon|optional|parameterized string|The name of the icon that appears next to the component|
 |primary|optional|parameterized string|The `name` of the `field` that is used to print a preview of the content of this component in the header of the component|
 |fields|optional|array|A list of fields for the component|
 
 ### Field options
-
+ 
 Fields can have the following options:
 
 |key|required|type| |
@@ -122,3 +122,43 @@ Add to the list of field types in `ComposableFieldTypes.jsx`:
 `export {default as ComposableFieldMycoolcustomfieldtype} from "./ComposableFieldMycoolcustomfieldtype";`
 
 Finally, now that the component is created and has been added to the list of available field types, you can now use your field type in your config with, `type: "my_cool_custom_field_type"`
+
+## Views
+
+### Drafts
+
+You have two ways of getting the structured data in to your view, `resource.composable_sections` and `resource.composable_sections_with_drafts`
+The only difference is that the former strips out drafts while the latter includes them.
+
+The `with_drafts` alternative is useful if you want to display drafts on the front-end but limit them to admin only or style them differently.
+
+By default, Koi will render with drafts only when logged in as admin. If you are logged in as admin and a component is draft it will appear with a box around it and a label highlighting that it's in draft mode.
+
+### Rendering components
+
+By default koi comes with a `views/shared/composables` partial that automatically loops over all sections and components and renders the appropriate component partials.
+
+If defining new component types or section types, you will need to create an associated partial. If we were to create a `awesome_thing` component, we will need `views/shared/composable_components/_awesome_thing.html.erb`
+
+### Accessing the component data
+
+Each component partial gets `data` passed to it, this is the data for that component. The data will be made of internal data such as `component_type`, the `id` of the component etc, and also the actual user-entered data. For example if we had a `text`, `size` and `type` field in our component, you could expect data to contain `text`, `size` and `type`.
+
+You can test what data is being sent to the front-end by simply outputing `data` on your page somewhere, or even calling debug on it like so:
+
+```ruby
+<%= raw debug(data) %>
+```
+
+This will give you something like this:
+
+```ruby
+---
+component_type: heading
+component_draft: false
+text: This is some text
+size: '2'
+type: fancy
+```
+
+You can access the data using standard ruby hash syntax: `<%= data["size"] %>`
