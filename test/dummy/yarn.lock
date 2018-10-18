@@ -1378,9 +1378,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
 
-css-box-model@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/css-box-model/-/css-box-model-1.0.0.tgz#60142814f2b25be00c4aac65ea1a55a531b18922"
+css-box-model@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/css-box-model/-/css-box-model-1.1.0.tgz#a667444ea059f50f8118cf680a0fdcf309b56be4"
+  dependencies:
+    tiny-invariant "^1.0.1"
 
 css-color-function@^1.2.0:
   version "1.3.0"
@@ -4048,18 +4050,18 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-beautiful-dnd-next@^10.0.0-alpha.3:
-  version "10.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/react-beautiful-dnd-next/-/react-beautiful-dnd-next-10.0.0-alpha.3.tgz#21269db55ff38c88d2d22c1dae4d4b0549007149"
+react-beautiful-dnd-next@^10.0.0-alpha.4:
+  version "10.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd-next/-/react-beautiful-dnd-next-10.0.0-alpha.4.tgz#2da208aa48b3e656fe4dadfaabba314d2ba0e73a"
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
-    css-box-model "^1.0.0"
+    css-box-model "^1.1.0"
     memoize-one "^4.0.2"
     prop-types "^15.6.1"
     raf-schd "^4.0.0"
     react-redux "^5.0.7"
     redux "^4.0.0"
-    tiny-invariant "^1.0.0"
+    tiny-invariant "^1.0.1"
 
 react-dom@^16.5.2:
   version "16.5.2"
@@ -4852,7 +4854,7 @@ tiny-emitter@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-1.0.2.tgz#8e49470d3f55f89e247210368a6bb9fb51aa1601"
 
-tiny-invariant@^1.0.0:
+tiny-invariant@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.1.tgz#54700d039a0384ef2e83afd0e81af84c6d67b140"
 

@@ -24,7 +24,7 @@
     "prop-types": "^15.5.10",
     "rails-erb-loader": "^5.0.2",
     "react": "^16.5.2",
-    "react-beautiful-dnd-next": "^10.0.0-alpha.3",
+    "react-beautiful-dnd-next": "^10.0.0-alpha.4",
     "react-dom": "^16.5.2",
     "react-on-rails": "11.1.4",
     "react-sticky": "^6.0.3",
