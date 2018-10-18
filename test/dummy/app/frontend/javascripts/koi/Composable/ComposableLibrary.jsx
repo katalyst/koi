@@ -51,10 +51,14 @@ export default class ComposableLibrary extends React.Component {
                     >
                       {(libraryDraggableProvided, libraryDraggableSnapshot) => (
                         <div
-                          className="composable--library--component"
                           ref={libraryDraggableProvided.innerRef}
+                          className={`
+                            composable--library--component 
+                            ${libraryDraggableSnapshot.isDragging ? "composable--component__dragging" : ""}
+                          `}
                           {...libraryDraggableProvided.draggableProps}
                           {...libraryDraggableProvided.dragHandleProps}
+
                         >
                           {this.props.helpers.icons &&
                             <React.Fragment>
