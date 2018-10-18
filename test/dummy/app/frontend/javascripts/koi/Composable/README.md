@@ -75,7 +75,7 @@ At the absolute minimum, a component **must** have a `name` and a `slug`.
 The full list of available options are:
 
 |key|required|type| |
-|--|--|--|--|--|
+|--|--|--|--|
 |name|required|string|The name as it appears to the user|
 |slug|required|parameterized string|Used for internal referencing, required and must be unique|
 |icon|optional|parameterized string|The name of the icon that appears next to the component|
@@ -87,7 +87,7 @@ The full list of available options are:
 Fields can have the following options:
 
 |key|required|type| |
-|--|--|--|--|--|
+|--|--|--|--|
 |label|required|string|The label of the field as it appears to the user|
 |name|required|paramterized string|The `name` used for this input field|
 |type|required|parameterized string|The field type that this field is, see below for available types and how to create new types|
