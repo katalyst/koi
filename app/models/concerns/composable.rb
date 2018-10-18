@@ -12,7 +12,7 @@ module Composable
     end
 
     def composable?
-      composable_data.present?
+      composable_json.present?
     end
 
     def composable_json
