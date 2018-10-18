@@ -125,7 +125,7 @@ export default class ComposableComponent extends React.Component {
                     </div>
                   : <div className="panel__error panel--padding">Unknown component type: {component.section_type}</div>
                 }
-                {template.nestable &&
+                {false /*template.nestable*/ &&
                   <div className="composable--component--nested">
                     <Droppable droppableId={`${component.id}-nested`}>
                       {(nestedDroppableProvided, nestedDroppableSnapshot) => (
