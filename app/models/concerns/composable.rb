@@ -65,6 +65,8 @@ module Composable
     end
     if data.present?
       data.each_with_index do |datum,index|
+        next if !include_drafts && datum["component_draft"].eql?(true)
+
         # create new section if there is no current section and this
         # isn't a new section
         if !current_composable_section && !datum["component_type"].eql?("section")
@@ -84,7 +86,6 @@ module Composable
           }
         # push datum to current page section
         else
-          next if !include_drafts && datum["component_draft"].eql?(true)
           current_composable_section[:section_data] << datum.except!("component_collapsed", "id")
         end
       end
