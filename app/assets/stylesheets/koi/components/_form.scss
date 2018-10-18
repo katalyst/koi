@@ -472,6 +472,10 @@ $file-thumbnail-width: 100px;
   .form--file-upload--thumbnail {
     @include flex-col($file-thumbnail-width, $xx-small-unit);
 
+    div {
+      background: $passive-color;
+    }
+
     img {
       display: block;
       width: 100%;
