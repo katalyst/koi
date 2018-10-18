@@ -75,7 +75,7 @@ export default class ComposableComponent extends React.Component {
               </div>
               <button
                 type="button"
-                className="composable--component--meta--section composable--component--meta--icon"
+                className="composable--component--meta--section composable--component--meta--icon disable-mouse-outline"
                 onClick={e => helpers.draftComponent(index)}
                 aria-label="Toggle draft mode"
               >
@@ -87,12 +87,12 @@ export default class ComposableComponent extends React.Component {
               <button
                 type="button"
                 onClick={e => helpers.removeComponent(component)}
-                className="composable--component--meta--section composable--component--meta--text-action"
+                className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
                 aria-label="Remove this component"
               >Remove</button>
               <button
                 type="button"
-                className="composable--component--meta--section composable--component--meta--collapser"
+                className="composable--component--meta--section composable--component--meta--collapser disable-mouse-outline"
                 onClick={e => helpers.collapseComponent(index)}
               ></button>
               <div
