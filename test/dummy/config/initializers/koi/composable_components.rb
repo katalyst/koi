@@ -24,6 +24,7 @@ module Koi
         {
           name: "Heading",
           slug: "heading",
+          icon: "heading",
           primary: "text",
           fields: [
             {
@@ -71,7 +72,7 @@ module Koi
         {
           name: "Hero",
           slug: "hero",
-          icon: "image",
+          icon: "user",
           primary: "hero_id",
           fields: [
             {
