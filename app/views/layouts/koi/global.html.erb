@@ -153,8 +153,14 @@
                     </div>
                   <%- end -%>
                 </div>
-                <%= yield :title_tabs -%>
               </div>
+              <% if content_for? :title_tabs %>
+                <div class="page--title--tabs">
+                  <div class="layout--container">
+                    <%= yield :title_tabs -%>
+                  </div>
+                </div>
+              <% end %>
             </div>
           <% end %>
 

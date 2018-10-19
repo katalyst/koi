@@ -20,6 +20,10 @@
   }
 }
 
+.page--title--tabs {
+  overflow: hidden;
+}
+
 .page--title__border {
   border-bottom: 1px solid $page-title-border;
   margin-bottom: $default-unit;

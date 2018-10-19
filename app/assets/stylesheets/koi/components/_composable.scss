@@ -23,6 +23,8 @@
     border: $divider;
     border-radius: $border-radius;
     padding: $xxx-small-unit;
+    position: sticky;
+    top: 68px;
   }
 
   &.composable--library__fixed > div {
