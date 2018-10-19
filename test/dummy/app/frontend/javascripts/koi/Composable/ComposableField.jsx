@@ -31,6 +31,7 @@ export default class ComposableField extends React.Component {
     const fieldType = field.type.replace(/_/g, "");
     const capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
     const FieldTypeComponent = ComposableTypes["ComposableField" + capitalisedFirstType];
+    let hideLabel = false;
 
     const wrapperClass = field.wrapperClass || "";
     const fieldId = component.id + "__" + field.name;
@@ -38,12 +39,16 @@ export default class ComposableField extends React.Component {
       field.data = this.standardiseData(field.data);
     }
 
+    // Force hiding labels
+    if(["boolean", "checkbox"].indexOf(fieldType) > -1) {
+      hideLabel = true;
+    }
+
     if(FieldTypeComponent) {
       return(
         <div className={"control-group " + wrapperClass + " " + field.type}>
-          {field.label
-            ? <label className="control-label" htmlFor={fieldId}>{field.label}</label>
-            : false
+          {(field.label && !hideLabel) &&
+            <label className="control-label" htmlFor={fieldId}>{field.label}</label>
           }
           {field.hint 
             ? <div className="hint-block">
