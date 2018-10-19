@@ -56,6 +56,18 @@ module Koi
         },
 
         {
+          name: "Rich Text",
+          slug: "rich_text",
+          primary: "body",
+          fields: [
+            {
+              name: "body",
+              type: "rich_text"
+            }
+          ]
+        },
+
+        {
           name: "Hero",
           slug: "hero",
           icon: "image",
