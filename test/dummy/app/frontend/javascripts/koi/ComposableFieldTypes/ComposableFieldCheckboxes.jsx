@@ -21,7 +21,7 @@ export default class ComposableFieldCheckboxes extends React.Component {
       data.splice(dataIndex, 1);
     }
 
-    this.props.onChange(data, this.props.fieldIndex, this.props.fieldSettings);
+    this.props.helpers.onFieldChangeValue(data, this.props.fieldIndex, this.props.fieldSettings);
   }
 
   render() {
