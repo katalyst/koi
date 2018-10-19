@@ -8,7 +8,7 @@ module Koi
           name: "Section",
           slug: "section",
           nestable: true,
-          icon: "folder",
+          icon: "composable_section",
           primary: "section_type",
           fields: [
             {
@@ -45,7 +45,7 @@ module Koi
         {
           name: "Text",
           slug: "text",
-          icon: "menu",
+          icon: "paragraph",
           primary: "body",
           fields: [
             {
@@ -58,6 +58,7 @@ module Koi
         {
           name: "Rich Text",
           slug: "rich_text",
+          icon: "paragraph_with_image",
           primary: "body",
           fields: [
             {
@@ -115,6 +116,7 @@ module Koi
         {
           name: "Hero List",
           slug: "hero_list",
+          icon: "listing_blocks",
           primary: "list_type",
           fields: [
             {

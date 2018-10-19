@@ -51,7 +51,8 @@
     display: block;
   }
 
-  [fill] {
+  [fill],
+  .icon--fill {
     fill: $grey;
   }
 
