@@ -9,18 +9,19 @@ class NavItem < ApplicationRecord
   has_crud searchable: [:id, :title, :url], settings: false
 
   crud.config do
-    fields parent_id:     { type: :hidden },
-           is_hidden:     { type: :boolean },
-           alias_id:      { type: :tree },
-           if:            { type: :code },
-           unless:        { type: :code },
-           method:        { type: :code },
-           highlights_on: { type: :code },
-           content_block: { type: :code }
+    fields parent_id:           { type: :hidden },
+           is_hidden:           { type: :boolean },
+           link_to_first_child: { type: :boolean },
+           alias_id:            { type: :tree },
+           if:                  { type: :code },
+           unless:              { type: :code },
+           method:              { type: :code },
+           highlights_on:       { type: :code },
+           content_block:       { type: :code }
 
     config :admin do
       index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :parent_id]
+      form  fields: [:title, :url, :is_hidden, :link_to_first_child, :parent_id]
     end
   end
 
@@ -56,7 +57,6 @@ class NavItem < ApplicationRecord
 
   def options env = @@binding
     hash = {}
-
     # Process if any procs in the database if, unless, highlights_on columns
     if self.if.present?
       hash[:if] = Proc.new { eval(self.if, env) }
@@ -100,6 +100,12 @@ class NavItem < ApplicationRecord
       hash[:options] = options
     end
 
+    if link_to_first_child?
+      if children.present?
+        hash[:url] = children.first.url
+      end
+    end
+
     hash
   end
 
@@ -118,11 +124,14 @@ class NavItem < ApplicationRecord
   end
 
   def navigation(get_binding=binding())
-    # FIXME: Caching procs and lambda causes "no marshal_dump is defined for class Proc"
-    # @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
-      @@binding = get_binding
-      children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
-    # end
+    @children = children
+    # if using if/unless/highlights_on, cache the nav items prior to making procs of these fields
+    if Koi::Caching.enabled && Koi::Caching.god_nav_tab_enabled 
+      @children = Rails.cache.fetch(cache_key, expires_in: 7.days) { children.load }
+    end
+    # return hash of the navigation structure
+    @@binding = get_binding
+    @children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
   end
 
   def self.navigation(arg=nil, get_binding=binding())

@@ -45,7 +45,7 @@
     <%- end -%>
 
   </head>
-  <body>
+  <body class="body__<%= Rails.env.downcase %>">
 
     <a class="skip-link" href="#main">skip to content</a>
 
@@ -76,6 +76,9 @@
           <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
             Koi
           <% end %>
+          <span class="header--environment button__pill">
+            <%= Rails.env.upcase %>
+          </span>
           <%- if Koi::PriorityMenu.present? -%>
             <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
               <%- Koi::PriorityMenu.items.each do |menu_item| -%>

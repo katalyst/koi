@@ -60,6 +60,7 @@ $(document).on("ornament:refresh", function(){
         helper: 'clone',
         items: '.sortable',
         opacity: .6,
+        distance: 8,
         placeholder: 'placeholder',
         revert: 250,
         tabSize: 32,
@@ -67,10 +68,24 @@ $(document).on("ornament:refresh", function(){
         toleranceElement: '> div',
         maxLevels: 0,
         isTree: true,
-        startCollapsed: false
+        startCollapsed: false,
+        start: function(event, ui) {
+          keyboardJS.bind("esc", Sitemap.cancelDrag);
+        },
+        stop: function(event, ui) {
+          keyboardJS.unbind("esc", Sitemap.cancelDrag);
+          if(Sitemap.$rootList.hasClass("cancelling")) {
+            // Cancel drag and drop if asked to cancel 
+            Sitemap.$rootList
+              .sortable("cancel")
+              .removeClass("cancelling")
+              .sortable("option", "revert", 250)
+          } else {
+            Sitemap._saveSort();
+          }
+        }
       })
-      .addClass("enabled")
-      .on ("sortupdate", Sitemap._saveSort);
+      .addClass("enabled draggable");
     },
 
     _saveSort: function(cb){
@@ -168,18 +183,16 @@ $(document).on("ornament:refresh", function(){
 
     // Disable dragging of sitemap
     setSitemapDragStateDisabled: function(){
-      store.set(Sitemap.storageKeys.dragDisabledKey, "true");
       Sitemap.$lockButton.addClass(Sitemap.disabledButtonClass);
       Sitemap.$lockButton.text(Sitemap.lang.disabledButton);
-      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
+      Sitemap.$rootList.removeClass("draggable").nestedSortable("disable");
     },
 
     // Enable dragging of sitemep
     setSitemapDragStateEnabled: function() {
-      store.remove(Sitemap.storageKeys.dragDisabledKey);
       Sitemap.$lockButton.removeClass(Sitemap.disabledButtonClass);
       Sitemap.$lockButton.text(Sitemap.lang.enabledButton);
-      Sitemap._bindSortableTree();
+      Sitemap.$rootList.addClass("draggable").nestedSortable("enable");
       Sitemap.closeNodesInLocalStorage();
     },
 
@@ -250,8 +263,10 @@ $(document).on("ornament:refresh", function(){
     // Toggle the sitemap state
     toggleSitemapDragState: function(){
       if(Sitemap.getLockedStateFromLocalStorage()) {
+        store.remove(Sitemap.storageKeys.dragDisabledKey);
         Sitemap.setSitemapDragStateEnabled();
       } else {
+        store.set(Sitemap.storageKeys.dragDisabledKey, "true");
         Sitemap.setSitemapDragStateDisabled();
       }
     },
@@ -354,6 +369,30 @@ $(document).on("ornament:refresh", function(){
       }
     },
 
+    destroy: function(){
+      Sitemap.$rootList.removeClass("enabled").nestedSortable("destroy");
+    },
+
+    reBindSortable: function(){
+      Sitemap.destroy();
+      Sitemap._bindSortableTree();
+    },
+
+    cancelDrag: function() {
+      Sitemap.$rootList.addClass("cancelling").sortable("option", "revert", 0).trigger("mouseup");
+    },
+
+    // After the sitemap updates, rebind the new nodes
+    afterUpdate: function(){
+      Sitemap._bindToggleButtons();
+      Sitemap._bindToggleAllButtons();
+      Sitemap.reBindSortable();
+      Sitemap.setSitemapDragStateEnabled();
+      if(Sitemap.getLockedStateFromLocalStorage()) {
+        Sitemap.setSitemapDragStateDisabled();
+      }
+    },
+
     // =========================================================================
     // Initialisation
     // =========================================================================
@@ -384,7 +423,7 @@ $(document).on("ornament:refresh", function(){
         Sitemap.savePath = path;
 
         // Bind sortable on list
-        // Sitemap._bindSortableTree();
+        Sitemap._bindSortableTree();
         Sitemap._bindToggleButtons();
         Sitemap._bindToggleAllButtons();
 

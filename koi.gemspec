@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 3.1'
 
-  s.add_dependency 'rails', '~> 5.1.1'
+  s.add_dependency 'rails', '~> 5.1.5'
 
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
@@ -39,11 +39,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
 
   # Authorization
-  # TODO: re-enable when 5.1 update has been pushed to rubygems, and remove from gemfile
-  # s.add_dependency 'devise'
+  s.add_dependency 'devise', '~> 4.3.0'
 
   # Form
-  s.add_dependency 'simple_form'
+  s.add_dependency 'simple_form', '~> 3.5.0'
 
   # Nav items (tree structure)
   s.add_dependency 'awesome_nested_set', '~> 3.1.3'
@@ -64,7 +63,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'responders', '~> 2.4.0'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 4.0.5'
+  s.add_dependency 'simple-navigation', '~> 3.14'
 
   # Tags
   s.add_dependency 'acts-as-taggable-on', '~> 4.0.0'

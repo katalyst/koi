@@ -1,6 +1,7 @@
 class Setting < Translation
 
   after_initialize :derive_data_source
+  before_validation :set_prefix_if_blank
 
   acts_as_ordered_taggable
 
@@ -64,5 +65,13 @@ Please check config/initializers/koi.rb correctly defines the data_source attrib
   alias_method :document=, :file=
   alias_method :image, :file
   alias_method :image=, :file=
+
+  private
+
+  def set_prefix_if_blank
+    if prefix.blank? && key.include?('site')
+      self.prefix = 'site'
+    end
+  end
 
 end

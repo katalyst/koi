@@ -18,6 +18,7 @@ module Koi
       class_option :skip_model,     :desc => 'Don\'t generate a model or migration file.', :type => :boolean
       class_option :skip_sidekiq,   :desc => 'Don\'t use sidekiq.', :type => :boolean, :default => false
       class_option :skip_migration, :desc => 'Dont generate migration file for model.', :type => :boolean
+      class_option :skip_recaptcha,   :desc => 'Don\'t generate form recaptcha.', :type => :boolean, :default => false
 
       def initialize(*args, &block)
         super
@@ -30,6 +31,21 @@ module Koi
         @skip_model = options.skip_model?
 
         @skip_sidekiq = options.skip_sidekiq?
+        @skip_recaptcha = options.skip_recaptcha?
+
+        unless @skip_recaptcha
+          add_gem('recaptcha', { require: "recaptcha/rails" })
+          create_file 'config/initializers/recaptcha.rb', <<-END
+            Recaptcha.configure do |config|
+              config.site_key  = Figaro.env.recaptcha_site_key
+              config.secret_key = Figaro.env.recaptcha_secret_key
+            end
+          END
+
+          inject_into_file 'config/locales/en.yml', after: "hello: \"Hello world\"\n" do
+            "\n  captcha:\n    failed_message: 'Please enter the correct captcha!'\n"
+          end
+        end
 
         process_attributes
 

@@ -55,9 +55,9 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-# gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
+gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
 # NOTE: For building projects with the local version, uncomment this
-gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+# gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
 
 gem 'active_model_serializers'
 
@@ -70,9 +70,8 @@ gem 'ey_config'
 gem 'sidekiq'
 gem 'redis-namespace'
 
-# TODO: remove and re-enable these in gemspec when pull requests have been accepted and gems have been pushed to rubygems
-gem 'devise', github: 'plataformatec/devise', branch: 'master'
-gem 'simple_form', github: 'AgileConsultingLLC/simple_form', branch: 'master'
+gem 'devise', '~> 4.3.0'
+gem 'simple_form', '~> 3.5.0'
 
 gem_group :development do
   gem 'karo'
@@ -91,6 +90,31 @@ end
 
 application(nil, env: "production") do
   "config.force_ssl = true"
+end
+
+application(nil) do<<-CONFIG
+  #
+  # Uncomment this block if your application required Cross Origin Resource Sharing.
+  # Allows specified resources to be accessed from another domain
+  # You will nee to add the following to the gem file and bundle
+  #   gem 'rack-cors', require: 'rack/cors'
+  # See https://github.com/cyu/rack-cors for more details
+  #
+  # config.middleware.insert_before 0, "Rack::Cors" do
+  #   allow do
+  #     # This should be made more restrictive, as * allows access from all domains
+  #     origins '*'
+  #
+  #     # Change the path to the required access endpoint
+  #     resource '/path/to/endpoint',
+  #       :headers => :any,
+  #       :methods => [:get, :options],
+  #       :credentials => true,
+  #       :max_age => 0
+  #
+  #   end
+  # end
+  CONFIG
 end
 
 # Create Version File
@@ -214,7 +238,7 @@ END
 
 # import Pages controller
 create_file 'app/controllers/pages_controller.rb', <<-END
-class PagesController < Koi::CrudController
+class PagesController < CrudController
 
   # Stop accidental leakage of unwanted actions to frontend
 
@@ -263,8 +287,6 @@ route 'mount Koi::Engine => "/admin", as: "koi_engine"'
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
-rake 'db:drop'
-rake 'db:create'
 
 # HACK: To by pass devise checking for secret key without initialization
 create_file 'config/initializers/devise.rb', <<-END
@@ -272,6 +294,10 @@ Devise.setup do |config|
   config.secret_key = 'Temporarily created to fix the devise install error'
 end
 END
+
+# Create some customisable Koi stylesheets
+create_file 'app/assets/stylesheets/koi/_overrides.scss'
+create_file 'app/assets/stylesheets/koi/_additions.scss'
 
 # Generate Devise Config
 generate('devise:install -f')
@@ -281,11 +307,13 @@ gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret
 gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
+rake 'db:drop'
+rake 'db:create'
 rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
-route 'resources :pages, only: [:index, :show], as: :koi_pages'
+route 'resources :pages, only: [:show], as: :koi_pages'
 route 'resources :assets, only: [:show]'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
@@ -417,6 +445,8 @@ AIRBRAKE_PROJECT_ID:  ''
 AIRBRAKE_HOST:        'https://errbit.katalyst.com.au:443'
 DEFAULT_TO_ADDRESS:   'admin@katalyst.com.au'
 NO_REPLY_ADDRESS:     'no-reply@katalyst.com.au'
+RECAPTCHA_SITE_KEY:   ''
+RECAPTCHA_SECRET_KEY: ''
 END
 
 create_file 'config/application.yml.example', application_yml
@@ -441,18 +471,18 @@ if mock_smtp_indicator.exist?
   }
 elsif Rails.env.production?
   ActionMailer::Base.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
-    port: '587',
+    address: Figaro.env.smtp_address,
+    port: Figaro.env.smtp_port,
     authentication: :plain,
-    user_name: Figaro.env.mandrill_username,
-    password: Figaro.env.mandrill_password
+    user_name: Figaro.env.smtp_username,
+    password: Figaro.env.smtp_password
   }
 else
   ActionMailer::Base.smtp_settings = {
     user_name: Figaro.env.mailtrap_username,
     password: Figaro.env.mailtrap_password,
-    address: 'mailtrap.io',
-    domain: 'mailtrap.io',
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
     port: '2525',
     authentication: :cram_md5,
     enable_starttls_auto: true

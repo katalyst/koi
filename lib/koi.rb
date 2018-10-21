@@ -36,9 +36,8 @@ require 'koi/caching'
 require 'koi/engine'
 require 'reports/reporting'
 require 'awesome_nested_set'
-# TODO: re-enable when these gems are re-enabled in gemspec
-# require 'simple_form'
-# require 'devise'
+require 'simple_form'
+require 'devise'
 
 module Koi
 end

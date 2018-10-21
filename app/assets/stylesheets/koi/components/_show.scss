@@ -4,3 +4,19 @@
   margin: $default-unit 0;
   @include flush-children;
 }
+
+.show--inline-items {
+  border: $divider;
+}
+
+.show--inline-item {
+  padding: $xxxxx-small-unit;
+
+  img {
+    display: block;
+  }
+}
+
+.show--inline-item + .show--inline-item {
+  border-top: $divider;
+}

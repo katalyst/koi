@@ -82,7 +82,7 @@
   @include align-items(center);
   @include flex-grow(1);
 
-  .ui-sortable & {
+  .draggable & {
     cursor: move;
   }
 
@@ -108,6 +108,7 @@
   padding-right: 8px;
 }
 
+.nav-item--links-to-child,
 .nav-item--key,
 .nav-item--hidden {
   @include display-flex;
@@ -123,6 +124,16 @@
     path {
       fill: $grey;
     }
+  }
+
+  .icon--polygon,
+  svg path {
+    fill: $grey;
+  }
+
+  .icon--polyline,
+  svg path {
+    stroke: $grey;
   }
 }
 

@@ -5,6 +5,14 @@ class <%= plural_class_name %>Controller < CrudController
   end
 
   def create
+    <%- unless @skip_recaptcha -%>
+      @<%= singular_name %> = <%= class_name %>.new(permitted_params[:<%= singular_name %>])
+
+      unless verify_recaptcha(model: @<%= singular_name %>, message: I18n.t('captcha.failed_message'))
+        return render :action => 'new'
+      end
+    <%- end -%>
+
     create! do |success, failure|
       success.html do
       <%- if @skip_sidekiq -%>

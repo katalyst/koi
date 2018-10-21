@@ -6,26 +6,64 @@
 
     $selector: '.wysiwyg.source',
 
+    getCKEditors: function(parent) {
+      parent = parent || false;
+      if(parent) {
+        return parent.find(CKEditor.$selector);
+      } else {
+        return $(CKEditor.$selector);
+      }
+    },
+
     bindForTextarea: function(textarea, force){
       force = force || false;
       var instance = CKEDITOR.instances[textarea.id];
-      if (force || !instance) {
+      if(!instance) {
+        CKEDITOR.replace(textarea);
+      } else if (force) {
+        instance.destroy();
         CKEDITOR.replace(textarea);
       }
     },
 
     bindForParent: function(parent, force){
       force = force || false;
-      parent.find(CKEditor.$selector).each(function(){
-        CKEditor.bindForTextarea(this, force);
-      });
+      var $editors = CKEditor.getCKEditors(parent);
+      if($editors.length) {
+        $editors.each(function(){
+          CKEditor.bindForTextarea(this, force);
+        });
+      } else {
+        console.warn("No CKEditors found in parent");
+      }
     },
 
     bindAll: function(force){
       force = force || false;
-      $(CKEditor.$selector).each(function(){
-        CKEditor.bindForTextarea(this, force);
-      });
+      var $editors = CKEditor.getCKEditors();
+      if($editors.length) {
+        CKEditor.getCKEditors().each(function(){
+          CKEditor.bindForTextarea(this, force);
+        });
+      }
+    },
+
+    destroyCKEditor: function(textarea) {
+      var instance = CKEDITOR.instances[textarea.id];
+      if(instance) {
+        instance.destroy();
+      } else {
+        console.warn("Unable to destroy CKEDITOR: No such instance for " + textarea.id);
+      }
+    },
+
+    destroyForParent: function(parent){
+      $editors = CKEditor.getCKEditors(parent);
+      if($editors.length) {
+        $editors.each(function(){
+          CKEditor.destroyCKEditor(this);
+        });
+      }
     }
   }
 

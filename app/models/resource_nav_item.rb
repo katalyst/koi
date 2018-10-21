@@ -7,18 +7,19 @@ class ResourceNavItem < NavItem
   validates :title, :parent, :url, :admin_url, presence: true
 
   crud.config do
-    fields parent_id:     { type: :hidden },
-           is_hidden:     { type: :boolean },
-           alias_id:      { type: :tree },
-           if:            { type: :code },
-           unless:        { type: :code },
-           method:        { type: :code },
-           highlights_on: { type: :code },
-           content_block: { type: :code }
+    fields parent_id:           { type: :hidden },
+           is_hidden:           { type: :boolean },
+           link_to_first_child: { type: :boolean },
+           alias_id:            { type: :tree },
+           if:                  { type: :code },
+           unless:              { type: :code },
+           method:              { type: :code },
+           highlights_on:       { type: :code },
+           content_block:       { type: :code }
 
     config :admin do
       index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :parent_id]
+      form  fields: [:title, :url, :is_hidden, :link_to_first_child, :parent_id]
     end
   end
 
