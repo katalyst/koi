@@ -4,4 +4,17 @@
   <%= f.input :key %>
   <%= f.input :setting_prefix %>
   <%= f.input :method, as: :string %>
+  <% if Koi::Sitemap.root_items.length > 1 %>
+    <div class="control-group">
+      <label class="control-label">Move to sitemap</label>
+      <p class="hint-block">Warning: This will move this nav item and all of it's children to bottom of the selected sitemap.</p>
+      <div class="controls">
+        <select>
+          <% Koi::Sitemap.root_items.each do |root_item| %>
+            <option value="<%= root_item["id"] %>" <%= "selected" if resource.root.id.eql?(root_item["id"]) %>><%= root_item["title"] %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  <% end %>
 </div>
