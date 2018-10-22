@@ -187,3 +187,5 @@ SimpleForm.setup do |config|
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end
+
+SimpleForm::FormBuilder.map_type :jsonb, to: SimpleForm::Inputs::TextInput
