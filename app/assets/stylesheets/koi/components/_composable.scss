@@ -95,10 +95,15 @@
 .composable--component {
   border: $divider;
   border-radius: $border-radius;
+  background: $white;
 }
 
 .composable--component__dragging {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+  .wysiwyg {
+    opacity: 0;
+  }
 }
 
 .composable--component__draft {
@@ -213,7 +218,6 @@
 .composable--component--body,
 .composable--component--nested {
   padding: $xxx-small-unit;
-  background: $white;
 }
 
 .composable--component--nested {

@@ -56,6 +56,7 @@ export default class ComposableComponent extends React.Component {
         {(draggableProvided, draggableSnapshot) => (
           <div
             ref={draggableProvided.innerRef}
+            data-component-id={component.id}
             className={`
               composable--component 
               ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 

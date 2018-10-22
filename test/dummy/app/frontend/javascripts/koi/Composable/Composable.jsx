@@ -208,7 +208,15 @@ export default class Composable extends React.Component {
   // =========================================================================
 
   onDragStart(start, provided) {
-    
+    // Processing on elements when picking them up
+    if(start.source.droppableId === "composition") {
+      const index = start.source.index;
+      const component = this.state.composition[index];
+      const id = component.id;
+
+      // Unmount CKEditor
+      Ornament.CKEditor.destroyForParent($(`[data-component-id=${id}]`));
+    }
   }
 
   onDragUpdate() {
@@ -239,6 +247,8 @@ export default class Composable extends React.Component {
         );
         this.setState({
           composition,
+        }, () => {
+          $(document).trigger("ornament:composable:re-attach-ckeditors");
         });
       }
     }
