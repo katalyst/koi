@@ -209,13 +209,11 @@ export default class Composable extends React.Component {
 
   onDragStart(start, provided) {
     // Processing on elements when picking them up
+    // Reordering CKEditors will break the editors
+    // a workaround is to disable the CKEditor when dragging
+    // and then renable them when dropping
     if(start.source.droppableId === "composition") {
-      const index = start.source.index;
-      const component = this.state.composition[index];
-      const id = component.id;
-
-      // Unmount CKEditor
-      Ornament.CKEditor.destroyForParent($(`[data-component-id=${id}]`));
+      Ornament.CKEditor.destroyForParent($(this.$composition));
     }
   }
 
@@ -248,6 +246,7 @@ export default class Composable extends React.Component {
         this.setState({
           composition,
         }, () => {
+          // Re-enable CKEditors
           $(document).trigger("ornament:composable:re-attach-ckeditors");
         });
       }
@@ -289,7 +288,7 @@ export default class Composable extends React.Component {
           <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
         </div>
         <div className="composable">
-          <div className="composable--composition">
+          <div className="composable--composition" ref={el => this.$composition = el}>
             <Droppable droppableId="composition" ignoreContainerClipping={true}>
               {(compositionProvided, compositionSnapshot) => (
                 <div ref={compositionProvided.innerRef} className={`spacing-xxx-tight ${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
