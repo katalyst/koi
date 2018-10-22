@@ -9,8 +9,8 @@ class SuperHero < ApplicationRecord
   has_many :images, as: :attributable
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  dragonfly_accessor :image
-  dragonfly_accessor  :file
+  dragonfly_accessor :image, app: :image
+  dragonfly_accessor  :file, app: :document
   attribute :powers, :string, array: true, default: []
 
   validates :powers, length: { minimum: 1 }

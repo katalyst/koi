@@ -45,3 +45,5 @@ SimpleForm.setup do |config|
   config.error_notification_class = 'panel panel__error'
 
 end
+
+SimpleForm::FormBuilder.map_type :jsonb, to: SimpleForm::Inputs::TextInput
