@@ -97,6 +97,7 @@
   border: $divider;
   border-radius: $border-radius;
   background: $white;
+  margin-bottom: $xxx-small-unit;
 
   .composable__with-sections &:not(.composable--component__section) {
     margin-left: $default-unit;
@@ -104,7 +105,7 @@
 }
 
 .composable--component__dragging {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 10px 40px rgba(0,0,0,.2);
 
   .wysiwyg {
     opacity: 0;

@@ -293,7 +293,7 @@ export default class Composable extends React.Component {
           <div className="composable--composition" ref={el => this.$composition = el}>
             <Droppable droppableId="composition" ignoreContainerClipping={true}>
               {(compositionProvided, compositionSnapshot) => (
-                <div ref={compositionProvided.innerRef} className={`spacing-xxx-tight ${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
+                <div ref={compositionProvided.innerRef} className={`${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
                   <ComposableComposition
                     helpers={composableHelpers}
                   />
