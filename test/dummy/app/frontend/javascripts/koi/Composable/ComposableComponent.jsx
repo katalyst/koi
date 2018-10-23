@@ -32,7 +32,7 @@ export default class ComposableComponent extends React.Component {
     const hasFields = template && template.fields && template.fields.length;
 
     let preview = "";
-    if(hasFields) {
+    if(hasFields && template.primary) {
       const primaryField = template.primary;
       const primaryFieldSettings = template.fields.filter(field => field.name === primaryField)[0];
       preview = component[primaryField] || false;
