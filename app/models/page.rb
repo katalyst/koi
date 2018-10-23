@@ -1,8 +1,6 @@
 class Page < ApplicationRecord
-  include Composable
-
   has_crud paginate: false, navigation: true,
-           settings: true
+           settings: true, composable: true
 
   validates_presence_of :title
 
