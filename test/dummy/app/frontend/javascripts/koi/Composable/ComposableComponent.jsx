@@ -59,6 +59,7 @@ export default class ComposableComponent extends React.Component {
             data-component-id={component.id}
             className={`
               composable--component 
+              composable--component__${component.component_type}
               ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 
               ${component.component_collapsed ? "composable--component__collapsed" : ""} 
               ${component.component_draft ? "composable--component__draft" : ""} 

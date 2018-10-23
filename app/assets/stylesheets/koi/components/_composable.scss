@@ -89,13 +89,17 @@
 }
 
 // =========================================================================
-// Component Header
+// Component templates
 // =========================================================================
 
 .composable--component {
   border: $divider;
   border-radius: $border-radius;
   background: $white;
+
+  .composable__with-sections &:not(.composable--component__section) {
+    margin-left: $default-unit;
+  }
 }
 
 .composable--component__dragging {
@@ -109,6 +113,10 @@
 .composable--component__draft {
   opacity: .4;
 }
+
+// =========================================================================
+// Component Header
+// =========================================================================
 
 .composable--component--meta {
   background: $passive-color;

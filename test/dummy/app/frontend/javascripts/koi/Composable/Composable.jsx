@@ -277,6 +277,8 @@ export default class Composable extends React.Component {
       draftComponent: this.draftComponent,
     };
 
+    const hasSection = this.state.composition.filter(component => component.component_type === "section").length > 0;
+
     return(
       <DragDropContext
         onDragStart={this.onDragStart}
@@ -287,7 +289,7 @@ export default class Composable extends React.Component {
           <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> |
           <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
         </div>
-        <div className="composable">
+        <div className={`composable ${hasSection ? "composable__with-sections" : ""}`}>
           <div className="composable--composition" ref={el => this.$composition = el}>
             <Droppable droppableId="composition" ignoreContainerClipping={true}>
               {(compositionProvided, compositionSnapshot) => (
