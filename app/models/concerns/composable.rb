@@ -26,7 +26,7 @@ module Composable
     end
 
     def composable_sections_with_drafts
-      Composable.format_composable_data(composable_data, true) if composable?
+      Composable.format_composable_data(composable_data, include_drafts: true) if composable?
     end
 
   end
@@ -56,7 +56,7 @@ module Composable
     }
   end
 
-  def self.format_composable_data(data, include_drafts=false)
+  def self.format_composable_data(data, include_drafts: false)
     # Group page sections as nested data
     current_composable_section = false
     composable_sections = []
