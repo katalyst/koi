@@ -14,7 +14,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default class Composable extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +42,12 @@ export default class Composable extends React.Component {
   // Component data structures
   // =========================================================================
 
-  /* 
+  /*
     Get the DataType template for a field type name
     eg. "heading" -> composableTypes.where("type": "heading")
   */
   getTemplateForField(fieldType) {
-    return this.props.composableTypes.filter(template => template.slug === fieldType)[0] || false;
+    return this.props.allComposableTypes.filter(template => template.slug === fieldType)[0] || false;
   }
 
   addNewComponent(type, atIndex=false){
@@ -218,7 +218,7 @@ export default class Composable extends React.Component {
   }
 
   onDragUpdate() {
-    
+
   }
 
   onDragEnd(result, provided) {
@@ -284,7 +284,7 @@ export default class Composable extends React.Component {
         onDragEnd={this.onDragEnd}
       >
         <div className="composable--header">
-          <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> | 
+          <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> |
           <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
         </div>
         <div className="composable">

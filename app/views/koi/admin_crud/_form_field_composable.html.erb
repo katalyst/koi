@@ -9,6 +9,7 @@
 <%= react_component("Composable", props: {
   composition: value,
   composableTypes: f.object.class.composable_config,
+  allComposableTypes: Koi::ComposableContent.components,
   icons: {
     image: icon("image"),
     stack: icon("stack"),
