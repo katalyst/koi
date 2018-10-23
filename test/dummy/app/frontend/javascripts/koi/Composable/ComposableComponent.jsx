@@ -68,6 +68,20 @@ export default class ComposableComponent extends React.Component {
           >
             <div className="composable--component--meta">
               <div className="composable--component--meta--label">
+                {this.props.helpers.icons &&
+                  <React.Fragment>
+                    {this.props.template.icon && this.props.helpers.icons[this.props.template.icon]
+                      ? <div
+                          className="composable--component--meta--label-icon"
+                          dangerouslySetInnerHTML={{__html: this.props.helpers.icons[this.props.template.icon]}}
+                        ></div>
+                      : <div
+                          className="composable--component--meta--label-icon"
+                          dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                        ></div>
+                    }
+                  </React.Fragment>
+                }
                 <strong>{template.name || template.slug || component.section_type}</strong>
               </div>
               <div className="composable--component--preview grey small">

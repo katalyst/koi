@@ -43,12 +43,13 @@
   align-items: center;
 }
 
+.composable--component--meta--label-icon,
 .composable--library--icon {
-  margin-right: $xxx-small-unit;
-  width: 1rem;
+  margin-right: $xxxx-small-unit;
 
   svg {
     display: block;
+    width: 1rem;
   }
 
   [fill],
@@ -121,6 +122,10 @@
 .composable--component--meta {
   background: $passive-color;
   border-bottom: $divider;
+  display: flex;
+}
+
+.composable--component--meta--label {
   display: flex;
 }
 
