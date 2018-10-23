@@ -124,7 +124,7 @@ export default class ComposableComponent extends React.Component {
                           </div>
                       }
                     </div>
-                  : <div className="panel__error panel--padding">Unknown component type: {component.section_type}</div>
+                  : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
                 }
                 {false /*template.nestable*/ &&
                   <div className="composable--component--nested">
