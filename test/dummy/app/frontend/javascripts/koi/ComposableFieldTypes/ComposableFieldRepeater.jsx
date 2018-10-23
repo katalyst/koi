@@ -16,10 +16,7 @@ export default class ComposableFieldRepeater extends React.Component {
     const fields = this.props.fieldSettings.fields;
     const newItem = {};
     fields.forEach(field => {
-      // TODO: Better default value based on type
-      // compare with Composable.jsx and use the same function
-      // eg. setDefaultValue(field.type);
-      newItem[field.name] = "";
+      newItem[field.name] = this.props.helpers.getDefaultValueForField(field);
     });
     value.push(newItem);
     this.updateValue(value);
@@ -29,7 +26,7 @@ export default class ComposableFieldRepeater extends React.Component {
   removeItem(index){
     const value = this.props.value;
     if(value[index]) {
-      delete value[index];
+      value.splice(index, 1);
     }
     this.updateValue(value);
   }
@@ -43,11 +40,14 @@ export default class ComposableFieldRepeater extends React.Component {
     const { value } = this.props;
     const field = this.props.fieldSettings;
     const nestedFields = field.fields;
+    const overMax = field.max && value.length >= field.max;
+    const underMin = field.min && value.length <= field.min;
 
     // TODO:
-    // - Max limit
-    // - Min limit
     // - Reorder
+    
+    // Disallow adding new ones by setting a max prop
+    const allowAdd = !overMax;
 
     return(
       <div>
@@ -74,7 +74,9 @@ export default class ComposableFieldRepeater extends React.Component {
                     </div>
                   );
                 })}
-                <button type="button" onClick={this.addNewItem} className="button">+ Add</button>
+                {allowAdd &&
+                  <button type="button" onClick={this.addNewItem} className="button">+ Add</button>
+                }
               </React.Fragment>
             </div>
           : <div class="panel__error">

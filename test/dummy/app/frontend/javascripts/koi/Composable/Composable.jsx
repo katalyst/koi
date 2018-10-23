@@ -50,6 +50,30 @@ export default class Composable extends React.Component {
     return this.props.allComposableTypes.filter(template => template.slug === fieldType)[0] || false;
   }
 
+  // Get the default value for a field type
+  // takes in to account defaultValue prop, data type etc.
+  getDefaultValueForField(field) {
+    // Defaulting to empty string
+    let value = "";
+
+    // Default to defaultValue if required
+    if(field.defaultValue) {
+      value = field.defaultValue;
+
+    // Non-string defaults
+    } else if(["repeater"].indexOf(field.type) > -1) {
+      value = [];
+      
+    // Default to first item in select menu
+    } else if(field.type === "select" && field.data) {
+      let firstValue = field.data[0];
+      if(typeof field.data[0].value !== "undefined") {
+        firstValue = firstValue.value;
+      }
+      value = firstValue;
+    }
+  }
+
   addNewComponent(type, atIndex=false){
     const component = this.getTemplateForField(type);
     if(!component) {
@@ -71,21 +95,7 @@ export default class Composable extends React.Component {
     if(component.fields) {
       component.fields.forEach(template => {
         // Defaulting to empty
-        newComponent[template.name] = "";
-        // Default to defaultValue if required
-        if(template.defaultValue) {
-          newComponent[template.name] = template.defaultValue;
-        // Non-string defaults
-        } else if(["repeater"].indexOf(template.type) > -1) {
-          newComponent[template.name] = [];
-        // Default to first item in select menu
-        } else if(template.type === "select" && template.data) {
-          let firstValue = template.data[0];
-          if(typeof template.data[0].value !== "undefined") {
-            firstValue = firstValue.value;
-          }
-          newComponent[template.name] = firstValue;
-        }
+        newComponent[template.name] = this.getDefaultValueForField(template);
       })
     }
 
@@ -269,6 +279,7 @@ export default class Composable extends React.Component {
     const composableHelpers = {
       composition: this.state.composition,
       getTemplateForField: this.getTemplateForField,
+      getDefaultValueForField: this.getDefaultValueForField,
       removeComponent: this.removeComponent,
       addNewComponent: this.addNewComponent,
       onFieldChange: this.onFieldChange,
