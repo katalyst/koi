@@ -1,12 +1,45 @@
+#
+# PURPOSE:
+#
+# Manages components usable by the composable content field type
+#
+# USAGE:
+#
+# In your app (in an initializer) you can register a component for use in composable pages content like so:
+#
+# Koi::ComposableContent.register_component { name: "Section", slug: "section", fields: [ ... ] }
+#
+#
+# You can register multiple components with Koi::ComposableContent.register_components
+#
+#
 module Koi
-  module ComposableContent
+  class ComposableContent
 
-    COMPONENTS =
-      [
+    def self.register_component(component)
+      @@components ||= {}
+      @@components[component[:name]] = component
+    end
 
+    def self.register_components(components)
+      components.each{ |component| register_component(component) }
+    end
+
+    def self.components
+      @@components.values
+    end
+
+    #
+    # Register the default components we want in koi.
+    # THese can be replaced by registering a component with the same name.
+    #
+    register_components [
         {
           name: "Section",
           slug: "section",
+          nestable: true,
+          icon: "composable_section",
+          primary: "section_type",
           fields: [
             {
               label: "Section Type",
@@ -21,6 +54,8 @@ module Koi
         {
           name: "Heading",
           slug: "heading",
+          icon: "heading",
+          primary: "text",
           fields: [
             {
               label: "Heading Text",
@@ -41,6 +76,8 @@ module Koi
         {
           name: "Text",
           slug: "text",
+          icon: "paragraph",
+          primary: "body",
           fields: [
             {
               name: "body",
@@ -52,6 +89,7 @@ module Koi
         {
           name: "Rich Text",
           slug: "rich_text",
+          icon: "paragraph_with_image",
           primary: "body",
           fields: [
             {
@@ -60,8 +98,7 @@ module Koi
             }
           ]
         },
-        
-      ]
+    ]
 
   end
 end
