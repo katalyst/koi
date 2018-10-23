@@ -75,6 +75,9 @@ export default class Composable extends React.Component {
         // Default to defaultValue if required
         if(template.defaultValue) {
           newComponent[template.name] = template.defaultValue;
+        // Non-string defaults
+        } else if(["repeater"].indexOf(template.type) > -1) {
+          newComponent[template.name] = [];
         // Default to first item in select menu
         } else if(template.type === "select" && template.data) {
           let firstValue = template.data[0];
