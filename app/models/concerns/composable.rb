@@ -37,12 +37,12 @@ module Composable
       self.crud.settings.try(:[], :admin).try(:[], :form).try(:[], :composable) ||
 
       # Fallback to defaults
-      ["section", "heading", "text"]
+      [:section, :heading, :text]
     end
 
     # Take the composable_field_types and retrieve the config from the library
     def composable_config
-      Koi::ComposableContent.components.select { |type| self.composable_field_types.include?(type[:slug]) }
+      Koi::ComposableContent.components.select { |type| self.composable_field_types.include?(type[:slug].to_sym) }
     end
   end
 
