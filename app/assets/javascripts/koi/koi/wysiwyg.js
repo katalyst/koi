@@ -17,6 +17,9 @@
 
     bindForTextarea: function(textarea, force){
       force = force || false;
+      if(!textarea) {
+        return;
+      }
       var instance = CKEDITOR.instances[textarea.id];
       if(!instance) {
         CKEDITOR.replace(textarea);
