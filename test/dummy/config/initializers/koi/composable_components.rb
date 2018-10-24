@@ -1,5 +1,21 @@
 Koi::ComposableContent.register_components [
   {
+    name: "Text with image",
+    slug: "text_with_image",
+    icon: "paragraph",
+    primary: 'text',
+    fields: [
+      {
+        name: "text",
+        type: "textarea",
+      },
+      {
+        name: "image",
+        type: 'image',
+      }
+    ]
+  },
+  {
     name: "Hero",
     slug: "hero",
     icon: "user",

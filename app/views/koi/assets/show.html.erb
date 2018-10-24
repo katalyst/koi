@@ -19,7 +19,7 @@
 
   <form class="asset--form insert asset application">
 
-    <%- if params[:CKEditorFuncNum] -%>
+    <%- if params[:CKEditorFuncNum] || params[:callbackFunction] -%>
       <div>
         <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
         <%= render "options" %>
@@ -27,7 +27,7 @@
     <%- end -%>
 
     <div class="button-group">
-      <%- if params[:CKEditorFuncNum] -%>
+      <%- if params[:CKEditorFuncNum] || params[:callbackFunction]-%>
         <div>
           <button class="button__confirm insert asset application link">Add to Page</button>
         </div>
