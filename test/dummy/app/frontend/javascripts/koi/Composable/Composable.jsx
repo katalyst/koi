@@ -55,14 +55,19 @@ export default class Composable extends React.Component {
   getDefaultValueForField(field) {
     // Defaulting to empty string
     let value = "";
+    let arrayTypes = ["repeater"];
+    let objectTypes = ["asset"];
 
     // Default to defaultValue if required
     if(field.defaultValue) {
       value = field.defaultValue;
 
     // Non-string defaults
-    } else if(["repeater"].indexOf(field.type) > -1) {
+    } else if(arrayTypes.indexOf(field.type) > -1) {
       value = [];
+
+    } else if(objectTypes.indexOf(field.type) > -1) {
+      value = {};
       
     // Default to first item in select menu
     } else if(field.type === "select" && field.data) {
@@ -72,6 +77,8 @@ export default class Composable extends React.Component {
       }
       value = firstValue;
     }
+
+    return value;
   }
 
   addNewComponent(type, atIndex=false){
