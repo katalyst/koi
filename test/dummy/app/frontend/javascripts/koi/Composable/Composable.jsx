@@ -233,7 +233,7 @@ export default class Composable extends React.Component {
     // a workaround is to disable the CKEditor when dragging
     // and then renable them when dropping
     if(start.source.droppableId === "composition") {
-      Ornament.CKEditor.destroyForParent($(this.$composition));
+      Ornament.CKEditor.destroyForParent($(this.$composition), true);
     }
   }
 

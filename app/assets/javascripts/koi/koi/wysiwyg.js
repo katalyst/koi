@@ -51,20 +51,23 @@
       }
     },
 
-    destroyCKEditor: function(textarea) {
+    destroyCKEditor: function(textarea, keepSize) {
       var instance = CKEDITOR.instances[textarea.id];
       if(instance) {
+        if(keepSize) {
+          textarea.style.height = instance.container.$.offsetHeight + "px";
+        }
         instance.destroy();
       } else {
         console.warn("Unable to destroy CKEDITOR: No such instance for " + textarea.id);
       }
     },
 
-    destroyForParent: function(parent){
+    destroyForParent: function(parent, keepSize){
       $editors = CKEditor.getCKEditors(parent);
       if($editors.length) {
         $editors.each(function(){
-          CKEditor.destroyCKEditor(this);
+          CKEditor.destroyCKEditor(this, keepSize);
         });
       }
     }
