@@ -559,6 +559,10 @@ if yes?("Do you want to generate ornament?")
   # Add composable yarn dependencies
   run "yarn add react-beautiful-dnd-next"
 
+  # Generate page files
+  copy_file "../../../../app/models/page.rb", "app/models/page.rb"
+  copy_file "../../../../test/dummy/app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
+
   git add: '.'
   git commit: "-m 'Generated Ornament & Composable Pages'"
 
