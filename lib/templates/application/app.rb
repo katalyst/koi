@@ -557,7 +557,7 @@ if yes?("Do you want to generate ornament?")
   END
 
   # Add composable yarn dependencies
-run "yarn add react-beautiful-dnd-next"
+  run "yarn add react-beautiful-dnd-next"
 
   git add: '.'
   git commit: "-m 'Generated Ornament & Composable Pages'"
