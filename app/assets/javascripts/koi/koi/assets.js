@@ -18,8 +18,8 @@ $ (function ()
       var CKEditorFuncNumMatch = location.href.match (/[?&]CKEditorFuncNum=([^&]+)/i)
       var callbackFunctionMatch = location.href.match (/[?&]callbackFunction=([^&]+)/i)
 
-      if(CKEditorFuncNum) {
-        var CKEditorFuncNum  = CKEditorFuncNumMatch[1]
+      if(CKEditorFuncNumMatch) {
+        var CKEditorFuncNum = CKEditorFuncNumMatch[1]
         window.opener.CKEDITOR.tools.callFunction (CKEditorFuncNum, url)
       }
       if(callbackFunctionMatch){
