@@ -552,7 +552,7 @@ if yes?("Do you want to generate ornament?")
   directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
 
   # Create blank components file
-  file 'config/initailizers/koi/composable_components.rb', <<-END
+  file 'config/initializers/koi/composable_components.rb', <<-END
 # Koi::ComposableContent.register_components []
   END
 
