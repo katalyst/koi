@@ -551,8 +551,10 @@ if yes?("Do you want to generate ornament?")
   directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
   directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
 
-  # Copy components library file
-  copy_file "../../../koi/composable_components.rb", "config/initializers/koi/composable_components.rb"
+  # Create blank components file
+  file 'config/initailizers/koi/composable_components.rb', <<-END
+# Koi::ComposableContent.register_components []
+  END
 
   # Add composable yarn dependencies
 run "yarn add react-beautiful-dnd-next"
