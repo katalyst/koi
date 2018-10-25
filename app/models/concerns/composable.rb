@@ -71,7 +71,7 @@ module Composable
         # isn't a new section
         if !current_composable_section && !datum["component_type"].eql?("section")
           current_composable_section = {
-            section_type: field_type_section_fallbacks[datum[:component_type]] || "body",
+            section_type: field_type_section_fallbacks[datum[:component_type]] || Koi::ComposableContent.fallback_section_type,
             section_data: []
           }
         end
@@ -81,7 +81,7 @@ module Composable
           composable_sections << current_composable_section if current_composable_section
           # create a new section from this datum
           current_composable_section = {
-            section_type: datum["section_type"] || "body",
+            section_type: datum["section_type"] || Koi::ComposableContent.fallback_section_type,
             section_data: []
           }
         # push datum to current page section
