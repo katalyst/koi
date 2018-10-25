@@ -551,8 +551,37 @@ if yes?("Do you want to generate ornament?")
   directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
   directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
 
-  # Copy components library file
-  copy_file "../../../koi/composable_components.rb", "config/initializers/koi/composable_components.rb"
+  # create components library file
+  create_file "config/initializers/koi/composable_components.rb", <<-END
+  # Koi::ComposableContent.register_components [
+  #   {
+  #     name: "Reaptable thing",
+  #     slug: "repeatable_thing",
+  #     icon: "paragraph_with_image",
+  #     fields: [
+  #       {
+  #         name: "name",
+  #         label: "Name of thing",
+  #         type: "string",
+  #       },
+  #       {
+  #         name: "items",
+  #         label: "Items",
+  #         type: "repeater",
+  #         fields: [{
+  #           name: "name",
+  #           label: "Item Name",
+  #           type: "string",
+  #         },{
+  #           name: "number",
+  #           label: "Item Number",
+  #           type: "string",
+  #         }]
+  #       }
+  #     ]
+  #   }
+  # ]
+  END
 
   # Add composable yarn dependencies
   run "yarn add react-sortable-hoc"
