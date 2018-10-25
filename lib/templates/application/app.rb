@@ -551,7 +551,7 @@ if yes?("Do you want to generate ornament?")
   directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
   directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
 
-  # create components library file
+  # Create blank components file
   create_file "config/initializers/koi/composable_components.rb", <<-END
   # Koi::ComposableContent.register_components [
   #   {
@@ -584,7 +584,11 @@ if yes?("Do you want to generate ornament?")
   END
 
   # Add composable yarn dependencies
-  run "yarn add react-sortable-hoc"
+  run "yarn add react-beautiful-dnd-next"
+
+  # Generate page files
+  copy_file "../../../../app/models/page.rb", "app/models/page.rb"
+  copy_file "../../../../test/dummy/app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
 
   git add: '.'
   git commit: "-m 'Generated Ornament & Composable Pages'"

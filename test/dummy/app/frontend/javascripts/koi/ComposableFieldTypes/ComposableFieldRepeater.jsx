@@ -24,11 +24,13 @@ export default class ComposableFieldRepeater extends React.Component {
 
   // Remove an index from the repeater array
   removeItem(index){
-    const value = this.props.value;
-    if(value[index]) {
-      value.splice(index, 1);
+    if(confirm("Are you sure?")) {
+      const value = this.props.value;
+      if(value[index]) {
+        value.splice(index, 1);
+      }
+      this.updateValue(value);
     }
-    this.updateValue(value);
   }
 
   // Send updated data
@@ -52,25 +54,26 @@ export default class ComposableFieldRepeater extends React.Component {
     return(
       <div>
         {nestedFields.length
-          ? <div className="composable--repeater--fields inputs">
+          ? <div className="composable--repeater-field inputs">
               <React.Fragment>
-                {value.map((valueItem,valueIndex) => {
+                {value.map((repeaterItem,repeaterIndex) => {
                   return(
-                    <div key={`${this.props.id}__iteration-${valueIndex}`} style={{ "paddingLeft": "20px" }}>
+                    <div key={`${this.props.id}__iteration-${repeaterIndex}`}>
                       <div className="inputs">
-                        {nestedFields.map((field, fieldIndex) => {
+                        {nestedFields.map((nestedField, nestedFieldIndex) => {
                           return(
                             <ComposableField
-                              key={`${this.props.id}_${field.name}`}
-                              componentIndex={fieldIndex}
-                              component={valueItem}
-                              field={field}
+                              key={`${this.props.id}_${nestedFieldIndex}_${nestedField.name}`}
+                              componentIndex={nestedFieldIndex}
+                              component={this.props.component}
+                              fieldNamePrefix={`${field.name}_${repeaterIndex}`}
+                              field={nestedField}
                               helpers={this.props.helpers}
                             />
                           )
                         })}
+                        <button type="button" onClick={e => this.removeItem(repeaterIndex)} className="button__cancel">Remove</button>
                       </div>
-                      <button type="button" onClick={e => this.removeItem(valueIndex)}>Remove</button>
                     </div>
                   );
                 })}

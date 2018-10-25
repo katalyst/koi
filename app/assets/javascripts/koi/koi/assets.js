@@ -18,13 +18,17 @@ $ (function ()
       var CKEditorFuncNumMatch = location.href.match (/[?&]CKEditorFuncNum=([^&]+)/i)
       var callbackFunctionMatch = location.href.match (/[?&]callbackFunction=([^&]+)/i)
 
-      if(CKEditorFuncNum) {
-        var CKEditorFuncNum  = CKEditorFuncNumMatch[1]
+      if(CKEditorFuncNumMatch) {
+        var CKEditorFuncNum = CKEditorFuncNumMatch[1]
         window.opener.CKEDITOR.tools.callFunction (CKEditorFuncNum, url)
       }
       if(callbackFunctionMatch){
-        var callbackFunction = callbackFunctionMatch[1]
-        window.opener[callbackFunction](assetId, url)
+        var callbackFunction = callbackFunctionMatch[1];
+        if(window.parent) {
+          window.parent[callbackFunction](assetId, url);
+        } else {
+          window.opener[callbackFunction](assetId, url)
+        }
       }
 
       window.close ()
