@@ -36,10 +36,12 @@ Koi::ComposableContent.register_components [
       {
         name: "text",
         type: "textarea",
+        label: "Text",
       },
       {
         name: "image",
         type: 'image',
+        label: "Image",
       }
     ]
   },

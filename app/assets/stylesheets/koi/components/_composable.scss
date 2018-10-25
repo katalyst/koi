@@ -237,3 +237,27 @@
 .composable--component--nested {
   border-top: $divider;
 }
+
+// =========================================================================
+// Field templates
+// =========================================================================
+
+.composable--asset-field {
+  display: flex;
+  align-items: flex-start;
+}
+
+.composable--asset-field--image {
+  background: $passive-color;
+  margin-right: $xxx-small-unit;
+  width: 120px;
+
+  button,
+  img {
+    display: block;
+  }
+}
+
+.composable--asset-field--empty-image {
+  height: 120px;
+}
