@@ -9,6 +9,41 @@
 # following the rails folder structure.
 #
 
+#
+# Hash of koi args
+#
+# Valid options on command line:
+#
+#  --koi-branch="my-branch"
+#
+# Returns:
+#
+# { branch: "my-branch" }
+#
+def koi_args
+  @koi_args ||= begin
+    Hash[
+      args.select { |arg| arg.include?("koi-") }.map { |arg|
+        option, value = arg.split("=")
+        option = option.split("koi-").last.to_sym
+        [option, value]
+      }
+    ]
+  end
+end
+
+def koi_gem_options
+  koi_gem_options = { github: 'katalyst/koi' }
+  if koi_args[:branch]
+    koi_gem_options[:branch] = koi_args[:branch]
+  elsif koi_args[:tag]
+    koi_gem_options[:tag] = koi_args[:tag]
+  else
+    koi_gem_options[:tag] = "v#{koi_version}"
+  end
+  koi_gem_options
+end
+
 def source_paths
   Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
 end
@@ -55,9 +90,7 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
-# NOTE: For building projects with the local version, uncomment this
-# gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+gem 'koi', koi_gem_options
 
 gem 'active_model_serializers'
 
