@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20120220130849)
-class DeviseCreateAdmins < ActiveRecord::Migration
+class DeviseCreateAdmins < ActiveRecord::Migration[4.2]
   def change
     create_table(:admins) do |t|
       ## Database authenticatable

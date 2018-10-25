@@ -59,7 +59,7 @@
         $this.on("uploader:gallery-item:after-upload", function(event, $uploader, thumbnail, assetId){
           var $successMessage = thumbnail.find("[data-file-gallery-item-success]");
           var $assetActions = $("<div class='asset--uploader--actions' />");
-          var $editLink = $("<a href='" + assetId + "'>Edit <%= resource_class.name -%></a>");
+          var $editLink = $("<a href='" + assetId + "?<%= request.query_parameters.to_query %>'>Edit <%= resource_class.name -%></a>");
           $assetActions.append($editLink);
           $successMessage.append($assetActions);
         });

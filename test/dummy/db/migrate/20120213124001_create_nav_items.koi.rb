@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20111228035029)
-class CreateNavItems < ActiveRecord::Migration
+class CreateNavItems < ActiveRecord::Migration[4.2]
   def change
     create_table :nav_items do |t|
       t.string   :type

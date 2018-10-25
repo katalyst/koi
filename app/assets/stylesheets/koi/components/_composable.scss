@@ -1,0 +1,274 @@
+.composable {
+  display: flex;
+}
+
+// =========================================================================
+// Header tools
+// =========================================================================
+
+.composable--header {
+  margin-bottom: $xxx-small-unit;
+}
+
+// =========================================================================
+// Library of components
+// =========================================================================
+
+.composable--library {
+  margin-left: auto;
+  min-width: 250px;
+  position: relative;
+
+  > div {
+    border: $divider;
+    border-radius: $border-radius;
+    padding: $xxx-small-unit;
+    position: sticky;
+    top: 68px;
+  }
+
+  &.composable--library__fixed > div {
+    position: fixed;
+    top: 64px;
+    width: 250px;
+  }
+}
+
+.composable--library--component {
+  background: $passive-color;
+  border-radius: $border-radius;
+  padding: $xxx-small-unit;
+  border: $divider;
+  display: flex;
+  align-items: center;
+}
+
+.composable--component--meta--label-icon,
+.composable--library--icon {
+  margin-right: $xxxx-small-unit;
+
+  svg {
+    display: block;
+    width: 1rem;
+  }
+
+  [fill],
+  .icon--fill {
+    fill: $grey;
+  }
+
+  [stroke] {
+    stroke: $grey;
+  }
+}
+
+// =========================================================================
+// Composition
+// =========================================================================
+
+.composable--composition {
+  margin-right: $default-unit;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  > div {
+    padding-bottom: $xxx-large-unit;
+  }
+}
+
+.composable--composition--empty {
+  padding: $default-unit;
+  border: $divider;
+  border-radius: $border-radius;
+}
+
+.composable--composition--drag-space {
+  // background: $passive-color;
+  outline: 2px dashed $primary-color;
+  outline-offset: 4px;
+  border-radius: $border-radius;
+}
+
+// =========================================================================
+// Component templates
+// =========================================================================
+
+.composable--component {
+  border: $divider;
+  border-radius: $border-radius;
+  background: $white;
+  margin-bottom: $xxx-small-unit;
+
+  .composable__with-sections &:not(.composable--component__section) {
+    margin-left: $default-unit;
+  }
+}
+
+.composable--component__dragging {
+  box-shadow: 0px 10px 40px rgba(0,0,0,.2);
+
+  .wysiwyg {
+    opacity: 0;
+  }
+}
+
+.composable--component__draft {
+  opacity: .4;
+}
+
+// =========================================================================
+// Component Header
+// =========================================================================
+
+.composable--component--meta {
+  background: $passive-color;
+  border-bottom: $divider;
+  display: flex;
+}
+
+.composable--component--meta--label {
+  display: flex;
+}
+
+.composable--component--meta--label,
+.composable--component--meta--text-action {
+  padding: $xxx-small-unit;
+}
+
+.composable--component--preview {
+  margin-right: auto;
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  // Position absolute to avoid issues with
+  // flexbox children + white-space: nowrap
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: $xxx-small-unit;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  > div > span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.composable--component--meta--section {
+  border-left: $divider;
+}
+
+.composable--component--meta--collapser {
+  width: $button-height;
+  flex-grow: 0;
+  flex-shrink: 0;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 8px solid transparent;
+    border-bottom-color: $primary-color;
+    border-top-width: 0;
+    margin-left: -8px;
+    margin-top: -4px;
+    transition: transform .2s;
+  }
+
+  .composable--component__collapsed &::before {
+    transform: rotateZ(180deg);
+  }
+}
+
+.composable--component--meta--icon,
+.composable--component--meta--drag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $button-height;
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-shadow: 1px 1px 0 rgba(#fff, .25);
+}
+
+.composable--component--meta--icon {
+  svg {
+    display: block;
+  }
+
+  [fill] {
+    fill: $primary-color;
+  }
+
+  [stroke] {
+    stroke: $primary-color;
+  }
+}
+
+.composable--component--meta--text-action,
+.composable--component--meta--icon,
+.composable--component--meta--drag,
+.composable--component--meta--collapser {
+  &:hover,
+  &:focus {
+    background: rgba($grey, .25);
+  }
+}
+
+.composable--component__dragging .composable--component--meta--drag {
+  background: rgba($grey, .25);
+}
+
+.composable--component--body,
+.composable--component--nested {
+  padding: $xxx-small-unit;
+}
+
+.composable--component--nested {
+  border-top: $divider;
+}
+
+// =========================================================================
+// Field templates
+// =========================================================================
+
+.composable--asset-field {
+  display: flex;
+  align-items: flex-start;
+}
+
+.composable--asset-field--image {
+  background: $passive-color;
+  margin-right: $xxx-small-unit;
+  width: 120px;
+
+  button,
+  img {
+    display: block;
+  }
+}
+
+.composable--asset-field--empty-image {
+  height: 120px;
+}
+
+.composable--repeater-field {
+  > div {
+    margin-left: $xxx-small-unit;
+  }
+  > div + div {
+    border-top: $divider;
+    margin-top: $xxx-small-unit;
+    padding-top: $xxx-small-unit;
+  }
+}

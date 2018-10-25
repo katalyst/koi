@@ -49,7 +49,6 @@ body.lightbox-open {
   @include single-transition(transform, $layout-animation-duration);
   background: $layout-background;
   min-height: 100%;
-  overflow: hidden;
 
   @include media-query($breakpoint-header, min) {
     @include flex-grow(1);

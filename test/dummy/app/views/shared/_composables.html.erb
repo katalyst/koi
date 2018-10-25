@@ -1,0 +1,36 @@
+<%- sections.each do |section| -%>
+
+  <%- # Build mark up for the data inside this section for use later -%>
+  <%- section_contents = capture do -%>
+    <%- section[:section_data].each do |component| -%>
+      <% is_draft = component["component_draft"] %>
+      <%- next if is_draft && !admin_signed_in? %>
+      <%- component_type = component["component_type"] -%>
+      <% if is_draft %>
+        <div style="padding: 10px; border: 2px dotted #ccc; opacity: .9">
+          <div>DRAFT - Admin Only</div>
+      <% end %>
+      <%= 
+        begin
+          render "shared/composable_components/#{component_type}", data: component 
+        rescue ActionView::MissingTemplate
+          "Unknown component type: #{component_type}"
+        end
+      -%>
+      <% if is_draft %>
+        </div>
+      <% end %>
+    <%- end -%>
+  <%- end -%>
+
+  <%- # Build markup for our section and insert our data -%>
+  <%- section_type = section[:section_type] -%>
+  <%= 
+    begin
+      render "shared/composable_sections/#{section_type}", section: section, section_contents: section_contents 
+    rescue ActionView::MissingTemplate
+      render "shared/composable_sections/default", section: section, section_contents: section_contents 
+    end
+  -%>
+
+<%- end -%>
