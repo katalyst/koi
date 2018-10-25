@@ -23,8 +23,12 @@ $ (function ()
         window.opener.CKEDITOR.tools.callFunction (CKEditorFuncNum, url)
       }
       if(callbackFunctionMatch){
-        var callbackFunction = callbackFunctionMatch[1]
-        window.opener[callbackFunction](assetId, url)
+        var callbackFunction = callbackFunctionMatch[1];
+        if(window.parent) {
+          window.parent[callbackFunction](assetId, url);
+        } else {
+          window.opener[callbackFunction](assetId, url)
+        }
       }
 
       window.close ()

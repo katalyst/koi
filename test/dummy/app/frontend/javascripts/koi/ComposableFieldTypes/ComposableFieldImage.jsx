@@ -37,20 +37,18 @@ export default class ComposableFieldImage extends React.Component {
       imageUrl: url
     })
     this.props.helpers.onFieldChangeValue(assetId, this.props.fieldIndex, this.props.fieldSettings);
+    $.magnificPopup.close();
   }
 
   startBrowsing(e){
     e.preventDefault();
     var callbackName = "composableFieldImageCallback" + this.props.id;
-    var h = 700;
-    var w = 800;
-    var y = window.top.outerHeight / 2 + window.top.screenY - ( h / 2);
-    var x = window.top.outerWidth / 2 + window.top.screenX - ( w / 2);
-    var win = window.open(
-      '/admin/images/new?callbackFunction=' + callbackName,
-      "_blank",
-      'scrollbars=yes, width='+w+', height='+h+', top='+y+', left='+x
-    );
+    const popupOptions = $.extend({}, Ornament.popupOptions);
+    popupOptions.type = "iframe";
+    popupOptions.items = {
+      src: '/admin/images/new?callbackFunction=' + callbackName,
+    }
+    $.magnificPopup.open(popupOptions);
   }
 
   removeAsset() {
@@ -61,7 +59,7 @@ export default class ComposableFieldImage extends React.Component {
 
   showImagePreview(){
     if(this.state.imageUrl) {
-      let popupOptions = $.extend({}, Ornament.popupOptions);
+      const popupOptions = $.extend({}, Ornament.popupOptions);
       popupOptions.type = "image";
       popupOptions.items = {
         src: this.state.imageUrl,
