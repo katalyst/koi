@@ -555,7 +555,7 @@ if yes?("Do you want to generate ornament?")
   copy_file "../../../koi/composable_components.rb", "config/initializers/koi/composable_components.rb"
 
   # Add composable yarn dependencies
-  run "yarn add react-sortable-hoc"
+run "yarn add react-beautiful-dnd-next"
 
   git add: '.'
   git commit: "-m 'Generated Ornament & Composable Pages'"
