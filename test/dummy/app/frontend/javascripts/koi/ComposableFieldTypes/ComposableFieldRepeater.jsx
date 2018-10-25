@@ -24,11 +24,13 @@ export default class ComposableFieldRepeater extends React.Component {
 
   // Remove an index from the repeater array
   removeItem(index){
-    const value = this.props.value;
-    if(value[index]) {
-      value.splice(index, 1);
+    if(confirm("Are you sure?")) {
+      const value = this.props.value;
+      if(value[index]) {
+        value.splice(index, 1);
+      }
+      this.updateValue(value);
     }
-    this.updateValue(value);
   }
 
   // Send updated data
@@ -52,11 +54,11 @@ export default class ComposableFieldRepeater extends React.Component {
     return(
       <div>
         {nestedFields.length
-          ? <div className="composable--repeater--fields inputs">
+          ? <div className="composable--repeater-field inputs">
               <React.Fragment>
                 {value.map((repeaterItem,repeaterIndex) => {
                   return(
-                    <div key={`${this.props.id}__iteration-${repeaterIndex}`} style={{ "paddingLeft": "20px" }}>
+                    <div key={`${this.props.id}__iteration-${repeaterIndex}`}>
                       <div className="inputs">
                         {nestedFields.map((nestedField, nestedFieldIndex) => {
                           return(
@@ -70,8 +72,8 @@ export default class ComposableFieldRepeater extends React.Component {
                             />
                           )
                         })}
+                        <button type="button" onClick={e => this.removeItem(repeaterIndex)} className="button__cancel">Remove</button>
                       </div>
-                      <button type="button" onClick={e => this.removeItem(repeaterIndex)}>Remove</button>
                     </div>
                   );
                 })}

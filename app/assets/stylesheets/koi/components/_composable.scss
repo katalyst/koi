@@ -261,3 +261,14 @@
 .composable--asset-field--empty-image {
   height: 120px;
 }
+
+.composable--repeater-field {
+  > div {
+    margin-left: $xxx-small-unit;
+  }
+  > div + div {
+    border-top: $divider;
+    margin-top: $xxx-small-unit;
+    padding-top: $xxx-small-unit;
+  }
+}
