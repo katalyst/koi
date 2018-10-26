@@ -20,6 +20,7 @@ export default class Composable extends React.Component {
     this.state = {
       composition: this.props.composition || [],
       error: false,
+      debug: this.props.debug || localStorage.getItem("koiDebugComposable") || false,
     };
 
     this.onDragStart = this.onDragStart.bind(this);
@@ -37,6 +38,7 @@ export default class Composable extends React.Component {
     this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
     this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
     this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
+    this.replaceComposition = this.replaceComposition.bind(this);
     this.deleteAllData = this.deleteAllData.bind(this);
   }
 
@@ -239,6 +241,12 @@ export default class Composable extends React.Component {
       composition,
     });
   }
+  
+  replaceComposition(composition) {
+    this.setState({
+      composition,
+    });
+  }
 
   // =========================================================================
   // Drag and Drop functions
@@ -302,6 +310,7 @@ export default class Composable extends React.Component {
 
     const composableHelpers = {
       composition: this.state.composition,
+      debug: this.state.debug,
       getTemplateForField: this.getTemplateForField,
       getDefaultValueForField: this.getDefaultValueForField,
       removeComponent: this.removeComponent,
@@ -310,6 +319,7 @@ export default class Composable extends React.Component {
       onFieldChangeDefault: this.onFieldChangeDefault,
       onFieldChangeBoolean: this.onFieldChangeBoolean,
       onFieldChangeValue: this.onFieldChangeValue,
+      replaceComposition: this.replaceComposition,
       icons: this.props.icons,
       collapseComponent: this.collapseComponent,
       draftComponent: this.draftComponent,
@@ -319,20 +329,25 @@ export default class Composable extends React.Component {
 
     if(this.state.error) {
       return(
-        <div className="composable--composition--error panel panel__border">
-          <div className="panel--padding">
+        <div className="composable--composition--error panel-spacing">
+          <div className="panel__error panel__border panel--padding">
             <h2 className="heading-four">There was an error rendering composable content: {this.state.error.error.toString()}</h2>
             <pre>{this.state.error.info.componentStack}</pre>
           </div>
-          <div className="panel--padding panel--border-top">
-            <h2 className="heading-four">Data</h2>
-            <pre>{JSON.stringify(this.state.composition, null, 2)}</pre>
-            <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
-          </div>
-          <div className="panel--padding panel--border-top spacing-xxx-tight">
-            <p>It's possible the data structure has a required change, press this button to delete all composable data for this record to bring it back to a usable default state.</p>
-            <div>
-              <button type="button" onClick={this.deleteAllData} className="button__cancel">Empty data</button>
+          <div class="panel panel__border">
+            <div className="panel--padding">
+              <h2 className="heading-four">Data</h2>
+            </div>
+            <div className="panel--padding panel--border-top bg__passive" style={{ maxHeight: "200px", overflow: "auto" }}>
+              <pre>{JSON.stringify(this.state.composition, null, 2)}</pre>
+              <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
+            </div>
+            <div className="panel--padding panel--border-top spacing-xxx-tight">
+              <p>It's possible the data structure has a required change, press this button to delete all composable data for this record to bring it back to a usable default state.</p>
+              <div>
+                <button type="button" onClick={this.deleteAllData} className="button__cancel">Empty data</button>
+              </div>
+              <p>Once emptied, save the form to continue.</p>
             </div>
           </div>
         </div>
@@ -360,10 +375,12 @@ export default class Composable extends React.Component {
                   </div>
                 )}
               </Droppable>
-              <div className="composable--fields--debug spacing-xxx-tight">
-                <p><strong>Debug:</strong></p>
-                <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
-              </div>
+              {this.state.debug &&
+                <div className="composable--fields--debug spacing-xxx-tight">
+                  <p><strong>Debug:</strong></p>
+                  <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
+                </div>
+              }
             </div>
             <ComposableLibrary
               composableTypes={this.props.composableTypes}

@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import { Field } from 'react-final-form';
 
 export default class ComposableFieldTextarea extends React.Component {
 
@@ -26,6 +25,15 @@ export default class ComposableFieldTextarea extends React.Component {
     var options = this.props.fieldSettings.data || [];
     var className = this.props.fieldSettings.className || "";
     return(
+      <Field
+        name={this.props.fieldSettings.name}
+        component="textarea"
+        type="text"
+        placeholder={this.props.fieldSettings.placeholder}
+        {...this.props.fieldSettings.fieldAttributes}
+      />
+    )
+    return(
       <textarea
              className={className} 
              value={this.props.value} 
@@ -35,13 +43,3 @@ export default class ComposableFieldTextarea extends React.Component {
     );
   }
 }
-
-ComposableFieldTextarea.propTypes = {
-  id: PropTypes.string,
-  fieldIndex: PropTypes.number,
-  fieldSettings: PropTypes.object,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  afterMount: PropTypes.func,
-  afterUnmount: PropTypes.func
-};

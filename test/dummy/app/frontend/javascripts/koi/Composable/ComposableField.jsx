@@ -65,6 +65,8 @@ export default class ComposableField extends React.Component {
               onChange={helpers.onFieldChange}
               helpers={helpers}
               component={this.props.component}
+              onFormChange={this.props.onFormChange}
+              formValue={this.props.formValue}
             />
           </div>
         </div>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { Form, FormSpy } from 'react-final-form';
 import ComposableField from "./ComposableField";
 
 export default class ComposableComponent extends React.Component {
   
   constructor(props) {
     super(props);
+    this.onFormChange = this.onFormChange.bind(this);
   }
 
   standardiseData(data) {
@@ -21,6 +23,12 @@ export default class ComposableComponent extends React.Component {
     } else {
       return data;
     }
+  }
+
+  onFormChange(props){
+    const composition = [ ...this.props.helpers.composition ];
+    composition[this.props.index].data = props.values;
+    this.props.helpers.replaceComposition(composition);
   }
 
   // =========================================================================
@@ -119,49 +127,59 @@ export default class ComposableComponent extends React.Component {
                   {...draggableProvided.dragHandleProps}
                 >☰</div>
               </div>
-              {!component.component_collapsed &&
-                <React.Fragment>
-                  {component.component_draft &&
-                    <div className="composable--component--draft-banner">
-                      Draft mode: Only visible to administrators
-                    </div>
-                  }
-                  {template
-                    ? <div className="composable--component--body">
-                        {hasFields
-                          ? <div className="inputs">
-                              {template.fields.map((field, index) => {
-                                return(
-                                  <ComposableField
-                                    key={`${component.id}_${field.name}`}
-                                    componentIndex={this.props.index}
-                                    component={component}
-                                    field={field}
-                                    helpers={helpers}
-                                  />
-                                )
-                              })}
-                            </div>
-                          : <div className="content">
-                              <p>This component doesn't require configuration.</p>
-                            </div>
-                        }
-                      </div>
-                    : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
-                  }
-                  {false /*template.nestable*/ &&
-                    <div className="composable--component--nested">
-                      <Droppable droppableId={`${component.id}-nested`}>
-                        {(nestedDroppableProvided, nestedDroppableSnapshot) => (
-                          <div ref={nestedDroppableProvided.innerRef}>
-                            <span>Drag nested components here</span>
+              <Form
+                onSubmit={e => false}
+                render={({ handleSubmit, form, submitting, pristine, values }) => (
+                  <React.Fragment>
+                    <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
+                    {!component.component_collapsed &&
+                      <React.Fragment>
+                        {component.component_draft &&
+                          <div className="composable--component--draft-banner">
+                            Draft mode: Only visible to administrators
                           </div>
-                        )}
-                      </Droppable>
-                    </div>
-                  }
-                </React.Fragment>
-              }
+                        }
+                        {template
+                          ? <div className="composable--component--body">
+                              {hasFields
+                                ? <div className="inputs">
+                                    {template.fields.map((field, index) => {
+                                      return(
+                                        <ComposableField
+                                          key={`${component.id}_${field.name}`}
+                                          onFormChange={this.onFormChange}
+                                          formValue={values}
+                                          componentIndex={this.props.index}
+                                          component={component}
+                                          field={field}
+                                          helpers={helpers}
+                                        />
+                                      )
+                                    })}
+                                  </div>
+                                : <div className="content">
+                                    <p>This component doesn't require configuration.</p>
+                                  </div>
+                              }
+                            </div>
+                          : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
+                        }
+                        {false /*template.nestable*/ &&
+                          <div className="composable--component--nested">
+                            <Droppable droppableId={`${component.id}-nested`}>
+                              {(nestedDroppableProvided, nestedDroppableSnapshot) => (
+                                <div ref={nestedDroppableProvided.innerRef}>
+                                  <span>Drag nested components here</span>
+                                </div>
+                              )}
+                            </Droppable>
+                          </div>
+                        }
+                      </React.Fragment>
+                    }
+                  </React.Fragment>
+                )}
+              />
             </div>
           </div>
         )}
