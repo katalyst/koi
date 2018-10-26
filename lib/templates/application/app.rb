@@ -588,28 +588,18 @@ if yes?("Do you want to generate ornament?")
   create_file "config/initializers/koi/composable_components.rb", <<-END
   # Koi::ComposableContent.register_components [
   #   {
-  #     name: "Reaptable thing",
-  #     slug: "repeatable_thing",
-  #     icon: "paragraph_with_image",
+  #     name: "Section",
+  #     slug: "section",
+  #     nestable: true,
+  #     icon: "composable_section",
+  #     primary: "section_type",
   #     fields: [
   #       {
-  #         name: "name",
-  #         label: "Name of thing",
-  #         type: "string",
-  #       },
-  #       {
-  #         name: "items",
-  #         label: "Items",
-  #         type: "repeater",
-  #         fields: [{
-  #           name: "name",
-  #           label: "Item Name",
-  #           type: "string",
-  #         },{
-  #           name: "number",
-  #           label: "Item Number",
-  #           type: "string",
-  #         }]
+  #         label: "Section Type",
+  #         name: "section_type",
+  #         type: "select",
+  #         className: "form--auto",
+  #         data: ["body", "fullwidth"]
   #       }
   #     ]
   #   }
