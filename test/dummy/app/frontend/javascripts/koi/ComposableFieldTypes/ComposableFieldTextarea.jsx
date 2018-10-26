@@ -22,8 +22,6 @@ export default class ComposableFieldTextarea extends React.Component {
   }
 
   render() {
-    var options = this.props.fieldSettings.data || [];
-    var className = this.props.fieldSettings.className || "";
     return(
       <Field
         name={this.props.fieldSettings.name}
@@ -33,13 +31,5 @@ export default class ComposableFieldTextarea extends React.Component {
         {...this.props.fieldSettings.fieldAttributes}
       />
     )
-    return(
-      <textarea
-             className={className} 
-             value={this.props.value} 
-             id={this.props.id}
-             onChange={(event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)} 
-      />
-    );
   }
 }
