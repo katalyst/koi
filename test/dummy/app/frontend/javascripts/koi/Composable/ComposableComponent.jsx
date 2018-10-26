@@ -57,103 +57,107 @@ export default class ComposableComponent extends React.Component {
           <div
             ref={draggableProvided.innerRef}
             data-component-id={component.id}
-            className={`
-              composable--component 
-              composable--component__${component.component_type}
-              ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 
-              ${component.component_collapsed ? "composable--component__collapsed" : ""} 
-              ${component.component_draft ? "composable--component__draft" : ""} 
-            `}
+            className="composable--component--wrapper"
             {...draggableProvided.draggableProps}
           >
-            <div className="composable--component--meta">
-              <div className="composable--component--meta--label">
-                {this.props.helpers.icons &&
-                  <React.Fragment>
-                    {this.props.template.icon && this.props.helpers.icons[this.props.template.icon]
-                      ? <div
-                          className="composable--component--meta--label-icon"
-                          dangerouslySetInnerHTML={{__html: this.props.helpers.icons[this.props.template.icon]}}
-                        ></div>
-                      : <div
-                          className="composable--component--meta--label-icon"
-                          dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
-                        ></div>
-                    }
-                  </React.Fragment>
-                }
-                <strong>{template.name || template.slug || component.section_type}</strong>
-              </div>
-              <div className="composable--component--preview grey small">
-                <div>
-                  <span>{preview}</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="composable--component--meta--section composable--component--meta--icon disable-mouse-outline"
-                onClick={e => helpers.draftComponent(index)}
-                aria-label="Toggle draft mode"
-              >
-                {component.component_draft
-                  ? <span dangerouslySetInnerHTML={{__html: helpers.icons.hidden}}></span>
-                  : <span dangerouslySetInnerHTML={{__html: helpers.icons.visible}}></span>
-                }
-              </button>
-              <button
-                type="button"
-                onClick={e => helpers.removeComponent(component)}
-                className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
-                aria-label="Remove this component"
-              >Remove</button>
-              <button
-                type="button"
-                className="composable--component--meta--section composable--component--meta--collapser disable-mouse-outline"
-                onClick={e => helpers.collapseComponent(index)}
-              ></button>
-              <div
-                className="composable--component--meta--section composable--component--meta--drag"
-                {...draggableProvided.dragHandleProps}
-              >☰</div>
-            </div>
-            {!component.component_collapsed &&
-              <React.Fragment>
-                {template
-                  ? <div className="composable--component--body">
-                      {hasFields
-                        ? <div className="inputs">
-                            {template.fields.map((field, index) => {
-                              return(
-                                <ComposableField
-                                  key={`${component.id}_${field.name}`}
-                                  componentIndex={this.props.index}
-                                  component={component}
-                                  field={field}
-                                  helpers={helpers}
-                                />
-                              )
-                            })}
-                          </div>
-                        : <div className="content">
-                            <p>This component doesn't require configuration.</p>
-                          </div>
+            <div
+              className={`
+                composable--component 
+                composable--component__${component.component_type}
+                ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 
+                ${component.component_collapsed ? "composable--component__collapsed" : ""} 
+                ${component.component_draft ? "composable--component__draft" : ""} 
+              `}
+            >
+              <div className="composable--component--meta">
+                <div className="composable--component--meta--label">
+                  {this.props.helpers.icons &&
+                    <React.Fragment>
+                      {this.props.template.icon && this.props.helpers.icons[this.props.template.icon]
+                        ? <div
+                            className="composable--component--meta--label-icon"
+                            dangerouslySetInnerHTML={{__html: this.props.helpers.icons[this.props.template.icon]}}
+                          ></div>
+                        : <div
+                            className="composable--component--meta--label-icon"
+                            dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                          ></div>
                       }
-                    </div>
-                  : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
-                }
-                {false /*template.nestable*/ &&
-                  <div className="composable--component--nested">
-                    <Droppable droppableId={`${component.id}-nested`}>
-                      {(nestedDroppableProvided, nestedDroppableSnapshot) => (
-                        <div ref={nestedDroppableProvided.innerRef}>
-                          <span>Drag nested components here</span>
-                        </div>
-                      )}
-                    </Droppable>
+                    </React.Fragment>
+                  }
+                  <strong>{template.name || template.slug || component.section_type}</strong>
+                </div>
+                <div className="composable--component--preview grey small">
+                  <div>
+                    <span>{preview}</span>
                   </div>
-                }
-              </React.Fragment>
-            }
+                </div>
+                <button
+                  type="button"
+                  className="composable--component--meta--section composable--component--meta--icon disable-mouse-outline"
+                  onClick={e => helpers.draftComponent(index)}
+                  aria-label="Toggle draft mode"
+                >
+                  {component.component_draft
+                    ? <span dangerouslySetInnerHTML={{__html: helpers.icons.hidden}}></span>
+                    : <span dangerouslySetInnerHTML={{__html: helpers.icons.visible}}></span>
+                  }
+                </button>
+                <button
+                  type="button"
+                  onClick={e => helpers.removeComponent(component)}
+                  className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
+                  aria-label="Remove this component"
+                >Remove</button>
+                <button
+                  type="button"
+                  className="composable--component--meta--section composable--component--meta--collapser disable-mouse-outline"
+                  onClick={e => helpers.collapseComponent(index)}
+                ></button>
+                <div
+                  className="composable--component--meta--section composable--component--meta--drag"
+                  {...draggableProvided.dragHandleProps}
+                >☰</div>
+              </div>
+              {!component.component_collapsed &&
+                <React.Fragment>
+                  {template
+                    ? <div className="composable--component--body">
+                        {hasFields
+                          ? <div className="inputs">
+                              {template.fields.map((field, index) => {
+                                return(
+                                  <ComposableField
+                                    key={`${component.id}_${field.name}`}
+                                    componentIndex={this.props.index}
+                                    component={component}
+                                    field={field}
+                                    helpers={helpers}
+                                  />
+                                )
+                              })}
+                            </div>
+                          : <div className="content">
+                              <p>This component doesn't require configuration.</p>
+                            </div>
+                        }
+                      </div>
+                    : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
+                  }
+                  {false /*template.nestable*/ &&
+                    <div className="composable--component--nested">
+                      <Droppable droppableId={`${component.id}-nested`}>
+                        {(nestedDroppableProvided, nestedDroppableSnapshot) => (
+                          <div ref={nestedDroppableProvided.innerRef}>
+                            <span>Drag nested components here</span>
+                          </div>
+                        )}
+                      </Droppable>
+                    </div>
+                  }
+                </React.Fragment>
+              }
+            </div>
           </div>
         )}
       </Draggable>
