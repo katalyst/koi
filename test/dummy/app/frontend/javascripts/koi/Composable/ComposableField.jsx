@@ -60,10 +60,11 @@ export default class ComposableField extends React.Component {
             <FieldTypeComponent
               fieldSettings={field}
               fieldIndex={this.props.componentIndex}
-              value={component[field.name]}
+              value={component.data[field.name]}
               id={fieldId}
               onChange={helpers.onFieldChange}
               helpers={helpers}
+              component={this.props.component}
             />
           </div>
         </div>
