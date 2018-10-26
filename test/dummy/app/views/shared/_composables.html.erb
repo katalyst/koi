@@ -12,7 +12,7 @@
       <% end %>
       <%= 
         begin
-          render "shared/composable_components/#{component_type}", data: component 
+          render "shared/composable_components/#{component_type}", data: component["data"], draft: component["component_draft"]
         rescue ActionView::MissingTemplate
           "Unknown component type: #{component_type}"
         end
