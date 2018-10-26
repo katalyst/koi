@@ -36,7 +36,8 @@ module Koi
     end
 
     # Method to change initial section type
-    def self.set_fallback_section_type(section_type)
+    # Koi::ComposableContent.fallback_section_type = "my_custom_fallback"
+    def self.fallback_section_type=(section_type)
       @@fallback_section_type = section_type
     end
 
