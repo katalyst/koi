@@ -112,10 +112,6 @@
   }
 }
 
-.composable--component__draft {
-  opacity: .4;
-}
-
 // =========================================================================
 // Component Header
 // =========================================================================
@@ -219,14 +215,20 @@
 .composable--component--meta--icon,
 .composable--component--meta--drag,
 .composable--component--meta--collapser {
-  &:hover,
-  &:focus {
+  &:hover {
     background: rgba($grey, .25);
   }
 }
 
 .composable--component__dragging .composable--component--meta--drag {
   background: rgba($grey, .25);
+}
+
+.composable--component--meta--section__draft {
+  .composable--component__draft &,
+  .composable--component__draft &:hover {
+    background: $warning-background;
+  }
 }
 
 .composable--component--body,
@@ -236,6 +238,13 @@
 
 .composable--component--nested {
   border-top: $divider;
+}
+
+.composable--component--draft-banner {
+  background: $warning-background;
+  color: $warning-color;
+  padding: $xxxxx-small-unit $xxx-small-unit;
+  border-bottom: $divider;
 }
 
 // =========================================================================

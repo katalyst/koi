@@ -35,7 +35,7 @@ export default class ComposableComponent extends React.Component {
     if(hasFields && template.primary) {
       const primaryField = template.primary;
       const primaryFieldSettings = template.fields.filter(field => field.name === primaryField)[0];
-      preview = component[primaryField] || false;
+      preview = component.data[primaryField] || false;
 
       // If field has data (eg. select field)
       if(primaryFieldSettings.data) {
@@ -94,7 +94,7 @@ export default class ComposableComponent extends React.Component {
                 </div>
                 <button
                   type="button"
-                  className="composable--component--meta--section composable--component--meta--icon disable-mouse-outline"
+                  className="composable--component--meta--section composable--component--meta--section__draft composable--component--meta--icon disable-mouse-outline"
                   onClick={e => helpers.draftComponent(index)}
                   aria-label="Toggle draft mode"
                 >
@@ -121,6 +121,11 @@ export default class ComposableComponent extends React.Component {
               </div>
               {!component.component_collapsed &&
                 <React.Fragment>
+                  {component.component_draft &&
+                    <div className="composable--component--draft-banner">
+                      Draft mode: Only visible to administrators
+                    </div>
+                  }
                   {template
                     ? <div className="composable--component--body">
                         {hasFields
