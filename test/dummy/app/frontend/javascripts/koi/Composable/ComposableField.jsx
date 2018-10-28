@@ -26,7 +26,8 @@ export default class ComposableField extends React.Component {
 
   render() {
 
-    const { field, component, helpers } = this.props;
+    const { component, helpers } = this.props;
+    const field = { ...this.props.field }
 
     const fieldType = field.type.replace(/_/g, "");
     const capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
@@ -37,6 +38,11 @@ export default class ComposableField extends React.Component {
     const fieldId = component.id + "__" + field.name;
     if(field.data && field.data.length) {
       field.data = this.standardiseData(field.data);
+    }
+
+    // Support for nested / repeater fields
+    if(this.props.fieldName) {
+      field.name = this.props.fieldName;
     }
 
     // Force hiding labels

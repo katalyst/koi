@@ -1,6 +1,7 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd-next';
 import { Form, FormSpy } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 import ComposableField from "./ComposableField";
 
 export default class ComposableComponent extends React.Component {
@@ -129,6 +130,9 @@ export default class ComposableComponent extends React.Component {
               </div>
               <Form
                 onSubmit={e => false}
+                mutators={{
+                  ...arrayMutators,
+                }}
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />

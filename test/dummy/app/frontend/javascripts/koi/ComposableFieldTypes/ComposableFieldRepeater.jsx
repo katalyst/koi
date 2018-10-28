@@ -1,56 +1,68 @@
 import React from 'react';
+import { FieldArray } from 'react-final-form-arrays';
 import ComposableField from "../Composable/ComposableField";
 
 export default class ComposableFieldRepeater extends React.Component {
 
   constructor(props){
     super(props);
-    this.addNewItem = this.addNewItem.bind(this);
-    this.removeItem = this.removeItem.bind(this);
-    this.updateValue = this.updateValue.bind(this);
   }
 
-  // Add a new set of fields to the repeater
-  addNewItem(){
-    const value = this.props.value || [];
-    const fields = this.props.fieldSettings.fields;
-    const newItem = {};
-    fields.forEach(field => {
-      newItem[field.name] = this.props.helpers.getDefaultValueForField(field);
-    });
-    value.push(newItem);
-    this.updateValue(value);
-  }
-
-  // Remove an index from the repeater array
-  removeItem(index){
+  removeItem(fields, index){
     if(confirm("Are you sure?")) {
-      const value = this.props.value;
-      if(value[index]) {
-        value.splice(index, 1);
-      }
-      this.updateValue(value);
+      fields.remove(index);
     }
   }
 
-  // Send updated data
-  updateValue(value){
-    this.props.helpers.onFieldChangeValue(value, this.props.fieldIndex, this.props.fieldSettings);
-  }
-
   render() {
-    const { value } = this.props;
-    const field = this.props.fieldSettings;
-    const nestedFields = field.fields;
-    const overMax = field.max && value.length >= field.max;
-    const underMin = field.min && value.length <= field.min;
+    const repeater = this.props.fieldSettings;
+    const fieldTemplate = {};
+    repeater.fields.forEach(field => {
+      fieldTemplate[field.name] = "";
+    });
 
-    // TODO:
-    // - Reorder
-    
-    // Disallow adding new ones by setting a max prop
-    const allowAdd = !overMax;
+    return(
+      <FieldArray name={repeater.name}>
+        {({ fields }) => (
+          <div className="composable--repeater-field inputs">
+            {fields.map((repeaterItemName, repeaterItemIndex) => {
+              return(
+                <div key={repeaterItemName} className="inputs">
+                  {repeater.fields.map((field, fieldIndex) => {
+                    return(
+                      <ComposableField
+                        key={`${this.props.id}_${fieldIndex}_${field.name}`}
+                        componentIndex={fieldIndex}
+                        component={this.props.component}
+                        field={field}
+                        fieldName={`${repeaterItemName}.${field.name}`}
+                        helpers={this.props.helpers}
+                      />
+                    )
+                  })}
+                  <button
+                    type="button"
+                    className="button__cancel"
+                    onClick={() => this.removeItem(fields, repeaterItemIndex)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              );
+            })}
+            <button
+              type="button"
+              className="button__success"
+              onClick={() => fields.push(fieldTemplate)}
+            >
+              + Add
+            </button>
+          </div>
+        )}
+      </FieldArray>
+    )
 
+    /*
     return(
       <div>
         {nestedFields.length
@@ -88,5 +100,6 @@ export default class ComposableFieldRepeater extends React.Component {
         }
       </div>
     );
+    */
   }
 }
