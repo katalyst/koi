@@ -33,11 +33,6 @@ export default class Composable extends React.Component {
     this.collapseComponent = this.collapseComponent.bind(this);
     this.collapseAllComponents = this.collapseAllComponents.bind(this);
     this.draftComponent = this.draftComponent.bind(this);
-
-    this.onFieldChange = this.onFieldChange.bind(this);
-    this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
-    this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
-    this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
     this.replaceComposition = this.replaceComposition.bind(this);
     this.deleteAllData = this.deleteAllData.bind(this);
   }
@@ -221,35 +216,6 @@ export default class Composable extends React.Component {
   // Field data structures
   // =========================================================================
 
-  onFieldChange(event, fieldIndex, template) {
-    if(template.component_type === "boolean") {
-      this.onFieldChangeBoolean(event, fieldIndex, template);
-    } else if (["check_boxes", "rich_text"].indexOf(template.component_type) > -1) {
-      // note: event in this case is the array of selections
-      this.onFieldChangeValue(event, fieldIndex, template);
-    } else {
-      this.onFieldChangeDefault(event, fieldIndex, template);
-    }
-  }
-
-  onFieldChangeDefault(event, fieldIndex, template) {
-    const value = typeof event === "string" ? event : event.target.value;
-    const composition = this.state.composition;
-    composition[fieldIndex].data[template.name] = value;
-    this.setState({
-      composition,
-    });
-  }
-
-  onFieldChangeBoolean(event, fieldIndex, template) {
-    const value = event.target.checked;
-    const composition = this.state.composition;
-    composition[fieldIndex].data[template.name] = value;
-    this.setState({
-      composition,
-    });
-  }
-
   onFieldChangeValue(newData, fieldIndex, template) {
     const composition = this.state.composition;
     composition[fieldIndex].data[template.name] = newData;
@@ -360,9 +326,6 @@ export default class Composable extends React.Component {
       getDefaultValueForField: this.getDefaultValueForField,
       removeComponent: this.removeComponent,
       addNewComponent: this.addNewComponent,
-      onFieldChange: this.onFieldChange,
-      onFieldChangeDefault: this.onFieldChangeDefault,
-      onFieldChangeBoolean: this.onFieldChangeBoolean,
       onFieldChangeValue: this.onFieldChangeValue,
       replaceComposition: this.replaceComposition,
       icons: this.props.icons,

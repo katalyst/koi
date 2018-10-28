@@ -1,18 +1,13 @@
 import React from 'react';
+import { Field } from 'react-final-form';
 
 export default class ComposableFieldImage extends React.Component {
 
   constructor(props) {
     super(props);
-    var imageUrl = null;
-    if(this.props.value){
-      imageUrl = `/assets/${this.props.value}.jpg` // this url will redirect to the correct url, regardless of the image's actual extension
-    }
     this.state = {
-      imageUrl: imageUrl
+      imageUrl: false,
     };
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.componentWillUnmount = this.componentWillUnmount.bind(this);
     this.startBrowsing = this.startBrowsing.bind(this);
     this.finishedBrowsing = this.finishedBrowsing.bind(this);
     this.removeAsset = this.removeAsset.bind(this);
@@ -20,24 +15,28 @@ export default class ComposableFieldImage extends React.Component {
     window["composableFieldImageCallback" + this.props.id] = this.finishedBrowsing;
   }
 
-  componentDidMount() {
-    if(this.props.afterMount) {
-      this.props.afterMount();
-    }
-  }
-
-  componentWillUnmount() {
-    if(this.props.afterUnmount) {
-      this.props.afterUnmount();
+  componentDidMount(){
+    if(this.$imageId) {
+      const value = this.$imageId.state.state.value;
+      if(value) {
+        // this url will redirect to the correct url, regardless of the image's actual extension
+        const imageUrl = `/assets/${value}.jpg`;
+        this.setState({
+          imageUrl,
+        });
+      }
     }
   }
 
   finishedBrowsing(assetId, url){
     this.setState({
-      imageUrl: url
-    })
-    this.props.helpers.onFieldChangeValue(assetId, this.props.fieldIndex, this.props.fieldSettings);
+      imageUrl: url,
+    });
     $.magnificPopup.close();
+
+    // Push data to finalform
+    const field = this.$imageId;
+    field.context.reactFinalForm.change(field.props.name, assetId);
   }
 
   startBrowsing(e){
@@ -81,6 +80,13 @@ export default class ComposableFieldImage extends React.Component {
               </button>
             : <div className="composable--asset-field--empty-image"></div>
           }
+          <Field
+            name={this.props.fieldSettings.name}
+            component="input"
+            type="hidden"
+            ref={el => this.$imageId = el}
+            {...this.props.helpers.generateFieldAttributes(this.props)}
+          />
         </div>
         <div className="composable--asset-field--controls button-group">
           <div>
