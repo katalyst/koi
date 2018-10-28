@@ -133,6 +133,7 @@ export default class ComposableComponent extends React.Component {
                 mutators={{
                   ...arrayMutators,
                 }}
+                initialValues={ this.props.helpers.composition[this.props.index].data }
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
