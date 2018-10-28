@@ -29,6 +29,18 @@ module Koi
       @@components.values
     end
 
+    # Default fallacbk section type when no initial section type
+    # is used in composition
+    def self.fallback_section_type
+      @@fallback_section_type ||= "body"
+    end
+
+    # Method to change initial section type
+    # Koi::ComposableContent.fallback_section_type = "my_custom_fallback"
+    def self.fallback_section_type=(section_type)
+      @@fallback_section_type = section_type
+    end
+
     #
     # Register the default components we want in koi.
     # THese can be replaced by registering a component with the same name.
