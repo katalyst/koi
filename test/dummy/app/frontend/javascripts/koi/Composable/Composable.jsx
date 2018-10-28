@@ -48,6 +48,22 @@ export default class Composable extends React.Component {
     });
   }
 
+  componentDidMount(){
+    const _this = this;
+    window.enableComposableDebug = window.enableComposableDebug || function(){
+      localStorage.setItem("koiDebugComposable", true);
+      _this.setState({
+        debug: true,
+      })
+    }
+    window.disableComposableDebug = window.disableComposableDebug || function(){
+      localStorage.removeItem("koiDebugComposable");
+      _this.setState({
+        debug: false,
+      })
+    }
+  }
+
   // =========================================================================
   // Component data structures
   // =========================================================================
@@ -249,6 +265,35 @@ export default class Composable extends React.Component {
   }
 
   // =========================================================================
+  // Field attribute helpers
+  // =========================================================================
+
+  // Take a list of props and generate the attributes for an input field
+  generateFieldAttributes(props, options={}){
+    const settings = props.fieldSettings;
+    const attributes = {
+      id: props.id,
+      name: settings.name,
+    }
+    if(settings) {
+      attributes.className = settings.className || options.fallbackClassName || "";
+      attributes.placeholder = settings.placeholder || "";
+      if(settings.required) {
+        attributes.required = settings.required;
+      }
+      if(settings.inputData) {
+        Object.keys(settings.inputData).forEach(key => {
+          attributes["data-" + key] = settings.inputData[key];
+        });
+      }
+    }
+    return {
+      ...attributes,
+      ...settings.fieldAttributes,
+    }
+  }
+
+  // =========================================================================
   // Drag and Drop functions
   // =========================================================================
 
@@ -323,6 +368,7 @@ export default class Composable extends React.Component {
       icons: this.props.icons,
       collapseComponent: this.collapseComponent,
       draftComponent: this.draftComponent,
+      generateFieldAttributes: this.generateFieldAttributes,
     };
 
     const hasSection = this.state.composition.filter(component => component.component_type === "section").length > 0;
@@ -334,7 +380,7 @@ export default class Composable extends React.Component {
             <h2 className="heading-four">There was an error rendering composable content: {this.state.error.error.toString()}</h2>
             <pre>{this.state.error.info.componentStack}</pre>
           </div>
-          <div class="panel panel__border">
+          <div className="panel panel__border">
             <div className="panel--padding">
               <h2 className="heading-four">Data</h2>
             </div>

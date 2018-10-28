@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import ComposableFieldTextarea from "./ComposableFieldTextarea";
 
 export default class ComposableFieldRichtext extends React.Component {
@@ -68,10 +66,3 @@ export default class ComposableFieldRichtext extends React.Component {
     )
   }
 }
-
-ComposableFieldRichtext.propTypes = {
-  fieldIndex: PropTypes.number,
-  fieldSettings: PropTypes.object,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};

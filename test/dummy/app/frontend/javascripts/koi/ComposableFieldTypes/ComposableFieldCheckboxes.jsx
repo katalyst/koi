@@ -1,32 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import { Field } from 'react-final-form';
 
 export default class ComposableFieldCheckboxes extends React.Component {
 
-  constructor(props) {
-    super(props),
-    this.onChangeCollection = this.onChangeCollection.bind(this);
-  }
-
-  onChangeCollection(event, field) {
-    var data = this.props.value || [];
-    var checked = event.target.checked;
-    var value = field.name
-    var dataIndex = data.indexOf(value);
-
-    if(checked && dataIndex < 0) {
-      data.push(value);
-    } else if (!checked && dataIndex > -1) {
-      data.splice(dataIndex, 1);
-    }
-
-    this.props.helpers.onFieldChangeValue(data, this.props.fieldIndex, this.props.fieldSettings);
-  }
-
   render() {
-    var options = this.props.fieldSettings.data || [];
-    var className = this.props.fieldSettings.className || "";
+    const options = this.props.fieldSettings.data || [];
     return(
       <div className="checkboxes" ref="options">
         {options.map((option, index) => {
@@ -34,10 +12,11 @@ export default class ComposableFieldCheckboxes extends React.Component {
           return(
             <span className="checkbox" key={key}>
               <label>
-                <input type="checkbox" 
-                       checked={this.props.value.indexOf(option.value) > -1}
-                       className="enhanced" 
-                       onChange={(event) => this.onChangeCollection(event, option)} 
+                <Field
+                  component="input"
+                  type="checkbox"
+                  value={option.name}
+                  {...this.props.helpers.generateFieldAttributes(this.props)}
                 />
                 <span className='form--enhanced--control'></span>
                 {option.name}
@@ -49,14 +28,3 @@ export default class ComposableFieldCheckboxes extends React.Component {
     );
   }
 }
-
-ComposableFieldCheckboxes.propTypes = {
-  fieldIndex: PropTypes.number,
-  fieldSettings: PropTypes.object,
-  value: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  onChange: PropTypes.func
-};

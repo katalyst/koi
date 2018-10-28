@@ -43,11 +43,13 @@ export default class ComposableFieldImage extends React.Component {
   startBrowsing(e){
     e.preventDefault();
     var callbackName = "composableFieldImageCallback" + this.props.id;
-    const popupOptions = $.extend({}, Ornament.popupOptions);
-    popupOptions.type = "iframe";
-    popupOptions.items = {
-      src: '/admin/images/new?callbackFunction=' + callbackName,
-    }
+    const popupOptions = {
+      ...Ornament.popupOptions,
+      type: "iframe",
+      items: {
+        src: '/admin/images/new?callbackFunction=' + callbackName,
+      },
+    };
     $.magnificPopup.open(popupOptions);
   }
 
@@ -69,7 +71,6 @@ export default class ComposableFieldImage extends React.Component {
   }
 
   render() {
-    var options = this.props.fieldSettings.data || [];
     var className = this.props.fieldSettings.className || "";
     return(
       <div className={`composable--asset-field ${className}`}>

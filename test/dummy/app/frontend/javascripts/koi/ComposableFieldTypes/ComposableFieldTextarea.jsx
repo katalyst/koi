@@ -24,11 +24,9 @@ export default class ComposableFieldTextarea extends React.Component {
   render() {
     return(
       <Field
-        name={this.props.fieldSettings.name}
         component="textarea"
         type="text"
-        placeholder={this.props.fieldSettings.placeholder}
-        {...this.props.fieldSettings.fieldAttributes}
+        {...this.props.helpers.generateFieldAttributes(this.props)}
       />
     )
   }
