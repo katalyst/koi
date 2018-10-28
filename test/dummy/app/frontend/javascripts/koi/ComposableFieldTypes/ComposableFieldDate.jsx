@@ -5,7 +5,6 @@ export default class ComposableFieldDate extends React.Component {
   render() {
     const props = this.props;
     const data = props.fieldSettings.inputData || {};
-    data.colourpicker = "";
     props.fieldSettings.inputData = data;
     props.fieldSettings.className = props.fieldSettings.className || "";
     props.fieldSettings.className += " datepicker form--small";
