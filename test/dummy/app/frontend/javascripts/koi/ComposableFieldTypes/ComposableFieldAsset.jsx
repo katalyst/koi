@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 
-export default class ComposableFieldImage extends React.Component {
+export default class ComposableFieldAsset extends React.Component {
 
   constructor(props) {
     super(props);

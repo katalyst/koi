@@ -39,8 +39,8 @@ Koi::ComposableContent.register_components [
         label: "Text",
       },
       {
-        name: "image",
-        type: 'image',
+        name: "image_id",
+        type: 'asset',
         label: "Image",
       }
     ]

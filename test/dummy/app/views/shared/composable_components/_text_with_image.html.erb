@@ -1,0 +1,11 @@
+
+<div style="display: table">
+  <% if data["image_id"] %>
+    <div style="display: table-cell; width: 20%; padding-right: 16px; vertical-align: top;">
+      <%= image_tag Asset.find(data["image_id"]).thumbnail("200x200") %> 
+    </div>
+  <% end %>
+  <div style="display: table-cell; vertical-align: top;">
+    <%= raw data["text"] %>
+  </div>
+</div>

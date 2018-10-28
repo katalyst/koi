@@ -9,5 +9,5 @@ export {default as ComposableFieldRichtext} from "./ComposableFieldRichtext";
 export {default as ComposableFieldSelect} from "./ComposableFieldSelect";
 export {default as ComposableFieldString} from "./ComposableFieldString";
 export {default as ComposableFieldTextarea} from "./ComposableFieldTextarea";
-export {default as ComposableFieldImage} from "./ComposableFieldImage";
+export {default as ComposableFieldAsset} from "./ComposableFieldAsset";
 export {default as ComposableFieldRepeater} from "./ComposableFieldRepeater";
