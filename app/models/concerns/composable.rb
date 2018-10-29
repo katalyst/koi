@@ -81,7 +81,7 @@ module Composable
           composable_sections << current_composable_section if current_composable_section
           # create a new section from this datum
           current_composable_section = {
-            section_type: datum["section_type"] || Koi::ComposableContent.fallback_section_type,
+            section_type: datum["data"]["section_type"] || Koi::ComposableContent.fallback_section_type,
             section_data: []
           }
         # push datum to current page section
