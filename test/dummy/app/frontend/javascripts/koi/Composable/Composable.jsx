@@ -77,7 +77,7 @@ export default class Composable extends React.Component {
     // Defaulting to empty string
     let value = "";
     let arrayTypes = ["repeater"];
-    let objectTypes = ["asset"];
+    let objectTypes = [];
 
     // Default to defaultValue if required
     if(field.defaultValue) {
