@@ -32,7 +32,7 @@
     "react-final-form": "^3.6.7",
     "react-final-form-arrays": "^1.1.0",
     "react-on-rails": "11.1.4",
-    "react-sticky": "^6.0.3",
+    "react-sticky-box": "^0.7.5",
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
