@@ -163,7 +163,7 @@ export default class ComposableComponent extends React.Component {
                                     })}
                                   </div>
                                 : <div className="content">
-                                    <p>This component doesn't require configuration.</p>
+                                <p>{this.props.template.message || "This component doesn't require configuration."}</p>
                                   </div>
                               }
                             </div>
