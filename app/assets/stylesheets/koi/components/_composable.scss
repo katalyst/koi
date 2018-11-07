@@ -249,7 +249,44 @@
 }
 
 // =========================================================================
-// Field templates
+// Prefixed field types
+// =========================================================================
+
+.form--field-wrapper {
+  display: flex;
+  overflow: auto;
+
+  input[type=text] {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-radius: 0;
+  }
+}
+
+.form--field-cap {
+  background: $passive-color;
+  display: flex;
+  align-items: center;
+  border: $divider;
+  padding: $xxxxx-small-unit;
+  border-right: 0;
+  flex-shrink: 0;
+}
+
+.form--field-wrapper input[type=text],
+.form--field-cap {
+  &:first-child {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  }
+  &:last-child {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+}
+
+// =========================================================================
+// Asset field type
 // =========================================================================
 
 .composable--asset-field {
@@ -272,6 +309,10 @@
   height: 120px;
 }
 
+// =========================================================================
+// Repeater field type
+// =========================================================================
+
 .composable--repeater-field {
   > div {
     margin-left: $xxx-small-unit;
@@ -281,6 +322,42 @@
     margin-top: $xxx-small-unit;
     padding-top: $xxx-small-unit;
   }
+}
+
+// =========================================================================
+// Downshift field type
+// =========================================================================
+
+.composable--downshift {
+  position: relative;
+}
+
+.composable--downshift--options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: $divider;
+  background: $white;
+  z-index: 201;
+  max-height: 200px;
+  overflow: auto;
+
+  li {
+    padding: $xxx-small-unit;
+  }
+
+  li + li {
+    border-top: $divider;
+  }
+
+  li[aria-selected=true] {
+    background: $passive-color;
+  }
+}
+
+.composable--downshift--empty {
+  font-style: italic;
 }
 
 // =========================================================================
