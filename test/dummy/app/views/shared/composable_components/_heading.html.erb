@@ -10,6 +10,6 @@
   className = classes[size] ? classes[size] : ""
 -%>
 
-<h<%= size -%> class="<%= className -%> <%= advanced.try(:[], "className") %>">
+<h<%= size -%> class="<%= className -%> <%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
   <%= data["text"] -%>
 </h<%= size -%>>

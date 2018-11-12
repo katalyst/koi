@@ -3,7 +3,7 @@
   heroes = SuperHero.female if data["list_type"].eql?("Female")
   heroes = SuperHero.male if data["list_type"].eql?("Male")
 -%>
-<div class="<%= advanced.try(:[], "className") %>">
+<div class="<%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
   <%- if heroes -%>
     <% heroes.each do |hero| %>
       <%- 

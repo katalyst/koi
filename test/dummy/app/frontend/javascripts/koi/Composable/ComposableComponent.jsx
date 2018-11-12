@@ -190,6 +190,19 @@ export default class ComposableComponent extends React.Component {
                               <Field
                                 name="className"
                                 component="input"
+                                className="form--medium"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                          <div className="control-group">
+                            <label className="control-label">Id</label>
+                            <p class="hint-block">This can be used for anchoring purposes</p>
+                            <div className="controls">
+                              <Field
+                                name="id"
+                                component="input"
+                                className="form--medium"
                                 type="text"
                               />
                             </div>

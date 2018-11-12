@@ -1,5 +1,5 @@
 <%- hero = SuperHero.find(data["hero_id"]) -%>
-<div class="<%= advanced.try(:[], "className") %>">
+<div class="<%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
   <%- if hero -%>
     <%- 
       hero_image = hero.cropped_image_upload
