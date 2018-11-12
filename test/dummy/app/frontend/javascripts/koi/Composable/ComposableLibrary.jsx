@@ -1,5 +1,5 @@
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import StickyBox from 'react-sticky-box';
 
 export default class ComposableLibrary extends React.Component {

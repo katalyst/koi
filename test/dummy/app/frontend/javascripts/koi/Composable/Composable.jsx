@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import ComposableLibrary from "./ComposableLibrary";
 import ComposableComposition from "./ComposableComposition";

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Form, FormSpy, Field } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import ComposableField from './ComposableField';
