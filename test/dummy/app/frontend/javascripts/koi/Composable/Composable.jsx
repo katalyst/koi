@@ -57,6 +57,53 @@ export default class Composable extends React.Component {
         debug: false,
       })
     }
+
+    // Overiding the save button functionality to hook in to validation
+    const $form = $("form.simple_form.form-vertical");
+    const validateForm = function(event, saveAndContinue=false){
+      event.preventDefault();
+      $(document).trigger("ornament:composable:validate");
+
+      // Move to end of event loop
+      setTimeout(e => {
+        const errors = $(".error-block");
+        
+        // Focus on first error
+        if(errors.length) {
+          const firstError = errors.first();
+          const field = firstError.parent().find("input, textarea")[0];
+          if(field) {
+            field.focus();
+          } else {
+            scrollTo(0, firstError.offset().top - 100);
+          }
+
+        // Submit form
+        } else {
+          const form = $form[0];
+          const saveType = document.createElement("input");
+          saveType.type = "hidden";
+          saveType.name = "commit";
+          saveType.value = saveAndContinue ? "Continue" : "Submit";
+          form.appendChild(saveType);
+          form.submit();
+        }
+      }, 0);
+    }
+
+    // When form is submitted manually, validate and save page
+    $form.on("submit", validateForm);
+
+    // When form is submitted via buttons, validate and either
+    // reload or save
+    $form.find("button[type=submit]").on("click submit", e => {
+      e.preventDefault();
+      if(e.currentTarget.value && e.currentTarget.value === "Continue") {
+        validateForm(event, true);
+      } else {
+        validateForm(event);
+      }
+    });
   }
 
   // =========================================================================
@@ -82,6 +129,9 @@ export default class Composable extends React.Component {
     // Default to defaultValue if required
     if(field.defaultValue) {
       value = field.defaultValue;
+
+    } else if(field.type === "boolean") {
+      value = false;
 
     // Non-string defaults
     } else if(arrayTypes.indexOf(field.type) > -1) {
@@ -240,6 +290,10 @@ export default class Composable extends React.Component {
     const attributes = {
       id: props.id,
       name: settings.name,
+    }
+    if(options.namePostfix) {
+      attributes.name += options.namePostfix;
+      attributes.id += options.namePostfix;
     }
     if(settings) {
       attributes.className = settings.className || options.fallbackClassName || "";

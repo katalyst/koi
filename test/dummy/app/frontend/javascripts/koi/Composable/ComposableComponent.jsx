@@ -1,14 +1,24 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd-next';
-import { Form, FormSpy } from 'react-final-form';
+import { Form, FormSpy, Field } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import ComposableField from "./ComposableField";
+import ComposableField from './ComposableField';
+import validate from './ComposableValidations';
 
 export default class ComposableComponent extends React.Component {
   
   constructor(props) {
     super(props);
     this.onFormChange = this.onFormChange.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+  }
+
+  componentDidMount(){
+    $(document).on("ornament:composable:validate", this.validateForm);
+  }
+
+  componentWillUnmount(){
+    $(document).off("ornament:composable:validate", this.validateForm);
   }
 
   standardiseData(data) {
@@ -30,6 +40,10 @@ export default class ComposableComponent extends React.Component {
     const composition = [ ...this.props.helpers.composition ];
     composition[this.props.index].data = props.values;
     this.props.helpers.replaceComposition(composition);
+  }
+
+  validateForm(){
+    this.form.handleSubmit();
   }
 
   // =========================================================================
@@ -133,7 +147,14 @@ export default class ComposableComponent extends React.Component {
                 mutators={{
                   ...arrayMutators,
                 }}
+                ref={el => this.form = el}
                 initialValues={ this.props.helpers.composition[this.props.index].data }
+                validate={values => {
+                  if(!template || !template.fields) {
+                    return;
+                  }
+                  return validate(template, values);
+                }}
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
@@ -148,6 +169,19 @@ export default class ComposableComponent extends React.Component {
                           ? <div className="composable--component--body">
                               {hasFields
                                 ? <div className="inputs">
+                                    <Field name="componentError" subscription={{ error: true, touched: true }}>
+                                      {({ meta: { error,touched } }) => {
+                                        if(error) {
+                                          return(
+                                            <div className="panel__error panel--padding">
+                                              <span className="error-block" dangerouslySetInnerHTML={{ __html: error }}></span>
+                                            </div>
+                                          );
+                                        } else {
+                                          return(null);
+                                        }
+                                      }}
+                                    </Field>
                                     {template.fields.map((field, index) => {
                                       return(
                                         <ComposableField
@@ -163,7 +197,7 @@ export default class ComposableComponent extends React.Component {
                                     })}
                                   </div>
                                 : <div className="content">
-                                <p>{this.props.template.message || "This component doesn't require configuration."}</p>
+                                    <p>{this.props.template.message || "This component doesn't require configuration."}</p>
                                   </div>
                               }
                             </div>

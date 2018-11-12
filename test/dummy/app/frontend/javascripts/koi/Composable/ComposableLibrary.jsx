@@ -64,6 +64,7 @@ export default class ComposableLibrary extends React.Component {
           </Droppable>
         </div>
       </StickyBox>
+
     )
   }
 }

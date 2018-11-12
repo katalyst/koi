@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { Field } from 'react-final-form';
 import * as ComposableTypes from '../ComposableFieldTypes/ComposableFieldTypes';
+import ComposableFieldError from './ComposableFieldError';
 
 export default class ComposableField extends React.Component {
 
@@ -28,6 +29,7 @@ export default class ComposableField extends React.Component {
 
     const { component, helpers } = this.props;
     const field = { ...this.props.field }
+    field.type = field.type || "string";
 
     const fieldType = field.type.replace(/_/g, "");
     const capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
@@ -74,6 +76,7 @@ export default class ComposableField extends React.Component {
               formValue={this.props.formValue}
             />
           </div>
+          <ComposableFieldError name={field.name} />
         </div>
       );
     } else {
