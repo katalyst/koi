@@ -77,6 +77,11 @@ export default class ComposableComponent extends React.Component {
       if(typeof preview === "object") {
         preview = "[object]";
       }
+
+      // Shorten preview
+      if(preview.length > 120) {
+        preview = preview.slice(0, 120);
+      }
     }
 
     return(
