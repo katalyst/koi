@@ -1,4 +1,4 @@
-<div class="section__<%= section[:section_type] -%>">
+<div class="section__<%= section[:section_type] -%> <%= section.try(:[], :advanced).try(:[], "className") %>">
   <div class="layout--container">
     <%= section_contents -%>
   </div>

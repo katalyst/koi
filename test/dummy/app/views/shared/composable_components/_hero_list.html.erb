@@ -3,26 +3,28 @@
   heroes = SuperHero.female if data["list_type"].eql?("Female")
   heroes = SuperHero.male if data["list_type"].eql?("Male")
 -%>
-<%- if heroes -%>
-  <% heroes.each do |hero| %>
-    <%- 
-      hero_image = hero.cropped_image_upload
-      hero_image_size = "200x200"
-    -%>
-    <div class="content-spacing">
-      <p><strong><%= hero.name -%></strong></p>
-      <%- unless hero_image_size.eql?("none") -%>
-        <%- if hero_image.present? -%>
-          <%= image_tag hero_image.thumb(hero_image_size).url -%>
+<div class="<%= advanced.try(:[], "className") %>">
+  <%- if heroes -%>
+    <% heroes.each do |hero| %>
+      <%- 
+        hero_image = hero.cropped_image_upload
+        hero_image_size = "200x200"
+      -%>
+      <div class="content-spacing">
+        <p><strong><%= hero.name -%></strong></p>
+        <%- unless hero_image_size.eql?("none") -%>
+          <%- if hero_image.present? -%>
+            <%= image_tag hero_image.thumb(hero_image_size).url -%>
+          <%- end -%>
         <%- end -%>
-      <%- end -%>
-      <p>Published: <%= hero.published_at -%></p>
-      <p>Gender: <%= hero.gender -%></p>
-      <%- if data["show_link"].eql?(true) -%>
-        <p><%= link_to "View hero", hero -%>
-      <%- end -%>
-    </div>
-  <% end %>
-<%- else -%>
-  <p>No heroes found for list type '<%= data["list_type"] %>'</p>
-<%- end -%>
+        <p>Published: <%= hero.published_at -%></p>
+        <p>Gender: <%= hero.gender -%></p>
+        <%- if data["show_link"].eql?(true) -%>
+          <p><%= link_to "View hero", hero -%>
+        <%- end -%>
+      </div>
+    <% end %>
+  <%- else -%>
+    <p>No heroes found for list type '<%= data["list_type"] %>'</p>
+  <%- end -%>
+</div>

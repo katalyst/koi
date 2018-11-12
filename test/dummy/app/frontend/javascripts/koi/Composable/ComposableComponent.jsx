@@ -9,8 +9,13 @@ export default class ComposableComponent extends React.Component {
   
   constructor(props) {
     super(props);
+    this.state = {
+      advancedVisible: false,
+    }
     this.onFormChange = this.onFormChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.toggleAdvanced = this.toggleAdvanced.bind(this);
+    this.onAdvancedFormChange = this.onAdvancedFormChange.bind(this);
   }
 
   componentDidMount(){
@@ -21,20 +26,25 @@ export default class ComposableComponent extends React.Component {
     $(document).off("ornament:composable:validate", this.validateForm);
   }
 
-  standardiseData(data) {
-    var standardisedData = [];
-    if(typeof(data[0]) !== "object") {
-      data.map(datum => {
-        standardisedData.push({
-          name: datum,
-          value: datum
-        })
-      });
-      return standardisedData;
-    } else {
-      return data;
-    }
+  // =========================================================================
+  // Advanced settings
+  // =========================================================================
+
+  toggleAdvanced(){
+    this.setState({
+      advancedVisible: !this.state.advancedVisible,
+    })
   }
+
+  onAdvancedFormChange(props) {
+    const composition = [ ...this.props.helpers.composition ];
+    composition[this.props.index].advanced = props.values;
+    this.props.helpers.replaceComposition(composition);
+  }
+
+  // =========================================================================
+  // Form hooks
+  // =========================================================================
 
   onFormChange(props){
     const composition = [ ...this.props.helpers.composition ];
@@ -100,6 +110,7 @@ export default class ComposableComponent extends React.Component {
                 ${draggableSnapshot.isDragging ? "composable--component__dragging" : ""} 
                 ${component.component_collapsed ? "composable--component__collapsed" : ""} 
                 ${component.component_draft ? "composable--component__draft" : ""} 
+                ${this.state.advancedVisible ? "composable--component__advanced" : ""} 
               `}
             >
               <div className="composable--component--meta">
@@ -127,6 +138,11 @@ export default class ComposableComponent extends React.Component {
                 </div>
                 <button
                   type="button"
+                  onClick={e => this.toggleAdvanced()}
+                  className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
+                >Advanced</button>
+                <button
+                  type="button"
                   className="composable--component--meta--section composable--component--meta--section__draft composable--component--meta--icon disable-mouse-outline"
                   onClick={e => helpers.draftComponent(index)}
                   aria-label="Toggle draft mode"
@@ -152,6 +168,38 @@ export default class ComposableComponent extends React.Component {
                   {...draggableProvided.dragHandleProps}
                 >☰</div>
               </div>
+              {!component.component_collapsed && component.component_draft &&
+                <div className="composable--component--draft-banner">
+                  Draft mode: Only visible to administrators
+                </div>
+              }
+              {!component.component_collapsed && this.state.advancedVisible &&
+                <div className="composable--component--advanced panel--padding">
+                  <Form
+                    onSubmit={e => false}
+                    ref={el => this.advancedForm = el}
+                    initialValues={ this.props.helpers.composition[this.props.index].advanced }
+                    render={({ handleSubmit, form, values }) => (
+                      <React.Fragment>
+                        <FormSpy subscription={{ values: true }} onChange={this.onAdvancedFormChange} />
+                        <div className="inputs">
+                          <p><strong>Advanced Settings</strong></p>
+                          <div className="control-group">
+                            <label className="control-label">Class Name</label>
+                            <div className="controls">
+                              <Field
+                                name="className"
+                                component="input"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    )}
+                  />
+                </div>
+              }
               <Form
                 onSubmit={e => false}
                 mutators={{
@@ -168,15 +216,6 @@ export default class ComposableComponent extends React.Component {
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
-                    {!component.component_collapsed &&
-                      <React.Fragment>
-                        {component.component_draft &&
-                          <div className="composable--component--draft-banner">
-                            Draft mode: Only visible to administrators
-                          </div>
-                        }
-                      </React.Fragment>
-                    }
                     {template
                       ? <div className="composable--component--body" style={{ display: component.component_collapsed ? "none" : "block" }}>
                           {hasFields

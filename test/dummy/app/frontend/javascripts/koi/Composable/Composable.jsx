@@ -169,6 +169,7 @@ export default class Composable extends React.Component {
       component_type: component.slug,
       component_collapsed: false,
       component_draft: false,
+      advanced: {},
       data: {},
     }
 

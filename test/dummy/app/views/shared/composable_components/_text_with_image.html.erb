@@ -1,5 +1,5 @@
 
-<div style="display: table">
+<div style="display: table" class="<%= advanced.try(:[], "className") %>">
   <% if data["image_id"] %>
     <div style="display: table-cell; width: 20%; padding-right: 16px; vertical-align: top;">
       <%= image_tag Asset.find(data["image_id"]).thumbnail("200x200") %> 
