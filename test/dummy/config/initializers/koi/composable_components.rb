@@ -14,10 +14,12 @@ Koi::ComposableContent.register_components [
         name: "items",
         label: "Items",
         type: "repeater",
+        validations: ["atLeastOne"],
         fields: [{
           name: "name",
           label: "Item Name",
           type: "string",
+          validations: ["required"],
         },{
           name: "number",
           label: "Item Number",
@@ -32,6 +34,7 @@ Koi::ComposableContent.register_components [
     slug: "text_with_image",
     icon: "paragraph",
     primary: 'text',
+    validations: ["anyValues"],
     fields: [
       {
         name: "text",

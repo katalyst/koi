@@ -61,7 +61,9 @@ export default class Composable extends React.Component {
     // Overiding the save button functionality to hook in to validation
     const $form = $("form.simple_form.form-vertical");
     const validateForm = function(event, saveAndContinue=false){
-      event.preventDefault();
+      if(event) {
+        event.preventDefault();
+      }
       $(document).trigger("ornament:composable:validate");
 
       // Move to end of event loop
