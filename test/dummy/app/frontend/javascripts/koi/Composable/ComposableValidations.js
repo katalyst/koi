@@ -57,7 +57,6 @@ const validateComponent = (component, values, errors) => {
   let rules = component.validations || [];
   if(rules.length) {
     const componentErrors = [];
-    console.log(rules);
     rules.forEach(rule => {
 
       // Validate against this rule
