@@ -136,11 +136,13 @@ export default class ComposableComponent extends React.Component {
                     <span>{preview}</span>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={e => this.toggleAdvanced()}
-                  className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
-                >Advanced</button>
+                {helpers.showAdvancedSettings &&
+                  <button
+                    type="button"
+                    onClick={e => this.toggleAdvanced()}
+                    className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
+                  >Advanced</button>
+                }
                 <button
                   type="button"
                   className="composable--component--meta--section composable--component--meta--section__draft composable--component--meta--icon disable-mouse-outline"
@@ -197,7 +199,7 @@ export default class ComposableComponent extends React.Component {
                           </div>
                           <div className="control-group">
                             <label className="control-label">Id</label>
-                            <p class="hint-block">This can be used for anchoring purposes</p>
+                            <p className="hint-block">This can be used for anchoring purposes</p>
                             <div className="controls">
                               <Field
                                 name="id"

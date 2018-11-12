@@ -41,6 +41,19 @@ module Koi
       @@fallback_section_type = section_type
     end
 
+    # Setting for enabling / disabling the advanced settings
+    # menu in components
+    def self.show_advanced_settings
+      @@show_advanced_settings
+    end
+
+    def self.show_advanced_settings=(show)
+      @@show_advanced_settings = show
+    end
+
+    # Initialise as true
+    @@show_advanced_settings = true
+
     #
     # Register the default components we want in koi.
     # THese can be replaced by registering a component with the same name.
@@ -110,7 +123,7 @@ module Koi
             }
           ]
         },
-    ]
+      ]
 
   end
 end

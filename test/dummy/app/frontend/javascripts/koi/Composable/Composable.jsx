@@ -389,6 +389,7 @@ export default class Composable extends React.Component {
       collapseComponent: this.collapseComponent,
       draftComponent: this.draftComponent,
       generateFieldAttributes: this.generateFieldAttributes,
+      showAdvancedSettings: this.props.showAdvancedSettings,
     };
 
     const hasSection = this.state.composition.filter(component => component.component_type === "section").length > 0;

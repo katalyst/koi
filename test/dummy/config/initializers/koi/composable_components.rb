@@ -1,3 +1,4 @@
+# Koi::ComposableContent.show_advanced_settings = false
 Koi::ComposableContent.register_components [
 
   {
