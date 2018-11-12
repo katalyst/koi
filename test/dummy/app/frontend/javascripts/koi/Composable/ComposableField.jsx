@@ -52,11 +52,19 @@ export default class ComposableField extends React.Component {
       hideLabel = true;
     }
 
+    const isRequired = 
+      field.required || 
+      (field.fieldAttributes && field.fieldAttributes.required) || 
+      (field.validations && field.validations.indexOf("required") > -1);
+
     if(FieldTypeComponent) {
       return(
         <div className={"control-group " + wrapperClass + " " + field.type}>
           {(field.label && !hideLabel) &&
-            <label className="control-label" htmlFor={fieldId}>{field.label}</label>
+            <label className="control-label" htmlFor={fieldId}>
+              {isRequired && <abbr title="required">* </abbr>}
+              {field.label}
+            </label>
           }
           {field.hint 
             ? <div className="hint-block">
