@@ -8,7 +8,10 @@ const ComposableFieldError = ({ name }) => (
       if(error && touched) {
         // Array errors need to be namespaced when errors are for the
         // array as a whole (eg. must have at least one)
-        const message = error && error[ARRAY_ERROR] || error;
+        let message = error;
+        if(typeof(error) === "object") {
+          message = error[ARRAY_ERROR];
+        }
         return(
           <span className="error-block" dangerouslySetInnerHTML={{ __html: message }}></span>
         );
