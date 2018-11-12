@@ -44,6 +44,11 @@ export default class ComposableComponent extends React.Component {
 
   validateForm(){
     this.form.handleSubmit();
+    // If form is invalid (eg. validation errors) and the component is collapsed,
+    // open the component back up so we can focus on the error
+    if(!this.form.state.state.valid && this.props.component.component_collapsed) {
+      this.props.helpers.collapseComponent(this.props.index, "show");
+    }
   }
 
   // =========================================================================
@@ -165,56 +170,45 @@ export default class ComposableComponent extends React.Component {
                             Draft mode: Only visible to administrators
                           </div>
                         }
-                        {template
-                          ? <div className="composable--component--body">
-                              {hasFields
-                                ? <div className="inputs">
-                                    <Field name="componentError" subscription={{ error: true, touched: true }}>
-                                      {({ meta: { error,touched } }) => {
-                                        if(error) {
-                                          return(
-                                            <div className="panel__error panel--padding">
-                                              <span className="error-block" dangerouslySetInnerHTML={{ __html: error }}></span>
-                                            </div>
-                                          );
-                                        } else {
-                                          return(null);
-                                        }
-                                      }}
-                                    </Field>
-                                    {template.fields.map((field, index) => {
-                                      return(
-                                        <ComposableField
-                                          key={`${component.id}_${field.name}`}
-                                          onFormChange={this.onFormChange}
-                                          formValue={values}
-                                          componentIndex={this.props.index}
-                                          component={component}
-                                          field={field}
-                                          helpers={helpers}
-                                        />
-                                      )
-                                    })}
-                                  </div>
-                                : <div className="content">
-                                    <p>{this.props.template.message || "This component doesn't require configuration."}</p>
-                                  </div>
-                              }
-                            </div>
-                          : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
-                        }
-                        {false /*template.nestable*/ &&
-                          <div className="composable--component--nested">
-                            <Droppable droppableId={`${component.id}-nested`}>
-                              {(nestedDroppableProvided, nestedDroppableSnapshot) => (
-                                <div ref={nestedDroppableProvided.innerRef}>
-                                  <span>Drag nested components here</span>
-                                </div>
-                              )}
-                            </Droppable>
-                          </div>
-                        }
                       </React.Fragment>
+                    }
+                    {template
+                      ? <div className="composable--component--body" style={{ display: component.component_collapsed ? "none" : "block" }}>
+                          {hasFields
+                            ? <div className="inputs">
+                                <Field name="componentError" subscription={{ error: true, touched: true }}>
+                                  {({ meta: { error,touched } }) => {
+                                    if(error) {
+                                      return(
+                                        <div className="panel__error panel--padding">
+                                          <span className="error-block" dangerouslySetInnerHTML={{ __html: error }}></span>
+                                        </div>
+                                      );
+                                    } else {
+                                      return(null);
+                                    }
+                                  }}
+                                </Field>
+                                {template.fields.map((field, index) => {
+                                  return(
+                                    <ComposableField
+                                      key={`${component.id}_${field.name}`}
+                                      onFormChange={this.onFormChange}
+                                      formValue={values}
+                                      componentIndex={this.props.index}
+                                      component={component}
+                                      field={field}
+                                      helpers={helpers}
+                                    />
+                                  )
+                                })}
+                              </div>
+                            : <div className="content">
+                                <p>{this.props.template.message || "This component doesn't require configuration."}</p>
+                              </div>
+                          }
+                        </div>
+                      : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
                     }
                   </React.Fragment>
                 )}
