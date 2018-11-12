@@ -1,3 +1,36 @@
+/*
+
+  Downshift field type for autocomplete results
+
+  Requires two extra properties in your field config:
+
+  fields: [{
+    name: "example",
+    label: "Example",
+    type: "downshift",
+    currentEndpoint: "/admin/results/current",
+    searchEndpoint: "/admin/results/search",
+  }]
+
+  Search endpoints should be able to take a "keyword" param and
+  return an array of results
+
+  Content endpoint should be able to take an ID and type and 
+  return an array of results
+
+  Result format should have a value and label, eg:
+
+  {
+    value: { type: record.class.name, id: record.id },
+    label: "#{record.class.name} - #{record.to_s}",
+  }
+
+  See `tnk` for implementation example
+
+  This component requires downshift and axios dependancies
+
+*/
+
 import React from 'react';
 import { Field } from 'react-final-form';
 import Downshift from 'downshift';

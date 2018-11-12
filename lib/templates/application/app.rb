@@ -607,7 +607,7 @@ if yes?("Do you want to generate ornament?")
   END
 
   # Add composable yarn dependencies
-  run "yarn add react-beautiful-dnd-next react-final-form react-final-form-arrays final-form final-form-arrays"
+  run "yarn add react-beautiful-dnd-next react-final-form react-final-form-arrays final-form final-form-arrays react-sticky-box axios downshift"
 
   # Generate page files
   copy_file "../../../../app/models/page.rb", "app/models/page.rb"
