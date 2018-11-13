@@ -121,6 +121,11 @@ export default class ComposableComponent extends React.Component {
                 ${this.state.advancedVisible ? "composable--component__advanced" : ""} 
               `}
             >
+              {component.component_draft &&
+                <div className="composable--component--draft-banner">
+                  Draft mode: Only visible to administrators
+                </div>
+              }
               <div className="composable--component--meta">
                 <div className="composable--component--meta--label">
                   {this.props.helpers.icons &&
@@ -181,11 +186,6 @@ export default class ComposableComponent extends React.Component {
                   {...draggableProvided.dragHandleProps}
                 >☰</div>
               </div>
-              {!component.component_collapsed && component.component_draft &&
-                <div className="composable--component--draft-banner">
-                  Draft mode: Only visible to administrators
-                </div>
-              }
               {!component.component_collapsed && this.state.advancedVisible &&
                 <div className="composable--component--advanced panel--padding">
                   <Form
