@@ -44,7 +44,10 @@ module Koi
     # Method for injecting new section types without having to override
     # the entire component
     def self.section_types=(section_types)
-      @@components["Section"].try(:[],:fields).try(:[], :0).try(:[], :data) = section_types
+      component = @@components["Section"].try(:[], :fields).try(:[], 0)
+      if component.present?
+        component[:data] = section_types
+      end
     end
 
     # Setting for enabling / disabling the advanced settings
