@@ -41,6 +41,12 @@ module Koi
       @@fallback_section_type = section_type
     end
 
+    # Method for injecting new section types without having to override
+    # the entire component
+    def self.section_types=(section_types)
+      @@components["Section"].try(:[],:fields).try(:[], :0).try(:[], :data) = section_types
+    end
+
     # Setting for enabling / disabling the advanced settings
     # menu in components
     def self.show_advanced_settings
@@ -71,7 +77,7 @@ module Koi
               name: "section_type",
               type: "select",
               className: "form--auto",
-              data: ["body", "fullwidth"]
+              data: ["body", "fullwidth"],
             }
           ]
         },
