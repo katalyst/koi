@@ -225,10 +225,26 @@
   background: rgba($grey, .25);
 }
 
+// Draft toggle
 .composable--component--meta--section__draft {
   .composable--component__draft &,
   .composable--component__draft &:hover {
     background: $warning-background;
+  }
+}
+
+// Advanced toggle
+.composable--component--meta--section__advanced {
+  .composable--component__advanced & {
+    background: $primary-color;
+
+    [fill] {
+      fill: $white;
+    }
+  
+    [stroke] {
+      stroke: $white;
+    }
   }
 }
 
@@ -254,7 +270,6 @@
 
 .composable--component--advanced {
   background: $passive-color;
-  border-bottom: $divider;
 }
 
 // =========================================================================

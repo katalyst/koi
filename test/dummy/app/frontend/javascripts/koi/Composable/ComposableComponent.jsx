@@ -15,6 +15,7 @@ export default class ComposableComponent extends React.Component {
     this.onFormChange = this.onFormChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.toggleAdvanced = this.toggleAdvanced.bind(this);
+    this.closeAdvanced = this.closeAdvanced.bind(this);
     this.onAdvancedFormChange = this.onAdvancedFormChange.bind(this);
   }
 
@@ -33,7 +34,13 @@ export default class ComposableComponent extends React.Component {
   toggleAdvanced(){
     this.setState({
       advancedVisible: !this.state.advancedVisible,
-    })
+    });
+  }
+
+  closeAdvanced(){
+    this.setState({
+      advancedVisible: false,
+    });
   }
 
   onAdvancedFormChange(props) {
@@ -140,14 +147,17 @@ export default class ComposableComponent extends React.Component {
                   <button
                     type="button"
                     onClick={e => this.toggleAdvanced()}
-                    className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
-                  >Advanced</button>
+                    title={this.state.advancedVisible ? "Hide advanced settings" : "Show advanced settings"}
+                    className="composable--component--meta--section composable--component--meta--section__advanced composable--component--meta--icon disable-mouse-outline"
+                  >
+                    <span dangerouslySetInnerHTML={{__html: helpers.icons.cog}}></span>
+                  </button>
                 }
                 <button
                   type="button"
                   className="composable--component--meta--section composable--component--meta--section__draft composable--component--meta--icon disable-mouse-outline"
                   onClick={e => helpers.draftComponent(index)}
-                  aria-label="Toggle draft mode"
+                  title={component.component_draft ? "Disable draft mode" : "Enable draft mode"}
                 >
                   {component.component_draft
                     ? <span dangerouslySetInnerHTML={{__html: helpers.icons.hidden}}></span>
@@ -209,6 +219,9 @@ export default class ComposableComponent extends React.Component {
                               />
                             </div>
                           </div>
+                          <div>
+                            <button onClick={this.closeAdvanced} className="button__primary">‹ Close advanced settings</button>
+                          </div>
                         </div>
                       </React.Fragment>
                     )}
@@ -232,7 +245,7 @@ export default class ComposableComponent extends React.Component {
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
                     {template
-                      ? <div className="composable--component--body" style={{ display: component.component_collapsed ? "none" : "block" }}>
+                      ? <div className="composable--component--body" style={{ display: (component.component_collapsed || this.state.advancedVisible) ? "none" : "block" }}>
                           {hasFields
                             ? <div className="inputs">
                                 <Field name="componentError" subscription={{ error: true, touched: true }}>
