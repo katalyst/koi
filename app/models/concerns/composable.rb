@@ -46,13 +46,13 @@ module Composable
     end
   end
 
-  # When you add a field type to a page, but don't specify a
+  # When you add a component to a page, but don't specify a
   # section, use this hash to override what section it gets
   # wrapped in
-  def self.field_type_section_fallbacks
+  def self.component_type_section_fallbacks
     {
-      "video": "fullscreen",
-      "full_banner": "fullscreen"
+      "video": "fullwidth",
+      "full_banner": "fullwidth",
     }
   end
 
@@ -71,7 +71,7 @@ module Composable
         # isn't a new section
         if !current_composable_section && !datum["component_type"].eql?("section")
           current_composable_section = {
-            section_type: field_type_section_fallbacks[datum[:component_type]] || Koi::ComposableContent.fallback_section_type,
+            section_type: component_type_section_fallbacks[datum[:component_type]] || Koi::ComposableContent.fallback_section_type,
             section_data: []
           }
         end
@@ -83,6 +83,7 @@ module Composable
           current_composable_section = {
             section_type: datum["data"]["section_type"] || Koi::ComposableContent.fallback_section_type,
             section_data: [],
+            section_draft: datum["component_draft"],
             advanced: datum["advanced"] || {},
           }
         # push datum to current page section
