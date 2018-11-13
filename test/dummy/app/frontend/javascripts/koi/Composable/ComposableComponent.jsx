@@ -3,6 +3,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Form, FormSpy, Field } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import ComposableField from './ComposableField';
+import ComposableAdvancedSettings from './ComposableAdvancedSettings';
 import validate from './ComposableValidations';
 
 export default class ComposableComponent extends React.Component {
@@ -194,35 +195,9 @@ export default class ComposableComponent extends React.Component {
                     render={({ handleSubmit, form, values }) => (
                       <React.Fragment>
                         <FormSpy subscription={{ values: true }} onChange={this.onAdvancedFormChange} />
-                        <div className="inputs">
-                          <p><strong>Advanced Settings</strong></p>
-                          <div className="control-group">
-                            <label className="control-label">Class Name</label>
-                            <div className="controls">
-                              <Field
-                                name="className"
-                                component="input"
-                                className="form--medium"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                          <div className="control-group">
-                            <label className="control-label">Id</label>
-                            <p className="hint-block">This can be used for anchoring purposes</p>
-                            <div className="controls">
-                              <Field
-                                name="id"
-                                component="input"
-                                className="form--medium"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <button onClick={this.closeAdvanced} className="button__primary">‹ Close advanced settings</button>
-                          </div>
-                        </div>
+                        <ComposableAdvancedSettings
+                          closeAdvanced={this.closeAdvanced}
+                        />
                       </React.Fragment>
                     )}
                   />
