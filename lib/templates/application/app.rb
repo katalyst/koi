@@ -586,8 +586,9 @@ if yes?("Do you want to generate ornament?")
 
   # Create blank components file
   create_file "config/initializers/koi/composable_components.rb", <<-END
-  # Koi::ComposableContent.show_advanced_settings = false
   # Koi::ComposableContent.section_types = ["body", "fullwidth"]
+  # Koi::ComposableContent.section_drafting_for_children = false
+  # Koi::ComposableContent.show_advanced_settings = false
   # Koi::ComposableContent.register_components [
   #   {
   #     name: "Section",

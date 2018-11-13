@@ -88,6 +88,10 @@ module Composable
           }
         # push datum to current page section
         else
+          # Mark as draft if section is a draft
+          if Koi::ComposableContent.section_drafting_for_children
+            datum["component_draft"] = current_composable_section[:section_draft] if current_composable_section[:section_draft]
+          end
           current_composable_section[:section_data] << datum.except!("component_collapsed")
         end
       end

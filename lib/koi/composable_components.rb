@@ -50,6 +50,16 @@ module Koi
       end
     end
 
+    # Setting for marking children of sections as draft when sections
+    # are draft
+    def self.section_drafting_for_children
+      @@section_drafting_for_children
+    end
+
+    def self.section_drafting_for_children=(setting)
+      @@section_drafting_for_children = setting
+    end
+
     # Setting for enabling / disabling the advanced settings
     # menu in components
     def self.show_advanced_settings
@@ -60,8 +70,9 @@ module Koi
       @@show_advanced_settings = show
     end
 
-    # Initialise as true
+    # Initialise settings
     @@show_advanced_settings = true
+    @@section_drafting_for_children = true
 
     #
     # Register the default components we want in koi.
