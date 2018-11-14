@@ -1,0 +1,13 @@
+<% items = data["items"] %>
+<div class="repeatable-thing <%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
+  <h2 class="heading-two"><%= data["name"] %></h2>
+  <% if items %>
+    <% items.each do |item| %>
+      <ul>
+        <li><%= item["name"] %>: <%= item["number"] %></li>
+      </ul>
+    <% end %>
+  <% else %>
+    <p>There are no items.</p>
+  <% end %>
+</div>
