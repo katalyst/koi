@@ -147,6 +147,9 @@ export default class ComposableFieldAutocomplete extends React.Component {
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.getFieldValue = this.getFieldValue.bind(this);
+    this.setFieldValue = this.setFieldValue.bind(this);
+    this.clearValue = this.clearValue.bind(this);
     this.getLabelForCurrentdata = this.getLabelForCurrentdata.bind(this);
     this.getDataForKeyword = this.getDataForKeyword.bind(this);
     this.onDownshiftSelection = this.onDownshiftSelection.bind(this);
@@ -159,8 +162,31 @@ export default class ComposableFieldAutocomplete extends React.Component {
   }
 
   // =========================================================================
-  // AJAX Data fetching
+  // Data
   // =========================================================================
+
+  getFieldValue(){
+    return this.$hiddenField.context.reactFinalForm.getState().initialValues[this.$hiddenField.props.name];
+  }
+
+  setFieldValue(value){
+    this.$hiddenField.context.reactFinalForm.change(this.$hiddenField.props.name, value);
+  }
+
+  clearValue(){
+    if(this.downshift) {
+      const value = this.props.fieldSettings.withRecordType ? {} : "";
+      this.setState({
+        initialValue: value,
+      }, () => {
+        this.downshift.setState({
+          inputValue: "",
+          selectedItem: false,
+        });
+        this.setFieldValue(value);
+      });
+    }
+  }
 
   // If data is returned as an array of strings:
   // ["item1", "item2"]
@@ -176,9 +202,13 @@ export default class ComposableFieldAutocomplete extends React.Component {
     });
   }
 
+  // =========================================================================
+  // AJAX Data fetching
+  // =========================================================================
+
   // Get data from endpoint based on current values
   getLabelForCurrentdata(){
-    let value = this.$hiddenField.context.reactFinalForm.getState().initialValues[this.$hiddenField.props.name];
+    let value = this.getFieldValue();
 
     // Don't do anything if there's no value
     if(!value) {
@@ -319,7 +349,7 @@ export default class ComposableFieldAutocomplete extends React.Component {
     }
 
     // Update value in final-form
-    this.$hiddenField.context.reactFinalForm.change(this.$hiddenField.props.name, value);
+    this.setFieldValue(value);
   }
 
   onDownshiftInputChange(event) {
@@ -409,31 +439,42 @@ export default class ComposableFieldAutocomplete extends React.Component {
 
         {!this.state.fieldReady
           ? <input type="text" disabled value="Loading..." />
-          : <Downshift
-              {...downshiftProps}
-            >
-              {({
-                getInputProps,
-                getItemProps,
-                getMenuProps,
-                isOpen,
-                inputValue,
-                highlightedIndex,
-                selectedItem,
-              }) => (
-                <div className="composable--downshift">
-                  <input
-                    type="text"
-                    {...getInputProps(downshiftInputProps)}
-                  />
-                  {isOpen && inputValue.length > 2 &&
-                    <ul {...getMenuProps()} className="composable--downshift--options">
-                      {downshiftResults(inputValue, highlightedIndex, selectedItem, getItemProps)}
-                    </ul>
-                  }
+          : <div className="form--field-wrapper">
+              {this.props.fieldSettings.prefix &&
+                <div className="form--field-cap">
+                  {this.props.fieldSettings.prefix}
                 </div>
-              )}
-            </Downshift>
+              }
+              <Downshift
+                ref={el => this.downshift = el}
+                {...downshiftProps}
+              >
+                {({
+                  getInputProps,
+                  getItemProps,
+                  getMenuProps,
+                  isOpen,
+                  inputValue,
+                  highlightedIndex,
+                  selectedItem,
+                }) => (
+                  <div className="composable--downshift">
+                    <input
+                      type="text"
+                      {...getInputProps(downshiftInputProps)}
+                    />
+                    {isOpen && inputValue.length > 2 &&
+                      <ul {...getMenuProps()} className="composable--downshift--options">
+                        {downshiftResults(inputValue, highlightedIndex, selectedItem, getItemProps)}
+                      </ul>
+                    }
+                  </div>
+                )}
+              </Downshift>
+              {this.getFieldValue() &&
+                <button onClick={this.clearValue} type="button" className="button">&times;</button>
+              }
+            </div>
         }
       </React.Fragment>
     )

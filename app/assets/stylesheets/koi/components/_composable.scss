@@ -97,7 +97,6 @@
   border: $divider;
   border-radius: $border-radius;
   background: $white;
-  overflow: hidden;
 
   .composable__with-sections &:not(.composable--component__section) {
     margin-left: $default-unit;
@@ -278,11 +277,15 @@
 
 .form--field-wrapper {
   display: flex;
-  overflow: auto;
 
+  .composable--downshift,
   input[type=text] {
     flex-grow: 1;
     flex-shrink: 1;
+  }
+
+  input[type=text],
+  button {
     border-radius: 0;
   }
 }
@@ -298,6 +301,8 @@
 }
 
 .form--field-wrapper input[type=text],
+.form--field-wrapper button,
+.form--field-wrapper .composable--downshift,
 .form--field-cap {
   &:first-child {
     border-top-left-radius: $border-radius;
