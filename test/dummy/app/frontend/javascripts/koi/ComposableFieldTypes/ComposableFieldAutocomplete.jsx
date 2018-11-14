@@ -166,10 +166,16 @@ export default class ComposableFieldAutocomplete extends React.Component {
   // =========================================================================
 
   getFieldValue(){
+    if(!this.$hiddenField) {
+      return false;
+    }
     return this.$hiddenField.context.reactFinalForm.getState().initialValues[this.$hiddenField.props.name];
   }
 
   setFieldValue(value){
+    if(!this.$hiddenField) {
+      return false;
+    }
     this.$hiddenField.context.reactFinalForm.change(this.$hiddenField.props.name, value);
   }
 
@@ -427,6 +433,11 @@ export default class ComposableFieldAutocomplete extends React.Component {
       )
     }
 
+    let hasValue = this.getFieldValue() || false;
+    if(this.props.fieldSettings.withRecordType && Object.keys(hasValue).length === 0) {
+      hasValue = false;
+    }
+
     return(
       <React.Fragment>
 
@@ -471,7 +482,7 @@ export default class ComposableFieldAutocomplete extends React.Component {
                   </div>
                 )}
               </Downshift>
-              {this.getFieldValue() &&
+              {hasValue &&
                 <button onClick={this.clearValue} type="button" className="button">&times;</button>
               }
             </div>
