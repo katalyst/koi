@@ -86,7 +86,6 @@ export default class ComposableComponent extends React.Component {
       // If field has data (eg. select field)
       if(primaryFieldSettings.data) {
         const object = primaryFieldSettings.data.filter(datum => datum.value + "" === preview + "")[0];
-        console.log(object);
         if(object && object.label) {
           preview = object.label;
         }

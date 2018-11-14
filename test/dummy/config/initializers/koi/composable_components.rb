@@ -51,6 +51,44 @@ Koi::ComposableContent.register_components [
   },
 
   {
+    name: "Autocompletes",
+    slug: "autocompletes",
+    primary: "hero_id",
+    fields: [
+      {
+        name: "hero_id",
+        type: "autocomplete",
+        label: "Hardcoded data - Superheroes",
+        hint: "Example of hardcoded data showing label, saving value. Same as select menu just with autocomplete",
+        data: [{ label: "", value: "" }] + SuperHero.all.map { |hero| { label: hero.name, value: hero.id } },
+      },
+      {
+        name: "hero_search_name",
+        type: "autocomplete",
+        label: "AJAX superhero name",
+        hint: "An example of looking up and saving string data (eg. no association)",
+        searchEndpoint: "/admin/super_heros/name_search",
+      },
+      {
+        name: "hero_search_id",
+        type: "autocomplete",
+        label: "AJAX superhero id",
+        hint: "An example of looking up and saving an id and displaying the name in the field",
+        searchEndpoint: "/admin/super_heros/search_id",
+        contentEndpoint: "/admin/super_heros/content_id",
+      },
+      {
+        name: "hero_ajax_association",
+        type: "autocomplete",
+        label: "AJAX Superhero association",
+        hint: "An example of saving a record type and record id (eg. psuedo-association)",
+        searchEndpoint: "/admin/super_heros/search_association",
+        contentEndpoint: "/admin/super_heros/content_association",
+      }
+    ]
+  },
+
+  {
     name: "Hero",
     slug: "hero",
     icon: "user",
@@ -60,7 +98,6 @@ Koi::ComposableContent.register_components [
         name: "hero_id",
         type: "autocomplete",
         label: "Superhero",
-        className: "form--auto",
         data: [{ label: "", value: "" }] + SuperHero.all.map { |hero| { label: hero.name, value: hero.id } },
       },
       {
