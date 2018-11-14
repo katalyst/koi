@@ -15,7 +15,7 @@ export default class ComposableField extends React.Component {
     if(typeof(data[0]) !== "object") {
       data.map(datum => {
         standardisedData.push({
-          name: datum,
+          label: datum,
           value: datum
         })
       });

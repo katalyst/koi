@@ -1,33 +1,101 @@
 /*
 
-  Downshift field type for autocomplete results
+  Autocomplete field
 
-  Requires two extra properties in your field config:
+  This is a very complex and flexible field component with many
+  options.
 
-  fields: [{
-    name: "example",
-    label: "Example",
-    type: "downshift",
-    currentEndpoint: "/admin/results/current",
-    searchEndpoint: "/admin/results/search",
-  }]
+  See `tnk` for ajax assocation implementation example
 
-  Search endpoints should be able to take a "keyword" param and
-  return an array of results
+  Dependancies:
+  - downshift
+  - axios
 
-  Content endpoint should be able to take an ID and type and 
-  return an array of results
+  Autocomplete with search
+  ------------------------
 
-  Result format should have a value and label, eg:
+  Basic autocomplete with static data
 
   {
-    value: { type: record.class.name, id: record.id },
-    label: "#{record.class.name} - #{record.to_s}",
+    type: "autocomplete",
+    data: (1..20)
   }
 
-  See `tnk` for implementation example
+  Autocomplete with ajax endpoint
+  -------------------------------
 
-  This component requires downshift and axios dependancies
+  Basic autocomplete fetching strings from an
+  ajax endpoint
+
+  {
+    type: "autocomplete",
+    searchEndpoint: "/admin/api/search",
+    contentEndpoint: "/admin/api/content",
+  }
+
+  If no content endpoint, the value saved to the JSON
+  data will be used in the edit state
+
+  Autocomplete endpoints should return a value and a label:
+
+  [{
+    value: 1,
+    label: "Page 1"
+  }]
+
+  This will result in the field showing "Page 1" and saving 1 to
+  the JSON data
+
+  If the endpoints return just strings, the string will be 
+  treated as both the label and the value.
+
+  ["Page 1"]
+
+  This will result in the field showing "Page 1" and saving
+  "Page 1" to the JSON data
+
+  Autocomplete with ajax endpoint for various record types
+  --------------------------------------------------------
+
+  Similar to an association type field
+  This saves both a record_type and a record_id
+
+  {
+    type: "autocomplete",
+    searchEndpoint: "/admin/api/search",
+    contentEndpoint: "/admin/api/content",
+    withRecordType: true,
+  }
+
+  Again, if no content endpoint, the value from JSON
+  will be used instead
+
+  If your field set up is as so:
+
+  {
+    name: "article",
+    type: "autocomplete",
+    searchEndpoint: "/admin/api/search",
+    contentEndpoint: "/admin/api/content",
+    withRecordType: true,
+  }
+
+  will result in two pieces of data in the component JSON:
+
+  {
+    article_id: 1,
+    article_type: Page,
+  }
+
+  Make sure your endpoints values return both types and ids like so:
+
+  {
+    value: {
+      type: record.class.name,
+      id: record.id,
+    },
+    label: record.to_s
+  }
 
 */
 
@@ -38,12 +106,22 @@ import axios from 'axios';
 
 let debounceTimer = null;
 
-export default class ComposableFieldArticlepicker extends React.Component {
+export default class ComposableFieldAutocomplete extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // Store endpoints
+    this.endpoints = {
+      CONTENT: props.fieldSettings.contentEndpoint,
+      SEARCH: props.fieldSettings.searchEndpoint,
+    }
+
+    // Flags for various behaviours
+    this.requiresAjax = this.endpoints.CONTENT || this.endpoints.SEARCH;
+
     this.state = {
-      fieldReady: false,
+      fieldReady: this.requiresAjax ? false : true,
       initialValue: "",
       searchResults: [],
       waitingForResults: false,
@@ -56,23 +134,20 @@ export default class ComposableFieldArticlepicker extends React.Component {
     this.onDownshiftSelection = this.onDownshiftSelection.bind(this);
     this.onDownshiftInputChange = this.onDownshiftInputChange.bind(this);
     this.debouncedGetDataForKeyword = this.debouncedGetDataForKeyword.bind(this);
-
-    this.endpoints = {
-      CONTENT: this.fieldSettings.contentEndpoint,
-      SEARCH: this.fieldSettings.searchEndpoint,
-    }
   }
 
   componentDidMount(){
-    this.getLabelForCurrentdata();
+    if(this.requiresAjax) {
+      this.getLabelForCurrentdata();
+    }
   }
 
   // =========================================================================
-  // Data fetching
+  // AJAX Data fetching
   // =========================================================================
 
+  // Get data from endpoint based on current values
   getLabelForCurrentdata(){
-    // Get initial value
     const values = this.$hiddenField.context.reactFinalForm.getState().initialValues[this.$hiddenField.props.name];
 
     if(values.id && values.type) {
@@ -109,6 +184,7 @@ export default class ComposableFieldArticlepicker extends React.Component {
     }
   }
 
+  // Get data from endpoint based on search keywords
   getDataForKeyword(keyword) {
     axios.get(this.endpoints.SEARCH, {
       params: {
@@ -129,6 +205,7 @@ export default class ComposableFieldArticlepicker extends React.Component {
     })
   }
 
+  // Debounced get data function
   debouncedGetDataForKeyword(keyword) {
     if(debounceTimer) {
       clearTimeout(debounceTimer);
@@ -147,10 +224,19 @@ export default class ComposableFieldArticlepicker extends React.Component {
   // =========================================================================
 
   onDownshiftSelection(selection){
-    this.$hiddenField.context.reactFinalForm.change(this.$hiddenField.props.name, {
-      type: selection.value.type,
-      id: selection.value.id,
-    });
+    let value = selection.value;
+    
+    // If withRecordType, we want to save the id and type
+    // as an object
+    if(this.withRecordType) {
+      value = {
+        type: selection.value.type,
+        id: selection.value.id,
+      }
+    }
+
+    // Update value in final-form
+    this.$hiddenField.context.reactFinalForm.change(this.$hiddenField.props.name, value);
   }
 
   onDownshiftInputChange(event) {
@@ -167,17 +253,41 @@ export default class ComposableFieldArticlepicker extends React.Component {
 
   render() {
 
+    // Props to pass to Downshift component
+    const downshiftProps = {
+      onChange: selection => this.onDownshiftSelection(selection),
+      initialSelectedItem: this.state.initialValue,
+      itemToString: item => {
+        if(!item) {
+          return "";
+        }
+        if(item.label) {
+          return item.label;
+        }
+        return item;
+      },
+    };
+
+    // Props for downshift input
+    const downshiftInputProps = {
+      placeholder: "Start typing...",
+    }
+
+    if(this.requiresAjax) {
+      downshiftInputProps.onChange = this.onDownshiftInputChange;
+    }
+
+    // Results markup
     const downshiftResults = (inputValue, highlightedIndex, selectedItem, getItemProps) => {
 
-      // Waiting for data
-      if(this.state.waitingForResults) {
+      if(this.requiresAjax && this.state.waitingForResults) {
         return(
           <li className="composable--downshift--empty">Loading...</li>
         )
       }
 
       // Has results
-      const results = this.state.searchResults
+      const results = (this.props.fieldSettings.data || this.state.searchResults)
                       .filter(item => !inputValue || item.label.toLowerCase().includes(inputValue.toLowerCase()))
                       .slice(0, 20);
       if(results.length) {
@@ -188,8 +298,7 @@ export default class ComposableFieldArticlepicker extends React.Component {
               index,
               item,
               style: {
-                backgroundColor:
-                  highlightedIndex === index ? 'lightgray' : 'white',
+                backgroundColor: highlightedIndex === index ? 'lightgray' : 'white',
                 fontWeight: selectedItem === item ? 'bold' : 'normal',
               },
             })}
@@ -216,11 +325,9 @@ export default class ComposableFieldArticlepicker extends React.Component {
         />
 
         {!this.state.fieldReady
-          ? <span>Loading...</span>
+          ? <input type="text" disabled value="Loading..." />
           : <Downshift
-              onChange={selection => this.onDownshiftSelection(selection)}
-              itemToString={item => (item ? item.label : '')}
-              initialSelectedItem={this.state.initialValue}
+              {...downshiftProps}
             >
               {({
                 getInputProps,
@@ -234,10 +341,7 @@ export default class ComposableFieldArticlepicker extends React.Component {
                 <div className="composable--downshift">
                   <input
                     type="text"
-                    {...getInputProps({
-                      placeholder: "Start typing...",
-                      onChange: this.onDownshiftInputChange,
-                    })}
+                    {...getInputProps(downshiftInputProps)}
                   />
                   {isOpen && inputValue.length > 2 &&
                     <ul {...getMenuProps()} className="composable--downshift--options">

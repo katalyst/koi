@@ -49,6 +49,7 @@ Koi::ComposableContent.register_components [
       }
     ]
   },
+
   {
     name: "Hero",
     slug: "hero",
@@ -57,13 +58,10 @@ Koi::ComposableContent.register_components [
     fields: [
       {
         name: "hero_id",
-        type: "select",
+        type: "autocomplete",
         label: "Superhero",
         className: "form--auto",
-        data: [{ name: "", value: "" }] + SuperHero.all.map { |hero| { name: hero.name, value: hero.id } },
-        fieldAttributes: {
-          required: true
-        }
+        data: [{ label: "", value: "" }] + SuperHero.all.map { |hero| { label: hero.name, value: hero.id } },
       },
       {
         name: "image_size",
@@ -72,16 +70,16 @@ Koi::ComposableContent.register_components [
         defaultValue: "120x120#",
         data: [
           {
-            name: "None",
+            label: "None",
             value: "none"
           },{
-            name: "Small",
+            label: "Small",
             value: "80x80#"
           },{
-            name: "Medium",
+            label: "Medium",
             value: "120x120#"
           },{
-            name: "Large",
+            label: "Large",
             value: "250x250#"
           }
         ]
@@ -212,15 +210,15 @@ Koi::ComposableContent.register_components [
         type: "select",
         data: [
           {
-            name: "Option 1",
+            label: "Option 1",
             value: 1
           },
           {
-            name: "Option 2",
+            label: "Option 2",
             value: 2
           },
           {
-            name: "Option 3",
+            label: "Option 3",
             value: 3
           }
         ]

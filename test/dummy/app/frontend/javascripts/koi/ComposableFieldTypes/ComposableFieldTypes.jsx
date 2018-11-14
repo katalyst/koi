@@ -11,3 +11,4 @@ export {default as ComposableFieldString} from "./ComposableFieldString";
 export {default as ComposableFieldTextarea} from "./ComposableFieldTextarea";
 export {default as ComposableFieldAsset} from "./ComposableFieldAsset";
 export {default as ComposableFieldRepeater} from "./ComposableFieldRepeater";
+export {default as ComposableFieldAutocomplete} from "./ComposableFieldAutocomplete";
