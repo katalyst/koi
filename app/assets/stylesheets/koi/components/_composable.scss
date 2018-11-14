@@ -247,6 +247,10 @@
   }
 }
 
+.composable--component--message + .composable--component--body {
+  border-top: $divider;
+}
+
 .composable--component--body,
 .composable--component--nested {
   padding: $xxx-small-unit;

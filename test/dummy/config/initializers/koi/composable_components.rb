@@ -54,6 +54,8 @@ Koi::ComposableContent.register_components [
     name: "Autocompletes",
     slug: "autocompletes",
     primary: "hero_id",
+    message: "Make sure you have Super Hero data",
+    messageType: "passive",
     fields: [
       {
         name: "hero_id",
@@ -87,6 +89,11 @@ Koi::ComposableContent.register_components [
         withRecordType: true,
       }
     ]
+  },
+
+  {
+    name: "No Config",
+    slug: "no_config",
   },
 
   {

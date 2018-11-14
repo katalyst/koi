@@ -102,6 +102,22 @@ export default class ComposableComponent extends React.Component {
       }
     }
 
+    let componentMessage = false;
+    if(!hasFields || this.props.template.message) {
+      let componentMessageClass = "composable--component--message panel--padding content";
+      let componentMessageContent = this.props.template.message;
+      if(!hasFields && !componentMessageContent) {
+        componentMessageContent = "This component doesn't require configuration.";
+      }
+      if(this.props.template.messageType === "passive") {
+        componentMessageClass += " panel__passive"
+      }
+      componentMessage = 
+        <div className={componentMessageClass}>
+          <p>{componentMessageContent}</p>
+        </div>
+    }
+
     return(
       <Draggable key={component.id} draggableId={component.id} index={index}>
         {(draggableProvided, draggableSnapshot) => (
@@ -219,44 +235,46 @@ export default class ComposableComponent extends React.Component {
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
                     <FormSpy subscription={{ values: true }} onChange={this.onFormChange} />
-                    {template
-                      ? <div className="composable--component--body" style={{ display: (component.component_collapsed || this.state.advancedVisible) ? "none" : "block" }}>
-                          {hasFields
-                            ? <div className="inputs">
-                                <Field name="componentError" subscription={{ error: true, touched: true }}>
-                                  {({ meta: { error,touched } }) => {
-                                    if(error) {
-                                      return(
-                                        <div className="panel__error panel--padding">
-                                          <span className="error-block" dangerouslySetInnerHTML={{ __html: error }}></span>
-                                        </div>
-                                      );
-                                    } else {
-                                      return(null);
-                                    }
-                                  }}
-                                </Field>
-                                {template.fields.map((field, index) => {
-                                  return(
-                                    <ComposableField
-                                      key={`${component.id}_${field.name}`}
-                                      onFormChange={this.onFormChange}
-                                      formValue={values}
-                                      componentIndex={this.props.index}
-                                      component={component}
-                                      field={field}
-                                      helpers={helpers}
-                                    />
-                                  )
-                                })}
-                              </div>
-                            : <div className="content">
-                                <p>{this.props.template.message || "This component doesn't require configuration."}</p>
-                              </div>
-                          }
+                    <div style={{ display: (component.component_collapsed || this.state.advancedVisible) ? "none" : "block" }}>
+                      {!template &&
+                        <div className="composable--component--body">
+                          <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
                         </div>
-                      : <div className="panel__error panel--padding">Unknown component type: {component.component_type}</div>
-                    }
+                      }
+                      {componentMessage}
+                      {hasFields &&
+                        <div className="composable--component--body">
+                          <div className="inputs">
+                            <Field name="componentError" subscription={{ error: true, touched: true }}>
+                              {({ meta: { error,touched } }) => {
+                                if(error) {
+                                  return(
+                                    <div className="panel__error panel--padding">
+                                      <span className="error-block" dangerouslySetInnerHTML={{ __html: error }}></span>
+                                    </div>
+                                  );
+                                } else {
+                                  return(null);
+                                }
+                              }}
+                            </Field>
+                            {template.fields.map((field, index) => {
+                              return(
+                                <ComposableField
+                                  key={`${component.id}_${field.name}`}
+                                  onFormChange={this.onFormChange}
+                                  formValue={values}
+                                  componentIndex={this.props.index}
+                                  component={component}
+                                  field={field}
+                                  helpers={helpers}
+                                />
+                              )
+                            })}
+                          </div>
+                        </div>
+                      }
+                    </div>
                   </React.Fragment>
                 )}
               />

@@ -22,7 +22,19 @@ class Page < ApplicationRecord
       actions except: [:new]
       index   fields: [:id, :title]
       form    fields: [:title, :composable_data],
-              composable: [:section, :heading, :text, :rich_text, :autocompletes, :hero, :hero_list, :text_with_image, :repeatable_thing, :kitchen_sink]
+              composable: [
+                :section,
+                :heading,
+                :text,
+                :rich_text,
+                :autocompletes,
+                :hero,
+                :hero_list,
+                :text_with_image,
+                :repeatable_thing,
+                :no_config,
+                :kitchen_sink
+              ]
     end
   end
 
