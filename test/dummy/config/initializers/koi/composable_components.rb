@@ -84,6 +84,7 @@ Koi::ComposableContent.register_components [
         hint: "An example of saving a record type and record id (eg. psuedo-association)",
         searchEndpoint: "/admin/super_heros/search_association",
         contentEndpoint: "/admin/super_heros/content_association",
+        withRecordType: true,
       }
     ]
   },

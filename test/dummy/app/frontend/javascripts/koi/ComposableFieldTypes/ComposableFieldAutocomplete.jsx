@@ -208,7 +208,7 @@ export default class ComposableFieldAutocomplete extends React.Component {
 
       // If this is a recordType, we need to safely
       // error out
-      if(this.props.withRecordType) {
+      if(this.props.fieldSettings.withRecordType) {
         this.setState({
           initialValue: "ERROR: Missing content endpoint",
           searchResults: [],
@@ -227,7 +227,7 @@ export default class ComposableFieldAutocomplete extends React.Component {
 
     // Record type has id and type
     let params;
-    if(this.props.withRecordType) {
+    if(this.props.fieldSettings.withRecordType) {
       params = {
         id: value.id,
         type: value.type,
