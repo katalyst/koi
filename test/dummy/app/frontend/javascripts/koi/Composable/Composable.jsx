@@ -148,7 +148,7 @@ export default class Composable extends React.Component {
       if(typeof field.data[0].value !== "undefined") {
         firstValue = firstValue.value;
       }
-      value = firstValue;
+      value = firstValue + "";
     }
 
     return value;

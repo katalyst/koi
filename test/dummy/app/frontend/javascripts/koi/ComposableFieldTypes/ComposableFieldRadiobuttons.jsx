@@ -8,18 +8,18 @@ export default class ComposableFieldRadiobuttons extends React.Component {
     return(
       <div className="radio_buttons" ref="options">
         {options.map((option, index) => {
-          var key = Ornament.parameterize(this.props.fieldSettings.name) + "__option-" + index + "__" + option.name;
+          var key = Ornament.parameterize(this.props.fieldSettings.name) + "__option-" + index + "__" + Ornament.parameterize(option.label + "");
           return(
             <span className="radio" key={key}>
               <label>
                 <Field
                   component="input"
                   type="radio"
-                  value={option.name}
+                  value={option.label}
                   {...this.props.helpers.generateFieldAttributes(this.props)}
                 />
                 <span className='form--enhanced--control'></span>
-                {option.name}
+                {option.label}
               </label>
             </span>
           );

@@ -13,7 +13,7 @@ export default class ComposableFieldSelect extends React.Component {
       >
         {options.map(option => {
           return(
-            <option value={option.value} key={"option__" + Ornament.parameterize(option.value) }>{option.label}</option>
+            <option value={option.value} key={"option__" + Ornament.parameterize(option.value + "") }>{option.label}</option>
           );
         })}
       </Field>
