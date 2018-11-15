@@ -58,8 +58,8 @@ export default class Composable extends React.Component {
       })
     }
 
-    // Overiding the save button functionality to hook in to validation
-    const $form = $("form.simple_form.form-vertical");
+    // Overiding the form submit functionality to hook in to validation
+    const $form = $("[data-composable-validate]");
     const validateForm = function(event, saveAndContinue=false){
       if(event) {
         event.preventDefault();
