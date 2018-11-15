@@ -26,7 +26,7 @@
 
   {
     type: "autocomplete",
-    data: (1..20).times do { |i| { label: "Number #{i}", value: i } }
+    data: (1..10).map { |i| { label: "Number #{i}", value: i } }
   }
 
   Autocomplete with ajax endpoint
