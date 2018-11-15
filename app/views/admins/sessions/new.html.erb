@@ -14,11 +14,11 @@
         <p class="error"><%= flash[:alert] %></p>
       <% end %>
 
-      <%= f.input :email, required: true, autofocus: true, input_html: { class: "form--medium" } %>
+      <%= f.input :email, wrapper: :koi, required: true, autofocus: true, input_html: { class: "form--medium" } %>
 
-      <%= f.input :password, required: true, input_html: { class: "form--medium", data: { password_reveal: "" } } %>
+      <%= f.input :password, wrapper: :koi, required: true, input_html: { class: "form--medium", data: { password_reveal: "" } } %>
 
-      <%= f.input :remember_me, as: :boolean, wrapper: :checkbox, wrapper_html: { class: "checkbox__single form--enhanced" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
+      <%= f.input :remember_me, as: :boolean, wrapper: :koi_checkbox, wrapper_html: { class: "checkbox__single form--enhanced" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
 
     </div>
   </div>

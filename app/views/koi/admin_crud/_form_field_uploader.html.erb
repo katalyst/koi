@@ -64,7 +64,7 @@
   #   existing_image = resource.send(crop_field).url
   # end
 
-  wrapper_class = attr
+  wrapper_class = attr.to_s
   wrapper_class += " error" unless f.error(id_field).blank?
 
 %>
@@ -95,10 +95,10 @@
     <div>
       
       <%# Hidden input field for #{attr}_crop (crop_string) %>
-      <%= f.input_field crop_field, as: :hidden, readonly: true if croppable -%>
+      <%= f.input_field crop_field, as: :hidden, wrapper: :koi, readonly: true if croppable -%>
 
       <%# Hidden input field to #{attr}_id (asset id) %>
-      <%= f.input_field id_field, as: :hidden -%>
+      <%= f.input_field id_field, as: :hidden, wrapper: :koi -%>
 
       <%# Dummy input field to track image uploading and passing options to javascript %>
       <input type="file" 

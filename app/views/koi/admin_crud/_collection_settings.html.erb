@@ -2,9 +2,9 @@
 <% if @setting %>
   <%= render "koi/shared/flash_messages" %>
   <%= simple_form_for @setting, remote: true, html: { multipart: true, class: "koi-admin-crud-form" } do |f| %>
-    <%= f.input :url %>
-    <%= f.input :meta_title %>
-    <%= f.input :meta_description %>
+    <%= f.input :url, wrapper: :koi %>
+    <%= f.input :meta_title, wrapper: :koi %>
+    <%= f.input :meta_description, wrapper: :koi %>
     <%= f.submit %>
   <% end %>
 <% end %>
