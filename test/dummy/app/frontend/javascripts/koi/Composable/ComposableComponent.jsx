@@ -110,7 +110,7 @@ export default class ComposableComponent extends React.Component {
         componentMessageContent = "This component doesn't require configuration.";
       }
       if(this.props.template.messageType === "passive") {
-        componentMessageClass += " panel__passive"
+        componentMessageClass += " bg__passive"
       }
       componentMessage = 
         <div className={componentMessageClass}>
