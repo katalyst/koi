@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
-  s.add_dependency 'pg', '~> 1.0.0'
+  s.add_dependency 'pg', '~> 1.1.0'
 
   s.add_dependency 'compass-rails', '~> 3.0.2'
 
