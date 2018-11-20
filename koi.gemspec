@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id'
 
   # Pagination
-  s.add_dependency 'kaminari'
+  s.add_dependency 'kaminari', '~> 0.16.3'
 
   # Inherited Resources
   s.add_dependency 'inherited_resources', '~> 1.6'
