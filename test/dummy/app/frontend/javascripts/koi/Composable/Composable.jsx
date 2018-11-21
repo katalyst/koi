@@ -68,7 +68,7 @@ export default class Composable extends React.Component {
 
       // Move to end of event loop
       setTimeout(e => {
-        const errors = $(".error-block");
+        const errors = $(".composable--composition .error-block");
         
         // Focus on first error
         if(errors.length) {
