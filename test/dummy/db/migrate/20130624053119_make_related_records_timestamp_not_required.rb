@@ -1,4 +1,4 @@
-class MakeRelatedRecordsTimestampNotRequired < ActiveRecord::Migration
+class MakeRelatedRecordsTimestampNotRequired < ActiveRecord::Migration[4.2]
 
 	def up
     change_column(:related_products, :created_at, :datetime, null: true)

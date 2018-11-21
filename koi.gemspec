@@ -108,6 +108,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
+  # React for composable pages
+  s.add_dependency 'react_on_rails'
+
   # Development Dependencies
   s.add_development_dependency 'karo'
   s.add_development_dependency 'byebug'

@@ -76,7 +76,7 @@
     def init
       @tags = params[:tags] || []
       @all_tags = resource_class.tag_counts_on(:tags).collect { |x| x.name }
-      self.custom_url_options = { :tags => @tags, :CKEditorFuncNum => params[:CKEditorFuncNum] }
+      self.custom_url_options = { :tags => @tags, :CKEditorFuncNum => params[:CKEditorFuncNum], :callbackFunction => params[:callbackFunction] }
     end
 
     def create_resource(object)

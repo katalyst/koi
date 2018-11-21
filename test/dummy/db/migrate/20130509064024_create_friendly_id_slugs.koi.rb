@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20130509062507)
-class CreateFriendlyIdSlugs < ActiveRecord::Migration
+class CreateFriendlyIdSlugs < ActiveRecord::Migration[4.2]
 
   def self.up
     create_table :friendly_id_slugs do |t|

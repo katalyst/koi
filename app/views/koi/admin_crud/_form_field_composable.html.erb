@@ -1,0 +1,31 @@
+<%-
+  value = f.object.send(attr)
+  # fix for data not saving in JSON format
+  if value.is_a?(String)
+    value = JSON.parse(value)
+  end
+-%>
+
+<%= react_component("Composable", props: {
+  composition: value,
+  composableTypes: f.object.class.composable_config,
+  allComposableTypes: Koi::ComposableContent.components,
+  icons: {
+    image: icon("image"),
+    stack: icon("stack"),
+    folder: icon("folder"),
+    comment: icon("comment"),
+    menu: icon("menu"),
+    module: icon("module"),
+    visible: icon("visible"),
+    hidden: icon("hidden"),
+    code: icon("code"),
+    paragraph: icon("paragraph"),
+    paragraph_with_image: icon("paragraph_with_image"),
+    composable_section: icon("composable_section"),
+    listing_blocks: icon("listing_blocks"),
+    heading: icon("heading"),
+    user: icon("user"),
+  },
+  attr: "#{f.object_name}[#{attr}]"
+}) %>

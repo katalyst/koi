@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20120109003142)
-class ActsAsTaggableOnMigration < ActiveRecord::Migration
+class ActsAsTaggableOnMigration < ActiveRecord::Migration[4.2]
   def self.up
     create_table :tags do |t|
       t.string :name

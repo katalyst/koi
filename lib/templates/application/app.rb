@@ -9,6 +9,41 @@
 # following the rails folder structure.
 #
 
+#
+# Hash of koi args
+#
+# Valid options on command line:
+#
+#  --koi-branch="my-branch"
+#
+# Returns:
+#
+# { branch: "my-branch" }
+#
+def koi_args
+  @koi_args ||= begin
+    Hash[
+      args.select { |arg| arg.include?("koi-") }.map { |arg|
+        option, value = arg.split("=")
+        option = option.split("koi-").last.to_sym
+        [option, value]
+      }
+    ]
+  end
+end
+
+def koi_gem_options
+  koi_gem_options = { github: 'katalyst/koi' }
+  if koi_args[:branch]
+    koi_gem_options[:branch] = koi_args[:branch]
+  elsif koi_args[:tag]
+    koi_gem_options[:tag] = koi_args[:tag]
+  else
+    koi_gem_options[:tag] = "v#{koi_version}"
+  end
+  koi_gem_options
+end
+
 def source_paths
   Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
 end
@@ -55,9 +90,7 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-# gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
-# NOTE: For building projects with the local version, uncomment this
-gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+gem 'koi', koi_gem_options
 
 gem 'active_model_serializers'
 
@@ -79,7 +112,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'master'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'develop'
   gem 'rack-mini-profiler'
 end
 
@@ -299,6 +332,11 @@ END
 create_file 'app/assets/stylesheets/koi/_overrides.scss'
 create_file 'app/assets/stylesheets/koi/_additions.scss'
 
+# Create database
+rake 'db:drop'
+rake 'db:create'
+rake 'db:migrate'
+
 # Generate Devise Config
 generate('devise:install -f')
 
@@ -306,10 +344,6 @@ generate('devise:install -f')
 gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
-
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
@@ -525,8 +559,6 @@ public/system/**/*
 /node_modules
 END
 
-generate('ornament -f') if yes?("Do you want to generate ornament?")
-
 git :init
 git add: '.'
 git commit: "-m 'Initial Commit'"
@@ -534,5 +566,56 @@ git commit: "-m 'Initial Commit'"
 run 'ey init'
 git add: '.'
 git commit: "-m 'Generated EngineYard Config'"
+
+if yes?("Do you want to generate ornament?")
+
+  generate('ornament -f')
+
+  # Note: Composable pages depends on Ornament due to both
+  # depending on webpacker being generated. Ornament will add, install
+  # and configure webpacker itself
+
+  # Copy over the javascript files
+  directory "../../../../test/dummy/app/frontend/javascripts/koi", "app/frontend/javascripts/koi"
+  directory "../../../../test/dummy/app/frontend/packs/koi", "app/frontend/packs/koi"
+
+  # Copy over the sample views
+  copy_file "../../../../test/dummy/app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
+  directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
+  directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
+
+  # Create blank components file
+  create_file "config/initializers/koi/composable_components.rb", <<-END
+  # Koi::ComposableContent.register_components [
+  #   {
+  #     name: "Section",
+  #     slug: "section",
+  #     nestable: true,
+  #     icon: "composable_section",
+  #     primary: "section_type",
+  #     fields: [
+  #       {
+  #         label: "Section Type",
+  #         name: "section_type",
+  #         type: "select",
+  #         className: "form--auto",
+  #         data: ["body", "fullwidth"]
+  #       }
+  #     ]
+  #   }
+  # ]
+  END
+
+  # Add composable yarn dependencies
+  run "yarn add react-beautiful-dnd-next"
+
+  # Generate page files
+  copy_file "../../../../app/models/page.rb", "app/models/page.rb"
+  copy_file "../../../../test/dummy/app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
+
+  git add: '.'
+  git commit: "-m 'Generated Ornament & Composable Pages'"
+
+end
 
 rake 'db:seed'

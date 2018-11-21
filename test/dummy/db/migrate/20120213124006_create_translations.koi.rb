@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20120116011040)
-class CreateTranslations < ActiveRecord::Migration
+class CreateTranslations < ActiveRecord::Migration[4.2]
   def change
     create_table :translations do |t|
       t.string  :locale, default: "en"

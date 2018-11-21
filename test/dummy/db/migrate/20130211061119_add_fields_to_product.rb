@@ -1,4 +1,4 @@
-class AddFieldsToProduct < ActiveRecord::Migration
+class AddFieldsToProduct < ActiveRecord::Migration[4.2]
   def change
     add_column :products, :short_description, :text
     add_column :products, :publish_date, :date

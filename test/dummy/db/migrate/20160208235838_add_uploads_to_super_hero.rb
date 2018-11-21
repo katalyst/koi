@@ -1,4 +1,4 @@
-class AddUploadsToSuperHero < ActiveRecord::Migration
+class AddUploadsToSuperHero < ActiveRecord::Migration[4.2]
   def change
     add_column :super_heros, :image_upload_id, :integer
     add_column :super_heros, :image_upload_crop, :string

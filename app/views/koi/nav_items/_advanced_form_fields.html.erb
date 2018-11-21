@@ -1,7 +1,7 @@
 <div class="inputs">
   <%#= f.input :url %>
-  <%= f.input :admin_url %>
-  <%= f.input :key %>
-  <%= f.input :setting_prefix %>
-  <%= f.input :method, as: :string %>
+  <%= f.input :admin_url, wrapper: :koi %>
+  <%= f.input :key, wrapper: :koi %>
+  <%= f.input :setting_prefix, wrapper: :koi %>
+  <%= f.input :method, as: :string, wrapper: :koi %>
 </div>

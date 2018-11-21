@@ -1,5 +1,5 @@
 # This migration comes from koi (originally 20120516034644)
-class CreateReport < ActiveRecord::Migration
+class CreateReport < ActiveRecord::Migration[4.2]
   def change
     create_table :reports do |t|
       t.integer  :visits

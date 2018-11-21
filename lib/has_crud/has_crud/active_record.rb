@@ -59,6 +59,7 @@ module HasCrud
         setup_slug
         setup_pagination
         setup_exportable
+        setup_composable
       end
 
       def setup_navigation
@@ -170,6 +171,12 @@ module HasCrud
         # set exportable: true by default
         self.options[:exportable] = true if self.options[:exportable].nil?
         make_exportable if self.options[:exportable]
+      end
+
+      def setup_composable
+        if self.options[:composable]
+          send :include, Composable
+        end
       end
 
     end

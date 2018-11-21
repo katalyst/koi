@@ -13,6 +13,14 @@ $hint-color:          $grey;
   @include border-bottom-left-radius(0);
 }
 
+.input__flat-left {
+  @include input__flat-left;
+}
+
+.input__flat-right {
+  @include input__flat-right;
+}
+
 // FORMS NORMALISATION
 fieldset {
   @include inline-block;
@@ -83,7 +91,8 @@ button::-moz-focus-inner {
 // Spacing between inputs and labels
 .input,
 .control-group {
-  .controls {
+  .control-label + .controls,
+  .hint-block + .controls {
     margin-top: $xxxx-small-unit;
   }
   label {
@@ -120,23 +129,12 @@ textarea,
   margin: 0;
   @include transition(border-color .2s);
   @include border-radius($input-border-radius);
-
-  .layout--main & {
-    border: $input-border;
-    @include box-shadow($input-shadow);
-  }
+  @include box-shadow($input-shadow);
 
   .layout--main .error &,
   .layout--main .fieldWithErrors & {
     border-color: $error-color;
     @include box-shadow(inset 2px 2px 2px 0px rgba($error-color,0.20));
-  }
-
-  &.input__flat-right {
-    @include input__flat-right;
-  }
-  &.input__flat-left {
-    @include input__flat-left;
   }
 
   &:focus {
@@ -304,6 +302,14 @@ $radio-offset: 24px;
   position: relative;
   @include pie-clearfix;
 
+  .composable--field & > .control-label {
+    display: none;
+  }
+
+  .composable--field & > .controls {
+    margin-top: 0;
+  }
+
   .controls {
     position: relative;
   }
@@ -326,7 +332,7 @@ $radio-offset: 24px;
 }
 
 .input .hint,
-p.hint-block {
+.hint-block {
   color: $hint-color;
   font-style: italic;
   font-size: $small-font-size;
@@ -472,6 +478,10 @@ $file-thumbnail-width: 100px;
   .form--file-upload--thumbnail {
     @include flex-col($file-thumbnail-width, $xx-small-unit);
 
+    div {
+      background: $passive-color;
+    }
+
     img {
       display: block;
       width: 100%;
@@ -491,6 +501,22 @@ $file-thumbnail-width: 100px;
     }
   }
 }
+
+// =========================================================================
+// Range and number input
+// =========================================================================
+
+.form--range__with-value {
+  @include display-flex;
+  @include flex-direction(row);
+  @include flex-wrap;
+  @include align-items(center);
+
+  input[type=range] {
+    margin-right: $xxx-small-unit;
+  }
+}
+
 
 // =========================================================================
 // Select 2 theming 
@@ -623,5 +649,19 @@ $file-thumbnail-width: 100px;
     @include display-flex;
     @include align-items(center);
     @include flex-shrink(0);
+  }
+}
+
+// =========================================================================
+// Missing wrapper warning
+// =========================================================================
+.form__needs-wrapper {
+  padding: $xxx-small-unit;
+  background: $error-background;
+  color: $error-color;
+
+  &:before {
+    display: block;
+    content: "Warning: This form field requires a wrapper attribute to avoid conflicts with front-end simple_form configuration."
   }
 }

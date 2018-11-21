@@ -1,5 +1,5 @@
 <% editor_id, text_area_id = "#{attr}_code_editor", "#{attr}_text_area" %>
-<%= f.input attr, :input_html => { id: text_area_id }, wrapper_html: { class: "hidden" } %>
+<%= f.input attr, wrapper: :koi, :input_html => { id: text_area_id }, wrapper_html: { class: "hidden" } %>
 <%= content_tag :div, "", id: editor_id %>
 
 <script type="text/javascript">
