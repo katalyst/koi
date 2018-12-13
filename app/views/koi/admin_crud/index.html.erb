@@ -49,7 +49,7 @@
 
 <div class="listing--count">
   <div class="listing--count--items">
-    <span><%= pluralize(resource_class.count, "item") -%></span>
+    <span><%= pluralize(unpaginated_count, "item") -%></span>
     <% if is_searchable? %>
       <div class="listing--count--search">
         <%= render 'index_search' %>
