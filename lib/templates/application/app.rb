@@ -348,7 +348,7 @@ gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'con
 route "root to: 'pages#index'"
 
 route 'resources :pages, only: [:show], as: :koi_pages'
-route 'resources :assets, only: [:show]'
+route 'resources :assets, only: [:show], as: :koi_assets'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
 

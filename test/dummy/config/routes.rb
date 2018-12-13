@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, path: :members
   resources :pages, as: :koi_pages
-  resources :assets
+  resources :assets, as: :koi_assets
   resources :images
   resources :documents
   resources :news_items
