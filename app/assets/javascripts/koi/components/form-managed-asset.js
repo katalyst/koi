@@ -38,8 +38,10 @@
         function updateThumbnail(url){
           if(url) {
             thumbnail.innerHTML = "<img src='" + getThumbnail(url) + "' />";
+            removeButton.parentNode.style.display = "block";
           } else {
             thumbnail.innerHTML = "<div className=\"composable--asset-field--empty-image\"></div>"
+            removeButton.parentNode.style.display = "none";
           }
         }
 
