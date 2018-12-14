@@ -1,16 +1,27 @@
 class KidHero < SuperHero
-
+  include HasManagedAssets
   has_crud
 
+  managed_image :managed_image
+  managed_document :managed_document
+
   crud.config do
-    fields gender: { type: :select, data: Gender }
+    fields gender:             { type: :select, data: Gender },
+           managed_image:      { type: :managed_image },
+           managed_document:   { type: :managed_document }
 
     index fields: [:name, :gender]
     form  fields: [:name, :gender]
 
     config :admin do
       index fields: [:name, :gender]
-      form  fields: [:name, :description, :gender]
+      form  fields: [
+        :name,
+        :description,
+        :gender,
+        :managed_image,
+        :managed_document,
+      ]
     end
   end
 

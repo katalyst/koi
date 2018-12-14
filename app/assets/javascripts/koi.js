@@ -58,6 +58,7 @@
 //= require koi/components/toggle
 //= require koi/components/form-latlng
 //= require koi/components/form-inline-nested
+//= require koi/components/form-managed-asset
 //= require koi/components/table
 //= require koi/components/styleguide
 

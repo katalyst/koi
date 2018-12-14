@@ -1,0 +1,31 @@
+<%
+  id = "koi-#{ new_uuid }"
+  value = f.object.send(attr)
+  attr_uid = "#{attr}_asset_id"
+  asset_type = asset_type || "image"
+  browse_label ||= "Browse for asset"
+  remove_label ||= "Remove asset"
+%>
+
+<%= f.input attr_uid, wrapper: :koi, wrapper_html: wrapper_opts, input_html: input_opts do %>
+  <div class="composable--asset-field" data-asset-manager-field="<%= id %>" data-asset-manager-type="<%= asset_type %>">
+    <div class="composable--asset-field--image" data-asset-manager-thumbnail>
+      <% if value %>
+        <%= attachment_image_tag(value) %>
+      <% else %>
+        <div className="composable--asset-field--empty-image"></div>
+      <% end %>
+    </div>
+    <div class="composable--asset-field--controls">
+      <%= f.input_field attr_uid, as: :hidden, id: id %>
+      <div class="button-group">
+        <div>
+          <button type="button" data-asset-manager-browse class="button__success"><%= browse_label %></button>
+        </div>
+        <div>
+          <button type="button" data-asset-manager-remove class="button__cancel"><%= remove_label %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
