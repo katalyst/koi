@@ -1,11 +1,11 @@
 <% if @setting %>
   <%= render "koi/shared/flash_messages" %>
   <%= simple_form_for @setting, remote: true, html: { multipart: true, class: "form-vertical" } do |f| %>
-    <%= f.input :set_type, as: :hidden %>
-    <%= f.input :set_id, as: :hidden %>
-    <%= f.input :url, as: :hidden %>
-    <%= f.input :meta_title %>
-    <%= f.input :meta_description %>
+    <%= f.input :set_type, wrapper: :koi, as: :hidden %>
+    <%= f.input :set_id, wrapper: :koi, as: :hidden %>
+    <%= f.input :url, wrapper: :koi, as: :hidden %>
+    <%= f.input :meta_title, wrapper: :koi %>
+    <%= f.input :meta_description, wrapper: :koi %>
     <ol class="unmarked-list floated-l-list spaced-r-1-list">
       <li>
         <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save", class: "btn btn-primary" %>

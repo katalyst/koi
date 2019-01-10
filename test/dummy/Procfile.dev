@@ -1,5 +1,5 @@
 # You can run these commands in separate shells
-web: rails s -p $PORT
+web: rails s -p $PORT -b 0.0.0.0
 
 # Next line runs a watch process with webpack to compile the changed files.
 # When making frequent changes to client side assets, you will prefer building webpack assets
