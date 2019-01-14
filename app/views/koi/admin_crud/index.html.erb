@@ -32,7 +32,7 @@
       <%= render 'index_actions' %>
       <%= render 'index_fields' %>
 
-      <% if is_paginated? && collection.num_pages != 0 %>
+      <% if is_paginated? && collection.total_pages != 0 %>
         <br />
         <div id="index-pagination">
           <%= render 'index_pagination' %>
