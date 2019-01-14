@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 2.3'
 
-  s.add_dependency 'rails', '~> 4.2.1'
+  s.add_dependency 'rails', '~> 4.2.0'
 
   s.add_dependency 'rails-observers'
 
