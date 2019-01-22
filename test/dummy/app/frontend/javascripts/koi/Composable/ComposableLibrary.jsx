@@ -1,93 +1,69 @@
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import StickyBox from 'react-sticky-box';
 
 export default class ComposableLibrary extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      fixed: false,
-    };
-    this.stickyLibrary = this.stickyLibrary.bind(this);
-    this.debouncedStickyLibrary = this.debouncedStickyLibrary.bind(this);
-  }
-
-  componentDidMount(){
-    // window.addEventListener("scroll", this.debouncedStickyLibrary, { passive: true });
-  }
-
-  componentWillUnmount(){
-    // window.removeEventListener("scroll", this.debouncedStickyLibrary);
-  }
-
-  stickyLibrary() {
-    const offset = 64; // offset for header + gap
-    const scrollPosition = window.pageYOffset + offset;
-    const elementTop = this.$element.offsetTop;
-    const shouldBeFixed = scrollPosition > elementTop;
-    if(this.state.fixed !== shouldBeFixed) {
-      this.setState({
-        fixed: shouldBeFixed
-      });
-    }
-  }
-
-  debouncedStickyLibrary() {
-    window.requestAnimationFrame(this.stickyLibrary);
   }
 
   render() {
     return(
-      <div className={`composable--library ${this.state.fixed ? "composable--library__fixed" : ""}`} ref={el => this.$element = el}>
-        <Droppable droppableId="library" isDropDisabled={true}>
-          {(libraryDroppableProvided, libraryDroppableSnapshot) => (
-            <div ref={libraryDroppableProvided.innerRef} className="spacing-xxx-tight">
-              {this.props.composableTypes.map((component, index) => {
-                return(
-                  <div key={component.slug}>
+      <StickyBox offsetTop={70} offsetBottom={20}>
+        <div className={`composable--library`} ref={el => this.$element = el}>
+          <Droppable droppableId="library" isDropDisabled={true}>
+            {(libraryDroppableProvided, libraryDroppableSnapshot) => (
+              <div ref={libraryDroppableProvided.innerRef}>
+                {this.props.composableTypes.map((component, index) => {
+                  return(
                     <Draggable
                       draggableId={component.slug}
                       index={index}
+                      key={component.slug}
                     >
                       {(libraryDraggableProvided, libraryDraggableSnapshot) => (
                         <div
+                          className="composable--component--wrapper"
                           ref={libraryDraggableProvided.innerRef}
-                          className={`
-                            composable--library--component 
-                            ${libraryDraggableSnapshot.isDragging ? "composable--component__dragging" : ""}
-                          `}
                           {...libraryDraggableProvided.draggableProps}
                           {...libraryDraggableProvided.dragHandleProps}
-
                         >
-                          {this.props.helpers.icons &&
-                            <React.Fragment>
-                              {component.icon && this.props.helpers.icons[component.icon]
-                                ? <div
-                                    className="composable--library--icon"
-                                    dangerouslySetInnerHTML={{__html: this.props.helpers.icons[component.icon]}}
-                                  ></div>
-                                : <div
-                                    className="composable--library--icon"
-                                    dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
-                                  ></div>
-                              }
-                            </React.Fragment>
-                          }
-                          <div>
-                            {component.name || component.slug}
+                          <div
+                            className={`
+                              composable--library--component 
+                              ${libraryDraggableSnapshot.isDragging ? "composable--component__dragging" : ""}
+                            `}
+                          >
+                            {this.props.helpers.icons &&
+                              <React.Fragment>
+                                {component.icon && this.props.helpers.icons[component.icon]
+                                  ? <div
+                                      className="composable--library--icon"
+                                      dangerouslySetInnerHTML={{__html: this.props.helpers.icons[component.icon]}}
+                                    ></div>
+                                  : <div
+                                      className="composable--library--icon"
+                                      dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                                    ></div>
+                                }
+                              </React.Fragment>
+                            }
+                            <div>
+                              {component.name || component.slug}
+                            </div>
                           </div>
                         </div>
                       )}
                     </Draggable>
-                  </div>
-                )
-              })}
-              {libraryDroppableProvided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </div>
+                  )
+                })}
+                {libraryDroppableProvided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
+      </StickyBox>
 
     )
   }

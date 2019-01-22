@@ -44,6 +44,7 @@
   @extend .panel;
   background: $error-background;
   color: $error-color;
+  border-color: $error-color;
 }
 
 .panel__notice,

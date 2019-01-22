@@ -1,27 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import { Field } from 'react-final-form';
 
 export default class ComposableFieldRadiobuttons extends React.Component {
 
   render() {
-    var options = this.props.fieldSettings.data || [];
-    var className = this.props.fieldSettings.className || "";
+    const options = this.props.fieldSettings.data || [];
     return(
       <div className="radio_buttons" ref="options">
         {options.map((option, index) => {
-          var key = Ornament.parameterize(this.props.fieldSettings.name) + "__option-" + index + "__" + option.name;
+          var key = Ornament.parameterize(this.props.fieldSettings.name) + "__option-" + index + "__" + Ornament.parameterize(option.label + "");
           return(
             <span className="radio" key={key}>
               <label>
-                <input type="radio" 
-                       checked={this.props.value.indexOf(option.value) > -1} 
-                       value={option.name} 
-                       className="enhanced" 
-                       onChange={(event) => this.props.onChange(event, this.props.fieldIndex, this.props.fieldSettings)} 
+                <Field
+                  component="input"
+                  type="radio"
+                  value={option.label}
+                  {...this.props.helpers.generateFieldAttributes(this.props)}
                 />
                 <span className='form--enhanced--control'></span>
-                {option.name}
+                {option.label}
               </label>
             </span>
           );
@@ -30,10 +28,3 @@ export default class ComposableFieldRadiobuttons extends React.Component {
     );
   }
 }
-
-ComposableFieldRadiobuttons.propTypes = {
-  fieldIndex: PropTypes.number,
-  fieldSettings: PropTypes.object,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};

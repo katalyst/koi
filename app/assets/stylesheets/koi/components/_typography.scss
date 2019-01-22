@@ -10,6 +10,17 @@ body, .body-type {
   @include body-type();
 }
 
+.type__error {
+  color: $error-color;
+}
+
+.bg__error {
+  background: $error-background;
+}
+
+.bg__passive {
+  background: $passive-color;
+}
 
 // HEADINGS
 

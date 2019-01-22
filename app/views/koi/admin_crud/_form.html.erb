@@ -41,7 +41,7 @@
   </div>
 <%- end -%>
 
-<%= simple_form_for form_path, html: { multipart: true, autocomplete: 'off', class: 'form-vertical' }  do |f| %>
+<%= simple_form_for form_path, html: { multipart: true, autocomplete: 'off', class: 'form-vertical', data: { composable_validate: "" } }  do |f| %>
     <%= render "form_parent",  { :f => f } %>
     <div class="inputs">
       <%= render "form_errors",  { :f => f } %>

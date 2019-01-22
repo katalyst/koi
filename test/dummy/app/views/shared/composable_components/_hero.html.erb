@@ -1,22 +1,24 @@
 <%- hero = SuperHero.find(data["hero_id"]) -%>
-<%- if hero -%>
-  <%- 
-    hero_image = hero.cropped_image_upload
-    hero_image_size = data["image_size"]
-  -%>
-  <div class="content-spacing">
-    <p><strong><%= hero.name -%></strong></p>
-    <%- unless hero_image_size.eql?("none") -%>
-      <%- if hero_image.present? -%>
-        <%= image_tag hero_image.thumb(hero_image_size).url -%>
+<div class="<%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
+  <%- if hero -%>
+    <%- 
+      hero_image = hero.cropped_image_upload
+      hero_image_size = data["image_size"]
+    -%>
+    <div class="content-spacing">
+      <p><strong><%= hero.name -%></strong></p>
+      <%- unless hero_image_size.eql?("none") -%>
+        <%- if hero_image.present? -%>
+          <%= image_tag hero_image.thumb(hero_image_size).url -%>
+        <%- end -%>
       <%- end -%>
-    <%- end -%>
-    <p>Published: <%= hero.published_at -%></p>
-    <p>Gender: <%= hero.gender -%></p>
-    <%- if data["show_link"].eql?(true) -%>
-      <p><%= link_to "View hero", hero -%>
-    <%- end -%>
-  </div>
-<%- else -%>
-  <p>No hero found for id: <%= data.hero_id -%></p>
-<%- end -%>
+      <p>Published: <%= hero.published_at -%></p>
+      <p>Gender: <%= hero.gender -%></p>
+      <%- if data["show_link"].eql?(true) -%>
+        <p><%= link_to "View hero", hero -%>
+      <%- end -%>
+    </div>
+  <%- else -%>
+    <p>No hero found for id: <%= data.hero_id -%></p>
+  <%- end -%>
+</div>

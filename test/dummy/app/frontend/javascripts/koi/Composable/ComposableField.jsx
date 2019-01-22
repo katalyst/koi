@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { Field } from 'react-final-form';
 import * as ComposableTypes from '../ComposableFieldTypes/ComposableFieldTypes';
+import ComposableFieldError from './ComposableFieldError';
 
 export default class ComposableField extends React.Component {
 
@@ -14,7 +15,7 @@ export default class ComposableField extends React.Component {
     if(typeof(data[0]) !== "object") {
       data.map(datum => {
         standardisedData.push({
-          name: datum,
+          label: datum,
           value: datum
         })
       });
@@ -26,7 +27,9 @@ export default class ComposableField extends React.Component {
 
   render() {
 
-    const { field, component, helpers } = this.props;
+    const { component, helpers } = this.props;
+    const field = { ...this.props.field }
+    field.type = field.type || "string";
 
     const fieldType = field.type.replace(/_/g, "");
     const capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
@@ -39,16 +42,29 @@ export default class ComposableField extends React.Component {
       field.data = this.standardiseData(field.data);
     }
 
+    // Support for nested / repeater fields
+    if(this.props.fieldName) {
+      field.name = this.props.fieldName;
+    }
+
     // Force hiding labels
     if(["boolean", "checkbox"].indexOf(fieldType) > -1) {
       hideLabel = true;
     }
 
+    const isRequired = 
+      field.required || 
+      (field.fieldAttributes && field.fieldAttributes.required) || 
+      (field.validations && field.validations.indexOf("required") > -1);
+
     if(FieldTypeComponent) {
       return(
         <div className={"control-group " + wrapperClass + " " + field.type}>
           {(field.label && !hideLabel) &&
-            <label className="control-label" htmlFor={fieldId}>{field.label}</label>
+            <label className="control-label" htmlFor={fieldId}>
+              {isRequired && <abbr title="required">* </abbr>}
+              {field.label}
+            </label>
           }
           {field.hint 
             ? <div className="hint-block">
@@ -60,12 +76,15 @@ export default class ComposableField extends React.Component {
             <FieldTypeComponent
               fieldSettings={field}
               fieldIndex={this.props.componentIndex}
-              value={component[field.name]}
+              value={component.data[field.name]}
               id={fieldId}
-              onChange={helpers.onFieldChange}
               helpers={helpers}
+              component={this.props.component}
+              onFormChange={this.props.onFormChange}
+              formValue={this.props.formValue}
             />
           </div>
+          <ComposableFieldError name={field.name} />
         </div>
       );
     } else {

@@ -1,5 +1,4 @@
 import React from "react";
-
 import ComposableComponent from "./ComposableComponent";
 
 export default class ComposableComposition extends React.Component {

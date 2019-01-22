@@ -41,6 +41,39 @@ module Koi
       @@fallback_section_type = section_type
     end
 
+    # Method for injecting new section types without having to override
+    # the entire component
+    def self.section_types=(section_types)
+      component = @@components["Section"].try(:[], :fields).try(:[], 0)
+      if component.present?
+        component[:data] = section_types
+      end
+    end
+
+    # Setting for marking children of sections as draft when sections
+    # are draft
+    def self.section_drafting_for_children
+      @@section_drafting_for_children
+    end
+
+    def self.section_drafting_for_children=(setting)
+      @@section_drafting_for_children = setting
+    end
+
+    # Setting for enabling / disabling the advanced settings
+    # menu in components
+    def self.show_advanced_settings
+      @@show_advanced_settings
+    end
+
+    def self.show_advanced_settings=(show)
+      @@show_advanced_settings = show
+    end
+
+    # Initialise settings
+    @@show_advanced_settings = true
+    @@section_drafting_for_children = true
+
     #
     # Register the default components we want in koi.
     # THese can be replaced by registering a component with the same name.
@@ -58,7 +91,7 @@ module Koi
               name: "section_type",
               type: "select",
               className: "form--auto",
-              data: ["body", "fullwidth"]
+              data: ["body", "fullwidth"],
             }
           ]
         },
@@ -110,7 +143,7 @@ module Koi
             }
           ]
         },
-    ]
+      ]
 
   end
 end

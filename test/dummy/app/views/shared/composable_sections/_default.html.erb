@@ -1,3 +1,3 @@
-<div class="section__<%= section[:section_type] -%>">
+<div class="section__<%= section[:section_type] -%> <%= section.try(:[], :advanced).try(:[], "className") %>" id="<%= section.try(:[], :advanced).try(:[], "id") %>">
   <%= section_contents -%>
 </div>

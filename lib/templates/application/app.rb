@@ -586,6 +586,9 @@ if yes?("Do you want to generate ornament?")
 
   # Create blank components file
   create_file "config/initializers/koi/composable_components.rb", <<-END
+  # Koi::ComposableContent.section_types = ["body", "fullwidth"]
+  # Koi::ComposableContent.section_drafting_for_children = false
+  # Koi::ComposableContent.show_advanced_settings = false
   # Koi::ComposableContent.register_components [
   #   {
   #     name: "Section",
@@ -607,7 +610,7 @@ if yes?("Do you want to generate ornament?")
   END
 
   # Add composable yarn dependencies
-  run "yarn add react-beautiful-dnd-next"
+  run "yarn add react-beautiful-dnd react-final-form react-final-form-arrays final-form final-form-arrays react-sticky-box axios downshift"
 
   # Generate page files
   copy_file "../../../../app/models/page.rb", "app/models/page.rb"

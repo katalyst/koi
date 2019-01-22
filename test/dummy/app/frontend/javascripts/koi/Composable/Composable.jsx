@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd-next';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import ComposableLibrary from "./ComposableLibrary";
 import ComposableComposition from "./ComposableComposition";
@@ -19,6 +19,8 @@ export default class Composable extends React.Component {
     super(props);
     this.state = {
       composition: this.props.composition || [],
+      error: false,
+      debug: this.props.debug || localStorage.getItem("koiDebugComposable") || false,
     };
 
     this.onDragStart = this.onDragStart.bind(this);
@@ -31,11 +33,79 @@ export default class Composable extends React.Component {
     this.collapseComponent = this.collapseComponent.bind(this);
     this.collapseAllComponents = this.collapseAllComponents.bind(this);
     this.draftComponent = this.draftComponent.bind(this);
+    this.replaceComposition = this.replaceComposition.bind(this);
+    this.deleteAllData = this.deleteAllData.bind(this);
+  }
 
-    this.onFieldChange = this.onFieldChange.bind(this);
-    this.onFieldChangeDefault = this.onFieldChangeDefault.bind(this);
-    this.onFieldChangeBoolean = this.onFieldChangeBoolean.bind(this);
-    this.onFieldChangeValue = this.onFieldChangeValue.bind(this);
+  componentDidCatch(error, info) {
+    this.setState({
+      error: { error, info }
+    });
+  }
+
+  componentDidMount(){
+    const _this = this;
+    window.enableComposableDebug = window.enableComposableDebug || function(){
+      localStorage.setItem("koiDebugComposable", true);
+      _this.setState({
+        debug: true,
+      })
+    }
+    window.disableComposableDebug = window.disableComposableDebug || function(){
+      localStorage.removeItem("koiDebugComposable");
+      _this.setState({
+        debug: false,
+      })
+    }
+
+    // Overiding the form submit functionality to hook in to validation
+    const $form = $("[data-composable-validate]");
+    const validateForm = function(event, saveAndContinue=false){
+      if(event) {
+        event.preventDefault();
+      }
+      $(document).trigger("ornament:composable:validate");
+
+      // Move to end of event loop
+      setTimeout(e => {
+        const errors = $(".composable--composition .error-block");
+        
+        // Focus on first error
+        if(errors.length) {
+          const firstError = errors.first();
+          const field = firstError.parent().find("input, textarea")[0];
+          if(field) {
+            field.focus();
+          } else {
+            scrollTo(0, firstError.offset().top - 100);
+          }
+
+        // Submit form
+        } else {
+          const form = $form[0];
+          const saveType = document.createElement("input");
+          saveType.type = "hidden";
+          saveType.name = "commit";
+          saveType.value = saveAndContinue ? "Continue" : "Submit";
+          form.appendChild(saveType);
+          form.submit();
+        }
+      }, 0);
+    }
+
+    // When form is submitted manually, validate and save page
+    $form.on("submit", validateForm);
+
+    // When form is submitted via buttons, validate and either
+    // reload or save
+    $form.find("button[type=submit]").on("click submit", e => {
+      e.preventDefault();
+      if(e.currentTarget.value && e.currentTarget.value === "Continue") {
+        validateForm(event, true);
+      } else {
+        validateForm(event);
+      }
+    });
   }
 
   // =========================================================================
@@ -56,11 +126,14 @@ export default class Composable extends React.Component {
     // Defaulting to empty string
     let value = "";
     let arrayTypes = ["repeater"];
-    let objectTypes = ["asset"];
+    let objectTypes = [];
 
     // Default to defaultValue if required
     if(field.defaultValue) {
       value = field.defaultValue;
+
+    } else if(field.type === "boolean") {
+      value = false;
 
     // Non-string defaults
     } else if(arrayTypes.indexOf(field.type) > -1) {
@@ -75,7 +148,7 @@ export default class Composable extends React.Component {
       if(typeof field.data[0].value !== "undefined") {
         firstValue = firstValue.value;
       }
-      value = firstValue;
+      value = firstValue + "";
     }
 
     return value;
@@ -96,14 +169,16 @@ export default class Composable extends React.Component {
       component_type: component.slug,
       component_collapsed: false,
       component_draft: false,
+      advanced: {},
+      data: {},
     }
 
     // Add default data for this component
     if(component.fields) {
       component.fields.forEach(template => {
         // Defaulting to empty
-        newComponent[template.name] = this.getDefaultValueForField(template);
-      })
+        newComponent.data[template.name] = this.getDefaultValueForField(template);
+      });
     }
 
     // Push and setState
@@ -182,45 +257,63 @@ export default class Composable extends React.Component {
     });
   }
 
+  deleteAllData() {
+    if(confirm("Are you sure you want to delete all data for this record? There is no going back.")) {
+      this.setState({
+        composition: []
+      });
+    }
+  }
+
   // =========================================================================
   // Field data structures
   // =========================================================================
 
-  onFieldChange(event, fieldIndex, template) {
-    if(template.component_type === "boolean") {
-      this.onFieldChangeBoolean(event, fieldIndex, template);
-    } else if (["check_boxes", "rich_text"].indexOf(template.component_type) > -1) {
-      // note: event in this case is the array of selections
-      this.onFieldChangeValue(event, fieldIndex, template);
-    } else {
-      this.onFieldChangeDefault(event, fieldIndex, template);
-    }
-  }
-
-  onFieldChangeDefault(event, fieldIndex, template) {
-    const value = typeof event === "string" ? event : event.target.value;
-    const composition = this.state.composition;
-    composition[fieldIndex][template.name] = value;
-    this.setState({
-      composition,
-    });
-  }
-
-  onFieldChangeBoolean(event, fieldIndex, template) {
-    const value = event.target.checked;
-    const composition = this.state.composition;
-    composition[fieldIndex][template.name] = value;
-    this.setState({
-      composition,
-    });
-  }
-
   onFieldChangeValue(newData, fieldIndex, template) {
     const composition = this.state.composition;
-    composition[fieldIndex][template.name] = newData;
+    composition[fieldIndex].data[template.name] = newData;
     this.setState({
       composition,
     });
+  }
+  
+  replaceComposition(composition) {
+    this.setState({
+      composition,
+    });
+  }
+
+  // =========================================================================
+  // Field attribute helpers
+  // =========================================================================
+
+  // Take a list of props and generate the attributes for an input field
+  generateFieldAttributes(props, options={}){
+    const settings = props.fieldSettings;
+    const attributes = {
+      id: props.id,
+      name: settings.name,
+    }
+    if(options.namePostfix) {
+      attributes.name += options.namePostfix;
+      attributes.id += options.namePostfix;
+    }
+    if(settings) {
+      attributes.className = settings.className || options.fallbackClassName || "";
+      attributes.placeholder = settings.placeholder || "";
+      if(settings.required) {
+        attributes.required = settings.required;
+      }
+      if(settings.inputData) {
+        Object.keys(settings.inputData).forEach(key => {
+          attributes["data-" + key] = settings.inputData[key];
+        });
+      }
+    }
+    return {
+      ...attributes,
+      ...settings.fieldAttributes,
+    }
   }
 
   // =========================================================================
@@ -285,55 +378,85 @@ export default class Composable extends React.Component {
 
     const composableHelpers = {
       composition: this.state.composition,
+      debug: this.state.debug,
       getTemplateForField: this.getTemplateForField,
       getDefaultValueForField: this.getDefaultValueForField,
       removeComponent: this.removeComponent,
       addNewComponent: this.addNewComponent,
-      onFieldChange: this.onFieldChange,
-      onFieldChangeDefault: this.onFieldChangeDefault,
-      onFieldChangeBoolean: this.onFieldChangeBoolean,
       onFieldChangeValue: this.onFieldChangeValue,
+      replaceComposition: this.replaceComposition,
       icons: this.props.icons,
       collapseComponent: this.collapseComponent,
       draftComponent: this.draftComponent,
+      generateFieldAttributes: this.generateFieldAttributes,
+      showAdvancedSettings: this.props.showAdvancedSettings,
     };
 
     const hasSection = this.state.composition.filter(component => component.component_type === "section").length > 0;
 
-    return(
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}
-      >
-        <div className="composable--header">
-          <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> |
-          <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
-        </div>
-        <div className={`composable ${hasSection ? "composable__with-sections" : ""}`}>
-          <div className="composable--composition" ref={el => this.$composition = el}>
-            <Droppable droppableId="composition" ignoreContainerClipping={true}>
-              {(compositionProvided, compositionSnapshot) => (
-                <div ref={compositionProvided.innerRef} className={`${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
-                  <ComposableComposition
-                    helpers={composableHelpers}
-                  />
-                  {compositionProvided.placeholder}
-                </div>
-              )}
-            </Droppable>
+    if(this.state.error) {
+      return(
+        <div className="composable--composition--error panel-spacing">
+          <div className="panel__error panel__border panel--padding">
+            <h2 className="heading-four">There was an error rendering composable content: {this.state.error.error.toString()}</h2>
+            <pre>{this.state.error.info.componentStack}</pre>
           </div>
-          <ComposableLibrary
-            composableTypes={this.props.composableTypes}
-            helpers={composableHelpers}
-          />
+          <div className="panel panel__border">
+            <div className="panel--padding">
+              <h2 className="heading-four">Data</h2>
+            </div>
+            <div className="panel--padding panel--border-top bg__passive" style={{ maxHeight: "200px", overflow: "auto" }}>
+              <pre>{JSON.stringify(this.state.composition, null, 2)}</pre>
+              <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
+            </div>
+            <div className="panel--padding panel--border-top spacing-xxx-tight">
+              <p>It's possible the data structure has a required change, press this button to delete all composable data for this record to bring it back to a usable default state.</p>
+              <div>
+                <button type="button" onClick={this.deleteAllData} className="button__cancel">Empty data</button>
+              </div>
+              <p>Once emptied, save the form to continue.</p>
+            </div>
+          </div>
         </div>
-        <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
-        <div className="composable--fields--debug spacing-xxx-tight" style={{"display": "none"}}>
-          <p><strong>Debug:</strong></p>
-          <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
-        </div>
-      </DragDropContext>
-    );
+      );
+    } else {
+      return(
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragUpdate={this.onDragUpdate}
+          onDragEnd={this.onDragEnd}
+        >
+          <div className="composable--header">
+            <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> |
+            <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
+          </div>
+          <div className={`composable ${hasSection ? "composable__with-sections" : ""}`}>
+            <div className="composable--composition" ref={el => this.$composition = el}>
+              <Droppable droppableId="composition" ignoreContainerClipping={true}>
+                {(compositionProvided, compositionSnapshot) => (
+                  <div ref={compositionProvided.innerRef} className={`${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
+                    <ComposableComposition
+                      helpers={composableHelpers}
+                    />
+                    {compositionProvided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+              {this.state.debug &&
+                <div className="composable--fields--debug spacing-xxx-tight">
+                  <p><strong>Debug:</strong></p>
+                  <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
+                </div>
+              }
+            </div>
+            <ComposableLibrary
+              composableTypes={this.props.composableTypes}
+              helpers={composableHelpers}
+            />
+          </div>
+          <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
+        </DragDropContext>
+      );
+    }
   }
 }

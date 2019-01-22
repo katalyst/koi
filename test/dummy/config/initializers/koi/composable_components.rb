@@ -1,3 +1,4 @@
+# Koi::ComposableContent.show_advanced_settings = false
 Koi::ComposableContent.register_components [
 
   {
@@ -14,10 +15,12 @@ Koi::ComposableContent.register_components [
         name: "items",
         label: "Items",
         type: "repeater",
+        validations: ["atLeastOne"],
         fields: [{
           name: "name",
           label: "Item Name",
           type: "string",
+          validations: ["required"],
         },{
           name: "number",
           label: "Item Number",
@@ -32,6 +35,7 @@ Koi::ComposableContent.register_components [
     slug: "text_with_image",
     icon: "paragraph",
     primary: 'text',
+    validations: ["anyValues"],
     fields: [
       {
         name: "text",
@@ -39,12 +43,58 @@ Koi::ComposableContent.register_components [
         label: "Text",
       },
       {
-        name: "image",
-        type: 'image',
+        name: "image_id",
+        type: 'asset',
         label: "Image",
       }
     ]
   },
+
+  {
+    name: "Autocompletes",
+    slug: "autocompletes",
+    message: "Make sure you have Super Hero data",
+    messageType: "passive",
+    fields: [
+      {
+        name: "options",
+        type: "autocomplete",
+        label: "Hardcoded data - Options",
+        hint: "Example of hardcoded data showing label, saving value. Same as select menu just with autocomplete",
+        data: [{ label: "", value: "" }, { label: "Option 1", value: "option_1" }, { label: "Option 2", value: "option_2" }],
+      },
+      {
+        name: "hero_search_name",
+        type: "autocomplete",
+        label: "AJAX superhero name",
+        hint: "An example of looking up and saving string data (eg. no association)",
+        searchEndpoint: "/admin/super_heros/name_search",
+      },
+      {
+        name: "hero_search_id",
+        type: "autocomplete",
+        label: "AJAX superhero id",
+        hint: "An example of looking up and saving an id and displaying the name in the field",
+        searchEndpoint: "/admin/super_heros/search_id",
+        contentEndpoint: "/admin/super_heros/content_id",
+      },
+      {
+        name: "hero_ajax_association",
+        type: "autocomplete",
+        label: "AJAX Superhero association",
+        hint: "An example of saving a record type and record id (eg. psuedo-association)",
+        searchEndpoint: "/admin/super_heros/search_association",
+        contentEndpoint: "/admin/super_heros/content_association",
+        withRecordType: true,
+      }
+    ]
+  },
+
+  {
+    name: "No Config",
+    slug: "no_config",
+  },
+
   {
     name: "Hero",
     slug: "hero",
@@ -53,13 +103,10 @@ Koi::ComposableContent.register_components [
     fields: [
       {
         name: "hero_id",
-        type: "select",
+        type: "autocomplete",
         label: "Superhero",
-        className: "form--auto",
-        data: [{ name: "", value: "" }] + SuperHero.all.map { |hero| { name: hero.name, value: hero.id } },
-        fieldAttributes: {
-          required: true
-        }
+        searchEndpoint: "/admin/super_heros/search_id",
+        contentEndpoint: "/admin/super_heros/content_id",
       },
       {
         name: "image_size",
@@ -68,16 +115,16 @@ Koi::ComposableContent.register_components [
         defaultValue: "120x120#",
         data: [
           {
-            name: "None",
+            label: "None",
             value: "none"
           },{
-            name: "Small",
+            label: "Small",
             value: "80x80#"
           },{
-            name: "Medium",
+            label: "Medium",
             value: "120x120#"
           },{
-            name: "Large",
+            label: "Large",
             value: "250x250#"
           }
         ]
@@ -208,15 +255,15 @@ Koi::ComposableContent.register_components [
         type: "select",
         data: [
           {
-            name: "Option 1",
+            label: "Option 1",
             value: 1
           },
           {
-            name: "Option 2",
+            label: "Option 2",
             value: 2
           },
           {
-            name: "Option 3",
+            label: "Option 3",
             value: 3
           }
         ]

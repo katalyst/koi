@@ -26,7 +26,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, path: :members
-    resources :super_heros
+    resources :super_heros do
+      collection {
+        get 'name_search'
+        get 'search_id'
+        get 'content_id'
+        get 'search_association'
+        get 'content_association'
+      }
+    end
     resources :kid_heros
     resources :news_items
     resources :product_images
