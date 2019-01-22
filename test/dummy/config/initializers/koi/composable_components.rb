@@ -53,16 +53,15 @@ Koi::ComposableContent.register_components [
   {
     name: "Autocompletes",
     slug: "autocompletes",
-    primary: "hero_id",
     message: "Make sure you have Super Hero data",
     messageType: "passive",
     fields: [
       {
-        name: "hero_id",
+        name: "options",
         type: "autocomplete",
-        label: "Hardcoded data - Superheroes",
+        label: "Hardcoded data - Options",
         hint: "Example of hardcoded data showing label, saving value. Same as select menu just with autocomplete",
-        data: [{ label: "", value: "" }] + SuperHero.all.map { |hero| { label: hero.name, value: hero.id } },
+        data: [{ label: "", value: "" }, { label: "Option 1", value: "option_1" }, { label: "Option 2", value: "option_2" }],
       },
       {
         name: "hero_search_name",
@@ -106,7 +105,8 @@ Koi::ComposableContent.register_components [
         name: "hero_id",
         type: "autocomplete",
         label: "Superhero",
-        data: [{ label: "", value: "" }] + SuperHero.all.map { |hero| { label: hero.name, value: hero.id } },
+        searchEndpoint: "/admin/super_heros/search_id",
+        contentEndpoint: "/admin/super_heros/content_id",
       },
       {
         name: "image_size",

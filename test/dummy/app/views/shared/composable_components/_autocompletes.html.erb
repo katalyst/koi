@@ -1,8 +1,8 @@
 <div class="autocompletes <%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
-  
+
   <ul>
-    <% if data["hero_id"].present? %>
-      <li>Hero id: <%= data["hero_id"] %> - Lookup: <%= SuperHero.find(data["hero_id"]).to_s %></li>
+    <% if data["options"].present? %>
+      <li>Option: <%= data["options"] %></li>
     <% end %>
     <% if data["hero_search_name"].present? %>
       <li>Hero search name: <%= data["hero_search_name"] %></li>
