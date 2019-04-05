@@ -557,6 +557,9 @@ public/system/**/*
 
 # NPM packages
 /node_modules
+
+# Intellij Config folder
+.idea/
 END
 
 git :init
