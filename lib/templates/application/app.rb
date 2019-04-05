@@ -523,6 +523,9 @@ public/system/**/*
 
 # NPM packages
 /node_modules
+
+# Intellij Config folder
+.idea/
 END
 
 generate('ornament -f') if yes?("Do you want to generate ornament?")
