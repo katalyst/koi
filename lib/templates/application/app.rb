@@ -299,9 +299,17 @@ staging:
 END
 
 # Install Migrations
-rake 'db:create'
-rake 'db:migrate'
+
+# FIXME: Workaround for issue where running rake db:create runs initializers which loads routes
+#        which loads models which loads has_crud which runs `table_exists?` several times which
+#        blows up with error 'database "<your-app>_development" does not exist'
+run "dropdb #{@app_name}_development"
+run "createdb #{@app_name}_development"
+# rake 'db:create'
+#
+
 rake 'koi:install:migrations'
+rake 'db:migrate'
 
 # Convert url's like this /pages/about-us into /about-us
 route 'get "/:id"  => "pages#show", as: :page'
@@ -611,4 +619,6 @@ if yes?("Do you want to generate ornament?")
 
 end
 
+run 'bundle install'
+rake 'db:migrate'
 rake 'db:seed'
