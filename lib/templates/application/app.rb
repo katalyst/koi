@@ -92,8 +92,6 @@ gem 'koi', koi_gem_options
 
 gem 'active_model_serializers'
 
-gem 'unicorn'
-
 gem 'newrelic_rpm'
 
 gem 'ey_config'
