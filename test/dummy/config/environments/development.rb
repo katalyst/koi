@@ -59,4 +59,10 @@ Rails.application.configure do
   # depends on 'listen' gem
   # new in rails 5
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  #
+  #
+  config.active_storage.service = :local
+  config.action_mailer.perform_caching = false
+  config.active_record.verbose_query_logs = true
+  config.assets.quiet = true
 end
