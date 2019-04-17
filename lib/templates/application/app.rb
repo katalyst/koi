@@ -58,9 +58,7 @@ def koi_version
 end
 
 # Add .ruby-version for RVM/RBENV.
-create_file '.ruby-version', <<-END
-2.4.1
-END
+create_file '.ruby-version', '2.5.4'
 
 # Add .ruby-gemset for RVM
 create_file '.ruby-gemset', <<-END
