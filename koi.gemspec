@@ -102,7 +102,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'figaro', '~> 1.1.1'
 
   # Puma server
-  s.add_dependency 'puma', '~> 3.8.2'
+  s.add_dependency 'puma', '~> 3.12.1'
 
   s.add_dependency 'inherited_resources', '~> 1.10.0'
 
