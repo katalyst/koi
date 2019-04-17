@@ -181,12 +181,6 @@ create_file 'db/seeds.rb', <<-END
 Koi::Engine.load_seed
 END
 
-# Setup seed
-run 'rm db/seeds.rb'
-create_file 'db/seeds.rb', <<-END
-Koi::Engine.load_seed
-END
-
 # Crud Controller that can be extended per project
 create_file 'app/controllers/common_controller_actions.rb', <<-END
 module CommonControllerActions
@@ -305,6 +299,8 @@ staging:
 END
 
 # Install Migrations
+rake 'db:create'
+rake 'db:migrate'
 rake 'koi:install:migrations'
 
 # Convert url's like this /pages/about-us into /about-us
@@ -327,11 +323,6 @@ END
 # Create some customisable Koi stylesheets
 create_file 'app/assets/stylesheets/koi/_overrides.scss'
 create_file 'app/assets/stylesheets/koi/_additions.scss'
-
-# Create database
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
 
 # Generate Devise Config
 generate('devise:install -f')
