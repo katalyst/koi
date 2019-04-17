@@ -2,7 +2,7 @@ class Page < ApplicationRecord
   has_crud paginate: false, navigation: true,
            settings: true, composable: true
 
-  validates_presence_of :title
+  validates :title, presence: true
 
   def titleize
     title

@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 3.1'
 
-  s.add_dependency 'rails', '~> 5.1.5'
+  s.add_dependency 'rails', '~> 5.2'
 
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
@@ -39,10 +39,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
 
   # Authorization
-  s.add_dependency 'devise', '~> 4.3.0'
+  s.add_dependency 'devise', '~> 4.6.2'
 
   # Form
-  s.add_dependency 'simple_form', '~> 3.5.0'
+  s.add_dependency 'simple_form', '~> 4.1.0'
 
   # Nav items (tree structure)
   s.add_dependency 'awesome_nested_set', '~> 3.1.3'
@@ -66,7 +66,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple-navigation', '~> 3.14'
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on', '~> 4.0.0'
+  s.add_dependency 'acts-as-taggable-on', '~> 6.0.0'
 
   # Scoped Search
   s.add_dependency 'scoped_search', '~> 4.1.0'
@@ -104,7 +104,7 @@ Gem::Specification.new do |s|
   # Puma server
   s.add_dependency 'puma', '~> 3.8.2'
 
-  s.add_dependency 'inherited_resources', '~> 1.7.2'
+  s.add_dependency 'inherited_resources', '~> 1.10.0'
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
@@ -113,6 +113,5 @@ Gem::Specification.new do |s|
 
   # Development Dependencies
   s.add_development_dependency 'karo'
-  s.add_development_dependency 'byebug'
   s.add_development_dependency 'pry-rails'
 end
