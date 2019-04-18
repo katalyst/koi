@@ -8,10 +8,10 @@ git clone git@github.com:katalyst/koi.git
 # checkout the branch or tag you'd like to bootstrap your app from
 cd koi && git checkout <tag|branch> && cd ..
 # set/install the required version of ruby/rails
-rbenv local 2.4.1
-gem install rails -v 5.1.0
+rbenv local 2.5.4
+gem install rails -v 5.2.3
 # bootstrap your new app!
-rails _5.1.0_ new my_app -d postgresql -m ./koi/lib/templates/application/app.rb --koi-branch=<branch name>
+rails _5.2.3_ new my_app -d postgresql -m ./koi/lib/templates/application/app.rb --koi-branch=<branch name>
 # you can also use --koi-tag=<tag name>
 ```
 
