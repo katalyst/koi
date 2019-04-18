@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'mime-types', '~> 3.1'
 
-  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'rails', '~> 5.2.3'
 
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
 
