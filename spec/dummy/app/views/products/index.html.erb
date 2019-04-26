@@ -1,0 +1,21 @@
+<% content_for :title, "Products" %>
+
+<p>
+  <%= Product.setting('intro-text', 'Hello', field_type: 'string') %>
+
+  <% if Product.setting('preamble', true, field_type: 'boolean') %>
+    <h3>Would you like to buy one of these products?</h3>
+  <% end %>
+</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= link_to product.name, category_product_path(@category, product) %></td>
+    </tr>
+  <% end %>
+</table>
+
