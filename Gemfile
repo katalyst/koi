@@ -22,4 +22,12 @@ gem 'better_errors'
 
 group :development, :test do
   gem 'guard-rspec', require: false
+  gem 'factory_bot_rails'
+  gem "database_cleaner"
+  gem "pry-rails"
 end
+
+group :test do
+  gem "capybara"
+end
+
