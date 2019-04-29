@@ -2,6 +2,8 @@ class NewsItem < ApplicationRecord
 
   has_crud navigation: true, exportable: false
 
+  validates :title, presence: true
+
   crud.config do
     config :admin do
       reportable true
