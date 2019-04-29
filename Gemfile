@@ -29,5 +29,7 @@ end
 
 group :test do
   gem "capybara"
+  gem 'orderly'
+  gem 'launchy'
+  gem "poltergeist"
 end
-
