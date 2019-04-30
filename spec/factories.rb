@@ -12,4 +12,13 @@ FactoryBot.define do
     description { "Big brain, weak heart" }
     powers { ["FORCE FIELDS"] }
   end
+
+  factory :category do
+    name { "Outdoors" }
+  end
+
+  factory :product do
+    name { "Frisbee" }
+    description { "You throw it" }
+  end
 end
