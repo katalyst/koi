@@ -37,4 +37,6 @@ group :test do
   gem 'orderly'
   gem 'launchy'
   gem "poltergeist"
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end

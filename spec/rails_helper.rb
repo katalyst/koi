@@ -10,7 +10,10 @@ Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |file| require file }
 require 'shoulda/matchers'
 require 'factories'
 require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium_chrome_headless
+# uncomment to open feature specs in an actual browser
+# binding.pry can be used to halt the spec and look at the page
+# Capybara.javascript_driver = :selenium_chrome
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
