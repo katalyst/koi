@@ -4,6 +4,15 @@ module HasCrud
   module ActiveRecord
     extend ActiveSupport::Concern
 
+    def self.register_crud_model(klass)
+      @crud_models ||= Set.new
+      @crud_models << klass
+    end
+
+    def self.has_crud_models
+      @crud_models
+    end
+
     def crud
       self.class.crud
     end
@@ -22,6 +31,8 @@ module HasCrud
         self.options = options
 
         self.crud = default_crud_config
+
+        HasCrud::ActiveRecord.register_crud_model self
 
         before_setup_crud
         setup_crud
