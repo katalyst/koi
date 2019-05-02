@@ -4,7 +4,9 @@
 # require 'pry'
 # binding.pry
 #
-# override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
+# override Thor's source_paths method to include:
+#  * the rails_root directory in lib/templates/application/rails_root
+#  * the dummy app directory in test/dummy
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
 # following the rails folder structure.
 #
@@ -45,7 +47,10 @@ def koi_gem_options
 end
 
 def source_paths
-  Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
+  Array(super) + [
+    File.join(File.expand_path(File.dirname(__FILE__)), 'rails_root'),
+    File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'dummy')
+  ]
 end
 
 # Method to lookup the version of koi
@@ -574,13 +579,13 @@ if yes?("Do you want to generate ornament?")
   # and configure webpacker itself
 
   # Copy over the javascript files
-  directory "../../../../test/dummy/app/frontend/javascripts/koi", "app/frontend/javascripts/koi"
-  directory "../../../../test/dummy/app/frontend/packs/koi", "app/frontend/packs/koi"
+  directory "app/frontend/javascripts/koi"
+  directory "app/frontend/packs/koi"
 
   # Copy over the sample views
-  copy_file "../../../../test/dummy/app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
-  directory "../../../../test/dummy/app/views/shared/composable_sections", "app/views/shared/composable_sections"
-  directory "../../../../test/dummy/app/views/shared/composable_components", "app/views/shared/composable_components"
+  copy_file "app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
+  directory "app/views/shared/composable_sections"
+  directory "app/views/shared/composable_components"
 
   # Create blank components file
   create_file "config/initializers/koi/composable_components.rb", <<-END
@@ -611,8 +616,8 @@ if yes?("Do you want to generate ornament?")
   run "yarn add react-beautiful-dnd react-final-form react-final-form-arrays final-form final-form-arrays react-sticky-box axios downshift"
 
   # Generate page files
-  copy_file "../../../../app/models/page.rb", "app/models/page.rb"
-  copy_file "../../../../test/dummy/app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
+  copy_file "app/models/page.rb", "app/models/page.rb"
+  copy_file "app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
 
   git add: '.'
   git commit: "-m 'Generated Ornament & Composable Pages'"
