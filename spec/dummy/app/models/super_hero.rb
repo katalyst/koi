@@ -9,13 +9,15 @@ class SuperHero < ApplicationRecord
   has_many :images, as: :attributable
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  dragonfly_accessor :image
-  dragonfly_accessor  :file
+  dragonfly_accessor :image, app: :image
+  dragonfly_accessor  :file, app: :file
   attribute :powers, :string, array: true, default: []
 
   validates :powers, length: { minimum: 1 }
 
   scope :alphabetical, -> { order("name DESC") }
+  scope :male, -> { where(gender: "Male") }
+  scope :female, -> { where(gender: "Female") }
 
   default_scope -> { alphabetical }
 

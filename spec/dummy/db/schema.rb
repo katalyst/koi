@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915073755) do
+ActiveRecord::Schema.define(version: 2017_09_15_073755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.string "first_name"
     t.string "last_name"
     t.string "role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.string "attribute_name"
     t.integer "attributable_id"
     t.string "attributable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "slug"
   end
 
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.text "content_block"
     t.integer "navigable_id"
     t.string "navigable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_mobile", default: false
     t.string "setting_prefix"
     t.boolean "link_to_first_child"
@@ -108,8 +108,9 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.string "title"
     t.text "description"
     t.string "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "composable_data"
     t.index ["slug"], name: "index_pages_on_slug", unique: true
   end
 
@@ -167,8 +168,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.integer "organic_searches"
     t.date "start_date"
     t.date "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "super_heros", id: :serial, force: :cascade do |t|
@@ -208,6 +209,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.datetime "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
   end
 
   create_table "tags", id: :serial, force: :cascade do |t|
@@ -227,8 +230,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.string "hint"
     t.boolean "is_proc", default: false
     t.boolean "is_required", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "prefix"
     t.string "file_uid"
     t.string "file_name"
@@ -241,8 +244,8 @@ ActiveRecord::Schema.define(version: 20170915073755) do
     t.text "from"
     t.text "to"
     t.boolean "active", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

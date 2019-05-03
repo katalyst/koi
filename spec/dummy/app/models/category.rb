@@ -10,7 +10,7 @@ class Category < ApplicationRecord
 
     config :admin do
       form  fields:    [:name, :products]
-      index fields:    [:name],
+      index fields:    [:name, :created_at],
             relations: [:products]
       csv   fields:    [:created_at, :name, :products]
     end

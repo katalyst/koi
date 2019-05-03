@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  compile: false
+  compile: true
 
   dev_server:
     host: 0.0.0.0
@@ -32,8 +32,7 @@ development:
 
 test:
   <<: *default
-
-  public_output_path: packs-test
+  compile: true
 
 production:
   <<: *default
