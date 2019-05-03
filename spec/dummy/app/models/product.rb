@@ -48,18 +48,17 @@ class Product < ApplicationRecord
            products:          { type: :multiselect_association },
            product_images:    { type: :inline },
            description:       { type: :rich_text },
-           launch_date:       { type: :mask, mask_type: "00/00/0000" },
-           publish_date:      { type: :date }
+           launch_date:       { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do
       actions only: [:show, :edit, :new, :destroy, :index]
-      index fields: [:name, :countries, :publish_date]
-      form  fields: [:name, :description, :launch_date, :colour,
-                     :products, :genre_list, :countries,
+      index fields: [:name, :countries]
+      form  fields: [:name, :description, :launch_date, :colour, 
+                     :products, :genre_list, :countries, 
                      :product_images]
-      show_details fields: [:category, :name, :short_description, :description,
+      show_details fields: [:category, :name, :short_description, :description, 
                             :active, :publish_date, :launch_date]
-      show_information fields: [:colour, :manual, :countries, :products,
+      show_information fields: [:colour, :manual, :countries, :products, 
                                 :product_images, :size]
     end
   end

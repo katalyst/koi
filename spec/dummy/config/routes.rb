@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, path: :members
   resources :pages, as: :koi_pages
-  resources :assets, as: :koi_assets
+  resources :assets
   resources :images
   resources :documents
   resources :news_items
@@ -26,15 +26,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, path: :members
-    resources :super_heros do
-      collection {
-        get 'name_search'
-        get 'search_id'
-        get 'content_id'
-        get 'search_association'
-        get 'content_association'
-      }
-    end
+    resources :super_heros
     resources :kid_heros
     resources :news_items
     resources :product_images

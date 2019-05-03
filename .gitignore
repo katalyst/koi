@@ -1,4 +1,6 @@
 .bundle/
+.idea/
+bin
 tmp
 log/*.log
 pkg
@@ -7,11 +9,11 @@ spec/dummy/db/*.sqlite3
 spec/dummy/db/*.sqlite3-journal
 spec/dummy/log/*.log
 spec/dummy/tmp/
+spec/dummy/config/application.yml
+spec/dummy/node_modules
 spec/dummy/public/*
 passenger.3000.log
 passenger.3000.pid.lock
 
 
 .idea/
-test/dummy/node_modules
-test/dummy/public/packs
