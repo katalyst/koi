@@ -137,6 +137,10 @@ table {
   .table--listing-span {
     min-width: 100px;
     display: inline-block;
+
+    &.table__span__email {
+      display: block;
+    }
   }
 
   table {

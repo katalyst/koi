@@ -1,0 +1,22 @@
+<div class="autocompletes <%= advanced.try(:[], "className") %>" id="<%= advanced.try(:[], "id") %>">
+
+  <ul>
+    <% if data["options"].present? %>
+      <li>Option: <%= data["options"] %></li>
+    <% end %>
+    <% if data["hero_search_name"].present? %>
+      <li>Hero search name: <%= data["hero_search_name"] %></li>
+    <% end %>
+    <% if data["hero_search_id"].present? %>
+      <li>Hero search id: <%= data["hero_search_id"] %> - Lookup: <%= SuperHero.find(data["hero_search_id"]) %></li>
+    <% end %>
+    <% if data["hero_ajax_association"].present? && data["hero_ajax_association"]["type"].present? %>
+      <li>
+        Hero ajax association type: <%= data["hero_ajax_association"]["type"] %><br />
+        Hero ajax association id: <%= data["hero_ajax_association"]["id"] %><br />
+        Hero lookup: <%= (data["hero_ajax_association"]["type"].constantize).find(data["hero_ajax_association"]["id"]) %><br />
+      </li>
+    <% end %>
+  </ul>
+
+</div>

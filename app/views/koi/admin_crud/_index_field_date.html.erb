@@ -1,1 +1,1 @@
-<span class="nowrap"><%= object.send(attr).strftime "%d %b %y" %></span>
+<span class="nowrap"><%= object.send(attr).strftime("%d %b %y") if object.send(attr).present? %></span>

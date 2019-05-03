@@ -13,3 +13,5 @@ passenger.3000.pid.lock
 
 
 .idea/
+test/dummy/node_modules
+test/dummy/public/packs

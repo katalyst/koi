@@ -121,6 +121,10 @@ module HasCrud
             end
           end
 
+          def unpaginated_count
+            is_paginated? ? collection.total_count : collection.count
+          end
+
         end
 
       end

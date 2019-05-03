@@ -4,13 +4,53 @@
 # require 'pry'
 # binding.pry
 #
-# override Thor's source_paths method to include the rails_root directory in lib/templates/application/rails_root
+# override Thor's source_paths method to include:
+#  * the rails_root directory in lib/templates/application/rails_root
+#  * the dummy app directory in test/dummy
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
 # following the rails folder structure.
 #
 
+#
+# Hash of koi args
+#
+# Valid options on command line:
+#
+#  --koi-branch="my-branch"
+#
+# Returns:
+#
+# { branch: "my-branch" }
+#
+def koi_args
+  @koi_args ||= begin
+    Hash[
+      args.select { |arg| arg.include?("koi-") }.map { |arg|
+        option, value = arg.split("=")
+        option = option.split("koi-").last.to_sym
+        [option, value]
+      }
+    ]
+  end
+end
+
+def koi_gem_options
+  koi_gem_options = { github: 'katalyst/koi' }
+  if koi_args[:branch]
+    koi_gem_options[:branch] = koi_args[:branch]
+  elsif koi_args[:tag]
+    koi_gem_options[:tag] = koi_args[:tag]
+  else
+    koi_gem_options[:tag] = "v#{koi_version}"
+  end
+  koi_gem_options
+end
+
 def source_paths
-  Array(super) + [File.join(File.expand_path(File.dirname(__FILE__)),'rails_root')]
+  Array(super) + [
+    File.join(File.expand_path(File.dirname(__FILE__)), 'rails_root'),
+    File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'dummy')
+  ]
 end
 
 # Method to lookup the version of koi
@@ -23,9 +63,7 @@ def koi_version
 end
 
 # Add .ruby-version for RVM/RBENV.
-create_file '.ruby-version', <<-END
-2.4.1
-END
+create_file '.ruby-version', '2.5.4'
 
 # Add .ruby-gemset for RVM
 create_file '.ruby-gemset', <<-END
@@ -55,13 +93,9 @@ gem 'awesome_nested_fields'     , github: 'katalyst/awesome_nested_fields'
 gem 'koi_config'                , github: 'katalyst/koi_config'
 
 # Koi CMS
-# gem 'koi', github: 'katalyst/koi', tag: "v#{koi_version}"
-# NOTE: For building projects with the local version, uncomment this
-gem 'koi'                       , path: File.join(File.dirname(__FILE__), '../../..')
+gem 'koi', koi_gem_options
 
 gem 'active_model_serializers'
-
-gem 'unicorn'
 
 gem 'newrelic_rpm'
 
@@ -70,8 +104,8 @@ gem 'ey_config'
 gem 'sidekiq'
 gem 'redis-namespace'
 
-gem 'devise', '~> 4.3.0'
-gem 'simple_form', '~> 3.5.0'
+gem 'devise', '~> 4.6.2'
+gem 'simple_form', '~> 4.1.0'
 
 gem_group :development do
   gem 'karo'
@@ -79,7 +113,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'master'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'develop'
   gem 'rack-mini-profiler'
 end
 
@@ -144,12 +178,6 @@ production:
   <<: *default
   database: #{@app_name}_development
 
-END
-
-# Setup seed
-run 'rm db/seeds.rb'
-create_file 'db/seeds.rb', <<-END
-Koi::Engine.load_seed
 END
 
 # Setup seed
@@ -276,7 +304,17 @@ staging:
 END
 
 # Install Migrations
+
+# FIXME: Workaround for issue where running rake db:create runs initializers which loads routes
+#        which loads models which loads has_crud which runs `table_exists?` several times which
+#        blows up with error 'database "<your-app>_development" does not exist'
+run "dropdb #{@app_name}_development"
+run "createdb #{@app_name}_development"
+# rake 'db:create'
+#
+
 rake 'koi:install:migrations'
+rake 'db:migrate'
 
 # Convert url's like this /pages/about-us into /about-us
 route 'get "/:id"  => "pages#show", as: :page'
@@ -307,14 +345,10 @@ gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret
 gsub_file 'config/initializers/devise.rb', 'please-change-me-at-config-initializers-devise@example.com', 'no-reply@katalyst.com.au'
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
 
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
-
 route "root to: 'pages#index'"
 
 route 'resources :pages, only: [:show], as: :koi_pages'
-route 'resources :assets, only: [:show]'
+route 'resources :assets, only: [:show], as: :koi_assets'
 route 'resources :images, only: [:show]'
 route 'resources :documents, only: [:show]'
 
@@ -528,8 +562,6 @@ public/system/**/*
 .idea/
 END
 
-generate('ornament -f') if yes?("Do you want to generate ornament?")
-
 git :init
 git add: '.'
 git commit: "-m 'Initial Commit'"
@@ -538,4 +570,60 @@ run 'ey init'
 git add: '.'
 git commit: "-m 'Generated EngineYard Config'"
 
+if yes?("Do you want to generate ornament?")
+
+  generate('ornament -f')
+
+  # Note: Composable pages depends on Ornament due to both
+  # depending on webpacker being generated. Ornament will add, install
+  # and configure webpacker itself
+
+  # Copy over the javascript files
+  directory "app/frontend/javascripts/koi"
+  directory "app/frontend/packs/koi"
+
+  # Copy over the sample views
+  copy_file "app/views/shared/_composables.html.erb", "app/views/shared/_composables.html.erb"
+  directory "app/views/shared/composable_sections"
+  directory "app/views/shared/composable_components"
+
+  # Create blank components file
+  create_file "config/initializers/koi/composable_components.rb", <<-END
+  # Koi::ComposableContent.section_types = ["body", "fullwidth"]
+  # Koi::ComposableContent.section_drafting_for_children = false
+  # Koi::ComposableContent.show_advanced_settings = false
+  # Koi::ComposableContent.register_components [
+  #   {
+  #     name: "Section",
+  #     slug: "section",
+  #     nestable: true,
+  #     icon: "composable_section",
+  #     primary: "section_type",
+  #     fields: [
+  #       {
+  #         label: "Section Type",
+  #         name: "section_type",
+  #         type: "select",
+  #         className: "form--auto",
+  #         data: ["body", "fullwidth"]
+  #       }
+  #     ]
+  #   }
+  # ]
+  END
+
+  # Add composable yarn dependencies
+  run "yarn add react-beautiful-dnd react-final-form react-final-form-arrays final-form final-form-arrays react-sticky-box axios downshift"
+
+  # Generate page files
+  copy_file "app/models/page.rb", "app/models/page.rb"
+  copy_file "app/views/pages/show.html.erb", "app/views/pages/show.html.erb"
+
+  git add: '.'
+  git commit: "-m 'Generated Ornament & Composable Pages'"
+
+end
+
+run 'bundle install'
+rake 'db:migrate'
 rake 'db:seed'
