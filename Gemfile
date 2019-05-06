@@ -30,6 +30,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem "database_cleaner"
   gem "pry-rails"
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
 
 group :test do
@@ -39,4 +41,5 @@ group :test do
   gem "poltergeist"
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'faker'
 end
