@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "http://rubygems.org"
 
 # Declare your gem's dependencies in koi.gemspec.
@@ -16,9 +18,28 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 gem 'ornament', github: 'katalyst/ornament', branch: 'master'
 
 gem 'sass-rails', '~> 5.0.0'
-gem 'webpacker', '~> 3.0' 
+gem 'webpacker', '~> 3.0'
 gem 'react_on_rails', '~> 11.1.4'
 
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
-gem 'foreman' 
+gem 'foreman'
+
+group :development, :test do
+  gem 'guard-rspec', require: false
+  gem 'factory_bot_rails'
+  gem "database_cleaner"
+  gem "pry-rails"
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
+
+group :test do
+  gem "capybara"
+  gem 'orderly'
+  gem 'launchy'
+  gem "poltergeist"
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'faker'
+end

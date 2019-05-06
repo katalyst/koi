@@ -1,0 +1,55 @@
+AllCops:
+  Exclude:
+    - 'db/**/*.rb'
+    - 'config/**/*'
+    - 'vagrant/*'
+    - 'Vagrantfile'
+    - 'test/test_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+    - 'spec/support/*'
+    - 'bin/*'
+    - 'vendor/**/*'
+    - '*.gemspec'
+
+# allow up to 120 character lines before complaining
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Metrics/BlockLength:
+  Max: 150
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/ClassLength:
+  Max: 150
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'Rakefile'
+    - 'Guardfile'
+    - '**/*.rake'
+
+Style/HashSyntax:
+  Exclude:
+    - '**/*.rake'
+    - 'Rakefile'

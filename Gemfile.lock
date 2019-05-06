@@ -36,7 +36,7 @@ PATH
       jquery-ui-rails (~> 6.0.1)
       kaminari (~> 1.0.1)
       mime-types (~> 3.1)
-      pg
+      pg (~> 1.1.0)
       puma (~> 3.12.1)
       rails (~> 5.2.3)
       react_on_rails (~> 11.1.4)
@@ -122,9 +122,20 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     builder (3.2.3)
+    capybara (3.18.0)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.2)
+      xpath (~> 3.2)
     case_transform (0.2)
       activesupport
+    childprocess (0.9.0)
+      ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.3.11)
+    cliver (0.3.2)
     cocoon (1.2.12)
     coderay (1.1.2)
     compass (1.0.3)
@@ -153,6 +164,7 @@ GEM
       activemodel (>= 3, <= 6)
       activesupport (>= 3, <= 6)
     currencies (0.4.2)
+    database_cleaner (1.7.0)
     date_validator (0.9.0)
       activemodel
       activesupport
@@ -162,6 +174,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     dragonfly (1.1.5)
       addressable (~> 2.3)
       multi_json (~> 1.0)
@@ -182,11 +195,19 @@ GEM
     erubi (1.8.0)
     escape (0.0.4)
     execjs (2.7.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
+    faker (1.9.3)
+      i18n (>= 0.7)
     ffi (1.10.0)
     figaro (1.1.1)
       thor (~> 0.14)
     foreman (0.85.0)
       thor (~> 0.19.1)
+    formatador (0.2.5)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     garb (0.9.8)
@@ -194,6 +215,20 @@ GEM
       multi_json (>= 1.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    guard (2.14.2)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (>= 1.0.12, < 2.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.7.3)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
@@ -231,9 +266,14 @@ GEM
       thor (~> 0.19)
     launchy (2.4.3)
       addressable (~> 2.3)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
+    lumberjack (1.0.13)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
@@ -247,13 +287,24 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    nenv (0.3.0)
     net-ssh (2.9.4)
     nio4r (2.3.1)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
+    notiffany (0.1.1)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
+    orderly (0.0.3)
+      capybara (>= 1.1)
+      rspec (>= 2.14)
     orm_adapter (0.5.0)
     pg (1.1.4)
     phony (2.18.2)
+    poltergeist (1.18.1)
+      capybara (>= 2.1, < 4)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -304,6 +355,7 @@ GEM
       rails (>= 3.2)
       rainbow (~> 3.0)
     redis (3.3.5)
+    regexp_parser (1.4.0)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
@@ -311,6 +363,29 @@ GEM
       mime-types (>= 1.16)
     rickshaw_rails (1.4.5)
       railties (>= 3.1.0)
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-rails (3.7.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
+    ruby_dep (1.5.0)
+    rubyzip (1.2.2)
     sass (3.4.25)
     sass-rails (5.0.7)
       railties (>= 4.0.0, < 6)
@@ -322,8 +397,14 @@ GEM
       activerecord (>= 4.2.0)
     select2-rails (3.5.10)
       thor (~> 0.14)
+    selenium-webdriver (3.14.1)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.2, >= 1.2.2)
     sendgrid (1.2.4)
       json
+    shellany (0.0.1)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     sidekiq (5.0.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -351,6 +432,10 @@ GEM
     uuidtools (2.1.5)
     warden (1.2.8)
       rack (>= 2.0.6)
+    webdrivers (3.8.0)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     webpacker (3.6.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -358,22 +443,36 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   better_errors
+  capybara
+  database_cleaner
   engineyard
+  factory_bot_rails
+  faker
   foreman
+  guard-rspec
   karo
   koi!
   koi_config!
+  launchy
+  orderly
   ornament!
+  poltergeist
   pry-rails
   react_on_rails (~> 11.1.4)
+  rspec-rails
   sass-rails (~> 5.0.0)
+  selenium-webdriver
+  shoulda-matchers
   tzinfo-data
+  webdrivers
   webpacker (~> 3.0)
 
 BUNDLED WITH
