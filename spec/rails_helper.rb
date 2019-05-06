@@ -7,9 +7,9 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |file| require file }
+Dir[Rails.root.join("../../spec/factories/*.rb")].each { |file| require file }
 require 'faker'
 require 'shoulda/matchers'
-require 'factories'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :selenium_chrome_headless
 # uncomment to open feature specs in an actual browser

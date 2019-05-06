@@ -4,8 +4,8 @@ describe "super hero index" do
   include_context "admin_signed_in"
 
   it "displays table of super heros" do
-    create(:super_hero, name: "Iron Man")
-    create(:super_hero, name: "Captain America")
+    create(:iron_man)
+    create(:captain_america)
     visit admin_super_heros_path
     expect(page).to have_text("Iron Man")
     expect(page).to have_text("Captain America")
@@ -13,14 +13,14 @@ describe "super hero index" do
   end
 
   it "allows super heroes to be edited" do
-    iron_man = create(:super_hero, name: "Iron Man")
+    iron_man = create(:iron_man)
     visit admin_super_heros_path
     click_on "Edit"
     expect(page.current_path).to eql(edit_admin_super_hero_path(iron_man))
   end
 
   it "has link to super hero details page" do
-    iron_man = create(:super_hero, name: "Iron Man")
+    iron_man = create(:iron_man)
     visit admin_super_heros_path
     click_on "Show"
     expect(page.current_path).to eql(admin_super_hero_path(iron_man))
@@ -33,8 +33,8 @@ describe "super hero index" do
   end
 
   it "allows super heroes to be searched" do
-    create(:super_hero, name: "Iron Man")
-    create(:super_hero, name: "Captain America")
+    create(:iron_man)
+    create(:captain_america)
     visit admin_super_heros_path
     fill_in "Search", with: "Captain"
     click_on "Go"
@@ -45,8 +45,8 @@ describe "super hero index" do
   end
 
   it "allows super heroes to be downloaded as csv" do
-    create(:super_hero, name: "Iron Man")
-    create(:super_hero, name: "Captain America")
+    create(:iron_man)
+    create(:captain_america)
     visit admin_super_heros_path
     click_on "Download CSV"
 
