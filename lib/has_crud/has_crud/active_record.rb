@@ -71,6 +71,7 @@ module HasCrud
         setup_pagination
         setup_exportable
         setup_composable
+        setup_has_managed_assets
       end
 
       def setup_navigation
@@ -187,6 +188,12 @@ module HasCrud
       def setup_composable
         if self.options[:composable]
           send :include, Composable
+        end
+      end
+
+      def setup_has_managed_assets
+        if self.options[:has_managed_assets]
+          send :include, HasManagedAssets
         end
       end
 
