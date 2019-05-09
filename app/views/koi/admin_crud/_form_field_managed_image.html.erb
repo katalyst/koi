@@ -24,7 +24,7 @@
         </div>
         <div style="display: <%= value ? "block" : "none" %>">
           <button type="button" data-asset-manager-remove class="button__cancel"><%= remove_label %></button>
-          <%= link_to "View file", value.remote_url, class: "button", target: "_blank" if value.present?`` %>
+          <%= link_to "View file", value.remote_url, class: "button", target: "_blank" if value.present? %>
         </div>
       </div>
     </div>
