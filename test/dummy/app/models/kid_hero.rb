@@ -1,6 +1,5 @@
 class KidHero < SuperHero
-  include HasManagedAssets
-  has_crud
+  has_crud has_managed_assets: true
 
   managed_image :managed_image
   managed_document :managed_document
