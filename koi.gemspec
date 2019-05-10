@@ -13,7 +13,8 @@ Gem::Specification.new do |s|
   s.summary       = 'Koi CMS admin framework'
   s.description   = 'Framework to provide rapid application development'
 
-  s.files         = `git ls-files`.split("\n")
+  # s.files         = `git ls-files`.split("\n")
+  s.files         =  Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile"]
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
