@@ -25,11 +25,11 @@
             return false;
           }
           if(assetType === "document") {
-            return `/assets/koi/application/icon-file-pdf.png`;
+            return "/assets/koi/application/icon-file-pdf.png";
           }
           if(existing) {
             // this url will redirect to the correct url, regardless of the image's actual extension
-            return `/assets/${url}.jpg`;
+            return "/assets/" + url + ".jpg";
           }
           return url;
         }
@@ -48,13 +48,12 @@
         // Open modal
         function startBrowsing(e){
           e.preventDefault();
-          const popupOptions = {
-            ...Ornament.popupOptions,
-            type: "iframe",
-            items: {
-              src: "/admin/" + assetType + "s/new?callbackFunction=composableFieldImageCallback" + id
-            }
-          };
+          var popupOptions = $.extend({}, Ornament.popupOptions, {
+              type: "iframe",
+              items: {
+                  src: "/admin/" + assetType + "s/new?callbackFunction=composableFieldImageCallback" + id
+              }
+          });
           $.magnificPopup.open(popupOptions);
         }
 
