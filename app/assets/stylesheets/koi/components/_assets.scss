@@ -27,3 +27,9 @@
 .asset--options {
   margin-bottom: $xxx-small-unit;
 }
+
+.asset--uploader--actions a,
+.asset--uploader--actions button {
+  display: block;
+  margin-top: $xxxxx-small-unit;
+}
