@@ -60,6 +60,14 @@
           var $successMessage = thumbnail.find("[data-file-gallery-item-success]");
           var $assetActions = $("<div class='asset--uploader--actions' />");
           var $editLink = $("<a href='" + assetId + "?<%= request.query_parameters.to_query %>'>Edit <%= resource_class.name -%></a>");
+          <%- if params[:CKEditorFuncNum] || params[:callbackFunction]-%>
+            var $addToPageLink = $("<button type='button'>Add to page</button>");
+            $addToPageLink.on("click", function(){
+                // TODO: Think of a nicer way to show document URLs or just URLs in general eg. from controller
+                Ornament.AssetManager.addToPage(assetId, "/images/" + assetId + ".jpg");
+            });
+            $assetActions.append($addToPageLink);
+          <% end %>
           $assetActions.append($editLink);
           $successMessage.append($assetActions);
         });

@@ -12,6 +12,7 @@
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
     <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
     <%= hidden_field_tag :per      , params[:per]      , id: "search_per"       %>
+    <%= hidden_field_tag :callbackFunction, params[:callbackFunction], id: "callbackFunction" if params[:callbackFunction].present? %>
 
     <div class="panel--padding">
       <div class="inputs">

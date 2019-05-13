@@ -7,7 +7,7 @@ class Asset < ApplicationRecord
   scoped_search :on => [:data_name]
 
   scope :unassociated, -> { where("attributable_type IS NULL OR attributable_type = ''") }
-  scope :search_data,  -> query { where("data_name LIKE ?", "%#{query}%") }
+  scope :search_data,  -> query { where("data_name ILIKE ?", "%#{query}%") }
   scope :newest_first, -> { order(created_at: :desc) }
 
   acts_as_ordered_taggable
