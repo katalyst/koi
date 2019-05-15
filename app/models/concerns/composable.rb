@@ -15,6 +15,11 @@ module Composable
       composable_json.present?
     end
 
+    # Get all raw JSON data
+    # resource.composable_json => { main: [...] }
+    # Optionally get all raw JSON data for a specific group by
+    # passing in a group key
+    # resource.composable_json(:main) => [...]
     def composable_json(group=false)
       data = composable_data
       if data.present?
@@ -24,10 +29,13 @@ module Composable
       end
     end
 
+    # Get formatted composable content grouped in to sections for a specific group
+    # resource.composable_sections(:main)
     def composable_sections(group)
       Composable.format_composable_data(composable_data, group) if composable?
     end
 
+    # Same as composable_sections but includes drafts
     def composable_sections_with_drafts(group)
       Composable.format_composable_data(composable_data, group, include_drafts: true) if composable?
     end
@@ -74,6 +82,7 @@ module Composable
       data = JSON.parse(data)
     end
     if data.present?
+      # Select the group
       data = data[group.to_s]
       data.each_with_index do |datum,index|
         next if !include_drafts && datum["component_draft"].eql?(true)
