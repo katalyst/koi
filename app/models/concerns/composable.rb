@@ -15,34 +15,44 @@ module Composable
       composable_json.present?
     end
 
-    def composable_json
-      if composable_data.present?
-        JSON.parse(composable_data)
+    def composable_json(group=false)
+      data = composable_data
+      if data.present?
+        data = JSON.parse(data)
+        data = data[group.to_s] if group
+        data
       end
     end
 
-    def composable_sections
-      Composable.format_composable_data(composable_data) if composable?
+    def composable_sections(group)
+      Composable.format_composable_data(composable_data, group) if composable?
     end
 
-    def composable_sections_with_drafts
-      Composable.format_composable_data(composable_data, include_drafts: true) if composable?
+    def composable_sections_with_drafts(group)
+      Composable.format_composable_data(composable_data, group, include_drafts: true) if composable?
     end
 
   end
 
   class_methods do
-    def composable_field_types
+    def composable_crud_config
       # Try getting settings from crud config
       self.crud.settings.try(:[], :admin).try(:[], :form).try(:[], :composable) ||
 
       # Fallback to defaults
-      [:section, :heading, :text]
+      {
+        main: [:section, :heading, :text],
+      }
     end
 
     # Take the composable_field_types and retrieve the config from the library
     def composable_config
-      Koi::ComposableContent.components.select { |type| self.composable_field_types.include?(type[:slug].to_sym) }
+      config = composable_crud_config
+      structure = {}
+      config.each do |group, fields|
+        structure[group] = Koi::ComposableContent.components.select { |type| fields.include?(type[:slug].to_sym) }
+      end
+      structure
     end
   end
 
@@ -56,7 +66,7 @@ module Composable
     }
   end
 
-  def self.format_composable_data(data, include_drafts: false)
+  def self.format_composable_data(data, group, include_drafts: false)
     # Group page sections as nested data
     current_composable_section = false
     composable_sections = []
@@ -64,6 +74,7 @@ module Composable
       data = JSON.parse(data)
     end
     if data.present?
+      data = data[group.to_s]
       data.each_with_index do |datum,index|
         next if !include_drafts && datum["component_draft"].eql?(true)
 

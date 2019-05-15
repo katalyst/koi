@@ -4,7 +4,8 @@ $tab-inactive-color: #ECF0F1;
 
 .tabs--links {
 
-  &.tabs--links__flush {
+  &.tabs--links__flush,
+  &.tabs--link__inpage {
     overflow: hidden;
   }
 
@@ -36,6 +37,7 @@ $tab-inactive-color: #ECF0F1;
   @include line-height-padding($button-height);
   @include transition(border-color .2s);
   @include border-radius($border-radius $border-radius 0 0);
+  @include disable-mouse-outline;
 
   .tabs--links__flush & {
     @include border-radius(0);
