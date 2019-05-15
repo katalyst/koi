@@ -6,7 +6,7 @@
 #
 # override Thor's source_paths method to include:
 #  * the rails_root directory in lib/templates/application/rails_root
-#  * the dummy app directory in test/dummy
+#  * the dummy app directory in spec/dummy
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
 # following the rails folder structure.
 #
@@ -49,7 +49,7 @@ end
 def source_paths
   Array(super) + [
     File.join(File.expand_path(File.dirname(__FILE__)), 'rails_root'),
-    File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'dummy')
+    File.join(File.dirname(__FILE__), '..', '..', '..', 'spec', 'dummy')
   ]
 end
 
@@ -82,6 +82,7 @@ END
 
 # TODO: remove this when `rails new` generator doesn't generate sass gem referencing github
 gsub_file "Gemfile", "gem 'sass-rails', github: \"rails/sass-rails\"", ""
+uncomment_lines "Gemfile", "gem 'mini_racer'"
 
 # Airbrake
 gem "airbrake"                 # , '4.3'
@@ -113,7 +114,7 @@ gem_group :development do
   gem 'engineyard'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ornament', github: 'katalyst/ornament', branch: 'develop'
+  gem 'ornament', github: 'katalyst/ornament', branch: 'master'
   gem 'rack-mini-profiler'
 end
 
