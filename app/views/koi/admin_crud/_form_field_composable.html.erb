@@ -6,7 +6,7 @@
   end
 -%>
 
-<%= react_component("Composable", props: {
+<%= react_component("KoiComposable", props: {
   composition: value,
   config: f.object.class.composable_config,
   allComposableTypes: Koi::ComposableContent.components,
@@ -29,5 +29,6 @@
     user: icon("user"),
     cog: icon("cog_filled"),
   },
-  attr: "#{f.object_name}[#{attr}]"
+  formFieldName: "#{f.object_name}[#{attr}]",
+  debug: false,
 }) %>
