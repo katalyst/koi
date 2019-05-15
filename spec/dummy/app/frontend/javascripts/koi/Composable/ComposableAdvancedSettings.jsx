@@ -1,7 +1,10 @@
 import React from 'react';
 import { Field } from 'react-final-form';
+import { ComposableContext } from './ComposableContext';
 
 export default class ComposableAdvancedSettings extends React.Component {
+  static contextType = ComposableContext;
+
   render() {
 
     const advancedFields = [{
@@ -33,7 +36,7 @@ export default class ComposableAdvancedSettings extends React.Component {
           </div>
         ))}
         <div>
-          <button onClick={this.props.closeAdvanced} className="button__primary">‹ Close advanced settings</button>
+          <button onClick={this.context.functions.components.closeAdvanced} className="button__primary">‹ Close advanced settings</button>
         </div>
       </div>
     )

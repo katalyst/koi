@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'react-final-form';
 import ComposableFieldTextarea from "./ComposableFieldTextarea";
 
 export default class ComposableFieldRichtext extends React.Component {
@@ -7,18 +8,16 @@ export default class ComposableFieldRichtext extends React.Component {
     super(props),
     this.afterMount = this.afterMount.bind(this);
     this.afterUnmount = this.afterUnmount.bind(this);
-    this.triggerBindings = this.triggerBindings.bind(this);
   }
 
-  triggerBindings() {
-    var component = this;
+  triggerBindings = () => {
     var $editor = $("#" + this.props.id)[0];
     Ornament.CKEditor.bindForTextarea($editor);
     var instance = CKEDITOR.instances[this.props.id];
     if(instance) {
       instance.on("change", event => {
         var value = event.editor.getData();
-        component.props.onChange(value, component.props.fieldIndex, component.props.fieldSettings);
+        this.props.helpers.setFieldValue(this.$hiddenField, value);
       });
     } else {
       console.warn("Unable to bind CKEditor on change event, possibly too quick?");
@@ -30,9 +29,9 @@ export default class ComposableFieldRichtext extends React.Component {
     and start watching for changes to push back up to 
     the main composable component
   */
-  afterMount() {
+  afterMount = values => {
     this.triggerBindings();
-    $(document).on("ornament:composable:re-attach-ckeditors", () => {
+    $(document).on("composable:re-attach-ckeditors", () => {
       this.triggerBindings();
     });
   }
@@ -51,7 +50,7 @@ export default class ComposableFieldRichtext extends React.Component {
   render() {
     var className = this.props.fieldSettings.className;
     var wysiwygClass = "wysiwyg source";
-    var props = $.extend(true, {}, this.props);
+    var props = { ...this.props };
     // set wysiwyg class
     props.fieldSettings.className = className ? className + wysiwygClass : wysiwygClass;
     // add on mount/unmount callbacks
@@ -62,7 +61,16 @@ export default class ComposableFieldRichtext extends React.Component {
     props.onChange = (event, index, template) => { return false; }
 
     return(
-      <ComposableFieldTextarea {...props} />
+      <React.Fragment>
+        <ComposableFieldTextarea {...props} />
+        <Field
+          name={this.props.fieldSettings.name}
+          component="input"
+          type="hidden"
+          ref={el => this.$hiddenField = el}
+          {...this.props.helpers.generateFieldAttributes(this.props)}
+        />
+      </React.Fragment>
     )
   }
 }

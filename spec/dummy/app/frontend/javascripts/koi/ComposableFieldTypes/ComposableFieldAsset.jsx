@@ -36,7 +36,7 @@ export default class ComposableFieldAsset extends React.Component {
 
   componentDidMount(){
     if(this.$imageId) {
-      const value = this.$imageId.state.state.value;
+      const value = this.props.helpers.getFieldValue(this.$imageId);
       if(value) {
         this.setState({
           assetUrl: this.getThumbnail(value, true),
@@ -70,8 +70,7 @@ export default class ComposableFieldAsset extends React.Component {
     $.magnificPopup.close();
 
     // Push data to finalform
-    const field = this.$imageId;
-    field.context.reactFinalForm.change(field.props.name, assetId);
+    this.props.helpers.setFieldValue(this.$imageId, assetId);
   }
 
   startBrowsing(e){

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import StickyBox from 'react-sticky-box';
+import { ComposableContext } from './ComposableContext';
 
 export default class ComposableLibrary extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
+  static contextType = ComposableContext;
 
   render() {
+    const { settings, state, functions } = this.context;
+
     return(
       <StickyBox offsetTop={70} offsetBottom={20}>
-        <div className={`composable--library`} ref={el => this.$element = el}>
+        <div className={`composable--library`}>
           <Droppable droppableId="library" isDropDisabled={true}>
             {(libraryDroppableProvided, libraryDroppableSnapshot) => (
               <div ref={libraryDroppableProvided.innerRef}>
@@ -35,16 +35,16 @@ export default class ComposableLibrary extends React.Component {
                               ${libraryDraggableSnapshot.isDragging ? "composable--component__dragging" : ""}
                             `}
                           >
-                            {this.props.helpers.icons &&
+                            {settings.icons &&
                               <React.Fragment>
-                                {component.icon && this.props.helpers.icons[component.icon]
+                                {component.icon && settings.icons[component.icon]
                                   ? <div
                                       className="composable--library--icon"
-                                      dangerouslySetInnerHTML={{__html: this.props.helpers.icons[component.icon]}}
+                                      dangerouslySetInnerHTML={{__html: settings.icons[component.icon]}}
                                     ></div>
                                   : <div
                                       className="composable--library--icon"
-                                      dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                                      dangerouslySetInnerHTML={{__html: settings.icons.module}}
                                     ></div>
                                 }
                               </React.Fragment>

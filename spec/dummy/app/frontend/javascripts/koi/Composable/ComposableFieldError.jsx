@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import { ARRAY_ERROR } from 'final-form';
+import { ComposableContext } from './ComposableContext';
 
 const ComposableFieldError = ({ name }) => (
   <Field name={name} subscription={{ error: true, touched: true }}>

@@ -42,10 +42,19 @@ const anyValues = (props) => {
 // =========================================================================
 
 // This is a map of strings to functions for validation
-const validationRules = {
-  "required": presence,
-  "atLeastOne": atLeastOne,
-  "anyValues": anyValues,
+let validationRules = {};
+
+const setupValidationRules = validations => {
+  const defaults = {
+    "required": presence,
+    "atLeastOne": atLeastOne,
+    "anyValues": anyValues,
+  }
+  validationRules = {
+    ...defaults,
+    ...validations,
+  }
+  return validationRules;
 }
 
 // =========================================================================
@@ -95,7 +104,6 @@ const validateField = (fields, field, values, errors) => {
     }
     rules.push("required");
   }
-
   if(rules.length) {
     // Start logging errors
     const fieldErrors = [];
@@ -157,4 +165,4 @@ const validate = (component, values) => {
 }
 
 // Export main validation method
-export default validate;
+export { setupValidationRules, validate };

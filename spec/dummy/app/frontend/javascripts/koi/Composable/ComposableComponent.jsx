@@ -2,11 +2,12 @@ import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Form, FormSpy, Field } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
+import { ComposableContext } from './ComposableContext';
 import ComposableField from './ComposableField';
 import ComposableAdvancedSettings from './ComposableAdvancedSettings';
-import validate from './ComposableValidations';
 
 export default class ComposableComponent extends React.Component {
+  static contextType = ComposableContext;
   
   constructor(props) {
     super(props);
@@ -21,11 +22,11 @@ export default class ComposableComponent extends React.Component {
   }
 
   componentDidMount(){
-    $(document).on("ornament:composable:validate", this.validateForm);
+    $(document).on("composable-content:validate", this.validateForm);
   }
 
   componentWillUnmount(){
-    $(document).off("ornament:composable:validate", this.validateForm);
+    $(document).off("composable-content:validate", this.validateForm);
   }
 
   // =========================================================================
@@ -45,9 +46,9 @@ export default class ComposableComponent extends React.Component {
   }
 
   onAdvancedFormChange(props) {
-    const composition = { ...this.props.helpers.composition };
-    composition[this.props.helpers.group][this.props.index].advanced = props.values;
-    this.props.helpers.replaceComposition(composition);
+    const composition = { ...this.context.state.composition };
+    composition[this.context.state.group][this.props.index].advanced = props.values;
+    this.context.functions.composition.replaceComposition(composition);
   }
 
   // =========================================================================
@@ -55,9 +56,9 @@ export default class ComposableComponent extends React.Component {
   // =========================================================================
 
   onFormChange(props){
-    const composition = { ...this.props.helpers.composition };
-    composition[this.props.helpers.group][this.props.index].data = props.values;
-    this.props.helpers.replaceComposition(composition);
+    const composition = { ...this.context.state.composition };
+    composition[this.context.state.group][this.props.index].data = props.values;
+    this.context.functions.composition.replaceComposition(composition);
   }
 
   validateForm(){
@@ -65,7 +66,7 @@ export default class ComposableComponent extends React.Component {
     // If form is invalid (eg. validation errors) and the component is collapsed,
     // open the component back up so we can focus on the error
     if(!this.form.state.state.valid && this.props.component.component_collapsed) {
-      this.props.helpers.collapseComponent(this.props.index, "show");
+      this.context.functions.components.collapseComponent(this.props.index, "show");
     }
   }
 
@@ -74,7 +75,10 @@ export default class ComposableComponent extends React.Component {
   // =========================================================================
 
   render() {
-    const { component, index, template, helpers } = this.props;
+    const { component, index, template } = this.props;
+    const contextSettings = this.context.settings;
+    const contextState = this.context.state;
+    const functions = this.context.functions;
     const hasFields = template && template.fields && template.fields.length;
 
     let preview = "";
@@ -144,16 +148,16 @@ export default class ComposableComponent extends React.Component {
               }
               <div className="composable--component--meta">
                 <div className="composable--component--meta--label">
-                  {this.props.helpers.icons &&
+                  {contextSettings.icons &&
                     <React.Fragment>
-                      {this.props.template.icon && this.props.helpers.icons[this.props.template.icon]
+                      {this.props.template.icon && contextSettings.icons[this.props.template.icon]
                         ? <div
                             className="composable--component--meta--label-icon"
-                            dangerouslySetInnerHTML={{__html: this.props.helpers.icons[this.props.template.icon]}}
+                            dangerouslySetInnerHTML={{__html: contextSettings.icons[this.props.template.icon]}}
                           ></div>
                         : <div
                             className="composable--component--meta--label-icon"
-                            dangerouslySetInnerHTML={{__html: this.props.helpers.icons.module}}
+                            dangerouslySetInnerHTML={{__html: contextSettings.icons.module}}
                           ></div>
                       }
                     </React.Fragment>
@@ -165,37 +169,37 @@ export default class ComposableComponent extends React.Component {
                     <span>{preview}</span>
                   </div>
                 </div>
-                {helpers.showAdvancedSettings &&
+                {functions.components.showAdvancedSettings &&
                   <button
                     type="button"
                     onClick={e => this.toggleAdvanced()}
                     title={this.state.advancedVisible ? "Hide advanced settings" : "Show advanced settings"}
                     className="composable--component--meta--section composable--component--meta--section__advanced composable--component--meta--icon disable-mouse-outline"
                   >
-                    <span dangerouslySetInnerHTML={{__html: helpers.icons.cog}}></span>
+                    <span dangerouslySetInnerHTML={{__html: contextSettings.icons.cog}}></span>
                   </button>
                 }
                 <button
                   type="button"
                   className="composable--component--meta--section composable--component--meta--section__draft composable--component--meta--icon disable-mouse-outline"
-                  onClick={e => helpers.draftComponent(index)}
+                  onClick={e => functions.components.draftComponent(index)}
                   title={component.component_draft ? "Disable draft mode" : "Enable draft mode"}
                 >
                   {component.component_draft
-                    ? <span dangerouslySetInnerHTML={{__html: helpers.icons.hidden}}></span>
-                    : <span dangerouslySetInnerHTML={{__html: helpers.icons.visible}}></span>
+                    ? <span dangerouslySetInnerHTML={{__html: contextSettings.icons.hidden}}></span>
+                    : <span dangerouslySetInnerHTML={{__html: contextSettings.icons.visible}}></span>
                   }
                 </button>
                 <button
                   type="button"
-                  onClick={e => helpers.removeComponent(component)}
+                  onClick={e => functions.composition.removeComponent(component)}
                   className="composable--component--meta--section composable--component--meta--text-action disable-mouse-outline"
                   aria-label="Remove this component"
                 >Remove</button>
                 <button
                   type="button"
                   className="composable--component--meta--section composable--component--meta--collapser disable-mouse-outline"
-                  onClick={e => helpers.collapseComponent(index)}
+                  onClick={e => functions.components.collapseComponent(index)}
                 ></button>
                 <div
                   className="composable--component--meta--section composable--component--meta--drag"
@@ -207,7 +211,7 @@ export default class ComposableComponent extends React.Component {
                   <Form
                     onSubmit={e => false}
                     ref={el => this.advancedForm = el}
-                    initialValues={ this.props.helpers.composition[this.props.helpers.group][this.props.index].advanced }
+                    initialValues={ contextState.composition[contextState.group][this.props.index].advanced }
                     render={({ handleSubmit, form, values }) => (
                       <React.Fragment>
                         <FormSpy subscription={{ values: true }} onChange={this.onAdvancedFormChange} />
@@ -225,12 +229,12 @@ export default class ComposableComponent extends React.Component {
                   ...arrayMutators,
                 }}
                 ref={el => this.form = el}
-                initialValues={ this.props.helpers.composition[this.props.helpers.group][this.props.index].data }
+                initialValues={ contextState.composition[contextState.group][this.props.index].data }
                 validate={values => {
                   if(!template || !template.fields) {
                     return;
                   }
-                  return validate(template, values);
+                  return functions.components.validateComponent(template, values);
                 }}
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                   <React.Fragment>
@@ -267,7 +271,6 @@ export default class ComposableComponent extends React.Component {
                                   componentIndex={this.props.index}
                                   component={component}
                                   field={field}
-                                  helpers={helpers}
                                 />
                               )
                             })}

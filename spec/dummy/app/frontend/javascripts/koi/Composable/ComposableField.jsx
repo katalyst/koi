@@ -1,16 +1,13 @@
 import React from 'react';
 import { Field } from 'react-final-form';
+import { ComposableContext } from './ComposableContext';
 import * as ComposableTypes from '../ComposableFieldTypes/ComposableFieldTypes';
 import ComposableFieldError from './ComposableFieldError';
 
 export default class ComposableField extends React.Component {
+  static contextType = ComposableContext;
 
-  constructor(props) {
-    super(props);
-    this.standardiseData = this.standardiseData.bind(this);
-  }
-
-  standardiseData(data) {
+  standardiseData = data => {
     var standardisedData = [];
     if(typeof(data[0]) !== "object") {
       data.map(datum => {
@@ -25,15 +22,22 @@ export default class ComposableField extends React.Component {
     }
   }
 
-  render() {
+  getFieldTypeComponent = name => {
+    const components = {
+      ...ComposableTypes,
+      ...this.context.settings.customFormFieldComponents,
+    }
+    return components[name];
+  }
 
-    const { component, helpers } = this.props;
+  render() {
+    const { component } = this.props;
     const field = { ...this.props.field }
     field.type = field.type || "string";
 
     const fieldType = field.type.replace(/_/g, "");
     const capitalisedFirstType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
-    const FieldTypeComponent = ComposableTypes["ComposableField" + capitalisedFirstType];
+    const FieldTypeComponent = this.getFieldTypeComponent("ComposableField" + capitalisedFirstType);
     let hideLabel = false;
 
     const wrapperClass = field.wrapperClass || "";
@@ -78,10 +82,10 @@ export default class ComposableField extends React.Component {
               fieldIndex={this.props.componentIndex}
               value={component.data[field.name]}
               id={fieldId}
-              helpers={helpers}
               component={this.props.component}
               onFormChange={this.props.onFormChange}
               formValue={this.props.formValue}
+              helpers={this.context.functions.fields}
             />
           </div>
           <ComposableFieldError name={field.name} />
