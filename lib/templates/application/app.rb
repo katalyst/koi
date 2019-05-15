@@ -6,7 +6,7 @@
 #
 # override Thor's source_paths method to include:
 #  * the rails_root directory in lib/templates/application/rails_root
-#  * the dummy app directory in test/dummy
+#  * the dummy app directory in spec/dummy
 # For consistency, any files we want to copy into the app should be placed inside rails_root,
 # following the rails folder structure.
 #
@@ -49,7 +49,7 @@ end
 def source_paths
   Array(super) + [
     File.join(File.expand_path(File.dirname(__FILE__)), 'rails_root'),
-    File.join(File.dirname(__FILE__), '..', '..', '..', 'test', 'dummy')
+    File.join(File.dirname(__FILE__), '..', '..', '..', 'spec', 'dummy')
   ]
 end
 
