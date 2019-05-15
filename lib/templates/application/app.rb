@@ -82,6 +82,7 @@ END
 
 # TODO: remove this when `rails new` generator doesn't generate sass gem referencing github
 gsub_file "Gemfile", "gem 'sass-rails', github: \"rails/sass-rails\"", ""
+uncomment_lines "Gemfile", "gem 'mini_racer'"
 
 # Airbrake
 gem "airbrake"                 # , '4.3'
