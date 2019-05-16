@@ -275,7 +275,7 @@ export default class Composable extends React.Component {
   // undraft - draftComponent(10, "enable");
   draftComponent(componentIndex, visibility) {
     const composition = this.state.composition;
-    const component = composition[componentIndex];
+    const component = composition[this.state.group][componentIndex];
     if(!component) {
       console.warn("Unable to find component with index of " + componentIndex);
       return;
