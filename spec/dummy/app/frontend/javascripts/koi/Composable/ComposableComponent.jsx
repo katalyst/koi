@@ -45,8 +45,8 @@ export default class ComposableComponent extends React.Component {
   }
 
   onAdvancedFormChange(props) {
-    const composition = [ ...this.props.helpers.composition ];
-    composition[this.props.index].advanced = props.values;
+    const composition = { ...this.props.helpers.composition };
+    composition[this.props.helpers.group][this.props.index].advanced = props.values;
     this.props.helpers.replaceComposition(composition);
   }
 
@@ -55,8 +55,8 @@ export default class ComposableComponent extends React.Component {
   // =========================================================================
 
   onFormChange(props){
-    const composition = [ ...this.props.helpers.composition ];
-    composition[this.props.index].data = props.values;
+    const composition = { ...this.props.helpers.composition };
+    composition[this.props.helpers.group][this.props.index].data = props.values;
     this.props.helpers.replaceComposition(composition);
   }
 
@@ -207,7 +207,7 @@ export default class ComposableComponent extends React.Component {
                   <Form
                     onSubmit={e => false}
                     ref={el => this.advancedForm = el}
-                    initialValues={ this.props.helpers.composition[this.props.index].advanced }
+                    initialValues={ this.props.helpers.composition[this.props.helpers.group][this.props.index].advanced }
                     render={({ handleSubmit, form, values }) => (
                       <React.Fragment>
                         <FormSpy subscription={{ values: true }} onChange={this.onAdvancedFormChange} />
@@ -225,7 +225,7 @@ export default class ComposableComponent extends React.Component {
                   ...arrayMutators,
                 }}
                 ref={el => this.form = el}
-                initialValues={ this.props.helpers.composition[this.props.index].data }
+                initialValues={ this.props.helpers.composition[this.props.helpers.group][this.props.index].data }
                 validate={values => {
                   if(!template || !template.fields) {
                     return;

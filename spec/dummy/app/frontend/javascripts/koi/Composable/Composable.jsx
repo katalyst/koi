@@ -1,8 +1,5 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
-import ComposableLibrary from "./ComposableLibrary";
-import ComposableComposition from "./ComposableComposition";
+import ComposableGroupItem from './ComposableGroupItem';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -18,8 +15,9 @@ export default class Composable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      composition: this.props.composition || [],
+      composition: this.intialiseComposition(),
       error: false,
+      group: this.getInitialGroup(),
       debug: this.props.debug || localStorage.getItem("koiDebugComposable") || false,
     };
 
@@ -109,8 +107,43 @@ export default class Composable extends React.Component {
   }
 
   // =========================================================================
+  // Groups
+  // =========================================================================
+
+  // Switch between a different active group
+  setGroup = group => {
+    this.setState({
+      group,
+    });
+  }
+
+  // Simple helper to get the first group key
+  getInitialGroup = () => {
+    return Object.keys(this.props.config)[0];
+  }
+
+  // =========================================================================
   // Component data structures
   // =========================================================================
+
+  // Build out a nested JSON structure for all groups
+  // If there is a new group added in the crud config, this will ensure that
+  // it doesn't crash when trying to render the new group by initialising
+  // and empty array in the JSON named for that group
+  // It will merge in any existing data for groups that already exist
+  // => { group1: [], group2: [], group3: this.props.composition.group3 }
+  intialiseComposition = () => {
+    const structure = {};
+    const existing = this.props.composition;
+    Object.keys(this.props.config).forEach(key => {
+      if(existing && existing[key]) {
+        structure[key] = existing[key];
+      } else {
+        structure[key] = [];
+      }
+    });
+    return structure;
+  }
 
   /*
     Get the DataType template for a field type name
@@ -183,9 +216,9 @@ export default class Composable extends React.Component {
 
     // Push and setState
     if(atIndex !== false) {
-      composition.splice(atIndex, 0, newComponent);
+      composition[this.state.group].splice(atIndex, 0, newComponent);
     } else {
-      composition.push(newComponent);
+      composition[this.state.group].push(newComponent);
     }
     this.setState({
       composition,
@@ -197,8 +230,8 @@ export default class Composable extends React.Component {
   removeComponent(component) {
     if(confirm("Are you sure you want to remove this component?")) {
       let composition = this.state.composition;
-      let index = composition.indexOf(component);
-      composition.splice(index, 1);
+      let index = composition[this.state.group].indexOf(component);
+      composition[this.state.group].splice(index, 1);
       this.setState({
         composition,
       },() => {
@@ -212,7 +245,7 @@ export default class Composable extends React.Component {
   // show - collapseComponent(12, "show");
   collapseComponent(componentIndex, direction) {
     const composition = this.state.composition;
-    const component = composition[componentIndex];
+    const component = composition[this.state.group][componentIndex];
     if(!component) {
       console.warn("Unable to find component with index of " + componentIndex);
       return;
@@ -229,7 +262,7 @@ export default class Composable extends React.Component {
 
   collapseAllComponents(collapse) {
     const composition = this.state.composition;
-    composition.map(component => {
+    composition[this.state.group].map(component => {
       component.component_collapsed = collapse;
     });
     this.setState({
@@ -242,7 +275,7 @@ export default class Composable extends React.Component {
   // undraft - draftComponent(10, "enable");
   draftComponent(componentIndex, visibility) {
     const composition = this.state.composition;
-    const component = composition[componentIndex];
+    const component = composition[this.state.group][componentIndex];
     if(!component) {
       console.warn("Unable to find component with index of " + componentIndex);
       return;
@@ -351,8 +384,9 @@ export default class Composable extends React.Component {
 
       // Reorder
       } else {
-        const composition = reorder(
-          this.state.composition,
+        const composition = { ...this.state.composition };
+        composition[this.state.group] = reorder(
+          composition[this.state.group],
           source.index,
           destination.index,
         );
@@ -390,9 +424,18 @@ export default class Composable extends React.Component {
       draftComponent: this.draftComponent,
       generateFieldAttributes: this.generateFieldAttributes,
       showAdvancedSettings: this.props.showAdvancedSettings,
+      group: this.state.group,
     };
 
-    const hasSection = this.state.composition.filter(component => component.component_type === "section").length > 0;
+    const groupHelpers = {
+      onDragStart: this.onDragStart,
+      onDragUpdate: this.onDragUpdate,
+      onDragEnd: this.onDragEnd,
+      collapseAllComponents: this.collapseAllComponents,
+    }
+
+    const groups = Object.keys(this.props.config);
+    const hasGroups = groups.length > 1;
 
     if(this.state.error) {
       return(
@@ -421,41 +464,36 @@ export default class Composable extends React.Component {
       );
     } else {
       return(
-        <DragDropContext
-          onDragStart={this.onDragStart}
-          onDragUpdate={this.onDragUpdate}
-          onDragEnd={this.onDragEnd}
-        >
-          <div className="composable--header">
-            <button type="button" onClick={e => this.collapseAllComponents(true)}>Collapse All</button> |
-            <button type="button" onClick={e => this.collapseAllComponents()}>Reveal All</button>
-          </div>
-          <div className={`composable ${hasSection ? "composable__with-sections" : ""}`}>
-            <div className="composable--composition" ref={el => this.$composition = el}>
-              <Droppable droppableId="composition" ignoreContainerClipping={true}>
-                {(compositionProvided, compositionSnapshot) => (
-                  <div ref={compositionProvided.innerRef} className={`${compositionSnapshot.isDraggingOver ? "composable--composition--drag-space" : ""}`}>
-                    <ComposableComposition
-                      helpers={composableHelpers}
-                    />
-                    {compositionProvided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-              {this.state.debug &&
-                <div className="composable--fields--debug spacing-xxx-tight">
-                  <p><strong>Debug:</strong></p>
-                  <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
-                </div>
-              }
+        <div className="composable-group" ref={el => this.$composition = el}>
+          {hasGroups &&
+            <div className="tabs--links tabs--link__inpage">
+              <ul>
+                {groups.map(groupKey => (
+                  <li key={groupKey}>
+                    <button
+                      type="button"
+                      className={`tabs--link ${this.state.group === groupKey ? "active" : ""}`}
+                      onClick={e => this.setGroup(groupKey)}
+                    >{groupKey}</button>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ComposableLibrary
-              composableTypes={this.props.composableTypes}
-              helpers={composableHelpers}
-            />
-          </div>
+          }
+          <ComposableGroupItem
+            groupKey={this.state.group}
+            config={this.props.config}
+            helpers={composableHelpers}
+            groupHelpers={groupHelpers}
+          />
+          {this.state.debug &&
+            <div className="composable--fields--debug spacing-xxx-tight">
+              <p><strong>Debug:</strong></p>
+              <pre>data: {JSON.stringify(this.state.composition, null, 2)}</pre>
+            </div>
+          }
           <input type="hidden" name={this.props.attr} value={JSON.stringify(this.state.composition)} readOnly />
-        </DragDropContext>
+        </div>
       );
     }
   }

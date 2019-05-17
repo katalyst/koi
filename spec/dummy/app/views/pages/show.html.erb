@@ -10,11 +10,16 @@
   <%= JSON.pretty_generate @page.composable_json -%>
   </pre>
 
-  <h2 class="heading-two">Structured composable data (including drafts)</h2>
+  <h2 class="heading-two">Composable JSON for a group (:main)</h2>
   <pre>
-  <%= JSON.pretty_generate @page.composable_sections_with_drafts -%>
+  <%= JSON.pretty_generate @page.composable_json(:main) -%>
   </pre>
 
-  <h2 class="heading-two">Composable partials</h2>
-  <%= render "/shared/composables", sections: @page.composable_sections_with_drafts %>
+  <h2 class="heading-two">Structured composable data (including drafts) for group :main</h2>
+  <pre>
+  <%= JSON.pretty_generate @page.composable_sections_with_drafts(:main) -%>
+  </pre>
+
+  <h2 class="heading-two">Composable partials for :main</h2>
+  <%= render "/shared/composables", sections: @page.composable_sections_with_drafts(:main) %>
 <% end %>
