@@ -65,12 +65,6 @@ export default function KoiComposable(props) {
     $(document).trigger("composable:re-attach-ckeditors");
   }
 
-  // Whenever a component is added, enhance the forms
-  // eg. datepickers, colour pickers, enhanced form fields
-  const onComponentAdd = () => {
-    $(document).trigger("ornament:enhance-forms");
-  }
-
   // =========================================================================
   // Composable + Integrations
   // =========================================================================
@@ -82,7 +76,6 @@ export default function KoiComposable(props) {
       onMount={onMount}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      onComponentAdd={onComponentAdd}
       customValidations={customValidations}
       customFormFieldComponents={{
         ComposableFieldAsset,

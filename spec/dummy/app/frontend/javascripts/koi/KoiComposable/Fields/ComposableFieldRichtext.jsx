@@ -23,9 +23,7 @@ export default class ComposableFieldRichtext extends React.Component {
   */
   componentDidMount() {
     this.triggerBindings();
-    $(document).on("composable:re-attach-ckeditors", () => {
-      this.triggerBindings();
-    });
+    $(document).on("composable:re-attach-ckeditors", this.triggerBindings);
   }
 
   /*
@@ -33,6 +31,7 @@ export default class ComposableFieldRichtext extends React.Component {
     to stop it listening for things that no longer exist 
   */
   componentWillUnmount() {
+    $(document).off("composable:re-attach-ckeditors", this.triggerBindings);
     var instance = CKEDITOR.instances[this.props.id];
     if(instance) {
       instance.destroy();
