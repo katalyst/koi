@@ -187,8 +187,8 @@ Koi::ComposableContent.register_components [
         hint: "Only future dates",
         placeholder: "Choose a date",
         type: "date",
-        inputData: {
-          "datepicker-mindate": 0
+        datePickerSettings: {
+          "minDate": 0,
         }
       },{
         name: "colour",

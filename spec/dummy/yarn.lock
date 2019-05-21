@@ -5662,10 +5662,10 @@ react-beautiful-dnd@^10.1.1:
     redux "^4.0.1"
     tiny-invariant "^1.0.4"
 
-react-composable-content@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-composable-content/-/react-composable-content-1.0.4.tgz#384d7ceb359e0cff82e0d9307f1dd22b5d780015"
-  integrity sha512-QtZQx2VQzlxjg7e8LdAquLu4WbDWzgmnwnwI576GpnuxxeDaFLK6Ht/TBu+Jj5VnwobDzHtwiHY8mqbU05B5aQ==
+react-composable-content@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-composable-content/-/react-composable-content-1.0.5.tgz#3de154f3190ab078e1619f738bd1efe17929072d"
+  integrity sha512-mA8lFk/pyRhcv3smhFUf5//08fP8lPP7zzWRCKXoadevlyHsCK18gLv48cAmD05fKF+H1wxkV1OU+ifSUIBmBg==
   dependencies:
     axios "^0.18.0"
     downshift "^3.1.15"

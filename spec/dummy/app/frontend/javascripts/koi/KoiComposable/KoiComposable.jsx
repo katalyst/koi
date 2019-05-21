@@ -34,8 +34,20 @@ export default function KoiComposable(props) {
   // =========================================================================
 
   // When the Composable component mounts
-  const onMount = () => {
+  const onMount = component => {
     bindKoiForms();
+
+    // Binding some helper functions to enable/disbale debug mode
+    // and store in localstorage
+    window.enableComposableDebug = window.enableComposableDebug || (() => {
+      localStorage.setItem("koiDebugComposable", true);
+      component.setDebug(true);
+    });
+
+    window.disableComposableDebug = window.disableComposableDebug || (() => {
+      localStorage.removeItem("koiDebugComposable");
+      component.setDebug();
+    });
   }
 
   // Processing on elements when picking them up

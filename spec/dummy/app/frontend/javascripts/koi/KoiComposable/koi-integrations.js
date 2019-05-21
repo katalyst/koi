@@ -3,7 +3,7 @@
 // =========================================================================
 
 // Trigger the form validations
-const validateForm = function(event, saveAndContinue=false){
+const validateForm = function(event, $form, saveAndContinue=false){
 
   // Prevent submission event
   if(event) {
@@ -11,7 +11,8 @@ const validateForm = function(event, saveAndContinue=false){
   }
 
   // Fire the validation event
-  $(document).trigger("composable:validate");
+  const validationEvent = new CustomEvent("composable-content:validate");
+  document.dispatchEvent(validationEvent);
 
   // Move to end of event loop
   setTimeout(e => {
@@ -52,9 +53,9 @@ const bindKoiForms = () => {
   $form.find("button[type=submit]").on("click submit", e => {
     e.preventDefault();
     if(e.currentTarget.value && e.currentTarget.value === "Continue") {
-      validateForm(event, true);
+      validateForm(event, $form, true);
     } else {
-      validateForm(event);
+      validateForm(event, $form);
     }
   });
 }

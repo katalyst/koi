@@ -1,3 +1,16 @@
+/*
+
+  CKEditor field for react-composable-content
+
+  The render is made of two <Field> components
+  The first is a textarea that the browser is going to replace with CKEditor
+  The second is going to be the field that react-final-form is going to watch for
+  content changes and store in state.
+  This allows CKEditor to work entirely separate from the composition state, only
+  pushing changes to the react state when needed.
+
+*/
+
 import React from 'react';
 import { Field } from 'react-final-form';
 
@@ -26,6 +39,10 @@ export default class ComposableFieldRichtext extends React.Component {
     }
   }
 
+  /*
+    Watch for updates to the editor and push them back to 
+    react state
+  */
   triggerBindings = () => {
     var $editor = $("#" + this.props.id)[0];
     Ornament.CKEditor.bindForTextarea($editor);

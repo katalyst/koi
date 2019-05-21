@@ -1,6 +1,11 @@
 /*
 
-  Asset manager field
+  Asset manager field for react-composable-content
+
+  An integration with Koi's asset manager to pick an asset and populate the thumbnail
+  in to the field image placeholder and set the input value to the ID of the asset.
+
+  Options:
 
   `assetType`
   can be either "image" or "document"
