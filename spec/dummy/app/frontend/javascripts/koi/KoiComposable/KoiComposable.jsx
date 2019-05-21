@@ -43,7 +43,6 @@ export default function KoiComposable(props) {
   // a workaround is to disable the CKEditor when dragging
   // and then renable them when dropping
   const onDragStart = (start, provided) => {
-    console.log(start.source.droppableId);
     if(start.source.droppableId === "composition") {
       Ornament.CKEditor.destroyForParent($(".composable--composition"), true);
     }
@@ -52,6 +51,12 @@ export default function KoiComposable(props) {
   // Re-enable CKEditors
   const onDragEnd = (result, provided) => {
     $(document).trigger("composable:re-attach-ckeditors");
+  }
+
+  // Whenever a component is added, enhance the forms
+  // eg. datepickers, colour pickers, enhanced form fields
+  const onComponentAdd = () => {
+    $(document).trigger("ornament:enhance-forms");
   }
 
   // =========================================================================
@@ -65,6 +70,7 @@ export default function KoiComposable(props) {
       onMount={onMount}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
+      onComponentAdd={onComponentAdd}
       customValidations={customValidations}
       customFormFieldComponents={{
         ComposableFieldAsset,
