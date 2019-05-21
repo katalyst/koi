@@ -53,7 +53,7 @@ import { Field } from 'react-final-form';
 export default class ComposableFieldCustom extends React.Component {
   render() {
     return(
-      <div className="form--field-wrapper panel__error">
+      <div className="form--field-wrapper">
         <Field
           component="input"
           type={this.props.inputType || "text"}

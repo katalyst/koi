@@ -52,16 +52,6 @@ module Composable
         main: [:section, :heading, :text],
       }
     end
-
-    # Take the composable_field_types and retrieve the config from the library
-    def composable_config
-      config = composable_crud_config
-      structure = {}
-      config.each do |group, fields|
-        structure[group] = Koi::ComposableContent.components.select { |type| fields.include?(type[:slug].to_sym) }
-      end
-      structure
-    end
   end
 
   # When you add a component to a page, but don't specify a

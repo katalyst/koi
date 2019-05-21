@@ -21,6 +21,12 @@ import Composable from 'react-composable-content';
 import customValidations from './validations';
 import { bindKoiForms } from './koi-integrations';
 
+// Custom fields
+import ComposableFieldAsset from './Fields/ComposableFieldAsset';
+import ComposableFieldColour from './Fields/ComposableFieldColour';
+import ComposableFieldDate from './Fields/ComposableFieldDate';
+import ComposableFieldRichtext from './Fields/ComposableFieldRichtext';
+
 export default function KoiComposable(props) {
 
   // =========================================================================
@@ -37,6 +43,7 @@ export default function KoiComposable(props) {
   // a workaround is to disable the CKEditor when dragging
   // and then renable them when dropping
   const onDragStart = (start, provided) => {
+    console.log(start.source.droppableId);
     if(start.source.droppableId === "composition") {
       Ornament.CKEditor.destroyForParent($(".composable--composition"), true);
     }
@@ -54,10 +61,17 @@ export default function KoiComposable(props) {
   return(
     <Composable
       {...props}
+      draftMode={true}
       onMount={onMount}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       customValidations={customValidations}
+      customFormFieldComponents={{
+        ComposableFieldAsset,
+        ComposableFieldColour,
+        ComposableFieldDate,
+        ComposableFieldRichtext,
+      }}
       externalSubmission={true}
     />
   )

@@ -9,6 +9,10 @@
 
 .composable--header {
   margin-bottom: $xxx-small-unit;
+
+  button + button {
+    margin-left: $x-small-unit;
+  }
 }
 
 .composable-group .tabs--links {

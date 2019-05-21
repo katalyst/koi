@@ -2,8 +2,8 @@
 Koi::ComposableContent.register_components [
 
   {
-    name: "Reaptable thing",
-    slug: "repeatable_thing",
+    label: "Reaptable thing",
+    name: "repeatable_thing",
     icon: "paragraph_with_image",
     fields: [
       {
@@ -31,8 +31,8 @@ Koi::ComposableContent.register_components [
   },
 
   {
-    name: "Text with image",
-    slug: "text_with_image",
+    label: "Text with image",
+    name: "text_with_image",
     icon: "paragraph",
     primary: 'text',
     validations: ["anyValues"],
@@ -51,8 +51,8 @@ Koi::ComposableContent.register_components [
   },
 
   {
-    name: "Autocompletes",
-    slug: "autocompletes",
+    label: "Autocompletes",
+    name: "autocompletes",
     message: "Make sure you have Super Hero data",
     messageType: "passive",
     fields: [
@@ -91,13 +91,13 @@ Koi::ComposableContent.register_components [
   },
 
   {
-    name: "No Config",
-    slug: "no_config",
+    label: "No Config",
+    name: "no_config",
   },
 
   {
-    name: "Hero",
-    slug: "hero",
+    label: "Hero",
+    name: "hero",
     icon: "user",
     primary: "hero_id",
     fields: [
@@ -138,8 +138,8 @@ Koi::ComposableContent.register_components [
   },
 
   {
-    name: "Hero List",
-    slug: "hero_list",
+    label: "Hero List",
+    name: "hero_list",
     icon: "listing_blocks",
     primary: "list_type",
     fields: [
@@ -154,8 +154,8 @@ Koi::ComposableContent.register_components [
   },
 
   {
-    name: "Kitchen Sink",
-    slug: "kitchen_sink",
+    label: "Kitchen Sink",
+    name: "kitchen_sink",
     icon: "stack",
     primary: "small_field",
     fields: [

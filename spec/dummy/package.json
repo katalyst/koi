@@ -27,7 +27,7 @@
     "prop-types": "^15.7.2",
     "rails-erb-loader": "^5.0.2",
     "react": "^16.8.6",
-    "react-composable-content": "^1.0.0",
+    "react-composable-content": "^1.0.4",
     "react-dom": "^16.8.6",
     "react-on-rails": "11.1.4",
     "resolve-url-loader": "^2.0.2",
