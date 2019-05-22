@@ -19,7 +19,7 @@ import Composable from 'react-composable-content';
 
 // Koi integrations
 import customValidations from './validations';
-import { bindKoiForms } from './koi-integrations';
+import { bindKoiForms, bindKoiDebugFunctions } from './koi-integrations';
 
 // Custom fields
 import ComposableFieldAsset from './Fields/ComposableFieldAsset';
@@ -35,19 +35,10 @@ export default function KoiComposable(props) {
 
   // When the Composable component mounts
   const onMount = component => {
+    // Bind the form submit override
     bindKoiForms();
-
-    // Binding some helper functions to enable/disbale debug mode
-    // and store in localstorage
-    window.enableComposableDebug = window.enableComposableDebug || (() => {
-      localStorage.setItem("koiDebugComposable", true);
-      component.setDebug(true);
-    });
-
-    window.disableComposableDebug = window.disableComposableDebug || (() => {
-      localStorage.removeItem("koiDebugComposable");
-      component.setDebug();
-    });
+    // Bind the debug helper functions
+    bindKoiDebugFunctions();
   }
 
   // Processing on elements when picking them up

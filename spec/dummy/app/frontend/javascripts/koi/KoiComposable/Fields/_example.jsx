@@ -45,6 +45,21 @@
   This is helpful if you have a programatic function that sets the value
   of a hidden input field
 
+  An example of using a non-react field (eg. jQuery plugin / separate React Component) 
+  and updating the react state using setFieldValue:
+
+  <textarea
+    data-bind-some-jquery-thing
+    onChange={event => {
+      this.props.helpers.setFieldValue(this.$hiddenField, event.currentTarget.value)}
+    }
+  ></textarea>
+  <Field
+    component="input"
+    type="hidden"
+    ref={element => this.$hiddenField = element}
+  />
+
 */
 
 import React from 'react';

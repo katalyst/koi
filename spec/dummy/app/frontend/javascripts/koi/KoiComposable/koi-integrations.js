@@ -14,21 +14,25 @@ const validateForm = function(event, $form, saveAndContinue=false){
   const validationEvent = new CustomEvent("composable-content:validate");
   document.dispatchEvent(validationEvent);
 
-  // Move to end of event loop
+  // Move to end of event loop so any toggles and errors can be
+  // triggered first
   setTimeout(e => {
+    // Find any errors
     const errors = $(".composable--composition .error-block");
     
     // Focus on first error
     if(errors.length) {
       const firstError = errors.first();
       const field = firstError.parent().find("input, textarea")[0];
+
+      // Focus on the first errored field
       if(field) {
         field.focus();
       } else {
         scrollTo(0, firstError.offset().top - 100);
       }
 
-    // Submit form
+    // No errors? Submit form
     } else {
       const form = $form[0];
       const saveType = document.createElement("input");
@@ -60,4 +64,25 @@ const bindKoiForms = () => {
   });
 }
 
-export { bindKoiForms, validateForm }
+// =========================================================================
+// Binding some window helpers to easily enable/disable debug mode
+// in your console by calling these functions and storing your call
+// in localstorage to persist across pages
+//
+// enableComposableDebug() = turns debug mode on in the component
+// disableComposableDebug() = turns debug mode off
+// =========================================================================
+
+const bindKoiDebugFunctions = component => {
+  window.enableComposableDebug = window.enableComposableDebug || (() => {
+    localStorage.setItem("koiDebugComposable", true);
+    component.setDebug(true);
+  });
+
+  window.disableComposableDebug = window.disableComposableDebug || (() => {
+    localStorage.removeItem("koiDebugComposable");
+    component.setDebug();
+  });
+}
+
+export { bindKoiForms, bindKoiDebugFunctions }
