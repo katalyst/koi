@@ -6,11 +6,11 @@
   end
 -%>
 
-<%= react_component("Composable", props: {
+<%= react_component("KoiComposable", props: {
   composition: value,
-  config: f.object.class.composable_config,
-  allComposableTypes: Koi::ComposableContent.components,
-  showAdvancedSettings: Koi::ComposableContent.show_advanced_settings,
+  config: f.object.class.composable_crud_config,
+  components: Koi::ComposableContent.components,
+  advancedSettings: Koi::ComposableContent.advanced_settings,
   icons: {
     image: icon("image"),
     stack: icon("stack"),
@@ -29,5 +29,9 @@
     user: icon("user"),
     cog: icon("cog_filled"),
   },
-  attr: "#{f.object_name}[#{attr}]"
+  lang: {
+    draftModeBanner: "Draft mode: Only visible to admin",
+  },
+  formFieldName: "#{f.object_name}[#{attr}]",
+  debug: false,
 }) %>

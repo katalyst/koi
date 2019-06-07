@@ -62,16 +62,23 @@ module Koi
 
     # Setting for enabling / disabling the advanced settings
     # menu in components
-    def self.show_advanced_settings
-      @@show_advanced_settings
+    def self.advanced_settings
+      @@advanced_settings
     end
 
-    def self.show_advanced_settings=(show)
-      @@show_advanced_settings = show
+    def self.advanced_settings=(settings)
+      @@advanced_settings = settings
     end
 
     # Initialise settings
-    @@show_advanced_settings = true
+    @@advanced_settings = [{
+      name: "class",
+      label: "Class",
+    },{
+      name: "id",
+      label: "Id",
+      hint: "This can be used for anchoring purposes",
+    }]
     @@section_drafting_for_children = true
 
     #
@@ -80,8 +87,8 @@ module Koi
     #
     register_components [
         {
-          name: "Section",
-          slug: "section",
+          label: "Section",
+          name: "section",
           nestable: true,
           icon: "composable_section",
           primary: "section_type",
@@ -97,8 +104,8 @@ module Koi
         },
 
         {
-          name: "Heading",
-          slug: "heading",
+          label: "Heading",
+          name: "heading",
           icon: "heading",
           primary: "text",
           fields: [
@@ -119,8 +126,8 @@ module Koi
         },
 
         {
-          name: "Text",
-          slug: "text",
+          label: "Text",
+          name: "text",
           icon: "paragraph",
           primary: "body",
           fields: [
@@ -132,8 +139,8 @@ module Koi
         },
 
         {
-          name: "Rich Text",
-          slug: "rich_text",
+          label: "Rich Text",
+          name: "rich_text",
           icon: "paragraph_with_image",
           primary: "body",
           fields: [
