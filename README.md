@@ -21,7 +21,7 @@ Requirements:
 * [yarn](https://yarnpkg.com/en/)
 * [foreman](https://github.com/ddollar/foreman)
 
-The current version of Koi is 3.2.0, which requires Rails 5.2. Rails 4 apps should use `v2.x`. Version 2 is maintained but has no active development.
+The current version of Koi is 3.2.1, which requires Rails 5.2. Rails 4 apps should use `v2.x`. Version 2 is maintained but has no active development.
 
 There is a test dummy app available in `/spec/dummy`
 Due to the requirement for webpacker, you must first install the yarn dependancies and run the server using the foreman.
