@@ -4,6 +4,20 @@ class Page < ApplicationRecord
            settings: true, composable: true
 
   validates_presence_of :title
+  composable :body, components: [
+                                  :section,
+                                  :heading,
+                                  :text,
+                                  :rich_text,
+                                  :autocompletes,
+                                  :hero,
+                                  :hero_list,
+                                  :text_with_image,
+                                  :repeatable_thing,
+                                  :no_config,
+                                  :kitchen_sink
+                                ]
+  composable :sidebar, components: [:text]
 
   def titleize
     title
@@ -14,32 +28,15 @@ class Page < ApplicationRecord
   end
 
   crud.config do
-    fields composable_data: { type: :composable }
+    fields body:    { type: :composable },
+           sidebar: { type: :composable }
     actions only: [:index, :show]
     hide false
     title collection: "Pages"
     config :admin do
       actions except: [:new]
-      index   fields: [:id, :title]
-      form    fields: [:title, :composable_data],
-              composable: {
-                main: [
-                  :section,
-                  :heading,
-                  :text,
-                  :rich_text,
-                  :autocompletes,
-                  :hero,
-                  :hero_list,
-                  :text_with_image,
-                  :repeatable_thing,
-                  :no_config,
-                  :kitchen_sink
-                ],
-                sidebar: [
-                  :text,
-                ]
-              }
+      index fields: [:id, :title]
+      form fields: [:title, :body, :sidebar]
     end
   end
 

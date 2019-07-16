@@ -2,7 +2,7 @@
 
   <%- # Build mark up for the data inside this section for use later -%>
   <%- section_contents = capture do -%>
-    <%- section[:section_data].each do |component| -%>
+    <%- section["section_data"].each do |component| -%>
       <% is_draft = component["component_draft"] %>
       <%- next if is_draft && !admin_signed_in? %>
       <%- component_type = component["component_type"] -%>
@@ -24,7 +24,7 @@
   <%- end -%>
 
   <%- # Build markup for our section and insert our data -%>
-  <%- section_type = section[:section_type] -%>
+  <%- section_type = section["section_type"] -%>
   <%= 
     begin
       render "shared/composable_sections/#{section_type}", section: section, section_contents: section_contents 

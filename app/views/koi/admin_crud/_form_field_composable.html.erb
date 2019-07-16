@@ -1,14 +1,6 @@
-<%-
-  value = f.object.send(attr)
-  # fix for data not saving in JSON format
-  if value.is_a?(String)
-    value = JSON.parse(value)
-  end
--%>
-
 <%= react_component("KoiComposable", props: {
-  composition: value,
-  config: f.object.class.composable_crud_config,
+  composition: { data: f.object.public_send(attr) },
+  config: { data: f.object.class.composable_components(attr) },
   components: Koi::ComposableContent.components,
   advancedSettings: Koi::ComposableContent.advanced_settings,
   icons: {
