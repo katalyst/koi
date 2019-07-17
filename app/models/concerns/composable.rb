@@ -2,115 +2,142 @@ module Composable
   extend ActiveSupport::Concern
 
   included do
-
-    def composable_data
-      if defined?(super)
-        super
-      else
-        raise "You need a jsonb field called `composable_data` in the model implementing this concern"
-      end
-    end
-
-    def composable?
-      composable_json.present?
-    end
-
-    # Get all raw JSON data
-    # resource.composable_json => { main: [...] }
-    # Optionally get all raw JSON data for a specific group by
-    # passing in a group key
-    # resource.composable_json(:main) => [...]
-    def composable_json(group=false)
-      data = composable_data
-      if data.present?
-        data = JSON.parse(data)
-        data = data[group.to_s] if group
-        data
-      end
-    end
-
-    # Get formatted composable content grouped in to sections for a specific group
-    # resource.composable_sections(:main)
-    def composable_sections(group)
-      Composable.format_composable_data(composable_data, group) if composable?
-    end
-
-    # Same as composable_sections but includes drafts
-    def composable_sections_with_drafts(group)
-      Composable.format_composable_data(composable_data, group, include_drafts: true) if composable?
-    end
-
+    class_attribute :_composable, instance_writer: false, default: Hash.new { |h, k| h[k] = {} }
   end
 
   class_methods do
+    DEFAULT_COMPONENTS = [:section, :heading, :text].freeze
+
+    def composable?(field)
+      _composable.include?(field)
+    end
+
+    def composable_components(field)
+      return nil unless composable?(field)
+      _composable.dig(field, :components) || DEFAULT_COMPONENTS
+    end
+
+    # @deprecated
     def composable_crud_config
-      # Try getting settings from crud config
-      self.crud.settings.try(:[], :admin).try(:[], :form).try(:[], :composable) ||
+      _composable.map { |attr, options| [attr, composable_components(attr)] }.to_h
+    end
 
-      # Fallback to defaults
-      {
-        main: [:section, :heading, :text],
+    # Defines accessors and configuration for a composable field
+    def composable(field, opts = {})
+      class_eval <<-RUBY, __FILE__, __LINE__
+        def #{field}=(value)
+          # Deserialise JSON form data
+          value = JSON.parse(value) if value.is_a?(String)
+          # Strip react-composable-content default group
+          value = value["data"] if value.is_a?(Hash)
+          self[:#{field}] = value
+        end
+      RUBY
+
+      _composable[field].merge!(opts)
+    end
+  end
+
+  def composable?(field)
+    self.class.composable?(field) && public_send(field).present?
+  end
+
+  # Get formatted composable content grouped in to sections for a specific field
+  # * `include_drafts`: true if draft content should be rendered
+  def composable_sections(field, opts = {})
+    renderer = ::Composable::SectionRenderer.new(opts)
+    if (data = self[field])
+      data.map(&:with_indifferent_access).reduce(renderer, &:render).result
+    end
+  end
+
+  # Same as composable_sections but includes drafts
+  # @deprecated use composable_sections directly
+  def composable_sections_with_drafts(field, opts = {})
+    composable_sections(field, opts.merge(include_drafts: true))
+  end
+
+  class SectionRenderer
+    attr_reader :include_drafts
+    alias_method :include_drafts?, :include_drafts
+
+    def initialize(include_drafts: false)
+      @include_drafts  = include_drafts
+      @current_section = nil
+      @result          = []
+    end
+
+    # Visits a datum, adding it to the result and returning the renderer
+    def render(datum)
+      case datum[:component_type]
+      when "section"
+        @current_section = render_section(datum)
+      else
+        @current_section ||= new_section(datum[:component_type])
+        render_child(@current_section, datum)
+      end
+
+      self
+    end
+
+    # Creates a new section, adds it to the result, and returns it
+    def render_section(datum)
+      section = {
+        section_type:  datum.fetch(:data, {}).fetch(:section_type, default_section_type),
+        section_data:  [],
+        section_draft: datum.fetch(:component_draft, false),
+        advanced:      datum.fetch(:advanced, {}),
       }
+      # Add section to output, unless it's a draft
+      @result << section if keep?(datum)
+      section
     end
-  end
 
-  # When you add a component to a page, but don't specify a
-  # section, use this hash to override what section it gets
-  # wrapped in
-  def self.component_type_section_fallbacks
-    {
-      "video": "fullwidth",
-      "full_banner": "fullwidth",
-    }
-  end
-
-  def self.format_composable_data(data, group, include_drafts: false)
-    # Group page sections as nested data
-    current_composable_section = false
-    composable_sections = []
-    if data.is_a?(String)
-      data = JSON.parse(data)
+    # Creates a new section to wrap a top-level datum
+    def new_section(type)
+      section = {
+        section_type: default_section_type(type),
+        section_data: []
+      }
+      # No check for draft here because the next item may not be a draft
+      # Empty sections will be removed by `result`
+      @result << section
+      section
     end
-    if data.present?
-      # Select the group
-      data = data[group.to_s]
-      data.each_with_index do |datum,index|
-        next if !include_drafts && datum["component_draft"].eql?(true)
 
-        # create new section if there is no current section and this
-        # isn't a new section
-        if !current_composable_section && !datum["component_type"].eql?("section")
-          current_composable_section = {
-            section_type: component_type_section_fallbacks[datum[:component_type]] || Koi::ComposableContent.fallback_section_type,
-            section_data: []
-          }
-        end
-        # create a new section if this is a new section
-        if datum["component_type"].eql?("section")
-          # push current page section to page sections if there's one available
-          composable_sections << current_composable_section if current_composable_section
-          # create a new section from this datum
-          current_composable_section = {
-            section_type: datum["data"]["section_type"] || Koi::ComposableContent.fallback_section_type,
-            section_data: [],
-            section_draft: datum["component_draft"],
-            advanced: datum["advanced"] || {},
-          }
-        # push datum to current page section
-        else
-          # Mark as draft if section is a draft
-          if Koi::ComposableContent.section_drafting_for_children
-            datum["component_draft"] = current_composable_section[:section_draft] if current_composable_section[:section_draft]
-          end
-          current_composable_section[:section_data] << datum.except!("component_collapsed")
-        end
+    # Creates a new child, adds it to the section, and returns it
+    def render_child(section, datum)
+      # Mark as draft if section is a draft
+      if Koi::ComposableContent.section_drafting_for_children
+        datum[:component_draft] = true if section[:section_draft]
       end
-      # push last section to composable_sections
-      if current_composable_section && !composable_sections.include?(current_composable_section)
-        composable_sections << current_composable_section
+
+      # Remove section-only attributes
+      datum.except!("component_collapsed")
+
+      section[:section_data] << datum if keep?(datum)
+    end
+
+    # Returns the rendered result
+    def result
+      @result.reject { |section| section[:section_data].empty? }.as_json
+    end
+
+    private
+
+    def keep?(datum)
+      include_drafts? || !datum.fetch(:component_draft, false)
+    end
+
+    def default_section_type(component_type = nil)
+      case component_type.to_s
+      when "video"
+        "fullwidth"
+      when "full_banner"
+        "fullwidth"
+      else
+        Koi::ComposableContent.fallback_section_type
       end
-      composable_sections
     end
   end
-
 end

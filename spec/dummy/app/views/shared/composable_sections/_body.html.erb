@@ -1,4 +1,4 @@
-<div class="section__<%= section[:section_type] -%> <%= section.try(:[], :advanced).try(:[], "className") %>" id="<%= section.try(:[], :advanced).try(:[], "id") %>">
+<div class="section__<%= section["section_type"] -%> <%= section.dig("advanced", "className") %>" id="<%= section.dig("advanced", "id") %>">
   <div class="layout--container">
     <%= section_contents -%>
   </div>

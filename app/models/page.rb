@@ -3,6 +3,7 @@ class Page < ApplicationRecord
            settings: true, composable: true
 
   validates :title, presence: true
+  composable :body, components: [:section, :heading, :text]
 
   def titleize
     title
@@ -13,14 +14,14 @@ class Page < ApplicationRecord
   end
 
   crud.config do
-    fields composable_data: { type: :composable }
+    fields body: { type: :composable }
     actions only: [:index, :show]
     hide false
     title collection: "Pages"
     config :admin do
       actions except: [:new]
       index   fields: [:id, :title]
-      form    fields: [:title, :description, :composable_data]
+      form    fields: [:title, :description, :body]
     end
   end
 

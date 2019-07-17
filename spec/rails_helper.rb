@@ -8,6 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |file| require file }
 Dir[Rails.root.join("../../spec/factories/*.rb")].each { |file| require file }
+require 'factory_bot_rails'
 require 'faker'
 require 'shoulda/matchers'
 require 'capybara/poltergeist'
@@ -64,7 +65,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.infer_spec_type_from_file_location!
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
 end

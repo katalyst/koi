@@ -4,22 +4,22 @@
   <% raw @page.description %>
 </div>
 
-<% if @page.composable? %>
-  <h2 class="heading-two">Composable JSON</h2>
+<% if @page.composable?(:body) %>
+  <h2 class="heading-two">Composable JSON for body</h2>
   <pre>
-  <%= JSON.pretty_generate @page.composable_json -%>
+  <%= JSON.pretty_generate @page.body -%>
   </pre>
 
-  <h2 class="heading-two">Composable JSON for a group (:main)</h2>
+  <h2 class="heading-two">Section data (including drafts) </h2>
   <pre>
-  <%= JSON.pretty_generate @page.composable_json(:main) -%>
+  <%= JSON.pretty_generate @page.composable_sections(:body, include_drafts: true) -%>
   </pre>
 
-  <h2 class="heading-two">Structured composable data (including drafts) for group :main</h2>
+  <h2 class="heading-two">Section data (excluding drafts) </h2>
   <pre>
-  <%= JSON.pretty_generate @page.composable_sections_with_drafts(:main) -%>
+  <%= JSON.pretty_generate @page.composable_sections(:body) -%>
   </pre>
 
-  <h2 class="heading-two">Composable partials for :main</h2>
-  <%= render "/shared/composables", sections: @page.composable_sections_with_drafts(:main) %>
+  <h2 class="heading-two">Composable partials for body</h2>
+  <%= render "/shared/composables", sections: @page.composable_sections(:body, include_drafts: true) %>
 <% end %>

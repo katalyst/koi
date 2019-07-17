@@ -1,5 +1,20 @@
 # Breaking changes and Upgrade Paths
 
+## 3.3.0
+
+Instead of nesting composable data in groups, composable data can now be stored
+in named jsonb fields. See `Page` for an example.
+
+Composable data fields are now configured directly, rather than via crud admin,
+as these configurations are relevant to rendering as well as editing.
+
+Prior versions of Koi had a bug where composable data was stored as a string
+even if the field was a jsonb field. Upgrading will require a manual migration
+to convert from strings to json. If you are upgrading from 3.1.2 or earlier, the
+format of the `composable_data` field has not otherwise changed, but if you are
+upgrading from 3.1.3 or later, you will need to split composable_data groups up
+into separate fields.
+
 ## 2.2.1
 
 * Removed `:images` from settings
