@@ -102,6 +102,7 @@
       // Init CKEditor if necessary
       initCkEditorOn(insertedItem);
       Ornament.C.FormHelpers.init();
+      Ornament.C.ManagedAsset.init();
       // Find the parent inline nested element and check if we 
       // need to update ordinals 
       var $inlineNested = insertedItem.closest("[data-inline-nested]");
