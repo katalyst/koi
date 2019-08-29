@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: "pages#index"
+  root to: "news_items#index"
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 
