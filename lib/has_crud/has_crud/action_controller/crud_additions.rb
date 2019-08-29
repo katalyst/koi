@@ -7,17 +7,9 @@ module HasCrud
         base.send :include, Koi::ApplicationHelper
         base.send :inherit_resources
         base.send :attr_accessor, :path
-        base.send :helper_method, :is_allowed?, :is_orderable?, :is_paginated?,
+        base.send :helper_method, :is_allowed?, :is_orderable?,
                   :singular_name, :plural_name, :path, :crud_partial,
-                  :settings_prefix, :is_reportable?, :unpaginated_count
-        base.send :has_scope, :page, :default => 1, :if => :is_paginated?,
-                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
-          scope.page(value).per(controller.per_page)
-        end
-        base.send :has_scope, :per, :if => :is_paginated?,
-                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
-          value.to_i.eql?(0) ? scope.per(controller.per_page) : scope.per(value)
-        end
+                  :settings_prefix, :is_reportable?
       end
 
       module ClassMethods
@@ -43,14 +35,6 @@ module HasCrud
           actions = (resource_class.crud.find(:actions, :only) ||
                      (actions - Array(resource_class.crud.find(:actions, :except)).flatten))
           Array(actions).flatten.include? action
-        end
-
-        def per_page
-          resource_class.crud.find(:per_page) || resource_class.options[:paginate]
-        end
-
-        def is_paginated?
-          request.format == :csv ? false : !!per_page
         end
 
         def is_orderable?
