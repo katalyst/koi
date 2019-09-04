@@ -20,9 +20,26 @@ module HasCrud
                   :is_exportable?, :title_for, :per_page, :settings_prefix
         base.send :respond_to, :html, :js, :csv
         base.send :before_action, :allow_all_parameters!
+        # Pagination
+        base.send :helper_method, :unpaginated_count, :is_paginated?
+        base.send :has_scope, :page, :default => 1, :if => :is_paginated?,
+                  :except                     => [:create, :update, :destroy] do |controller, scope, value|
+          scope.page(value).per(controller.per_page)
+        end
+        base.send :has_scope, :per, :if => :is_paginated?,
+                  :except               => [:create, :update, :destroy] do |controller, scope, value|
+          value.to_i.eql?(0) ? scope.per(controller.per_page) : scope.per(value)
+        end
       end
 
       module ClassMethods
+        def per_page
+          resource_class.crud.find(:per_page) || resource_class.options[:paginate]
+        end
+
+        def is_paginated?
+          request.format == :csv ? false : !!per_page
+        end
       end
 
       module InstanceMethods
