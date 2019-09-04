@@ -67,6 +67,11 @@ module HasCrud
           get_collection_ivar
         end
 
+        def crud_partial(attr, path, klass = resource_class)
+          partial = klass.crud.find(:fields, attr, :type)
+          "#{path}_field_#{partial}"
+        end
+
       end
     end
   end
