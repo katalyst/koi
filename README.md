@@ -24,12 +24,33 @@ Requirements:
 The current version of Koi is 3.3.1, which requires Rails 5.2. Rails 4 apps should use `v2.x`. Version 2 is maintained but has no active development.
 
 There is a test dummy app available in `/spec/dummy`
-Due to the requirement for webpacker, you must first install the yarn dependancies and run the server using the foreman.
 
+To setup this app locally:
 ```
+# if you don't already have koi locally, clone it and navigate to it
+git clone git@github.com:katalyst/koi.git
+cd koi
+
+# install bundler and bundle gems
+gem install bundler --version 2.0.1
+bundle
+
+# setup dev and test databases and run migrations
+createdb koi_dummyapp_development
+createdb koi_dummyapp_test
+rails db:migrations
+RAILS_ENV=test rails db:migrations
+
+# create an Admin using the console
+rails console
+> Admin.create(email: 'admin@katalyst.com.au', password: 'password', first_name: 'Katalyst', last_name: 'Admin', role: 'Super')
+
+# navigate to the dummy app dir
 cd spec/dummy
+
+# due to the requirement for webpacker, you must first install the yarn dependancies and run the server using the foreman
 yarn
-foreman start -f Procfile
+foreman start -f Procfile.dev
 ```
 
 ## License
