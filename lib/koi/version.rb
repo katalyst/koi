@@ -1,3 +1,3 @@
 module Koi
-  VERSION = "3.3.1"
+  VERSION = "4.0.alpha"
 end

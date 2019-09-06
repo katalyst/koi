@@ -1,5 +1,15 @@
 # Breaking changes and Upgrade Paths
 
+
+## 4.0
+
+- Removed front-end views from Koi so that controllers inheriting from Koi::CrudController 
+  will no longer render views by default, and will need views in the app itself. This makes it clear that
+  developers should be making decisions for themslves as to how their content should be rendered. 
+- Removed default pagination from front-end controllers. If pagination is required it should be configured
+  as needed.
+ 
+
 ## 3.3.0
 
 Instead of nesting composable data in groups, composable data can now be stored
