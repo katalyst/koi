@@ -35,15 +35,14 @@ cd koi
 gem install bundler --version 2.0.1
 bundle
 
-# setup dev and test databases and run migrations
+# setup dev and test databases and run migrations from the root directory
 createdb koi_dummyapp_development
 createdb koi_dummyapp_test
-rails db:migrations
-RAILS_ENV=test rails db:migrations
+rails db:migrate
+RAILS_ENV=test rails db:migrate
 
-# create an Admin using the console
-rails console
-> Admin.create(email: 'admin@katalyst.com.au', password: 'password', first_name: 'Katalyst', last_name: 'Admin', role: 'Super')
+# seed the database
+rails db:seed
 
 # navigate to the dummy app dir
 cd spec/dummy
