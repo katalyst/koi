@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise', '~> 4.6.2'
 
   # Form
-  s.add_dependency 'simple_form', '~> 4.1.0'
+  s.add_dependency 'simple_form', '>= 4.1', '< 5.1'
 
   # Nav items (tree structure)
   s.add_dependency 'awesome_nested_set', '~> 3.1.3'
