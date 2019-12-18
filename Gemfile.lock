@@ -1,16 +1,16 @@
 GIT
-  remote: git://github.com/katalyst/ornament.git
-  revision: 77fc0c9e7e1419f36648ddb20506a9fc19d2e76d
-  branch: master
-  specs:
-    ornament (2.3.2)
-      rails (>= 4.0.0)
-
-GIT
   remote: https://github.com/katalyst/koi_config.git
   revision: 6862db8d37b01afb0d2037d70de16a93dfb0274f
   specs:
     koi_config (0.0.1)
+
+GIT
+  remote: https://github.com/katalyst/ornament.git
+  revision: 52bb07f406f4c6034a09307bd88faccacf339bf5
+  branch: master
+  specs:
+    ornament (2.3.2)
+      rails (>= 4.0.0)
 
 PATH
   remote: .
@@ -312,7 +312,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     puma (3.12.1)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-protection (2.0.5)
       rack
     rack-proxy (0.6.5)
