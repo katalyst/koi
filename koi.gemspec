@@ -26,9 +26,6 @@ Gem::Specification.new do |s|
   # jQuery UI
   s.add_dependency 'jquery-ui-rails'               , '~> 4.2.1'
 
-  # Database
-  s.add_dependency 'mysql2'                        , '~> 0.3.11'
-
   # Authorization
   s.add_dependency 'devise'                        , '~> 3.2.4'
 
@@ -99,47 +96,4 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
-
-  # Karo Asset Syncer
-  s.add_development_dependency 'karo'
-
-  # Console Replacement
-  s.add_development_dependency 'pry'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-doc'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-git'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-rails'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-remote'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-theme'
-
-  # Powder makes POW easy
-  s.add_development_dependency 'powder'
-
-  # Clever Data Generator
-  s.add_development_dependency 'forgery'
-
-  # Data Seeding
-  s.add_development_dependency 'seedbank'          , '~> 0.2.1'
-
-  # Fixture replacement
-  s.add_development_dependency 'factory_girl_rails'
-
-  # Error display Replacement
-  s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
-
-  # Guard for automated testing
-  s.add_development_dependency 'guard'
-  s.add_development_dependency 'guard-test'
-  s.add_development_dependency 'guard-livereload'
-  s.add_development_dependency 'ruby_gntp'
 end
