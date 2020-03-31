@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_model_serializers', '~> 0.8.2'
 
-  s.add_dependency 'pg'
+  s.add_dependency 'pg', '~> 0.21'
 
   s.add_dependency 'compass-rails', '~> 2.0.2'
 
@@ -112,10 +112,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'figaro'
 
   s.add_dependency 'htmlentities', '~> 4.3.3'
-
-  # Development Dependencies
-  s.add_development_dependency 'karo'
-  s.add_development_dependency 'byebug'
-  s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'web-console', '~> 2.0'
 end

@@ -14,10 +14,10 @@ gemspec
 gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.git'
 
 # i18n ActiveRecord backend
-gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active_record.git',
-                                  branch: 'master'
+gem 'i18n-active_record'        , require: 'i18n/active_record'
 
 gem 'sass-rails', '~> 5.0.0'
-gem 'ornament', github: 'katalyst/ornament'
+gem 'ornament', git: 'https://github.com/katalyst/ornament.git'
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
+gem 'pg'
