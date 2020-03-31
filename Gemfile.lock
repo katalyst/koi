@@ -30,7 +30,7 @@ PATH
   remote: .
   specs:
     koi (1.2.0)
-      activevalidators (~> 2.0.1)
+      activevalidators (~> 2.0)
       acts-as-taggable-on (~> 2.4.1)
       cocoon
       coffee-rails
