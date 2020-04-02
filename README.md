@@ -6,7 +6,7 @@ Run this to create a new app:
 
 ```bash
 gem install rails -v 3.2.22.5
-rails _3.2.22.5_ new my_app -d mysql -m https://raw.github.com/katalyst/koi/v1.2.0/lib/templates/application/app.rb
+rails _3.2.22.5_ new my_app -d mysql -m https://raw.github.com/katalyst/koi/v1.2.1/lib/templates/application/app.rb
 ```
 
 ## Installing old rails versions on MacOS
