@@ -15,20 +15,16 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # MVC Framework
-  s.add_dependency 'rails'                         , '~> 3.2.16'
+  s.add_dependency 'rails'                         , '~> 3.2.0'
 
   # Overwrite for default rails
   s.add_dependency 'jquery-rails'                  , '~> 3.1.1'
 
   # jQuery UI
   s.add_dependency 'jquery-ui-rails'               , '~> 4.2.1'
-
-  # Database
-  s.add_dependency 'mysql2'                        , '~> 0.3.11'
 
   # Authorization
   s.add_dependency 'devise'                        , '~> 3.2.4'
@@ -75,7 +71,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators'              , '~> 2.0.1'
+  s.add_dependency 'activevalidators'              , '~> 2.0'
 
   # Redis
   s.add_dependency 'redis'
@@ -100,47 +96,4 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency 'rickshaw_rails'
-
-  # Karo Asset Syncer
-  s.add_development_dependency 'karo'
-
-  # Console Replacement
-  s.add_development_dependency 'pry'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-doc'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-git'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-rails'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-remote'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-theme'
-
-  # Powder makes POW easy
-  s.add_development_dependency 'powder'
-
-  # Clever Data Generator
-  s.add_development_dependency 'forgery'
-
-  # Data Seeding
-  s.add_development_dependency 'seedbank'          , '~> 0.2.1'
-
-  # Fixture replacement
-  s.add_development_dependency 'factory_girl_rails'
-
-  # Error display Replacement
-  s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
-
-  # Guard for automated testing
-  s.add_development_dependency 'guard'
-  s.add_development_dependency 'guard-test'
-  s.add_development_dependency 'guard-livereload'
-  s.add_development_dependency 'ruby_gntp'
 end
