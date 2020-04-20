@@ -109,9 +109,4 @@ Gem::Specification.new do |s|
 
   # React for composable pages
   s.add_dependency 'react_on_rails', '~> 11.1.4'
-
-  # Development Dependencies
-  s.add_development_dependency 'karo'
-  s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'engineyard'
 end
