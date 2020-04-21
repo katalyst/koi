@@ -85,13 +85,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators', '~> 3.2.0'
+  s.add_dependency 'activevalidators', '< 5'
 
   # Redis
-  s.add_dependency 'redis', '3.2.1'
+  s.add_dependency 'redis'
 
   # Sidekiq (Background Server)
-  s.add_dependency 'sidekiq', '~> 3.3.2'
+  s.add_dependency 'sidekiq'
 
   # Required by Sidekiq Web
   s.add_dependency 'sinatra'
