@@ -36,7 +36,6 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.0]
       ## Token authenticatable
       # t.string :authentication_token
 
-      t.string :email
       t.string :first_name
       t.string :last_name
       t.string :role

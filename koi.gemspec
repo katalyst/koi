@@ -18,98 +18,98 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'mime-types', '~> 3.1'
+  s.add_dependency 'mime-types'
 
-  s.add_dependency 'rails', '~> 5.2.3'
+  s.add_dependency 'rails'
 
-  s.add_dependency 'active_model_serializers', '~> 0.10.6'
+  s.add_dependency 'active_model_serializers'
 
-  s.add_dependency 'pg', '~> 1.1.0'
+  s.add_dependency 'pg'
 
-  s.add_dependency 'compass-rails', '~> 3.0.2'
+  s.add_dependency 'compass-rails'
 
-  s.add_dependency 'compass', '~> 1.0.3'
+  s.add_dependency 'compass'
 
-  s.add_dependency 'uglifier', '~> 3.2.0'
+  s.add_dependency 'uglifier'
 
   # Overwrite for default rails
-  s.add_dependency 'jquery-rails', '~> 4.3.1'
+  s.add_dependency 'jquery-rails'
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
+  s.add_dependency 'jquery-ui-rails'
 
   # Authorization
-  s.add_dependency 'devise', '~> 4.6.2'
+  s.add_dependency 'devise'
 
   # Form
-  s.add_dependency 'simple_form', '~> 4.1.0'
+  s.add_dependency 'simple_form'
 
   # Nav items (tree structure)
-  s.add_dependency 'awesome_nested_set', '~> 3.1.3'
+  s.add_dependency 'awesome_nested_set'
 
   # Mailer
-  s.add_dependency 'sendgrid', '~> 1.2.4'
+  s.add_dependency 'sendgrid'
 
   # File Handling
-  s.add_dependency 'dragonfly', '~> 1.1.2'
+  s.add_dependency 'dragonfly'
 
   # User Friendly Slugs
-  s.add_dependency 'friendly_id', '~> 5.2.1'
+  s.add_dependency 'friendly_id'
 
   # Pagination
-  s.add_dependency 'kaminari', '~> 1.0.1'
+  s.add_dependency 'kaminari'
 
-  s.add_dependency 'has_scope', '~> 0.7.1'
-  s.add_dependency 'responders', '~> 2.4.0'
+  s.add_dependency 'has_scope'
+  s.add_dependency 'responders'
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 3.14'
+  s.add_dependency 'simple-navigation'
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on', '~> 6.0.0'
+  s.add_dependency 'acts-as-taggable-on'
 
   # Scoped Search
-  s.add_dependency 'scoped_search', '~> 4.1.0'
+  s.add_dependency 'scoped_search'
 
   # Unique ID generation
-  s.add_dependency 'uuidtools', '~> 2.1.5'
+  s.add_dependency 'uuidtools'
 
   # Google Analytics
-  s.add_dependency 'garb', '~> 0.9.8'
+  s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators', '~> 4.0.2'
+  s.add_dependency 'activevalidators'
 
   # Redis
-  s.add_dependency 'redis', '~> 3.3.3'
+  s.add_dependency 'redis'
 
   # Sidekiq (Background Server)
-  s.add_dependency 'sidekiq', '~> 5.0.0'
+  s.add_dependency 'sidekiq'
 
   # Nice Multi Select
-  s.add_dependency 'select2-rails', '~> 3.5.9'
+  s.add_dependency 'select2-rails'
 
   # Nested Forms
-  s.add_dependency 'cocoon', '~> 1.2.10'
+  s.add_dependency 'cocoon'
 
   # Admin Graphing
-  s.add_dependency 'countries', '~> 1.2.5'
+  s.add_dependency 'countries'
 
   # Admin Graphing
-  s.add_dependency 'rickshaw_rails', '~> 1.4.5'
+  s.add_dependency 'rickshaw_rails'
 
   # Application Settings
-  s.add_dependency 'figaro', '~> 1.1.1'
+  s.add_dependency 'figaro'
 
   # Puma server
-  s.add_dependency 'puma', '~> 3.12.1'
+  s.add_dependency 'puma'
 
-  s.add_dependency 'inherited_resources', '~> 1.10.0'
+  s.add_dependency 'inherited_resources'
 
-  s.add_dependency 'htmlentities', '~> 4.3.4'
+  s.add_dependency 'htmlentities'
 
   # React for composable pages
-  s.add_dependency 'react_on_rails', '~> 11.1.4'
+  s.add_dependency 'react_on_rails'
 
   # Development Dependencies
   s.add_development_dependency 'karo'

@@ -105,8 +105,8 @@ gem 'ey_config'
 gem 'sidekiq'
 gem 'redis-namespace'
 
-gem 'devise', '~> 4.6.2'
-gem 'simple_form', '~> 4.1.0'
+gem 'devise'
+gem 'simple_form'
 
 gem_group :development do
   gem 'karo'
