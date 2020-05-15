@@ -24,6 +24,8 @@ class NavItem < ActiveRecord::Base
     end
   end
 
+  scope :visible, -> { where(is_hidden: false ) }
+
   def raise_abstract_error
     raise "Cannot directly instantiate an Abstract NavItem" if self.class == NavItem
   end
@@ -54,7 +56,7 @@ class NavItem < ActiveRecord::Base
     "key_#{id}"
   end
 
-  def options env = @@binding
+  def options(env = @@binding)
     hash = {}
 
     # Process if any procs in the database if, unless, highlights_on columns
@@ -100,12 +102,6 @@ class NavItem < ActiveRecord::Base
       hash[:options] = options
     end
 
-    if link_to_first_child?
-      if children.present?
-        hash[:url] = children.first.url
-      end
-    end
-
     hash
   end
 
@@ -129,6 +125,32 @@ class NavItem < ActiveRecord::Base
       @@binding = get_binding
       children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
     # end
+  end
+
+  # Returns the next item in the alias chain, or self
+  def alias_record
+    link_to_first_child? ? children.visible.first : self
+  end
+
+  def url
+    # DO NOT call url here, any redirection should happen through `alias_record` not through `url`
+    NavItem.aliased(self)&.read_attribute(:url)
+  end
+
+  def admin_url
+    NavItem.aliased(self)&.read_attribute(:admin_url)
+  end
+
+  # Traverses alias chain until fixed point or loop is reached
+  def self.aliased(nav_item)
+    seen = Set.new
+
+    while nav_item.present? && !seen.include?(nav_item)
+      seen.add(nav_item)
+      nav_item = nav_item.alias_record
+    end
+
+    nav_item
   end
 
   def self.navigation(arg=nil, get_binding=binding())

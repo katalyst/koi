@@ -2,7 +2,8 @@ class ModuleNavItem < NavItem
 
   has_crud searchable: [:id, :title, :url], settings: false
 
-  validates :title, :url, :parent, presence: true
+  validates :title, :parent, presence: true
+  validates :url, presence: true, unless: :link_to_first_child
 
   crud.config do
     fields parent_id:           { type: :hidden },

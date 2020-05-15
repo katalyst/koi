@@ -25,16 +25,7 @@ class AliasNavItem < NavItem
   end
 
   def alias_record
-    #FIXME: not sure if referencing NavItem here is a good practice
-    NavItem.find_by_id(alias_id)
-  end
-
-  def url
-    alias_record.url if alias_record && !alias_record.is_hidden
-  end
-
-  def admin_url
-    alias_record.admin_url if alias_record
+    NavItem.find_by(id: alias_id, is_hidden: false)
   end
 
   def self.title
