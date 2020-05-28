@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id', '~> 5.2.1'
 
   # Pagination
-  s.add_dependency 'kaminari', '~> 1.0.1'
+  s.add_dependency 'kaminari', '>= 1.0.1', '< 1.3.0'
 
   s.add_dependency 'has_scope', '~> 0.7.1'
   s.add_dependency 'responders', '~> 2.4.0'
