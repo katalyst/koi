@@ -15,5 +15,7 @@ spec
 .rspec
 passenger.3000.log
 passenger.3000.pid.lock
+/.idea
+/.rakeTasks
 
 test/dummy/config/application.yml
