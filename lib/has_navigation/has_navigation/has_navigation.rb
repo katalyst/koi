@@ -21,41 +21,59 @@ module HasNavigation
   # Similarly, it assumes that your front end route is not nested. You may need to
   # override the `get_url` method to return the correct route based on the parent if so.
   #
-  # Be sure to implemement `to_s` in your model so that it correctly generates nav item titles
+  # Be sure to implement `to_s` in your model so that it correctly generates nav item titles
   #
 
-  def has_navigation(options={})
-    # Include url helpers to generate default path.
-    send :include, Rails.application.routes.url_helpers
+  def has_navigation(options = {})
     # Include class & instance methods.
-    send :include, HasNavigation::Model
+    include HasNavigation::Model
 
     has_one :resource_nav_item, as: :navigable, dependent: :destroy
+  end
+
+  class UrlHelpers
+    include ActionDispatch::Routing::PolymorphicRoutes
+
+    def polymorphic_path(subject, options = nil)
+      return super unless subject.instance_of? Array
+      begin
+        # handle explicit routes defined in the main routing table first
+        super
+      rescue NoMethodError => e
+        # if admin route requested, fall back to koi engine
+        if subject.first == :admin
+          super([koi_engine, *subject.slice(1)], options)
+        else
+          raise e
+        end
+      end
+    end
+  end
+
+  def url_helpers
+    @@url_helpers ||= begin
+                        # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
+                        UrlHelpers.include Rails.application.routes.url_helpers
+                        UrlHelpers.include Rails.application.routes.mounted_helpers
+                        UrlHelpers.new
+                      end
   end
 
   module Model
     extend ActiveSupport::Concern
 
     class_methods do
-      def get_new_admin_url(options={})
-        begin
-          new_polymorphic_path [:admin, self], options
-        rescue
-          Rails.application.routes.url_helpers.send :"new_admin_#{ self.name.singularize.underscore }_path", options
-        end
+      def get_new_admin_url(options = {})
+        url_helpers.new_polymorphic_path [:admin, self], options
       end
     end
 
-    def get_edit_admin_url(options={})
-      begin
-      edit_polymorphic_path [:admin, self]
-      rescue
-        Koi::Engine.routes.url_helpers.send :"edit_admin_#{ self.class.name.singularize.underscore }_path", self, options
-      end
+    def get_edit_admin_url(options = {})
+      url_helpers.edit_polymorphic_path [:admin, self], options
     end
 
     def get_url
-      polymorphic_path(self)
+      url_helpers.polymorphic_path(self)
     end
 
     def get_title
