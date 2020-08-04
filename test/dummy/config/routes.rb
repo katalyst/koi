@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, path: :members
-  resources :pages, as: :koi_pages
+  resources :pages, only: [:index, :show], as: :koi_pages
   resources :assets
   resources :images
   resources :documents
