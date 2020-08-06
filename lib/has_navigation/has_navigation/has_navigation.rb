@@ -34,29 +34,46 @@ module HasNavigation
   class UrlHelpers
     include ActionDispatch::Routing::PolymorphicRoutes
 
-    def polymorphic_path(subject, options = nil)
-      return super unless subject.instance_of? Array
+    def polymorphic_url(subject, options = {})
       begin
         # handle explicit routes defined in the main routing table first
         super
-      rescue NoMethodError => e
-        # if admin route requested, fall back to koi engine
-        if subject.first == :admin
-          super([koi_engine, *subject.slice(1)], options)
-        else
-          raise e
-        end
+      rescue NoMethodError
+        # if an admin route was requested, fall back to koi engine
+        (subject = koi_route(subject)) ? super(subject, options) : raise
+      end
+    end
+
+    def polymorphic_path(subject, options = {})
+      begin
+        # handle explicit routes defined in the main routing table first
+        super
+      rescue NoMethodError
+        # if an admin route was requested, fall back to koi engine
+        (subject = koi_route(subject)) ? super(subject, options) : raise
+      end
+    end
+
+    private
+
+    def koi_route(subject)
+      if subject.instance_of?(Array) && subject.first == :admin
+        [koi_engine, *subject.slice(1)]
+      else
+        nil
       end
     end
   end
 
-  def url_helpers
-    @@url_helpers ||= begin
-                        # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
-                        UrlHelpers.include Rails.application.routes.url_helpers
-                        UrlHelpers.include Rails.application.routes.mounted_helpers
-                        UrlHelpers.new
-                      end
+  class << self
+    def url_helpers
+      @url_helpers ||= begin
+                         # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
+                         UrlHelpers.include Rails.application.routes.url_helpers
+                         UrlHelpers.include Rails.application.routes.mounted_helpers
+                         UrlHelpers.new
+                       end
+    end
   end
 
   module Model
@@ -64,16 +81,16 @@ module HasNavigation
 
     class_methods do
       def get_new_admin_url(options = {})
-        url_helpers.new_polymorphic_path [:admin, self], options
+        HasNavigation.url_helpers.new_polymorphic_path [:admin, self], options
       end
     end
 
     def get_edit_admin_url(options = {})
-      url_helpers.edit_polymorphic_path [:admin, self], options
+      HasNavigation.url_helpers.edit_polymorphic_path [:admin, self], options
     end
 
     def get_url
-      url_helpers.polymorphic_path(self)
+      HasNavigation.url_helpers.polymorphic_path(self)
     end
 
     def get_title
