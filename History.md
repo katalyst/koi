@@ -1,4 +1,4 @@
-2.4.4 / 2020-08-04
+2.4 / 2020-08-04
 ==================
 
  * Fix HasNavigation failing to find Koi engine routes
