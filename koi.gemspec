@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_model_serializers', '~> 0.8.2'
 
-  s.add_dependency 'pg', '~> 0.21'
+  s.add_dependency 'pg'
 
   s.add_dependency 'compass-rails', '~> 2.0.2'
 
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails', '~> 5.0.3'
+  s.add_dependency 'jquery-ui-rails'
 
   # Authorization
   s.add_dependency 'devise'
