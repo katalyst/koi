@@ -1,4 +1,4 @@
-<% twitter_widget_id = Translation.find_by_key('site.twitter.widget_id').try(:value) %>
+<% twitter_widget_id = Translation.find_by(prefix: 'site', key: 'site.twitter.widget_id').try(:value) %>
 
 <% if twitter_widget_id.present? %>
 
@@ -79,7 +79,7 @@
     </style>
   <% end %>
 
-  
+
   <% content_for :side do %>
 
     <div class="spacing twitter-list">

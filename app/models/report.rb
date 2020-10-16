@@ -18,10 +18,10 @@ class Report < ActiveRecord::Base
 
   def self.profile
     return @profile if @profile
-    Garb::Session.login(Translation.find_by_key('site.google_analytics.username').try(:value),
-                        Translation.find_by_key('site.google_analytics.password').try(:value))
+    Garb::Session.login(Translation.find_by(prefix: 'site', key: 'site.google_analytics.username').try(:value),
+                        Translation.find_by(prefix: 'site', key: 'site.google_analytics.password').try(:value))
     @profile ||= Garb::Management::Profile.all.detect { |p|
-                        p.web_property_id == Translation.find_by_key('site.google_analytics.profile_id').try(:value) }
+                        p.web_property_id == Translation.find_by(prefix: 'site', key: 'site.google_analytics.profile_id').try(:value) }
   end
 
   def self.analytics(options={})

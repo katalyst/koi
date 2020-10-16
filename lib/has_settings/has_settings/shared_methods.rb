@@ -11,7 +11,7 @@ module HasSettings
         prefix: settings_prefix
       })
 
-      setting = Setting.find_by_prefix_and_key(settings_prefix, key)
+      setting = Setting.find_by(prefix: settings_prefix, key: key)
 
       setting = if setting.nil? && options != default_setting_options(key)
                   Setting.create(options)
@@ -23,7 +23,7 @@ module HasSettings
     end
 
     def create_setting(key, values)
-      unless Setting.find_by_prefix_and_key(settings_prefix, key)
+      unless Setting.find_by(prefix: settings_prefix, key: key)
         values.delete(:group) unless Setting.columns.map{ |c| c.name }.include?('group')
         Setting.create(values.merge(key: key, prefix: settings_prefix))
       end
