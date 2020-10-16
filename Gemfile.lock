@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    koi (2.4.6)
+    koi (2.4.8)
       active_model_serializers (~> 0.8.2)
       activevalidators (< 5)
       acts-as-taggable-on
@@ -107,14 +107,14 @@ GEM
     arel (6.0.4)
     awesome_nested_set (3.2.1)
       activerecord (>= 4.0.0, < 7.0)
-    bcrypt (3.1.15)
+    bcrypt (3.1.16)
     better_errors (2.6.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     builder (3.2.4)
     chunky_png (1.3.12)
-    cocoon (1.2.14)
+    cocoon (1.2.15)
     coderay (1.1.2)
     compass (1.0.3)
       chunky_png (~> 1.2)
@@ -145,7 +145,7 @@ GEM
     date_validator (0.10.0)
       activemodel (>= 3)
       activesupport (>= 3)
-    devise (4.7.2)
+    devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -221,7 +221,7 @@ GEM
     pg (0.21.0)
     pg (0.21.0-x86-mingw32)
     phony (2.18.15)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     rack (1.6.13)
     rack-protection (1.5.5)
       rack
@@ -257,7 +257,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.1)
+    redis (4.2.2)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
