@@ -7,7 +7,7 @@ Run this to create a new app:
 ```bash
 rbenv local 2.4.9
 gem install rails -v 4.2.11.1
-rails _4.2.11.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.4.8/lib/templates/application/app.rb --skip-spring
+rails _4.2.11.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.4.9/lib/templates/application/app.rb --skip-spring
 ```
 
 ## License
