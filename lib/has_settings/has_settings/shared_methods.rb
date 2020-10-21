@@ -13,7 +13,9 @@ module HasSettings
 
       setting = Setting.find_by(prefix: settings_prefix, key: key)
 
-      setting = if setting.nil? && options != default_setting_options(key)
+      setting = if setting.present?
+                  setting
+                elsif options != default_setting_options(key)
                   Setting.create(options)
                 else
                   Setting.new(options)
