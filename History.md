@@ -2,6 +2,11 @@
 ==================
 
  * Fix HasNavigation failing to find Koi engine routes
+ * Avoid duplicating default settings in database, requires manual step to clean
+   up default settings from database:
+       Translation.where(value: nil).delete_all
+ * Fix `type: radio` in crud forms and show
+       
 
 1.1.0 / 13-02-2013
 ==================
