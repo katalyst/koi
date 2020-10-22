@@ -1,1 +1,4 @@
-<%= render "show_field_check_boxes", attr: attr -%>
+<%- field_value = resource.send(attr) -%>
+<%- unless field_value.blank? -%>
+  <%= t(field_value, default: field_value.to_s).capitalize %>
+<%- end -%>
