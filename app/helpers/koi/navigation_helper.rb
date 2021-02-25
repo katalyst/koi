@@ -28,13 +28,8 @@ module Koi::NavigationHelper
         NavItem.navigation(key, binding())
       end
     else
-      cached_nav_item(key)
+      NavItem.navigation(key, binding())
     end
-  end
-
-  def cached_nav_item(key)
-    @get_nav_items ||= {}
-    @get_nav_items[key] ||= NavItem.navigation(key, binding())
   end
 
   def cascaded_setting key
