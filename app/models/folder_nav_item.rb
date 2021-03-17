@@ -7,6 +7,7 @@ class FolderNavItem < NavItem
   crud.config do
     fields parent_id:           { type: :hidden },
            is_hidden:           { type: :boolean },
+           link_to_first_child: { type: :boolean },
            alias_id:            { type: :tree },
            if:                  { type: :code },
            unless:              { type: :code },
@@ -16,7 +17,7 @@ class FolderNavItem < NavItem
 
     config :admin do
       index fields: [:id, :title, :url]
-      form  fields: [:title, :is_hidden, :parent_id]
+      form  fields: [:title, :is_hidden, :link_to_first_child, :parent_id]
     end
   end
 
@@ -30,11 +31,6 @@ class FolderNavItem < NavItem
 
   def self.title
     "Folder"
-  end
-
-  # Always link to first child, preserves backwards compatibility
-  def link_to_first_child?
-    true
   end
 
 end
