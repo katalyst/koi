@@ -80,6 +80,8 @@ class NavItem < ActiveRecord::Base
       hash[:method] = method
     end
 
+    hash[:"data-nav-item-type"] = self.class.name
+
     hash
   end
 
@@ -174,7 +176,7 @@ class NavItem < ActiveRecord::Base
         key:   nav_key,
         name:  title,
         url:   url,
-        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact
+        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact,
       }
     else
       hash = eval(content_block, @@binding)
