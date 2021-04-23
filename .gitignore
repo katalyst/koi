@@ -16,4 +16,5 @@ spec
 passenger.3000.log
 passenger.3000.pid.lock
 
+/.idea
 test/dummy/config/application.yml
