@@ -86,7 +86,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'garb'
 
   # Validators
-  s.add_dependency 'activevalidators', '~> 3.2.0'
+  s.add_dependency 'activevalidators' #, '~> 3.2.0'
 
   # Redis
   s.add_dependency 'redis'
