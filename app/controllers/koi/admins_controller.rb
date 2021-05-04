@@ -6,7 +6,7 @@ module Koi
       if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
         object.update_without_password(*attributes)
       else
-        object.update_attributes(*attributes)
+        object.update(*attributes)
       end
     end
   end

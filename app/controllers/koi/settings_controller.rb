@@ -17,7 +17,7 @@ module Koi
     def update_multiple
       params[:setting][:setting].each do |id, value|
         @setting = Setting.find(id.to_i)
-        @setting.update_attributes(params[:setting][:setting][id])
+        @setting.update(params[:setting][:setting][id])
       end
 
       params[:group] = 'main' if params[:group].blank?
