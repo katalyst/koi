@@ -7,7 +7,7 @@ module Koi
 
     initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
-      app.middleware.insert_before "Rack::Sendfile", Koi::UrlRedirect
+      app.middleware.use Koi::UrlRedirect
       app.config.assets.precompile += %w(
         koi/modernizr.js
         selectivizr.js
@@ -16,6 +16,8 @@ module Koi
         koi.js
         koi/nav_items.js
         koi/assets.js
+        koi/application/placeholder-image-none.png
+        koi/application.css
       )
     end
 

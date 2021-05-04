@@ -2,7 +2,7 @@ module Koi
   class ApplicationController < ActionController::Base
     helper :all
     layout :layout_by_resource
-    before_filter :authenticate_admin, except: :login
+    before_action :authenticate_admin, except: :login
 
     def login
       if admin_signed_in?
