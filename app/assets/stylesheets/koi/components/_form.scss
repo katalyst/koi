@@ -123,13 +123,13 @@ textarea,
 
   .layout--main & {
     border: $input-border;
-    @include box-shadow($input-shadow);
+    box-shadow: $input-shadow;
   }
 
   .layout--main .error &,
   .layout--main .fieldWithErrors & {
     border-color: $error-color;
-    @include box-shadow(inset 2px 2px 2px 0px rgba($error-color,0.20));
+    box-shadow: inset 2px 2px 2px 0px rgba($error-color,0.20);
   }
 
   &.input__flat-right {
@@ -255,7 +255,7 @@ $radio-offset: 24px;
       top: 0.2em;
       left: 0;
       background: $primary-color;
-      @include box-shadow(inset 0 0 0 1em $white);
+      box-shadow: inset 0 0 0 1em $white;
       @include transition(box-shadow .2s);
     }
 
@@ -270,7 +270,7 @@ $radio-offset: 24px;
 
     input:checked + .form--enhanced--control {
       border-color: $input-border-focus-color;
-      @include box-shadow(inset 0 0 0 3px $white);
+      box-shadow: inset 0 0 0 3px $white;
     }
 
     input {
@@ -413,7 +413,7 @@ abbr[title=required] {
   .controls input {
     border: 0;
     background: transparent;
-    @include box-shadow(none);
+    box-shadow: none;
     padding-left: $xxxx-small-unit;
     padding-right: $xxxx-small-unit;
     // Due to firefox line-height bug, line-height needs to be defined by padding
@@ -517,7 +517,7 @@ $file-thumbnail-width: 100px;
 }
 .select2-container .select2-selection--multiple {
   padding: 5px;
-  @include box-shadow($input-shadow);
+  box-shadow: $input-shadow;
 }
 
 .select2-container .select2-choice {
@@ -529,7 +529,7 @@ $file-thumbnail-width: 100px;
   line-height: $base-line-size;
   @include line-height-padding($form-line-height);
   padding-left: $xxxx-small-unit;
-  @include box-shadow($input-shadow);
+  box-shadow: $input-shadow;
   min-height: $form-inline-height;
   @include transition(border-color .2s);
   height: 100%;

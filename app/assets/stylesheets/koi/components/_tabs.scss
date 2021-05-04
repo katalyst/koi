@@ -115,11 +115,11 @@ $tab-inactive-color: #ECF0F1;
   }
   &.shadow-left:before {
     left: 0;
-    @include box-shadow(inset 8px 0px 11px -7px rgba(0,0,0,0.8));
+    box-shadow: inset 8px 0px 11px -7px rgba(0,0,0,0.8);
   }
   &.shadow-right:after {
     right: 0;
-    @include box-shadow(inset -8px 0px 11px -7px rgba(0,0,0,0.8));
+    box-shadow: inset -8px 0px 11px -7px rgba(0,0,0,0.8);
   }
 }
 
@@ -135,7 +135,7 @@ $sg-feature-background: $background-color;
   margin-top: $default-unit;
   margin-bottom: $default-unit;
   @include flush-children;
-  @include box-shadow(1px 1px 3px rgba(0,0,0,0.1));
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 .sg-feature > .tabs--links {
@@ -225,7 +225,7 @@ $sg-feature-background: $background-color;
   pre.prettyprint {
     background: transparent;
     border: 0 !important;
-    @include box-shadow(none);
+    box-shadow: none;
     padding: $panel-padding;
   }
 }

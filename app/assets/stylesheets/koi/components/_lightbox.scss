@@ -13,7 +13,7 @@ $lightbox-padding-y-bottom: $small-unit;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: $border-radius;
-  @include box-shadow(2px 2px 2px 0px rgba(0,0,0,0.20));
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.20);
 
   .lightbox__small & {
     max-width: 500px;
@@ -29,7 +29,7 @@ $lightbox-padding-y-bottom: $small-unit;
 }
 
 .mfp-image-holder .mfp-content {
-  @include box-shadow(none);
+  box-shadow: none;
 }
 
 .mfp-image-holder .mfp-figure .mfp-img {
@@ -45,7 +45,7 @@ $lightbox-padding-y-bottom: $small-unit;
   z-index: 2;
   @include display-flex;
   border-bottom: 2px solid $primary-color;
-  @include box-shadow(0px 2px 4px 0px rgba(0,0,0,0.10));
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.10);
 }
 .lightbox--header--logo {
   @include display-flex;

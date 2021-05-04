@@ -86,7 +86,7 @@
 }
 
 @mixin button-depressed {
-  @include box-shadow($button-depressed-shadow);
+  box-shadow: $button-depressed-shadow;
 }
 
 // BUTTON CLASSES
