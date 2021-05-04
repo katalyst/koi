@@ -33,7 +33,7 @@ $tooltip-z-index:       992;
   color: $tooltip-color;
   position: absolute;
   width: $tooltip-width;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
   font-size: $small-font-size;
   text-shadow: 1px 1px 0 $black;
 

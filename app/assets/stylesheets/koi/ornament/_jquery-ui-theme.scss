@@ -427,8 +427,8 @@
   padding: 0;
   border-width: 0 0 1px 0;
   margin: -4px -4px 0;
-  @include border-bottom-left-radius(0);
-  @include border-bottom-right-radius(0);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .ui-datepicker .ui-datepicker-prev,
@@ -437,7 +437,7 @@
   bottom: 0;
   height: auto;
   border: 1px solid $input-border-color;
-  @include border-radius(0);
+  border-radius: 0;;
 }
 
 .ui-datepicker .ui-datepicker-prev {

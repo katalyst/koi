@@ -60,7 +60,7 @@
 @mixin button-base {
   @extend .button-object !optional;
   padding: $button-default-padding;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
   @include decorate-link(none, none);
   @include inline-block;
   @include font($bold-font);
@@ -230,7 +230,7 @@
   // Take advantage of the fact that buttons all extend the 
   // .button class here
   .button-object {
-    @include border-radius(0);
+    border-radius: 0;;
     float: left;
   }
 
@@ -239,13 +239,13 @@
   }
 
   .button-object:first-child {
-    @include border-top-left-radius($border-radius);
-    @include border-bottom-left-radius($border-radius);
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
   }
 
   .button-object:last-child {
-    @include border-top-right-radius($border-radius);
-    @include border-bottom-right-radius($border-radius);
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 }
 

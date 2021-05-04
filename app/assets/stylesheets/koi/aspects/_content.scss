@@ -182,7 +182,7 @@ ol.content-lists {
   }
 
   img {
-    @include border-radius($border-radius);
+    border-radius: $border-radius;
   }
 
   // koi-inserted images working resposively

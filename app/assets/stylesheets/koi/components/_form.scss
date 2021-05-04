@@ -4,13 +4,13 @@ $form-width:          748px; // used for calculating % widths of inputs
 $hint-color:          $grey;
 
 @mixin input__flat-right {
-  @include border-top-right-radius(0);
-  @include border-bottom-right-radius(0);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 @mixin input__flat-left {
-  @include border-top-left-radius(0);
-  @include border-bottom-left-radius(0);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 // FORMS NORMALISATION
@@ -119,7 +119,7 @@ textarea,
   padding-right: $xxxx-small-unit;
   margin: 0;
   @include transition(border-color .2s);
-  @include border-radius($input-border-radius);
+ border-radius: $input-border-radius;
 
   .layout--main & {
     border: $input-border;
@@ -240,7 +240,7 @@ $radio-offset: 24px;
 .form--enhanced {
 
   .radio .form--enhanced--control {
-    @include border-radius(50%);
+    border-radius: 50%;
   }
 
   .radio,
@@ -379,7 +379,7 @@ abbr[title=required] {
 .form-inline__contained {
   background: $white;
   position: relative;
-  @include border-radius($input-border-radius);
+ border-radius: $input-border-radius;
 
   .form-inline--input {
     background: transparent;
@@ -614,12 +614,12 @@ $file-thumbnail-width: 100px;
     @include flex-direction(row);
   }
   .controls input {
-    @include border-top-right-radius(0);
-    @include border-bottom-right-radius(0);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .controls a {
-    @include border-top-left-radius(0);
-    @include border-bottom-left-radius(0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     @include display-flex;
     @include align-items(center);
     @include flex-shrink(0);

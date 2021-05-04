@@ -54,7 +54,7 @@
   min-width: 225px;
   margin-top: 1px;
   @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
 }
 
 .navigation-primary > li > ul {

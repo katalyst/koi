@@ -12,7 +12,7 @@ $lightbox-padding-y-bottom: $small-unit;
   max-width: 740px;
   margin-top: 20px;
   margin-bottom: 20px;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
   @include box-shadow(2px 2px 2px 0px rgba(0,0,0,0.20));
 
   .lightbox__small & {
@@ -37,7 +37,7 @@ $lightbox-padding-y-bottom: $small-unit;
 }
 
 .lightbox--container {
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
 }
 .lightbox--header {
   background: $black;

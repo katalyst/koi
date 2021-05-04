@@ -256,7 +256,7 @@ $navigation-secondary-pane-link-color:  #fff;
       @include display-flex;
       @include flex-direction(row);
       @include align-items(center);
-      @include border-radius(0);
+      border-radius: 0;;
     }
 
     .icon-chevron {

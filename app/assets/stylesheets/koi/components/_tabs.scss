@@ -35,10 +35,10 @@ $tab-inactive-color: #ECF0F1;
   padding-right: $x-small-unit;
   @include line-height-padding($button-height);
   @include transition(border-color .2s);
-  @include border-radius($border-radius $border-radius 0 0);
+  border-radius: $border-radius $border-radius 0 0;
 
   .tabs--links__flush & {
-    @include border-radius(0);
+    border-radius: 0;;
   }
 }
 
@@ -90,8 +90,8 @@ $tab-inactive-color: #ECF0F1;
   .tabs__filled & {
     background: $passive-color;
     padding: $panel-padding;
-    @include border-bottom-left-radius($border-radius);
-    @include border-bottom-right-radius($border-radius);
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 }
 
@@ -162,7 +162,7 @@ $sg-feature-background: $background-color;
   @include decorate-link(none, none);
   font-size: $small-font-size;
   text-transform: uppercase;
-  @include border-radius(0);
+  border-radius: 0;;
 }
 
 .sg-feature > .tabs--links > ul > li:first-child > .tabs--link {
@@ -212,7 +212,7 @@ $sg-feature-background: $background-color;
   padding: 5px 10px;
   display: block;
   background: $primary-color;
-  @include border-bottom-left-radius($border-radius);
+  border-bottom-left-radius: $border-radius;
   @include color-link($white, $white);
   text-transform: uppercase;
   font-size: $small-font-size;

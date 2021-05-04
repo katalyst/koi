@@ -7,7 +7,7 @@
 .fotorama__stage__frame,
 .content figure {
   // background: $xxx-light-blue;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
   -webkit-transform: rotate(0.000001deg);
 }
 
@@ -21,7 +21,7 @@
   bottom: 0;
   margin-top: -40px;
   line-height: 1.7;
-  @include border-radius(0 0 $border-radius $border-radius);
+  border-radius: 0 0 $border-radius $border-radius;
 }
 
 .fotorama__caption {
@@ -38,7 +38,7 @@
 
 .fotorama__nav-wrap {
   margin-top: $xx-small-unit;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
 }
 
 .fotorama__thumb-border {
@@ -71,7 +71,7 @@
   color: #fff;
   top: 50%;
   margin-top: $button-height * -0.5;
-  @include border-radius(50%);
+  border-radius: 50%;
   @include icon-block($button-height, 16px);
   position: absolute;
 }
