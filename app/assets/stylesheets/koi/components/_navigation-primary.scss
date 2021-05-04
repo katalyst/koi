@@ -64,7 +64,8 @@
 
   &:before {
     content: "";
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     border: 7px solid transparent;
     border-bottom-color: $border;
     border-bottom-color: rgba(0,0,0,0.2);
@@ -75,7 +76,8 @@
 
   &:after {
     content: "";
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     border: 6px solid transparent;
     border-bottom-color: $white;
     position: absolute;

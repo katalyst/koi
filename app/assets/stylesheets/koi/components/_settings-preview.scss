@@ -31,7 +31,8 @@
 
 .settings-preview--container-width--sample {
   * {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     background: #333;
     &:before {
       background: red;

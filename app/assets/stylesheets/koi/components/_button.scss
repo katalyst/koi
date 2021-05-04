@@ -62,7 +62,8 @@
   padding: $button-default-padding;
   border-radius: $border-radius;
   @include decorate-link(none, none);
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   @include font($bold-font);
   @include color-link($white, $white);
   border: none;

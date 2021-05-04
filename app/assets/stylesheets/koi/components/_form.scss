@@ -15,7 +15,8 @@ $hint-color:          $grey;
 
 // FORMS NORMALISATION
 fieldset {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   width: 100%;
 }
 
@@ -50,7 +51,8 @@ input, select {
 }
 
 input, textarea, keygen, select {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 textarea {
