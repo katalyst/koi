@@ -64,7 +64,7 @@ $navigation-secondary-pane-link-color:  #fff;
     visibility: visible;
     .pane-wrapper {
       will-change: transform;
-      @include transition(.15s transform linear);
+      transition: .15s transform linear;
     }
   }
 }
@@ -77,7 +77,7 @@ $navigation-secondary-pane-link-color:  #fff;
   .pane-wrapper {
     position: relative;
     height: 100%;
-    @include transform(translateZ(0), translate(0%, 0));
+    transform: translateZ(0) translate(0%, 0);
     -webkit-backface-visibility: hidden;
 
     .no-csstransforms & {
@@ -90,7 +90,7 @@ $navigation-secondary-pane-link-color:  #fff;
     &[data-level="#{$i}"] > .pane-wrapper {
       $offsetLevel: $i - 1;
       $offset: $offsetLevel * 100%;
-      @include translate( -($offset), 0 );
+      transform: translate( -($offset), 0 );
 
       .no-csstransforms & {
         left: -($offset);
@@ -193,7 +193,7 @@ $navigation-secondary-pane-link-color:  #fff;
       }
 
       .icon-chevron {
-        @include transform(rotateZ(-90deg));
+        transform: rotateZ(-90deg);
         margin-top: -8px;
         width: 16px;
         height: 11px;
@@ -256,11 +256,11 @@ $navigation-secondary-pane-link-color:  #fff;
       @include display-flex;
       @include flex-direction(row);
       @include align-items(center);
-      @include border-radius(0);
+      border-radius: 0;;
     }
 
     .icon-chevron {
-      @include transform(rotateZ(90deg));
+      transform: rotateZ(90deg);
       padding-top: 10px;
       width: 14px;
     }

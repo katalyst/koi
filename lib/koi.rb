@@ -1,4 +1,3 @@
-require 'compass-rails'
 require 'sass-rails'
 require 'csv'
 require 'devise'

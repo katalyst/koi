@@ -53,8 +53,8 @@
   z-index: 1000;
   min-width: 225px;
   margin-top: 1px;
-  @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
-  @include border-radius($border-radius);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  border-radius: $border-radius;
 }
 
 .navigation-primary > li > ul {
@@ -64,7 +64,8 @@
 
   &:before {
     content: "";
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     border: 7px solid transparent;
     border-bottom-color: $border;
     border-bottom-color: rgba(0,0,0,0.2);
@@ -75,7 +76,8 @@
 
   &:after {
     content: "";
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     border: 6px solid transparent;
     border-bottom-color: $white;
     position: absolute;

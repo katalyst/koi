@@ -46,7 +46,7 @@ body.lightbox-open {
 }
 
 .layout--content {
-  @include single-transition(transform, $layout-animation-duration);
+  transition: transform $layout-animation-duration;
   background: $layout-background;
   min-height: 100%;
   overflow: hidden;
@@ -87,7 +87,7 @@ body.lightbox-open {
       content: "";
       background: $mobile-menu-overlay-color;
       opacity: 0;
-      @include transition(opacity .2s);
+      transition: opacity .2s;
     }
 
     .layout-transitioning &:before,
@@ -99,7 +99,7 @@ body.lightbox-open {
       bottom: 0;
       min-height: 100vh;
       z-index: 100;
-      @include transition(opacity .6s);
+      transition: opacity .6s;
     }
 
     .layout-open &:before {
@@ -118,7 +118,7 @@ body.lightbox-open {
 .layout-open {
   .layout--content {
     @include media-query($breakpoint-header) {
-      @include translate(-($layout-mobile-tray-width), 0);
+      transform: translate(-($layout-mobile-tray-width), 0);
     }
   }
 
@@ -147,7 +147,7 @@ body.lightbox-open {
       position: fixed;
       top: 0;
       width: 100%;
-      @include box-shadow($mobile-tray-shadow);
+      box-shadow: $mobile-tray-shadow;
     }
   }
 }

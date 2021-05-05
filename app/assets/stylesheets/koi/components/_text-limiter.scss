@@ -7,8 +7,8 @@ $text-limiter-dark-grey:  #a7adb3;
 
 .form--field-with-count textarea,
 .form--field-with-count input {
-  @include border-top-left-radius(0);
-  @include border-top-right-radius(0);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .form--field-with-count--heading {

@@ -209,8 +209,8 @@ a, button {
   overflow: auto;
   word-wrap: normal;
   font-family: $code-font;
-  @include border-radius($border-radius);
-  @include box-shadow(inset 1px 1px 2px rgba(0,0,0,0.1));
+  border-radius: $border-radius;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
   text-shadow: 1px 1px #fff;
 }
 
@@ -223,7 +223,7 @@ pre.code {
   border: $divider;
   background: $passive-color;
   padding: .3em .3em .2em;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
   text-shadow: 1px 1px #fff;
   white-space: nowrap;
 }

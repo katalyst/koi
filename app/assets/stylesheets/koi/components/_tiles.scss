@@ -26,7 +26,7 @@
   @include display-flex;
   @include flex-direction(column);
   @include flex-grow(1);
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
 }
 
 .tile__report {

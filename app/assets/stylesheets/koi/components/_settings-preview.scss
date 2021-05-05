@@ -1,5 +1,3 @@
-@import "compass/css3/inline-block";
-
 .settings-preview--table {
   width: 100%;
   th, td {
@@ -31,7 +29,8 @@
 
 .settings-preview--container-width--sample {
   * {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     background: #333;
     &:before {
       background: red;

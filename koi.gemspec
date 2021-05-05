@@ -27,10 +27,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'pg'
 
-  s.add_dependency 'compass-rails', '~> 2.0.2'
-
-  s.add_dependency 'compass', '~> 1.0.0'
-
   s.add_dependency 'sass-rails', '~> 5.0.0'
 
   s.add_dependency 'sass', '~> 3.4.12'

@@ -4,18 +4,19 @@ $form-width:          748px; // used for calculating % widths of inputs
 $hint-color:          $grey;
 
 @mixin input__flat-right {
-  @include border-top-right-radius(0);
-  @include border-bottom-right-radius(0);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 @mixin input__flat-left {
-  @include border-top-left-radius(0);
-  @include border-bottom-left-radius(0);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 // FORMS NORMALISATION
 fieldset {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   width: 100%;
 }
 
@@ -50,7 +51,8 @@ input, select {
 }
 
 input, textarea, keygen, select {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 textarea {
@@ -118,18 +120,18 @@ textarea,
   padding-left: $xxxx-small-unit;
   padding-right: $xxxx-small-unit;
   margin: 0;
-  @include transition(border-color .2s);
-  @include border-radius($input-border-radius);
+  transition: border-color .2s;
+ border-radius: $input-border-radius;
 
   .layout--main & {
     border: $input-border;
-    @include box-shadow($input-shadow);
+    box-shadow: $input-shadow;
   }
 
   .layout--main .error &,
   .layout--main .fieldWithErrors & {
     border-color: $error-color;
-    @include box-shadow(inset 2px 2px 2px 0px rgba($error-color,0.20));
+    box-shadow: inset 2px 2px 2px 0px rgba($error-color,0.20);
   }
 
   &.input__flat-right {
@@ -240,7 +242,7 @@ $radio-offset: 24px;
 .form--enhanced {
 
   .radio .form--enhanced--control {
-    @include border-radius(50%);
+    border-radius: 50%;
   }
 
   .radio,
@@ -255,8 +257,8 @@ $radio-offset: 24px;
       top: 0.2em;
       left: 0;
       background: $primary-color;
-      @include box-shadow(inset 0 0 0 1em $white);
-      @include transition(box-shadow .2s);
+      box-shadow: inset 0 0 0 1em $white;
+      transition: box-shadow .2s;
     }
 
     .form--enhanced--control:hover {
@@ -270,7 +272,7 @@ $radio-offset: 24px;
 
     input:checked + .form--enhanced--control {
       border-color: $input-border-focus-color;
-      @include box-shadow(inset 0 0 0 3px $white);
+      box-shadow: inset 0 0 0 3px $white;
     }
 
     input {
@@ -379,7 +381,7 @@ abbr[title=required] {
 .form-inline__contained {
   background: $white;
   position: relative;
-  @include border-radius($input-border-radius);
+ border-radius: $input-border-radius;
 
   .form-inline--input {
     background: transparent;
@@ -413,7 +415,7 @@ abbr[title=required] {
   .controls input {
     border: 0;
     background: transparent;
-    @include box-shadow(none);
+    box-shadow: none;
     padding-left: $xxxx-small-unit;
     padding-right: $xxxx-small-unit;
     // Due to firefox line-height bug, line-height needs to be defined by padding
@@ -517,7 +519,7 @@ $file-thumbnail-width: 100px;
 }
 .select2-container .select2-selection--multiple {
   padding: 5px;
-  @include box-shadow($input-shadow);
+  box-shadow: $input-shadow;
 }
 
 .select2-container .select2-choice {
@@ -529,9 +531,9 @@ $file-thumbnail-width: 100px;
   line-height: $base-line-size;
   @include line-height-padding($form-line-height);
   padding-left: $xxxx-small-unit;
-  @include box-shadow($input-shadow);
+  box-shadow: $input-shadow;
   min-height: $form-inline-height;
-  @include transition(border-color .2s);
+  transition: border-color .2s;
   height: 100%;
 
   // select styles
@@ -614,12 +616,12 @@ $file-thumbnail-width: 100px;
     @include flex-direction(row);
   }
   .controls input {
-    @include border-top-right-radius(0);
-    @include border-bottom-right-radius(0);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .controls a {
-    @include border-top-left-radius(0);
-    @include border-bottom-left-radius(0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     @include display-flex;
     @include align-items(center);
     @include flex-shrink(0);

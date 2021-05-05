@@ -77,10 +77,10 @@
   .icon-chevron {
     width: 16px;
     height: 11px;
-    @include transition(transform .2s);
+    transition: transform .2s;
 
     .nested-fields-visible & {
-      @include transform(rotateZ(-180deg));
+      transform: rotateZ(-180deg);
     }
 
     path {

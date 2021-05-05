@@ -55,7 +55,7 @@
   margin: 0 auto;
   text-align: left;
   z-index: 1045; 
-  @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
+  box-shadow: 0 3px 7px rgba(0,0,0,0.3);
 }
 
 .mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content {
