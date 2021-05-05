@@ -9,7 +9,7 @@
     padding: 4px;
     font-size: 10px;
     z-index: 9050;
-    @include text-shadow(1px 1px 0 rgba(#fff,0.5));
+    text-shadow: 1px 1px 0 rgba(#fff,0.5);
 
     $reverse-breakpoints: reverse-list($site-breakpoints);
     @each $breakpoint in $reverse-breakpoints {
