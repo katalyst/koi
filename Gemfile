@@ -21,3 +21,11 @@ gem 'ornament', git: 'https://github.com/katalyst/ornament.git'
 gem 'tzinfo-data', platforms: ['mingw', 'mswin']
 gem 'better_errors'
 gem 'pg'
+
+# Development dependencies
+gem "rake"
+gem "rspec"
+gem "rubocop-faker"
+gem "rubocop-performance"
+gem "rubocop-rails"
+gem "rubocop-rspec"
