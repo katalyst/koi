@@ -1,5 +1,21 @@
-@import "compass/typography/links/link-colors";
+//@import "compass/typography/links/link-colors";
 
 @mixin color-link($link, $hover: false) {
-  @include link-colors($link, $hover, $hover, $link, $link);
+  color: $link;
+  &:visited {
+    color: $link;
+  }
+  &:focus {
+    color: $link;
+  }
+  @if $hover {
+    &:hover {
+      color: $hover;
+    }
+  }
+  @if $hover {
+    &:active {
+      color: $hover;
+    }
+  }
 }
