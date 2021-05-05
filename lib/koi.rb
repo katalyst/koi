@@ -38,7 +38,6 @@ require 'koi/settings'
 require 'koi/sitemap'
 require 'koi/caching'
 require 'koi/engine'
-require 'reports/reporting'
 
 module Koi
 end

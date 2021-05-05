@@ -2,6 +2,7 @@
 ==================
 
  * Removed generators and templates
+ * Removed reports
 
 2.4 / 2020-08-04
 ==================

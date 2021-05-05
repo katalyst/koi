@@ -26,13 +26,13 @@
   <%- end -%>
 <%- end -%>
 
-<% if is_settable? || is_reportable? %>
+<% if is_settable? %>
   <%- content_for :title_tabs do -%>
     <%= render "index_settings_navigation" %>
   <%- end -%>
 <% end %>
 
-<% if is_settable? || is_reportable? %>
+<% if is_settable? %>
   <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
 <% end %>
 
@@ -85,14 +85,10 @@
   </div>
 <%- end -%>
 
-<% if is_settable? || is_reportable? %>
+<% if is_settable? %>
   </div>
 <% end %>
 
 <% if is_settable? %>
   <%= render "index_settings" %>
-<% end %>
-
-<% if is_reportable? %>
-  <%= render "reports" %>
 <% end %>

@@ -4,8 +4,6 @@ module Koi
     has_crud :admin => true
     defaults :route_prefix => 'admin'
 
-    before_filter :generate_reports, only: :index, if: :is_reportable?
-
     def index
       respond_to do |format|
         format.html
@@ -29,13 +27,6 @@ module Koi
       else
         super
       end
-    end
-
-    def generate_reports
-      overviews = collection.crud.settings[:admin][:overviews]
-      charts    = collection.crud.settings[:admin][:charts]
-
-      @report_data = Reports::Reporting.generate_report(overviews, charts, resource_class)
     end
 
   end
