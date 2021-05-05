@@ -1,14 +1,20 @@
 # Koi [![Code Climate](https://codeclimate.com/github/katalyst/koi.png)](https://codeclimate.com/github/katalyst/koi) [![Dependency Status](https://gemnasium.com/katalyst/koi.png)](https://gemnasium.com/katalyst/koi) [![Stories in Ready](https://badge.waffle.io/katalyst/koi.png?label=ready&title=Ready)](https://waffle.io/katalyst/koi)
 
-## Creating a Koi App
+## Installation
 
-Run this to create a new app:
+Add this line to your application's Gemfile:
 
-```bash
-rbenv local 2.4.9
-gem install rails -v 4.2.11.1
-rails _4.2.11.1_ new my_app -d postgresql -m https://raw.github.com/katalyst/koi/v2.4.11/lib/templates/application/app.rb --skip-spring
+```ruby
+gem 'koi'
 ```
+
+And then execute:
+
+    $ bundle install
+
+Or install it yourself as:
+
+    $ gem install koi
 
 ## License
 

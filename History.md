@@ -1,3 +1,8 @@
+2.5 / Unreleased
+==================
+
+ * Removed generators and templates
+
 2.4 / 2020-08-04
 ==================
 
