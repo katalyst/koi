@@ -120,7 +120,7 @@ textarea,
   padding-left: $xxxx-small-unit;
   padding-right: $xxxx-small-unit;
   margin: 0;
-  @include transition(border-color .2s);
+  transition: border-color .2s;
  border-radius: $input-border-radius;
 
   .layout--main & {
@@ -258,7 +258,7 @@ $radio-offset: 24px;
       left: 0;
       background: $primary-color;
       box-shadow: inset 0 0 0 1em $white;
-      @include transition(box-shadow .2s);
+      transition: box-shadow .2s;
     }
 
     .form--enhanced--control:hover {
@@ -533,7 +533,7 @@ $file-thumbnail-width: 100px;
   padding-left: $xxxx-small-unit;
   box-shadow: $input-shadow;
   min-height: $form-inline-height;
-  @include transition(border-color .2s);
+  transition: border-color .2s;
   height: 100%;
 
   // select styles

@@ -64,7 +64,7 @@ $navigation-secondary-pane-link-color:  #fff;
     visibility: visible;
     .pane-wrapper {
       will-change: transform;
-      @include transition(.15s transform linear);
+      transition: .15s transform linear;
     }
   }
 }

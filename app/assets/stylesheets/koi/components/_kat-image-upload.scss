@@ -54,7 +54,7 @@ $file-upload-breakpoint: 545px;
   progress::-webkit-progress-value {
     background: $success-color;
     opacity: 0.1;
-    @include transition(width .2s);
+    transition: width .2s;
   }
   progress::-moz-progress-bar {
     background: $success-color;

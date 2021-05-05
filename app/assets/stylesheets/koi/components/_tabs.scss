@@ -34,7 +34,7 @@ $tab-inactive-color: #ECF0F1;
   padding-left: $x-small-unit;
   padding-right: $x-small-unit;
   @include line-height-padding($button-height);
-  @include transition(border-color .2s);
+  transition: border-color .2s;
   border-radius: $border-radius $border-radius 0 0;
 
   .tabs--links__flush & {

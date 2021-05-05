@@ -10,7 +10,7 @@
 // Custom button background colours and hovers
 @mixin button-background($color, $hover-color:false) {
   background: $color;
-  @include transition(background, .2s);
+  transition: background .2s;
 
   @if($hover-color) {
     &:hover {

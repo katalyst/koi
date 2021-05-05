@@ -204,7 +204,7 @@ $lightbox-padding-y-bottom: $small-unit;
 .lightbox--main .mfp-content,
 .lightbox--main .mfp-arrow {
   opacity: 0;
-  @include transition(all 0.2s ease-in-out);
+  transition: all 0.2s ease-in-out;
   transform: scale(0.8);
 }
 
@@ -226,7 +226,7 @@ $lightbox-padding-y-bottom: $small-unit;
 .lightbox--main.mfp-bg {
   background: $lightbox-overlay-color;
   opacity: 0.001; /* Chrome opacity transition bug */
-  @include transition(opacity 0.3s ease-out);
+  transition: opacity 0.3s ease-out;
 }
 
 // Animated Overlay Open
