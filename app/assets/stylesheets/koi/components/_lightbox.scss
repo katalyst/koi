@@ -205,21 +205,21 @@ $lightbox-padding-y-bottom: $small-unit;
 .lightbox--main .mfp-arrow {
   opacity: 0;
   @include transition(all 0.2s ease-in-out);
-  @include transform(scale(0.8));
+  transform: scale(0.8);
 }
 
 // Animated Lightbox Open
 .lightbox--main.mfp-ready .mfp-content,
 .lightbox--main.mfp-ready .mfp-arrow {
   opacity: 1;
-  @include transform(scale(1));
+  transform: scale(1);
 }
 
 // Animated Lightbox Close
 .lightbox--main.mfp-removing .mfp-content,
 .lightbox--main.mfp-removing .mfp-arrow {
   opacity: 0;
-  @include transform(scale(0.8));
+  transform: scale(0.8);
 }
 
 // Animated Overlay Start

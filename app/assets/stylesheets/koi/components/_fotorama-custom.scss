@@ -49,14 +49,14 @@
 
 .fotorama__arr.fotorama__arr--prev {
   @include grunticon("chevron-left-16-white", 16px);
-  @include translate3d($default-unit, 0, 0);
+  transform: translate3d($default-unit, 0, 0);
   position: absolute;
   padding: 0;
 }
 
 .fotorama__arr.fotorama__arr--next {
   @include grunticon("chevron-right-16-white", 16px);
-  @include translate3d(-($default-unit), 0, 0);
+  transform: translate3d(-($default-unit), 0, 0);
   position: absolute;
   padding: 0;
 }

@@ -118,7 +118,7 @@ body.lightbox-open {
 .layout-open {
   .layout--content {
     @include media-query($breakpoint-header) {
-      @include translate(-($layout-mobile-tray-width), 0);
+      transform: translate(-($layout-mobile-tray-width), 0);
     }
   }
 

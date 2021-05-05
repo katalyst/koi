@@ -80,7 +80,7 @@
     @include transition(transform .2s);
 
     .nested-fields-visible & {
-      @include transform(rotateZ(-180deg));
+      transform: rotateZ(-180deg);
     }
 
     path {
