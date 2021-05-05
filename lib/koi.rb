@@ -22,7 +22,6 @@ require 'activevalidators'
 require 'rails-observers'
 require 'cocoon'
 require 'figaro'
-require 'rickshaw_rails'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'has_crud/has_crud'
@@ -38,7 +37,6 @@ require 'koi/settings'
 require 'koi/sitemap'
 require 'koi/caching'
 require 'koi/engine'
-require 'reports/reporting'
 
 module Koi
 end

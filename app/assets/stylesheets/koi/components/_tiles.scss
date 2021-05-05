@@ -29,10 +29,6 @@
   border-radius: $border-radius;
 }
 
-.tile__report {
-  text-align: center;
-}
-
 .tile--header {
   background: $dark-grey;
   color: $white;
@@ -43,11 +39,6 @@
 .tile--body {
   padding: $xxxxx-small-unit;
   @include flex-grow(1);
-
-  .tile__report & {
-    font-size: $default-unit;
-    @include font($bold-font);
-  }
 }
 
 .tile--footer {

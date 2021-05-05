@@ -77,9 +77,6 @@ Gem::Specification.new do |s|
   # Unique ID generation
   s.add_dependency 'uuidtools'
 
-  # Google Analytics
-  s.add_dependency 'garb'
-
   # Validators
   s.add_dependency 'activevalidators', '< 5'
 
@@ -100,9 +97,6 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency 'countries'
-
-  # Admin Graphing
-  s.add_dependency 'rickshaw_rails'
 
   # Application Settings
   s.add_dependency 'figaro'
