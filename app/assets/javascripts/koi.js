@@ -71,5 +71,3 @@
 //= require koi/koi/nestedFields
 //= require koi/koi/wysiwyg
 //= require koi/koi/assets
-
-//= require rickshaw_with_d3

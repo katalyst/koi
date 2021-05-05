@@ -1,5 +1,3 @@
-require 'garb'
-
 module Koi
   class ApplicationController < ActionController::Base
     helper :all
