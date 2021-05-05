@@ -58,11 +58,6 @@ gem 'koi_config'                , github: 'katalyst/koi_config'
 gem 'koi'                       , github: 'katalyst/koi',
                                   tag: "v#{koi_version}"
 
-# Compass
-gem 'compass'                   , "~> 1.0.0"
-
-gem 'compass-rails'             , "~> 2.0.2"
-
 # i18n ActiveRecord backend
 gem 'i18n-active_record',   github: 'svenfuchs/i18n-active_record',
                             require: 'i18n/active_record',
