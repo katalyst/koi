@@ -53,7 +53,6 @@ Gem::Specification.new do |s|
   # Inherited Resources
   s.add_dependency "inherited_resources", "~> 1.6"
   s.add_dependency "has_scope", "0.6.0.rc"
-  s.add_dependency "responders", "~> 2.1"
 
   # Navigation Rendering
   s.add_dependency "simple-navigation", "~> 3.14.0"
