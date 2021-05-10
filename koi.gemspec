@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.add_dependency "acts-as-taggable-on"
 
   # Scoped Search
-  s.add_dependency "scoped_search", "~> 3.2.0"
+  s.add_dependency "scoped_search", ">= 4.1.8"
 
   # Nice Multi Select
   s.add_dependency "select2-rails"
