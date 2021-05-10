@@ -15,7 +15,6 @@ PATH
       jquery-ui-rails
       kaminari
       rails (~> 4.2.1)
-      redis
       responders (~> 2.1)
       sass (~> 3.4.12)
       sass-rails (~> 5.0.0)
@@ -172,7 +171,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    redis (4.2.5)
     regexp_parser (2.1.1)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)

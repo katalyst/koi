@@ -66,9 +66,6 @@ Gem::Specification.new do |s|
   # Scoped Search
   s.add_dependency "scoped_search", "~> 3.2.0"
 
-  # Redis
-  s.add_dependency "redis"
-
   # Nice Multi Select
   s.add_dependency "select2-rails"
 
