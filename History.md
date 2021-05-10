@@ -14,6 +14,7 @@
  * Removed active_model_serializers dependency
  * Removed mime-types dependency
  * Removed redis dependency
+ * Removed uglifier dependency
 
 2.4 / 2020-08-04
 ==================

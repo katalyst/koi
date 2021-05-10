@@ -23,8 +23,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "sass", "~> 3.4.12"
 
-  s.add_dependency "uglifier"
-
   # Overwrite for default rails
   s.add_dependency "jquery-rails"
 
