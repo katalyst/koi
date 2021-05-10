@@ -11,6 +11,7 @@
  * Removed sidekiq, sidekiq-web, sinatra dependencies
  * Removed figaro dependency
  * Removed rails-observers dependency
+ * Removed active_model_serializers dependency
 
 2.4 / 2020-08-04
 ==================

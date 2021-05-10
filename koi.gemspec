@@ -21,8 +21,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.1"
 
-  s.add_dependency "active_model_serializers", "~> 0.8.2"
-
   s.add_dependency "sass-rails", "~> 5.0.0"
 
   s.add_dependency "sass", "~> 3.4.12"

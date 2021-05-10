@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     koi (2.5.0)
-      active_model_serializers (~> 0.8.2)
       acts-as-taggable-on
       awesome_nested_set
       cocoon
@@ -50,8 +49,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.8.4)
-      activemodel (>= 3.0)
     activejob (4.2.11.1)
       activesupport (= 4.2.11.1)
       globalid (>= 0.3.0)
