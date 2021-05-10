@@ -7,6 +7,7 @@
  * Removed uuidtools dependency
  * Removed activevalidators dependency
  * Removed htmlentities dependency
+ * Removed pg dependency
 
 2.4 / 2020-08-04
 ==================
