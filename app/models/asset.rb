@@ -4,7 +4,7 @@ class Asset < ActiveRecord::Base
 
   dragonfly_accessor :data, app: :file
 
-  scoped_search :on => [:data_name]
+  scoped_search on: [:data_name]
 
   scope :unassociated, -> { where("attributable_type IS NULL OR attributable_type = ''") }
   scope :search_data,  -> query { where("data_name LIKE ?", "%#{query}%") }

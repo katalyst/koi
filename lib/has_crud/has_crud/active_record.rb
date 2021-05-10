@@ -118,7 +118,7 @@ module HasCrud
             setup_default_searchable
           end
 
-          scoped_search :on => self.options[:searchable]
+          scoped_search on: self.options[:searchable]
         end
       end
 
