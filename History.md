@@ -6,6 +6,7 @@
  * Removed Garb
  * Removed uuidtools dependency
  * Removed activevalidators dependency
+ * Removed htmlentities dependency
 
 2.4 / 2020-08-04
 ==================
