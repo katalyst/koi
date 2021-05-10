@@ -17,89 +17,89 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency 'mime-types', '~> 2.3'
+  s.add_dependency "mime-types", "~> 2.3"
 
-  s.add_dependency 'rails', '~> 4.2.1'
+  s.add_dependency "rails", "~> 4.2.1"
 
-  s.add_dependency 'rails-observers', '0.1.2'
+  s.add_dependency "rails-observers", "0.1.2"
 
-  s.add_dependency 'active_model_serializers', '~> 0.8.2'
+  s.add_dependency "active_model_serializers", "~> 0.8.2"
 
-  s.add_dependency 'pg'
+  s.add_dependency "pg"
 
-  s.add_dependency 'sass-rails', '~> 5.0.0'
+  s.add_dependency "sass-rails", "~> 5.0.0"
 
-  s.add_dependency 'sass', '~> 3.4.12'
+  s.add_dependency "sass", "~> 3.4.12"
 
-  s.add_dependency 'uglifier'
+  s.add_dependency "uglifier"
 
   # Overwrite for default rails
-  s.add_dependency 'jquery-rails'
+  s.add_dependency "jquery-rails"
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails'
+  s.add_dependency "jquery-ui-rails"
 
   # Authorization
-  s.add_dependency 'devise'
+  s.add_dependency "devise"
 
   # Form
-  s.add_dependency 'simple_form'
+  s.add_dependency "simple_form"
 
   # Tree
-  s.add_dependency 'awesome_nested_set'
+  s.add_dependency "awesome_nested_set"
 
   # Mailer
-  s.add_dependency 'sendgrid'
+  s.add_dependency "sendgrid"
 
   # File Handling
-  s.add_dependency 'dragonfly'
+  s.add_dependency "dragonfly"
 
   # User Friendly Slugs
-  s.add_dependency 'friendly_id'
+  s.add_dependency "friendly_id"
 
   # Pagination
-  s.add_dependency 'kaminari'
+  s.add_dependency "kaminari"
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources', '~> 1.6'
-  s.add_dependency 'has_scope', '0.6.0.rc'
-  s.add_dependency 'responders', '~> 2.1'
+  s.add_dependency "inherited_resources", "~> 1.6"
+  s.add_dependency "has_scope", "0.6.0.rc"
+  s.add_dependency "responders", "~> 2.1"
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 3.14.0'
+  s.add_dependency "simple-navigation", "~> 3.14.0"
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency "acts-as-taggable-on"
 
   # Scoped Search
-  s.add_dependency 'scoped_search', '~> 3.2.0'
+  s.add_dependency "scoped_search", "~> 3.2.0"
 
   # Unique ID generation
-  s.add_dependency 'uuidtools'
+  s.add_dependency "uuidtools"
 
   # Validators
-  s.add_dependency 'activevalidators', '< 5'
+  s.add_dependency "activevalidators", "< 5"
 
   # Redis
-  s.add_dependency 'redis'
+  s.add_dependency "redis"
 
   # Sidekiq (Background Server)
-  s.add_dependency 'sidekiq'
+  s.add_dependency "sidekiq"
 
   # Required by Sidekiq Web
-  s.add_dependency 'sinatra'
+  s.add_dependency "sinatra"
 
   # Nice Multi Select
-  s.add_dependency 'select2-rails'
+  s.add_dependency "select2-rails"
 
   # Nested Forms
-  s.add_dependency 'cocoon'
+  s.add_dependency "cocoon"
 
   # Admin Graphing
-  s.add_dependency 'countries'
+  s.add_dependency "countries"
 
   # Application Settings
-  s.add_dependency 'figaro'
+  s.add_dependency "figaro"
 
-  s.add_dependency 'htmlentities', '~> 4.3.3'
+  s.add_dependency "htmlentities", "~> 4.3.3"
 end
