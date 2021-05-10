@@ -4,6 +4,7 @@
  * Removed generators and templates
  * Removed reports
  * Removed Garb
+ * Removed uuidtools dependency
 
 2.4 / 2020-08-04
 ==================

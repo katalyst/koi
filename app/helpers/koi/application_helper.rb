@@ -74,7 +74,7 @@ module Koi::ApplicationHelper
   end
 
   def new_uuid
-    UUIDTools::UUID.timestamp_create().to_s
+    SecureRandom.uuid
   end
 
   def is_koi_core_class?(klass)
