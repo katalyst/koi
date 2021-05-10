@@ -74,9 +74,6 @@ Gem::Specification.new do |s|
   # Scoped Search
   s.add_dependency "scoped_search", "~> 3.2.0"
 
-  # Validators
-  s.add_dependency "activevalidators", "< 5"
-
   # Redis
   s.add_dependency "redis"
 

@@ -5,6 +5,7 @@
  * Removed reports
  * Removed Garb
  * Removed uuidtools dependency
+ * Removed activevalidators dependency
 
 2.4 / 2020-08-04
 ==================
