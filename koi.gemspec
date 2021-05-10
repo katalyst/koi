@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency "mime-types", "~> 2.3"
-
   s.add_dependency "rails", "~> 4.2.1"
 
   s.add_dependency "sass-rails", "~> 5.0.0"
