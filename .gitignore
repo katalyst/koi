@@ -12,6 +12,7 @@ test/dummy/public/assets
 test/dummy/.powenv
 .DS_Store
 .rspec
+/.rspec_status
 passenger.3000.log
 passenger.3000.pid.lock
 /.idea
