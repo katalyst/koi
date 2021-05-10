@@ -74,9 +74,6 @@ Gem::Specification.new do |s|
   # Scoped Search
   s.add_dependency "scoped_search", "~> 3.2.0"
 
-  # Unique ID generation
-  s.add_dependency "uuidtools"
-
   # Validators
   s.add_dependency "activevalidators", "< 5"
 
