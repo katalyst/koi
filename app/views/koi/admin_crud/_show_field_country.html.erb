@@ -1,4 +1,0 @@
-<%- country = resource.send(attr) -%>
-<%- unless country.blank? -%>
-  <%= ISO3166::Country[country].name -%>
-<%- end -%>

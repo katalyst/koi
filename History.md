@@ -15,6 +15,7 @@
  * Removed mime-types dependency
  * Removed redis dependency
  * Removed uglifier dependency
+ * Removed countries dependency
 
 2.4 / 2020-08-04
 ==================

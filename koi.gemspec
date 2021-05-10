@@ -69,7 +69,4 @@ Gem::Specification.new do |s|
 
   # Nested Forms
   s.add_dependency "cocoon"
-
-  # Admin Graphing
-  s.add_dependency "countries"
 end
