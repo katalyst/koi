@@ -81,7 +81,4 @@ Gem::Specification.new do |s|
 
   # Admin Graphing
   s.add_dependency "countries"
-
-  # Application Settings
-  s.add_dependency 'figaro'
 end
