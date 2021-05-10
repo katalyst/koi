@@ -18,7 +18,6 @@ PATH
       sass-rails (~> 5.0.0)
       scoped_search (~> 3.2.0)
       select2-rails
-      sendgrid
       simple-navigation (~> 3.14.0)
       simple_form
 
@@ -104,7 +103,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.5.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -218,8 +216,6 @@ GEM
     scoped_search (3.2.2)
       activerecord (>= 3.2.0)
     select2-rails (4.0.13)
-    sendgrid (1.2.4)
-      json
     simple-navigation (3.14.0)
       activesupport (>= 2.3.2)
     simple_form (4.0.0)
