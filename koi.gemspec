@@ -75,12 +75,6 @@ Gem::Specification.new do |s|
   # Redis
   s.add_dependency "redis"
 
-  # Sidekiq (Background Server)
-  s.add_dependency "sidekiq"
-
-  # Required by Sidekiq Web
-  s.add_dependency "sinatra"
-
   # Nice Multi Select
   s.add_dependency "select2-rails"
 
