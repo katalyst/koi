@@ -93,7 +93,5 @@ Gem::Specification.new do |s|
   s.add_dependency "countries"
 
   # Application Settings
-  s.add_dependency "figaro"
-
-  s.add_dependency "htmlentities", "~> 4.3.3"
+  s.add_dependency 'figaro'
 end
