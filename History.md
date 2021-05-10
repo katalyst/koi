@@ -9,6 +9,7 @@
  * Removed htmlentities dependency
  * Removed pg dependency
  * Removed sidekiq, sidekiq-web, sinatra dependencies
+ * Removed figaro dependency
  * Removed rails-observers dependency
 
 2.4 / 2020-08-04
