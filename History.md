@@ -12,6 +12,7 @@
  * Removed figaro dependency
  * Removed rails-observers dependency
  * Removed active_model_serializers dependency
+ * Removed mime-types dependency
 
 2.4 / 2020-08-04
 ==================

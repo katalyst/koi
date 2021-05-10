@@ -14,7 +14,6 @@ PATH
       jquery-rails
       jquery-ui-rails
       kaminari
-      mime-types (~> 2.3)
       rails (~> 4.2.1)
       redis
       responders (~> 2.1)
@@ -133,7 +132,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mime-types (2.99.3)
     mini_mime (1.1.0)
     minitest (5.14.0)
     multi_json (1.15.0)
