@@ -38,9 +38,6 @@ Gem::Specification.new do |s|
   # Tree
   s.add_dependency "awesome_nested_set"
 
-  # Mailer
-  s.add_dependency "sendgrid"
-
   # File Handling
   s.add_dependency "dragonfly"
 
