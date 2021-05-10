@@ -61,11 +61,6 @@ Koi::Engine.routes.draw do
   get  'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
 
-  constraints lambda {|request| request.env['warden'].user(:admin) && request.env['warden'].user(:admin).god? } do
-    require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
-  end
-
   get '/styleguide/:action' => 'styleguide'
   get '/styleguide' => 'styleguide#index'
 

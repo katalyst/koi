@@ -8,6 +8,7 @@
  * Removed activevalidators dependency
  * Removed htmlentities dependency
  * Removed pg dependency
+ * Removed sidekiq, sidekiq-web, sinatra dependencies
 
 2.4 / 2020-08-04
 ==================

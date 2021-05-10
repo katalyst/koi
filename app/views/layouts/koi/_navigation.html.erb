@@ -12,9 +12,6 @@
         <%- end -%>
         <%- if menu_name.to_s.eql?("Advanced") -%>
           <li><%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %></li>
-          <%- if current_admin.god? -%>
-            <li><%= link_to "Background Jobs", koi_engine.sidekiq_path, target: "_blank" %></li>
-          <%- end -%>
         <%- end -%>
       </ul>
     </li>
