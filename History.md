@@ -4,6 +4,20 @@
  * Removed generators and templates
  * Removed reports
  * Removed Garb
+ * Removed uuidtools dependency
+ * Removed activevalidators dependency
+ * Removed htmlentities dependency
+ * Removed pg dependency
+ * Removed sidekiq, sidekiq-web, sinatra dependencies
+ * Removed figaro dependency
+ * Removed rails-observers dependency
+ * Removed active_model_serializers dependency
+ * Removed mime-types dependency
+ * Removed redis dependency
+ * Removed uglifier dependency
+ * Removed countries dependency
+ * Removed responders dependency
+ * Removed sendgrid dependency
 
 2.4 / 2020-08-04
 ==================

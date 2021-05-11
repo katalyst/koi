@@ -1,6 +1,6 @@
 module Koi
   class AssetsController < AdminCrudController
-    before_filter :init
+    before_action :init
 
     layout 'koi/assets'
 

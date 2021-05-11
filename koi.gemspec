@@ -17,89 +17,53 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency 'mime-types', '~> 2.3'
+  s.add_dependency "rails", ">= 6.1"
 
-  s.add_dependency 'rails', '~> 4.2.1'
-
-  s.add_dependency 'rails-observers', '0.1.2'
-
-  s.add_dependency 'active_model_serializers', '~> 0.8.2'
-
-  s.add_dependency 'pg'
-
-  s.add_dependency 'sass-rails', '~> 5.0.0'
-
-  s.add_dependency 'sass', '~> 3.4.12'
-
-  s.add_dependency 'uglifier'
+  s.add_dependency "sass-rails", ">= 6"
 
   # Overwrite for default rails
-  s.add_dependency 'jquery-rails'
+  s.add_dependency "jquery-rails", ">= 4.4"
 
   # jQuery UI
-  s.add_dependency 'jquery-ui-rails'
+  s.add_dependency "jquery-ui-rails", ">= 6"
 
   # Authorization
-  s.add_dependency 'devise'
+  # # devise 4.8.0 supports rails 6.1
+  s.add_dependency "devise", ">= 4.8.0"
 
   # Form
-  s.add_dependency 'simple_form'
+  # simple_form v5.1.0 supports rails 6.1
+  s.add_dependency "simple_form", ">= 5.1.0"
 
   # Tree
-  s.add_dependency 'awesome_nested_set'
-
-  # Mailer
-  s.add_dependency 'sendgrid'
+  # awesome_nested_set v3.3.0 supports rails 6.1
+  s.add_dependency "awesome_nested_set", ">= 3.3.0"
 
   # File Handling
-  s.add_dependency 'dragonfly'
+  s.add_dependency "dragonfly"
 
   # User Friendly Slugs
-  s.add_dependency 'friendly_id'
+  s.add_dependency "friendly_id"
 
   # Pagination
-  s.add_dependency 'kaminari'
+  s.add_dependency "kaminari"
 
   # Inherited Resources
-  s.add_dependency 'inherited_resources', '~> 1.6'
-  s.add_dependency 'has_scope', '0.6.0.rc'
-  s.add_dependency 'responders', '~> 2.1'
+  s.add_dependency "has_scope", ">= 0.8"
+  s.add_dependency "inherited_resources", ">= 1.12.0"
 
   # Navigation Rendering
-  s.add_dependency 'simple-navigation', '~> 3.14.0'
+  s.add_dependency "simple-navigation", "~> 3.14.0"
 
   # Tags
-  s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency "acts-as-taggable-on", ">= 7.0.0"
 
   # Scoped Search
-  s.add_dependency 'scoped_search', '~> 3.2.0'
-
-  # Unique ID generation
-  s.add_dependency 'uuidtools'
-
-  # Validators
-  s.add_dependency 'activevalidators', '< 5'
-
-  # Redis
-  s.add_dependency 'redis'
-
-  # Sidekiq (Background Server)
-  s.add_dependency 'sidekiq'
-
-  # Required by Sidekiq Web
-  s.add_dependency 'sinatra'
+  s.add_dependency "scoped_search", ">= 4.1.8"
 
   # Nice Multi Select
-  s.add_dependency 'select2-rails'
+  s.add_dependency "select2-rails", ">= 4"
 
   # Nested Forms
-  s.add_dependency 'cocoon'
-
-  # Admin Graphing
-  s.add_dependency 'countries'
-
-  # Application Settings
-  s.add_dependency 'figaro'
-
-  s.add_dependency 'htmlentities', '~> 4.3.3'
+  s.add_dependency "cocoon"
 end
