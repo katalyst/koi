@@ -61,7 +61,9 @@ Koi::Engine.routes.draw do
   get  'dashboard' => 'application#index', :as => :dashboard
   root to: 'application#login'
 
-  get '/styleguide/:action' => 'styleguide'
-  get '/styleguide' => 'styleguide#index'
 
+  if Rails.env.development?
+    get '/styleguide'           => 'styleguide#index'
+    get '/styleguide/:template' => 'styleguide#show', template: /[-_a-z]+/
+  end
 end
