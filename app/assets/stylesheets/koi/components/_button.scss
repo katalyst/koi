@@ -1,6 +1,6 @@
 
 .button-object {
-  // empty class to extend all our buttons in to so we 
+  // empty class to extend all our buttons in to so we
   // can target them all with .button regardless of what
   // actual class they have
 }
@@ -144,16 +144,20 @@
   @include button-line($button-error-background, false, $button-error-background);
 }
 
-// disabled buttons
-.button-object[disabled] {
+%button-disabled {
   @include button-background($button-disabled-background,$button-disabled-background);
   color: $white;
   cursor: not-allowed;
 }
 
+// disabled buttons
+.button-object[disabled] {
+  @extend %button-disabled;
+}
+
 .button__disabled {
   @include button-base;
-  @extend .button-object[disabled];
+  @extend %button-disabled;
 }
 
 // full width buttons
@@ -166,7 +170,7 @@
 .button__icon,
 .button__icon-left,
 .button__icon-right {
-  @include display-inline-flex;  
+  @include display-inline-flex;
   @include flex-direction(row);
   @include align-items(center);
 
@@ -228,7 +232,7 @@
 .button-set {
   @include pie-clearfix;
 
-  // Take advantage of the fact that buttons all extend the 
+  // Take advantage of the fact that buttons all extend the
   // .button class here
   .button-object {
     border-radius: 0;;
