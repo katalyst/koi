@@ -7,8 +7,8 @@ require "koi/version"
 Gem::Specification.new do |s|
   s.name          = "koi"
   s.version       = Koi::VERSION
-  s.authors       = ["Rahul Trikha"]
-  s.email         = ["rahul@katalyst.com.au"]
+  s.authors       = ["Katalyst"]
+  s.email         = ["admin@katalyst.com.au"]
   s.homepage      = "https://github.com/katalyst/koi"
   s.summary       = "Koi CMS admin framework"
   s.description   = "Framework to provide rapid application development"
