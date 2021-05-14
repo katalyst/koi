@@ -61,7 +61,7 @@ module HasCrud
           def sort
             ordered_ids = params[singular_name(:symbol)]
             collection.orderable(ordered_ids)
-            render text: nil
+            render plain: nil
           end
 
           # FIXME: Imporve the sorting based on methods
