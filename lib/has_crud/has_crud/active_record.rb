@@ -35,7 +35,7 @@ module HasCrud
       private
 
       def default_crud_config
-        KoiConfig::Config.new default_crud_config_options
+        Koi::Config.new default_crud_config_options
       end
 
       def default_crud_config_options
