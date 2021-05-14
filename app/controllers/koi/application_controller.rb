@@ -15,7 +15,7 @@ module Koi
     def clear_cache
       Rails.logger.warn("[CACHE CLEAR] - Cleaning entire cache manually by #{current_admin} request")
       Rails.cache.clear
-      redirect_to :back
+      redirect_back(fallback_location: dashboard_path)
     end
 
     protected
