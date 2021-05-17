@@ -11,7 +11,7 @@
       class="nav-item sitemap--group application id-<%= nav_item_id %>
              <%= "sortable" if nav_item.draggable? %>
              level-<%= level %>
-             <%= 'is-hidden' if nav_item_is_hidden %> 
+             <%= 'is-hidden' if nav_item_is_hidden %>
              <%= " mjs-nestedSortable-expanded" if level.eql?(0) -%>"
       data-type="<%= nav_item_type %>"
       data-id="<%= nav_item_id %>"
@@ -87,7 +87,7 @@
                 <%= content_tag :li, link_to("Module", new_module_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) if current_admin.god? %>
                 <%= content_tag :li, link_to("Alias" , new_alias_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
                 <%= content_tag :li, link_to("Folder", new_folder_nav_item_path(site_parent: nav_item.id), remote: true, class: "button__primary button__full button__small", data: { disable_with: "Loading" }) %>
-                <% has_navigation_models.each do |model| %>
+                <% Koi::Navigation.each do |model| %>
                   <%= content_tag :li, link_to(model.to_s, model.get_new_admin_url(site_parent: nav_item.id), class: "button__primary button__full button__small")  %>
                 <% end %>
               </ul>
