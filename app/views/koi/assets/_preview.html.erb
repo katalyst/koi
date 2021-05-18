@@ -4,7 +4,7 @@
   <h4 class="asset--filename"><%= resource.data.name %></h4>
   <div class="asset--thumbnail">
     <%- if resource.is_a?(Document) -%>
-      <%= image_tag resource.thumbnail(size: '400x') %>
+      <%= image_tag document_thumbnail(resource, size: '400x') %>
     <%- else -%>
       <%= link_to (image_tag resource.data.thumb('400x>').url), resource.url, data: { lightbox: "image" } %>
     <%- end -%>
