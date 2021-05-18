@@ -1,16 +1,16 @@
 GIT
-  remote: git://github.com/katalyst/ornament.git
-  revision: 77fc0c9e7e1419f36648ddb20506a9fc19d2e76d
-  branch: master
-  specs:
-    ornament (2.3.2)
-      rails (>= 4.0.0)
-
-GIT
   remote: https://github.com/katalyst/koi_config.git
   revision: 6862db8d37b01afb0d2037d70de16a93dfb0274f
   specs:
     koi_config (0.0.1)
+
+GIT
+  remote: https://github.com/katalyst/ornament.git
+  revision: 5c5e02b053e0246b59d71e728cdd5da6c64aa0d4
+  branch: master
+  specs:
+    ornament (2.3.2)
+      rails (>= 4.0.0)
 
 PATH
   remote: .
@@ -282,16 +282,19 @@ GEM
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.0331)
-    mimemagic (0.3.3)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.1)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.1)
     minitest (5.11.3)
     multi_json (1.13.1)
     nenv (0.3.0)
     net-ssh (2.9.4)
     nio4r (2.3.1)
-    nokogiri (1.10.3)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.4)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -312,6 +315,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     puma (3.12.1)
+    racc (1.5.2)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
