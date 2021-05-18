@@ -4,7 +4,7 @@ PATH
     koi (2.5.0)
       acts-as-taggable-on (>= 7.0.0)
       awesome_nested_set (>= 3.3.0)
-      cocoon
+      cocoon (>= 1.2.15)
       devise (>= 4.8.0)
       dragonfly
       friendly_id
@@ -12,7 +12,7 @@ PATH
       inherited_resources (>= 1.12.0)
       jquery-rails (>= 4.4)
       jquery-ui-rails (>= 6)
-      kaminari
+      kaminari (>= 1.2.1)
       rails (>= 6.1)
       sass-rails (>= 6)
       scoped_search (>= 4.1.8)

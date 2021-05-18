@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   s.add_dependency "friendly_id"
 
   # Pagination
-  s.add_dependency "kaminari"
+  s.add_dependency "kaminari", ">= 1.2.1"
 
   # Inherited Resources
   s.add_dependency "has_scope", ">= 0.8"
@@ -65,5 +65,5 @@ Gem::Specification.new do |s|
   s.add_dependency "select2-rails", ">= 4"
 
   # Nested Forms
-  s.add_dependency "cocoon"
+  s.add_dependency "cocoon", ">= 1.2.15"
 end
