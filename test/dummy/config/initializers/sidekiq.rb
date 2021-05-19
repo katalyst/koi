@@ -1,4 +1,4 @@
-default_config = { namespace: Rails.application.class.parent_name.downcase }
+default_config = { namespace: Rails.application.class.module_parent.downcase }
 
 Sidekiq.configure_server do |config|
   config.redis = default_config

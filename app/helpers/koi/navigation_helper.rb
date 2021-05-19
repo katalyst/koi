@@ -92,7 +92,7 @@ module Koi::NavigationHelper
   private
 
     def prefix_cache_key(suffix)
-      "#{Rails.application.class.parent_name}_#{suffix}"
+      "#{Rails.application.class.module_parent}_#{suffix}"
     end
 
     def cache_expiry
