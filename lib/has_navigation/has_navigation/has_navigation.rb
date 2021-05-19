@@ -1,4 +1,5 @@
 module HasNavigation
+  extend ActiveSupport::Concern
 
   #
   # TO USE:
@@ -24,11 +25,13 @@ module HasNavigation
   # Be sure to implement `to_s` in your model so that it correctly generates nav item titles
   #
 
-  def has_navigation(options = {})
-    # Include class & instance methods.
-    include HasNavigation::Model
+  class_methods do
+    def has_navigation(options = {})
+      # Include class & instance methods.
+      include HasNavigation::Model
 
-    has_one :resource_nav_item, as: :navigable, dependent: :destroy
+      has_one :resource_nav_item, as: :navigable, dependent: :destroy
+    end
   end
 
   class UrlHelpers
