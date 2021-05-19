@@ -69,8 +69,7 @@ module Koi::ApplicationHelper
   #   placeholder_image_tag("No Image", width: 100, height: 100) # => "<img src='/example.png' width='100' height='100' />"
   #
   def placeholder_image_tag(text, args={})
-    image_tag(asset_path('koi/application/placeholder-image-none.png'), args)
-#    image_tag(placeholder_image(text, args).url, args)
+    image_tag(path_to_image('koi/application/placeholder-image-none.png'), args)
   end
 
   def new_uuid

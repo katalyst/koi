@@ -10,13 +10,9 @@ module Koi
       app.middleware.use Koi::UrlRedirect
       app.config.assets.precompile += %w(
         koi/modernizr.js
-        selectivizr.js
-        css3-mediaqueries.js
-        application_bottom.js
-        koi.js
-        koi/nav_items.js
-        koi/assets.js
-        koi/application.css
+        koi/selectivizr.js
+        koi/css3-mediaqueries.js
+        koi_manifest.js
       )
     end
 

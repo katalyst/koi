@@ -27,7 +27,7 @@ module Koi::IconHelper
       # prevents broken file uploads from crashing on subsequent page edits
       ext = "none"
     end
-    Koi::KoiAsset::Document.icons.has_key?(ext) ? asset_path(Koi::KoiAsset::Document.icons[ext]) : asset_path(Koi::KoiAsset.unknown_image)
+    Koi::KoiAsset::Document.icons.has_key?(ext) ? path_to_asset(Koi::KoiAsset::Document.icons[ext]) : path_to_asset(Koi::KoiAsset.unknown_image)
   end
 
   # Returns an images that represents the given attachment. If it's a images it'll be a cropped
