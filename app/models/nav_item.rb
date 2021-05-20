@@ -1,4 +1,5 @@
 class NavItem < ActiveRecord::Base
+  include Koi::Model
 
   before_save :raise_abstract_error
   after_destroy :clear_cache

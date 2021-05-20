@@ -1,4 +1,5 @@
 class FriendlyIdSlug < ActiveRecord::Base
+  include Koi::Model
 
   has_crud ajaxable: true, slugged: false
 

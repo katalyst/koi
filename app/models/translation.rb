@@ -1,9 +1,9 @@
 class Translation < ActiveRecord::Base
+  include Koi::Model
 
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
-  # FIXME: Refactored from has
   has_many :images, as: :attributable
   accepts_nested_attributes_for :images, allow_destroy: true
 

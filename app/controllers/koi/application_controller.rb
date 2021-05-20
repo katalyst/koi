@@ -1,5 +1,8 @@
 module Koi
   class ApplicationController < ActionController::Base
+    include HasCrud::ActionController
+    include ExportableController
+
     helper :all
     layout :layout_by_resource
     before_action :authenticate_admin, except: :login

@@ -1,6 +1,10 @@
 module Exportable
-  def make_exportable
-    send :include, Exportable::Model
+  extend ActiveSupport::Concern
+
+  class_methods do
+    def make_exportable
+      send :include, Exportable::Model
+    end
   end
 
   module Model
@@ -34,10 +38,10 @@ module Exportable
         attributes = column_names.map(&:to_sym) if attributes.blank?
 
         CSV.generate(headers: true) do |csv|
-          header_row = attributes.map{ |attr| I18n.translate "simple_form.labels.#{name.underscore}.#{attr}", default: attr.to_s.titleize }
+          header_row = attributes.map { |attr| I18n.translate "simple_form.labels.#{name.underscore}.#{attr}", default: attr.to_s.titleize }
           csv << header_row
           all.each do |object|
-            csv << attributes.map{ |attr| format_field_for_csv attr, object }
+            csv << attributes.map { |attr| format_field_for_csv attr, object }
           end
         end
       end
@@ -93,7 +97,8 @@ module Exportable
           csv_format_boolean(object, attr)
         when Array
           csv_format_array(object, attr)
-        else # use the raw value
+        else
+          # use the raw value
           object.send(attr)
         end
       end
@@ -103,7 +108,11 @@ module Exportable
       #
 
       def csv_format_boolean(object, attr)
-        if object.send(attr) then "Yes" else "No" end
+        if object.send(attr)
+          "Yes"
+        else
+          "No"
+        end
       end
 
       def csv_format_file(object, attr)
@@ -114,6 +123,7 @@ module Exportable
       def csv_format_inline(object, attr)
         object.send(attr).map(&:to_s).join('|')
       end
+
       alias_method :csv_format_multiselect_association, :csv_format_inline
       alias_method :csv_format_array, :csv_format_inline
 

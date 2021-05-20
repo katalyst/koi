@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  include Koi::Model
+
   has_crud paginate: false, navigation: true,
            settings: true
 

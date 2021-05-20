@@ -1,10 +1,14 @@
 require_relative 'shared_methods'
 
 module HasSettings
-  def has_settings(options={})
-    send :include, HasSettings::Model
-    send :after_save,     :create_settings
-    send :before_destroy, :remove_settings
+  extend ActiveSupport::Concern
+
+  class_methods do
+    def has_settings(options = {})
+      send :include, HasSettings::Model
+      send :after_save, :create_settings
+      send :before_destroy, :remove_settings
+    end
   end
 
   module Model

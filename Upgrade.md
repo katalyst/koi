@@ -1,5 +1,28 @@
 # Breaking changes and Upgrade Paths
 
+## 2.5.0
+
+All Koi model and controller functionality was previously included automatically into ActiveRecord::Base and 
+ActionController::Base by Koi. Now, you must manually include the functionality you want. 
+
+### Admin controller functionality
+
+    include HasCrud::ActionController
+    include ExportableController
+
+or, extend Koi::AdminCrudController
+
+### Model functionality
+
+    include HasCrud::ActiveRecord
+    include Exportable
+    include HasSettings
+    include HasNavigation
+
+or, to include all Koi model functionality
+
+    include Koi::Model
+
 ## 2.2.1
 
 * Removed `:images` from settings
