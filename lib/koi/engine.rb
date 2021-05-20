@@ -16,7 +16,7 @@ module Koi
         koi/modernizr.js
         koi/selectivizr.js
         koi/css3-mediaqueries.js
-        koi_manifest.js
+        koi/ckeditor.js
       )
     end
 
