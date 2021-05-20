@@ -1,4 +1,6 @@
 class Admin < ActiveRecord::Base
+  include Koi::Model
+
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 

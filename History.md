@@ -18,6 +18,7 @@
  * Removed countries dependency
  * Removed responders dependency
  * Removed sendgrid dependency
+ * Removed auto included functionality, see Upgrade.md for details.
 
 2.4 / 2020-08-04
 ==================

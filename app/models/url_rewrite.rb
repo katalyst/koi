@@ -1,4 +1,5 @@
 class UrlRewrite < ActiveRecord::Base
+  include Koi::Model
 
   has_crud
 
