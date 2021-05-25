@@ -9,7 +9,7 @@ PATH
       dragonfly
       friendly_id
       has_scope (>= 0.8)
-      inherited_resources (>= 1.12.0)
+      inherited_resources (>= 1.13.0)
       jquery-rails (>= 4.4)
       jquery-ui-rails (>= 6)
       kaminari (>= 1.2.1)
