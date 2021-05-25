@@ -16,15 +16,26 @@
 
 <% content_for :side do %>
 
-  <div class="content-spacing">
+  <div class="spacing">
 
     <%= render "lock_sitemap", panel_class: "sitemap--lock__desktop" -%>
 
-    <h2 class="heading-two">Adding a page</h2>
-    
-    <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
-    <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
-    <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
+    <div class="compressed">
+      <h2 class="heading-two">Adding a page</h2>
+      <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
+      <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
+      <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
+    </div>
+
+    <%- unless @orphan_pages.blank? -%>
+      <div class="compressed">
+        <h2 class="heading-two">Orphaned Pages</h2>
+        <p>There are <%= link_to "orphaned pages", orphans_pages_path -%> available to be restored.</p>
+        <p>Orphaned pages occur when link in the sitemap is deleted without deleting the page itself.</p>
+        <p>These pages are still available on the website and will still appear if accessed directly.</p>
+        <p><%= link_to "View orphaned pages", orphans_pages_path -%>.</p>
+      </div>
+    <%- end -%>
 
   </div>
 

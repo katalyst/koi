@@ -33,6 +33,7 @@ module Koi
 
     def sitemap
        @nav_items = NavItem.all
+       @orphan_pages = get_orphan_pages
     end
 
     def savesort
