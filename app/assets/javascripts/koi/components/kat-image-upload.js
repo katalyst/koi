@@ -45,15 +45,8 @@
 
       // Feature Detection
       // Requires Modernizr with drag and drop and file api
-      var supportsDragAndDrop = false;
-      var supportsFileAPI = false;
-
-      if (Modernizr.draganddrop === true) {
-        supportsDragAndDrop = true;
-      }
-      if (Modernizr.filereader === true) {
-        supportsFileAPI = true;
-      }
+      var supportsDragAndDrop = true;
+      var supportsFileAPI = true;
 
       // Abort if unsupported
       if(!supportsFileAPI || !supportsDragAndDrop){
