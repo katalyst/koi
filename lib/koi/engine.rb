@@ -13,7 +13,6 @@ module Koi
         koi/nav_items.js
         koi/assets.js
         koi/application.css
-        koi/modernizr.js
         koi/ckeditor.js
       )
     end
