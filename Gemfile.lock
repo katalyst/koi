@@ -6,7 +6,7 @@ PATH
       awesome_nested_set (>= 3.3.0)
       cocoon (>= 1.2.15)
       devise (>= 4.8.0)
-      dragonfly
+      dragonfly (= 1.3.0)
       friendly_id
       has_scope (>= 0.8)
       inherited_resources (>= 1.13.0)
