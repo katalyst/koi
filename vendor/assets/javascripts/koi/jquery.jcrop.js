@@ -1,9 +1,9 @@
 /**
- * jquery.Jcrop.js v0.9.12
- * jQuery Image Cropping Plugin - released under MIT License 
+ * jquery.Jcrop.js v0.9.15
+ * jQuery Image Cropping Plugin - released under MIT License
  * Author: Kelly Hallman <khallman@gmail.com>
  * http://github.com/tapmodo/Jcrop
- * Copyright (c) 2008-2013 Tapmodo Interactive LLC {{{
+ * Copyright (c) 2008-2018 Tapmodo Interactive LLC {{{
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -93,33 +93,33 @@
       return function (pos) {
         if (!options.aspectRatio) {
           switch (mode) {
-          case 'e':
-            pos[1] = f.y2;
-            break;
-          case 'w':
-            pos[1] = f.y2;
-            break;
-          case 'n':
-            pos[0] = f.x2;
-            break;
-          case 's':
-            pos[0] = f.x2;
-            break;
+            case 'e':
+              pos[1] = f.y2;
+              break;
+            case 'w':
+              pos[1] = f.y2;
+              break;
+            case 'n':
+              pos[0] = f.x2;
+              break;
+            case 's':
+              pos[0] = f.x2;
+              break;
           }
         } else {
           switch (mode) {
-          case 'e':
-            pos[1] = f.y + 1;
-            break;
-          case 'w':
-            pos[1] = f.y + 1;
-            break;
-          case 'n':
-            pos[0] = f.x + 1;
-            break;
-          case 's':
-            pos[0] = f.x + 1;
-            break;
+            case 'e':
+              pos[1] = f.y + 1;
+              break;
+            case 'w':
+              pos[1] = f.y + 1;
+              break;
+            case 'n':
+              pos[0] = f.x + 1;
+              break;
+            case 's':
+              pos[0] = f.x + 1;
+              break;
           }
         }
         Coords.setCurrent(pos);
@@ -143,22 +143,22 @@
     function oppLockCorner(ord) //{{{
     {
       switch (ord) {
-      case 'n':
-        return 'sw';
-      case 's':
-        return 'nw';
-      case 'e':
-        return 'nw';
-      case 'w':
-        return 'ne';
-      case 'ne':
-        return 'sw';
-      case 'nw':
-        return 'se';
-      case 'se':
-        return 'nw';
-      case 'sw':
-        return 'ne';
+        case 'n':
+          return 'sw';
+        case 's':
+          return 'nw';
+        case 'e':
+          return 'nw';
+        case 'w':
+          return 'ne';
+        case 'ne':
+          return 'sw';
+        case 'nw':
+          return 'se';
+        case 'se':
+          return 'nw';
+        case 'sw':
+          return 'ne';
       }
     }
     //}}}
@@ -171,7 +171,7 @@
         if ((ord === 'move') && !options.allowMove) {
           return false;
         }
-        
+
         // Fix position of crop area when dragged the very first time.
         // Necessary when crop image is in a hidden element when page is loaded.
         docOffset = getPos($img);
@@ -294,7 +294,7 @@
     };
 
     var $origimg = $(obj),
-      img_mode = true;
+        img_mode = true;
 
     if (obj.tagName == 'IMG') {
       // Fix size of crop image.
@@ -309,7 +309,7 @@
         tempImage.src = $origimg[0].src;
         $origimg.width(tempImage.width);
         $origimg.height(tempImage.height);
-      } 
+      }
 
       var $img = $origimg.clone().removeAttr('id').css(img_css).show();
 
@@ -327,12 +327,12 @@
 
     var boundx = $img.width(),
         boundy = $img.height(),
-        
-        
+
+
         $div = $('<div />').width(boundx).height(boundy).addClass(cssClass('holder')).css({
-        position: 'relative',
-        backgroundColor: options.bgColor
-      }).insertAfter($origimg).append($img);
+          position: 'relative',
+          backgroundColor: options.bgColor
+        }).insertAfter($origimg).append($img);
 
     if (options.addClass) {
       $div.addClass(options.addClass);
@@ -340,31 +340,31 @@
 
     var $img2 = $('<div />'),
 
-        $img_holder = $('<div />') 
-        .width('100%').height('100%').css({
-          zIndex: 310,
-          position: 'absolute',
-          overflow: 'hidden'
-        }),
+        $img_holder = $('<div />')
+            .width('100%').height('100%').css({
+              zIndex: 310,
+              position: 'absolute',
+              overflow: 'hidden'
+            }),
 
-        $hdl_holder = $('<div />') 
-        .width('100%').height('100%').css('zIndex', 320), 
+        $hdl_holder = $('<div />')
+            .width('100%').height('100%').css('zIndex', 320),
 
-        $sel = $('<div />') 
-        .css({
-          position: 'absolute',
-          zIndex: 600
-        }).dblclick(function(){
-          var c = Coords.getFixed();
-          options.onDblClick.call(api,c);
-        }).insertBefore($img).append($img_holder, $hdl_holder); 
+        $sel = $('<div />')
+            .css({
+              position: 'absolute',
+              zIndex: 600
+            }).dblclick(function(){
+              var c = Coords.getFixed();
+              options.onDblClick.call(api,c);
+            }).insertBefore($img).append($img_holder, $hdl_holder);
 
     if (img_mode) {
 
       $img2 = $('<img />')
           .attr('src', $img.attr('src')).css(img_css).width(boundx).height(boundy),
 
-      $img_holder.append($img2);
+          $img_holder.append($img2);
 
     }
 
@@ -421,7 +421,7 @@
 
       function detectSupport() {
         if ((options.touchSupport === true) || (options.touchSupport === false)) return options.touchSupport;
-          else return hasTouchSupport();
+        else return hasTouchSupport();
       }
       return {
         createDragger: function (ord) {
@@ -511,14 +511,14 @@
       {
         var c = getFixed();
         switch (ord) {
-        case 'ne':
-          return [c.x2, c.y];
-        case 'nw':
-          return [c.x, c.y];
-        case 'se':
-          return [c.x2, c.y2];
-        case 'sw':
-          return [c.x, c.y2];
+          case 'ne':
+            return [c.x2, c.y];
+          case 'nw':
+            return [c.x, c.y];
+          case 'se':
+            return [c.x2, c.y2];
+          case 'sw':
+            return [c.x, c.y2];
         }
       }
       //}}}
@@ -530,8 +530,8 @@
         // This function could use some optimization I think...
         var aspect = options.aspectRatio,
             min_x = options.minSize[0] / xscale,
-            
-            
+
+
             //min_y = options.minSize[1]/yscale,
             max_x = options.maxSize[0] / xscale,
             max_y = options.maxSize[1] / yscale,
@@ -797,7 +797,7 @@
           {
             setOpacity(options.bgOpacity,1);
           }
-            else setOpacity(1,1);
+          else setOpacity(1,1);
         }
       }
       function setBgColor(color,now) {
@@ -891,9 +891,9 @@
       {
         var hs = options.handleSize,
 
-          div = dragDiv(ord, hdep++).css({
-            opacity: options.handleOpacity
-          }).addClass(cssClass('handle'));
+            div = dragDiv(ord, hdep++).css({
+              opacity: options.handleOpacity
+            }).addClass(cssClass('handle'));
 
         if (hs) { div.width(hs).height(hs); }
 
@@ -1010,7 +1010,7 @@
         $sel.show();
 
         if (options.shade) Shade.opacity(bgopacity);
-          else setBgOpacity(bgopacity,true);
+        else setBgOpacity(bgopacity,true);
 
         awake = true;
       }
@@ -1021,7 +1021,7 @@
         $sel.hide();
 
         if (options.shade) Shade.opacity(1);
-          else setBgOpacity(1);
+        else setBgOpacity(1);
 
         awake = false;
         options.onRelease.call(api);
@@ -1047,7 +1047,7 @@
       {
         seehandles = false;
         $hdl_holder.hide();
-      } 
+      }
       //}}}
       function animMode(v) //{{{
       {
@@ -1058,13 +1058,13 @@
           animating = false;
           enableHandles();
         }
-      } 
+      }
       //}}}
       function done() //{{{
       {
         animMode(false);
         refresh();
-      } 
+      }
       //}}}
       // Insert draggable elements {{{
       // Insert border divs for outline
@@ -1120,7 +1120,7 @@
         done: done
       };
     }());
-    
+
     //}}}
     // Tracker Module {{{
     var Tracker = (function () {
@@ -1136,14 +1136,14 @@
 
         if (touch)
           $(document)
-            .bind('touchmove.jcrop', trackTouchMove)
-            .bind('touchend.jcrop', trackTouchEnd);
+              .bind('touchmove.jcrop', trackTouchMove)
+              .bind('touchend.jcrop', trackTouchEnd);
 
         else if (trackDoc)
           $(document)
-            .bind('mousemove.jcrop',trackMove)
-            .bind('mouseup.jcrop',trackUp);
-      } 
+              .bind('mousemove.jcrop',trackMove)
+              .bind('mouseup.jcrop',trackUp);
+      }
       //}}}
       function toBack() //{{{
       {
@@ -1151,13 +1151,13 @@
           zIndex: 290
         });
         $(document).unbind('.jcrop');
-      } 
+      }
       //}}}
       function trackMove(e) //{{{
       {
         onMove(mouseAbs(e));
         return false;
-      } 
+      }
       //}}}
       function trackUp(e) //{{{
       {
@@ -1221,15 +1221,15 @@
     // KeyManager Module {{{
     var KeyManager = (function () {
       var $keymgr = $('<input type="radio" />').css({
-        position: 'fixed',
-        left: '-120px',
-        width: '12px'
-      }).addClass('jcrop-keymgr'),
+            position: 'fixed',
+            left: '-120px',
+            width: '12px'
+          }).addClass('jcrop-keymgr'),
 
-        $keywrap = $('<div />').css({
-          position: 'absolute',
-          overflow: 'hidden'
-        }).append($keymgr);
+          $keywrap = $('<div />').css({
+            position: 'absolute',
+            overflow: 'hidden'
+          }).append($keymgr);
 
       function watchKeys() //{{{
       {
@@ -1263,23 +1263,23 @@
         var nudge = shift_down ? 10 : 1;
 
         switch (e.keyCode) {
-        case 37:
-          doNudge(e, -nudge, 0);
-          break;
-        case 39:
-          doNudge(e, nudge, 0);
-          break;
-        case 38:
-          doNudge(e, 0, -nudge);
-          break;
-        case 40:
-          doNudge(e, 0, nudge);
-          break;
-        case 27:
-          if (options.allowSelect) Selection.release();
-          break;
-        case 9:
-          return true;
+          case 37:
+            doNudge(e, -nudge, 0);
+            break;
+          case 39:
+            doNudge(e, nudge, 0);
+            break;
+          case 38:
+            doNudge(e, 0, -nudge);
+            break;
+          case 40:
+            doNudge(e, 0, nudge);
+            break;
+          case 27:
+            if (options.allowSelect) Selection.release();
+            break;
+          case 9:
+            return true;
         }
 
         return false;
@@ -1505,10 +1505,10 @@
 
       if (options.bgColor != bgcolor) {
         colorChangeMacro(
-          options.shade? Shade.getShades(): $div,
-          options.shade?
-            (options.shadeColor || options.bgColor):
-            options.bgColor
+            options.shade? Shade.getShades(): $div,
+            options.shade?
+                (options.shadeColor || options.bgColor):
+                options.bgColor
         );
         bgcolor = options.bgColor;
       }
@@ -1516,7 +1516,7 @@
       if (bgopacity != options.bgOpacity) {
         bgopacity = options.bgOpacity;
         if (options.shade) Shade.refresh();
-          else Selection.setBgOpacity(bgopacity);
+        else Selection.setBgOpacity(bgopacity);
       }
 
       xlimit = options.maxSize[0] || 0;
@@ -1627,11 +1627,11 @@
     }
 
     $img
-      .bind('load.jcloader',completeCheck)
-      .bind('error.jcloader',function(e){
-        $img.unbind('.jcloader');
-        if ($.isFunction(error)) error.call(img);
-      });
+        .bind('load.jcloader',completeCheck)
+        .bind('error.jcloader',function(e){
+          $img.unbind('.jcloader');
+          if ($.isFunction(error)) error.call(img);
+        });
 
     if (img.complete && $.isFunction(success)){
       $img.unbind('.jcloader');

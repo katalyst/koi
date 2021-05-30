@@ -1,28 +1,22 @@
-/*
- * jQuery MiniColors: A tiny color picker built on jQuery
- *
- * Copyright: Cory LaViska for A Beautiful Site, LLC: http://www.abeautifulsite.net/
- *
- * Contribute: https://github.com/claviska/jquery-minicolors
- *
- * @license: http://opensource.org/licenses/MIT
- *
- */
+//
+// jQuery MiniColors: A tiny color picker built on jQuery
+//
+// Developed by Cory LaViska for A Beautiful Site, LLC
+//
+// Licensed under the MIT license: http://opensource.org/licenses/MIT
+//
 (function (factory) {
-    /* jshint ignore:start */
-    if (typeof define === 'function' && define.amd) {
+    if(typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
+    } else if(typeof exports === 'object') {
         // Node/CommonJS
         module.exports = factory(require('jquery'));
     } else {
         // Browser globals
         factory(jQuery);
     }
-    /* jshint ignore:end */
 }(function ($) {
-
     'use strict';
 
     // Defaults
@@ -33,7 +27,6 @@
             change: null,
             changeDelay: 0,
             control: 'hue',
-            dataUris: true,
             defaultValue: '',
             format: 'hex',
             hide: null,
@@ -42,7 +35,7 @@
             keywords: '',
             letterCase: 'lowercase',
             opacity: false,
-            position: 'bottom left',
+            position: 'bottom',
             show: null,
             showSpeed: 100,
             theme: 'default',
@@ -55,10 +48,9 @@
         minicolors: function(method, data) {
 
             switch(method) {
-
                 // Destroy the control
                 case 'destroy':
-                    $(this).each( function() {
+                    $(this).each(function() {
                         destroy($(this));
                     });
                     return $(this);
@@ -71,12 +63,12 @@
                 // Get/set opacity
                 case 'opacity':
                     // Getter
-                    if( data === undefined ) {
+                    if(data === undefined) {
                         // Getter
                         return $(this).attr('data-opacity');
                     } else {
                         // Setter
-                        $(this).each( function() {
+                        $(this).each(function() {
                             updateFromInput($(this).attr('data-opacity', data));
                         });
                     }
@@ -93,11 +85,11 @@
 
                 // Get/set settings on the fly
                 case 'settings':
-                    if( data === undefined ) {
+                    if(data === undefined) {
                         return $(this).data('minicolors-settings');
                     } else {
                         // Setter
-                        $(this).each( function() {
+                        $(this).each(function() {
                             var settings = $(this).data('minicolors-settings') || {};
                             destroy($(this));
                             $(this).minicolors($.extend(true, settings, data));
@@ -107,22 +99,22 @@
 
                 // Show the color picker
                 case 'show':
-                    show( $(this).eq(0) );
+                    show($(this).eq(0));
                     return $(this);
 
                 // Get/set the hex color value
                 case 'value':
-                    if( data === undefined ) {
+                    if(data === undefined) {
                         // Getter
                         return $(this).val();
                     } else {
                         // Setter
-                        $(this).each( function() {
-                            if( typeof(data) === 'object' && typeof(data) !== null ) {
-                                if( data.opacity ) {
+                        $(this).each(function() {
+                            if(typeof(data) === 'object' && data !== null) {
+                                if(data.opacity !== undefined) {
                                     $(this).attr('data-opacity', keepWithin(data.opacity, 0, 1));
                                 }
-                                if( data.color ) {
+                                if(data.color) {
                                     $(this).val(data.color);
                                 }
                             } else {
@@ -135,8 +127,8 @@
 
                 // Initializes the control
                 default:
-                    if( method !== 'create' ) data = method;
-                    $(this).each( function() {
+                    if(method !== 'create') data = method;
+                    $(this).each(function() {
                         init($(this), data);
                     });
                     return $(this);
@@ -148,17 +140,18 @@
 
     // Initialize input elements
     function init(input, settings) {
-
-        var minicolors = $('<div class="minicolors" />'),
-            defaults = $.minicolors.defaults,
-            size,
-            swatches,
-            swatch,
-            panel,
-            i;
+        var minicolors = $('<div class="minicolors" />');
+        var defaults = $.minicolors.defaults;
+        var name;
+        var size;
+        var swatches;
+        var swatch;
+        var swatchString;
+        var panel;
+        var i;
 
         // Do nothing if already initialized
-        if( input.data('minicolors-initialized') ) return;
+        if(input.data('minicolors-initialized')) return;
 
         // Handle settings
         settings = $.extend(true, {}, defaults, settings);
@@ -166,21 +159,20 @@
         // The wrapper
         minicolors
             .addClass('minicolors-theme-' + settings.theme)
-            .toggleClass('minicolors-with-opacity', settings.opacity)
-            .toggleClass('minicolors-no-data-uris', settings.dataUris !== true);
+            .toggleClass('minicolors-with-opacity', settings.opacity);
 
         // Custom positioning
-        if( settings.position !== undefined ) {
+        if(settings.position !== undefined) {
             $.each(settings.position.split(' '), function() {
                 minicolors.addClass('minicolors-position-' + this);
             });
         }
 
         // Input size
-        if( settings.format === 'rgb' ) {
+        if(settings.format === 'rgb') {
             size = settings.opacity ? '25' : '20';
         } else {
-            size = settings.keywords ? '11' : '8';
+            size = settings.keywords ? '11' : '7';
         }
 
         // The input
@@ -192,25 +184,25 @@
             .wrap(minicolors)
             .after(
                 '<div class="minicolors-panel minicolors-slider-' + settings.control + '">' +
-                    '<div class="minicolors-slider minicolors-sprite">' +
-                        '<div class="minicolors-picker"></div>' +
-                    '</div>' +
-                    '<div class="minicolors-opacity-slider minicolors-sprite">' +
-                        '<div class="minicolors-picker"></div>' +
-                    '</div>' +
-                    '<div class="minicolors-grid minicolors-sprite">' +
-                        '<div class="minicolors-grid-inner"></div>' +
-                        '<div class="minicolors-picker"><div></div></div>' +
-                    '</div>' +
+                '<div class="minicolors-slider minicolors-sprite">' +
+                '<div class="minicolors-picker"></div>' +
+                '</div>' +
+                '<div class="minicolors-opacity-slider minicolors-sprite">' +
+                '<div class="minicolors-picker"></div>' +
+                '</div>' +
+                '<div class="minicolors-grid minicolors-sprite">' +
+                '<div class="minicolors-grid-inner"></div>' +
+                '<div class="minicolors-picker"><div></div></div>' +
+                '</div>' +
                 '</div>'
             );
 
         // The swatch
-        if( !settings.inline ) {
+        if(!settings.inline) {
             input.after('<span class="minicolors-swatch minicolors-sprite minicolors-input-swatch"><span class="minicolors-swatch-color"></span></span>');
             input.next('.minicolors-input-swatch').on('click', function(event) {
                 event.preventDefault();
-                input.focus();
+                input.trigger('focus');
             });
         }
 
@@ -219,38 +211,43 @@
         panel.on('selectstart', function() { return false; }).end();
 
         // Swatches
-        if (settings.swatches && settings.swatches.length !== 0) {
+        if(settings.swatches && settings.swatches.length !== 0) {
             panel.addClass('minicolors-with-swatches');
             swatches = $('<ul class="minicolors-swatches"></ul>')
                 .appendTo(panel);
             for(i = 0; i < settings.swatches.length; ++i) {
-                swatch = settings.swatches[i];
+                // allow for custom objects as swatches
+                if($.type(settings.swatches[i]) === 'object') {
+                    name = settings.swatches[i].name;
+                    swatch = settings.swatches[i].color;
+                } else {
+                    name = '';
+                    swatch = settings.swatches[i];
+                }
+                swatchString = swatch;
                 swatch = isRgb(swatch) ? parseRgb(swatch, true) : hex2rgb(parseHex(swatch, true));
-                $('<li class="minicolors-swatch minicolors-sprite"><span class="minicolors-swatch-color"></span></li>')
+                $('<li class="minicolors-swatch minicolors-sprite"><span class="minicolors-swatch-color" title="' + name + '"></span></li>')
                     .appendTo(swatches)
-                    .data('swatch-color', settings.swatches[i])
+                    .data('swatch-color', swatchString)
                     .find('.minicolors-swatch-color')
                     .css({
                         backgroundColor: rgb2hex(swatch),
-                        opacity: swatch.a
+                        opacity: String(swatch.a)
                     });
                 settings.swatches[i] = swatch;
             }
-
         }
 
         // Inline controls
-        if( settings.inline ) input.parent().addClass('minicolors-inline');
+        if(settings.inline) input.parent().addClass('minicolors-inline');
 
         updateFromInput(input, false);
 
         input.data('minicolors-initialized', true);
-
     }
 
     // Returns the input back to its original state
     function destroy(input) {
-
         var minicolors = input.parent();
 
         // Revert the input element
@@ -262,18 +259,17 @@
 
         // Remove the wrap and destroy whatever remains
         minicolors.before(input).remove();
-
     }
 
     // Shows the specified dropdown panel
     function show(input) {
-
-        var minicolors = input.parent(),
-            panel = minicolors.find('.minicolors-panel'),
-            settings = input.data('minicolors-settings');
+        var minicolors = input.parent();
+        var panel = minicolors.find('.minicolors-panel');
+        var settings = input.data('minicolors-settings');
 
         // Do nothing if uninitialized, disabled, inline, or already open
-        if( !input.data('minicolors-initialized') ||
+        if(
+            !input.data('minicolors-initialized') ||
             input.prop('disabled') ||
             minicolors.hasClass('minicolors-inline') ||
             minicolors.hasClass('minicolors-focus')
@@ -282,65 +278,71 @@
         hide();
 
         minicolors.addClass('minicolors-focus');
-        panel
-            .stop(true, true)
-            .fadeIn(settings.showSpeed, function() {
-                if( settings.show ) settings.show.call(input.get(0));
-            });
-
+        if (panel.animate) {
+            panel
+                .stop(true, true)
+                .fadeIn(settings.showSpeed, function () {
+                    if (settings.show) settings.show.call(input.get(0));
+                });
+        } else {
+            panel.show();
+            if (settings.show) settings.show.call(input.get(0));
+        }
     }
 
     // Hides all dropdown panels
     function hide() {
+        $('.minicolors-focus').each(function() {
+            var minicolors = $(this);
+            var input = minicolors.find('.minicolors-input');
+            var panel = minicolors.find('.minicolors-panel');
+            var settings = input.data('minicolors-settings');
 
-        $('.minicolors-focus').each( function() {
-
-            var minicolors = $(this),
-                input = minicolors.find('.minicolors-input'),
-                panel = minicolors.find('.minicolors-panel'),
-                settings = input.data('minicolors-settings');
-
-            panel.fadeOut(settings.hideSpeed, function() {
-                if( settings.hide ) settings.hide.call(input.get(0));
+            if (panel.animate) {
+                panel.fadeOut(settings.hideSpeed, function () {
+                    if (settings.hide) settings.hide.call(input.get(0));
+                    minicolors.removeClass('minicolors-focus');
+                });
+            } else {
+                panel.hide();
+                if (settings.hide) settings.hide.call(input.get(0));
                 minicolors.removeClass('minicolors-focus');
-            });
-
+            }
         });
     }
 
     // Moves the selected picker
     function move(target, event, animate) {
-
-        var input = target.parents('.minicolors').find('.minicolors-input'),
-            settings = input.data('minicolors-settings'),
-            picker = target.find('[class$=-picker]'),
-            offsetX = target.offset().left,
-            offsetY = target.offset().top,
-            x = Math.round(event.pageX - offsetX),
-            y = Math.round(event.pageY - offsetY),
-            duration = animate ? settings.animationSpeed : 0,
-            wx, wy, r, phi;
+        var input = target.parents('.minicolors').find('.minicolors-input');
+        var settings = input.data('minicolors-settings');
+        var picker = target.find('[class$=-picker]');
+        var offsetX = target.offset().left;
+        var offsetY = target.offset().top;
+        var x = Math.round(event.pageX - offsetX);
+        var y = Math.round(event.pageY - offsetY);
+        var duration = animate ? settings.animationSpeed : 0;
+        var wx, wy, r, phi, styles;
 
         // Touch support
-        if( event.originalEvent.changedTouches ) {
+        if(event.originalEvent.changedTouches) {
             x = event.originalEvent.changedTouches[0].pageX - offsetX;
             y = event.originalEvent.changedTouches[0].pageY - offsetY;
         }
 
         // Constrain picker to its container
-        if( x < 0 ) x = 0;
-        if( y < 0 ) y = 0;
-        if( x > target.width() ) x = target.width();
-        if( y > target.height() ) y = target.height();
+        if(x < 0) x = 0;
+        if(y < 0) y = 0;
+        if(x > target.width()) x = target.width();
+        if(y > target.height()) y = target.height();
 
         // Constrain color wheel values to the wheel
-        if( target.parent().is('.minicolors-slider-wheel') && picker.parent().is('.minicolors-grid') ) {
+        if(target.parent().is('.minicolors-slider-wheel') && picker.parent().is('.minicolors-grid')) {
             wx = 75 - x;
             wy = 75 - y;
             r = Math.sqrt(wx * wx + wy * wy);
             phi = Math.atan2(wy, wx);
-            if( phi < 0 ) phi += Math.PI * 2;
-            if( r > 75 ) {
+            if(phi < 0) phi += Math.PI * 2;
+            if(r > 75) {
                 r = 75;
                 x = 75 - (75 * Math.cos(phi));
                 y = 75 - (75 * Math.sin(phi));
@@ -350,34 +352,31 @@
         }
 
         // Move the picker
-        if( target.is('.minicolors-grid') ) {
+        styles = {
+            top: y + 'px'
+        };
+        if(target.is('.minicolors-grid')) {
+            styles.left = x + 'px';
+        }
+        if (picker.animate) {
             picker
                 .stop(true)
-                .animate({
-                    top: y + 'px',
-                    left: x + 'px'
-                }, duration, settings.animationEasing, function() {
+                .animate(styles, duration, settings.animationEasing, function() {
                     updateFromControl(input, target);
                 });
         } else {
             picker
-                .stop(true)
-                .animate({
-                    top: y + 'px'
-                }, duration, settings.animationEasing, function() {
-                    updateFromControl(input, target);
-                });
+                .css(styles);
+            updateFromControl(input, target);
         }
-
     }
 
     // Sets the input based on the color picker values
     function updateFromControl(input, target) {
 
         function getCoords(picker, container) {
-
             var left, top;
-            if( !picker.length || !container ) return null;
+            if(!picker.length || !container) return null;
             left = picker.offset().left;
             top = picker.offset().top;
 
@@ -385,48 +384,45 @@
                 x: left - container.offset().left + (picker.outerWidth() / 2),
                 y: top - container.offset().top + (picker.outerHeight() / 2)
             };
-
         }
 
-        var hue, saturation, brightness, x, y, r, phi,
+        var hue, saturation, brightness, x, y, r, phi;
+        var hex = input.val();
+        var opacity = input.attr('data-opacity');
 
-            hex = input.val(),
-            opacity = input.attr('data-opacity'),
+        // Helpful references
+        var minicolors = input.parent();
+        var settings = input.data('minicolors-settings');
+        var swatch = minicolors.find('.minicolors-input-swatch');
 
-            // Helpful references
-            minicolors = input.parent(),
-            settings = input.data('minicolors-settings'),
-            swatch = minicolors.find('.minicolors-input-swatch'),
+        // Panel objects
+        var grid = minicolors.find('.minicolors-grid');
+        var slider = minicolors.find('.minicolors-slider');
+        var opacitySlider = minicolors.find('.minicolors-opacity-slider');
 
-            // Panel objects
-            grid = minicolors.find('.minicolors-grid'),
-            slider = minicolors.find('.minicolors-slider'),
-            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
+        // Picker objects
+        var gridPicker = grid.find('[class$=-picker]');
+        var sliderPicker = slider.find('[class$=-picker]');
+        var opacityPicker = opacitySlider.find('[class$=-picker]');
 
-            // Picker objects
-            gridPicker = grid.find('[class$=-picker]'),
-            sliderPicker = slider.find('[class$=-picker]'),
-            opacityPicker = opacitySlider.find('[class$=-picker]'),
-
-            // Picker positions
-            gridPos = getCoords(gridPicker, grid),
-            sliderPos = getCoords(sliderPicker, slider),
-            opacityPos = getCoords(opacityPicker, opacitySlider);
+        // Picker positions
+        var gridPos = getCoords(gridPicker, grid);
+        var sliderPos = getCoords(sliderPicker, slider);
+        var opacityPos = getCoords(opacityPicker, opacitySlider);
 
         // Handle colors
-        if( target.is('.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider') ) {
+        if(target.is('.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider')) {
 
             // Determine HSB values
             switch(settings.control) {
-
                 case 'wheel':
                     // Calculate hue, saturation, and brightness
                     x = (grid.width() / 2) - gridPos.x;
                     y = (grid.height() / 2) - gridPos.y;
                     r = Math.sqrt(x * x + y * y);
                     phi = Math.atan2(y, x);
-                    if( phi < 0 ) phi += Math.PI * 2;
-                    if( r > 75 ) {
+                    if(phi < 0) phi += Math.PI * 2;
+                    if(r > 75) {
                         r = 75;
                         gridPos.x = 69 - (75 * Math.cos(phi));
                         gridPos.y = 69 - (75 * Math.sin(phi));
@@ -490,11 +486,10 @@
                     // Update UI
                     grid.css('backgroundColor', hsb2hex({ h: hue, s: 100, b: 100 }));
                     break;
-
             }
 
             // Handle opacity
-            if( settings.opacity ) {
+            if(settings.opacity) {
                 opacity = parseFloat(1 - (opacityPos.y / opacitySlider.height())).toFixed(2);
             } else {
                 opacity = 1;
@@ -506,7 +501,7 @@
             // Set swatch color
             swatch.find('span').css({
                 backgroundColor: hex,
-                opacity: opacity
+                opacity: String(opacity)
             });
 
             // Handle change event
@@ -517,33 +512,33 @@
     // Sets the value of the input and does the appropriate conversions
     // to respect settings, also updates the swatch
     function updateInput(input, value, opacity) {
-        var rgb,
+        var rgb;
 
         // Helpful references
-        minicolors = input.parent(),
-        settings = input.data('minicolors-settings'),
-        swatch = minicolors.find('.minicolors-input-swatch');
+        var minicolors = input.parent();
+        var settings = input.data('minicolors-settings');
+        var swatch = minicolors.find('.minicolors-input-swatch');
 
-        if( settings.opacity ) input.attr('data-opacity', opacity);
+        if(settings.opacity) input.attr('data-opacity', opacity);
 
         // Set color string
-        if( settings.format === 'rgb' ) {
+        if(settings.format === 'rgb') {
             // Returns RGB(A) string
 
             // Checks for input format and does the conversion
-            if ( isRgb(value) ) {
+            if(isRgb(value)) {
                 rgb = parseRgb(value, true);
             }
             else {
                 rgb = hex2rgb(parseHex(value, true));
             }
 
-            opacity = input.attr('data-opacity') === '' ? 1 : keepWithin( parseFloat( input.attr('data-opacity') ).toFixed(2), 0, 1 );
-            if( isNaN( opacity ) || !settings.opacity ) opacity = 1;
+            opacity = input.attr('data-opacity') === '' ? 1 : keepWithin(parseFloat(input.attr('data-opacity')).toFixed(2), 0, 1);
+            if(isNaN(opacity) || !settings.opacity) opacity = 1;
 
-            if( input.minicolors('rgbObject').a <= 1 && rgb && settings.opacity) {
+            if(input.minicolors('rgbObject').a <= 1 && rgb && settings.opacity) {
                 // Set RGBA string if alpha
-                value = 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + parseFloat( opacity ) + ')';
+                value = 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + parseFloat(opacity) + ')';
             } else {
                 // Set RGB string (alpha = 1)
                 value = 'rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')';
@@ -552,20 +547,20 @@
             // Returns hex color
 
             // Checks for input format and does the conversion
-            if ( isRgb(value) ) {
+            if(isRgb(value)) {
                 value = rgbString2hex(value);
             }
 
-            value = convertCase( value, settings.letterCase );
+            value = convertCase(value, settings.letterCase);
         }
 
         // Update value from picker
-        input.val( value );
+        input.val(value);
 
         // Set swatch color
         swatch.find('span').css({
             backgroundColor: value,
-            opacity: opacity
+            opacity: String(opacity)
         });
 
         // Handle change event
@@ -574,43 +569,36 @@
 
     // Sets the color picker values from the input
     function updateFromInput(input, preserveInputValue) {
+        var hex, hsb, opacity, keywords, alpha, value, x, y, r, phi;
 
-        var hex,
-            hsb,
-            opacity,
-            keywords,
-            alpha,
-            value,
-            x, y, r, phi,
+        // Helpful references
+        var minicolors = input.parent();
+        var settings = input.data('minicolors-settings');
+        var swatch = minicolors.find('.minicolors-input-swatch');
 
-            // Helpful references
-            minicolors = input.parent(),
-            settings = input.data('minicolors-settings'),
-            swatch = minicolors.find('.minicolors-input-swatch'),
+        // Panel objects
+        var grid = minicolors.find('.minicolors-grid');
+        var slider = minicolors.find('.minicolors-slider');
+        var opacitySlider = minicolors.find('.minicolors-opacity-slider');
 
-            // Panel objects
-            grid = minicolors.find('.minicolors-grid'),
-            slider = minicolors.find('.minicolors-slider'),
-            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
-
-            // Picker objects
-            gridPicker = grid.find('[class$=-picker]'),
-            sliderPicker = slider.find('[class$=-picker]'),
-            opacityPicker = opacitySlider.find('[class$=-picker]');
+        // Picker objects
+        var gridPicker = grid.find('[class$=-picker]');
+        var sliderPicker = slider.find('[class$=-picker]');
+        var opacityPicker = opacitySlider.find('[class$=-picker]');
 
         // Determine hex/HSB values
-        if( isRgb(input.val()) ) {
+        if(isRgb(input.val())) {
             // If input value is a rgb(a) string, convert it to hex color and update opacity
             hex = rgbString2hex(input.val());
             alpha = keepWithin(parseFloat(getAlpha(input.val())).toFixed(2), 0, 1);
-            if( alpha ) {
+            if(alpha) {
                 input.attr('data-opacity', alpha);
             }
         } else {
             hex = convertCase(parseHex(input.val(), true), settings.letterCase);
         }
 
-        if( !hex ){
+        if(!hex){
             hex = convertCase(parseInput(settings.defaultValue, true), settings.letterCase);
         }
         hsb = hex2hsb(hex);
@@ -621,22 +609,22 @@
         });
 
         // Set color string
-        if( input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1 ) {
+        if(input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1) {
             value = convertCase(input.val());
         } else {
             value = isRgb(input.val()) ? parseRgb(input.val()) : hex;
         }
 
         // Update input value
-        if( !preserveInputValue ) input.val(value);
+        if(!preserveInputValue) input.val(value);
 
         // Determine opacity value
-        if( settings.opacity ) {
+        if(settings.opacity) {
             // Get from data-opacity attribute and keep within 0-1 range
             opacity = input.attr('data-opacity') === '' ? 1 : keepWithin(parseFloat(input.attr('data-opacity')).toFixed(2), 0, 1);
-            if( isNaN(opacity) ) opacity = 1;
+            if(isNaN(opacity)) opacity = 1;
             input.attr('data-opacity', opacity);
-            swatch.find('span').css('opacity', opacity);
+            swatch.find('span').css('opacity', String(opacity));
 
             // Set opacity picker position
             y = keepWithin(opacitySlider.height() - (opacitySlider.height() * opacity), 0, opacitySlider.height());
@@ -644,8 +632,8 @@
         }
 
         // Set opacity to zero if input value is transparent
-        if( input.val().toLowerCase() === 'transparent' ) {
-            swatch.find('span').css('opacity', 0);
+        if(input.val().toLowerCase() === 'transparent') {
+            swatch.find('span').css('opacity', String(0));
         }
 
         // Update swatch
@@ -653,7 +641,6 @@
 
         // Determine picker locations
         switch(settings.control) {
-
             case 'wheel':
                 // Set grid position
                 r = keepWithin(Math.ceil(hsb.s * 0.75), 0, grid.height() / 2);
@@ -667,7 +654,7 @@
 
                 // Set slider position
                 y = 150 - (hsb.b / (100 / grid.height()));
-                if( hex === '' ) y = 0;
+                if(hex === '') y = 0;
                 sliderPicker.css('top', y + 'px');
 
                 // Update panel color
@@ -726,27 +713,22 @@
                 // Update panel color
                 grid.css('backgroundColor', hsb2hex({ h: hsb.h, s: 100, b: 100 }));
                 break;
-
         }
 
         // Fire change event, but only if minicolors is fully initialized
-        if( input.data('minicolors-initialized') ) {
+        if(input.data('minicolors-initialized')) {
             doChange(input, value, opacity);
         }
-
     }
 
     // Runs the change and changeDelay callbacks
     function doChange(input, value, opacity) {
-
-        var settings = input.data('minicolors-settings'),
-            lastChange = input.data('minicolors-lastChange'),
-            obj,
-            sel,
-            i;
+        var settings = input.data('minicolors-settings');
+        var lastChange = input.data('minicolors-lastChange');
+        var obj, sel, i;
 
         // Only run if it actually changed
-        if( !lastChange || lastChange.value !== value || lastChange.opacity !== opacity ) {
+        if(!lastChange || lastChange.value !== value || lastChange.opacity !== opacity) {
 
             // Remember last-changed value
             input.data('minicolors-lastChange', {
@@ -755,7 +737,7 @@
             });
 
             // Check and select applicable swatch
-            if (settings.swatches && settings.swatches.length !== 0) {
+            if(settings.swatches && settings.swatches.length !== 0) {
                 if(!isRgb(value)) {
                     obj = hex2rgb(value);
                 }
@@ -764,24 +746,24 @@
                 }
                 sel = -1;
                 for(i = 0; i < settings.swatches.length; ++i) {
-                    if (obj.r === settings.swatches[i].r && obj.g === settings.swatches[i].g && obj.b === settings.swatches[i].b && obj.a === settings.swatches[i].a) {
+                    if(obj.r === settings.swatches[i].r && obj.g === settings.swatches[i].g && obj.b === settings.swatches[i].b && obj.a === settings.swatches[i].a) {
                         sel = i;
                         break;
                     }
                 }
 
                 input.parent().find('.minicolors-swatches .minicolors-swatch').removeClass('selected');
-                if (i !== -1) {
+                if(sel !== -1) {
                     input.parent().find('.minicolors-swatches .minicolors-swatch').eq(i).addClass('selected');
                 }
             }
 
             // Fire change event
-            if( settings.change ) {
-                if( settings.changeDelay ) {
+            if(settings.change) {
+                if(settings.changeDelay) {
                     // Call after a delay
                     clearTimeout(input.data('minicolors-changeTimeout'));
-                    input.data('minicolors-changeTimeout', setTimeout( function() {
+                    input.data('minicolors-changeTimeout', setTimeout(function() {
                         settings.change.call(input.get(0), value, opacity);
                     }, settings.changeDelay));
                 } else {
@@ -791,14 +773,18 @@
             }
             input.trigger('change').trigger('input');
         }
-
     }
 
     // Generates an RGB(A) object based on the input's value
     function rgbObject(input) {
-        var hex = parseHex($(input).val(), true),
-            rgb = hex2rgb(hex),
+        var rgb,
             opacity = $(input).attr('data-opacity');
+        if( isRgb($(input).val()) ) {
+            rgb = parseRgb($(input).val(), true);
+        } else {
+            var hex = parseHex($(input).val(), true);
+            rgb = hex2rgb(hex);
+        }
         if( !rgb ) return null;
         if( opacity !== undefined ) $.extend(rgb, { a: parseFloat(opacity) });
         return rgb;
@@ -806,9 +792,14 @@
 
     // Generates an RGB(A) string based on the input's value
     function rgbString(input, alpha) {
-        var hex = parseHex($(input).val(), true),
-            rgb = hex2rgb(hex),
+        var rgb,
             opacity = $(input).attr('data-opacity');
+        if( isRgb($(input).val()) ) {
+            rgb = parseRgb($(input).val(), true);
+        } else {
+            var hex = parseHex($(input).val(), true);
+            rgb = hex2rgb(hex);
+        }
         if( !rgb ) return null;
         if( opacity === undefined ) opacity = 1;
         if( alpha ) {
@@ -826,9 +817,9 @@
     // Parses a string and returns a valid hex string when possible
     function parseHex(string, expand) {
         string = string.replace(/^#/g, '');
-        if( !string.match(/^[A-F0-9]{3,6}/ig) ) return '';
-        if( string.length !== 3 && string.length !== 6 ) return '';
-        if( string.length === 3 && expand ) {
+        if(!string.match(/^[A-F0-9]{3,6}/ig)) return '';
+        if(string.length !== 3 && string.length !== 6) return '';
+        if(string.length === 3 && expand) {
             string = string[0] + string[0] + string[1] + string[1] + string[2] + string[2];
         }
         return '#' + string;
@@ -836,29 +827,36 @@
 
     // Parses a string and returns a valid RGB(A) string when possible
     function parseRgb(string, obj) {
-
-        var values = string.replace(/[^\d,.]/g, ''),
-            rgba = values.split(',');
+        var values = string.replace(/[^\d,.]/g, '');
+        var rgba = values.split(',');
 
         rgba[0] = keepWithin(parseInt(rgba[0], 10), 0, 255);
         rgba[1] = keepWithin(parseInt(rgba[1], 10), 0, 255);
         rgba[2] = keepWithin(parseInt(rgba[2], 10), 0, 255);
-        if( rgba[3] ) {
+        if(rgba[3] !== undefined) {
             rgba[3] = keepWithin(parseFloat(rgba[3], 10), 0, 1);
         }
 
         // Return RGBA object
         if( obj ) {
-            return {
-                r: rgba[0],
-                g: rgba[1],
-                b: rgba[2],
-                a: rgba[3] ? rgba[3] : null
-            };
+            if (rgba[3] !== undefined) {
+                return {
+                    r: rgba[0],
+                    g: rgba[1],
+                    b: rgba[2],
+                    a: rgba[3]
+                };
+            } else {
+                return {
+                    r: rgba[0],
+                    g: rgba[1],
+                    b: rgba[2]
+                };
+            }
         }
 
         // Return RGBA string
-        if( typeof(rgba[3]) !== 'undefined' && rgba[3] <= 1 ) {
+        if(typeof(rgba[3]) !== 'undefined' && rgba[3] <= 1) {
             return 'rgba(' + rgba[0] + ', ' + rgba[1] + ', ' + rgba[2] + ', ' + rgba[3] + ')';
         } else {
             return 'rgb(' + rgba[0] + ', ' + rgba[1] + ', ' + rgba[2] + ')';
@@ -868,7 +866,7 @@
 
     // Parses a string and returns a valid color string when possible
     function parseInput(string, expand) {
-        if( isRgb(string) ) {
+        if(isRgb(string)) {
             // Returns a valid rgb(a) string
             return parseRgb(string);
         } else {
@@ -878,8 +876,8 @@
 
     // Keeps value within min and max
     function keepWithin(value, min, max) {
-        if( value < min ) value = min;
-        if( value > max ) value = max;
+        if(value < min) value = min;
+        if(value > max) value = max;
         return value;
     }
 
@@ -895,7 +893,7 @@
         return (rgba && rgba.length === 6) ? rgba[4] : '1';
     }
 
-   // Converts an HSB object to an RGB object
+    // Converts an HSB object to an RGB object
     function hsb2rgb(hsb) {
         var rgb = {};
         var h = Math.round(hsb.h);
@@ -907,13 +905,13 @@
             var t1 = v;
             var t2 = (255 - s) * v / 255;
             var t3 = (t1 - t2) * (h % 60) / 60;
-            if( h === 360 ) h = 0;
-            if( h < 60 ) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; }
-            else if( h < 120 ) {rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; }
-            else if( h < 180 ) {rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; }
-            else if( h < 240 ) {rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; }
-            else if( h < 300 ) {rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; }
-            else if( h < 360 ) {rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; }
+            if(h === 360) h = 0;
+            if(h < 60) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; }
+            else if(h < 120) {rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; }
+            else if(h < 180) {rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; }
+            else if(h < 240) {rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; }
+            else if(h < 300) {rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; }
+            else if(h < 360) {rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; }
             else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
         }
         return {
@@ -927,9 +925,9 @@
     function rgbString2hex(rgb){
         rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
         return (rgb && rgb.length === 4) ? '#' +
-        ('0' + parseInt(rgb[1],10).toString(16)).slice(-2) +
-        ('0' + parseInt(rgb[2],10).toString(16)).slice(-2) +
-        ('0' + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+            ('0' + parseInt(rgb[1],10).toString(16)).slice(-2) +
+            ('0' + parseInt(rgb[2],10).toString(16)).slice(-2) +
+            ('0' + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
     }
 
     // Converts an RGB object to a hex string
@@ -940,7 +938,7 @@
             rgb.b.toString(16)
         ];
         $.each(hex, function(nr, val) {
-            if (val.length === 1) hex[nr] = '0' + val;
+            if(val.length === 1) hex[nr] = '0' + val;
         });
         return '#' + hex.join('');
     }
@@ -953,7 +951,7 @@
     // Converts a hex string to an HSB object
     function hex2hsb(hex) {
         var hsb = rgb2hsb(hex2rgb(hex));
-        if( hsb.s === 0 ) hsb.h = 360;
+        if(hsb.s === 0) hsb.h = 360;
         return hsb;
     }
 
@@ -965,10 +963,10 @@
         var delta = max - min;
         hsb.b = max;
         hsb.s = max !== 0 ? 255 * delta / max : 0;
-        if( hsb.s !== 0 ) {
-            if( rgb.r === max ) {
+        if(hsb.s !== 0) {
+            if(rgb.r === max) {
                 hsb.h = (rgb.g - rgb.b) / delta;
-            } else if( rgb.g === max ) {
+            } else if(rgb.g === max) {
                 hsb.h = 2 + (rgb.b - rgb.r) / delta;
             } else {
                 hsb.h = 4 + (rgb.r - rgb.g) / delta;
@@ -977,7 +975,7 @@
             hsb.h = -1;
         }
         hsb.h *= 60;
-        if( hsb.h < 0 ) {
+        if(hsb.h < 0) {
             hsb.h += 360;
         }
         hsb.s *= 100/255;
@@ -989,19 +987,17 @@
     function hex2rgb(hex) {
         hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
         return {
-            /* jshint ignore:start */
             r: hex >> 16,
             g: (hex & 0x00FF00) >> 8,
             b: (hex & 0x0000FF)
-            /* jshint ignore:end */
         };
     }
 
     // Handle events
-    $([document, top.document])
+    $([document])
         // Hide on clicks outside of the control
         .on('mousedown.minicolors touchstart.minicolors', function(event) {
-            if( !$(event.target).parents().add(event.target).hasClass('minicolors') ) {
+            if(!$(event.target).parents().add(event.target).hasClass('minicolors')) {
                 hide();
             }
         })
@@ -1015,7 +1011,7 @@
         // Move pickers
         .on('mousemove.minicolors touchmove.minicolors', function(event) {
             var target = $(event.delegateTarget).data('minicolors-target');
-            if( target ) move(target, event);
+            if(target) move(target, event);
         })
         // Stop moving
         .on('mouseup.minicolors touchend.minicolors', function() {
@@ -1037,20 +1033,20 @@
         // Show on focus
         .on('focus.minicolors', '.minicolors-input', function() {
             var input = $(this);
-            if( !input.data('minicolors-initialized') ) return;
+            if(!input.data('minicolors-initialized')) return;
             show(input);
         })
         // Update value on blur
         .on('blur.minicolors', '.minicolors-input', function() {
-            var input = $(this),
-                settings = input.data('minicolors-settings'),
-                keywords,
-                hex,
-                rgba,
-                swatchOpacity,
-                value;
+            var input = $(this);
+            var settings = input.data('minicolors-settings');
+            var keywords;
+            var hex;
+            var rgba;
+            var swatchOpacity;
+            var value;
 
-            if( !input.data('minicolors-initialized') ) return;
+            if(!input.data('minicolors-initialized')) return;
 
             // Get array of lowercase keywords
             keywords = !settings.keywords ? [] : $.map(settings.keywords.split(','), function(a) {
@@ -1058,11 +1054,11 @@
             });
 
             // Set color string
-            if( input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1 ) {
+            if(input.val() !== '' && $.inArray(input.val().toLowerCase(), keywords) > -1) {
                 value = input.val();
             } else {
                 // Get RGBA values for easy conversion
-                if( isRgb(input.val()) ) {
+                if(isRgb(input.val())) {
                     rgba = parseRgb(input.val(), true);
                 } else {
                     hex = parseHex(input.val(), true);
@@ -1070,9 +1066,9 @@
                 }
 
                 // Convert to format
-                if( rgba === null ) {
+                if(rgba === null) {
                     value = settings.defaultValue;
-                } else if( settings.format === 'rgb' ) {
+                } else if(settings.format === 'rgb') {
                     value = settings.opacity ?
                         parseRgb('rgba(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ',' + input.attr('data-opacity') + ')') :
                         parseRgb('rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')');
@@ -1083,27 +1079,27 @@
 
             // Update swatch opacity
             swatchOpacity = settings.opacity ? input.attr('data-opacity') : 1;
-            if( value.toLowerCase() === 'transparent' ) swatchOpacity = 0;
+            if(value.toLowerCase() === 'transparent') swatchOpacity = 0;
             input
                 .closest('.minicolors')
                 .find('.minicolors-input-swatch > span')
-                .css('opacity', swatchOpacity);
+                .css('opacity', String(swatchOpacity));
 
             // Set input value
             input.val(value);
 
             // Is it blank?
-            if( input.val() === '' ) input.val(parseInput(settings.defaultValue, true));
+            if(input.val() === '') input.val(parseInput(settings.defaultValue, true));
 
             // Adjust case
-            input.val( convertCase(input.val(), settings.letterCase) );
+            input.val(convertCase(input.val(), settings.letterCase));
 
         })
         // Handle keypresses
         .on('keydown.minicolors', '.minicolors-input', function(event) {
             var input = $(this);
-            if( !input.data('minicolors-initialized') ) return;
-            switch(event.keyCode) {
+            if(!input.data('minicolors-initialized')) return;
+            switch(event.which) {
                 case 9: // tab
                     hide();
                     break;
@@ -1117,16 +1113,15 @@
         // Update on keyup
         .on('keyup.minicolors', '.minicolors-input', function() {
             var input = $(this);
-            if( !input.data('minicolors-initialized') ) return;
+            if(!input.data('minicolors-initialized')) return;
             updateFromInput(input, true);
         })
         // Update on paste
         .on('paste.minicolors', '.minicolors-input', function() {
             var input = $(this);
-            if( !input.data('minicolors-initialized') ) return;
-            setTimeout( function() {
+            if(!input.data('minicolors-initialized')) return;
+            setTimeout(function() {
                 updateFromInput(input, true);
             }, 1);
         });
-
 }));

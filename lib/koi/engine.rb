@@ -13,9 +13,6 @@ module Koi
         koi/nav_items.js
         koi/assets.js
         koi/application.css
-        koi/modernizr.js
-        koi/selectivizr.js
-        koi/css3-mediaqueries.js
         koi/ckeditor.js
       )
     end
