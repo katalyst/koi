@@ -6,8 +6,6 @@
 //= require koi/store
 //= require select2
 //= require cocoon
-//= require koi/jquery.touchSwipe
-//= require koi/jquery.placeholder
 //= require koi/jquery-ui-timepicker-addon
 //= require koi/jquery.jcrop
 //= require koi/keyboardjs
@@ -41,7 +39,6 @@
 //= require koi/components/enhanced-form
 //= require koi/components/navigation-mobile
 //= require koi/components/kat-image-upload
-// require koi/components/navigation
 //= require koi/components/tooltip
 //= require koi/components/pagination-helper
 //= require koi/components/select-link
@@ -55,7 +52,6 @@
 //= require koi/components/form-latlng
 //= require koi/components/form-inline-nested
 //= require koi/components/table
-//= require koi/components/styleguide
 
 //= require koi/ckeditor
 //= require koi/common
