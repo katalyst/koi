@@ -23,6 +23,10 @@ or, to include all Koi model functionality
 
     include Koi::Model
 
+### Dragonfly
+
+The default dragonfly initializer has been modified. Apps must define their own dragonfly config.
+
 ## 2.2.1
 
 * Removed `:images` from settings
