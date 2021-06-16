@@ -35,7 +35,7 @@ module Koi::IconHelper
   #
   def attachment_image_tag(attachment, options={})
     options.reverse_merge!(width: 100, height: 100)
-    image_tag((document?(attachment.ext) ? document_icon(attachment) : image_thumbnail(attachment, options)), options)
+    image_tag((image?(attachment) ? image_thumbnail(attachment, options) : document_icon(attachment)), options)
   rescue Dragonfly::Job::Fetch::NotFound
     "Image not found"
   end
@@ -47,12 +47,12 @@ module Koi::IconHelper
 
   private
 
-    def document?(ext)
-      /pdf|xlsx?|docx?|txt|rtf/i === ext || ! image?(ext)
+    def document?(attachment)
+      !image?(attachment)
     end
 
-    def image?(ext)
-      /png|jp?g|gif/i === ext
+    def image?(attachment)
+      /png|jpe?g|gif/i === attachment.ext && attachment.respond_to?(:thumb)
     end
 
 end
