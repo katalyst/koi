@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form', '~> 4.1.0'
 
   # Nav items (tree structure)
-  s.add_dependency 'awesome_nested_set', '~> 3.1.3'
+  s.add_dependency 'awesome_nested_set', '~> 3.3.0'
 
   # Mailer
   s.add_dependency 'sendgrid', '~> 1.2.4'
@@ -104,7 +104,7 @@ Gem::Specification.new do |s|
   # Puma server
   s.add_dependency 'puma', '~> 3.12.1'
 
-  s.add_dependency 'inherited_resources', '~> 1.10.0'
+  s.add_dependency 'inherited_resources', '~> 1.13.0'
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
 
