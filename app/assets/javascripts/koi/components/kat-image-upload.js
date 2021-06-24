@@ -29,7 +29,8 @@
         showMessageForOldIEs    : true,
         hintMarkup              : "<p class='hint-block'></p>",
         hintPlaceholder         : false,
-        uploadPath              : "/uploads/image",
+        uploadPath              : "/admin/uploads",
+        assetType               : "Image",
         demo                    : false, // demo mode doesn't upload anything
         browseMessage           : "Drop files here or ",
         browseMessage           : "Drop file here or ",
@@ -964,6 +965,7 @@
 
               // send file to server
               fd.append('file',f);
+              fd.append('asset_type', options.assetType);
 
               // Reset progress bar
               updateProgressBar(0);
@@ -1474,14 +1476,11 @@ $(document).on("ornament:refresh", function(){
     var isDebug = $this.is("[data-file-debug]");
 
     // Set upload path
-    var path = "/admin/uploads/image";
-    if(isFile) {
-      path = "/admin/uploads/file"
-    }
+    var assetType = isFile ? "Document" : "Image";
 
     // Initialise uploader
     $this.katFileUpload({
-      uploadPath: path,
+      assetType: assetType,
       demo: isDemo,
       debug: isDebug
     });

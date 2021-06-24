@@ -53,7 +53,8 @@
 
         // Initialise uploader
         $this.not(".file-upload__init").katFileUpload({
-          uploadPath: jsData.createAssetUrl 
+          uploadPath: jsData.createAssetUrl,
+          assetType: jsData.assetType,
         }).addClass("file-upload__init");
 
         $this.on("uploader:gallery-item:after-upload", function(event, $uploader, thumbnail, assetId){

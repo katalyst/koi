@@ -6,10 +6,7 @@ Koi::Engine.routes.draw do
                sessions:  "koi/sessions"
              }
 
-  resources :uploads do
-    post :image, on: :collection
-    post :file, on: :collection
-  end
+  resources :uploads, only: :create
 
   resources :assets do
     get 'index', on: :collection, to: 'assets#new'

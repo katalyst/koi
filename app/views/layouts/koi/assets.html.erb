@@ -1,4 +1,5 @@
-<% js_data :create_asset_url, collection_path(format: :js) %>
+<% js_data :create_asset_url, uploads_url %>
+<% js_data :asset_type, resource_class.to_s %>
 <% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(', ') %>
 
 <%- if params[:CKEditor] -%>
