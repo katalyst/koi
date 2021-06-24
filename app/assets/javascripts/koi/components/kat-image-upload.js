@@ -1286,7 +1286,7 @@
 
         // clicking on the browse button
         var reBindBrowseButton = function(){
-          $dropZoneText.find(".file-upload--browse-button").off("click").on("click", function(e){
+          $(".file-upload--browse-button").off("click").on("click", function(e){
             e.preventDefault();
             // empty field val to prevent unexpected behaviour if the user tries to select
             // the same file agin
