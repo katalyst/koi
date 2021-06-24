@@ -4,6 +4,12 @@ module Koi
 
     layout 'koi/assets'
 
+    def index
+      @assets = collection.newest_first.page(params[:page]).per(20)
+      params[:asset] = { :tag_list => [ @tags ] }
+      super
+    end
+
     def new
       @assets = collection.newest_first.page(params[:page]).per(20)
       params[:asset] = { :tag_list => [ @tags ] }
@@ -33,9 +39,10 @@ module Koi
       end
     end
 
-    def delete
-      respond_to do |format|
-        format.html # delete.html.erb
+    def destroy
+      destroy! do |success, failure|
+        success.html { redirect_to new_resource_path }
+        success.js
       end
     end
 
