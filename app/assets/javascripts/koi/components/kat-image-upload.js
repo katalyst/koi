@@ -32,7 +32,6 @@
         uploadPath              : "/admin/uploads",
         assetType               : "Image",
         demo                    : false, // demo mode doesn't upload anything
-        browseMessage           : "Drop files here or ",
         browseMessage           : "Drop file here or ",
         undoMessage             : "Removed. Click here to undo.",
         afterInit               : function(){ return true; },
