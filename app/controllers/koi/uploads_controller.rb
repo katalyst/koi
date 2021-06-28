@@ -17,7 +17,7 @@ module Koi
         }
         render json: response
       else
-        render plain: asset.id
+        render plain: url_for(asset)
       end
     end
 
