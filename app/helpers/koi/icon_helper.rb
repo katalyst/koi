@@ -1,19 +1,5 @@
 module Koi::IconHelper
 
-  # Creates a thumbnail version of the image.
-  #
-  # Example:
-  #
-  #     image_thumbnail(file, width: 200, height: 200) # => /media/gtoZWlnaHRpaQ/example.png
-  #
-  def image_thumbnail(image, options={})
-    if image.ext && image.ext.downcase.eql?("svg")
-      raw image.url
-    else
-      image.thumb("#{options[:width]}x#{options[:height]}").url
-    end
-  end
-
   # Gets the icon for a document. This uses the Koi::KoiAsset::Document.icons config.
   #
   # Example:
@@ -30,8 +16,8 @@ module Koi::IconHelper
     Koi::KoiAsset::Document.icons.has_key?(ext) ? path_to_asset(Koi::KoiAsset::Document.icons[ext]) : path_to_asset(Koi::KoiAsset.unknown_image)
   end
 
-  # Returns an images that represents the given attachment. If it's a images it'll be a cropped
-  # version. If the given attachment is a document the image iamge returned will be an icon.
+  # Returns an images that represents the given attachment. If it's an image it'll be a cropped
+  # version. If the given attachment is a document the image returned will be an icon.
   #
   # Example:
   #
@@ -42,7 +28,7 @@ module Koi::IconHelper
     is_image  = attachment.app.name == :image
     thumbnail = is_image ? image_thumbnail(attachment, options) : document_thumbnail(attachment)
     image_tag(thumbnail, options)
-  rescue Dragonfly::Job::Fetch::NotFound
+  rescue StandardError
     "Image not found"
   end
 
@@ -53,12 +39,11 @@ module Koi::IconHelper
 
   private
 
-    def document?(ext)
-      /pdf|xlsx?|docx?|txt|rtf/i === ext || ! image?(ext)
-    end
+  def document?(ext)
+    /pdf|xlsx?|docx?|txt|rtf/i === ext || !image?(ext)
+  end
 
-    def image?(ext)
-      /png|jp?g|gif/i === ext
-    end
-
+  def image?(ext)
+    /png|jp?g|gif/i === ext
+  end
 end

@@ -5,8 +5,15 @@ module Koi
     # params[:upload] is present if the "Send it to the server" button was pressed.
     # params[:file] is present if the data was uploaded by kat-image-upload.js
     def create
-      asset      = asset_class.new
-      asset.data = params[:upload] || params[:file]
+      asset = asset_class.new
+
+      if Koi::KoiAsset.use_active_storage?
+        asset.attachment = params[:upload] || params[:file]
+        asset.data_name = asset.attachment.filename
+      else
+        asset.data = params[:upload] || params[:file]
+      end
+
       asset.save
 
       if params[:upload]
