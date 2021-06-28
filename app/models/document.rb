@@ -2,11 +2,12 @@ class Document < Asset
 
   has_crud paginate: false, settings: false
 
-  dragonfly_accessor :data, app: :file
+  dragonfly_accessor :data, app: :file if Koi::KoiAsset.use_dragonfly?
 
-  validates_size_of :data, maximum: Koi::KoiAsset::Document.size_limit
-  validates_property :mime_type, of: :data,
-    in: Koi::KoiAsset::Document.mime_types, case_sensitive: false
+  if Koi::KoiAsset.use_dragonfly? && !Koi::KoiAsset.use_active_storage?
+    # if we're using dragonfly and not active storage, validate dragonfly attributes on create
+    validates_size_of :data, maximum: Koi::KoiAsset::Document.size_limit
+  end
 
   crud.config do
     fields data: { type: :file, label: false }, tag_list: { type: :tags }
@@ -14,7 +15,10 @@ class Document < Asset
   end
 
   def url(*args)
-    data.url
+    Rails.application.routes.url_helpers.document_url(self)
   end
 
+  def data_url(*args)
+    url(*args)
+  end
 end
