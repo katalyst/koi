@@ -5,8 +5,10 @@
   is_image    ||= false
 %>
 
-<% unless value.nil? %>
-  <%= 
+<% if value.nil? %>
+No attached <%=  kind  %>
+<% else %>
+<%=
     begin
       if is_image
         link_to image_tag(value.thumb("x25>").url, class: "listing--thumbnail"), value.thumb("800x600").url, title: value.name, data: { lightbox: "image" } 
@@ -16,7 +18,5 @@
     rescue Dragonfly::Job::Fetch::NotFound
       "File missing"
     end
-  %>
-<% else %>
-  No attached <%= kind %>
-<% end %>
+   %>
+<%  end %>
