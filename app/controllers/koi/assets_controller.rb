@@ -25,28 +25,24 @@ module Koi
     end
 
     def create
-      create! do |success, failure|
-        success.html { redirect_to edit_resource_path }
-        success.js { render plain: resource.id }
-      end
-    end
-
-    def update
-      super do |success, failure|
-        success.html {  }
-        success.js
-        redirect_to edit_resource_path
+      super do |format|
+        format.html { redirect_to resource_path(resource) }
+        format.js { render plain: resource.id }
       end
     end
 
     def destroy
-      destroy! do |success, failure|
-        success.html { redirect_to new_resource_path }
-        success.js
+      super do |format|
+        format.html { redirect_to new_resource_path }
+        format.js
       end
     end
 
     # HELPERS ########################################################################################
+
+    def redirect_path
+      resource_path(resource)
+    end
 
     def url_options
       super.reverse_merge(custom_url_options)
