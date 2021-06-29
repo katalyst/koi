@@ -9,8 +9,8 @@ class Image < Asset
   end
 
   crud.config do
-    fields data: { type: :file, label: false }, tag_list: { type: :tags }
-    config(:admin) { form fields: [:data] }
+    fields storage_data: { type: :file, label: false }, tag_list: { type: :tags }
+    config(:admin) { form fields: [:storage_data] }
   end
 
   def html_options
@@ -32,23 +32,13 @@ class Image < Asset
   end
 
   def url(*args)
-    opt  = args.extract_options!
+    opt  = args.extract_options! || {}
     size = opt[:size]
     size = args.shift if String === args.first
-    Rails.application.routes.url_helpers.image_url(self, size: size)
+    Rails.application.routes.url_helpers.image_url(self, opt.merge(size: size))
   end
 
   def data_url(*args)
     url(*args)
-  end
-
-  private
-
-  def storage_data
-    if Koi::KoiAsset.use_active_storage? && attachment.present?
-      attachment
-    elsif Koi::KoiAsset.use_dragonfly?
-      data
-    end
   end
 end

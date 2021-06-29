@@ -61,18 +61,21 @@ the conversions to be done, in the format "model_name:attribute". e.g.
     > rake koi:migrate:active_storage ATTRIBUTES="Page:description"
 
 The way this rake task works for the above example is as follows:
+
 1. For every Page record in the database, the description attribute is scanned for Dragonfly media urls.
 2. For each Dragonfly media url found, the Dragonfly uid is extracted from the base64 encoded data.
 3. Attempt to find a record for a model that defines a dragonfly_accessor with a matching uid. 
    For example, for the Koi Document model with a dragonfly_accessor :data, if a Document is found with
    data_uid equal to the extracted uid it will be used as a match.
-4. If a match is found, the 'data_url' method of the matching record is called to construct a replacement url. The url
-   method should accept an optional hash of attributes including 'size' which is a dragonfly thumbnail size. 
+4. If a matching record (TargetRecord) is found, a replacement url is found according to the following rules:
+   - By calling TargetRecord "data_url" method ("#{dragonfly_accessor_name}_url"), if it exists.
+   - By calling TargetRecord "url" method, if it exists.
+   The url methods should accept an optional hash of attributes including 'size' which is a dragonfly thumbnail size. 
 5. The url in the attribute is substituted from the result from step 4 and the record is saved.
 
 ### Migrations required for Koi 2.5
 
 The following migrations are the minimum required to migrate a Koi application to Active Storage:
 
-    > rake koi:migrate:active_storage MODELS="Image:data:attachment Document:data:attachment"
+    > rake koi:migrate:active_storage MODELS="Image:data:attachment Document:data:attachment Setting:file:attachment"
     > rake koi:migrate:active_storage ATTRIBUTES="Page:description ModuleNavItem:url"

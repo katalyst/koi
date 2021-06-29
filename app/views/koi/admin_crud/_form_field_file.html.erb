@@ -14,7 +14,7 @@
 %>
 
 <%= content_tag :div, wrapper_opts do -%>
-  <%= f.hidden_field "retained_#{attr}" %>
+  <%= f.hidden_field "retained_#{attr}" if f.object.respond_to?("retained_#{attr}") %>
   <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
   <%= f.hint attr -%>
 

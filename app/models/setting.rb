@@ -5,8 +5,6 @@ class Setting < Translation
 
   acts_as_ordered_taggable
 
-
-  dragonfly_accessor  :file
   COLLECTION_TYPES = %Q(check_boxes radio select tags).freeze
   FIELD_TYPES = Translation::FieldTypes.merge(
     "Select"      => "select",
@@ -16,9 +14,13 @@ class Setting < Translation
     "Image"       => "image",
     "Tags"        => "tags"
   ).freeze
+
+  dragonfly_accessor :file if Koi::KoiAsset.use_dragonfly?
+  has_one_attached :attachment if Koi::KoiAsset.use_active_storage?
+
   serialize :serialized_value, Array
 
-  has_crud paginate: false, searchable: false,
+  has_crud paginate:  false, searchable: false,
            orderable: false, settings: false
 
   validates :locale, :label, :key, :field_type,
@@ -60,11 +62,18 @@ Please check config/initializers/koi.rb correctly defines the data_source attrib
     Rails.logger.error error
   end
 
-  dragonfly_accessor :file
-  alias_method :document, :file
-  alias_method :document=, :file=
-  alias_method :image, :file
-  alias_method :image=, :file=
+  if Koi::KoiAsset.use_active_storage?
+    alias_method :storage_data=, :attachment=
+    alias_method :storage_data, :attachment
+  elsif Koi::KoiAsset.use_dragonfly?
+    alias_method :storage_data=, :file=
+    alias_method :storage_data, :file
+  end
+
+  alias_method :document, :storage_data
+  alias_method :document=, :storage_data=
+  alias_method :image, :storage_data
+  alias_method :image=, :storage_data=
 
   private
 

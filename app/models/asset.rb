@@ -16,17 +16,26 @@ class Asset < ActiveRecord::Base
 
   belongs_to :attributable, polymorphic: true, optional: true
 
+  if Koi::KoiAsset.use_active_storage?
+    alias_method :storage_data=, :attachment=
+    alias_method :storage_data, :attachment
+  elsif Koi::KoiAsset.use_dragonfly?
+    alias_method :storage_data=, :file=
+    alias_method :storage_data, :file
+  end
+
+  validates_presence_of :storage_data
+
   if Koi::KoiAsset.use_dragonfly? && !Koi::KoiAsset.use_active_storage?
-    # if we're using dragonfly and not active storage, validate dragonfly attributes on create
-    validates_presence_of :data
+    # if we're using dragonfly and not active storage, validate dragonfly mime type
     validates_property :mime_type,
                        of: :data,
                        in: Koi::KoiAsset::Document.mime_types, case_sensitive: false
   end
 
   crud.config do
-    fields data: { type: :file, label: false }, tag_list: { type: :tags }
-    config(:admin) { form fields: [:data] }
+    fields storage_data: { type: :file, label: false }, tag_list: { type: :tags }
+    config(:admin) { form fields: [:storage_data] }
   end
 
   def titleize
