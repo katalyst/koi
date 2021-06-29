@@ -7,9 +7,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins 								 = 'showblocks';
 
  	config.filebrowserBrowseUrl          = '/admin/documents/new';
-  config.filebrowserUploadUrl          = '/admin/documents/new';
+  config.filebrowserUploadUrl          = '/admin/uploads?asset_type=Document';
   config.filebrowserImageBrowseUrl     = '/admin/images/new';
-  config.filebrowserImageUploadUrl     = '/admin/images/new';
+  config.filebrowserImageUploadUrl     = '/admin/uploads?asset_type=Image';
   config.filebrowserImageBrowseLinkUrl = '/admin/documents/new';
   config.filebrowserImageUploadLinkUrl = '/admin/documents/new';
   

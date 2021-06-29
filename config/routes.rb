@@ -6,34 +6,11 @@ Koi::Engine.routes.draw do
                sessions:  "koi/sessions"
              }
 
-  resources :uploads do
-    post :image, on: :collection
-    post :file, on: :collection
-  end
+  resources :uploads, only: :create
 
-  resources :assets do
-    get 'index', on: :collection, to: 'assets#new'
-    member do
-      get 'delete'
-      delete 'delete', to: 'assets#destroy'
-    end
-  end
-  resources :images do
-    get  'index', on: :collection, to: 'images#new'
-    post 'index', on: :collection, to: 'images#create'
-    member do
-      get 'delete'
-      delete 'delete', to: 'images#destroy'
-    end
-  end
-  resources :documents do
-    get  'index', on: :collection, to: 'documents#new'
-    post 'index', on: :collection, to: 'documents#create'
-    member do
-      get 'delete'
-      delete 'delete', to: 'documents#destroy'
-    end
-  end
+  resources :assets
+  resources :images
+  resources :documents
 
   resources :translations, path: :site_settings do
     get :seed, on: :collection

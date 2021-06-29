@@ -29,9 +29,9 @@
         showMessageForOldIEs    : true,
         hintMarkup              : "<p class='hint-block'></p>",
         hintPlaceholder         : false,
-        uploadPath              : "/uploads/image",
+        uploadPath              : "/admin/uploads",
+        assetType               : "Image",
         demo                    : false, // demo mode doesn't upload anything
-        browseMessage           : "Drop files here or ",
         browseMessage           : "Drop file here or ",
         undoMessage             : "Removed. Click here to undo.",
         afterInit               : function(){ return true; },
@@ -964,6 +964,7 @@
 
               // send file to server
               fd.append('file',f);
+              fd.append('asset_type', options.assetType);
 
               // Reset progress bar
               updateProgressBar(0);
@@ -1284,7 +1285,7 @@
 
         // clicking on the browse button
         var reBindBrowseButton = function(){
-          $dropZoneText.find(".file-upload--browse-button").off("click").on("click", function(e){
+          $(".file-upload--browse-button").off("click").on("click", function(e){
             e.preventDefault();
             // empty field val to prevent unexpected behaviour if the user tries to select
             // the same file agin
@@ -1474,14 +1475,11 @@ $(document).on("ornament:refresh", function(){
     var isDebug = $this.is("[data-file-debug]");
 
     // Set upload path
-    var path = "/admin/uploads/image";
-    if(isFile) {
-      path = "/admin/uploads/file"
-    }
+    var assetType = isFile ? "Document" : "Image";
 
     // Initialise uploader
     $this.katFileUpload({
-      uploadPath: path,
+      assetType: assetType,
       demo: isDemo,
       debug: isDebug
     });

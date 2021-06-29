@@ -29,7 +29,11 @@ class Asset < ActiveRecord::Base
   end
 
   def to_s
-    File.basename data.name, File.extname(data.name)
+    if data
+      File.basename data.name, File.extname(data.name)
+    else
+      "Asset"
+    end
   end
 
 end

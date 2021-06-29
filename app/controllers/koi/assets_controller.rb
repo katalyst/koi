@@ -4,6 +4,12 @@ module Koi
 
     layout 'koi/assets'
 
+    def index
+      @assets = collection.newest_first.page(params[:page]).per(20)
+      params[:asset] = { :tag_list => [ @tags ] }
+      super
+    end
+
     def new
       @assets = collection.newest_first.page(params[:page]).per(20)
       params[:asset] = { :tag_list => [ @tags ] }
@@ -19,27 +25,24 @@ module Koi
     end
 
     def create
-      create! do |success, failure|
-        success.html { redirect_to edit_resource_path }
-        success.js { render plain: resource.id }
+      super do |format|
+        format.html { redirect_to resource_path(resource) }
+        format.js { render plain: resource.id }
       end
     end
 
-    def update
-      super do |success, failure|
-        success.html {  }
-        success.js
-        redirect_to edit_resource_path
-      end
-    end
-
-    def delete
-      respond_to do |format|
-        format.html # delete.html.erb
+    def destroy
+      super do |format|
+        format.html { redirect_to new_resource_path }
+        format.js
       end
     end
 
     # HELPERS ########################################################################################
+
+    def redirect_path
+      resource_path(resource)
+    end
 
     def url_options
       super.reverse_merge(custom_url_options)
