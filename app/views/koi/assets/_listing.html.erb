@@ -4,7 +4,7 @@
       <button class="button__confirm button__full" form="asset-filter">Filter</button>
     </div>
     <div class="col-1-2">
-      <%= link_to "Reset", collection_path(params.merge(search: nil, tags: nil)), class: "button button__full" %>
+      <%= link_to "Reset", collection_path(search: nil, tags: nil, tag_list: nil), class: "button button__full" %>
     </div>
   </div>
 <%- } } do -%>
