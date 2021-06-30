@@ -1,6 +1,7 @@
-2.5 / Unreleased
+2.5.1 / 2021-06-30
 ==================
 
+ * Adds rails 6 support
  * Removed generators and templates
  * Removed reports
  * Removed Garb
