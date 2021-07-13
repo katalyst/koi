@@ -1,3 +1,8 @@
+2.5.3 / 2021-07-13
+==================
+
+* Update Fotorama.js to support alt and title image attributes
+
 2.5.2 / 2021-07-08
 ==================
 
