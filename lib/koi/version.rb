@@ -1,3 +1,3 @@
 module Koi
-  VERSION = "2.4.13".freeze
+  VERSION = "2.4.14".freeze
 end
