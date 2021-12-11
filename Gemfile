@@ -8,6 +8,7 @@ gemspec
 group :development, :test do
   gem "brakeman"
   gem "factory_bot_rails"
+  gem "faker"
   gem "i18n-active_record", require: "i18n/active_record"
   gem "puma"
   gem "rake"

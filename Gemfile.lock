@@ -300,6 +300,7 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   factory_bot_rails
+  faker
   i18n-active_record
   koi!
   puma
