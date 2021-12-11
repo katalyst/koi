@@ -1,4 +1,4 @@
-class CreateNavItems < ActiveRecord::Migration
+class CreateNavItems < ActiveRecord::Migration[4.2]
   def change
     create_table :nav_items do |t|
       t.string   :type

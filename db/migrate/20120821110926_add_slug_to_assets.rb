@@ -1,4 +1,4 @@
-class AddSlugToAssets < ActiveRecord::Migration
+class AddSlugToAssets < ActiveRecord::Migration[4.2]
   def change
     add_column :assets, :slug, :string
   end

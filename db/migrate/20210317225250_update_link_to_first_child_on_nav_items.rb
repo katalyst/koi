@@ -1,4 +1,4 @@
-class UpdateLinkToFirstChildOnNavItems < ActiveRecord::Migration
+class UpdateLinkToFirstChildOnNavItems < ActiveRecord::Migration[4.2]
   def change
     # set folder nav items link_to_first_child to true if undefined
     FolderNavItem.where(link_to_first_child: nil).update_all(link_to_first_child: true)

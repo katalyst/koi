@@ -2,18 +2,15 @@ require 'securerandom'
 require 'thor'
 thor = Thor::Shell::Basic.new
 
-password = SecureRandom.hex(8)
+unless Admin.find_by(email: "admin@katalyst.com.au")
+  password = SecureRandom.base58(16)
 
-if !ENV['password'].eql?('no') && thor.yes?("Do you want me to set your password to #{password} ?", :yellow)
-  thor.say("Your admin@katalyst.com.au password has been set, please update your wiki", :green)
-else
-  password = "katalyst"
-  thor.say("Your admin@katalyst.com.au password has been set to `katalyst`, please update your wiki", :red)
+  thor.say("Your admin@katalyst.com.au password has been set to #{password}, please update your password manager", :green)
+
+  # Default Super admin
+  Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
+               role:       "Super", password: password, password_confirmation: password)
 end
-
-# Default Super admin
-Admin.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au",
-             role: "Super", password: password, password_confirmation: password)
 
 options = { without_protection: true }
 
@@ -22,9 +19,9 @@ header = FolderNavItem.create!({ title: "Header Navigation", parent: RootNavItem
 footer = FolderNavItem.create!({ title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation" })
 
 # Few Header Pages
-home_page        = Page.create!({ title: "Home Page" }).to_navigator!(parent_id: header.id)
-about_us_page    = Page.create!({ title: "About Us" }).to_navigator!(parent_id: header.id)
-contact_us_page  = Page.create!({ title: "Contact Us" }).to_navigator!(parent_id: home_page.id)
+home_page       = Page.create!({ title: "Home Page" }).to_navigator!(parent_id: header.id)
+about_us_page   = Page.create!({ title: "About Us" }).to_navigator!(parent_id: header.id)
+contact_us_page = Page.create!({ title: "Contact Us" }).to_navigator!(parent_id: home_page.id)
 
 # Few Aliases
 AliasNavItem.create!({ title: "About Us", alias_id: about_us_page.id, parent: footer })

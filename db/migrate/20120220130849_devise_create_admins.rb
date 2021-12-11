@@ -1,4 +1,4 @@
-class DeviseCreateAdmins < ActiveRecord::Migration
+class DeviseCreateAdmins < ActiveRecord::Migration[4.2]
   def change
     create_table(:admins) do |t|
       ## Database authenticatable
@@ -36,7 +36,6 @@ class DeviseCreateAdmins < ActiveRecord::Migration
       ## Token authenticatable
       # t.string :authentication_token
 
-      t.string :email
       t.string :first_name
       t.string :last_name
       t.string :role
