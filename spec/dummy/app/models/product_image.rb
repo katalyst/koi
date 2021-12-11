@@ -1,24 +1,25 @@
-class ProductImage < ApplicationRecord
+# frozen_string_literal: true
 
+class ProductImage < ApplicationRecord
   belongs_to :product
   dragonfly_accessor :image
   has_crud orderable: true
 
-  ProductTypes = ["Image", "Title"]
+  PRODUCT_TYPES = %w[Image Title].freeze
 
   validates :title, presence: true,
-            if: "product_type.eql?('Title')"
+                    if:       "product_type.eql?('Title')"
 
   validates :image, presence: true,
-            if: "product_type.eql?('Image')"
+                    if:       "product_type.eql?('Image')"
 
   crud.config do
-    fields image: { type: :image },
-           product_type: { type: :select, data: ProductTypes }
+    fields image:        { type: :image },
+           product_type: { type: :select, data: PRODUCT_TYPES }
 
     config :admin do
-      form  fields: [:product_type, :title, :image]
-      show fields: [:product_type, :title, :image]
+      form fields: %i[product_type title image]
+      show fields: %i[product_type title image]
     end
   end
 
@@ -29,5 +30,4 @@ class ProductImage < ApplicationRecord
   def inline_titleize
     product_type
   end
-
 end

@@ -1,4 +1,6 @@
-$:.push File.expand_path("../lib", __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "koi/version"
@@ -69,4 +71,7 @@ Gem::Specification.new do |s|
 
   # Settings
   s.add_dependency "i18n-active_record"
+  s.metadata = {
+    "rubygems_mfa_required" => "true",
+  }
 end

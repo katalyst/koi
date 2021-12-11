@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 module HasSettings
   module SharedMethods
-
-    def setting(key, value=nil, opt={})
+    def setting(key, value = nil, opt = {})
       options = {
-        key:    key.to_s,
-        label:  key.to_s.titleize,
-        field_type: 'rich_text',
-        value:  value
+        key:        key.to_s,
+        label:      key.to_s.titleize,
+        field_type: "rich_text",
+        value:      value,
       }.merge(opt).merge({
-        prefix: settings_prefix
-      })
+                           prefix: settings_prefix,
+                         })
 
       setting = Setting.find_by(prefix: settings_prefix, key: key)
 
@@ -26,7 +27,7 @@ module HasSettings
 
     def create_setting(key, values)
       unless Setting.find_by(prefix: settings_prefix, key: key)
-        values.delete(:group) unless Setting.columns.map{ |c| c.name }.include?('group')
+        values.delete(:group) unless Setting.columns.map(&:name).include?("group")
         Setting.create(values.merge(key: key, prefix: settings_prefix))
       end
     end
@@ -43,11 +44,11 @@ module HasSettings
 
     def default_setting_options(key)
       {
-        key:    key.to_s,
-        label:  key.to_s.titleize,
-        field_type: 'rich_text',
-        prefix: settings_prefix,
-        value:  nil
+        key:        key.to_s,
+        label:      key.to_s.titleize,
+        field_type: "rich_text",
+        prefix:     settings_prefix,
+        value:      nil,
       }
     end
 
@@ -60,7 +61,7 @@ module HasSettings
       when "image"
         setting.file
       when "boolean"
-        !!setting.value.to_s.eql?("1")
+        !setting.value.to_s.eql?("1").nil?
       when "tags"
         setting.tags
       else

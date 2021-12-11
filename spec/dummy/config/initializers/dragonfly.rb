@@ -1,4 +1,6 @@
-require 'dragonfly'
+# frozen_string_literal: true
+
+require "dragonfly"
 
 Dragonfly.app.configure do
   plugin :imagemagick
@@ -9,7 +11,7 @@ Dragonfly.app.configure do
 
   url_format "/media/:job/:name"
 
-  before_serve do |job, env|
+  before_serve do |job, _env|
     Rails.logger.info("<Dragonfly Processing> uncached file #{job.inspect}")
     ProcessedAsset.find_or_create_by(uid: job.store, signature: job.signature)
   end
@@ -25,7 +27,7 @@ Dragonfly.app(:image).configure do
 
   url_format "/media/:job/:name"
 
-  define_url do |app, job, opts|
+  define_url do |app, job, _opts|
     thumb = ProcessedAsset.find_by(signature: job.signature)
     if thumb
       app.remote_url_for(thumb.uid)
@@ -43,7 +45,7 @@ Dragonfly.app(:file).configure do
 
   url_format "/media/:job/:name"
 
-  define_url do |app, job, opts|
+  define_url do |app, job, _opts|
     app.remote_url_for(job.uid)
   end
 end

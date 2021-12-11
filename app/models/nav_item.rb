@@ -1,4 +1,6 @@
-class NavItem < ActiveRecord::Base
+# frozen_string_literal: true
+
+class NavItem < ApplicationRecord
   include Koi::Model
 
   before_save :raise_abstract_error
@@ -7,7 +9,7 @@ class NavItem < ActiveRecord::Base
   after_touch :touch_parent
 
   acts_as_nested_set
-  has_crud searchable: [:id, :title, :url], settings: false
+  has_crud searchable: %i[id title url], settings: false
 
   crud.config do
     fields parent_id:           { type: :hidden },
@@ -21,22 +23,22 @@ class NavItem < ActiveRecord::Base
            content_block:       { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :link_to_first_child, :parent_id]
+      index fields: %i[id title url]
+      form  fields: %i[title url is_hidden link_to_first_child parent_id]
     end
   end
 
-  scope :visible, -> { where(is_hidden: false ) }
+  scope :visible, -> { where(is_hidden: false) }
 
   def raise_abstract_error
-    raise "Cannot directly instantiate an Abstract NavItem" if self.class == NavItem
+    raise "Cannot directly instantiate an Abstract NavItem" if instance_of?(NavItem)
   end
 
   def titlize
     title
   end
 
-  alias :to_s :titleize
+  alias to_s titleize
 
   def is_what?
     raise_abstract_error
@@ -62,25 +64,17 @@ class NavItem < ActiveRecord::Base
     hash = {}
 
     # Process if any procs in the database if, unless, highlights_on columns
-    if self.if.present?
-      hash[:if] = Proc.new { eval(self.if, env) }
+    hash[:if] = proc { eval(self.if, env) } if self.if.present?
+
+    hash[:unless] = proc { eval(self.unless, env) } if self.unless.present?
+
+    if highlights_on.present?
+      hash[:highlights_on] = proc { highlights_on.is_a?(Proc) ? highlights_on.call : eval(highlights_on, env) }
     end
 
-    if self.unless.present?
-      hash[:unless] = Proc.new { eval(self.unless, env) }
-    end
+    hash[:container_class] = key if key.present?
 
-    if self.highlights_on.present?
-      hash[:highlights_on] = Proc.new { Proc === highlights_on ? highlights_on.call : eval(highlights_on, env) }
-    end
-
-    if self.key.present?
-      hash[:container_class] = self.key
-    end
-
-    if self.method.present?
-      hash[:method] = method
-    end
+    hash[:method] = method if method.present?
 
     hash[:"data-nav-item-type"] = self.class.name
 
@@ -88,33 +82,29 @@ class NavItem < ActiveRecord::Base
   end
 
   def is_mobile?
-    is_mobile || children.collect { |c| c.is_mobile? }.include?(true)
+    is_mobile || children.map(&:is_mobile?).include?(true)
   end
 
   def to_hash(show_options = {})
     { mobile: false }.merge(show_options)
 
-    if show_options[:mobile] && !is_mobile?
-      return nil
-    end
+    return nil if show_options[:mobile] && !is_mobile?
 
     hash = setup_content(show_options)
 
     options.delete(:mobile)
 
-    unless options.blank?
-      hash[:options] = options
-    end
+    hash[:options] = options if options.present?
 
     hash
   end
 
-  def to_hashish env = @@binding
+  def to_hashish(env = @@binding)
     @@binding ||= env
     @to_hashish ||= begin
-      hash = as_json except: %w[ navigable_type navigable_id lft rgt created_at updated_at is_mobile ]
+      hash = as_json except: %w[navigable_type navigable_id lft rgt created_at updated_at is_mobile]
       hash[:is_mobile] = read_attribute :is_mobile # is_mobile method is recursive, which we don't want
-      hash[:children] = eval content_block, env unless content_block.blank?
+      hash[:children] = eval content_block, env if content_block.present?
       hash.merge! options(env)
     end
   end
@@ -123,11 +113,11 @@ class NavItem < ActiveRecord::Base
     true
   end
 
-  def navigation(get_binding=binding())
+  def navigation(get_binding = binding())
     # FIXME: Caching procs and lambda causes "no marshal_dump is defined for class Proc"
     # @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
-      @@binding = get_binding
-      children.collect { |c| c.to_hash unless c.is_hidden }.compact.flatten
+    @@binding = get_binding
+    children.filter_map { |c| c.to_hash unless c.is_hidden }.flatten
     # end
   end
 
@@ -149,7 +139,7 @@ class NavItem < ActiveRecord::Base
   def self.aliased(nav_item)
     seen = Set.new
 
-    while nav_item.present? && !seen.include?(nav_item)
+    while nav_item.present? && seen.exclude?(nav_item)
       seen.add(nav_item)
       nav_item = nav_item.alias_record
     end
@@ -157,14 +147,14 @@ class NavItem < ActiveRecord::Base
     nav_item
   end
 
-  def self.navigation(arg=nil, get_binding=binding())
+  def self.navigation(arg = nil, get_binding = binding())
     self.for(arg).navigation(get_binding)
   end
 
   def self.for(arg = nil)
     case arg
     when NavItem        then arg
-    when Symbol, String then find_by_key arg.to_s
+    when Symbol, String then find_by key: arg.to_s
     end or RootNavItem.root
   end
 
@@ -174,21 +164,19 @@ class NavItem < ActiveRecord::Base
     hash = {}
 
     if content_block.blank?
-      hash = {
+      {
         key:   nav_key,
         name:  title,
         url:   url,
-        items: children.collect { |c| c.to_hash(show_options) unless c.is_hidden }.compact,
+        items: children.filter_map { |c| c.to_hash(show_options) unless c.is_hidden },
       }
     else
-      hash = eval(content_block, @@binding)
+      eval(content_block, @@binding)
     end
-
-    hash
   end
 
   def touch_parent
-    parent.touch if parent
+    parent&.touch
   end
 
   def clear_cache

@@ -1,17 +1,18 @@
-class FriendlyIdSlug < ActiveRecord::Base
+# frozen_string_literal: true
+
+class FriendlyIdSlug < ApplicationRecord
   include Koi::Model
 
   has_crud ajaxable: true, slugged: false
 
   crud.config do
     config :admin do
-      index fields: [:slug, :sluggable_id, :sluggable_type]
-      form fields: [:slug, :sluggable_id, :sluggable_type]
+      index fields: %i[slug sluggable_id sluggable_type]
+      form fields: %i[slug sluggable_id sluggable_type]
     end
   end
 
   def to_s
     "URL for #{sluggable_type} - #{sluggable_id}"
   end
-
 end

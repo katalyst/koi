@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTranslations < ActiveRecord::Migration[4.2]
   def change
     create_table :translations do |t|
@@ -7,14 +9,14 @@ class CreateTranslations < ActiveRecord::Migration[4.2]
       t.text    :value
       t.text    :interpolations
       t.string  :role
-      t.string  :field_type, :default => "string"
+      t.string  :field_type, default: "string"
       t.string  :hint
-      t.boolean :is_proc, :default => false
-      t.boolean :is_required, :default => false
+      t.boolean :is_proc, default: false
+      t.boolean :is_required, default: false
 
       t.timestamps
     end
 
-    add_index :translations, :key, :unique => true
+    add_index :translations, :key, unique: true
   end
 end

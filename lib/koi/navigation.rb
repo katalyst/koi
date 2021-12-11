@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   module Navigation
     # Classes that should be available for navigation

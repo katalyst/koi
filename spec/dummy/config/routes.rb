@@ -1,9 +1,10 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   resources :products
 
-  constraints :subdomain => "mobile" do
-    scope :module => "mobile", :as => "mobile" do
+  constraints subdomain: "mobile" do
+    scope module: "mobile", as: "mobile" do
       resources :pages
       root to: "application#index"
     end
@@ -12,11 +13,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :categories do
-    resources :products, except: [:new, :create, :edit, :update, :destroy]
+    resources :products, except: %i[new create edit update destroy]
   end
 
   resources :users, path: :members
-  resources :pages, only: [:index, :show], as: :koi_pages
+  resources :pages, only: %i[index show], as: :koi_pages
   resources :assets
   resources :images
   resources :documents
@@ -31,9 +32,9 @@ Rails.application.routes.draw do
     resources :news_items
     resources :product_images
     resources :categories do
-      collection { put 'sort' }
+      collection { put "sort" }
       resources :products do
-        collection { put 'sort' }
+        collection { put "sort" }
       end
     end
   end
@@ -42,5 +43,5 @@ Rails.application.routes.draw do
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 
-  get '/:id' => 'pages#show', as: :page
+  get "/:id" => "pages#show", as: :page
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSuperHeros < ActiveRecord::Migration[4.2]
   def change
     create_table :super_heros do |t|
@@ -20,6 +22,6 @@ class CreateSuperHeros < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    add_index :super_heros, :slug, :unique => true
+    add_index :super_heros, :slug, unique: true
   end
 end

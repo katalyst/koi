@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class ResourceNavItem < NavItem
+  has_crud searchable: %i[id title url], settings: false
 
-  has_crud searchable: [:id, :title, :url], settings: false
-
-  belongs_to :navigable, :polymorphic => true
+  belongs_to :navigable, polymorphic: true
 
   validates :title, :parent, :url, :admin_url, presence: true
 
@@ -18,8 +19,8 @@ class ResourceNavItem < NavItem
            content_block:       { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :link_to_first_child, :parent_id]
+      index fields: %i[id title url]
+      form  fields: %i[title url is_hidden link_to_first_child parent_id]
     end
   end
 
@@ -32,6 +33,5 @@ class ResourceNavItem < NavItem
     read_attribute :title
   end
 
-  TITLE = [:title, :name, :heading, :to_s]
-
+  TITLE = %i[title name heading to_s].freeze
 end

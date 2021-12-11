@@ -1,95 +1,98 @@
-module Koi::NavigationHelper
+# frozen_string_literal: true
 
-  def koi_render_navigation(cache_key, nav_items_fetch_key=nil, options={})
-    if Koi::Caching.enabled
-      cache_render_navigation(cache_key, nav_items_fetch_key, options)
-    else
-      get_render_navigation(nav_items_fetch_key, options)
-    end
-  end
-
-  def cache_render_navigation(cache_key, nav_items_fetch_key=nil, options={})
-    request_path = request.path.parameterize if request.path
-    cache_key = "#{request_path}_#{cache_key}"
-
-    Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
-      get_render_navigation(nav_items_fetch_key, options)
-    end
-  end
-
-  def get_render_navigation(nav_items_fetch_key=nil, options={})
-    options.merge!(items: get_nav_items(nav_items_fetch_key)) if nav_items_fetch_key
-    render_navigation options
-  end
-
-  def get_nav_items(key)
-    if Koi::Caching.enabled
-      Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
-        NavItem.navigation(key, binding())
-      end
-    else
-      NavItem.navigation(key, binding())
-    end
-  end
-
-  def cascaded_setting key
-    active_item_prefixes = render_navigation renderer: :active_items
-    active_item_prefixes << settings_prefix
-    active_item_prefixes.uniq.compact!
-
-    setting = nil
-
-    if is_settable?
-      active_item_prefixes.reverse.each do |prefix|
-        break unless setting.blank?
-        value = Setting.find_by_prefix_and_key(prefix, key).try(:value)
-        setting = value unless value.blank?
+module Koi
+  module NavigationHelper
+    def koi_render_navigation(cache_key, nav_items_fetch_key = nil, options = {})
+      if Koi::Caching.enabled
+        cache_render_navigation(cache_key, nav_items_fetch_key, options)
+      else
+        get_render_navigation(nav_items_fetch_key, options)
       end
     end
 
-    setting
-  end
+    def cache_render_navigation(cache_key, nav_items_fetch_key = nil, options = {})
+      request_path = request.path.parameterize if request.path
+      cache_key = "#{request_path}_#{cache_key}"
 
-  def cascaded_banners
-    images = cascaded_setting(:banners)
-    images = [] unless Enumerable === images
-    images.sum { |image| image_tag image.url(size: "100x") }
-  end
-
-  def breadcrumbs
-    @breadcrumbs ||= breadcrumb.self_and_ancestors
-  end
-
-  def breadcrumb
-    @breadcrumb ||= nav.self_and_descendants.compact.sort_by(&:negative_highlight).first
-  end
-
-  def nav nav_item = nil
-    navs_by_id[ NavItem.for(nav_item).id ]
-  end
-
-  def navs_by_id
-    @navs_by_id ||= navs_by_id!.each do |id, nav|
-      if nav.parent_id
-        nav.parent = navs_by_id![nav.parent_id]
-        nav.parent.children << nav
+      Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
+        get_render_navigation(nav_items_fetch_key, options)
       end
     end
-  end
 
-  def navs_by_id!
-    @navs_by_id ||= Hash[ nav_items.map { |nav_item| [nav_item.id, nav_from(nav_item)] }]
-  end
+    def get_render_navigation(nav_items_fetch_key = nil, options = {})
+      options[:items] = get_nav_items(nav_items_fetch_key) if nav_items_fetch_key
+      render_navigation options
+    end
 
-  def nav_items
-    @nav_items ||= NavItem.order :lft
-  end
+    def get_nav_items(key)
+      if Koi::Caching.enabled
+        Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
+          NavItem.navigation(key, binding)
+        end
+      else
+        NavItem.navigation(key, binding)
+      end
+    end
 
-  def nav_from nav_item
-    Navigator.new self, nav_item.to_hashish(binding()) #, &filter
-  end
+    def cascaded_setting(key)
+      active_item_prefixes = render_navigation renderer: :active_items
+      active_item_prefixes << settings_prefix
+      active_item_prefixes.uniq.compact!
 
-  private
+      setting = nil
+
+      if is_settable?
+        active_item_prefixes.reverse.each do |prefix|
+          break if setting.present?
+
+          value = Setting.find_by(prefix: prefix, key: key).try(:value)
+          setting = value if value.present?
+        end
+      end
+
+      setting
+    end
+
+    def cascaded_banners
+      images = cascaded_setting(:banners)
+      images = [] unless images.is_a?(Enumerable)
+      images.sum { |image| image_tag image.url(size: "100x") }
+    end
+
+    def breadcrumbs
+      @breadcrumbs ||= breadcrumb.self_and_ancestors
+    end
+
+    def breadcrumb
+      @breadcrumb ||= nav.self_and_descendants.compact.min_by(&:negative_highlight)
+    end
+
+    def nav(nav_item = nil)
+      navs_by_id[NavItem.for(nav_item).id]
+    end
+
+    def navs_by_id
+      @navs_by_id ||= navs_by_id!.each do |_id, nav|
+        if nav.parent_id
+          nav.parent = navs_by_id![nav.parent_id]
+          nav.parent.children << nav
+        end
+      end
+    end
+
+    def navs_by_id!
+      @navs_by_id ||= nav_items.map { |nav_item| [nav_item.id, nav_from(nav_item)] }.to_h
+    end
+
+    def nav_items
+      @nav_items ||= NavItem.order :lft
+    end
+
+    def nav_from(nav_item)
+      Navigator.new self, nav_item.to_hashish(binding) # , &filter
+    end
+
+    private
 
     def prefix_cache_key(suffix)
       "#{Rails.application.class.module_parent}_#{suffix}"
@@ -98,5 +101,5 @@ module Koi::NavigationHelper
     def cache_expiry
       Koi::Caching.expires_in
     end
-
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   class UploadsController < AdminCrudController
     skip_before_action :verify_authenticity_token # TODO[asw]: send CSRF token for uploads
@@ -11,9 +13,9 @@ module Koi
 
       if params[:upload]
         response = {
-          "uploaded": 1,
-          "fileName": asset.data_name,
-          "url":      asset.url,
+          uploaded: 1,
+          fileName: asset.data_name,
+          url:      asset.url,
         }
         render json: response
       else

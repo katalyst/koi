@@ -1,3 +1,6 @@
-class Admin::ProductImagesController < Koi::AdminCrudController
-end
+# frozen_string_literal: true
 
+module Admin
+  class ProductImagesController < Koi::AdminCrudController
+  end
+end

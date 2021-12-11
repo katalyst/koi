@@ -1,4 +1,6 @@
-class UrlRewrite < ActiveRecord::Base
+# frozen_string_literal: true
+
+class UrlRewrite < ApplicationRecord
   include Koi::Model
 
   has_crud
@@ -15,12 +17,11 @@ class UrlRewrite < ActiveRecord::Base
     fields active: { type: :boolean }
 
     config :admin do
-      index fields: [:from, :to, :active]
+      index fields: %i[from to active]
     end
   end
 
   def self.redirect_path_for(path)
-    active.find_by_from(path).try(:to)
+    active.find_by(from: path).try(:to)
   end
-
 end

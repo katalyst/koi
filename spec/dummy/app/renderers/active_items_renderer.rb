@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActiveItemsRenderer < SimpleNavigation::Renderer::Breadcrumbs
   def render(item_container)
     collect(item_container)
@@ -6,14 +8,11 @@ class ActiveItemsRenderer < SimpleNavigation::Renderer::Breadcrumbs
   protected
 
   def collect(item_container)
-    item_container.items.inject([]) do |list, item|
+    item_container.items.each_with_object([]) do |item, list|
       if item.selected?
-        list << NavItem.find_by_id(item.key.gsub("key_", "")).setting_prefix if item.selected?
-        if include_sub_navigation?(item)
-          list.concat collect(item.sub_navigation)
-        end
+        list << NavItem.find_by(id: item.key.gsub("key_", "")).setting_prefix if item.selected?
+        list.concat collect(item.sub_navigation) if include_sub_navigation?(item)
       end
-      list
     end
   end
 end

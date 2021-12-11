@@ -9,7 +9,7 @@ RSpec.describe Koi::Config do
     crud = described_class.new
     crud.config do
       index title: "Index", fields: %i[id title]
-      form new:    "New Form", edit: "Edit Form",
+      form new: "New Form", edit: "Edit Form",
            fields: %i[title description]
       config :admin do
         index title: "Admin Index"
@@ -79,8 +79,8 @@ RSpec.describe Koi::Config do
                                       file:        { type: :file },
                                     },
                                     index:  { title: "Index", fields: %i[id title] },
-                                    form:   { new:    "New Form", edit: "Edit Form",
-                                               fields: %i[title description] },
+                                    form:   { new: "New Form", edit: "Edit Form",
+                                            fields: %i[title description] },
                                   })
     end
 
@@ -88,7 +88,7 @@ RSpec.describe Koi::Config do
       crud = described_class.new(defaults: { ignore: [:id] })
       crud.config do
         index title: "Index", fields: %i[id title]
-        form new:    "New Form", edit: "Edit Form",
+        form new: "New Form", edit: "Edit Form",
              fields: %i[title description]
         config :admin do
           index title: "Admin Index"
@@ -97,23 +97,21 @@ RSpec.describe Koi::Config do
       expect(crud.settings).to eq({
                                     ignore: [:id],
                                     index:  { title:  "Index",
-                                              fields: %i[id title],
-                                    },
+                                              fields: %i[id title] },
                                     form:   { new:    "New Form",
                                               edit:   "Edit Form",
-                                              fields: %i[title description],
-                                    },
+                                              fields: %i[title description] },
                                     map:    {},
                                     fields: {},
                                     admin:  { ignore: [],
                                               index:  {
                                                 title: "Admin Index",
-                                              },
-                                    },
+                                              } },
                                   })
     end
   end
 
+  # rubocop:disable Performance/RedundantMerge
   describe "when merging another simple hash" do
     it "must respond with a merged hash" do
       crud.merge!({ index: { title: "Changed Title" } })
@@ -126,7 +124,7 @@ RSpec.describe Koi::Config do
     it "must respond with a merged hash" do
       crud.merge!({ index: { title:  "Changed Title",
                              fields: [:description] } })
-      expect(crud.settings[:index]).to eq({ title: "Changed Title",
+      expect(crud.settings[:index]).to eq({ title:  "Changed Title",
                                             fields: %i[id title description] })
     end
   end
@@ -140,11 +138,12 @@ RSpec.describe Koi::Config do
                                                        created_at updated_at] })
     end
   end
+  # rubocop:enable Performance/RedundantMerge
 
   describe "when asked about a value which is a proc" do
     before do
       crud.config do
-        index title: Proc.new { title }
+        index title: proc { title }
       end
     end
 
@@ -154,8 +153,8 @@ RSpec.describe Koi::Config do
 
     it "must respond by returning the stored proc" do
       proc_method = crud.find(:index, :title)
-      result      = instance_eval &proc_method
-      expect(result).to eq("#{title}")
+      result      = instance_eval(&proc_method)
+      expect(result).to eq(title.to_s)
     end
   end
 

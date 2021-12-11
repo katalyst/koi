@@ -1,10 +1,12 @@
-require_relative 'shared_methods'
+# frozen_string_literal: true
+
+require_relative "shared_methods"
 
 module HasSettings
   extend ActiveSupport::Concern
 
   class_methods do
-    def has_settings(options = {})
+    def has_settings(_options = {})
       send :include, HasSettings::Model
       send :after_save, :create_settings
       send :before_destroy, :remove_settings
@@ -20,11 +22,11 @@ module HasSettings
       end
 
       def settings_prefix
-        "#{singular_name}"
+        singular_name.to_s
       end
 
       def settings
-        Setting.where(prefix: settings_prefix).collect do |setting|
+        Setting.where(prefix: settings_prefix).map do |setting|
           setting.derive_data_source(true)
           setting
         end

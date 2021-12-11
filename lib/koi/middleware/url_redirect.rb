@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Koi
   class UrlRedirect
-
     def initialize(app)
       @app = app
     end
@@ -8,16 +9,17 @@ module Koi
     def call(env)
       status, headers, body = @app.call(env)
 
-      current_path = env['REQUEST_PATH']
+      current_path = env["REQUEST_PATH"]
 
-      if status.to_i == 404 && !current_path.include?("mini-profiler-resources") && new_path = find_redirect(current_path)
+      if status.to_i == 404 && current_path.exclude?("mini-profiler-resources") && new_path = find_redirect(current_path)
         request = ActionDispatch::Request.new(env)
 
         # Close the body as we will not use it for a 301 redirect
         body.close
 
         # Issue a "Moved permanently" response with the redirect location
-        [301, { "Location" => new_location(current_path, new_path, request) }, ["#{current_path} moved. The document has moved to #{new_path}"]]
+        [301, { "Location" => new_location(current_path, new_path, request) },
+         ["#{current_path} moved. The document has moved to #{new_path}"]]
       else
         # Not a 404 or no redirect found, just send the response as is
         [status, headers, body]
@@ -27,7 +29,7 @@ module Koi
     private
 
     def new_location(current_path, new_path, request)
-      if new_path =~ /\Ahttp[s]{0,1}:\/\//
+      if %r{\Ahttps{0,1}://}.match?(new_path)
         new_path
       else
         request.original_url.gsub(current_path, new_path)
@@ -37,6 +39,5 @@ module Koi
     def find_redirect(path)
       UrlRewrite.redirect_path_for(path)
     end
-
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Exportable
   extend ActiveSupport::Concern
 
@@ -11,7 +13,6 @@ module Exportable
     extend ActiveSupport::Concern
 
     class_methods do
-
       #
       # MyModel.active.ordered.to_formatted_csv
       #
@@ -38,7 +39,9 @@ module Exportable
         attributes = column_names.map(&:to_sym) if attributes.blank?
 
         CSV.generate(headers: true) do |csv|
-          header_row = attributes.map { |attr| I18n.translate "simple_form.labels.#{name.underscore}.#{attr}", default: attr.to_s.titleize }
+          header_row = attributes.map do |attr|
+            I18n.t "simple_form.labels.#{name.underscore}.#{attr}", default: attr.to_s.titleize
+          end
           csv << header_row
           all.each do |object|
             csv << attributes.map { |attr| format_field_for_csv attr, object }
@@ -117,32 +120,31 @@ module Exportable
 
       def csv_format_file(object, attr)
         file = object.send(attr)
-        file.name unless file.blank?
+        file.name if file.present?
       end
 
       def csv_format_inline(object, attr)
-        object.send(attr).map(&:to_s).join('|')
+        object.send(attr).map(&:to_s).join("|")
       end
 
       alias_method :csv_format_multiselect_association, :csv_format_inline
       alias_method :csv_format_array, :csv_format_inline
 
       def csv_format_date(object, attr)
-        object.send(attr).try(:strftime, '%d/%m/%y')
+        object.send(attr).try(:strftime, "%d/%m/%y")
       end
 
       def csv_format_datetime(object, attr)
-        object.send(attr).try(:strftime, '%d/%m/%y %H:%M:%S')
+        object.send(attr).try(:strftime, "%d/%m/%y %H:%M:%S")
       end
 
       def csv_format_time(object, attr)
-        object.send(attr).try(:strftime, '%H:%M:%S')
+        object.send(attr).try(:strftime, "%H:%M:%S")
       end
 
       def csv_format_rich_text(object, attr)
         object.send(attr)
       end
-
     end
   end
 end

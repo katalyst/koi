@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HasNavigation
   extend ActiveSupport::Concern
 
@@ -26,7 +28,7 @@ module HasNavigation
   #
 
   class_methods do
-    def has_navigation(options = {})
+    def has_navigation(_options = {})
       # Include class & instance methods.
       include HasNavigation::Model
 
@@ -38,44 +40,36 @@ module HasNavigation
     include ActionDispatch::Routing::PolymorphicRoutes
 
     def polymorphic_url(subject, options = {})
-      begin
-        # handle explicit routes defined in the main routing table first
-        super
-      rescue NoMethodError
-        # if an admin route was requested, fall back to koi engine
-        (subject = koi_route(subject)) ? super(subject, options) : raise
-      end
+      # handle explicit routes defined in the main routing table first
+      super
+    rescue NoMethodError
+      # if an admin route was requested, fall back to koi engine
+      (subject = koi_route(subject)) ? super(subject, options) : raise
     end
 
     def polymorphic_path(subject, options = {})
-      begin
-        # handle explicit routes defined in the main routing table first
-        super
-      rescue NoMethodError
-        # if an admin route was requested, fall back to koi engine
-        (subject = koi_route(subject)) ? super(subject, options) : raise
-      end
+      # handle explicit routes defined in the main routing table first
+      super
+    rescue NoMethodError
+      # if an admin route was requested, fall back to koi engine
+      (subject = koi_route(subject)) ? super(subject, options) : raise
     end
 
     private
 
     def koi_route(subject)
-      if subject.instance_of?(Array) && subject.first == :admin
-        [koi_engine, *subject.slice(1)]
-      else
-        nil
-      end
+      [koi_engine, *subject.slice(1)] if subject.instance_of?(Array) && subject.first == :admin
     end
   end
 
   class << self
     def url_helpers
       @url_helpers ||= begin
-                         # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
-                         UrlHelpers.include Rails.application.routes.url_helpers
-                         UrlHelpers.include Rails.application.routes.mounted_helpers
-                         UrlHelpers.new
-                       end
+        # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
+        UrlHelpers.include Rails.application.routes.url_helpers
+        UrlHelpers.include Rails.application.routes.mounted_helpers
+        UrlHelpers.new
+      end
     end
   end
 
@@ -111,14 +105,14 @@ module HasNavigation
     end
 
     def get_nav_item
-      self.resource_nav_item.blank? ? ResourceNavItem.new : self.resource_nav_item
+      resource_nav_item.presence || ResourceNavItem.new
     end
 
     def new_title
-      get_nav_item.title.blank? ? get_title : get_nav_item.title
+      get_nav_item.title.presence || get_title
     end
 
-    def to_navigator(options={})
+    def to_navigator(options = {})
       resource_nav_item = get_nav_item
 
       options.reverse_merge!(title: new_title, url: get_url,
@@ -126,24 +120,23 @@ module HasNavigation
                              setting_prefix: get_setting_prefix,
                              navigable: self)
 
-      options.keys.each do |key|
+      options.each_key do |key|
         resource_nav_item.send("#{key}=", options[key]) if resource_nav_item.respond_to?(key)
       end
 
       resource_nav_item
     end
 
-    def to_navigator!(options={})
+    def to_navigator!(options = {})
       navigator = to_navigator(options)
 
       if navigator.parent_id.blank?
-        return true
+        true
       elsif navigator.save
         navigator
       else
         false
       end
     end
-
   end
 end

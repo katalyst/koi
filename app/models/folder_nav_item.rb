@@ -1,6 +1,7 @@
-class FolderNavItem < NavItem
+# frozen_string_literal: true
 
-  has_crud searchable: [:id, :title, :url], settings: false
+class FolderNavItem < NavItem
+  has_crud searchable: %i[id title url], settings: false
 
   validates :title, :parent, presence: true
 
@@ -16,8 +17,8 @@ class FolderNavItem < NavItem
            content_block:       { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form  fields: [:title, :is_hidden, :link_to_first_child, :parent_id]
+      index fields: %i[id title url]
+      form  fields: %i[title is_hidden link_to_first_child parent_id]
     end
   end
 
@@ -32,5 +33,4 @@ class FolderNavItem < NavItem
   def self.title
     "Folder"
   end
-
 end

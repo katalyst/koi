@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module HasCrud
   module ActionController
     module Admin
       module CollectionMethods
-
         def self.included(base)
           base.send :include, InstanceMethods
         end
@@ -11,7 +12,6 @@ module HasCrud
         end
 
         module InstanceMethods
-
           def collection
             return get_collection_ivar if get_collection_ivar
 
@@ -34,16 +34,14 @@ module HasCrud
 
           def scope_orderable
             initial_scope
-            .ordered
+              .ordered
           end
 
           def scope_default
             initial_scope
-            .reorder(sort_order)
+              .reorder(sort_order)
           end
-
         end
-
       end
     end
   end

@@ -1,4 +1,6 @@
-require 'dragonfly'
+# frozen_string_literal: true
+
+require "dragonfly"
 
 # Logger
 Dragonfly.logger = Rails.logger

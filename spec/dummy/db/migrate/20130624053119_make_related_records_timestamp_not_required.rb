@@ -1,6 +1,7 @@
-class MakeRelatedRecordsTimestampNotRequired < ActiveRecord::Migration[4.2]
+# frozen_string_literal: true
 
-	def up
+class MakeRelatedRecordsTimestampNotRequired < ActiveRecord::Migration[4.2]
+  def up
     change_column(:related_products, :created_at, :datetime, null: true)
     change_column(:related_products, :updated_at, :datetime, null: true)
   end
@@ -9,5 +10,4 @@ class MakeRelatedRecordsTimestampNotRequired < ActiveRecord::Migration[4.2]
     change_column(:related_products, :created_at, :datetime, null: false)
     change_column(:related_products, :updated_at, :datetime, null: false)
   end
-
 end

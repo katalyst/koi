@@ -19,7 +19,7 @@ module Koi
           description: { type: :rich_text },
           image:       { type: :image },
           file:        { type: :file },
-        }
+        },
       }
     end
 
@@ -39,10 +39,10 @@ module Koi
     def method_missing(sym, *args, &block)
       if sym.eql?(:config) && !args.empty?
         @namespace.push(args.first)
-      else
-        namespace_value({sym => args.first}) if args.size > 0
+      elsif args.size.positive?
+        namespace_value({ sym => args.first })
       end
-      instance_eval(&block) if block_given?
+      instance_eval(&block) if block
       @namespace.pop if sym.eql?(:config) && !args.empty?
     end
 

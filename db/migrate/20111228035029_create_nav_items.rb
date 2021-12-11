@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNavItems < ActiveRecord::Migration[4.2]
   def change
     create_table :nav_items do |t|

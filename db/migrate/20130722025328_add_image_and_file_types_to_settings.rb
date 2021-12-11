@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddImageAndFileTypesToSettings < ActiveRecord::Migration[4.2]
   def change
     add_column :translations, :file_uid,         :string

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Specify your gem's dependencies in koi.gemspec.
@@ -10,9 +12,6 @@ group :development, :test do
   gem "puma"
   gem "rake"
   gem "rspec-rails"
-  gem "rubocop-faker"
-  gem "rubocop-performance"
-  gem "rubocop-rails"
-  gem "rubocop-rspec"
+  gem "rubocop-katalyst", require: false
   gem "sqlite3"
 end

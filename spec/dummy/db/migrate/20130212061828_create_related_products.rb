@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRelatedProducts < ActiveRecord::Migration[4.2]
   def change
     create_table :related_products, id: false do |t|

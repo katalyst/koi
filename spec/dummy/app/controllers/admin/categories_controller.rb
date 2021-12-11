@@ -1,3 +1,6 @@
-class Admin::CategoriesController < Koi::AdminCrudController
-end
+# frozen_string_literal: true
 
+module Admin
+  class CategoriesController < Koi::AdminCrudController
+  end
+end
