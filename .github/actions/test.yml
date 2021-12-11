@@ -1,0 +1,30 @@
+name: Rails - Install dependencies and run linters and tests
+
+on:
+  pull_request:
+  push:
+    branches: [ release/* ]
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+        with:
+          bundler-cache: true
+      - name: Run security checks
+        run: |
+          bin/bundler-audit --update
+          bin/brakeman -q -w2
+      - name: Run linters
+        run: |
+          bin/rubocop --parallel
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rails db:setup
+          bundle exec rspec
