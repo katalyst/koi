@@ -1,5 +1,9 @@
 # Breaking changes and Upgrade Paths
 
+## 2.6.0
+
+ * Added `Koi::ApplicationModel` for consistency with Rails Engine defaults. Extend this class for `has_crud` etc.
+
 ## 2.5.0
 
 All Koi model and controller functionality was previously included automatically into ActiveRecord::Base and 

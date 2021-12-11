@@ -1,3 +1,10 @@
+2.6.0 / Unreleased
+==================
+
+ * Add base classes (Rails Engine Defaults)
+ * Add specs and update dummy app to work with Rails 6
+ * Add github actions
+
 2.5.3 / 2021-07-13
 ==================
 
