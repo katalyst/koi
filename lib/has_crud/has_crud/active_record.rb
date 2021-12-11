@@ -121,9 +121,9 @@ module HasCrud
         scope = options[:scope]
 
         if scope.present?
-          warn(<<-EOS,
+          warn(<<-WARN,
             DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "#{scope}"` is deprecated, please set default scope in the model itself by using `default_scope order("id ASC")`
-          EOS
+          WARN
               )
         end
 

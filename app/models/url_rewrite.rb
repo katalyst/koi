@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class UrlRewrite < ApplicationRecord
-  include Koi::Model
-
   has_crud
 
   validates :from, :to, presence: true

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class FriendlyIdSlug < ApplicationRecord
-  include Koi::Model
-
   has_crud ajaxable: true, slugged: false
 
   crud.config do

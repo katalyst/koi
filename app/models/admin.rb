@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Admin < ApplicationRecord
-  include Koi::Model
-
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 
@@ -10,9 +8,9 @@ class Admin < ApplicationRecord
 
   validates :first_name, :last_name, :email, :role, presence: true
 
-  # validates :email, email: true
-
   ROLES = %w[Super Admin].freeze
+
+  validates :role, inclusion: ROLES
 
   has_crud searchable: %i[id first_name last_name email role],
            ajaxable: true, settings: false

@@ -116,6 +116,7 @@ GEM
     faker (2.19.0)
       i18n (>= 1.6, < 2)
     ffi (1.15.4)
+    ffi (1.15.4-x86-mingw32)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     globalid (1.0.0)
@@ -164,6 +165,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86-mingw32)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.21.0)
@@ -268,6 +271,8 @@ GEM
     scoped_search (4.1.10)
       activerecord (>= 4.2.0)
     select2-rails (4.0.13)
+    shoulda-matchers (5.0.0)
+      activesupport (>= 5.2.0)
     simple-navigation (3.14.0)
       activesupport (>= 2.3.2)
     simple_form (5.1.0)
@@ -307,6 +312,7 @@ DEPENDENCIES
   rake
   rspec-rails
   rubocop-katalyst
+  shoulda-matchers
   sqlite3
 
 BUNDLED WITH

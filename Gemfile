@@ -16,3 +16,7 @@ group :development, :test do
   gem "rubocop-katalyst", require: false
   gem "sqlite3"
 end
+
+group :test do
+  gem "shoulda-matchers"
+end

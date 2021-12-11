@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Asset < ApplicationRecord
-  include Koi::Model
-
   has_crud paginate: false, settings: false
 
   dragonfly_accessor :data, app: :file

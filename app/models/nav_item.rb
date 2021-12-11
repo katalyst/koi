@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class NavItem < ApplicationRecord
-  include Koi::Model
-
   before_save :raise_abstract_error
   after_destroy :clear_cache
   after_save :touch_parent, :clear_cache

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Page < ApplicationRecord
-  include Koi::Model
-
   has_crud paginate: false, navigation: true,
            settings: true
 
