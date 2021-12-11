@@ -66,4 +66,7 @@ Gem::Specification.new do |s|
 
   # Nested Forms
   s.add_dependency "cocoon", ">= 1.2.15"
+
+  # Settings
+  s.add_dependency "i18n-active_record"
 end
