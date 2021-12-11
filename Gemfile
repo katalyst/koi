@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
+  gem "brakeman"
   gem "factory_bot_rails"
   gem "i18n-active_record", require: "i18n/active_record"
   gem "puma"
