@@ -67,7 +67,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  FactoryBot.definition_file_paths << File.expand_path('factories', __dir__)
+  config.include Capybara::RSpecMatchers, type: :request
+
+  FactoryBot.definition_file_paths << File.expand_path("factories", __dir__)
   config.before(:suite) { FactoryBot.find_definitions }
   config.append_after { FactoryBot.rewind_sequences }
 

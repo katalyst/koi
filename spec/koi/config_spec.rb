@@ -140,43 +140,61 @@ RSpec.describe Koi::Config do
   end
   # rubocop:enable Performance/RedundantMerge
 
-  describe "when asked about a value which is a proc" do
-    before do
-      crud.config do
-        index title: proc { title }
+  describe "#find" do
+    context "when asked about a value which is a proc" do
+      before do
+        crud.config do
+          index title: proc { title }
+        end
+      end
+
+      def title
+        "Hello I am a Proc"
+      end
+
+      it "must respond by returning the stored proc" do
+        proc_method = crud.find(:index, :title)
+        result      = instance_eval(&proc_method)
+        expect(result).to eq(title.to_s)
       end
     end
 
-    def title
-      "Hello I am a Proc"
+    context "when asked about an known nested hash key" do
+      it "must respond with its value (Admin Index)" do
+        expect(crud.find(:admin, :index, :title)).to eq("Admin Index")
+      end
+
+      it "must respond with its value (Index)" do
+        expect(crud.find(:index, :title)).to eq "Index"
+      end
+
+      it "must respond with its value (Index) when given a default" do
+        expect(crud.find(:index, :title, default: :miss)).to eq "Index"
+      end
     end
 
-    it "must respond by returning the stored proc" do
-      proc_method = crud.find(:index, :title)
-      result      = instance_eval(&proc_method)
-      expect(result).to eq(title.to_s)
-    end
-  end
-
-  describe "when asked about an known nested hash key" do
-    it "must respond with its value (Admin Index)" do
-      expect(crud.find(:admin, :index, :title)).to eq("Admin Index")
+    context "when asked about an unknown hash key" do
+      it "must respond with a nil" do
+        expect(crud.find(:unknown)).to be_nil
+      end
     end
 
-    it "must respond with its value (Index)" do
-      expect(crud.find(:index, :title)).to eq "Index"
+    context "when asked about an unknown hash key with a default" do
+      it "must respond with default" do
+        expect(crud.find(:unknown, default: :miss)).to eq :miss
+      end
     end
-  end
 
-  describe "when asked about an unknow hash key" do
-    it "must respond with a nil" do
-      expect(crud.find(:unknow)).to be_nil
+    context "when asked about an unknown nested hash key" do
+      it "must respond with a nil" do
+        expect(crud.find(:something, :unknown)).to be_nil
+      end
     end
-  end
 
-  describe "when asked about an unknow nested hash key" do
-    it "must respond with a nil" do
-      expect(crud.find(:something, :unknown)).to be_nil
+    context "when asked about an unknown nested hash key with a default" do
+      it "must respond with default" do
+        expect(crud.find(:something, :unknown, default: :miss)).to eq :miss
+      end
     end
   end
 end
