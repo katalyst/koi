@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Koi
-  class CrudController < ActionController::Base
+  class CrudController < ApplicationController
     include HasCrud::ActionController
 
-    layout 'application'
+    layout "application"
     has_crud
-    defaults :route_prefix => ''
+    defaults route_prefix: ""
   end
 end

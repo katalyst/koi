@@ -1,6 +1,7 @@
-class ModuleNavItem < NavItem
+# frozen_string_literal: true
 
-  has_crud searchable: [:id, :title, :url], settings: false
+class ModuleNavItem < NavItem
+  has_crud searchable: %i[id title url], settings: false
 
   validates :title, :parent, presence: true
   validates :url, presence: true, unless: :link_to_first_child
@@ -17,8 +18,8 @@ class ModuleNavItem < NavItem
            content_block:       { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :link_to_first_child, :parent_id]
+      index fields: %i[id title url]
+      form  fields: %i[title url is_hidden link_to_first_child parent_id]
     end
   end
 
@@ -29,5 +30,4 @@ class ModuleNavItem < NavItem
   def self.title
     "Module"
   end
-
 end

@@ -1,10 +1,11 @@
-Koi::Engine.routes.draw do
+# frozen_string_literal: true
 
-  devise_for :admins, class_name: "Admin",
-             controllers: {
-               passwords: "koi/passwords",
-               sessions:  "koi/sessions"
-             }
+Koi::Engine.routes.draw do
+  devise_for :admins, class_name:  "Admin",
+                      controllers: {
+                        passwords: "koi/passwords",
+                        sessions:  "koi/sessions",
+                      }
 
   resources :uploads, only: :create
 
@@ -16,7 +17,7 @@ Koi::Engine.routes.draw do
     get :seed, on: :collection
   end
   resources :settings do
-    put  :update_multiple, on: :collection
+    put :update_multiple, on: :collection
   end
   resources :pages
   resources :url_rewrites
@@ -33,14 +34,13 @@ Koi::Engine.routes.draw do
       post :savesort
     end
   end
-  post 'clear-cache' => 'application#clear_cache', :as => :clear_cache
-  get  'help' => 'application#help', :as => :help
-  get  'dashboard' => 'application#index', :as => :dashboard
-  root to: 'application#login'
-
+  post "clear-cache" => "application#clear_cache", :as => :clear_cache
+  get  "help" => "application#help", :as => :help
+  get  "dashboard" => "application#index", :as => :dashboard
+  root to: "application#login"
 
   if Rails.env.development?
-    get '/styleguide'           => 'styleguide#index'
-    get '/styleguide/:template' => 'styleguide#show', template: /[-_a-z]+/
+    get "/styleguide"           => "styleguide#index"
+    get "/styleguide/:template" => "styleguide#show", template: /[-_a-z]+/
   end
 end

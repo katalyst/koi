@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_crud
 
@@ -7,6 +9,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   crud.config do
-    index fields: [:email, :last_sign_in_ip]
+    index fields: %i[email last_sign_in_ip]
   end
 end

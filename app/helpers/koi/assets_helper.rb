@@ -1,11 +1,13 @@
-module Koi::AssetsHelper
+# frozen_string_literal: true
 
-  def is_resource?
-    ! is_collection?
+module Koi
+  module AssetsHelper
+    def is_resource?
+      !is_collection?
+    end
+
+    def is_collection?
+      resource.data.nil?
+    end
   end
-
-  def is_collection?
-    resource.data.nil?
-  end
-
 end

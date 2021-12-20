@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   module Menu
     mattr_accessor :items

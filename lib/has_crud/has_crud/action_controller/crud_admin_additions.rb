@@ -1,5 +1,7 @@
-require_relative 'admin/collection_methods'
-require_relative 'admin/crud_methods'
+# frozen_string_literal: true
+
+require_relative "admin/collection_methods"
+require_relative "admin/crud_methods"
 
 module HasCrud
   module ActionController
@@ -8,8 +10,8 @@ module HasCrud
         base.send :extend,  ClassMethods
         base.send :include, InstanceMethods
         base.send :include, Admin::CollectionMethods
-        base.send :has_scope, :search, :if => :is_searchable?,
-                  :except => [ :create, :update, :destroy ] do |controller, scope, value|
+        base.send :has_scope, :search, if:     :is_searchable?,
+                                       except: %i[create update destroy] do |_controller, scope, value|
           scope.search_for(value)
         end
         base.send :include, Admin::CrudMethods
@@ -26,54 +28,50 @@ module HasCrud
       end
 
       module InstanceMethods
-
         def create
-          create! do |success, failure|
+          create! do |success, _failure|
             success.html { redirect_to redirect_path }
           end
         end
 
         def update
-          update! do |success, failure|
+          update! do |success, _failure|
             success.html { redirect_to redirect_path }
           end
         end
 
         private
 
-          def allow_all_parameters!
-            params.permit!
-          end
+        def allow_all_parameters!
+          params.permit!
+        end
 
-          def redirect_path
-            if params[:commit].eql?("Continue")
-              edit_resource_path
-            elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
-              koi_engine.sitemap_nav_items_path
-            else
-              collection_path
-            end
+        def redirect_path
+          if params[:commit].eql?("Continue")
+            edit_resource_path
+          elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
+            koi_engine.sitemap_nav_items_path
+          else
+            collection_path
           end
+        end
 
-          def create_resource(object)
-            @site_parent = params[:site_parent] if params[:site_parent].present?
-            result = object.save
-            if result
-              #FIXME: hacky way to handle associations
-              parent.send(plural_name.to_sym) << object if respond_to? :parent
-              object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
-            end
-            result
+        def create_resource(object)
+          @site_parent = params[:site_parent] if params[:site_parent].present?
+          result = object.save
+          if result
+            # FIXME: hacky way to handle associations
+            parent.send(plural_name.to_sym) << object if respond_to? :parent
+            object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
           end
+          result
+        end
 
-          def update_resource(object, attributes)
-            result = object.update(*attributes)
-            if result
-              object.to_navigator! if object.respond_to? :to_navigator
-            end
-            return result
-          end
-
+        def update_resource(object, attributes)
+          result = object.update(*attributes)
+          object.to_navigator! if result && (object.respond_to? :to_navigator)
+          result
+        end
       end
     end
   end

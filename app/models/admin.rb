@@ -1,6 +1,6 @@
-class Admin < ActiveRecord::Base
-  include Koi::Model
+# frozen_string_literal: true
 
+class Admin < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 
@@ -8,20 +8,20 @@ class Admin < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :role, presence: true
 
-  # validates :email, email: true
+  ROLES = %w[Super Admin].freeze
 
-  ROLES = ["Super", "Admin"]
+  validates :role, inclusion: ROLES
 
-  has_crud searchable: [:id, :first_name, :last_name, :email, :role],
+  has_crud searchable: %i[id first_name last_name email role],
            ajaxable: true, settings: false
 
   crud.config do
     fields role: { type: :roles }
     config :admin do
-      index fields: [:id, :first_name, :last_name, :email, :role]
-      form  fields: [:first_name, :last_name, :email, :role, :password, :password_confirmation]
-      show  fields: [:first_name, :last_name, :email, :role, :sign_in_count, :current_sign_in_ip,
-                     :last_sign_in_at, :last_sign_in_ip]
+      index fields: %i[id first_name last_name email role]
+      form  fields: %i[first_name last_name email role password password_confirmation]
+      show  fields: %i[first_name last_name email role sign_in_count current_sign_in_ip
+                       last_sign_in_at last_sign_in_ip]
     end
   end
 
@@ -41,7 +41,7 @@ class Admin < ActiveRecord::Base
     is? self.class.god
   end
 
-private
+  private
 
   def set_default_values
     self.role ||= "Admin"

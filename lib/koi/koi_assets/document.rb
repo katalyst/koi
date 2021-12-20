@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   module KoiAsset
     module Document
@@ -7,11 +9,11 @@ module Koi
 
       # Document extensions allowed for upload
       mattr_accessor :extensions
-      @@extensions = [ :pdf, :doc, :docx, :xls, :xlsx, :ppt, :zip ] + Image.extensions
+      @@extensions = %i[pdf doc docx xls xlsx ppt zip] + Image.extensions
 
       # Document mime types allowed for upload
       mattr_accessor :mime_types
-      @@mime_types = %w(application/pdf
+      @@mime_types = %w[application/pdf
                         application/doc
                         application/docx
                         application/xls
@@ -23,20 +25,20 @@ module Koi
                         application/ppt
                         application/vnd.ms-powerpoint
                         application/octet-stream
-                        application/zip) + Image.mime_types
+                        application/zip] + Image.mime_types
 
       mattr_accessor :icons
       @@icons = {
-                  'pdf'  => 'koi/application/icon-file-pdf.png',
-                  'doc'  => 'koi/application/icon-file-doc.png',
-                  'docx' => 'koi/application/icon-file-doc.png',
-                  'xls'  => 'koi/application/icon-file-xls.png',
-                  'xlsx' => 'koi/application/icon-file-xls.png',
-                  'ppt'  => 'koi/application/icon-file-ppt.png',
-                  'pptx' => 'koi/application/icon-file-ppt.png',
-                  'zip'  => 'koi/application/icon-file-zip.png',
-                  'img'  => 'koi/application/icon-file-img.png'
-              }
+        "pdf"  => "koi/application/icon-file-pdf.png",
+        "doc"  => "koi/application/icon-file-doc.png",
+        "docx" => "koi/application/icon-file-doc.png",
+        "xls"  => "koi/application/icon-file-xls.png",
+        "xlsx" => "koi/application/icon-file-xls.png",
+        "ppt"  => "koi/application/icon-file-ppt.png",
+        "pptx" => "koi/application/icon-file-ppt.png",
+        "zip"  => "koi/application/icon-file-zip.png",
+        "img"  => "koi/application/icon-file-img.png",
+      }
     end
   end
 end

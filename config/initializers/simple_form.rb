@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
@@ -6,7 +8,7 @@ SimpleForm.setup do |config|
   # stack. The options given below are used to wrap the
   # whole input.
   config.wrappers :default, class: :input,
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+                            hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -45,25 +47,25 @@ SimpleForm.setup do |config|
     b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
-  config.wrappers :inline, tag: :div, class: 'control-group', error_class: :error do |b|
+  config.wrappers :inline, tag: :div, class: "control-group", error_class: :error do |b|
     b.use :placeholder
     b.wrapper tag: :div, class: :controls do |ba|
       ba.use :input
-      ba.use :label, wrap_with: { class: 'pad-l-1 space-l-1 control-label' }
+      ba.use :label, wrap_with: { class: "pad-l-1 space-l-1 control-label" }
     end
-    b.use :error, wrap_with: { tag: :span, class: 'help-block pad-l-1 as-iblk' }
-    b.use :hint,  wrap_with: { tag: :p, class: 'help-block' }
+    b.use :error, wrap_with: { tag: :span, class: "help-block pad-l-1 as-iblk" }
+    b.use :hint,  wrap_with: { tag: :p, class: "help-block" }
   end
 
-  config.wrappers :bootstrap, tag: :div, class: 'control-group', error_class: :error do |b|
+  config.wrappers :bootstrap, tag: :div, class: "control-group", error_class: :error do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.use :hint,  wrap_with: { tag: :p, class: 'hint-block' }
+    b.use :hint, wrap_with: { tag: :p, class: "hint-block" }
     b.wrapper tag: :div, class: :controls do |ba|
       ba.use :input
     end
-    b.use :error, wrap_with: { tag: :p, class: 'error-block' }
+    b.use :error, wrap_with: { tag: :p, class: "error-block" }
   end
 
   config.wrappers :prepend, tag: :div, class: "control-group", error_class: :error do |b|
@@ -71,11 +73,11 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label
     b.wrapper tag: :div, class: :controls do |input|
-      input.wrapper tag: :div, class: 'input-prepend' do |prepend|
+      input.wrapper tag: :div, class: "input-prepend" do |prepend|
         prepend.use :input
       end
-      input.use :hint,  wrap_with: { tag: :span, class: 'help-block' }
-      input.use :error, wrap_with: { tag: :span, class: 'help-block' }
+      input.use :hint,  wrap_with: { tag: :span, class: "help-block" }
+      input.use :error, wrap_with: { tag: :span, class: "help-block" }
     end
   end
 
@@ -84,20 +86,20 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label
     b.wrapper tag: :div, class: :controls do |input|
-      input.wrapper tag: :div, class: 'input-append' do |append|
+      input.wrapper tag: :div, class: "input-append" do |append|
         append.use :input
       end
-      input.use :hint,  wrap_with: { tag: :span, class: 'help-block' }
-      input.use :error, wrap_with: { tag: :span, class: 'help-block' }
+      input.use :hint,  wrap_with: { tag: :span, class: "help-block" }
+      input.use :error, wrap_with: { tag: :span, class: "help-block" }
     end
   end
 
-  config.wrappers :checkbox, tag: :div, class: 'control-group checkbox__single', error_class: :error do |b|
-    b.use :hint,  wrap_with: { tag: :p, class: 'hint-block' }
+  config.wrappers :checkbox, tag: :div, class: "control-group checkbox__single", error_class: :error do |b|
+    b.use :hint,  wrap_with: { tag: :p, class: "hint-block" }
     b.wrapper tag: :div, class: :controls do |ba|
       ba.use :label_input
     end
-    b.use :error, wrap_with: { tag: :p, class: 'error-block' }
+    b.use :error, wrap_with: { tag: :p, class: "error-block" }
   end
 
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
@@ -113,7 +115,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'btn'
+  config.button_class = "btn"
 
   # Method used to tidy up errors.
   # config.error_method = :first
@@ -122,7 +124,7 @@ SimpleForm.setup do |config|
   config.error_notification_tag = :div
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'alert alert-error'
+  config.error_notification_class = "alert alert-error"
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil
@@ -151,7 +153,7 @@ SimpleForm.setup do |config|
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  config.label_class = 'control-label'
+  config.label_class = "control-label"
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form

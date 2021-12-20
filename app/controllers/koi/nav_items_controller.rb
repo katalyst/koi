@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Koi
   class NavItemsController < AdminCrudController
-    defaults :route_prefix => ''
+    defaults route_prefix: ""
     custom_actions resource: :toggle
 
     def new
@@ -32,43 +34,43 @@ module Koi
     end
 
     def sitemap
-       @nav_items = NavItem.all
+      @nav_items = NavItem.all
     end
 
     def savesort
       nodes = JSON.parse params[:set]
-      
+
       nodes.map! do |node|
-        node.each_with_object ({}) do |(key, val), hash|
+        node.each_with_object({}) do |(key, val), hash|
           hash[key.to_sym] = ActiveRecord::Base.connection.quote val
-        end.reverse_merge parent_id: 'NULL' # in case of `undefined` in which update below will fail
+        end.reverse_merge parent_id: "NULL" # in case of `undefined` in which update below will fail
       end
 
-      ids = nodes.map { |node| node[:id] }
+      ids = nodes.pluck(:id)
 
       # mass update (should be abstracted)
-      NavItem.connection.execute <<-eos
+      NavItem.connection.execute <<-EOS
         UPDATE nav_items
           SET lft = CASE id
-                      #{ nodes.map { |node| "WHEN %{id} THEN %{lft}" % node }.join "\n" }
+                      #{nodes.map { |node| 'WHEN %{id} THEN %{lft}' % node }.join "\n"}
                     END,
               rgt = CASE id
-                      #{ nodes.map { |node| "WHEN %{id} THEN %{rgt}" % node }.join "\n" }
+                      #{nodes.map { |node| 'WHEN %{id} THEN %{rgt}' % node }.join "\n"}
                     END,
               parent_id = CASE id
-                      #{ nodes.map { |node| "WHEN %{id} THEN %{parent_id}" % node }.join "\n" }
-                    END                    
-        WHERE id in (#{ ids.join ',' })
-      eos
+                      #{nodes.map { |node| 'WHEN %{id} THEN %{parent_id}' % node }.join "\n"}
+                    END#{'                    '}
+        WHERE id in (#{ids.join ','})
+      EOS
       render partial: "nav_item", locals: { nav_item: RootNavItem.root, level: 0 }
     end
 
-    def sort_children(element,dbitem)
+    def sort_children(element, dbitem)
       prevchild = nil
-      element['children'].each do |child|
-        childitem = NavItem.find(child['id'])
+      element["children"].each do |child|
+        childitem = NavItem.find(child["id"])
         prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
-        sort_children(child, childitem) unless child['children'].nil?
+        sort_children(child, childitem) unless child["children"].nil?
         prevchild = childitem
       end
     end
@@ -81,7 +83,7 @@ module Koi
       end
     end
 
-  protected
+    protected
 
     def redirect_path
       if params[:commit].eql?("Continue")

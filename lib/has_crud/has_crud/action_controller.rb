@@ -1,5 +1,7 @@
-require_relative 'action_controller/crud_additions'
-require_relative 'action_controller/crud_admin_additions'
+# frozen_string_literal: true
+
+require_relative "action_controller/crud_additions"
+require_relative "action_controller/crud_admin_additions"
 
 module HasCrud
   module ActionController
@@ -10,12 +12,11 @@ module HasCrud
     end
 
     module ClassMethods
-      def has_crud(options={})
+      def has_crud(options = {})
         options ||= {}
         send :include, HasCrud::ActionController::CrudAdditions
         send :include, HasCrud::ActionController::CrudAdminAdditions if options[:admin]
       end
-
     end
 
     module InstanceMethods

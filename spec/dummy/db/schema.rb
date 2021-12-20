@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,8 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_225250) do
-
+ActiveRecord::Schema.define(version: 20_210_317_225_250) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -60,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_17_225250) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 40
     t.datetime "created_at"
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+    t.index %w[slug sluggable_type], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
@@ -188,8 +189,10 @@ ActiveRecord::Schema.define(version: 2021_03_17_225250) do
     t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index %w[tag_id taggable_id taggable_type context tagger_id tagger_type], name:   "taggings_idx",
+                                                                                unique: true
+    t.index %w[taggable_id taggable_type context],
+            name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -216,8 +219,8 @@ ActiveRecord::Schema.define(version: 2021_03_17_225250) do
     t.string "file_name"
     t.text "serialized_value"
     t.string "group"
-    t.index ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true
-    t.index ["prefix", "key"], name: "index_translations_on_prefix_and_key"
+    t.index %w[locale prefix key], name: "index_translations_on_locale_and_prefix_and_key", unique: true
+    t.index %w[prefix key], name: "index_translations_on_prefix_and_key"
   end
 
   create_table "url_rewrites", force: :cascade do |t|
@@ -244,5 +247,4 @@ ActiveRecord::Schema.define(version: 2021_03_17_225250) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end

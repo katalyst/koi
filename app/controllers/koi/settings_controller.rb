@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   class SettingsController < TranslationsController
     defaults resource_class: Setting
@@ -7,23 +9,22 @@ module Koi
     end
 
     def create
-      create! { resource.prefix.present? ? request.referer + '#tab-extra' : { action: :index } }
+      create! { resource.prefix.present? ? "#{request.referer}#tab-extra" : { action: :index } }
     end
 
     def update
-      update! { resource.prefix.present? ? request.referer + '#tab-extra' : { action: :index } }
+      update! { resource.prefix.present? ? "#{request.referer}#tab-extra" : { action: :index } }
     end
 
     def update_multiple
-      params[:setting][:setting].each do |id, value|
+      params[:setting][:setting].each do |id, _value|
         @setting = Setting.find(id.to_i)
         @setting.update(params[:setting][:setting][id])
       end
 
-      params[:group] = 'main' if params[:group].blank?
+      params[:group] = "main" if params[:group].blank?
 
       redirect_to(request.referer + "#tab-#{params[:group]}")
     end
-
   end
 end

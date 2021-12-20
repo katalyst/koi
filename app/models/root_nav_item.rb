@@ -1,6 +1,7 @@
-class RootNavItem < NavItem
+# frozen_string_literal: true
 
-  has_crud searchable: [:id, :title, :url], settings: false
+class RootNavItem < NavItem
+  has_crud searchable: %i[id title url], settings: false
 
   validates :title, presence: true
 
@@ -15,8 +16,8 @@ class RootNavItem < NavItem
            content_block: { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form  fields: [:title, :url, :is_hidden, :parent_id]
+      index fields: %i[id title url]
+      form  fields: %i[title url is_hidden parent_id]
     end
   end
 
@@ -35,5 +36,4 @@ class RootNavItem < NavItem
   def draggable?
     false
   end
-
 end

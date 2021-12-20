@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFieldsToProduct < ActiveRecord::Migration[4.2]
   def change
     add_column :products, :short_description, :text

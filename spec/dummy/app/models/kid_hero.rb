@@ -1,17 +1,17 @@
-class KidHero < SuperHero
+# frozen_string_literal: true
 
+class KidHero < SuperHero
   has_crud
 
   crud.config do
-    fields gender: { type: :select, data: Gender }
+    fields gender: { type: :select, data: GENDERS }
 
-    index fields: [:name, :gender]
-    form  fields: [:name, :gender]
+    index fields: %i[name gender]
+    form  fields: %i[name gender]
 
     config :admin do
-      index fields: [:name, :gender]
-      form  fields: [:name, :description, :gender]
+      index fields: %i[name gender]
+      form  fields: %i[name description gender]
     end
   end
-
 end

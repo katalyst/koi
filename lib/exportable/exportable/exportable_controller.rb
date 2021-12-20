@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExportableController
   extend ActiveSupport::Concern
 
@@ -15,5 +17,4 @@ module ExportableController
       send_data unpaginated_collection.to_formatted_csv, filename: csv_filename
     end
   end
-
 end

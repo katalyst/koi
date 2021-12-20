@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 module Koi
   class AssetsController < AdminCrudController
     before_action :init
 
-    layout 'koi/assets'
+    layout "koi/assets"
 
     def index
       @assets = collection.newest_first.page(params[:page]).per(20)
-      params[:asset] = { :tag_list => [ @tags ] }
+      params[:asset] = { tag_list: [@tags] }
       super
     end
 
     def new
       @assets = collection.newest_first.page(params[:page]).per(20)
-      params[:asset] = { :tag_list => [ @tags ] }
+      params[:asset] = { tag_list: [@tags] }
       super
     end
 
@@ -68,18 +70,19 @@ module Koi
 
     def collection
       return get_collection_ivar unless get_collection_ivar.nil?
+
       coll = end_of_association_chain
       coll = coll.unassociated
       coll = coll.search_data params[:search]
-      coll = coll.tagged_with @tags unless @tags.blank?
-      coll = coll.order sort_column + " " + sort_direction
+      coll = coll.tagged_with @tags if @tags.present?
+      coll = coll.order "#{sort_column} #{sort_direction}"
       set_collection_ivar coll
     end
 
     def init
       @tags = params[:tags] || []
-      @all_tags = resource_class.tag_counts_on(:tags).collect { |x| x.name }
-      self.custom_url_options = { :tags => @tags, :CKEditorFuncNum => params[:CKEditorFuncNum] }
+      @all_tags = resource_class.tag_counts_on(:tags).map(&:name)
+      self.custom_url_options = { tags: @tags, CKEditorFuncNum: params[:CKEditorFuncNum] }
     end
 
     def create_resource(object)

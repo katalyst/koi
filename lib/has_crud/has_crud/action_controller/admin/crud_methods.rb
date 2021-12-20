@@ -1,10 +1,11 @@
-require_relative 'common_methods'
+# frozen_string_literal: true
+
+require_relative "common_methods"
 
 module HasCrud
   module ActionController
     module Admin
       module CrudMethods
-
         def self.included(base)
           base.send :include, InstanceMethods
           base.send :include, Admin::CommonMethods
@@ -14,9 +15,8 @@ module HasCrud
         end
 
         module InstanceMethods
-
           def is_allowed?(action)
-            actions = [:index, :new, :edit, :destroy]
+            actions = %i[index new edit destroy]
             actions = (resource_class.crud.find(:admin, :actions, :only) ||
                        (actions - Array(resource_class.crud.find(:admin, :actions, :except)).flatten))
             Array(actions).flatten.include? action
@@ -90,29 +90,30 @@ module HasCrud
           end
 
           def index_title
-            parent_title << kt(default: resource_class.crud.find(:admin, :index, :title)\
-             || "All #{humanized_plural_name}")
+            parent_title +
+              kt(default: resource_class.crud.find(:admin, :index, :title, default: "All #{humanized_plural_name}"))
           end
 
           def action_new_title
-            kt(default: resource_class.crud.find(:admin, :form, :title, :new)\
-             || "Add #{humanized_singular_name}")
+            kt(default: resource_class.crud.find(:admin, :form, :title, :new,
+                                                 default: "Add #{humanized_singular_name}"))
           end
 
           def new_title
-            parent_title << action_new_title
+            parent_title + action_new_title
           end
 
           def edit_title
-            parent_title << kt(default: resource_class.crud.find(:admin, :form, :title, :edit)\
-             || "Edit #{resource}")
+            parent_title +
+              kt(default: resource_class.crud.find(:admin, :form, :title, :edit, default: "Edit #{resource}"))
           end
 
           def action_csv_title
-            parent_title << kt(default: resource_class.crud.find(:admin, :csv, :title) || "Download CSV")
+            parent_title +
+              kt(default: resource_class.crud.find(:admin, :csv, :title, default: "Download CSV"))
           end
 
-          def title_for(symbol=nil)
+          def title_for(symbol = nil)
             method_name = "#{symbol}_title".to_sym
             if respond_to? method_name
               send(method_name)
@@ -120,9 +121,7 @@ module HasCrud
               "No title defined for #{symbol}"
             end
           end
-
         end
-
       end
     end
   end

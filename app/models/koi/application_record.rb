@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   class ApplicationRecord < ActiveRecord::Base
     include Koi::Model

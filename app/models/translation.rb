@@ -1,6 +1,6 @@
-class Translation < ActiveRecord::Base
-  include Koi::Model
+# frozen_string_literal: true
 
+class Translation < ApplicationRecord
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
@@ -17,15 +17,15 @@ class Translation < ActiveRecord::Base
   before_validation :set_default_values
 
   scope :site_settings, -> { where("prefix IS NULL OR prefix = '' OR prefix = 'site'") }
-  scope :by_created, -> { order('created_at ASC') }
+  scope :by_created, -> { order("created_at ASC") }
 
   FieldTypes = {
-                 "String"    => "string",
-                 "Boolean"   => "boolean",
-                 "Text"      => "text",
-                 "Rich Text" => "rich_text",
-                 "Images"    => "images"
-               }
+    "String"    => "string",
+    "Boolean"   => "boolean",
+    "Text"      => "text",
+    "Rich Text" => "rich_text",
+    "Images"    => "images",
+  }.freeze
 
   scope :admin, -> { where(role: "Admin") }
 
@@ -36,9 +36,9 @@ class Translation < ActiveRecord::Base
            is_proc:    { type: :boolean }
     config :admin do
       index fields: [:label],
-            title: "Settings"
-      form  fields: [:label, :field_type, :key, :value, :hint, :role, :is_proc],
-            title: { new: "Create new setting", edit: "Edit setting" }
+            title:  "Settings"
+      form  fields: %i[label field_type key value hint role is_proc],
+            title:  { new: "Create new setting", edit: "Edit setting" }
     end
   end
 
@@ -56,5 +56,4 @@ class Translation < ActiveRecord::Base
     I18n.cache_store = nil
     I18n.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
   end
-
 end

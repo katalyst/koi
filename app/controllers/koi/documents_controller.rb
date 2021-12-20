@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Koi
   class DocumentsController < Koi::AssetsController
-    defaults route_prefix: '', resource_class: Document
+    defaults route_prefix: "", resource_class: Document
 
     def create
       create! do |success, failure|

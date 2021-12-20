@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :categories do |t|
@@ -7,7 +9,6 @@ class CreateCategories < ActiveRecord::Migration[4.2]
       t.string  :slug
       t.timestamps
     end
-    add_index :categories, :slug, :unique => true
+    add_index :categories, :slug, unique: true
   end
 end
-

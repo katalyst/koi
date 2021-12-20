@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 module HasCrud
   module ActiveRecord
     module CrudAdditions
       extend ActiveSupport::Concern
       module ClassMethods
-        def attributes(type=nil)
+        def attributes(type = nil)
           (crud.find(type, :fields) || default_attributes) -
             (crud.find(type, :except) || [])
         end
 
         def default_attributes
-          columns.collect { |c| map_attribute(c.name.to_sym) } - crud.find(:ignore)
+          columns.map { |c| map_attribute(c.name.to_sym) } - crud.find(:ignore)
         end
 
-        def admin_attributes(type=nil)
+        def admin_attributes(type = nil)
           (crud.find(:admin, type, :fields) || admin_default_attributes) -
             (crud.find(:admin, type, :except) || [])
         end
 
         def admin_default_attributes
-          columns.collect { |c| map_attribute(c.name.to_sym) } - crud.find(:admin, :ignore)
+          columns.map { |c| map_attribute(c.name.to_sym) } - crud.find(:admin, :ignore)
         end
 
         def map_attribute(attr)
@@ -31,11 +33,11 @@ module HasCrud
         end
 
         def titleize
-          crud.find(:title, :collection) || self.to_s.underscore.humanize.titleize.pluralize
+          crud.find(:title, :collection) || to_s.underscore.humanize.titleize.pluralize
         end
 
         def show_in_menu?
-          crud.find(:hide).eql?(true) ? false : true
+          !crud.find(:hide)
         end
 
         def admin_path
@@ -60,4 +62,3 @@ module HasCrud
     end
   end
 end
-

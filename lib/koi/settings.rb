@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Koi
   module Settings
     # Settings for all collections

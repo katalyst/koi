@@ -1,5 +1,6 @@
-class Category < ApplicationRecord
+# frozen_string_literal: true
 
+class Category < ApplicationRecord
   has_crud orderable: true, settings: true, navigation: true
   has_many :products, -> { order("ordinal ASC") }
 
@@ -9,15 +10,14 @@ class Category < ApplicationRecord
     fields products: { type: :inline }
 
     config :admin do
-      form  fields:    [:name, :products]
+      form  fields: %i[name products]
       index fields:    [:name],
             relations: [:products]
-      csv   fields:    [:created_at, :name, :products]
+      csv   fields:    %i[created_at name products]
     end
   end
 
   def to_s
     name
   end
-
 end

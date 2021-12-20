@@ -1,6 +1,7 @@
-class AliasNavItem < NavItem
+# frozen_string_literal: true
 
-  has_crud searchable: [:id, :title, :url], settings: false
+class AliasNavItem < NavItem
+  has_crud searchable: %i[id title url], settings: false
 
   validates :title, :alias_id, :parent, presence: true
 
@@ -15,8 +16,8 @@ class AliasNavItem < NavItem
            content_block: { type: :code }
 
     config :admin do
-      index fields: [:id, :title, :url]
-      form fields: [:title, :is_hidden, :alias_id, :parent_id]
+      index fields: %i[id title url]
+      form fields: %i[title is_hidden alias_id parent_id]
     end
   end
 
@@ -31,5 +32,4 @@ class AliasNavItem < NavItem
   def self.title
     "Alias"
   end
-
 end

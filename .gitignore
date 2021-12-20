@@ -10,6 +10,7 @@ spec/dummy/.sass-cache
 spec/dummy/public/system
 spec/dummy/public/assets
 spec/dummy/.powenv
+spec/dummy/dragonfly
 .DS_Store
 .rspec
 /.rspec_status

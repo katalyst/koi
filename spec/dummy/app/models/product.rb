@@ -1,5 +1,6 @@
-class Product < ApplicationRecord
+# frozen_string_literal: true
 
+class Product < ApplicationRecord
   has_crud orderable: true, settings: true
   has_many :product_images
   accepts_nested_attributes_for :product_images, allow_destroy: true
@@ -10,18 +11,18 @@ class Product < ApplicationRecord
   has_many :images
 
   has_and_belongs_to_many :products,
-    join_table: "related_products",
-    foreign_key: "product_a_id",
-    association_foreign_key: "product_b_id"
+                          join_table:              "related_products",
+                          foreign_key:             "product_a_id",
+                          association_foreign_key: "product_b_id"
 
   acts_as_taggable_on :genre
   serialize :countries
 
   dragonfly_accessor :banner
-  dragonfly_accessor  :manual
+  dragonfly_accessor :manual
 
-  Size = ["XL", "L", "M", "S", "XS"]
-  Countries = ["Australia", "France", "Germany", "Greece"]
+  SIZES = %w[XL L M S XS].freeze
+  COUNTRIES = %w[Australia France Germany Greece].freeze
 
   validates :name, presence: true
 
@@ -33,15 +34,18 @@ class Product < ApplicationRecord
   # validate :at_least_one_country
 
   def at_least_one_country
-    errors.add :countries, "Please select at least one country" if countries.blank? || countries.reject(&:blank?).compact.empty?
+    if countries.blank? || countries.reject(&:blank?).compact.empty?
+      errors.add :countries,
+                 "Please select at least one country"
+    end
   end
 
   crud.config do
     fields short_description: { type: :text },
            genre_list:        { type: :nice_tags },
            active:            { type: :boolean },
-           size:              { type: :select, data: Size },
-           countries:         { type: :check_boxes, data: Countries },
+           size:              { type: :select, data: SIZES },
+           countries:         { type: :check_boxes, data: COUNTRIES },
            colour:            { type: :colour },
            banner:            { type: :image },
            manual:            { type: :file },
@@ -51,15 +55,15 @@ class Product < ApplicationRecord
            launch_date:       { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do
-      actions only: [:show, :edit, :new, :destroy, :index]
-      index fields: [:name, :countries]
-      form  fields: [:name, :description, :launch_date, :colour, 
-                     :products, :genre_list, :countries, 
-                     :product_images]
-      show_details fields: [:category, :name, :short_description, :description, 
-                            :active, :publish_date, :launch_date]
-      show_information fields: [:colour, :manual, :countries, :products, 
-                                :product_images, :size]
+      actions only: %i[show edit new destroy index]
+      index fields: %i[name countries]
+      form  fields: %i[name description launch_date colour
+                       products genre_list countries
+                       product_images]
+      show_details fields: %i[category name short_description description
+                              active publish_date launch_date]
+      show_information fields: %i[colour manual countries products
+                                  product_images size]
     end
   end
 
@@ -74,5 +78,4 @@ class Product < ApplicationRecord
       to_s
     end
   end
-
 end

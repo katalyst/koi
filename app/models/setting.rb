@@ -1,21 +1,22 @@
-class Setting < Translation
+# frozen_string_literal: true
 
+class Setting < Translation
   after_initialize :derive_data_source
   before_validation :set_prefix_if_blank
 
   acts_as_ordered_taggable
 
-  CollectionTypes = %Q(check_boxes radio select tags)
+  CollectionTypes = %(check_boxes radio select tags)
   FieldTypes = Translation::FieldTypes.merge({
-                 "Select"      => "select",
-                 "Radio"       => "radio",
-                 "Check Boxes" => "check_boxes",
-                 "File"        => "file",
-                 "Image"       => "image",
-                 "Tags"        => "tags"
-               })
+                                               "Select"      => "select",
+                                               "Radio"       => "radio",
+                                               "Check Boxes" => "check_boxes",
+                                               "File"        => "file",
+                                               "Image"       => "image",
+                                               "Tags"        => "tags",
+                                             })
 
-  dragonfly_accessor  :file
+  dragonfly_accessor :file
   serialize :serialized_value, Array
 
   has_crud paginate: false, searchable: false,
@@ -39,20 +40,20 @@ class Setting < Translation
 
     config :admin do
       index fields: [:label],
-            title: "Settings"
-      form  fields: [:label, :field_type, :prefix, :key, :value, :hint, :role, :is_proc, :images],
-            title: { new: "Create new setting", edit: "Edit setting" }
+            title:  "Settings"
+      form  fields: %i[label field_type prefix key value hint role is_proc images],
+            title:  { new: "Create new setting", edit: "Edit setting" }
     end
   end
 
-  def derive_data_source(collection=false)
+  def derive_data_source(collection = false)
     if CollectionTypes.include? field_type
       self.data_source = if collection
-        ::Koi::Settings.collection[key.to_sym][:data_source]
-      else
-        ::Koi::Settings.resource[key.to_sym][:data_source]
-      end
-      raise NoMethodError unless self.data_source
+                           ::Koi::Settings.collection[key.to_sym][:data_source]
+                         else
+                           ::Koi::Settings.resource[key.to_sym][:data_source]
+                         end
+      raise NoMethodError unless data_source
     end
   rescue NoMethodError
     error = "Problem loading data source for '#{key}' setting.
@@ -61,17 +62,14 @@ Please check config/initializers/koi.rb correctly defines the data_source attrib
   end
 
   dragonfly_accessor :file
-  alias_method :document, :file
-  alias_method :document=, :file=
-  alias_method :image, :file
-  alias_method :image=, :file=
+  alias document file
+  alias document= file=
+  alias image file
+  alias image= file=
 
   private
 
   def set_prefix_if_blank
-    if prefix.blank? && key.include?('site')
-      self.prefix = 'site'
-    end
+    self.prefix = "site" if prefix.blank? && key.include?("site")
   end
-
 end
