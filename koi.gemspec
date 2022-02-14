@@ -101,9 +101,6 @@ Gem::Specification.new do |s|
   # Application Settings
   s.add_dependency 'figaro', '~> 1.1.1'
 
-  # Puma server
-  s.add_dependency 'puma', '~> 3.12.1'
-
   s.add_dependency 'inherited_resources', '~> 1.13.0'
 
   s.add_dependency 'htmlentities', '~> 4.3.4'
