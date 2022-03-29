@@ -25,9 +25,9 @@ class AssetsController < Koi::CrudController
     redirect_to "/"
   end
 
-  alias index create
-  alias index destroy
-  alias index update
-  alias index edit
-  alias index new
+  alias create index
+  alias destroy index
+  alias update index
+  alias edit index
+  alias new index
 end
