@@ -1,15 +1,15 @@
 /**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.extraPlugins 								 = 'showblocks,autogrow';
+	config.extraPlugins 								 = 'showblocks';
 
  	config.filebrowserBrowseUrl          = '/admin/documents/new';
-  config.filebrowserUploadUrl          = '/admin/documents/new';
+  config.filebrowserUploadUrl          = '/admin/uploads?asset_type=Document';
   config.filebrowserImageBrowseUrl     = '/admin/images/new';
-  config.filebrowserImageUploadUrl     = '/admin/images/new';
+  config.filebrowserImageUploadUrl     = '/admin/uploads?asset_type=Image';
   config.filebrowserImageBrowseLinkUrl = '/admin/documents/new';
   config.filebrowserImageUploadLinkUrl = '/admin/documents/new';
   
