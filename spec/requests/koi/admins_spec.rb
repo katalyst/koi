@@ -42,7 +42,7 @@ RSpec.describe "Admins", type: :request do
     end
 
     it "creates an admin" do
-      expect { action }.to change(Admin, :count).by(1)
+      expect { action }.to change(AdminUser, :count).by(1)
     end
   end
 

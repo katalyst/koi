@@ -13,25 +13,21 @@ module HasCrud
 
         module InstanceMethods
           def singular_name(to_sym = false)
-            name = resource_class.to_s.underscore
+            name = resource_class.model_name.element
             to_sym ? name : name.to_sym
           end
 
           def plural_name(to_sym = false)
-            name = singular_name(:symbol).pluralize
+            name = resource_class.model_name.collection
             to_sym ? name : name.to_sym
           end
 
-          def humanized(value = nil)
-            value.to_s.gsub("_", " ").capitalize
-          end
-
           def humanized_singular_name
-            humanized singular_name
+            resource_class.model_name.human
           end
 
           def humanized_plural_name
-            humanized plural_name
+            resource_class.model_name.human.pluralize
           end
         end
       end

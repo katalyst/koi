@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-class Admin < ApplicationRecord
+class AdminUser < ApplicationRecord
+  class << self
+    def model_name
+      ActiveModel::Name.new(self, nil, "Admin")
+    end
+  end
+
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 

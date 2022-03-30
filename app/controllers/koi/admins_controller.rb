@@ -2,7 +2,7 @@
 
 module Koi
   class AdminsController < AdminCrudController
-    defaults route_prefix: ""
+    defaults resource_class: AdminUser, route_prefix: ""
 
     def update_resource(object, attributes)
       if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?

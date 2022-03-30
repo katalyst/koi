@@ -3,6 +3,7 @@
 ## 2.6.0
 
  * Added `Koi::ApplicationModel` for consistency with Rails Engine defaults. Extend this class for `has_crud` etc.
+ * Replace references to Admin model class with AdminUser
 
 ## 2.5.0
 
