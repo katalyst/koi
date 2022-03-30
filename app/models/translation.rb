@@ -4,7 +4,7 @@ class Translation < ApplicationRecord
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
 
-  has_many :images, as: :attributable
+  has_many :images, as: :attributable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
   # after_save :reset_memory_store_cache
@@ -19,7 +19,7 @@ class Translation < ApplicationRecord
   scope :site_settings, -> { where("prefix IS NULL OR prefix = '' OR prefix = 'site'") }
   scope :by_created, -> { order("created_at ASC") }
 
-  FieldTypes = {
+  FIELD_TYPES = {
     "String"    => "string",
     "Boolean"   => "boolean",
     "Text"      => "text",
@@ -30,7 +30,7 @@ class Translation < ApplicationRecord
   scope :admin, -> { where(role: "Admin") }
 
   crud.config do
-    fields field_type: { type: :select, data: FieldTypes },
+    fields field_type: { type: :select, data: FIELD_TYPES },
            value:      { type: :dynamic },
            role:       { type: :select, data: Admin::ROLES },
            is_proc:    { type: :boolean }

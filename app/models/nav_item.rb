@@ -43,7 +43,7 @@ class NavItem < ApplicationRecord
   end
 
   def toggle_hidden!
-    update_attribute(:is_hidden, !is_hidden)
+    update!(is_hidden: !is_hidden)
   end
 
   def hidden
@@ -159,8 +159,6 @@ class NavItem < ApplicationRecord
   private
 
   def setup_content(show_options)
-    hash = {}
-
     if content_block.blank?
       {
         key:   nav_key,
@@ -174,7 +172,7 @@ class NavItem < ApplicationRecord
   end
 
   def touch_parent
-    parent&.touch
+    parent&.touch # rubocop:disable Rails/SkipsModelValidations
   end
 
   def clear_cache

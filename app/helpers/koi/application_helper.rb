@@ -7,7 +7,7 @@ module Koi
 
       args[:klass] = resource_class.name if respond_to?(:resource_class)
 
-      raw t(current_url, args)
+      t(current_url, args)
     end
 
     def sortable(column, title = column.titleize, link_opt = {})
@@ -64,7 +64,8 @@ module Koi
 
     # Example:
     #
-    #   placeholder_image_tag("No Image", width: 100, height: 100) # => "<img src='/example.png' width='100' height='100' />"
+    #   placeholder_image_tag("No Image", width: 100, height: 100)
+    #   => "<img src='/example.png' width='100' height='100' />"
     #
     def placeholder_image_tag(_text, args = {})
       image_tag(path_to_image("koi/application/placeholder-image-none.png"), args)
@@ -128,7 +129,7 @@ module Koi
     # Converts a dragonfly-stored SVG image to inline SVG with a missing
     # asset fallback.
     def svg_image(image)
-      raw image.data
+      raw image.data # rubocop:disable Rails/OutputSafety
     rescue Dragonfly::Job::Fetch::NotFound
       "Image missing"
     end
@@ -141,7 +142,6 @@ module Koi
 
     # Navigation helper to mark list item as active
     def navigation_helper(label, link_path, link_opts = {})
-      li_opts = {}
       li_opts = request.path.eql?(link_path) ? { class: "selected" } : {}
       content_tag(:li, link_to(label, link_path, link_opts), li_opts)
     end

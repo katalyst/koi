@@ -39,7 +39,7 @@ Koi::KoiAsset::Image.sizes = [
 
 # Look at FieldTypes in app/models/settings.rb for supported types
 
-SettingOptions = {
+SETTING_OPTIONS = {
   "Option 1" => "1",
   "Option 2" => "2",
   "Option 3" => "3",
@@ -53,9 +53,9 @@ settings = {
   input:       { label: "Input", field_type: "string" },
   text:        { label: "Text", field_type: "text" },
   rich_text:   { label: "Rich Text", field_type: "rich_text" },
-  select:      { label: "Select", field_type: "select", data_source: proc { SettingOptions } },
-  radio:       { label: "Radio Buttons", field_type: "radio", data_source: proc { SettingOptions } },
-  checkboxes:  { label: "Check Boxes", field_type: "check_boxes", data_source: proc { SettingOptions } },
+  select:      { label: "Select", field_type: "select", data_source: proc { SETTING_OPTIONS } },
+  radio:       { label: "Radio Buttons", field_type: "radio", data_source: proc { SETTING_OPTIONS } },
+  checkboxes:  { label: "Check Boxes", field_type: "check_boxes", data_source: proc { SETTING_OPTIONS } },
   boolean:     { label: "Boolean", field_type: "boolean", is_required: true },
   image:       { label: "Image", field_type: "image" },
   document:    { label: "Document", field_type: "file" },

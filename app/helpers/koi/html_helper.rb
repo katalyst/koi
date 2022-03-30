@@ -15,7 +15,6 @@ module Koi
       return @page_types.join(" ") if types.blank?
 
       @page_types += types.flatten
-      @page_types
     end
 
     def divs(*cs, &b)

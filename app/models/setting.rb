@@ -6,15 +6,15 @@ class Setting < Translation
 
   acts_as_ordered_taggable
 
-  CollectionTypes = %(check_boxes radio select tags)
-  FieldTypes = Translation::FieldTypes.merge({
-                                               "Select"      => "select",
-                                               "Radio"       => "radio",
-                                               "Check Boxes" => "check_boxes",
-                                               "File"        => "file",
-                                               "Image"       => "image",
-                                               "Tags"        => "tags",
-                                             })
+  COLLECTION_TYPES = %w[check_boxes radio select tags].freeze
+  FIELD_TYPES      = Translation::FIELD_TYPES.merge(
+    "Select"      => "select",
+    "Radio"       => "radio",
+    "Check Boxes" => "check_boxes",
+    "File"        => "file",
+    "Image"       => "image",
+    "Tags"        => "tags",
+  ).freeze
 
   dragonfly_accessor :file
   serialize :serialized_value, Array
@@ -30,7 +30,7 @@ class Setting < Translation
   attr_accessor :data_source
 
   crud.config do
-    fields field_type: { type: :select, data: FieldTypes },
+    fields field_type: { type: :select, data: FIELD_TYPES },
            value:      { type: :dynamic },
            prefix:     { type: :hidden },
            label:      { writable_method: :god? },
@@ -46,8 +46,8 @@ class Setting < Translation
     end
   end
 
-  def derive_data_source(collection = false)
-    if CollectionTypes.include? field_type
+  def derive_data_source(collection: false)
+    if COLLECTION_TYPES.include? field_type
       self.data_source = if collection
                            ::Koi::Settings.collection[key.to_sym][:data_source]
                          else

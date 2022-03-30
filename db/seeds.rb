@@ -15,8 +15,6 @@ unless Admin.find_by(email: "admin@katalyst.com.au")
                role: "Super", password: password, password_confirmation: password)
 end
 
-options = { without_protection: true }
-
 # RootNavItem.create!(title: "Home", url: "/", key: "home")
 header = FolderNavItem.create!({ title: "Header Navigation", parent: RootNavItem.root, key: "header_navigation" })
 footer = FolderNavItem.create!({ title: "Footer Navigation", parent: RootNavItem.root, key: "footer_navigation" })

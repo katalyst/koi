@@ -10,7 +10,7 @@ module Koi
     #
     def image_thumbnail(image, options = {})
       if image.ext&.casecmp("svg")&.zero?
-        raw image.url
+        image.url
       else
         image.thumb("#{options[:width]}x#{options[:height]}").url
       end
@@ -29,7 +29,12 @@ module Koi
               # prevents broken file uploads from crashing on subsequent page edits
               "none"
             end
-      Koi::KoiAsset::Document.icons.key?(ext) ? path_to_asset(Koi::KoiAsset::Document.icons[ext]) : path_to_asset(Koi::KoiAsset.unknown_image)
+
+      if Koi::KoiAsset::Document.icons.key?(ext)
+        path_to_asset(Koi::KoiAsset::Document.icons[ext])
+      else
+        path_to_asset(Koi::KoiAsset.unknown_image)
+      end
     end
 
     # Returns an images that represents the given attachment. If it's a images it'll be a cropped

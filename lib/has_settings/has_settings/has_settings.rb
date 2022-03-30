@@ -27,7 +27,7 @@ module HasSettings
 
       def settings
         Setting.where(prefix: settings_prefix).map do |setting|
-          setting.derive_data_source(true)
+          setting.derive_data_source(collection: true)
           setting
         end
       end

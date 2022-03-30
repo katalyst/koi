@@ -49,19 +49,19 @@ module Koi
       ids = nodes.pluck(:id)
 
       # mass update (should be abstracted)
-      NavItem.connection.execute <<-EOS
+      NavItem.connection.execute <<-SQL
         UPDATE nav_items
           SET lft = CASE id
-                      #{nodes.map { |node| 'WHEN %{id} THEN %{lft}' % node }.join "\n"}
+                      #{nodes.map { |node| 'WHEN %<id>s THEN %<lft>s' % node }.join "\n"}
                     END,
               rgt = CASE id
-                      #{nodes.map { |node| 'WHEN %{id} THEN %{rgt}' % node }.join "\n"}
+                      #{nodes.map { |node| 'WHEN %<id>s THEN %<rgt>s' % node }.join "\n"}
                     END,
               parent_id = CASE id
-                      #{nodes.map { |node| 'WHEN %{id} THEN %{parent_id}' % node }.join "\n"}
+                      #{nodes.map { |node| 'WHEN %<id>s THEN %<parent_id>s' % node }.join "\n"}
                     END#{'                    '}
         WHERE id in (#{ids.join ','})
-      EOS
+      SQL
       render partial: "nav_item", locals: { nav_item: RootNavItem.root, level: 0 }
     end
 
