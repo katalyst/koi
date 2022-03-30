@@ -23,9 +23,6 @@
           </li>
           <% if current_admin.god? %>
             <li><a href="#tab_advanced" class="tabs--link" data-tab="tab_advanced">Advanced</a></li>
-            <!--
-              <li><a href="#tab_god" class="tabs--link" data-tab="tab_god">God</a></li>
-            -->
           <% end %>
         </ul>
       </div>
@@ -34,15 +31,12 @@
     <div class="tabs--panes tabs--panes__flush">
       <div class="tabs--pane tabs--pane__active" id="tab_basic" data-tab-for="tab_basic">
         <div class="inputs">
-          <%= render "form_fields", { f: f } %>
+          <%= render "form_fields", f: f %>
         </div>
       </div>
       <% if current_admin.god? %>
         <div class="tabs--pane" id="tab_advanced" data-tab-for="tab_advanced">
-          <%= render "advanced_form_fields", { f: f } %>
-        </div>
-        <div class="tabs--pane" id="tab_god" data-tab-for="tab_god">
-          <%= render "god_form_fields", { f: f } %>
+          <%= render "advanced_form_fields", f: f %>
         </div>
       <% end %>
     </div>

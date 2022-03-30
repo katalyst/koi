@@ -14,11 +14,7 @@ class NavItem < ApplicationRecord
            is_hidden:           { type: :boolean },
            link_to_first_child: { type: :boolean },
            alias_id:            { type: :tree },
-           if:                  { type: :code },
-           unless:              { type: :code },
-           method:              { type: :code },
-           highlights_on:       { type: :code },
-           content_block:       { type: :code }
+           method:              { type: :code }
 
     config :admin do
       index fields: %i[id title url]
@@ -50,73 +46,39 @@ class NavItem < ApplicationRecord
     is_hidden? ? "Un-hide" : "Hide"
   end
 
-  def is_hidden?
+  def hidden?
     is_hidden
   end
+
+  alias is_hidden? hidden?
 
   def nav_key
     "key_#{id}"
   end
 
-  def options(env = @@binding)
-    hash = {}
+  def mobile?
+    is_mobile || children.any?(&:mobile?)
+  end
 
-    # Process if any procs in the database if, unless, highlights_on columns
-    hash[:if] = proc { eval(self.if, env) } if self.if.present?
+  alias is_mobile? mobile?
 
-    hash[:unless] = proc { eval(self.unless, env) } if self.unless.present?
+  def to_hash(mobile: false)
+    return nil if mobile && !is_mobile?
 
-    if highlights_on.present?
-      hash[:highlights_on] = proc { highlights_on.is_a?(Proc) ? highlights_on.call : eval(highlights_on, env) }
-    end
+    hash  = nav_content
+    items = navigation(mobile: mobile)
 
-    hash[:container_class] = key if key.present?
-
-    hash[:method] = method if method.present?
-
-    hash[:"data-nav-item-type"] = self.class.name
+    hash[:items] = items if items.any?
 
     hash
-  end
-
-  def is_mobile?
-    is_mobile || children.map(&:is_mobile?).include?(true)
-  end
-
-  def to_hash(show_options = {})
-    { mobile: false }.merge(show_options)
-
-    return nil if show_options[:mobile] && !is_mobile?
-
-    hash = setup_content(show_options)
-
-    options.delete(:mobile)
-
-    hash[:options] = options if options.present?
-
-    hash
-  end
-
-  def to_hashish(env = @@binding)
-    @@binding ||= env
-    @to_hashish ||= begin
-      hash = as_json except: %w[navigable_type navigable_id lft rgt created_at updated_at is_mobile]
-      hash[:is_mobile] = read_attribute :is_mobile # is_mobile method is recursive, which we don't want
-      hash[:children] = eval content_block, env if content_block.present?
-      hash.merge! options(env)
-    end
   end
 
   def draggable?
     true
   end
 
-  def navigation(get_binding = binding())
-    # FIXME: Caching procs and lambda causes "no marshal_dump is defined for class Proc"
-    # @nav_item ||= Rails.cache.fetch("nav_item/#{self.id}-#{self.updated_at}/navigation", expires_in: 7.days) do
-    @@binding = get_binding
-    children.filter_map { |c| c.to_hash unless c.is_hidden }.flatten
-    # end
+  def navigation(**options)
+    children.reject(&:hidden?).map { |child| child.to_hash(**options) }
   end
 
   # Returns the next item in the alias chain, or self
@@ -145,8 +107,8 @@ class NavItem < ApplicationRecord
     nav_item
   end
 
-  def self.navigation(arg = nil, get_binding = binding())
-    self.for(arg).navigation(get_binding)
+  def self.navigation(arg = nil)
+    self.for(arg).navigation
   end
 
   def self.for(arg = nil)
@@ -158,17 +120,23 @@ class NavItem < ApplicationRecord
 
   private
 
-  def setup_content(show_options)
-    if content_block.blank?
-      {
-        key:   nav_key,
-        name:  title,
-        url:   url,
-        items: children.filter_map { |c| c.to_hash(show_options) unless c.is_hidden },
-      }
-    else
-      eval(content_block, @@binding)
-    end
+  def nav_content
+    {
+      key:     nav_key,
+      name:    title,
+      url:     url,
+      options: nav_options,
+    }
+  end
+
+  def nav_options
+    options                        = {}
+
+    options[:container_class]      = key if key.present?
+    options[:method]               = method if method.present?
+    options[:"data-nav-item-type"] = self.class.name
+
+    options
   end
 
   def touch_parent

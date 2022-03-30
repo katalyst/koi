@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_317_225_250) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_30_115476) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20_210_317_225_250) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 40
     t.datetime "created_at"
-    t.index %w[slug sluggable_type], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
@@ -77,11 +77,7 @@ ActiveRecord::Schema.define(version: 20_210_317_225_250) do
     t.integer "parent_id"
     t.integer "lft"
     t.integer "rgt"
-    t.text "if"
-    t.text "unless"
     t.text "method"
-    t.text "highlights_on"
-    t.text "content_block"
     t.integer "navigable_id"
     t.string "navigable_type"
     t.datetime "created_at"
@@ -189,10 +185,8 @@ ActiveRecord::Schema.define(version: 20_210_317_225_250) do
     t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
-    t.index %w[tag_id taggable_id taggable_type context tagger_id tagger_type], name:   "taggings_idx",
-                                                                                unique: true
-    t.index %w[taggable_id taggable_type context],
-            name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -219,8 +213,8 @@ ActiveRecord::Schema.define(version: 20_210_317_225_250) do
     t.string "file_name"
     t.text "serialized_value"
     t.string "group"
-    t.index %w[locale prefix key], name: "index_translations_on_locale_and_prefix_and_key", unique: true
-    t.index %w[prefix key], name: "index_translations_on_prefix_and_key"
+    t.index ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true
+    t.index ["prefix", "key"], name: "index_translations_on_prefix_and_key"
   end
 
   create_table "url_rewrites", force: :cascade do |t|

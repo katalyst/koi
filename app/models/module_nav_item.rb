@@ -11,11 +11,7 @@ class ModuleNavItem < NavItem
            is_hidden:           { type: :boolean },
            link_to_first_child: { type: :boolean },
            alias_id:            { type: :tree },
-           if:                  { type: :code },
-           unless:              { type: :code },
-           method:              { type: :code },
-           highlights_on:       { type: :code },
-           content_block:       { type: :code }
+           method:              { type: :code }
 
     config :admin do
       index fields: %i[id title url]
