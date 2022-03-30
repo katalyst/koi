@@ -5,6 +5,7 @@
  * Add specs and update dummy app to work with Rails 6
  * Add github actions
  * Deprecate DateHelper methods: use Rails i18n instead.
+ * Deprecate HtmlHelper methods: these do not appear to be used.
 
 2.5.3 / 2021-07-13
 ==================
