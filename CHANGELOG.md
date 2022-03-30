@@ -8,6 +8,8 @@
  * Deprecate HtmlHelper methods: these do not appear to be used.
  * Remove NavItem eval'd attributes: if, unless, highlights_on, content_block
    * Editing of these inputs has been disabled since v2.2.0
+ * Rename Admin model class to AdminUser
+   * Resolves Zeitwerk loading conflict with Admin module
 
 2.5.3 / 2021-07-13
 ==================

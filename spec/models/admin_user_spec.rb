@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Admin, type: :model do
+RSpec.describe AdminUser, type: :model do
   subject(:admin) { create :admin }
 
   it { is_expected.to validate_presence_of(:first_name) }
@@ -12,7 +12,7 @@ RSpec.describe Admin, type: :model do
   it { is_expected.to allow_values("a@b.com").for(:email) }
   it { is_expected.not_to allow_values("@b.com", "fail").for(:email) }
 
-  it { is_expected.to validate_inclusion_of(:role).in_array(Admin::ROLES) }
+  it { is_expected.to validate_inclusion_of(:role).in_array(AdminUser::ROLES) }
 
   describe "#god?" do
     it { is_expected.not_to be_god }

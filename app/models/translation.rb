@@ -32,7 +32,7 @@ class Translation < ApplicationRecord
   crud.config do
     fields field_type: { type: :select, data: FIELD_TYPES },
            value:      { type: :dynamic },
-           role:       { type: :select, data: Admin::ROLES },
+           role:       { type: :select, data: AdminUser::ROLES },
            is_proc:    { type: :boolean }
     config :admin do
       index fields: [:label],
@@ -49,7 +49,7 @@ class Translation < ApplicationRecord
   private
 
   def set_default_values
-    self.role ||= Admin.god
+    self.role ||= AdminUser.god
   end
 
   def reset_memory_store_cache
