@@ -69,6 +69,9 @@ Gem::Specification.new do |s|
   # Nested Forms
   s.add_dependency "cocoon", ">= 1.2.15"
 
+  # Allow non-digest references to assets (ckeditor)
+  s.add_dependency "non-digest-assets"
+
   # Settings
   s.add_dependency "i18n-active_record"
   s.metadata = {

@@ -26,12 +26,12 @@
     <%= render "layouts/koi/webfonts" -%>
 
     <!-- STYLES -->
-    <%= stylesheet_link_tag "koi/application" %>
+    <%= stylesheet_link_tag "koi/admin" %>
     <%= yield :styles %>
     <%= yield :stylesheets %>
 
     <!-- SCRIPTS -->
-    <%= javascript_include_tag "koi" %>
+    <%= javascript_include_tag "koi/admin" %>
     <%= render 'koi/custom_javascripts' %>
     <%= yield :javascripts %>
     <%= yield :scripts %>
@@ -82,7 +82,7 @@
             <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
               <%- Koi::PriorityMenu.items.each do |menu_item| -%>
                 <li class="<%= "action" if menu_item[:icon] -%>">
-                  <%- 
+                  <%-
                     link_opts = {}
                     link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
                     link_opts.merge!({title: menu_item[:label]})
@@ -165,7 +165,7 @@
           <%- end -%>
 
         </main>
-        
+
         <%= yield :below_layout -%>
 
       </div>

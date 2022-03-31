@@ -4,6 +4,9 @@
 
  * Added `Koi::ApplicationModel` for consistency with Rails Engine defaults. Extend this class for `has_crud` etc.
  * Replace references to Admin model class with AdminUser
+ * Rename javascript and stylesheet entry points
+   * In `app/assets/config/manifest.js`:
+     * Replace `//= link koi/manifest.js` with `//= link koi.js` (Sprockets 4)
 
 ## 2.5.0
 

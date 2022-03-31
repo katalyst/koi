@@ -175,7 +175,7 @@ select {
 @include pretty-select {
 
   select[multiple],
-  select[multiple][size], 
+  select[multiple][size],
   select[size] {
     background-image: none;
     padding-right: 3px;
@@ -184,7 +184,7 @@ select {
   select,
   select[size='0'],
   select[size='1'] {
-    background-image: url('/assets/koi/application/select_arrow.png');
+    background-image: image-url("koi/application/select_arrow.png");
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 36px;
@@ -432,7 +432,7 @@ abbr[title=required] {
   form {
     @include display-flex;
     @include flex-direction(row);
-    @include align-items(center); 
+    @include align-items(center);
   }
 
   form,
@@ -444,7 +444,7 @@ abbr[title=required] {
     padding-top: 3px;
   }
 
-  label, 
+  label,
   input,
   .search--buttons {
     float: left;
@@ -463,7 +463,7 @@ abbr[title=required] {
   }
 }
 
-// INLINE FILE UPLOADS 
+// INLINE FILE UPLOADS
 
 // FILE UPLOAD
 $file-thumbnail-width: 100px;
@@ -495,7 +495,7 @@ $file-thumbnail-width: 100px;
 }
 
 // =========================================================================
-// Select 2 theming 
+// Select 2 theming
 // =========================================================================
 
 .select2-container {
@@ -537,7 +537,7 @@ $file-thumbnail-width: 100px;
   height: 100%;
 
   // select styles
-  background-image: url('/assets/koi/application/select_arrow.png');
+  background-image: image-url("koi/application/select_arrow.png");
   background-repeat: no-repeat;
   background-position: right center;
   padding-right: 36px;
@@ -600,7 +600,7 @@ $file-thumbnail-width: 100px;
   .form--password-revealer--button:hover {
     background: transparent;
   }
-  
+
   .button__icon path {
     fill: $black;
   }

@@ -6,6 +6,7 @@
 //= require koi/store
 //= require select2
 //= require cocoon
+
 //= require koi/jquery-ui-timepicker-addon
 //= require koi/jquery.jcrop
 //= require koi/keyboardjs

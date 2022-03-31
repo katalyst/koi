@@ -1,3 +1,4 @@
+@import "koi/ornament/core";
 
 .nav-item--body {
   display: block;
@@ -189,8 +190,8 @@
 
 .icon {
   .nav-item--icon > & {
-    background-position: center; 
-    min-width: 16px; 
+    background-position: center;
+    min-width: 16px;
     min-height: 16px;
     background-repeat: no-repeat;
 
@@ -202,9 +203,9 @@
     &.page { background-image: image-url("koi/nav_items/icon-nav-item-page.png"); }
     &.move { background-image: image-url("koi/nav_items/icon-nav-item-move.png"); }
     &.sort { background-image: image-url("koi/nav_items/icon-nav-item-sortable.png"); }
-    &.sort > a { 
-      height:22px; 
-      padding-right:24px; 
+    &.sort > a {
+      height:22px;
+      padding-right:24px;
       cursor: move;
     }
   }

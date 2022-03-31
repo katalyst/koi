@@ -10,6 +10,10 @@
    * Editing of these inputs has been disabled since v2.2.0
  * Rename Admin model class to AdminUser
    * Resolves Zeitwerk loading conflict with Admin module
+ * Rename asset entry points, see [[Upgrade]] for details
+   * Replace `//= link koi/manifest.js` with `//= link koi.js` (Sprockets 4)
+   * `koi.js` => `koi/admin.js` (in admin layouts)
+   * `koi/application.css` => `koi/admin.css` (in admin layouts)
 
 2.5.3 / 2021-07-13
 ==================
