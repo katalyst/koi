@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Koi
-  class CrudController < ApplicationController
+  class CrudController < ActionController::Base # rubocop:disable Rails/ApplicationController
     include HasCrud::ActionController
 
     layout "application"
