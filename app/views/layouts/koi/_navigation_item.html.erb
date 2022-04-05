@@ -1,5 +1,5 @@
 <li class="<%= "selected" if request.path.eql?(item_url) -%>">
-  <%- if item_url.class.to_s.eql?("Hash") -%>
+  <%- if item_url.is_a?(Hash) -%>
     <a href="#"><%= item_name -%></a>
     <ul>
       <%- item_url.each do |child_name,child_url| -%>

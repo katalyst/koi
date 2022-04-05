@@ -6,14 +6,10 @@ class RootNavItem < NavItem
   validates :title, presence: true
 
   crud.config do
-    fields parent_id:     { type: :hidden },
-           is_hidden:     { type: :boolean },
-           alias_id:      { type: :tree },
-           if:            { type: :code },
-           unless:        { type: :code },
-           method:        { type: :code },
-           highlights_on: { type: :code },
-           content_block: { type: :code }
+    fields parent_id: { type: :hidden },
+           is_hidden: { type: :boolean },
+           alias_id:  { type: :tree },
+           method:    { type: :code }
 
     config :admin do
       index fields: %i[id title url]

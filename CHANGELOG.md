@@ -6,6 +6,8 @@
  * Add github actions
  * Deprecate DateHelper methods: use Rails i18n instead.
  * Deprecate HtmlHelper methods: these do not appear to be used.
+ * Remove NavItem eval'd attributes: if, unless, highlights_on, content_block
+   * Editing of these inputs has been disabled since v2.2.0
 
 2.5.3 / 2021-07-13
 ==================

@@ -27,10 +27,10 @@ module Koi
     def get_nav_items(key)
       if Koi::Caching.enabled
         Rails.cache.fetch(prefix_cache_key(key), expires_in: cache_expiry) do
-          NavItem.navigation(key, binding)
+          NavItem.navigation(key)
         end
       else
-        NavItem.navigation(key, binding)
+        NavItem.navigation(key)
       end
     end
 
@@ -65,31 +65,6 @@ module Koi
 
     def breadcrumb
       @breadcrumb ||= nav.self_and_descendants.compact.min_by(&:negative_highlight)
-    end
-
-    def nav(nav_item = nil)
-      navs_by_id[NavItem.for(nav_item).id]
-    end
-
-    def navs_by_id
-      @navs_by_id ||= navs_by_id!.each do |_id, nav|
-        if nav.parent_id
-          nav.parent = navs_by_id![nav.parent_id]
-          nav.parent.children << nav
-        end
-      end
-    end
-
-    def navs_by_id!
-      @navs_by_id ||= nav_items.map { |nav_item| [nav_item.id, nav_from(nav_item)] }.to_h
-    end
-
-    def nav_items
-      @nav_items ||= NavItem.order :lft
-    end
-
-    def nav_from(nav_item)
-      Navigator.new self, nav_item.to_hashish(binding) # , &filter
     end
 
     private
