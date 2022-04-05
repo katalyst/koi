@@ -1,4 +1,7 @@
-2.6.0 / Unreleased
+Unreleased
+==================
+
+2.6.0 / 2022-04-05
 ==================
 
  * Add base classes (Rails Engine Defaults)
