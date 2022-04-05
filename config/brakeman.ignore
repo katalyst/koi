@@ -21,6 +21,26 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "3f67f9d0bfc483d1552ccc7a3695e7d4f461008cd5c477659a19c194fa3a217c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/koi/nav_items_controller.rb",
+      "line": 55,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "NavItem.connection.execute(\"        UPDATE nav_items\\n          SET lft = CASE id\\n                      #{JSON.parse(params[:set]).map do\n (\"WHEN %<id>s THEN %<lft>s\" % node)\n end.join(\"\\n\")}\\n                    END,\\n              rgt = CASE id\\n                      #{JSON.parse(params[:set]).map do\n (\"WHEN %<id>s THEN %<rgt>s\" % node)\n end.join(\"\\n\")}\\n                    END,\\n              parent_id = CASE id\\n                      #{JSON.parse(params[:set]).map do\n (\"WHEN %<id>s THEN %<parent_id>s\" % node)\n end.join(\"\\n\")}\\n                    END                    \\n        WHERE id in (#{JSON.parse(params[:set]).pluck(:id).join(\",\")})\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Koi::NavItemsController",
+        "method": "savesort"
+      },
+      "user_input": "params[:set]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "9325e75ee0b991c16fa50cfe26c496573a86064a8396965953afd2e7a791c15d",
@@ -39,8 +59,38 @@
       "user_input": null,
       "confidence": "Medium",
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "9693f0b512ff40a64a299d1362e4a3395cb5e0eab85dcb69bfede7a60edc4ec6",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/koi/nav_items/_nav_item.html.erb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.admin_url)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "koi/nav_items/_nav_item",
+          "line": 97,
+          "file": "app/views/koi/nav_items/_nav_item.html.erb",
+          "rendered": {
+            "name": "koi/nav_items/_nav_item",
+            "file": "app/views/koi/nav_items/_nav_item.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "koi/nav_items/_nav_item"
+      },
+      "user_input": "(Unresolved Model).new.admin_url",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2022-03-30 20:30:59 +1030",
+  "updated": "2022-04-05 16:21:52 +0930",
   "brakeman_version": "5.2.1"
 }
