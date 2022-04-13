@@ -5,7 +5,7 @@ class AssetsController < Koi::CrudController
     return super if params[:format].blank?
     return super if /(x|ht)ml?|js/i.match?(params[:format])
 
-    redirect_to data_path resource.data
+    redirect_to data_path(resource.data), allow_other_host: true
   end
 
   def data_path(data)

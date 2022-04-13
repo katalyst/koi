@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+ * Allow asset redirects in Rails 7 to redirect to CDN (allow_other_host: true)
+
 2.6.0 / 2022-04-05
 ==================
 
