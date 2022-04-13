@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    koi (2.6.0)
+    koi (2.6.1)
       acts-as-taggable-on (>= 7.0.0)
       awesome_nested_set (>= 3.3.0)
       cocoon (>= 1.2.15)
@@ -358,4 +358,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.2.30
+   2.3.11
