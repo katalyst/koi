@@ -61,7 +61,7 @@ module HasSettings
       when "image"
         setting.file
       when "boolean"
-        !setting.value.to_s.eql?("1").nil?
+        ActiveModel::Type::Boolean.new.cast(setting.value)
       when "tags"
         setting.tags
       else
