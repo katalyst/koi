@@ -86,7 +86,7 @@ module HasCrud
         if options[:settings].eql?(true)
           has_settings
 
-          if table_exists?
+          if database_and_table_exists?
             Koi::Settings.collection.each do |key, values|
               create_setting(key, values)
             end
@@ -105,7 +105,7 @@ module HasCrud
       end
 
       def setup_searchable
-        if !options[:searchable].eql?(false) && table_exists?
+        if !options[:searchable].eql?(false) && database_and_table_exists?
           setup_default_searchable if options[:searchable].eql?(true) || options[:searchable].eql?(nil)
 
           scoped_search on: options[:searchable]
@@ -131,12 +131,19 @@ module HasCrud
       end
 
       def setup_slug
-        if !options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
+        if !options[:slugged].eql?(false) && database_and_table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
           use = %i[slugged finders]
           use << :history if FriendlyIdSlug.table_exists?
           friendly_id (options[:slugged] || :to_s), use: use
         end
+      end
+
+      # Note: table_exists? throws an exception if the database doesn't exist.
+      def database_and_table_exists?
+        table_exists?
+      rescue ::ActiveRecord::NoDatabaseError, ::ActiveRecord::StatementInvalid
+        false
       end
 
       def setup_pagination
