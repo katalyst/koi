@@ -70,13 +70,13 @@ module HasCrud
           # Disable search, pagination and sort by default
           # as in order for orderable to work we need to
           # show all records on one page
-          options[:ajaxable] = false if options[:ajaxable].nil?
+          options[:ajaxable]   = false if options[:ajaxable].nil?
 
           options[:searchable] = false if options[:searchable].nil?
 
-          options[:paginate] = false if options[:paginate].nil?
+          options[:paginate]   = false if options[:paginate].nil?
 
-          options[:sortable] = false if options[:sortable].nil?
+          options[:sortable]   = false if options[:sortable].nil?
 
           scope :ordered, -> { order("ordinal ASC") }
         end
@@ -113,7 +113,7 @@ module HasCrud
       end
 
       def setup_default_searchable
-        ignore_fields = %i[created_at updated_at slug]
+        ignore_fields        = %i[created_at updated_at slug]
         options[:searchable] = column_names.map(&:to_sym) - ignore_fields
       end
 
@@ -121,10 +121,10 @@ module HasCrud
         scope = options[:scope]
 
         if scope.present?
-          warn(<<-WARN,
-            DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "#{scope}"` is deprecated, please set default scope in the model itself by using `default_scope order("id ASC")`
+          warn <<~WARN
+            DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "#{scope}"` is deprecated,
+            please set default scope in the model itself by using `default_scope order("id ASC")`
           WARN
-              )
         end
 
         scope ? (default_scope { order("id ASC") }) : (default_scope { order(scope) })
@@ -147,7 +147,7 @@ module HasCrud
       end
 
       def setup_default_pagination
-        options[:paginate] = 10 if options[:paginate].nil? || options[:paginate].eql?(true)
+        options[:paginate]  = 10 if options[:paginate].nil? || options[:paginate].eql?(true)
 
         options[:page_list] = [10, 20, 50, 100] if options[:page_list].nil?
       end
