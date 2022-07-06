@@ -70,13 +70,13 @@ module HasCrud
           # Disable search, pagination and sort by default
           # as in order for orderable to work we need to
           # show all records on one page
-          options[:ajaxable] = false if options[:ajaxable].nil?
+          options[:ajaxable]   = false if options[:ajaxable].nil?
 
           options[:searchable] = false if options[:searchable].nil?
 
-          options[:paginate] = false if options[:paginate].nil?
+          options[:paginate]   = false if options[:paginate].nil?
 
-          options[:sortable] = false if options[:sortable].nil?
+          options[:sortable]   = false if options[:sortable].nil?
 
           scope :ordered, -> { order("ordinal ASC") }
         end
@@ -86,7 +86,7 @@ module HasCrud
         if options[:settings].eql?(true)
           has_settings
 
-          if table_exists?
+          if database_and_table_exists?
             Koi::Settings.collection.each do |key, values|
               create_setting(key, values)
             end
@@ -105,7 +105,7 @@ module HasCrud
       end
 
       def setup_searchable
-        if !options[:searchable].eql?(false) && table_exists?
+        if !options[:searchable].eql?(false) && database_and_table_exists?
           setup_default_searchable if options[:searchable].eql?(true) || options[:searchable].eql?(nil)
 
           scoped_search on: options[:searchable]
@@ -113,7 +113,7 @@ module HasCrud
       end
 
       def setup_default_searchable
-        ignore_fields = %i[created_at updated_at slug]
+        ignore_fields        = %i[created_at updated_at slug]
         options[:searchable] = column_names.map(&:to_sym) - ignore_fields
       end
 
@@ -121,22 +121,29 @@ module HasCrud
         scope = options[:scope]
 
         if scope.present?
-          warn(<<-WARN,
-            DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "#{scope}"` is deprecated, please set default scope in the model itself by using `default_scope order("id ASC")`
+          warn <<~WARN
+            DEPRECATION WARNING: [KOI] #{self} - using `has_crud scope: "#{scope}"` is deprecated,
+            please set default scope in the model itself by using `default_scope order("id ASC")`
           WARN
-              )
         end
 
         scope ? (default_scope { order("id ASC") }) : (default_scope { order(scope) })
       end
 
       def setup_slug
-        if !options[:slugged].eql?(false) && table_exists? && column_names.include?("slug")
+        if !options[:slugged].eql?(false) && database_and_table_exists? && column_names.include?("slug")
           send :extend, FriendlyId
           use = %i[slugged finders]
           use << :history if FriendlyIdSlug.table_exists?
           friendly_id (options[:slugged] || :to_s), use: use
         end
+      end
+
+      # Note: table_exists? throws an exception if the database doesn't exist.
+      def database_and_table_exists?
+        table_exists?
+      rescue ::ActiveRecord::NoDatabaseError, ::ActiveRecord::StatementInvalid
+        false
       end
 
       def setup_pagination
@@ -147,7 +154,7 @@ module HasCrud
       end
 
       def setup_default_pagination
-        options[:paginate] = 10 if options[:paginate].nil? || options[:paginate].eql?(true)
+        options[:paginate]  = 10 if options[:paginate].nil? || options[:paginate].eql?(true)
 
         options[:page_list] = [10, 20, 50, 100] if options[:page_list].nil?
       end
