@@ -1,6 +1,13 @@
 Unreleased
 ==================
 
+2.6.3 / 2022-07-06
+==================
+
+* Fix for running rails without a database, for asset precompilation
+* Fix for ruby 3 compatibility
+* Added 'text' form field type
+
 2.6.2 / 2022-06-15
 ==================
 
