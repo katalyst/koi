@@ -7,7 +7,7 @@ module Koi
 
       args[:klass] = resource_class.name if respond_to?(:resource_class)
 
-      t(current_url, args)
+      t(current_url, **args)
     end
 
     def sortable(column, title = column.titleize, link_opt = {})
