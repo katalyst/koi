@@ -1,4 +1,4 @@
-<% if resource.errors.any? -%>
+<% if resource.errors.any? %>
   $.magnificPopup.instance.currItem.inlineElement.html("<%= escape_javascript render ("modal_setting") %>");
   Ornament.C.FormHelpers.init();
   Ornament.globalLightboxSizing();

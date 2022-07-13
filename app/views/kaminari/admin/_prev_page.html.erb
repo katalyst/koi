@@ -5,9 +5,9 @@
     total_pages:     total number of pages
     per_page:      number of items to fetch per page
     remote:        data-remote
--%>
+%>
 
-<div class="pagination--previous <%= "disabled" if current_page.first? -%>">
+<div class="pagination--previous <%= "disabled" if current_page.first? %>">
   <%= link_to_unless current_page.first?, raw(t 'views.koi.pagination.previous'), url, :rel => 'prev', :remote => remote, title: "Go to previous page" %>
 </div>
 

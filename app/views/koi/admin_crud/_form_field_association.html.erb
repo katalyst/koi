@@ -1,4 +1,4 @@
-<%-
+<%
   crud_settings = resource_class.crud.find(:fields, attr)
 
   wrapper_opts = {}
@@ -10,7 +10,7 @@
     wrapper_opts[:data] = crud_settings[:wrapper_data]
     input_opts[:class] = "form--#{crud_settings[:size]}" if crud_settings[:size]
   end
--%>
+%>
 
 <%= f.association attr.to_sym, as: resource_class.crud.find(:fields, attr, :as), wrapper_html: wrapper_opts, input_html: input_opts %>
 

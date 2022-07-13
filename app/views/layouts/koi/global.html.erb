@@ -23,7 +23,7 @@
     <%= js_data if defined?(js_data) %>
 
     <!-- WEBFONTS -->
-    <%= render "layouts/koi/webfonts" -%>
+    <%= render "layouts/koi/webfonts" %>
 
     <!-- STYLES -->
     <%= stylesheet_link_tag "koi/admin" %>
@@ -39,16 +39,16 @@
     <!-- ETC -->
     <%= yield(:head) %>
 
-    <%- if content_for?(:include_google_maps) -%>
+    <% if content_for?(:include_google_maps) %>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjgOvjmIVHFO-1IVSYWeZN-1Yp_MkjeW0&libraries=places"></script>
-    <%- end -%>
+    <% end %>
 
   </head>
   <body class="body__<%= Rails.env.downcase %>">
 
     <a class="skip-link" href="#main">skip to content</a>
 
-    <div class="layout <%= "layout__headerless" if content_for?(:hide_header) -%>">
+    <div class="layout <%= "layout__headerless" if content_for?(:hide_header) %>">
       <div class="layout--mobile-tray">
         <nav class="navigation-mobile" role="navigation" aria-label="Main Menu">
           <div class="pane-wrapper">
@@ -57,11 +57,11 @@
                 <div class="navigation-mobile--header">
                   Koi
                 </div>
-                <%- if Koi::Menu.filterable -%>
+                <% if Koi::Menu.filterable %>
                   <div class="navigation-mobile--filter">
-                    <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls -%> />
+                    <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls %> />
                   </div>
-                <%- end -%>
+                <% end %>
                 <%= render :partial => "layouts/koi/navigation" %>
               </div>
             </div>
@@ -78,43 +78,43 @@
           <span class="header--environment button__pill">
             <%= Rails.env.upcase %>
           </span>
-          <%- if Koi::PriorityMenu.present? -%>
+          <% if Koi::PriorityMenu.present? %>
             <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
-              <%- Koi::PriorityMenu.items.each do |menu_item| -%>
-                <li class="<%= "action" if menu_item[:icon] -%>">
-                  <%-
+              <% Koi::PriorityMenu.items.each do |menu_item| %>
+                <li class="<%= "action" if menu_item[:icon] %>">
+                  <%
                     link_opts = {}
                     link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
                     link_opts.merge!({title: menu_item[:label]})
                     link_opts.merge!({ data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } }) if menu_item[:icon]
-                  -%>
-                  <%= link_to menu_item[:url], link_opts do -%>
-                    <%- if menu_item[:icon] -%>
-                      <%= icon(menu_item[:icon], menu_item[:icon_opts]) -%>
-                    <%- else -%>
-                      <%= menu_item[:label] -%>
-                    <%- end -%>
-                  <%- end -%>
+                  %>
+                  <%= link_to menu_item[:url], link_opts do %>
+                    <% if menu_item[:icon] %>
+                      <%= icon(menu_item[:icon], menu_item[:icon_opts]) %>
+                    <% else %>
+                      <%= menu_item[:label] %>
+                    <% end %>
+                  <% end %>
                 </li>
-              <%- end -%>
-              <%- if current_admin.god? -%>
+              <% end %>
+              <% if current_admin.god? %>
                 <li class="action">
                   <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
-                    <%= icon("refresh", fill: "#2ECC71") -%>
-                  <%- end -%>
+                    <%= icon("refresh", fill: "#2ECC71") %>
+                  <% end %>
                 </li>
-              <%- end -%>
+              <% end %>
               <li>
                 <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
-                  <%= icon("menu", fill: "#ffffff") -%>
-                  <%= icon("cross", fill: "#ffffff") -%>
+                  <%= icon("menu", fill: "#ffffff") %>
+                  <%= icon("cross", fill: "#ffffff") %>
                 </button>
               </li>
             </ul>
-          <%- end -%>
+          <% end %>
         </header>
 
-        <main class="layout--main <%= yield(:layout_class) -%>" id="main">
+        <main class="layout--main <%= yield(:layout_class) %>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">
@@ -124,7 +124,7 @@
             </div>
           <![endif]-->
 
-          <%= render "/koi/shared/flash_messages" -%>
+          <%= render "/koi/shared/flash_messages" %>
 
           <% if content_for?(:breadcrumbs) %>
             <div class="breadcrumbs">
@@ -135,38 +135,38 @@
           <% end %>
 
           <% if content_for? :title %>
-            <div class="page--title <%= "page--title__border" unless content_for?(:title_tabs) -%>">
+            <div class="page--title <%= "page--title__border" unless content_for?(:title_tabs) %>">
               <div class="layout--container">
                 <div class="page--title--wrapper">
                   <div class="page--title--content">
                     <h1 class="heading-one"><%= yield :title %></h1>
-                    <%- if content_for?(:title_actions) -%>
+                    <% if content_for?(:title_actions) %>
                       <div class="page--title--actions">
-                        <%= yield(:title_actions) -%>
+                        <%= yield(:title_actions) %>
                       </div>
-                    <%- end -%>
+                    <% end %>
                   </div>
-                  <%- if content_for?(:below_title) -%>
+                  <% if content_for?(:below_title) %>
                     <div class="page--title--below">
-                      <%= yield(:below_title) -%>
+                      <%= yield(:below_title) %>
                     </div>
-                  <%- end -%>
+                  <% end %>
                 </div>
-                <%= yield :title_tabs -%>
+                <%= yield :title_tabs %>
               </div>
             </div>
           <% end %>
 
-          <%= yield :above_layout -%>
-          <%- if content_for?(:global) || !yield.blank? -%>
+          <%= yield :above_layout %>
+          <% if content_for?(:global) || !yield.blank? %>
             <div class="layout--container">
               <%= content_for?(:global) ? yield(:global) : yield %>
             </div>
-          <%- end -%>
+          <% end %>
 
         </main>
 
-        <%= yield :below_layout -%>
+        <%= yield :below_layout %>
 
       </div>
     </div>
@@ -189,7 +189,7 @@
 
     </div>
 
-    <%= render "/layouts/koi/icons" -%>
+    <%= render "/layouts/koi/icons" %>
     <%= yield :scripts_bottom %>
 
   </body>

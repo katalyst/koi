@@ -4,7 +4,7 @@
   <% end %>
   <div class="align-box-right f">
     <div class="button-group">
-      <%- if is_allowed?(:new) && current_admin.god? %>
+      <% if is_allowed?(:new) && current_admin.god? %>
         <div>
           <%= link_to "Create", new_resource_path, class: "button__confirm button__small" %>
         </div>

@@ -71,31 +71,31 @@
         <% resource_class.admin_attributes(:index).each_with_index do |attr,i| %>
           <% label = raw t("simple_form.labels.#{resource_class.model_name.i18n_key}.#{attr}", default: attr.to_s.titleize) %>
           <% if is_sortable? %>
-            <th class="sort-icon table__th__<%= label.parameterize -%>"><%= sortable attr.to_s, label, :class => "nohover" %></th>
+            <th class="sort-icon table__th__<%= label.parameterize %>"><%= sortable attr.to_s, label, :class => "nohover" %></th>
           <% else %>
-            <th class="table__th__<%= label.parameterize -%>"><%= label %></th>
+            <th class="table__th__<%= label.parameterize %>"><%= label %></th>
           <% end %>
         <% end %>
         <th class="table__th__actions">Actions</th>
-        <%- if is_orderable? -%>
+        <% if is_orderable? %>
           <th class="table__td__sorter">&nbsp;</th>
-        <%- end -%>
+        <% end %>
       </tr>
     </thead>
-    <%- if is_orderable? -%>
+    <% if is_orderable? %>
     <tbody id="sortable" class="">
-    <%- else -%>
+    <% else %>
     <tbody>
-    <%- end -%>
+    <% end %>
       <% collection.each_with_index do |object, i| %>
-        <%- if is_orderable? -%>
+        <% if is_orderable? %>
         <tr id="<%= "#{singular_name}_#{object.id}" %>">
-        <%- else -%>
+        <% else %>
         <tr>
-        <%- end -%>
+        <% end %>
           <% resource_class.admin_attributes(:index).each_with_index do |attr,index| %>
-            <td class="table__td__<%= attr -%>">
-              <span class="table--listing-span table__span__<%= attr -%>">
+            <td class="table__td__<%= attr %>">
+              <span class="table--listing-span table__span__<%= attr %>">
                 <%=
                 begin
                   render crud_partial(attr, :index), { :attr => attr, :object => object }

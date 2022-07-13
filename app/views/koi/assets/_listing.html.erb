@@ -1,4 +1,4 @@
-<%= render layout: "koi/shared/inline_lightbox", locals: { inline_id: "asset-filters", title: "Filter", footer: capture { -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { inline_id: "asset-filters", title: "Filter", footer: capture { %>
   <div class="row__x-tight">
     <div class="col-1-2">
       <button class="button__confirm button__full" form="asset-filter">Filter</button>
@@ -7,7 +7,7 @@
       <%= link_to "Reset", collection_path(search: nil, tags: nil, tag_list: nil), class: "button button__full" %>
     </div>
   </div>
-<%- } } do -%>
+<% } } do %>
   <%= form_tag collection_path, :method => 'get', id: "asset-filter" do %>
     <%= hidden_field_tag :direction, params[:direction], id: "search_direction" %>
     <%= hidden_field_tag :sort     , params[:sort]     , id: "search_sort"      %>
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <%- unless @all_tags.empty? -%>
+        <% unless @all_tags.empty? %>
           <div class="control-group radio_buttons">
             <div class="control-label">
               <label for="search">Tags</label>
@@ -34,17 +34,17 @@
               <% @all_tags.each do |tag| %>
                 <% selected = @tags.include? tag %>
                 <label class="radio">
-                  <input type="checkbox" class="radio_buttons" <%= "checked" if selected -%> name="tags[]" value="<%= tag -%>"> <%= tag -%>
+                  <input type="checkbox" class="radio_buttons" <%= "checked" if selected %> name="tags[]" value="<%= tag %>"> <%= tag %>
                 </label>
               <% end %>
             </div>
           </div>
-        <%- end -%>
+        <% end %>
 
       </div>
     </div>
-  <%- end -%>
-<%- end -%>
+  <% end %>
+<% end %>
 
 <div class="listing--count">
   <div class="listing--count--items">
@@ -55,7 +55,7 @@
 <div class="listing--actions small">
   <div class="align-box-right button-group">
     <div>
-      <%= link_to "Filter", "#asset-filters", class: "button__secondary button__small", data: { lightbox: "" } -%>
+      <%= link_to "Filter", "#asset-filters", class: "button__secondary button__small", data: { lightbox: "" } %>
     </div>
     <div>
       <%= link_to "Upload New #{ resource_class.name }", "#", class: "button__confirm button__small file-upload--browse-button" %>
@@ -83,15 +83,15 @@
         <% begin %>
           <tr>
             <td class="table--image">
-              <%- if asset.class.name.eql?("Image") -%>
-                <%= link_to asset.data.thumb("800x600>").url, data: { lightbox: "image", lightbox_gallery: "" } do -%>
+              <% if asset.class.name.eql?("Image") %>
+                <%= link_to asset.data.thumb("800x600>").url, data: { lightbox: "image", lightbox_gallery: "" } do %>
                   <%= image_tag(asset.data.thumb("80x80>").url) %>
-                <%- end -%>
-              <%- else -%>
+                <% end %>
+              <% else %>
                 <%= link_to resource_path asset do %>
                   <%= image_tag(document_thumbnail(asset, size: '80x80')) %>
                 <% end %>
-              <%- end -%>
+              <% end %>
             </td>
             <td>
               <%= link_to resource_path asset do %>
@@ -110,4 +110,4 @@
   </table>
 </div>
 
-<%= paginate @assets, :theme => 'admin' -%>
+<%= paginate @assets, :theme => 'admin' %>

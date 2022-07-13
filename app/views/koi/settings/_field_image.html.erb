@@ -28,26 +28,26 @@
 
 %>
 
-<div class="input image optional control-group kat-upload <%= attr -%>">
+<div class="input image optional control-group kat-upload <%= attr %>">
 
-  <%= f.label(attr) -%>  
+  <%= f.label(attr) %>
   <div class="form--file-upload--hint-position">
-    <%= f.hint(attr) -%>
+    <%= f.hint(attr) %>
   </div>
-  <%= f.error(attr) -%>
+  <%= f.error(attr) %>
 
   <div class="form--file-upload--fallback controls">
 
     <p class="help-block">
-      <%- if max_size -%>
-        Max file size: <%= max_size -%>mb<br />
-      <%- end -%>
-      <%- if types -%>
-        File types allowed: <%= types -%><br />
-      <%- end -%>
-      <%- if max_count.to_i > 1 -%>
-        Maximum number of files: <%= max_count -%><br />
-      <%- end -%>
+      <% if max_size %>
+        Max file size: <%= max_size %>mb<br />
+      <% end %>
+      <% if types %>
+        File types allowed: <%= types %><br />
+      <% end %>
+      <% if max_count.to_i > 1 %>
+        Maximum number of files: <%= max_count %><br />
+      <% end %>
     </p>
 
     <% if !is_nil_or_new %>

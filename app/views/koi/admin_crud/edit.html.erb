@@ -2,9 +2,9 @@
   <%= render 'edit_title' %>
 
   <% if is_settable? %>
-    <%- content_for :title_tabs do -%>
+    <% content_for :title_tabs do %>
       <%= render "index_settings_navigation" %>
-    <%- end -%>
+    <% end %>
   <% end %>
     
   <div class="tabs--pane" id="tab-main" data-tab-for="tab-main">

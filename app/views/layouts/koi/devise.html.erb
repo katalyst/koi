@@ -23,7 +23,7 @@
     <%= js_data if defined?(js_data) %>
 
     <!-- WEBFONTS -->
-    <%= render "layouts/koi/webfonts" -%>
+    <%= render "layouts/koi/webfonts" %>
 
     <!-- STYLES -->
     <%= stylesheet_link_tag "koi/admin" %>
@@ -47,12 +47,12 @@
         <h1>Koi</h1>
       </div>
       <div class="devise--body">
-        <%= render "/koi/shared/flash_messages" -%>
+        <%= render "/koi/shared/flash_messages" %>
         <%= content_for?(:devise) ? yield(:devise) : yield %>
       </div>
     </div>
 
-    <%= render "/layouts/koi/icons" -%>
+    <%= render "/layouts/koi/icons" %>
 
   </body>
 </html>

@@ -6,16 +6,16 @@
     <div>
       <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue", data: { form_cleaner: "" } %>
     </div>
-    <%- if !resource.new_record? && is_allowed?(:destroy) -%>
+    <% if !resource.new_record? && is_allowed?(:destroy) %>
       <div>
         <%= link_to "Delete", resource_path, data: { form_cleaner: "", confirm: "Are you sure?" }, method: :delete, class: "button__error" %>
       </div>
-    <%- end -%>
-    <%= partial_with_wrapper do -%>
+    <% end %>
+    <%= partial_with_wrapper do %>
       <div>
-        <%= render partial: "form_custom_buttons" -%>
+        <%= render partial: "form_custom_buttons" %>
       </div>
-    <%- end -%>
+    <% end %>
     <div>
       <%= link_to "Back", collection_path, :class => "button__back" if is_allowed?(:index) %>
     </div>

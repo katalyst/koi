@@ -1,40 +1,40 @@
 <%= render 'show_title' %>
 <%= render 'show_actions' %>
-<%- partial_with_wrapper do -%>
-  <%- content_for :below_title do -%>
-    <%= render partial: "show_below_title" -%>
-  <%- end -%>
-<%- end -%>
-<%- partial_with_wrapper do -%>
-  <%- content_for :title_actions do -%>
-    <%= render partial: "show_title_actions" -%>
-  <%- end -%>
-<%- end -%>
-<%= partial_with_wrapper do -%>
+<% partial_with_wrapper do %>
+  <% content_for :below_title do %>
+    <%= render partial: "show_below_title" %>
+  <% end %>
+<% end %>
+<% partial_with_wrapper do %>
+  <% content_for :title_actions do %>
+    <%= render partial: "show_title_actions" %>
+  <% end %>
+<% end %>
+<%= partial_with_wrapper do %>
   <div class="listing--above-list">
-    <%= render partial: "show_above" -%>
+    <%= render partial: "show_above" %>
   </div>
-<%- end -%>
-<%- sidebar = partial_with_wrapper do -%>
+<% end %>
+<% sidebar = partial_with_wrapper do %>
   <div class="page--sidebar">
-    <%= render partial: "show_sidebar" -%>
+    <%= render partial: "show_sidebar" %>
   </div>
-<%- end -%>
-<%- if sidebar -%>
+<% end %>
+<% if sidebar %>
   <div class="page__with-sidebar-right">
     <div class="page--main">
-<%- end -%>
+<% end %>
 <div class="spacing">
   <%= render 'show_fields' %>
 </div>
-<%- if sidebar -%>
+<% if sidebar %>
     </div>
-    <%= sidebar -%>
+    <%= sidebar %>
   </div>
-<%- end -%>
-<%= partial_with_wrapper do -%>
+<% end %>
+<%= partial_with_wrapper do %>
   <div class="listing--below-list">
-    <%= render partial: "show_below" -%>
+    <%= render partial: "show_below" %>
   </div>
-<%- end -%>
+<% end %>
 <%= render 'show_actions' %>

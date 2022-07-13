@@ -1,4 +1,4 @@
-<%= render "koi/assets/listing" -%>
+<%= render "koi/assets/listing" %>
 
 <%
   tag_list = resource.tags.collect { |t| t.name }
@@ -6,7 +6,7 @@
   tag_list.sort!
 %>
 
-<%- content_for :side do -%>
+<% content_for :side do %>
 
     <%= render "preview" %>
 
@@ -20,8 +20,8 @@
         </div>
 
         <div class="actions">
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" -%>
-          <%= link_to "Cancel", resource_path, class: "button__cancel" -%>
+          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" %>
+          <%= link_to "Cancel", resource_path, class: "button__cancel" %>
         </div>
 
       <% end %>
@@ -29,4 +29,4 @@
     
   </div>
 
-<%- end -%>
+<% end %>

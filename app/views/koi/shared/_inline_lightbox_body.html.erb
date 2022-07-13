@@ -1,16 +1,16 @@
 <div class="lightbox--header">
   <div class="lightbox--header--logo">
-    <%= title ? title : "koi" -%>
+    <%= title ? title : "koi" %>
   </div>
   <div class="lightbox--header--close" data-lightbox-close title="Close">
-    <%= icon("close", stroke: "#fff") -%>
+    <%= icon("close", stroke: "#fff") %>
   </div>
 </div>
-<div class="lightbox--content <%= body_class -%>">
-  <%= yield -%>
+<div class="lightbox--content <%= body_class %>">
+  <%= yield %>
 </div>
-<%- if footer -%>
+<% if footer %>
   <div class="lightbox--footer">
-    <%= footer -%>
+    <%= footer %>
   </div>
-<%- end -%>
+<% end %>

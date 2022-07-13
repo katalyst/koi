@@ -1,22 +1,22 @@
 <div class="show--actions button-group">
-  <%- if is_allowed?(:index) %>
+  <% if is_allowed?(:index) %>
     <div>
       <%= link_to "Back", collection_path, class: "button" %>
     </div>
-  <%- end %>
-  <%- if is_allowed?(:edit) %>
+  <% end %>
+  <% if is_allowed?(:edit) %>
     <div>
       <%= link_to "Edit", edit_resource_path, class: "button__primary" %>
     </div>
-  <%- end %>
-  <%= partial_with_wrapper do -%>
+  <% end %>
+  <%= partial_with_wrapper do %>
     <div>
-      <%= render partial: "show_custom_actions" -%>
+      <%= render partial: "show_custom_actions" %>
     </div>
-  <%- end -%>
-  <%- if is_allowed?(:destroy) %>
+  <% end %>
+  <% if is_allowed?(:destroy) %>
     <div>
       <%= link_to "Delete", resource_path, data: { confirm: 'Are you sure?' }, :method => :delete, class: "button__error" %>
     </div>
-  <%- end %>
+  <% end %>
 </div>

@@ -1,4 +1,4 @@
-<%= render layout: "koi/shared/inline_lightbox", locals: { title: "#{resource.new_record? ? "Add" : "Edit"} Setting", no_hide: true } do -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: "#{resource.new_record? ? "Add" : "Edit"} Setting", no_hide: true } do %>
 
   <%= simple_form_for resource, authenticity_token: true, remote: true, html: { multipart: true, class: 'form-vertical' } do |f| %>
     <div class="panel--padding">
@@ -13,4 +13,4 @@
     </div>
   <% end %>
 
-<%- end -%>
+<% end %>

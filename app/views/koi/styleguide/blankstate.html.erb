@@ -1,8 +1,8 @@
-<%- content_for :title, "Koi Styleguide: Blankstate" -%>
+<% content_for :title, "Koi Styleguide: Blankstate" %>
 
-<%- content_for :side do -%>
-  <%= render "sidebar" -%>
-<%- end -%>
+<% content_for :side do %>
+  <%= render "sidebar" %>
+<% end %>
 
 <div class="spacing">
 
@@ -11,7 +11,7 @@
     <p>Show an empty panel with centered content:</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "blankstate" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "blankstate" } do %>
 <div class="blankstate">
   <div class="blankstate--content content">
     <p>
@@ -22,6 +22,6 @@
     </p>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
 </div>

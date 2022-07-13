@@ -1,4 +1,4 @@
-<%- id = "koi-#{ new_uuid }" -%>
+<% id = "koi-#{ new_uuid }" %>
 <%= f.association attr.to_sym,
   collection: attr.to_s.classify.constantize.all,
   include_blank: true,

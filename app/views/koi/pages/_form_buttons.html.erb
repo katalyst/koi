@@ -6,11 +6,11 @@
     <div>
       <%= content_tag :button, "Save & Continue", type: "submit", name: "commit", value: "Continue", class: "button__save-continue", data: { form_cleaner: "" } %>
     </div>
-    <%- unless resource.new_record? -%>
+    <% unless resource.new_record? %>
       <div>
         <%= link_to("Delete", resource_path, data: { form_cleaner: "", confirm: "Are you sure?" }, method: :delete, class: "button__error") %>
       </div>
-    <%- end -%>
+    <% end %>
     <div>
       <%= link_to "Back", koi_engine.sitemap_nav_items_path, :class => "button__back" %>
     </div>
