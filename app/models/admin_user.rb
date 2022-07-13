@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AdminUser < ApplicationRecord
+  include HasCrud::ActiveRecord
+
   class << self
     def model_name
       ActiveModel::Name.new(self, nil, "Admin")

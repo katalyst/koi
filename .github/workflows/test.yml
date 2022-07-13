@@ -12,6 +12,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          ruby-version: 2.7.5
       - name: Run tests
         env:
           RAILS_ENV: test
