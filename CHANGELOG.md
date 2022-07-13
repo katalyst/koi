@@ -1,5 +1,8 @@
-Unreleased
+2.6.4 / 2022-07-13
 ==================
+
+* Fix specs
+* Fix for rendering document thumbnails
 
 2.6.3 / 2022-07-06
 ==================
