@@ -129,11 +129,13 @@
         }
 
         $tagInput.select2(select2options);
-        $tagInput.select2("container").find("ul.select2-choices").sortable({
-          containment: 'parent',
-          start:  function() { $tagInput.select2("onSortStart"); },
-          update: function() { $tagInput.select2("onSortEnd"); }
-        });
+        if ($tagInput.select2("container")) {
+          $tagInput.select2("container").find("ul.select2-choices").sortable({
+            containment: 'parent',
+            start:  function() { $tagInput.select2("onSortStart"); },
+            update: function() { $tagInput.select2("onSortEnd"); }
+          });
+        }
       });
     },
 
