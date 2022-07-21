@@ -16,7 +16,7 @@ class Translation < ApplicationRecord
 
   before_validation :set_default_values
 
-  scope :site_settings, -> { where("prefix IS NULL OR prefix = '' OR prefix = 'site'") }
+  scope :site_settings, -> { where(prefix: [nil, "", "site"]).where.not(label: nil) }
   scope :by_created, -> { order("created_at ASC") }
 
   FIELD_TYPES = {
