@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# NOTE: i18-active_record fails without this setting
+Rails.application.config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time]
+
 Rails.application.config.to_prepare do
   if ActiveRecord::Base.connection.tables.include?("translations")
     require "i18n/backend/active_record"
