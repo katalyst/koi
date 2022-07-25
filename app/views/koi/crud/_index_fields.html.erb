@@ -1,15 +1,15 @@
 <table>
   <tr>
-  <%- resource_class.attributes(:index).each do |attr| -%>
+  <% resource_class.attributes(:index).each do |attr| %>
     <th><%= t "simple_form.labels.#{resource_class.name.underscore}.#{attr}",
                    :default => attr.to_s.titleize %></th>
-  <%- end -%>
+  <% end %>
     <th>Actions</th>
   </tr>
   <tr>
-  <%- collection.each do |object| %>
+  <% collection.each do |object| %>
     <tr>
-      <%- resource_class.attributes(:index).each do |attr| -%>
+      <% resource_class.attributes(:index).each do |attr| %>
       <td>
       <%= begin
             render crud_partial(attr, :index), { :attr => attr, :object => object }
@@ -18,10 +18,10 @@
           end
       %>
       </td>
-      <%- end -%>
+      <% end %>
       <td>
         <%= render "index_fields_actions", { :object => object } %>
       </td>
-  <%- end %>
+  <% end %>
   </tr>
 </table>

@@ -1,20 +1,20 @@
-<%- nested_group_label = (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
+<% nested_group_label = (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
 <div class="nested-fields">
   <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
   <div class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>" data-inline-nested-field-heading>
-    <%- if is_orderable -%>
+    <% if is_orderable %>
       <span class="drag-handler hidden">
         [Drag]
       </span>
-    <%- end -%>
-    <span class="title nested-fields__heading--title" aria-label="<%= nested_group_label -%>" tabIndex="0" data-inline-nested-field-heading-name>
-      <%= nested_group_label -%>
+    <% end %>
+    <span class="title nested-fields__heading--title" aria-label="<%= nested_group_label %>" tabIndex="0" data-inline-nested-field-heading-name>
+      <%= nested_group_label %>
     </span>
     <span class="close-link">
-      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. ", confirm_no_override: "" } -%>
+      <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. ", confirm_no_override: "" } %>
     </span>
     <button type="button" class="nested-fields__status collapser" title="Toggle these fields" aria-expanded="false" data-inline-nested-field-toggle>
-      <%= icon("chevron") -%>
+      <%= icon("chevron") %>
     </button>
   </div>
   <div class="nested-inline-fields inputs <%= "hidden" if f.object.errors.blank? %>">

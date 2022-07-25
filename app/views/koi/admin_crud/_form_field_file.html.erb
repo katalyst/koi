@@ -13,10 +13,10 @@
   wrapper_opts[:class] += " control-group file"
 %>
 
-<%= content_tag :div, wrapper_opts do -%>
+<%= content_tag :div, wrapper_opts do %>
   <%= f.hidden_field "retained_#{attr}" %>
   <%= f.label(attr) unless klass.crud.find(:fields, attr, :label) === false %>
-  <%= f.hint attr -%>
+  <%= f.hint attr %>
 
   <div class="form--file-upload controls">
     <div class="form--file-upload--thumbnail">
@@ -50,5 +50,5 @@
     </div>
   </div>
 
-  <%= f.error attr -%>
-<%- end -%>
+  <%= f.error attr %>
+<% end %>

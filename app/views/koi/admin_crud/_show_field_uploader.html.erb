@@ -1,4 +1,4 @@
-<%- 
+<%
   file_id = resource.send(attr)
   begin
     if(file_id)
@@ -9,9 +9,9 @@
   rescue ActiveRecord::RecordNotFound
     file = false
   end
--%>
-<%- if file -%>
+%>
+<% if file %>
   <%= raw link_to("Click here", file.url) %>
-<%- else -%>
+<% else %>
   Missing file
-<%- end -%>
+<% end %>

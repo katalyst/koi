@@ -1,8 +1,8 @@
 <div class="table--actions--container">
   <ul class="listing--item-actions">
-    <%- if is_allowed? :show %>
+    <% if is_allowed? :show %>
       <li><%= link_to "Show", resource_path(object) %></li>
-    <%- end %>
+    <% end %>
     <% if is_allowed? :edit %>
       <li><%= link_to "Edit", edit_resource_path(object) %></li>
     <% end %>
@@ -11,9 +11,9 @@
     <% end %>
   </ul>
 
-  <%= partial_with_wrapper do -%>
+  <%= partial_with_wrapper do %>
     <div class="listing--custom-actions">
-      <%= render partial: "index_fields_custom_actions", locals: { object: object } -%>
+      <%= render partial: "index_fields_custom_actions", locals: { object: object } %>
     </div>
-  <%- end -%>
+  <% end %>
 </div>

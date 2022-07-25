@@ -1,8 +1,8 @@
-<%- content_for :title, "Koi Styleguide: Tables" -%>
+<% content_for :title, "Koi Styleguide: Tables" %>
 
-<%- content_for :side do -%>
-  <%= render "sidebar" -%>
-<%- end -%>
+<% content_for :side do %>
+  <%= render "sidebar" %>
+<% end %>
 
 <div class="spacing">
 
@@ -11,7 +11,7 @@
     <p>By default, tables are mostly unstyled. The concept here is that you may not want a default styled table. This table is completely bare ready for any custom styling it may need without worrying about any cascading styles.</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table" } do %>
 <table>
   <thead>
     <tr>
@@ -21,16 +21,16 @@
     </tr>
   </thead>
   <tbody>
-    <%- (1..6).each do |i| -%>
+    <% (1..6).each do |i| %>
       <tr>
         <td>Table cell</td>
         <td>Table cell</td>
         <td>Table cell</td>
       </tr>
-    <%- end -%>
+    <% end %>
   </tbody>
 </table>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -40,7 +40,7 @@
     <p>Make sure you always wrap your tables in a div with the class of <code>table-container</code> to ensure it can be scrolled when the screen is too small.</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-styled" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-styled" } do %>
 <div class="table-contaner">
   <table class="table">
     <thead>
@@ -51,17 +51,17 @@
       </tr>
     </thead>
     <tbody>
-      <%- (1..6).each do |i| -%>
+      <% (1..6).each do |i| %>
         <tr>
           <td>Table cell</td>
           <td>Table cell</td>
           <td>Table cell</td>
         </tr>
-      <%- end -%>
+      <% end %>
     </tbody>
   </table>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -70,7 +70,7 @@
     <p>Zebra striping can be applied with <code>table__striped</code>:</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-zebra" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-zebra" } do %>
 <div class="table-contaner">
   <table class="table table__striped">
     <thead>
@@ -81,17 +81,17 @@
       </tr>
     </thead>
     <tbody>
-      <%- (1..6).each do |i| -%>
+      <% (1..6).each do |i| %>
         <tr>
           <td>Table cell</td>
           <td>Table cell</td>
           <td>Table cell</td>
         </tr>
-      <%- end -%>
+      <% end %>
     </tbody>
   </table>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -100,7 +100,7 @@
     <p>A softer table style is available with <code>table__soft</code> instead of <code>table</code>:</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-soft" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-soft" } do %>
 <div class="table-contaner">
   <table class="table__soft table__striped">
     <thead>
@@ -111,17 +111,17 @@
       </tr>
     </thead>
     <tbody>
-      <%- (1..6).each do |i| -%>
+      <% (1..6).each do |i| %>
         <tr>
           <td>Table cell</td>
           <td>Table cell</td>
           <td>Table cell</td>
         </tr>
-      <%- end -%>
+      <% end %>
     </tbody>
   </table>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -130,7 +130,7 @@
     <p>You can add row classes to the <code>tr</code> elements to add colour to the cells:</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-states" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-states" } do %>
 <div class="table-contaner">
   <table class="table">
     <thead>
@@ -164,7 +164,7 @@
     </tbody>
   </table>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -173,7 +173,7 @@
     Actions use the <code>listing--actions</code> class and sit outside of the <code>table-container</code> like so:
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-actions" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-actions" } do %>
 <div>
   <div class="listing--actions small">
     <a href="#" class="button button__small">Back</a>
@@ -205,7 +205,7 @@
     </table>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -214,7 +214,7 @@
     <p>You can apply left-hand heading styles by giving the <code>th</code>s the <code>table-col-heading</code> class.
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "table-left" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "table-left" } do %>
 <div class="table-contaner">
   <table class="table">
     <tbody>
@@ -231,7 +231,7 @@
     </tbody>
   </table>
 </div>
-  <%- end -%>
+  <% end %>
 
 
 </div>

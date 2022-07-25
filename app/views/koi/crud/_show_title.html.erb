@@ -1,5 +1,5 @@
-<%- if @current_path && !@current_path.title.blank? %>
-  <%= content_tag :h1, kt(default: @current_path.title) -%>
-<%- else %>
-  <%= content_tag :h1, kt(default: resource_class.crud.find(:show, :title) || resource) -%>
-<%- end %>
+<% if @current_path && !@current_path.title.blank? %>
+  <%= content_tag :h1, kt(default: @current_path.title) %>
+<% else %>
+  <%= content_tag :h1, kt(default: resource_class.crud.find(:show, :title) || resource) %>
+<% end %>

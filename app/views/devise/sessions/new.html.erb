@@ -17,14 +17,14 @@
       </div>
     </div>
 
-    <% if devise_mapping.rememberable? -%>
+    <% if devise_mapping.rememberable? %>
       <div class="control-group boolean optional enrollment_terms checkbox_single">
         <label class="boolean optional control-label" for="enrollment_terms">I have read and agreed to these terms &amp; conditions.</label>
         <div class="controls">
           <%= f.check_box :remember_me %> <%= f.label :remember_me %>
         </div>
       </div>    
-    <% end -%>
+    <% end %>
 
     <div class="actions">
       <%= f.submit "Log in", class: "button" %>

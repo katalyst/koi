@@ -1,7 +1,7 @@
 <div class="spacing-xxx-tight">
   <h2 class="heading-four">Products</h2>
 
-  <%- if resource.products.any? -%>
+  <% if resource.products.any? %>
     <div class="table-container">
       <table class="table">
         <tr>
@@ -9,18 +9,18 @@
           <th>Number of images</th>
           <th></th>
         </tr>
-        <%- resource.products.each do |product| -%>
+        <% resource.products.each do |product| %>
           <tr>
-            <td><%= link_to product, [:edit, :admin, resource, product] -%></td>
-            <td><%= product.product_images.length -%></td>
-            <td class="align-right"><%= link_to "Show", [:admin, resource, product] -%></td>
+            <td><%= link_to product, [:edit, :admin, resource, product] %></td>
+            <td><%= product.product_images.length %></td>
+            <td class="align-right"><%= link_to "Show", [:admin, resource, product] %></td>
           </tr>
-        <%- end -%>
+        <% end %>
       </table>
     </div>
     <ul>
     </ul>
-  <%- else -%>
+  <% else %>
     <p>No products</p>
-  <%- end -%>
+  <% end %>
 </div>

@@ -115,7 +115,7 @@ module Koi
     end
 
     # Icon Helper
-    # <%= icon("close", width: 24, height: 24, stroke: "#BADA55", fill: "purple") -%>
+    # <%= icon("close", width: 24, height: 24, stroke: "#BADA55", fill: "purple") %>
     def icon(icon_path, options = {})
       options[:width] = 24 if options[:width].blank?
       options[:height] = 24 if options[:height].blank?

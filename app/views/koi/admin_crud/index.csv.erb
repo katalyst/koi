@@ -1,15 +1,15 @@
-<%-
+<%
   response.headers['Content-Type'] = "text/csv"
   response.headers['Content-Disposition'] = "attachment; filename=#{resource_class.to_s.parameterize}.csv"
--%>
-<%-
+%>
+<%
      header_row = resource_class.admin_attributes(:csv).collect do |attr|
        t "simple_form.labels.#{resource_class.name.underscore}.#{attr}",
                     :default => attr.to_s.titleize
      end
--%>
-<%= CSV.generate_line(header_row).html_safe -%>
-<%-
+%>
+<%= CSV.generate_line(header_row).html_safe %>
+<%
     collection.each do |object|
       data_row = resource_class.admin_attributes(:csv).collect do |attr|
         begin
@@ -18,6 +18,6 @@
           render "index_field_default", { :attr => attr, :object => object }
         end
       end
--%>
-  <%= CSV.generate_line(data_row).html_safe -%>
-<%- end -%>
+%>
+  <%= CSV.generate_line(data_row).html_safe %>
+<% end %>

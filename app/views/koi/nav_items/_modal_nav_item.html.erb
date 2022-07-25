@@ -1,17 +1,17 @@
-<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), inline_id: "modal_nav_item", no_hide: true, footer: capture { -%>
+<%= render layout: "koi/shared/inline_lightbox", locals: { title: (resource.new_record? ? "Add #{resource_class.title}" : "Edit #{resource.title}"), inline_id: "modal_nav_item", no_hide: true, footer: capture { %>
 
   <div class="button-group">
     <div>
       <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Save" , class: "button__save", form: "sitemap-modal-form" %>
     </div>
-    <%- unless resource.new_record? -%>
+    <% unless resource.new_record? %>
       <div>
         <%= link_to "Delete", resource, data: { confirm: "Are you sure you want to delete this navigation item and all it's children? This will not delete the module or page it's associated to." }, method: :delete, remote: true, class: "button__cancel", form: "sitemap-modal-form"  %>
       </div>
-    <%- end -%>
+    <% end %>
   </div>
 
-<%- } } do -%>
+<% } } do %>
 
   <%= simple_form_for resource, remote: true, html: { multipart: true, id: "sitemap-modal-form" } do |f| %>
 
@@ -49,4 +49,4 @@
     </div>
 
   <% end %>
-<%- end -%>
+<% end %>

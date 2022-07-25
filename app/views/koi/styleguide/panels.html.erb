@@ -1,8 +1,8 @@
-<%- content_for :title, "Koi Styleguide: Panels" -%>
+<% content_for :title, "Koi Styleguide: Panels" %>
 
-<%- content_for :side do -%>
-  <%= render "sidebar" -%>
-<%- end -%>
+<% content_for :side do %>
+  <%= render "sidebar" %>
+<% end %>
 
 <div class="spacing-xxx-tight">
   
@@ -15,26 +15,26 @@
     <p>Here you can see how the different classes work on the whole panel itself:</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel" } do %>
 <div class="panel__passive">
   panel__passive
 </div>
-  <%- end -%>
+  <% end %>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-padding" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-padding" } do %>
 <div class="panel__passive panel--padding">
   panel__passive<br />
   panel--padding
 </div>
-  <%- end -%>
+  <% end %>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-border" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-border" } do %>
 <div class="panel__passive panel--padding panel__border">
   panel__passive<br />
   panel--padding<br />
   panel__border
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
   <div class="content-spacing">
@@ -42,7 +42,7 @@
     <p>Now lets see how they work on individual elements. Here is a panel wrapper with two panel--padding elements inside it. The main panel has <code>panel__passive</code> and <code>panel__border</code>, while the internal panels have the <code>panel--padding</code> classes. The second panel has <code>panel--border-top</code> to add an internal border.</p>
   </div>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested" } do %>
 <div class="panel__passive panel__border">
   <div class="panel--padding">
     <h2 class="heading-four">My module</h2>
@@ -52,9 +52,9 @@
     <p>This is a grey panel.</p>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested-white" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-nested-white" } do %>
 <div class="panel panel__border">
   <div class="panel--padding">
     <h2 class="heading-four">My module</h2>
@@ -64,7 +64,7 @@
     <p>This is a plain white panel.</p>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -74,7 +74,7 @@
 
   <p>For more complex panels there are also <code>panel__no-top-radius</code> and <code>panel__no-bottom-radius</code> if you want to only deal with top-level panels.</p>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-stacked" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-stacked" } do %>
 <div class="panel">
   <div class="panel__primary panel--padding panel__no-bottom-radius">
     panel__primary panel--padding panel__no-bottom-radius
@@ -89,7 +89,7 @@
     panel__error panel--padding panel__no-top-radius
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -99,7 +99,7 @@
 
   <p>To space out panels consistently you can use the <code>panel-spacing</code> wrapper class to wrap around your panels:</p>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-spacing" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-spacing" } do %>
 <div class="panel-spacing">
   <div class="panel__passive panel--padding">
     Panel 1
@@ -111,7 +111,7 @@
     Panel 3
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
   <div class="content-spacing">
@@ -120,7 +120,7 @@
 
   <p>There are a few different colour panels ready for you to implement whatever sort of panel you need:</p>
   
-  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-colours" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "panel-colours" } do %>
 <div class="panel-spacing">
   <div class="panel__passive panel--padding">panel__passive</div>
   <div class="panel__primary panel--padding">panel__primary</div>
@@ -130,6 +130,6 @@
   <div class="panel__error panel--padding">panel__error</div>
   <div class="panel__alert panel--padding">panel__alert</div>
 </div>
-  <%- end -%>
+  <% end %>
 
 </div>

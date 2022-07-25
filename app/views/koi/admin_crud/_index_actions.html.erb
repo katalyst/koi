@@ -6,17 +6,17 @@
 
   <div class="align-box-right f">
     <div class="button-group">
-      <%= partial_with_wrapper do -%>
+      <%= partial_with_wrapper do %>
         <div>
-          <%= render partial: "index_custom_actions" -%>
+          <%= render partial: "index_custom_actions" %>
         </div>
-      <%- end -%>
-      <%- if is_exportable? %>
+      <% end %>
+      <% if is_exportable? %>
         <div>
           <%= link_to title_for(:action_csv), collection_path(format: :csv), :class => "button__primary button__small" %>
         </div>
       <% end %>
-      <%- if is_allowed?(:new) %>
+      <% if is_allowed?(:new) %>
         <div>
           <%= link_to title_for(:action_new), new_resource_path, :class => "button__confirm button__small" %>
         </div>

@@ -1,4 +1,4 @@
-<%- content_for :title, "Sign in" -%>
+<% content_for :title, "Sign in" %>
 
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.new_admin_session_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
 
@@ -28,11 +28,11 @@
       <div>
         <%= f.button :button, "Sign in", class: "button__success" %>
       </div>
-      <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <% if devise_mapping.recoverable? && controller_name != 'passwords' %>
         <div>
           <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
         </div>
-      <% end -%>
+      <% end %>
     </div>
   </div>
 

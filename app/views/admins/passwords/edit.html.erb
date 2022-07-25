@@ -1,4 +1,4 @@
-<%- content_for :title, "Change your password" -%>
+<% content_for :title, "Change your password" %>
 
 <%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :put, class: "form-vertical" }) do |f| %>
 

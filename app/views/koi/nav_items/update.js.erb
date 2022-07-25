@@ -1,4 +1,4 @@
-<% if resource.errors.any? -%>
+<% if resource.errors.any? %>
 
   var currentId = $.magnificPopup.instance.currItem.inlineElement.attr("id");
   var $newContent = $("<%= escape_javascript render ("modal_nav_item") %>");

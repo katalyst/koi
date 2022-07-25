@@ -1,5 +1,5 @@
 <% klass = f.object.class %>
-<%- klass.admin_attributes(:form).each do |attr| -%>
+<% klass.admin_attributes(:form).each do |attr| %>
   <% hint = f.hint(attr) || false %>
   <% if attr == :value %>
     <% f.object.derive_data_source(collection: true) %>
@@ -11,4 +11,4 @@
       render partial, :f => f, :attr => attr, :hint => hint
     %>
   <% end %>
-<%- end -%>
+<% end %>

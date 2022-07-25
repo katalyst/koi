@@ -1,12 +1,12 @@
-<li class="<%= "selected" if request.path.eql?(item_url) -%>">
-  <%- if item_url.is_a?(Hash) -%>
-    <a href="#"><%= item_name -%></a>
+<li class="<%= "selected" if request.path.eql?(item_url) %>">
+  <% if item_url.is_a?(Hash) %>
+    <a href="#"><%= item_name %></a>
     <ul>
-      <%- item_url.each do |child_name,child_url| -%>
-        <%= render "layouts/koi/navigation_item", item_name: child_name, item_url: child_url -%>
-      <%- end -%>
+      <% item_url.each do |child_name,child_url| %>
+        <%= render "layouts/koi/navigation_item", item_name: child_name, item_url: child_url %>
+      <% end %>
     </ul>
-  <%- else -%>
-    <a href="<%= item_url -%>"><%= item_name -%></a>
-  <%- end -%>
+  <% else %>
+    <a href="<%= item_url %>"><%= item_name %></a>
+  <% end %>
 </li>

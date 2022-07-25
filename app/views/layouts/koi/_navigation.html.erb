@@ -1,32 +1,32 @@
 <ul class="non-pane">
-  <li><%= link_to "View site", "/" -%></li>
-  <%= navigation_helper("Dashboard", koi_engine.dashboard_path) -%>
-  <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) -%>
+  <li><%= link_to "View site", "/" %></li>
+  <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
+  <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) %>
 
-  <%- Koi::Menu.items.each do |menu_name,menu_items| -%>
+  <% Koi::Menu.items.each do |menu_name,menu_items| %>
     <li>
-      <a href="#"><%= menu_name -%></a>
+      <a href="#"><%= menu_name %></a>
       <ul>
-        <%- menu_items.each do |item_name,item_url| -%>
-          <%= render "layouts/koi/navigation_item", item_name: item_name, item_url: item_url -%>
-        <%- end -%>
-        <%- if menu_name.to_s.eql?("Advanced") -%>
+        <% menu_items.each do |item_name,item_url| %>
+          <%= render "layouts/koi/navigation_item", item_name: item_name, item_url: item_url %>
+        <% end %>
+        <% if menu_name.to_s.eql?("Advanced") %>
           <li><%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %></li>
-        <%- end -%>
+        <% end %>
       </ul>
     </li>
-  <%- end -%>
+  <% end %>
   <li>
     <a href="#">Assets</a>
     <ul>
-      <%= navigation_helper("Images", koi_engine.images_path(tags: nil)) -%>
-      <%= navigation_helper("Documents", koi_engine.documents_path(tags: nil)) -%>
+      <%= navigation_helper("Images", koi_engine.images_path(tags: nil)) %>
+      <%= navigation_helper("Documents", koi_engine.documents_path(tags: nil)) %>
     </ul>
   </li>
-  <%= navigation_helper("Settings", koi_engine.translations_path) -%>
-  <%= navigation_helper("Help", koi_engine.help_path) -%>
-  <%- if Rails.env.development? -%>
-    <%= navigation_helper("Developer Styleguide", koi_engine.styleguide_path) -%>
-  <%- end -%>
+  <%= navigation_helper("Settings", koi_engine.translations_path) %>
+  <%= navigation_helper("Help", koi_engine.help_path) %>
+  <% if Rails.env.development? %>
+    <%= navigation_helper("Developer Styleguide", koi_engine.styleguide_path) %>
+  <% end %>
   <li><%= link_to "Logout", koi_engine.destroy_admin_session_path, method: :delete %></li>
 </ul>

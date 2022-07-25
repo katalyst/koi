@@ -69,78 +69,78 @@
 
 %>
 
-<%= content_tag :div, class: wrapper_class, data: wrapper_opts[:data] do -%>
+<%= content_tag :div, class: wrapper_class, data: wrapper_opts[:data] do %>
 
   <%# Hide the label if necessary %>
-  <%- unless hide_label -%>
-    <%= is_required ? f.label(id_field, required: true) : f.label(id_field) -%>
-  <%- end -%>
+  <% unless hide_label %>
+    <%= is_required ? f.label(id_field, required: true) : f.label(id_field) %>
+  <% end %>
 
   <%# Errors and hints %>
-  <%= f.error(id_field) -%>
-  <%= f.hint(id_field) -%>
+  <%= f.error(id_field) %>
+  <%= f.hint(id_field) %>
 
   <%# External hint position to support fake hints %>
   <div class="file-uploader--external-hint" data-uploader-hint-position></div>
 
   <%# Existing file link %>
-  <%- if !existing_image.blank? && !existing_name.blank? -%>
+  <% if !existing_image.blank? && !existing_name.blank? %>
     <div class="file-uploader--current-file">
-      <strong>Current file:</strong> <%= link_to existing_name, existing_image, target: "_blank" -%>
+      <strong>Current file:</strong> <%= link_to existing_name, existing_image, target: "_blank" %>
     </div>
-  <%- end -%>
+  <% end %>
 
   <%# The file uploader widget %>
-  <div class="file-uploader <%= html_class -%>">
+  <div class="file-uploader <%= html_class %>">
     <div>
       
       <%# Hidden input field for #{attr}_crop (crop_string) %>
-      <%= f.input_field crop_field, as: :hidden, readonly: true if croppable -%>
+      <%= f.input_field crop_field, as: :hidden, readonly: true if croppable %>
 
       <%# Hidden input field to #{attr}_id (asset id) %>
-      <%= f.input_field id_field, as: :hidden -%>
+      <%= f.input_field id_field, as: :hidden %>
 
       <%# Dummy input field to track image uploading and passing options to javascript %>
       <input type="file" 
         data-file-uploader 
-        data-file-max-count="<%= max_count -%>" 
-        data-file-max-size= "<%= max_size -%>" 
-        data-file-types="<%= types -%>" 
-        data-file-existing-image="<%= existing_image_original -%>" 
-        data-file-existing-name="<%= existing_name -%>", 
-        data-file-for="<%= "#{resource.class.name.underscore}_#{id_field}" -%>" 
-        data-file-image-ratio="<%= ratio -%>"
-        <%= "data-file-document" if is_file -%> 
-        <%- if croppable -%>
+        data-file-max-count="<%= max_count %>"
+        data-file-max-size= "<%= max_size %>"
+        data-file-types="<%= types %>"
+        data-file-existing-image="<%= existing_image_original %>"
+        data-file-existing-name="<%= existing_name %>",
+        data-file-for="<%= "#{resource.class.name.underscore}_#{id_field}" %>"
+        data-file-image-ratio="<%= ratio %>"
+        <%= "data-file-document" if is_file %>
+        <% if croppable %>
           data-file-croppable 
-          data-file-crop-string="<%= resource.send(crop_field) -%>" 
-          data-file-modal="crop_<%= attr -%>_modal" 
-          data-file-crop-field="<%= "#{resource.class.name.underscore}_#{attr}" -%>_crop" 
-        <%- end -%>
+          data-file-crop-string="<%= resource.send(crop_field) %>"
+          data-file-modal="crop_<%= attr %>_modal"
+          data-file-crop-field="<%= "#{resource.class.name.underscore}_#{attr}" %>_crop"
+        <% end %>
       />
 
     </div>
   </div>
 
   <%# Crop modal - only necessary if crop_ratio is present %>
-  <%- if croppable -%>
-    <div class="form--file-crop mfp-hide" id="crop_<%= attr -%>_modal">
+  <% if croppable %>
+    <div class="form--file-crop mfp-hide" id="crop_<%= attr %>_modal">
       <div class="form--file-crop--container">
         <div data-crop-image>
           <%# 
             Show the original image if already exists, otherwise
             loads in when the user uploads an image
           %>
-          <%- if existing_image_original -%>
-            <img src="<%= existing_image_original -%>" />
-          <%- end -%>
+          <% if existing_image_original %>
+            <img src="<%= existing_image_original %>" />
+          <% end %>
         </div>
       </div>
       <div class="form--file-crop--footer">
         <a href="#" class="button__confirm button__full" data-crop-save>Done</a>
       </div>
     </div>
-  <%- end -%>
+  <% end %>
 
-<%- end -%>
+<% end %>
 

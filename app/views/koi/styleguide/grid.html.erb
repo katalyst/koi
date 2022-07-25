@@ -1,14 +1,14 @@
-<%- content_for :title, "Koi Styleguide: Grid" -%>
+<% content_for :title, "Koi Styleguide: Grid" %>
 
-<%- content_for :side do -%>
-  <%= render "sidebar" -%>
-<%- end -%>
+<% content_for :side do %>
+  <%= render "sidebar" %>
+<% end %>
 
 <div class="content-spacing">
 
   <h2>Basic Grid</h2>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "grid" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid" } do %>
 <div>
   <div class="row">
     <div class="col-1-2">
@@ -55,13 +55,13 @@
     </div>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
   <h2>Responsive Grid</h2>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-responsive" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-responsive" } do %>
 <div>
   <div class="row">
     <div class="col-1-4 col-1-2m">
@@ -81,7 +81,7 @@
     </div>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <hr />
 
@@ -89,7 +89,7 @@
 
   <p>tight:</p>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-tight" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-tight" } do %>
 <div>
   <div class="row__tight">
     <div class="col-1-4 col-1-2m">
@@ -109,11 +109,11 @@
     </div>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
 
   <p>x-tight:</p>
 
-  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-x-tight" } do -%>
+  <%= render layout: "koi/styleguide/feature", locals: { id: "grid-x-tight" } do %>
 <div>
   <div class="row__x-tight">
     <div class="col-1-4 col-1-2m">
@@ -133,6 +133,6 @@
     </div>
   </div>
 </div>
-  <%- end -%>
+  <% end %>
   
 </div>
