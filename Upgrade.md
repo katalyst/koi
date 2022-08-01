@@ -1,5 +1,9 @@
 # Breaking changes and Upgrade Paths
 
+## Next release
+
+ * Added stimulus and inputmaps as dependencies, no configuration changes required
+
 ## 2.6.0
 
  * Added `Koi::ApplicationModel` for consistency with Rails Engine defaults. Extend this class for `has_crud` etc.
