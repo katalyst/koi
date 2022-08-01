@@ -11,3 +11,6 @@
 
 /* ckeditor resources */
 //= link_tree ../javascripts/koi/ckeditor
+
+/* Stimulus controllers */
+//= link_tree ../javascripts/koi/controllers

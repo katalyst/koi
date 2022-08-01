@@ -21,6 +21,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 6.1"
 
+  # Import maps for ES6 JS
+  s.add_dependency "importmap-rails"
+
+  # Hotwire JS dependencies
+  s.add_dependency "stimulus-rails"
+
+  # CSS compilation
   s.add_dependency "sass-rails", ">= 6"
 
   # Overwrite for default rails
