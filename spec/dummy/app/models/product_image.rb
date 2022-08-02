@@ -8,10 +8,10 @@ class ProductImage < ApplicationRecord
   PRODUCT_TYPES = %w[Image Title].freeze
 
   validates :title, presence: true,
-                    if:       "product_type.eql?('Title')"
+                    if:       -> { product_type.eql?("Title") }
 
   validates :image, presence: true,
-                    if:       "product_type.eql?('Image')"
+                    if:       -> { product_type.eql?("Image") }
 
   crud.config do
     fields image:        { type: :image },
