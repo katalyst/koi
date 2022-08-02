@@ -3,6 +3,7 @@
 ## Next release
 
  * Added stimulus and inputmaps as dependencies, no configuration changes required
+ * Removed `:nice_tags` input type – functionality has been integrated with `:tags`
 
 ## 2.6.0
 
