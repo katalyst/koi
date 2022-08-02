@@ -1,9 +1,14 @@
-<% id = "koi-#{ new_uuid }" %>
+<%
+  collection = attr.to_s.classify.constantize.all
+
+  if scope = f.object.class.crud.find(:fields, attr, :scope)
+    collection = collection.send(scope)
+  end
+%>
 <%= f.association attr.to_sym,
-  collection: attr.to_s.classify.constantize.all,
-  include_blank: true,
-  wrapper_html: { class: "form--medium" }, 
-  input_html: { id: id, data: { tag_input: "" } } %>
+                  collection:    collection,
+                  include_blank: true,
+                  wrapper_html:  { class: "form--medium" },
+                  input_html:    { style: "width: 100%", data: { controller: "select2" } } %>
 
 <%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>
-
