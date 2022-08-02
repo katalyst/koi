@@ -1,3 +1,11 @@
+2.7.0 / 2022-08-02
+==================
+
+* Add importmap and stimulus
+* Hide translations with empty labels
+* Fix i18n-active_record column type support
+* Fix for tags and multi-select
+
 2.6.4 / 2022-07-13
 ==================
 

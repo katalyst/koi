@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    koi (2.6.4)
+    koi (2.7.0)
       acts-as-taggable-on (>= 7.0.0)
       awesome_nested_set (>= 3.3.0)
       cocoon (>= 1.2.15)
@@ -334,9 +334,9 @@ GEM
     sqlite3 (1.4.2)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
-    strscan (3.0.3)
+    strscan (3.0.4)
     thor (1.2.1)
-    tilt (2.0.10)
+    tilt (2.0.11)
     timeout (0.3.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
