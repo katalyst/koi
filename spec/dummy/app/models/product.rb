@@ -42,7 +42,7 @@ class Product < ApplicationRecord
 
   crud.config do
     fields short_description: { type: :text },
-           genre_list:        { type: :nice_tags },
+           genre_list:        { type: :tags },
            active:            { type: :boolean },
            size:              { type: :select, data: SIZES },
            countries:         { type: :check_boxes, data: COUNTRIES },

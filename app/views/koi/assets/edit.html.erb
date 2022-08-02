@@ -1,32 +1,26 @@
 <%= render "koi/assets/listing" %>
 
-<%
-  tag_list = resource.tags.collect { |t| t.name }
-  #tag_list = tag_list | resource.data_source.call if resource.data_source
-  tag_list.sort!
-%>
-
 <% content_for :side do %>
 
-    <%= render "preview" %>
+  <%= render "preview" %>
 
-    <div class="asset--form">
-      <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
+  <div class="asset--form">
+    <%= simple_form_for(resource, html: { id: 'upload-form', multipart: true }) do |f| %>
 
-        <div class="inputs">
-          <%= f.error_notification %>
+      <div class="inputs">
+        <%= f.error_notification %>
 
-          <%= f.input :tag_list, as: :string, label: "#{ resource.new_record? ? "Add" : "Edit" } tags:", input_html: { class: "form--medium", value: tag_list.split(" ").join(","), data: { tag_input: "", tag_list: tag_list } } %>
-        </div>
+        <%= f.input :tag_list, collection: resource.tags.collect(&:name).sort,
+                    label:      "#{ resource.new_record? ? "Add" : "Edit" } tags:",
+                    input_html: { class: "form--medium", multiple: true, data: { controller: "select2", tags: "true" } }
+        %>
+      </div>
 
-        <div class="actions">
-          <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" %>
-          <%= link_to "Cancel", resource_path, class: "button__cancel" %>
-        </div>
+      <div class="actions">
+        <%= content_tag :button, "Save", type: "submit", name: "commit", value: "Continue", class: "button__save" %>
+        <%= link_to "Cancel", resource_path, class: "button__cancel" %>
+      </div>
 
-      <% end %>
-    </div>
-    
+    <% end %>
   </div>
-
 <% end %>
