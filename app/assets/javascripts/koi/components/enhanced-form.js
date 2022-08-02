@@ -20,7 +20,7 @@
         "closeText",
         "contrainInput",
         "currentText",
-        "dateFormat", 
+        "dateFormat",
         "dayNames",
         "dayNamesMin",
         "dayNamesShort",
@@ -39,7 +39,7 @@
         "selectOtherMonths",
         "shortYearCutoff",
         "showAnim",
-        "showButtonPanel", 
+        "showButtonPanel",
         "showCurrentAtPos",
         "showMonthAfterYear",
         "showOptions",
@@ -111,36 +111,10 @@
       });
     },
 
-    tagifyInputs: function(){
-      $("[data-tag-input]").each(function(){
-        var $tagInput = $(this);
-
-        // Abort this iteration if already select2
-        if($tagInput.data("select2")) {
-          return true;
-        }
-
-        var select2options = {
-          tokenSeparators: [","," "]
-        };
-
-        if($tagInput.is("[data-tag-list]")) {
-          select2options.tags = JSON.parse($tagInput.attr("data-tag-list"));
-        }
-
-        $tagInput.select2(select2options);
-        $tagInput.select2("container").find("ul.select2-choices").sortable({
-          containment: 'parent',
-          start:  function() { $tagInput.select2("onSortStart"); },
-          update: function() { $tagInput.select2("onSortEnd"); }
-        });
-      });
-    },
-
     // Build settings from a field
     _buildDatepickerSettingsForField: function($field, defaultSettings) {
       defaultSettings = $.extend({}, defaultSettings || {});
-      // Loop over the array of options above and over-write 
+      // Loop over the array of options above and over-write
       // the default settings with the new ones
       $.each(FormHelpers.datePickerSettingsList, function(){
         var attribute = "data-datepicker-" + this.toLowerCase();
@@ -247,9 +221,9 @@
     },
 
     isLinkAButton: function(element) {
-      return element.is(".button") || 
-             element.is(".button__small") || 
-             element.is(".button__save") || 
+      return element.is(".button") ||
+             element.is(".button__small") ||
+             element.is(".button__save") ||
              element.is(".button__delete");
     },
 
@@ -275,7 +249,6 @@
 
     init: function(){
       FormHelpers.enhanceForms();
-      FormHelpers.tagifyInputs();
       FormHelpers.bindDatepickers();
       FormHelpers.bindCustomDisableLinks();
       FormHelpers.bindInputMasks();
