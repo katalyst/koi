@@ -60,11 +60,11 @@
                   Admin
                 </div>
                 <% if Koi::Menu.filterable %>
-                  <div class="navigation-mobile--filter">
+                  <div class="navigation-mobile--filter ornament-form">
                     <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls %> />
                   </div>
                 <% end %>
-                <%= render :partial => "layouts/koi/navigation" %>
+                <%= render "layouts/koi/navigation" %>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@
           <% end %>
         </header>
 
-        <main class="layout--main <%= yield(:layout_class) %>" id="main">
+        <main class="layout--main <%= yield(:layout_class) %> <%= content_for(:form_class) %>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">
