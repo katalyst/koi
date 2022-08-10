@@ -1,0 +1,99 @@
+.version-status-bar {
+  --background: #EBF9EB;
+  --color: #4DD45C;
+  --border: #4DD45C;
+
+  min-height: 3rem;
+  line-height: 3rem;
+  padding: 0 1.25rem 0 1.5rem;
+  background: var(--background);
+  color: var(--color);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "status actions";
+  align-items: baseline;
+  grid-column-gap: 2rem;
+
+  &[data-state=draft] {
+    --background: #FEFAF3;
+    --color: #FFA800;
+    --border: #FFA800;
+  }
+
+  &[data-state=dirty] {
+    --background: #eee;
+    --color: #888;
+    --border: #aaa;
+  }
+
+  .status-text {
+    display: none;
+    grid-area: status;
+    font-weight: bold;
+  }
+
+  &[data-state=published] .status-text[data-published],
+  &[data-state=draft] .status-text[data-draft],
+  &[data-state=dirty] .status-text[data-dirty] {
+    display: unset;
+  }
+
+  .version-actions {
+    grid-area: actions;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
+  [type=submit] {
+    color: inherit;
+    line-height: 1rem;
+  }
+
+  .button {
+    background: var(--color);
+    border: 1px solid var(--border);
+    color: white;
+
+    &[disabled] {
+      background: var(--color);
+      opacity: 0.8;
+    }
+  }
+
+  .button-outline {
+    background: var(--background);
+    border: 1px solid var(--border);
+    color: var(--color);
+
+    &[disabled] {
+      background: var(--background);
+    }
+  }
+
+  &[data-state=published] {
+    [value=publish],
+    [value=save],
+    [value=revert],
+    [value=discard] {
+      display: none;
+    }
+  }
+
+  &[data-state=draft] {
+    [value=save],
+    [value=discard] {
+      display: none;
+    }
+  }
+
+  &[data-state=dirty] {
+    [value=revert] {
+      display: none;
+    }
+  }
+}

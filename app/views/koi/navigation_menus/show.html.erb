@@ -1,0 +1,44 @@
+<% content_for :title, menu.title %>
+<% content_for(:breadcrumbs) { link_to "Navigations", navigation_menus_path } %>
+<% content_for :layout_class, "collapse-header-spacing extra-side-spacing" %>
+<% content_for :form_class, "govuk-forms" %>
+<% content_for :layout_controller, "edit" %>
+<% content_for :layout_action, "change->edit#change" %>
+
+<%= version_status_bar(menu, form_id: dom_id(menu)) %>
+
+<div class="navigation-menu-columns">
+
+  <%= form_with(model:  menu,
+                id:     dom_id(menu),
+                method: :patch,
+                class:  "navigation-editor navigation-menu",
+                html:   { role: "tree" },
+                data:   { controller: "navigation", action: "submit->navigation#reindex" }) do |form| %>
+
+    <div class="navigation-menu-header">
+      <div class="link-item">
+        <div class="indentation">
+          <h4 class="heading-four">Title</h4>
+        </div>
+        <h4 class="heading-four">Url</h4>
+        <h4 class="heading-four actions">Actions</h4>
+      </div>
+    </div>
+
+    <%# a hidden field to ensure that even if there are no links we will still receive form data %>
+    <%= fields("navigation_menu[navigation_links_attributes][]", model: NavigationLink.new, index: nil, skip_default_ids: true) do |form| %>
+      <%= form.hidden_field :id %>
+    <% end %>
+
+    <%= editable_list id: dom_id(menu, :links), data: { navigation_target: "menu", action: "reindex->navigation#reindex reset->navigation#reset" } do %>
+      <%= render partial: "navigation_menu_link", collection: menu.latest_navigation_links || [], as: :link %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= content_for :side_top do %>
+  <aside>
+    <%= render "koi/navigation_menus/navigation_editor_index", menu: menu %>
+  </aside>
+<% end %>

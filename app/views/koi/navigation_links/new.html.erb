@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "navigation-editor-form" do %>
+  <h3 class="heading-three">New link</h3>
+  <%= render "form", link: link, path: navigation_menu_links_path(link.navigation_menu) %>
+<% end %>

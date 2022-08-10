@@ -8,6 +8,7 @@
 //= link koi/ckeditor.js
 //= link koi/common.js
 //= link koi/nav_items.js
+//= link navigation.js
 
 /* ckeditor resources */
 //= link_tree ../javascripts/koi/ckeditor

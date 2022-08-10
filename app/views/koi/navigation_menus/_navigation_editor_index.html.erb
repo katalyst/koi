@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "navigation-editor-form" do %>
+  <%= render partial: "koi/navigation_menus/add_navigation_link", collection: new_items_for_navigation(menu), as: :item %>
+<% end %>

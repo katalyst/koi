@@ -1,4 +1,13 @@
 PATH
+  remote: ../navigation
+  specs:
+    navigation (0.1.0)
+      activerecord
+      activesupport
+      importmap-rails
+      stimulus-rails
+
+PATH
   remote: .
   specs:
     koi (2.7.0)
@@ -396,6 +405,7 @@ DEPENDENCIES
   faker
   i18n-active_record
   koi!
+  navigation!
   puma
   rails-controller-testing
   rake

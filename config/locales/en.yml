@@ -31,6 +31,11 @@ en:
         previous: "‹ Prev"
         next: "Next ›"
         truncate: "..."
+      versions:
+        status:
+          published_html: Published <i>(last updated %{last_update})</i>
+          draft_html: Draft
+          dirty_html: Unsaved changes
   # https://github.com/svenfuchs/i18n-active_record/issues/106
   i18n:
     plural:
