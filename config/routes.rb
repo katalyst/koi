@@ -34,6 +34,10 @@ Koi::Engine.routes.draw do
       post :savesort
     end
   end
+  resources :navigation_menus do
+    resources :navigation_links, as: :links, path: :links
+  end
+
   post "clear-cache" => "application#clear_cache", :as => :clear_cache
   get  "help" => "application#help", :as => :help
   get  "dashboard" => "application#index", :as => :dashboard

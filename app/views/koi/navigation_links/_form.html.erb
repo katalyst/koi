@@ -1,0 +1,22 @@
+<%= form_with model: link, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.govuk_text_field :title %>
+  <%= form.govuk_text_field :url %>
+
+  <%= form.govuk_check_boxes_fieldset :visible,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
+  <% end %>
+
+  <%= form.govuk_check_boxes_fieldset :new_tab,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :new_tab, 1, 0, multiple: false, label: { text: "Open in new tab?" } %>
+  <% end %>
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", navigation_menu_path(link.menu), class:"govuk-link" %>
+  </div>
+<% end %>

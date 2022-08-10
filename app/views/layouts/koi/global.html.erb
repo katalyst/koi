@@ -45,6 +45,7 @@
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjgOvjmIVHFO-1IVSYWeZN-1Yp_MkjeW0&libraries=places"></script>
     <% end %>
 
+    <%= render partial: "koi/shared/svg_icons", locals: { class: "hidden" }, formats: %i[svg] %>
   </head>
   <body class="js-enabled body__<%= Rails.env.downcase %>" data-controller="ornament">
 
@@ -60,11 +61,14 @@
                   Admin
                 </div>
                 <% if Koi::Menu.filterable %>
-                  <div class="navigation-mobile--filter">
+                  <div class="navigation-mobile--filter ornament-form">
                     <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls %> />
                   </div>
                 <% end %>
-                <%= render :partial => "layouts/koi/navigation" %>
+                <%= render_navigation_menu(@navigation_menu,
+                                           ul_options:       { class: "non-pane" },
+                                           li_options:       { class: "navigation-item" },
+                                           child_ul_options: { class: "has-children", data: { mobilenav_forward: true } }) %>
               </div>
             </div>
           </div>
@@ -121,7 +125,7 @@
           <% end %>
         </header>
 
-        <main class="layout--main <%= yield(:layout_class) %>" data-controller="<%= yield(:layout_controller) %>" data-action="<%= yield(:layout_action) %>" id="main">
+        <main class="layout--main <%= yield(:layout_class) %> <%= content_for(:form_class) || "ornament-form" %>" data-controller="<%= yield(:layout_controller) %>" data-action="<%= yield(:layout_action) %>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">

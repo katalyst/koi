@@ -1,0 +1,25 @@
+<%= tag.div draggable: true,
+            data:      {
+              turbo_frame: "navigation-editor-form",
+              controller:  "new-editable-item",
+              action:      <<~ACTIONS,
+                  dragstart->new-editable-item#dragstart
+              ACTIONS
+            },
+            class:     "button__primary add-new-menu-link" do %>
+  <svg>
+    <use xlink:href="#icon-drag"/>
+  </svg>
+
+  Drag to place new link
+
+  <template data-new-editable-item-target="template">
+    <%= render "koi/navigation_menus/navigation_menu_link", link: item %>
+  </template>
+<% end %>
+
+<%# When rendering new link, removes all incomplete "new" items %>
+<%= turbo_stream.replace dom_id(item) do %>
+  <div id="<%= dom_id(item) %>" class="link-item" data-controller="navigation-editor-item" data-delete>
+  </div>
+<% end %>

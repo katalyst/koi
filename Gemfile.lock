@@ -1,4 +1,9 @@
 PATH
+  remote: ../navigation
+  specs:
+    katalyst-navigation (0.1.0)
+
+PATH
   remote: .
   specs:
     koi (2.7.0)
@@ -395,6 +400,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   i18n-active_record
+  katalyst-navigation!
   koi!
   puma
   rails-controller-testing

@@ -1,0 +1,15 @@
+<li class="navigation-menu-link"
+    draggable="true"
+    role="treeitem"
+    data-navigation-item
+    data-navigation-index="<%= link.index %>"
+    data-navigation-depth="<%= link.depth %>"
+    data-deny-de-nest
+    data-deny-nest
+    data-deny-collapse
+    data-deny-expand
+    data-deny-delete
+    data-deny-drag
+    data-deny-edit>
+  <%= render "koi/navigation_menus/link_item", link: link %>
+</li>

@@ -1,0 +1,65 @@
+<div id="<%= dom_id(link) %>" class="link-item" data-controller="navigation-editor-item">
+  <div class="tree">
+    <div class="list-actions collapse-actions">
+      <%= button_tag class: "navigation-editor--item--collapse tooltip", data: { action: "navigation#collapse" } do %>
+        <svg class="icon icon-collapse">
+          <use xlink:href="#icon-collapse"/>
+        </svg>
+        <span class="tooltip-text">Collapse tree</span>
+      <% end %>
+
+      <%= button_tag class: "navigation-editor--item--expand tooltip", data: { action: "navigation#expand" } do %>
+        <svg class="icon icon-expand">
+          <use xlink:href="#icon-expand"/>
+        </svg>
+        <span class="tooltip-text">Expand tree</span>
+      <% end %>
+    </div>
+
+    <div class="navigation-menu-link-icon <%= link.url.present? ? "link-icon" : "title-icon" %> <%= "invisible-icon" unless link.visible? %>"></div>
+    <h4 class="title" title="<%= link.title %>"><%= link.title %></h4>
+    <% unless link.visible? %>
+      <%= icon("hidden", width: "16px", height: "16px") %>
+    <% end %>
+  </div>
+
+  <%= link_to link.url || "", link.url || "", class: "url" %>
+
+  <div class="list-actions">
+    <%= button_tag class: "navigation-editor--item--de-nest tooltip", data: { action: "navigation#deNest" } do %>
+      <svg class="icon icon-de-nest">
+        <use xlink:href="#icon-de-nest"/>
+      </svg>
+      <span class="tooltip-text">Move in</span>
+    <% end %>
+
+    <%= button_tag class: "navigation-editor--item--nest tooltip", data: { action: "navigation#nest" } do %>
+      <svg class="icon icon-nest">
+        <use xlink:href="#icon-nest"/>
+      </svg>
+      <span class="tooltip-text">Move out</span>
+    <% end %>
+
+    <%= link_to link.persisted? ? edit_navigation_menu_link_path(link.menu, link) : new_navigation_menu_link_path(link.menu, link),
+                class: "navigation-editor--item--edit tooltip",
+                data:  { turbo_frame: "navigation-editor-form" } do %>
+      <svg class="icon icon-edit">
+        <use xlink:href="#icon-edit"/>
+      </svg>
+      <span class="tooltip-text">Edit</span>
+    <% end %>
+
+    <%= button_tag class: "navigation-editor--item--delete tooltip", data: { action: "navigation#remove" } do %>
+      <svg class="icon icon-delete">
+        <use xlink:href="#icon-delete"/>
+      </svg>
+      <span class="tooltip-text">Delete</span>
+    <% end %>
+  </div>
+
+  <%= fields("menu[items_attributes][]", model: link, index: nil, skip_default_ids: true) do |form| %>
+    <%= form.hidden_field :id %>
+    <%= form.hidden_field :depth, data: { navigation_depth_input: true } %>
+    <%= form.hidden_field :index, data: { navigation_index_input: true } %>
+  <% end %>
+</div>
