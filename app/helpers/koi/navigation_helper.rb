@@ -12,7 +12,7 @@ module Koi
 
     def cache_render_navigation(cache_key, nav_items_fetch_key = nil, options = {})
       request_path = request.path.parameterize if request.path
-      cache_key = "#{request_path}_#{cache_key}"
+      cache_key    = "#{request_path}_#{cache_key}"
 
       Rails.cache.fetch(prefix_cache_key(cache_key), expires_in: cache_expiry) do
         get_render_navigation(nav_items_fetch_key, options)
@@ -45,7 +45,7 @@ module Koi
         active_item_prefixes.reverse.each do |prefix|
           break if setting.present?
 
-          value = Setting.find_by(prefix: prefix, key: key).try(:value)
+          value   = Setting.find_by(prefix: prefix, key: key).try(:value)
           setting = value if value.present?
         end
       end
@@ -65,6 +65,44 @@ module Koi
 
     def breadcrumb
       @breadcrumb ||= nav.self_and_descendants.compact.min_by(&:negative_highlight)
+    end
+
+    # @param(menu: NavigationMenu)
+    # @return Structured HTML containing top level + nested navigation links
+    def render_navigation_menu(menu, ul_options: {}, child_ul_options: {}, li_options: {})
+      return unless menu&.current_version&.present?
+
+      cache menu.current_version do
+        content = with_output_buffer do
+          menu.current_tree.each do |link|
+            output_buffer << render_navigation_link(link, child_ul_options:, li_options:)
+          end
+        end
+        output_buffer << content_tag(:ul, content, ul_options)
+      end
+    end
+
+    # Renders an `a` tag for the given NavigationLink.
+    # Renders a `ul` containing the children of the NavigationLink.
+    def render_navigation_link(link, child_ul_options: {}, li_options: {})
+      content = with_output_buffer do
+        output_buffer << link_to(link.title, link.url)
+        output_buffer << render_nested_navigation(link, child_ul_options:, li_options:) if link.children.any?
+      end
+      content_tag :li, content, li_options
+    end
+
+    def render_nested_navigation(link, child_ul_options: {}, li_options: {})
+      content = with_output_buffer do
+        link.children.each do |child|
+          output_buffer << render_navigation_link(child, child_ul_options:, li_options:)
+        end
+      end
+      content_tag :ul, content, child_ul_options
+    end
+
+    def new_items_for_navigation(menu)
+      [NavigationLink.new(navigation_menu: menu)]
     end
 
     private

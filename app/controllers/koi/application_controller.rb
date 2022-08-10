@@ -8,6 +8,7 @@ module Koi
     helper :all
     layout :layout_by_resource
     before_action :authenticate_admin, except: :login
+    before_action :set_navigation_menu, except: :login
 
     def login
       if admin_signed_in?
@@ -46,6 +47,10 @@ module Koi
 
     def authenticate_admin
       redirect_to koi_engine.new_admin_session_path unless admin_signed_in?
+    end
+
+    def set_navigation_menu
+      @navigation_menu = NavigationMenu.find_by(slug: "admin")
     end
   end
 end

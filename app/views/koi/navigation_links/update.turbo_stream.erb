@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "navigation-editor-form" do %>
+  <%= render "koi/navigation_menus/navigation_editor_index", menu: link.navigation_menu %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(previous) do %>
+  <%= render "koi/navigation_menus/link_item", link: link %>
+<% end %>

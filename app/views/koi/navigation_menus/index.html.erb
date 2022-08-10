@@ -1,0 +1,17 @@
+<% content_for :title, "Navigations" %>
+
+<nav class="index-table-actions">
+  <div class="item-actions">
+    <%= link_to "Add", new_navigation_menu_path, class: "button__primary" %>
+  </div>
+</nav>
+
+<%= table_with collection: menus, sort: sort, class: "index-table" do |row, menu| %>
+  <%= row.cell :title do |cell| %>
+    <%= link_to cell.value, navigation_menu_path(menu) %>
+  <% end %>
+  <%= row.cell :slug %>
+  <%= row.cell :actions do |cell| %>
+    <%= button_to "Delete", navigation_menu_path(menu), method: :delete %>
+  <% end %>
+<% end %>

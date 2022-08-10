@@ -5,6 +5,8 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in koi.gemspec.
 gemspec
 
+gem "navigation", path: "../navigation"
+
 group :development, :test do
   gem "brakeman"
   gem "factory_bot_rails"

@@ -82,6 +82,7 @@ $site-gutters:
 $primary-color:           #ff521f;
 $primary-color-light:     lighten($primary-color, 20);
 $primary-color-x-light:   lighten($primary-color, 40);
+$tertiary-color:          $primary-color;
 
 $secondary-color:          #999;
 $orange:                   #fc6b02;

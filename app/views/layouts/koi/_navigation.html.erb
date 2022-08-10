@@ -1,7 +1,8 @@
 <ul class="non-pane">
   <li><%= link_to "View site", "/" %></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
-  <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) %>
+  <%= navigation_helper("Sitemap (OLD)", koi_engine.sitemap_nav_items_path) %>
+  <%= navigation_helper("Sitemap (NEW)", koi_engine.navigations_path) %>
 
   <% Koi::Menu.items.each do |menu_name,menu_items| %>
     <li>

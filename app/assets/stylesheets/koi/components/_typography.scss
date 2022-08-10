@@ -192,12 +192,14 @@ a, button {
   @include color-link($link-color, $link-hover-color);
 }
 
-[type="text"], [type="password"], [type="date"], [type="datetime"],
-[type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
-[type="url"], textarea {
-  font: inherit;
-  line-height: $base-line-height;
-  @include font($body-font);
+.ornament-form {
+  [type="text"], [type="password"], [type="date"], [type="datetime"],
+  [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
+  [type="url"], textarea {
+    font: inherit;
+    line-height: $base-line-height;
+    @include font($body-font);
+  }
 }
 
 // STYLEGUIDE CODE 
