@@ -14,7 +14,7 @@
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
 
   @include media-query($breakpoint-header, min) {
-    right: $tray-width;
+    left: $tray-width;
   }
 
   .layout__headerless & {
@@ -63,13 +63,14 @@
 
 .header--environment {
   margin-left: $xxxxx-small-unit;
+  color: $foreground-color;
 }
 
-.header--actions {
+.header--actions, .refresh-actions {
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
-  margin-left: auto;
+  margin-right: auto;
 
   li + li {
     padding-left: $xxxxx-small-unit;
@@ -96,4 +97,8 @@
       margin: 0 auto;
     }
   }
+}
+
+.refresh-actions {
+  margin-right: 0;
 }
