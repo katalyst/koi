@@ -57,6 +57,9 @@
               <div class="pane--navigation-container">
                 <div class="navigation-mobile--header">
                   Koi
+                  <span class="button__pill header--environment">
+                    <%= Rails.env.upcase %>
+                  </span>
                 </div>
                 <% if Koi::Menu.filterable %>
                   <div class="navigation-mobile--filter">
@@ -73,14 +76,14 @@
       <div class="layout--content">
 
         <header class="header global-header" role="banner">
-          <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
-            Koi
-          <% end %>
-          <span class="header--environment button__pill">
-            <%= Rails.env.upcase %>
-          </span>
           <% if Koi::PriorityMenu.present? %>
             <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
+              <li>
+                <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
+                  <%= icon("menu", fill: "#ffffff") %>
+                  <%= icon("cross", fill: "#ffffff") %>
+                </button>
+              </li>
               <% Koi::PriorityMenu.items.each do |menu_item| %>
                 <li class="<%= "action" if menu_item[:icon] %>">
                   <%
@@ -98,18 +101,23 @@
                   <% end %>
                 </li>
               <% end %>
-              <% if current_admin.god? %>
-                <li class="action">
-                  <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
-                    <%= icon("refresh", fill: "#2ECC71") %>
-                  <% end %>
-                </li>
-              <% end %>
               <li>
-                <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
-                  <%= icon("menu", fill: "#ffffff") %>
-                  <%= icon("cross", fill: "#ffffff") %>
-                </button>
+                <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
+                  Koi
+                <% end %>
+                <span class="header--environment button__pill">
+                  <%= Rails.env.upcase %>
+                </span>
+              </li>
+            </ul>
+          <% end %>
+
+          <% if current_admin.god? %>
+            <ul class="header--actions refresh-actions" role="navigation" aria-label="Refresh Navigation">
+              <li class="action">
+                <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
+                  <%= icon("refresh", fill: "#2ECC71") %>
+                <% end %>
               </li>
             </ul>
           <% end %>

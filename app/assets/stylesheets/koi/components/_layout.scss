@@ -34,14 +34,14 @@ body.lightbox-open {
   width: $layout-mobile-tray-width;
 
   @include media-query($breakpoint-header, min) {
-    @include order(2);
+    @include order(1);
     @include flex-grow(0);
     @include flex-shrink(0);
   }
 
   @include media-query($breakpoint-header) {
     display: none;
-    float: right;
+    float: left;
   }
 }
 
@@ -54,6 +54,7 @@ body.lightbox-open {
   @include media-query($breakpoint-header, min) {
     @include flex-grow(1);
     @include flex-shrink(1);
+    @include order(2);
   }
 }
 
@@ -118,7 +119,7 @@ body.lightbox-open {
 .layout-open {
   .layout--content {
     @include media-query($breakpoint-header) {
-      transform: translate(-($layout-mobile-tray-width), 0);
+      transform: translate(($layout-mobile-tray-width), 0);
     }
   }
 
