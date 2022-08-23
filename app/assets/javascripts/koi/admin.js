@@ -31,7 +31,6 @@
 //= require koi/ornament/accessibility
 //= require koi/ornament/external_links
 //= require koi/ornament/uploader
-//= require koi/ornament/refresh
 
 //= require koi/components/show
 //= require koi/components/tabs
