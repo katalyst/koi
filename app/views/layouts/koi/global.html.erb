@@ -45,7 +45,7 @@
     <% end %>
 
   </head>
-  <body class="body__<%= Rails.env.downcase %>">
+  <body class="body__<%= Rails.env.downcase %>" data-controller="ornament">
 
     <a class="skip-link" href="#main">skip to content</a>
 
@@ -165,7 +165,7 @@
 
           <%= yield :above_layout %>
           <% if content_for?(:global) || !yield.blank? %>
-            <div class="layout--container">
+            <div class="layout--container" data-ornament-target="layoutContainer">
               <%= content_for?(:global) ? yield(:global) : yield %>
             </div>
           <% end %>
