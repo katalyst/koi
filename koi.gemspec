@@ -76,6 +76,9 @@ Gem::Specification.new do |s|
   # Nested Forms
   s.add_dependency "cocoon", ">= 1.2.15"
 
+  # Index tables
+  s.add_dependency "katalyst-tables"
+
   # Allow non-digest references to assets (ckeditor)
   s.add_dependency "non-digest-assets"
 
