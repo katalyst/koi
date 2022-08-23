@@ -26,6 +26,7 @@
     <%= render "layouts/koi/webfonts" %>
 
     <!-- STYLES -->
+    <%= stylesheet_link_tag "katalyst/govuk/formbuilder" %>
     <%= stylesheet_link_tag "koi/admin" %>
     <%= yield :styles %>
     <%= yield :stylesheets %>
@@ -45,7 +46,7 @@
     <% end %>
 
   </head>
-  <body class="body__<%= Rails.env.downcase %>" data-controller="ornament">
+  <body class="js-enabled body__<%= Rails.env.downcase %>" data-controller="ornament">
 
     <a class="skip-link" href="#main">skip to content</a>
 

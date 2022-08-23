@@ -45,6 +45,9 @@ Gem::Specification.new do |s|
   # simple_form v5.1.0 supports rails 6.1
   s.add_dependency "simple_form", ">= 5.1.0"
 
+  # Form builder for admin crud
+  s.add_dependency "katalyst-govuk-formbuilder"
+
   # Tree
   # awesome_nested_set v3.3.0 supports rails 6.1
   s.add_dependency "awesome_nested_set", ">= 3.3.0"
