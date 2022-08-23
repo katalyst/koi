@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "importmap-rails" # ensure app.config supports `importmap`
-require "stimulus-rails" # ensure assets are available for import mapping
-
 require_relative "middleware/url_redirect"
 
 module Koi
