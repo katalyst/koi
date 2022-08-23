@@ -2,6 +2,8 @@
 
 module Koi
   module ApplicationHelper
+    include Katalyst::Tables::Frontend
+
     def kt(args = {})
       args.merge!(resource.attributes.symbolize_keys) if params[:id].present? && respond_to?(:resource)
 

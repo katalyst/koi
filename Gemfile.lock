@@ -15,6 +15,7 @@ PATH
       jquery-rails (>= 4.4)
       jquery-ui-rails (>= 6)
       kaminari (>= 1.2.1)
+      katalyst-tables
       non-digest-assets
       rails (>= 6.1)
       sass-rails (>= 6)
@@ -174,6 +175,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    katalyst-tables (1.0.0)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
