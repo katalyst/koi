@@ -4,12 +4,12 @@
 (function (document, window, $) {
 
   "use strict";
-
-  $(document).on("ready page:change", function () {
+  
+  $(document).on("pjax:end", "*", function () {
     $(document).trigger("ornament:refresh");
   });
 
-  $(document).on("pjax:end", "*", function () {
+  $(document).on("turbo:load", function () {
     $(document).trigger("ornament:refresh");
   });
 

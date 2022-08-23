@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
 
   # Hotwire JS dependencies
   s.add_dependency "stimulus-rails"
+  s.add_dependency "turbo-rails"
 
   # CSS compilation
   s.add_dependency "sass-rails", ">= 6"
