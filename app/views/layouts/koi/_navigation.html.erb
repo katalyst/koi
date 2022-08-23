@@ -1,5 +1,5 @@
 <ul class="non-pane">
-  <li><%= link_to "View site", "/" %></li>
+  <li><%= link_to "View site", "/", data: { turbo: false } %></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
   <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) %>
 

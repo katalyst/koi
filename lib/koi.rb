@@ -20,6 +20,7 @@ require "select2-rails"
 require "simple_form"
 require "simple_navigation"
 require "stimulus-rails"
+require "turbo-rails"
 
 require "koi/config"
 require "has_crud/has_crud"

@@ -29,14 +29,16 @@ module HasCrud
 
       module InstanceMethods
         def create
-          create! do |success, _failure|
+          create! do |success, failure|
             success.html { redirect_to redirect_path }
+            failure.html { render :new, status: :unprocessable_entity }
           end
         end
 
         def update
-          update! do |success, _failure|
+          update! do |success, failure|
             success.html { redirect_to redirect_path }
+            failure.html { render :edit, status: :unprocessable_entity }
           end
         end
 
