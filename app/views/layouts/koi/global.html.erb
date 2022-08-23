@@ -115,7 +115,7 @@
           <% end %>
         </header>
 
-        <main class="layout--main <%= yield(:layout_class) %>" id="main">
+        <main class="layout--main <%= yield(:layout_class) %>" data-controller="<%= yield(:layout_controller) %>" data-action="<%= yield(:layout_action) %>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">
