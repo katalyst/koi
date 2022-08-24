@@ -43,4 +43,8 @@ Koi::Engine.routes.draw do
     get "/styleguide"           => "styleguide#index"
     get "/styleguide/:template" => "styleguide#show", template: /[-_a-z]+/
   end
+
+  authenticate :admin, ->(admin) { admin.present? } do
+    mount Flipper::UI.app(Flipper) => "flipper"
+  end
 end

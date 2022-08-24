@@ -82,6 +82,10 @@ Gem::Specification.new do |s|
   # Allow non-digest references to assets (ckeditor)
   s.add_dependency "non-digest-assets"
 
+  s.add_dependency "flipper"
+  s.add_dependency "flipper-active_record"
+  s.add_dependency "flipper-ui"
+
   # Settings
   s.add_dependency "i18n-active_record"
   s.metadata = {
