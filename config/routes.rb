@@ -43,4 +43,6 @@ Koi::Engine.routes.draw do
     get "/styleguide"           => "styleguide#index"
     get "/styleguide/:template" => "styleguide#show", template: /[-_a-z]+/
   end
+
+  mount Flipper::UI.app(Flipper) => "flipper"
 end

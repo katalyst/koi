@@ -37,5 +37,9 @@ require "koi/sitemap"
 require "koi/caching"
 require "koi/engine"
 
+require "flipper"
+require "flipper/ui"
+require "flipper/adapters/active_record"
+
 module Koi
 end
