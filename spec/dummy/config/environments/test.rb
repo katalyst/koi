@@ -39,6 +39,11 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Set a css_compressor so sassc-rails does not overwrite the compressor when running the tests
+  # https://github.com/sass/sassc-rails/issues/93
+  # https://github.com/alphagov/govuk-frontend/issues/1350#issuecomment-493129270
+  config.assets.css_compressor = nil
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
