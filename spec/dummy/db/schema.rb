@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_30_104437) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_24_040452) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -54,6 +56,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_104437) do
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
+  create_table "flipper_features", force: :cascade do |t|
+    t.string "key", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_flipper_features_on_key", unique: true
+  end
+
+  create_table "flipper_gates", force: :cascade do |t|
+    t.string "feature_key", null: false
+    t.string "key", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -89,25 +107,35 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_104437) do
   end
 
   create_table "navigation_links", force: :cascade do |t|
-    t.bigint "navigation_menu_id"
+    t.integer "navigation_menu_id", null: false
     t.string "title", null: false
     t.string "url", null: false
-    t.string "css"
     t.boolean "visible", default: true
-    t.integer "index", null: false
-    t.integer "depth", default: 0, null: false
     t.boolean "new_tab"
     t.string "aria_label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["navigation_menu_id"], name: "index_navigation_links_on_navigation_menu_id"
+  end
+
+  create_table "navigation_menu_versions", force: :cascade do |t|
+    t.integer "parent_id", null: false
+    t.json "items"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_navigation_menu_versions_on_parent_id"
   end
 
   create_table "navigation_menus", force: :cascade do |t|
     t.string "title"
     t.string "slug"
-    t.string "subdomain"
+    t.integer "current_version_id"
+    t.integer "latest_version_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["current_version_id"], name: "index_navigation_menus_on_current_version_id"
+    t.index ["latest_version_id"], name: "index_navigation_menus_on_latest_version_id"
+    t.index ["slug"], name: "index_navigation_menus_on_slug"
   end
 
   create_table "news_items", force: :cascade do |t|
@@ -263,4 +291,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_104437) do
   end
 
   add_foreign_key "navigation_links", "navigation_menus"
+  add_foreign_key "navigation_menu_versions", "navigation_menus", column: "parent_id"
+  add_foreign_key "navigation_menus", "navigation_menu_versions", column: "current_version_id"
+  add_foreign_key "navigation_menus", "navigation_menu_versions", column: "latest_version_id"
 end
