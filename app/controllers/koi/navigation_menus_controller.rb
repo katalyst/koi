@@ -12,12 +12,12 @@ class Koi::NavigationMenusController < Koi::ApplicationController
   end
 
   def create
-    menu = NavigationMenu.new(navigation_menu_params)
+    @menu = NavigationMenu.new(navigation_menu_params)
 
-    if menu.save
-      redirect_to menu, notice: "Navigation menu created"
+    if @menu.save
+      redirect_to @menu, notice: "Navigation menu created"
     else
-      render :new, locals: { menu: menu }, status: :unprocessable_entity
+      render :new, locals: { menu: @menu }, status: :unprocessable_entity
     end
   end
 
