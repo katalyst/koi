@@ -116,6 +116,8 @@ class NavigationMenu < ApplicationRecord
 
     attribute :items, ItemsType.new, default: []
 
+    scope :active_versions, ->(menu) { where(id: [menu.current_version_id, menu.latest_version_id].uniq) }
+
     def navigation_links
       # TODO(sfn) database join and ordering
       links = parent.navigation_links.where(id: items.map(&:id)).index_by(&:id)
@@ -132,6 +134,29 @@ class NavigationMenu < ApplicationRecord
       navigation_links.reduce(Navigation::OrdinalTree::Builder.new) do |builder, nav|
         builder.add(nav)
       end.tree
+    end
+  end
+
+  class CleanupStaleVersions
+    def self.call(menu)
+      new.call(menu)
+    end
+
+    def call(menu)
+      # find all the versions that are not linked to the menu
+      orphaned_versions       = NavigationMenu::Version.active_versions(menu).invert_where
+      # create a list of links that are could be orphaned (links of orphaned versions)
+      possible_orphaned_links = orphaned_versions.map { |k| k.items.map(&:id) }.flatten.uniq
+
+      # remove the links that are mentioned by latest + current from orphaned set
+      used_links = NavigationMenu::Version.active_versions(menu).pluck(:items).map { |k| k.map(&:id) }.flatten.uniq
+      orphaned_links = possible_orphaned_links - used_links
+
+      # delete orphaned links and orphaned versions
+      NavigationLink.where(id: orphaned_links).destroy_all unless orphaned_links.empty?
+      orphaned_versions.destroy_all unless orphaned_versions.empty?
+
+      # TODO rename to draft and published
     end
   end
 end
