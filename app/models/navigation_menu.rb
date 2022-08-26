@@ -41,10 +41,12 @@ class NavigationMenu < ApplicationRecord
 
   def publish!
     update!(current_version: self.latest_version)
+    NavigationMenu::CleanupStaleVersions.call(self)
   end
 
   def revert!
     update!(latest_version: self.current_version)
+    NavigationMenu::CleanupStaleVersions.call(self)
   end
 
   def navigation_links_attributes=(attributes)

@@ -175,23 +175,82 @@ RSpec.describe NavigationMenu do
   end
 
   describe "#publish!" do
+    let(:link_attributes) { menu.latest_items.take(1) }
+
+    before do
+      menu.update(navigation_links_attributes: link_attributes)
+    end
+
     it "changes current version" do
-      menu.update(navigation_links_attributes: menu.latest_items.take(1))
       current = menu.current_version
       latest  = menu.latest_version
       expect { menu.publish! }.to change(menu, :current_version).from(current).to(latest)
     end
+
+    it "removes orphaned version" do
+      expect { menu.publish! }.to change(NavigationMenu::Version, :count).by(-1)
+    end
+
+    it "removes orphaned links" do
+      expect { menu.publish! }.to change(NavigationLink, :count).by(-1)
+    end
+
+    it "removes orphaned current version" do
+      current = menu.current_version
+      menu.publish!
+      expect(NavigationMenu::Version.find_by(id: current.id)).to be_nil
+    end
+
+    it "removes orphaned current version link" do
+      link_id = menu.current_items.map(&:id) - menu.latest_items.map(&:id)
+      menu.publish!
+      expect(NavigationLink.find_by(id: link_id.first)).to be_nil
+    end
   end
 
   describe "#revert!" do
+    let(:link_attributes) { menu.latest_items.take(1) }
+
     before do
-      menu.update(navigation_links_attributes: menu.latest_items.take(1))
+      menu.update(navigation_links_attributes: link_attributes)
     end
 
     it "changes latest version" do
       current = menu.current_version
       latest  = menu.latest_version
       expect { menu.revert! }.to change(menu, :latest_version).from(latest).to(current)
+    end
+
+    it "removes orphaned version" do
+      expect { menu.revert! }.to change(NavigationMenu::Version, :count).by(-1)
+    end
+
+    it "removes orphaned latest version" do
+      latest = menu.latest_version
+      menu.revert!
+      expect(NavigationMenu::Version.find_by(id: latest.id)).to be_nil
+    end
+
+    it "does not remove links" do
+      expect { menu.revert! }.to change(NavigationLink, :count).by(0)
+    end
+
+    context "when link itself is changed" do
+      let(:updated_first) { create :navigation_link, title: "Updated First", url: first.url, navigation_menu: menu }
+      let(:link_attributes) { [{ id: updated_first.id, depth: 0 }, { id: last.id, depth: 1 }] }
+
+      it "removes orphaned version" do
+        expect { menu.revert! }.to change(NavigationMenu::Version, :count).by(-1)
+      end
+
+      it "removes orphaned links" do
+        expect { menu.revert! }.to change(NavigationLink, :count).by(-1)
+      end
+      
+      it "removes orphaned latest version link" do
+        menu.revert!
+        expect(NavigationLink.find_by(id: updated_first.id)).to be_nil
+      end
     end
   end
 end
