@@ -9,6 +9,12 @@ module Koi
     initializer "koi.assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
       app.middleware.insert_before Rack::Sendfile, Koi::UrlRedirect
+
+      config.after_initialize do |a|
+        if a.config.respond_to?(:assets)
+          a.config.assets.precompile += %w(koi.js)
+        end
+      end
     end
 
     initializer "koi.importmap", before: "importmap" do |app|
