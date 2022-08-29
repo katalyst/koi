@@ -22,6 +22,10 @@ module Koi
       app.config.importmap.cache_sweepers << root.join("app/assets/javascripts")
     end
 
+    initializer "koi.factories", after: "factory_bot.set_factory_paths" do
+      FactoryBot.definition_file_paths << Engine.root.join("spec/factories") if defined?(FactoryBot)
+    end
+
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_bot
