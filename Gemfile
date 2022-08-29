@@ -14,11 +14,11 @@ group :development, :test do
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
+  gem "shoulda-matchers"
   gem "sqlite3"
 end
 
 group :test do
   gem "capybara"
   gem "rails-controller-testing"
-  gem "shoulda-matchers"
 end
