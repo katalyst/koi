@@ -70,11 +70,11 @@ module Koi
     # @param(menu: Katalyst::Navigation::Menu)
     # @return Structured HTML containing top level + nested navigation links
     def render_navigation_menu(menu, ul_options: {}, child_ul_options: {}, li_options: {})
-      return unless menu&.current_version&.present?
+      return unless menu&.published_version&.present?
 
-      cache menu.current_version do
+      cache menu.published_version do
         content = with_output_buffer do
-          menu.current_tree.each do |link|
+          menu.published_version.tree.each do |link|
             output_buffer << render_navigation_link(link, child_ul_options:, li_options:)
           end
         end
