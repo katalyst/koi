@@ -16,6 +16,7 @@
     // Setup afterSlide function
     var afterSlide = function($toggleContent, $toggleAnchor, on){
       var on = on || false;
+      var focusOnField = $toggleAnchor.is("[data-toggle-focus]");
       if(on && focusOnField) {
         var $inputs = $toggleContent.find("input");
         var $textareas = $toggleContent.find("textarea");
@@ -31,7 +32,6 @@
     var toggleOn = function($toggleAnchor, $toggleContent) {
       var toggleId = $toggleAnchor.attr("data-toggle-anchor");
       var $thisToggleAnchors = $("[data-toggle-anchor="+toggleId+"]");
-      var focusOnField = $toggleAnchor.is("[data-toggle-focus]");
 
       // Toggle a visible class
       $thisToggleAnchors.addClass(toggleOnClass);
@@ -140,7 +140,7 @@
       $toggles.not("[data-toggle-default]").each(function(){
         var $togglePane = $(this);
         if($("[data-toggle-anchor=" + $togglePane.attr("data-toggle") + "]").is(".active")) {
-          // 
+          //
         } else if($togglePane.is("[data-toggle-tab-pane]")) {
           //
         } else {
