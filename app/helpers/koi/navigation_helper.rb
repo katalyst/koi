@@ -67,9 +67,45 @@ module Koi
       @breadcrumb ||= nav.self_and_descendants.compact.min_by(&:negative_highlight)
     end
 
-    # @param(menu: Katalyst::Navigation::Menu)
+    def navigation_item(menu, title, url, index, depth)
+      link = Katalyst::Navigation::Item.new
+      link.menu = menu
+      link.title = title
+      link.url = url
+      link.index = index
+      link.depth = depth
+      link
+    end
+
+    def build_tree(key, value, depth, menu, item_container)
+      has_child_nodes = value.is_a? Hash
+      item = navigation_item(menu, key, (has_child_nodes ? "#" : value), @index, depth)
+      item_container << {id: @index, depth: item.depth, index: @index}
+      @index = @index + 1
+      if has_child_nodes
+        depth = depth + 1
+        value.each do |child_key, child_value|
+          build_tree(child_key, child_value, depth, menu, item_container)
+        end
+      end
+    end
+
+    def build_navigation_menu(items)
+      item_attributes = []
+      @index = 0
+      menu = Katalyst::Navigation::Menu.new
+      items.each do |key, value|
+        build_tree(key, value, 0, menu, item_attributes)
+      end
+      menu.items_attributes = item_attributes
+      menu.published_version = menu.draft_version.dup
+      menu
+    end
+
+    # @param(menu_items: Koi::Menu.items)
     # @return Structured HTML containing top level + nested navigation links
-    def render_navigation_menu(menu, ul_options: {}, child_ul_options: {}, li_options: {})
+    def render_navigation_menu(menu_items, ul_options: {}, child_ul_options: {}, li_options: {})
+      menu = build_navigation_menu(menu_items)
       return unless menu&.published_version&.present?
 
       cache menu.published_version do

@@ -65,7 +65,7 @@
                     <input type="search" placeholder="Filter menu" data-tray-filter <%= "data-tray-filter-urls" if Koi::Menu.filter_urls %> />
                   </div>
                 <% end %>
-                <%= render_navigation_menu(@navigation_menu,
+                <%= render_navigation_menu(Koi::Menu.items,
                                            ul_options:       { class: "non-pane" },
                                            li_options:       { class: "navigation-item" },
                                            child_ul_options: { class: "has-children", data: { mobilenav_forward: true } }) %>
