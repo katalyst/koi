@@ -53,7 +53,7 @@ Gem::Specification.new do |s|
   s.add_dependency "awesome_nested_set", ">= 3.3.0"
 
   # File Handling
-  s.add_dependency "dragonfly", "= 1.3.0"
+  s.add_dependency "dragonfly", "= 1.4.0"
 
   # User Friendly Slugs
   s.add_dependency "friendly_id"
