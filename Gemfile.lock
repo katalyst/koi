@@ -16,6 +16,7 @@ PATH
       jquery-ui-rails (>= 6)
       kaminari (>= 1.2.1)
       katalyst-govuk-formbuilder
+      katalyst-navigation
       katalyst-tables
       non-digest-assets
       rails (>= 6.1)
@@ -185,6 +186,7 @@ GEM
     kaminari-core (1.2.2)
     katalyst-govuk-formbuilder (1.0.0)
       govuk_design_system_formbuilder
+    katalyst-navigation (1.0.0)
     katalyst-tables (1.0.0)
     loofah (2.18.0)
       crass (~> 1.0.2)

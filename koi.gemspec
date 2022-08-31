@@ -80,6 +80,9 @@ Gem::Specification.new do |s|
   # Index tables
   s.add_dependency "katalyst-tables"
 
+  # Navigation
+  s.add_dependency "katalyst-navigation"
+
   # Allow non-digest references to assets (ckeditor)
   s.add_dependency "non-digest-assets"
 

@@ -1,20 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-// This is the base CSS file for your application. Import this into your layout.
-//
-////////////////////////////////////////////////////////////////////////////////
+// DEPENDENCIES
 
-/*
-
-  * image upload field controllers
-    - validations from model, default from jsData.acceptedExtensions
-    
-  * plupload div breaking layout in asset manager
-    - I have added display:none for now to hide it from view
-    - Not sure if required or not
-    - Same bug exists in old koi
-
-*/
+@use "katalyst/navigation/editor";
 
 // ORNAMENT
 //

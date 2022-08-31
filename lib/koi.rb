@@ -38,5 +38,7 @@ require "koi/sitemap"
 require "koi/caching"
 require "koi/engine"
 
+require "katalyst/navigation"
+
 module Koi
 end
