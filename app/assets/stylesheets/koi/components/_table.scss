@@ -236,8 +236,8 @@ table .icon.sort:hover {
   background-repeat: no-repeat;
   padding-right: 15px;
 
-  &.ascending, &.asc { background-image:   image-url("koi/application/icon-index-sort-ascending.png"); }
-  &.descending, &.desc { background-image: image-url("koi/application/icon-index-sort-descending.png"); }
+  &.ascending, &.asc { background-image:   url("koi/application/icon-index-sort-ascending.png"); }
+  &.descending, &.desc { background-image: url("koi/application/icon-index-sort-descending.png"); }
 }
 
 .table-container--outer {

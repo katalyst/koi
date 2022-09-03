@@ -189,7 +189,7 @@ $hint-color:          $grey;
     select,
     select[size='0'],
     select[size='1'] {
-      background-image: image-url("koi/application/select_arrow.png");
+      background-image: url("koi/application/select_arrow.png");
       background-repeat: no-repeat;
       background-position: right center;
       padding-right: 36px;
@@ -554,7 +554,7 @@ $hint-color:          $grey;
     height: 100%;
 
     // select styles
-    background-image: image-url("koi/application/select_arrow.png");
+    background-image: url("koi/application/select_arrow.png");
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 36px;

@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: "pages#index"
+  root to: redirect("/home-page")
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 

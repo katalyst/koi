@@ -3,6 +3,12 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-katalyst
 
+AllCops:
+  Exclude:
+    - "Rakefile"
+    - "bin/*"
+    - "spec/dummy/db/schema.rb"
+
 # Disable cops that conflict with legacy Koi practices to reduce noise
 
 Naming/PredicateName:

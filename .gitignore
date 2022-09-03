@@ -16,3 +16,7 @@ spec/dummy/dragonfly
 /.rspec_status
 /.idea
 /.rakeTasks
+
+# dartsass-rails
+/app/assets/builds/*
+!/app/assets/builds/.keep
