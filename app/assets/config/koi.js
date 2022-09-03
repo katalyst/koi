@@ -1,8 +1,5 @@
 //= link_tree ../images
-
-//= link koi/admin.css
-//= link koi/assets.css
-//= link koi/nav_items.css
+//= link_tree ../builds
 
 //= link koi/admin.js
 //= link koi/ckeditor.js

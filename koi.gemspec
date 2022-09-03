@@ -28,9 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "stimulus-rails"
   s.add_dependency "turbo-rails"
 
-  # CSS compilation
-  s.add_dependency "sass-rails", ">= 6"
-
   # Overwrite for default rails
   s.add_dependency "jquery-rails", ">= 4.4"
 

@@ -1,2 +1,4 @@
 //= link_tree ../images
-//= link koi.js
+
+//= link application.css
+//= link application.js

@@ -12,16 +12,12 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          ruby-version: 2.7.5
-      - name: Run tests
+          ruby-version: 3.1.2
+      - name: Run default rake task
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rails db:setup
-          bundle exec rspec
-      - name: Run linters
-        run: |
-          bundle exec rubocop --parallel
+          bundle exec rake
       - name: Run security checks
         run: |
           bundle exec brakeman -q -w2
