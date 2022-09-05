@@ -8,6 +8,7 @@ AllCops:
     - "Rakefile"
     - "bin/*"
     - "spec/dummy/db/schema.rb"
+    - "vendor/bundle/**/*"
 
 # Disable cops that conflict with legacy Koi practices to reduce noise
 
