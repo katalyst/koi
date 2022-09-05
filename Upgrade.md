@@ -2,6 +2,9 @@
 
 ## Next release
 
+ * Requires Rails 7/Ruby 3
+ * remove `//= link koi.js` from sprockets manifest, this is no longer required
+
 ## 2.7.0
 
  * Added stimulus and inputmaps as dependencies, no configuration changes required
