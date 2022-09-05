@@ -74,4 +74,8 @@ $row-height: $xxx-large-unit;
   td:not(:first-of-type) {
     padding-right: 1em;
   }
+
+  .button_to {
+    line-height: 1.5;
+  }
 }
