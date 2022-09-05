@@ -142,7 +142,7 @@ module HasCrud
       # Note: table_exists? throws an exception if the database doesn't exist.
       def database_and_table_exists?
         table_exists?
-      rescue ::ActiveRecord::NoDatabaseError, ::ActiveRecord::StatementInvalid
+      rescue ::ActiveRecord::StatementInvalid
         false
       end
 
