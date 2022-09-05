@@ -6,6 +6,7 @@ module Koi
 
     included do
       helper :all
+      helper Katalyst::Navigation::FrontendHelper
 
       layout :layout_by_resource
       before_action :authenticate_admin, except: :login
