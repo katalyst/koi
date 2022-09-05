@@ -1,21 +1,10 @@
 <ul class="non-pane">
   <li><%= link_to "View site", "/", data: { turbo: false } %></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
-  <%= navigation_helper("Sitemap", koi_engine.sitemap_nav_items_path) %>
-
-  <% Koi::Menu.items.each do |menu_name,menu_items| %>
-    <li>
-      <a href="#"><%= menu_name %></a>
-      <ul>
-        <% menu_items.each do |item_name,item_url| %>
-          <%= render "layouts/koi/navigation_item", item_name: item_name, item_url: item_url %>
-        <% end %>
-        <% if menu_name.to_s.eql?("Advanced") %>
-          <li><%= link_to "Clear Cache", koi_engine.clear_cache_path, method: :post %></li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
+  <%= navigation_helper("Navigation", katalyst_navigation.root_path) %>
+  <%= navigation_helper("Sitemap (deprecated)", koi_engine.sitemap_nav_items_path) %>
+  <%= navigation_helper("Pages", koi_engine.pages_path) %>
+  <%= render_navigation_items(Koi::Menu.menu.published_tree) %>
   <li>
     <a href="#">Assets</a>
     <ul>
