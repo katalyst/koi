@@ -1,0 +1,20 @@
+<% content_for :title, menu.title %>
+<% content_for(:breadcrumbs) { link_to "Navigations", katalyst_navigation.menus_path } %>
+<% content_for :layout_class, "collapse-header-spacing extra-side-spacing" %>
+<% content_for :form_class, "govuk-forms" %>
+
+<%= navigation_editor_status_bar menu: menu %>
+
+<%= navigation_editor_menu menu: menu do |form| %>
+  <div role="rowheader">
+    <h4>Title</h4>
+    <h4>Url</h4>
+    <h4>Actions</h4>
+  </div>
+
+  <%= navigation_editor_list menu: menu %>
+<% end %>
+
+<%= content_for :side_top do %>
+  <%= render "katalyst/navigation/menus/new_items", menu: menu %>
+<% end %>
