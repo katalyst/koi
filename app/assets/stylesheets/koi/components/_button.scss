@@ -106,7 +106,8 @@
   @include button-background($button-secondary-background);
 }
 .button__save-continue,
-.button__primary {
+.button__primary,
+.button--primary {
   @include button-primary;
 }
 .button__success,
@@ -127,21 +128,27 @@
 }
 
 // line styles
-.button__line {
+.button__line, .button--outline {
   @include button-base;
   @include button-line($button-primary-background, false, $button-primary-background);
 }
-.button__secondary__line {
+.button__secondary__line, .button--secondary--outline {
   @include button-base;
   @include button-line($button-secondary-background, false, $button-secondary-background);
 }
-.button__confirm__line {
+.button__confirm__line, .button--confirm--outline {
   @include button-base;
   @include button-line($button-success-background, false, $button-success-background);
 }
-.button__cancel__line {
+.button__cancel__line, .button--cancel--outline {
   @include button-base;
   @include button-line($button-error-background, false, $button-error-background);
+}
+
+// button text styles
+.button--text {
+  @include button-base;
+  @include button-line(transparent, false, $button-primary-background);
 }
 
 %button-disabled {
