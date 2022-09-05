@@ -27,16 +27,32 @@
   <hr />
 
   <div class="content-spacing">
-    <h2 class="heading-two">Line Buttons</h2>
+    <h2 class="heading-two">Line (Outline) Buttons</h2>
     <p>There are line button clases as well, but rarely used:</p>
   </div>
 
   <%= render layout: "koi/styleguide/feature", locals: { id: "button-line" } do %>
 <div class="spacing-xxxxx-tight">
   <div><a href="#" class="button__line">button__line</a></div>
+  <div><a href="#" class="button--outline">button--outine</a></div>
   <div><a href="#" class="button__confirm__line">button__confirm__line</a></div>
+  <div><a href="#" class="button--confirm--outline">button--confirm--outline</a></div>
   <div><a href="#" class="button__cancel__line">button__cancel__line</a></div>
+  <div><a href="#" class="button--cancel--outline">button--cancnel--outline</a></div>
 </div>
+  <% end %>
+
+  <hr />
+
+  <div class="content-spacing">
+    <h2 class="heading-two">Text buttons</h2>
+    <p>Link style butons:</p>
+  </div>
+
+  <%= render layout: "koi/styleguide/feature", locals: { id: "button--text" } do %>
+    <div class="spacing-xxx-tight">
+      <div><a href="#" class="button--text">button--text</a></div>
+    </div>
   <% end %>
 
   <hr />
