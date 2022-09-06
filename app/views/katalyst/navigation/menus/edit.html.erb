@@ -7,3 +7,5 @@
   <%= form.govuk_text_field :slug %>
   <%= form.govuk_submit name: :commit, value: :save %>
 <% end %>
+
+<%= button_to "Delete", katalyst_navigation.menu_path(menu), method: :delete, data: { confirm: "Are you sure? This cannot be undone." }, class:"button__cancel" %>
