@@ -19,6 +19,6 @@ module SiteNavigation
   protected
 
   def set_site_navigation
-    @navigation_menus ||= Katalyst::Navigation::Menu.includes(:published_version).index_by(&:slug)
+    @navigation_menus ||= Katalyst::Navigation::Menu.includes(:published_version).index_by(&:slug) # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 end

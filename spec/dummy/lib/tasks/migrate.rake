@@ -35,7 +35,6 @@ class NavImporter
       add_link(child_item, depth + 1)
     end
   end
-
 end
 
 namespace :migrate do |args|
