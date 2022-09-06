@@ -12,17 +12,15 @@
   <body>
 
   <header>
-    <%= koi_render_navigation "main_menu_header_navigation", "header_navigation", renderer: :sf_menu, level: 1..3, expand_all: true, dom_id: "nav-one", dom_class: 'nav' , link: { class: 'subsection' } %>
+    <%= render_navigation_menu navigation_for(:header_navigation) %>
   </header>
 
-  <p><%= koi_render_navigation "breadcrumbs", nil, renderer: :breadcrumbs, join_with: ' &raquo; ' %></p>
-  <p><%= koi_render_navigation "active_nav_item", nil, renderer: :active_items %></p>
 
   <%= yield :title if content_for?(:title) %>
   <%= yield %>
 
   <footer>
-    <%= koi_render_navigation "footer_navigation", "footer_navigation", expand_all: true %>
+    <%= render_navigation_menu navigation_for(:footer_navigation) %>
   </footer>
 
   </body>

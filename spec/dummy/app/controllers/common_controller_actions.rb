@@ -3,6 +3,8 @@
 module CommonControllerActions
   extend ActiveSupport::Concern
 
+  include SiteNavigation
+
   included do
     protect_from_forgery
     layout :layout_by_resource
