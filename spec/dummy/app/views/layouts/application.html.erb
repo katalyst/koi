@@ -12,7 +12,7 @@
   <body>
 
   <header>
-    <%= render_navigation_menu navigation_for(:header_navigation) %>
+    <%= render_navigation_menu navigation_menu_for(:header_navigation) %>
   </header>
 
 
@@ -20,7 +20,7 @@
   <%= yield %>
 
   <footer>
-    <%= render_navigation_menu navigation_for(:footer_navigation) %>
+    <%= render_navigation_menu navigation_menu_for(:footer_navigation) %>
   </footer>
 
   </body>
