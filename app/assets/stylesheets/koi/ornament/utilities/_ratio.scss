@@ -1,10 +1,12 @@
+@use "sass:math";
+
 @function ratio($width, $height) {
-  @return ($height / $width) * 100%;
+  @return math.div($height, $width) * 100%;
 }
 
 @mixin ratio-size($width, $height, $element) {
   position: relative;
-  height: 0; 
+  height: 0;
   overflow: hidden;
   padding-bottom: ratio($width, $height);
 

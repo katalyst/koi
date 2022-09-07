@@ -1,4 +1,6 @@
-/* 
+@use "sass:math";
+
+/*
 -------------
 Functions
 -------------
@@ -7,16 +9,16 @@ Functions
 /* Create Column Widths */
 
 @function span($columnCount, $totalCol) {
-  @return $columnCount / $totalCol * 100%;
+  @return math.div($columnCount, $totalCol) * 100%;
 }
 
 /* Create Fixed Width Columns Based of Max Site Width */
 
 @function spanf($columnCount, $totalCol, $max-width:$container-width) {
-  @return $columnCount / $totalCol * $max-width;
+  @return math.div($columnCount, $totalCol) * $max-width;
 }
 
-/* 
+/*
 -------------
 Mixins
 -------------
@@ -197,7 +199,7 @@ Mixins
   @include spacer-right-clear($mediaQuery);
 }
 
-/* 
+/*
 -------------
 Classes
 -------------
