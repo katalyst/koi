@@ -13,7 +13,7 @@
     </ul>
   </li>
   <% if Object.const_defined?("Flipper::UI") %>
-    <%= navigation_helper("Flipper", koi_engine.url_for("flipper"), data: { turbo: false }) %>
+    <%= navigation_helper("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %>
   <% end %>
   <%= navigation_helper("Settings", koi_engine.translations_path) %>
   <%= navigation_helper("Help", koi_engine.help_path) %>
