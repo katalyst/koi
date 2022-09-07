@@ -3,7 +3,7 @@
 module CommonControllerActions
   extend ActiveSupport::Concern
 
-  include SiteNavigation
+  include Katalyst::Navigation::HasNavigation
 
   included do
     protect_from_forgery
