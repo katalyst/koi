@@ -4,7 +4,6 @@
 //= link koi/admin.js
 //= link koi/ckeditor.js
 //= link koi/common.js
-//= link koi/nav_items.js
 
 /* ckeditor resources */
 //= link_tree ../javascripts/koi/ckeditor

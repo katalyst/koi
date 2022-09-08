@@ -52,6 +52,7 @@
 //= require koi/components/form-latlng
 //= require koi/components/form-inline-nested
 //= require koi/components/table
+//= require koi/components/site-map
 
 //= require koi/ckeditor
 //= require koi/common

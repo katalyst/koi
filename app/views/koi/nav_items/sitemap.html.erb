@@ -1,12 +1,8 @@
-<% content_for :head do %>
-  <%= javascript_include_tag "koi/nav_items" %>
-<% end %>
-
 <% content_for :title, "Sitemap" %>
 
 <%= render "lock_sitemap", panel_class: "sitemap--lock__mobile" %>
 
-<div class="sitemap application" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
+<div class="sitemap application" data-controller="site-map" data-uri-save="<%= koi_engine.savesort_nav_items_path %>">
   <ol>
     <%= render 'nav_item', nav_item: NavItem.root, level: 0 %>
   </ol>
@@ -21,7 +17,7 @@
     <%= render "lock_sitemap", panel_class: "sitemap--lock__desktop" %>
 
     <h2 class="heading-two">Adding a page</h2>
-    
+
     <p>To select a new page move your cursor over the item above or the folder the page should be part of. Roll over the 'add' link and select 'page' to add the page. </p>
     <p>After you have added the page, go back to the site map and move the page to the correct position.</p>
     <p>More information can be found in the <%= link_to "help section", koi_engine.help_path %>.</p>
