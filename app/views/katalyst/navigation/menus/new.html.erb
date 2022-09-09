@@ -5,5 +5,6 @@
 <%= form_with model: menu, url: katalyst_navigation.menus_path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :slug %>
+  <%= form.govuk_text_field :depth %>
   <%= form.govuk_submit %>
 <% end %>

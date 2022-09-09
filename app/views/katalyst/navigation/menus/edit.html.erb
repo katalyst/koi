@@ -5,6 +5,7 @@
 <%= form_with model: menu, url: katalyst_navigation.menu_path(menu), builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :slug %>
+  <%= form.govuk_text_field :depth %>
   <%= form.govuk_submit name: :commit, value: :save do %>
     <%= link_to "Delete", katalyst_navigation.menu_path(menu),
                 class: "govuk-button govuk-button--warning",
