@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   constraints subdomain: "mobile" do
     scope module: "mobile", as: "mobile" do
-      resources :pages
+      resources :legacy_pages
       root to: "application#index"
     end
   end
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, path: :members
-  resources :pages, only: %i[index show], as: :koi_pages
+  resources :legacy_pages, only: %i[index show], as: :koi_pages
   resources :assets
   resources :images
   resources :documents
@@ -43,5 +43,5 @@ Rails.application.routes.draw do
 
   mount Koi::Engine => "/admin", as: "koi_engine"
 
-  get "/:id" => "pages#show", as: :page
+  get "/:id" => "legacy_pages#show", as: :legacy_page
 end

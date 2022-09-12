@@ -19,7 +19,7 @@ Koi::Engine.routes.draw do
   resources :settings do
     put :update_multiple, on: :collection
   end
-  resources :pages
+  resources :legacy_pages
   resources :url_rewrites
   resources :friendly_id_slugs
   resources :admins, path: :site_users

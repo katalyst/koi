@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Koi
-  class PagesController < AdminCrudController
+  class LegacyPagesController < AdminCrudController
     defaults route_prefix: ""
 
     def destroy

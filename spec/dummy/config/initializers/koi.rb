@@ -74,6 +74,9 @@ Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
 Koi::Settings.skip_on_create = [:news_item]
 
+# Navigation types (legacy)
+Koi::Navigation.models << "LegacyPage"
+
 # Sitemap toggles
 Koi::Sitemap.toggles = true
 
