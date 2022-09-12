@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_09_045642) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_12_014548) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -98,6 +98,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_045642) do
     t.index ["slug"], name: "index_katalyst_navigation_menus_on_slug"
   end
 
+  create_table "legacy_pages", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "slug"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["slug"], name: "index_legacy_pages_on_slug", unique: true
+  end
+
   create_table "nav_items", force: :cascade do |t|
     t.string "type"
     t.string "title"
@@ -128,15 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_045642) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["slug"], name: "index_news_items_on_slug", unique: true
-  end
-
-  create_table "pages", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "slug"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["slug"], name: "index_pages_on_slug", unique: true
   end
 
   create_table "product_images", force: :cascade do |t|

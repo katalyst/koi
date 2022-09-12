@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Page < ApplicationRecord
+class LegacyPage < ApplicationRecord
   has_crud paginate: false, navigation: true,
            settings: true
 
@@ -27,10 +27,18 @@ class Page < ApplicationRecord
 
   # overriding has_navigation methods to work with koi page route namespacing
   def self.get_new_admin_url(options = {})
-    Koi::Engine.routes.url_helpers.new_page_path(options)
+    Koi::Engine.routes.url_helpers.new_legacy_page_path(options)
   end
 
   def get_edit_admin_url(options = {})
-    Koi::Engine.routes.url_helpers.edit_page_path(self, options)
+    Koi::Engine.routes.url_helpers.edit_legacy_page_path(self, options)
+  end
+
+  def self.settings_prefix
+    "page"
+  end
+
+  def settings_prefix
+    "#{id}.page"
   end
 end

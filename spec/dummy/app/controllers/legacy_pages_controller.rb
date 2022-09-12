@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PagesController < Koi::CrudController
+class LegacyPagesController < CrudController
   # Stop accidental leakage of unwanted actions to frontend
 
   def index
