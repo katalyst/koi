@@ -2,14 +2,19 @@
   <li><%= link_to "View site", "/", data: { turbo: false } %></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
   <%= navigation_helper("Navigation", katalyst_navigation.root_path) %>
-  <%= navigation_helper("Sitemap (deprecated)", koi_engine.sitemap_nav_items_path) %>
-  <%= navigation_helper("Pages (deprecated)", koi_engine.legacy_pages_path) %>
   <%= navigation_items_with(items: Koi::Menu.menu.published_tree) %>
   <li>
     <a href="#">Assets</a>
     <ul>
       <%= navigation_helper("Images", koi_engine.images_path(tags: nil)) %>
       <%= navigation_helper("Documents", koi_engine.documents_path(tags: nil)) %>
+    </ul>
+  </li>
+  <li>
+    <a href="#">Legacy</a>
+    <ul>
+      <%= navigation_helper("Sitemap (deprecated)", koi_engine.sitemap_nav_items_path) %>
+      <%= navigation_helper("Pages (deprecated)", koi_engine.legacy_pages_path) %>
     </ul>
   </li>
   <% if Object.const_defined?("Flipper::UI") %>

@@ -45,6 +45,7 @@ Koi::Engine.routes.draw do
   end
 
   authenticate :admin, ->(admin) { admin.present? } do
+    mount Katalyst::Content::Engine, at: "content"
     mount Katalyst::Navigation::Engine, at: "navigation"
     mount Flipper::UI.app(Flipper) => "flipper" if Object.const_defined?("Flipper::UI")
   end

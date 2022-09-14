@@ -1,6 +1,7 @@
 // DEPENDENCIES
 
-@use "katalyst/navigation/editor";
+@use "katalyst/content/editor" as content-editor;
+@use "katalyst/navigation/editor" as navigation-editor;
 
 // ORNAMENT
 //

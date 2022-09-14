@@ -15,6 +15,7 @@ PATH
       jquery-rails (>= 4.4)
       jquery-ui-rails (>= 6)
       kaminari (>= 1.2.1)
+      katalyst-content
       katalyst-govuk-formbuilder
       katalyst-navigation
       katalyst-tables
@@ -184,6 +185,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    katalyst-content (0.1.0)
     katalyst-govuk-formbuilder (1.0.0)
       govuk_design_system_formbuilder
     katalyst-navigation (1.1.1)

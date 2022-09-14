@@ -83,6 +83,9 @@ Gem::Specification.new do |s|
   # Navigation
   s.add_dependency "katalyst-navigation"
 
+  # Content
+  s.add_dependency "katalyst-content"
+
   # Allow non-digest references to assets (ckeditor)
   s.add_dependency "non-digest-assets"
 
