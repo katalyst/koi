@@ -7,17 +7,8 @@
 }
 
 .page--title--wrapper {
-  padding-top: $xx-large-unit;
-  padding-bottom: $xx-large-unit;
-
-  @include media-query($breakpoint-page) {
-    padding-top: $large-unit;
-    padding-bottom: $large-unit;
-  }
-  @include media-query(500px) {
-    padding-top: $default-unit;
-    padding-bottom: $default-unit;
-  }
+  padding-top: $xx-small-unit;
+  padding-bottom: $xx-small-unit;
 }
 
 .page--title__border {
