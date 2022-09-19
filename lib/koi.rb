@@ -38,6 +38,7 @@ require "koi/sitemap"
 require "koi/caching"
 require "koi/engine"
 
+require "katalyst/content"
 require "katalyst/navigation"
 
 module Koi
