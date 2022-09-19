@@ -8,5 +8,8 @@ export default class OrnamentController extends Controller {
 
   layoutContainerTargetConnected(_el) {
     $(document).trigger("ornament:refresh");
+
+    // let system tests know that the app is ready
+    document.body.dataset.ornament = "";
   }
 }
