@@ -12,14 +12,6 @@
     var visibleContainerClass = "active";
     var onlyOneNested = false;
 
-    // Generic initialising of CKEditor on new elements
-    var initCkEditorOn = function(parentElement) {
-      parentElement.find('.wysiwyg.source').not(".wysiwyg-enabled").each(function() {
-        $(this).addClass("wysiwyg-enabled");
-        CKEDITOR.replace (this);
-      });
-    }
-
     var getHeadingForPane = function($pane) {
       return $pane.find("[data-inline-nested-field-heading]");
     }
@@ -99,11 +91,9 @@
     // Show the new item and collapse the others
     $(document).on("ornament:inline-nested:insert", function(event, insertedItem) {
       showNestedPane(insertedItem);
-      // Init CKEditor if necessary
-      initCkEditorOn(insertedItem);
       Ornament.C.FormHelpers.init();
-      // Find the parent inline nested element and check if we 
-      // need to update ordinals 
+      // Find the parent inline nested element and check if we
+      // need to update ordinals
       var $inlineNested = insertedItem.closest("[data-inline-nested]");
       if($inlineNested.is("[data-inline-nested-sortable]")) {
         var nested_inline_fields = insertedItem.parent().children(".nested-fields");
@@ -123,7 +113,7 @@
       }
     });
 
-    // Changing the re-ordering checkbox 
+    // Changing the re-ordering checkbox
     $("body").off("change", "[data-inline-nested-sortable-toggle]").on("change", "[data-inline-nested-sortable-toggle]", function() {
 
       var parent               = $(this).closest(".inline-nested--heading").next(".nested-wrapper");
@@ -146,11 +136,7 @@
         nested_container.sortable({
           axis: "y",
           handle: ".drag-me",
-          start: function( event, ui ) {
-            Ornament.CKEditor.destroyForParent(nested_fields);
-          },
           stop: function( event, ui ) {
-            Ornament.CKEditor.bindForParent(nested_fields);
             updateOrdinal(nested_fields);
           }
         });

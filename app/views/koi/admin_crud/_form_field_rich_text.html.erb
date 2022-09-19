@@ -1,5 +1,7 @@
-<% 
-  input_opts[:class] += " wysiwyg source"
+<%
+  input_opts[:class] +=" wysiwyg source"
+  input_opts[:data] ||= {}
+  input_opts[:data][:controller] = "ckeditor"
 %>
 
 <%= f.input attr, as: :text, wrapper_html: wrapper_opts, input_html: input_opts %>

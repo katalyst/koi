@@ -1,1 +1,5 @@
-<%= f.input attr, as: :text, label: label, hint: hint, input_html: { class: "wysiwyg source" } %>
+<%= f.input attr, as:   :text,
+            label:      label,
+            hint:       hint,
+            input_html: { class: "wysiwyg source", data: { controller: "ckeditor" } }
+%>
