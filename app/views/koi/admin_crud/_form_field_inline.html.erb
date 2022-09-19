@@ -17,7 +17,7 @@
   }
 %>
 
-<div class="inline-nested-form <%= attr_string %>" data-inline-nested <%= "data-inline-nested-sortable" if is_orderable %>>
+<div class="inline-nested-form <%= attr_string %>" data-controller="cocoon" <%= "data-cocoon-sortable-value" if is_orderable %>>
 
   <div class="inline-nested--heading spacing-xxxxx-tight">
     <h2 class="heading-three"><%= header %></h2>
@@ -25,7 +25,7 @@
       <label class="inline-nested--orderable control-group checkbox__single form--enhanced">
         <div class="controls">
           <div class="checkbox control-label">
-            <input class="boolean optional enhanced" value="1" type="checkbox" data-inline-nested-sortable-toggle>
+            <input class="boolean optional enhanced" value="1" type="checkbox" data-action="change->cocoon#toggleSortable">
             <span class="form--enhanced--control"></span>
             Allow re-ordering
           </div>

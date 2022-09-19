@@ -1,19 +1,15 @@
 <% nested_group_label = (f.object.respond_to?(:inline_titleize) && !f.object.inline_titleize.blank?) ? f.object.inline_titleize : singular_name_humanized %>
 <div class="nested-fields">
   <%= f.input :ordinal, as: :hidden, wrapper_html: { class: "inline-ordinal-wrapper" }, input_html: { class: "inline-ordinal" } if is_orderable %>
-  <div class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>" data-inline-nested-field-heading>
-    <% if is_orderable %>
-      <span class="drag-handler hidden">
-        [Drag]
-      </span>
-    <% end %>
-    <span class="title nested-fields__heading--title" aria-label="<%= nested_group_label %>" tabIndex="0" data-inline-nested-field-heading-name>
+  <div class="nested-fields__heading <%= "nested-fields-visible" unless f.object.errors.blank? %>" data-cocoon-heading>
+    <%= tag.span "[Drag]", class: "drag-handler hidden" if is_orderable %>
+    <span class="title nested-fields__heading--title" aria-label="<%= nested_group_label %>" tabIndex="0" data-cocoon-heading-name>
       <%= nested_group_label %>
     </span>
     <span class="close-link">
       <%= link_to_remove_association "Delete", f, data: { confirm: "Are you sure? Will only be removed after save. ", confirm_no_override: "" } %>
     </span>
-    <button type="button" class="nested-fields__status collapser" title="Toggle these fields" aria-expanded="false" data-inline-nested-field-toggle>
+    <button type="button" class="nested-fields__status collapser" title="Toggle these fields" aria-expanded="false" data-action="cocoon#toggle">
       <%= icon("chevron") %>
     </button>
   </div>
