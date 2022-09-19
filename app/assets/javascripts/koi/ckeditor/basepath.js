@@ -1,1 +1,1 @@
-var CKEDITOR_BASEPATH = '/assets/koi/ckeditor/';
+window.CKEDITOR_BASEPATH = '/assets/koi/ckeditor/';

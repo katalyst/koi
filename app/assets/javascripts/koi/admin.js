@@ -54,7 +54,6 @@
 //= require koi/components/table
 //= require koi/components/site-map
 
-//= require koi/ckeditor
 //= require koi/common
 //= require koi/koi/koi
 //= require koi/koi/shed
