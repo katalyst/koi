@@ -8,3 +8,5 @@ pin "govuk-frontend", to: "https://ga.jspm.io/npm:govuk-frontend@4.3.1/govuk-esm
 
 pin_all_from Koi::Engine.root.join("app/assets/javascripts/koi/controllers"),
              under: "koi/controllers", preload: Rails.env.test?
+pin_all_from Koi::Engine.root.join("app/assets/javascripts/koi/ckeditor"),
+             under: "koi/ckeditor", preload: Rails.env.test?
