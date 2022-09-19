@@ -530,6 +530,7 @@ $hint-color:          $grey;
   }
 
   .select2-container--default .select2-search--inline .select2-search__field {
+    border-width: 0;
     padding: 0;
     box-shadow: none;
   }
