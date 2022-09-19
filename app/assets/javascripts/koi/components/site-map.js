@@ -1,4 +1,4 @@
-const Sitemap = Ornament.C.Sitemap = {
+var Sitemap = Ornament.C.Sitemap = {
 
   // =========================================================================
   // Configuration
