@@ -5,5 +5,7 @@ module Koi
     include HasCrud::ActionController
     include ExportableController
     include IsAdminController
+
+    helper Katalyst::GOVUK::FormBuilder::Frontend
   end
 end
