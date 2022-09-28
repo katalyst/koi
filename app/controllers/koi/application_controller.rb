@@ -6,6 +6,6 @@ module Koi
     include ExportableController
     include IsAdminController
 
-    helper Katalyst::GOVUK::FormBuilder::Frontend
+    helper Katalyst::GOVUK::Formbuilder::Frontend
   end
 end
