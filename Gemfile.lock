@@ -185,7 +185,7 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     katalyst-content (0.1.2)
-    katalyst-govuk-formbuilder (1.1.1)
+    katalyst-govuk-formbuilder (1.2.0)
       govuk_design_system_formbuilder
     katalyst-navigation (1.1.2)
     katalyst-tables (1.0.0)
