@@ -1,0 +1,27 @@
+<%= form_with model: figure, scope: :item, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= render "hidden_fields", form: form %>
+
+  <%= content_editor_image_field item: figure, method: :image do |builder| %>
+    <%= form.govuk_file_field :image, hint: { text: builder.hint_text },
+                              **builder.file_input_options do %>
+      <%= builder.preview %>
+    <% end %>
+  <% end %>
+
+  <%= form.govuk_text_field :heading, label: { text: "Alternate text" } %>
+  <%= form.govuk_text_field :caption %>
+
+  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
+
+  <%= form.govuk_check_boxes_fieldset :visible,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :visible, 1, 0, multiple: false, label: { text: "Visible?" } %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", :back, class: "govuk-link" %>
+  </div>
+<% end %>

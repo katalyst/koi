@@ -1,0 +1,35 @@
+<%= form_with model: content, scope: :item, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.hidden_field :container_type %>
+  <%= form.hidden_field :container_id %>
+  <%= form.hidden_field :type %>
+
+  <%= form.govuk_fieldset legend: nil do %>
+    <%= form.govuk_text_field :heading %>
+
+    <%= form.govuk_check_boxes_fieldset :show_heading,
+                                        small:    true,
+                                        legend:   nil,
+                                        multiple: false do %>
+      <%= form.govuk_check_box :show_heading, 1, 0, multiple: false, label: { text: "Show heading?" } %>
+    <% end %>
+  <% end %>
+
+  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
+
+  <div class="govuk-form-group">
+    <%= form.label :content, class: "govuk-label" %>
+    <%= form.rich_text_area :content, content_editor_rich_text_options(class: "content") %>
+  </div>
+
+  <%= form.govuk_check_boxes_fieldset :visible,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", :back, class: "govuk-link" %>
+  </div>
+<% end %>
