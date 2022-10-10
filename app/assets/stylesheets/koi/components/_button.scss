@@ -230,7 +230,8 @@
   @include flex-direction(row);
   @include flex-wrap;
 
-  > div {
+  > div,
+  > form {
     padding: 2px;
   }
 }
