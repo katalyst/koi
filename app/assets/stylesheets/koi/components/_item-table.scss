@@ -1,0 +1,21 @@
+.item-table {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  border-top: 1px solid $light-grey;
+  margin: 1rem 0;
+
+  dt, dd {
+    border-bottom: 1px solid $light-grey;
+    padding: 0.25rem 0.5rem;
+    line-height: 1.5rem;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dt:nth-of-type(odd),
+  dd:nth-of-type(odd) {
+    background-color: $x-light-grey;
+  }
+}
