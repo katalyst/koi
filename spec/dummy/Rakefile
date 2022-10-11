@@ -10,4 +10,11 @@ namespace :test do
   task :prepare
 end
 
+namespace :dartsass do
+  task clobber: :environment do
+    # dartsass currently only removes top-level css files, but not koi/*
+    sh "rm -rf app/assets/builds/*"
+  end
+end
+
 Rails.application.load_tasks
