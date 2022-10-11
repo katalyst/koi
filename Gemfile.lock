@@ -189,7 +189,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    katalyst-content (0.1.2)
+    katalyst-content (0.2.0)
       active_storage_validations
     katalyst-govuk-formbuilder (1.2.0)
       govuk_design_system_formbuilder
