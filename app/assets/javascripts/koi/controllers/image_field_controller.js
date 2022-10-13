@@ -1,23 +1,55 @@
-import { Controller } from "@hotwired/stimulus";
+import {Controller} from "@hotwired/stimulus";
 
 export default class ImageFieldController extends Controller {
-  static targets = ["preview"];
+  static targets = ["preview", "destroyImage"];
   static values = {
     mimeTypes: Array,
   };
 
   #counter = 0;
+  #initialImageSrc;
+  #onUploadFlag = false;
+
+  connect() {
+    this.#initialImageSrc = this.imageTag.getAttribute("src");
+  }
 
   onUpload(event) {
+    this.#onUploadFlag = true;
+
+    // Set the image to be destroyed only if it is already persisted
+    if (this.hasDestroyImageTarget) {
+      this.destroyImageTarget.value = false;
+    }
     this.previewTarget.classList.remove("hidden");
 
-    const reader = new FileReader();
+    // Show preview only if a file has been selected in the file picker popup. If cancelled, show previous file or do
+    // not show preview at all
+    if (event.currentTarget.files.length > 0) {
+      this.showPreview(event.currentTarget.files[0]);
+    } else {
+      this.imageTag.src = this.#initialImageSrc;
+    }
+  }
 
-    reader.onload = (e) => {
-      this.imageTag.src = e.target.result;
-    };
+  setDestroy(event) {
+    event.preventDefault();
 
-    reader.readAsDataURL(event.currentTarget.files[0]);
+    // If an image is already persisted and another image has been picked from the file picker popup, but the new image
+    // is removed, show the original image
+    if (this.#initialImageSrc && this.#onUploadFlag) {
+      this.#onUploadFlag = false;
+      this.imageTag.src = this.#initialImageSrc;
+    } else {
+      // Set image to be destroyed, hide preview and remove image url
+      if (this.hasDestroyImageTarget) {
+        this.destroyImageTarget.value = true;
+      }
+      this.previewTarget.classList.add("hidden");
+      this.imageTag.src = "";
+    }
+
+    this.fileInput.value = "";
   }
 
   drop(event) {
@@ -63,6 +95,15 @@ export default class ImageFieldController extends Controller {
 
   get imageTag() {
     return this.previewTarget.querySelector("img");
+  }
+
+  showPreview(file) {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      this.imageTag.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 }
 

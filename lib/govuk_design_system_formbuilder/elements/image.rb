@@ -16,6 +16,7 @@ module GOVUKDesignSystemFormBuilder
       include ActionDispatch::Routing::RouteSet::MountedHelpers
 
       IMAGE_FIELD_CONTROLLER = "image-field"
+      MIME_TYPES             = %w[image/png image/gif image/jpeg image/webp].freeze
 
       ACTIONS = <<~ACTIONS.gsub(/\s+/, " ").freeze
         dragover->#{IMAGE_FIELD_CONTROLLER}#dragover
@@ -27,17 +28,17 @@ module GOVUKDesignSystemFormBuilder
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
         super(builder, object_name, attribute_name, &block)
 
+        @mime_types      = MIME_TYPES || kwargs[:mime_types]
         @label           = label
         @caption         = caption
         @hint            = hint
-        @html_attributes = kwargs.merge(file_input_options(**options))
+        @html_attributes = kwargs.merge(file_input_options)
         @form_group      = form_group
-        @block_content   = preview # fed into supplemental_content
       end
 
       def html
         Containers::FormGroup.new(*bound, **default_form_group_options(**@form_group)).html do
-          safe_join([label_element, supplemental_content, hint_element, error_element, file])
+          safe_join([label_element, preview, hint_element, error_element, file, destroy_element, supplemental_content])
         end
       end
 
@@ -47,25 +48,28 @@ module GOVUKDesignSystemFormBuilder
         @builder.file_field(@attribute_name, attributes(@html_attributes))
       end
 
-      def options
-        {
-          id:    field_id(link_errors: true),
-          class: classes,
-          aria:  { describedby: combine_references(hint_id, error_id, supplemental_id) },
-        }
+      def destroy_element
+        return if @html_attributes[:optional].blank?
+
+        @builder.fields_for(:"#{@attribute_name}_attachment") do |form|
+          form.hidden_field :_destroy, value: false, data: { "#{IMAGE_FIELD_CONTROLLER}_target" => "destroyImage" }
+        end
       end
 
-      def classes
-        build_classes(%(file-upload), %(file-upload--error) => has_errors?).prefix(brand)
+      def destroy_element_trigger
+        return if @html_attributes[:optional].blank?
+
+        content_tag(:button, "", class: "image-destroy", data: { action: "#{IMAGE_FIELD_CONTROLLER}#setDestroy" })
       end
 
       def preview
         options = {}
         add_option(options, :data, "#{IMAGE_FIELD_CONTROLLER}_target", "preview")
+        add_option(options, :class, "preview-image")
         add_option(options, :class, "hidden") unless preview?
 
         tag.div **options do
-          tag.img src: preview_url, class: "image-thumbnail"
+          tag.img(src: preview_url, class: "image-thumbnail") + destroy_element_trigger
         end
       end
 
@@ -81,17 +85,33 @@ module GOVUKDesignSystemFormBuilder
         @builder.object.send(@attribute_name)
       end
 
-      def file_input_options(options = {})
-        add_option(options, :data, :action, "change->#{IMAGE_FIELD_CONTROLLER}#onUpload")
+      def file_input_options
+        default_file_input_options = options
 
-        options
+        add_option(default_file_input_options, :accept, @mime_types.join(","))
+        add_option(default_file_input_options, :data, :action, "change->#{IMAGE_FIELD_CONTROLLER}#onUpload")
+
+        default_file_input_options
+      end
+
+      def options
+        {
+          id:    field_id(link_errors: true),
+          class: classes,
+          aria:  { describedby: combine_references(hint_id, error_id, supplemental_id) },
+        }
+      end
+
+      def classes
+        build_classes(%(file-upload), %(file-upload--error) => has_errors?).prefix(brand)
       end
 
       def default_form_group_options(**form_group_options)
+        add_option(form_group_options, :class, "govuk-image-field")
         add_option(form_group_options, :data, :controller, IMAGE_FIELD_CONTROLLER)
         add_option(form_group_options, :data, :action, ACTIONS)
         add_option(form_group_options, :data, :"#{IMAGE_FIELD_CONTROLLER}_mime_types_value",
-                   config.image_mime_types.to_json)
+                   @mime_types.to_json)
 
         form_group_options
       end

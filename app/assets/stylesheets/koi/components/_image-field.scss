@@ -1,0 +1,32 @@
+.govuk-image-field {
+  .govuk-form-group {
+    margin-top: 30px;
+  }
+}
+
+.preview-image {
+  display: inline-flex;
+  padding: 0.5rem;
+
+  .image-destroy {
+    align-self: center;
+    padding-left: 0.5rem;
+
+    &::after {
+      content: "";
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjQjJCMkIyIj48cGF0aCBkPSJNMi41OTIuMDQ0bDE4LjM2NCAxOC4zNjQtMi41NDggMi41NDhMLjA0NCAyLjU5MnoiLz48cGF0aCBkPSJNMCAxOC4zNjRMMTguMzY0IDBsMi41NDggMi41NDhMMi41NDggMjAuOTEyeiIvPjwvZz48L3N2Zz4=");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .image-thumbnail {
+    max-width: 100%;
+    max-height: 80px;
+  }
+}
