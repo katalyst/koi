@@ -14,6 +14,6 @@ Rails.application.config.to_prepare do
     I18n::Backend::Chain.include I18n::Backend::ActiveRecord::Missing
     I18n.backend = I18n::Backend::Chain.new(I18n::Backend::ActiveRecord.new, I18n::Backend::Simple.new)
   end
-rescue ActiveRecord::NoDatabaseError
+rescue ActiveRecord::ConnectionNotEstablished, ActiveRecord::NoDatabaseError
   Rails.logger.debug("database missing, not initialising koi i18n")
 end
