@@ -59,6 +59,8 @@ module HasCrud
         setup_slug
         setup_pagination
         setup_exportable
+      rescue ::ActiveRecord::ConnectionNotEstablished, ::ActiveRecord::NoDatabaseError
+        # skip initialization, no database available
       end
 
       def setup_navigation
