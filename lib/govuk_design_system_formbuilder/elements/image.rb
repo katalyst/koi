@@ -157,14 +157,14 @@ module GOVUKDesignSystemFormBuilder
     # @return [ActiveSupport::SafeBuffer] HTML output
     #
     # @example An image field with injected content
-    #   = f.govuk_rich_text_area :description,
-    #     label: { text: 'Where did the incident take place?' } do
+    #   = f.govuk_image_field :incident_image,
+    #     label: { text: 'Attach a picture of the incident' } do
     #
     #     p.govuk-inset-text
     #       | If you don't know exactly leave this section blank
     #
     # @example A image upload field with label as a proc
-    #   = f.govuk_image_field :cv, label: -> { tag.h3('Upload your CV') }
+    #   = f.govuk_image_field :image, label: -> { tag.h3('Upload your image') }
     #
     def govuk_image_field(attribute_name, label: {}, caption: {}, hint: {}, form_group: {}, **kwargs, &block)
       Elements::Image.new(self, object_name, attribute_name, label: label, caption: caption, hint: hint, form_group: form_group, **kwargs, &block).html
