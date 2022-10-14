@@ -9,7 +9,6 @@ PATH
       dragonfly (= 1.3.0)
       friendly_id
       has_scope (>= 0.8)
-      i18n-active_record
       importmap-rails
       inherited_resources (>= 1.13.0)
       jquery-rails (>= 4.4)

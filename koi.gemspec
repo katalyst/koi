@@ -89,8 +89,6 @@ Gem::Specification.new do |s|
   # Allow non-digest references to assets (ckeditor)
   s.add_dependency "non-digest-assets"
 
-  # Settings
-  s.add_dependency "i18n-active_record"
   s.metadata = {
     "rubygems_mfa_required" => "true",
   }
