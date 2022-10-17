@@ -16,5 +16,7 @@
 <% end %>
 
 <%= content_for :side_top do %>
-  <%= render "katalyst/navigation/menus/new_items", menu: menu %>
+  <div data-sticky>
+    <%= render "katalyst/navigation/menus/new_items", menu: menu %>
+  </div>
 <% end %>
