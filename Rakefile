@@ -28,10 +28,10 @@ end
 task build: "app:dartsass:build"
 
 desc "Run all linters"
-task lint: %w[rubocop]
+task lint: %w[rubocop app:yarn:lint]
 
 desc "Run all auto-formatters"
-task format: %w[rubocop:autocorrect]
+task format: %w[rubocop:autocorrect app:yarn:format]
 
 task default: %i[lint spec] do
   puts "🎉 build complete! 🎉"

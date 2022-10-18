@@ -16,6 +16,7 @@ spec/dummy/dragonfly
 /.rspec_status
 /.idea
 /.rakeTasks
+/node_modules
 
 # dartsass-rails
 /app/assets/builds/*
