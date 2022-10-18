@@ -13,7 +13,7 @@ $header-link-color: #fff !default;
 $header-link-hover: #fff !default;
 
 // Mobile pane
-$mobile-tray-shadow: 0 0 20px rgba(0, 0, 0, .3) !default;
+$mobile-tray-shadow: 0 0 20px rgba(0, 0, 0, 0.3) !default;
 $mobile-pane-background: $black !default;
 $mobile-pane-action-background: $primary-color !default;
 $mobile-pane-borders: $primary-color !default;
@@ -22,11 +22,11 @@ $mobile-pane-max-depth: 20 !default;
 $mobile-pane-link-color: #fff !default;
 $mobile-pane-link-hover: #fff !default;
 $mobile-pane-link-background: transparent !default;
-$mobile-pane-focus-background: rgba($mobile-pane-borders, .2) !default;
+$mobile-pane-focus-background: rgba($mobile-pane-borders, 0.2) !default;
 
 // Overlay
 $overlay-color: $black !default;
-$overlay-opacity: .5 !default;
+$overlay-opacity: 0.5 !default;
 $lightbox-overlay-color: $overlay-color !default;
 $lightbox-overlay-opacity: $overlay-opacity !default;
 $mobile-menu-overlay-color: $overlay-color !default;
@@ -36,7 +36,7 @@ $mobile-menu-overlay-opacity: $overlay-opacity !default;
 $button-large-padding: 12px 24px !default;
 $button-default-padding: 8px 12px !default;
 $button-small-padding: 4px 8px !default;
-$button-depressed-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, .3) !default;
+$button-depressed-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, 0.3) !default;
 
 // Button Colours
 $button-primary-background: $primary-color !default;
@@ -47,7 +47,11 @@ $button-success-background: $success-color !default;
 $button-disabled-background: $grey !default;
 
 // Page Title
-$page-title-background: linear-gradient(to top, $passive-color 0%, $white 100%) !default;
+$page-title-background: linear-gradient(
+  to top,
+  $passive-color 0%,
+  $white 100%
+) !default;
 $page-title-border: $divider-color !default;
 
 // Listing Tables

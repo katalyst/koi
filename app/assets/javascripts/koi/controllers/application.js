@@ -1,11 +1,11 @@
-import { Application } from "@hotwired/stimulus"
+import { Application } from "@hotwired/stimulus";
 
 // Stimulus controllers. This should ultimately be moved to koi/admin.js
-import "@hotwired/turbo-rails"
+import "@hotwired/turbo-rails";
 import "@rails/actiontext";
 
-const application = Application.start()
+const application = Application.start();
 
-window.Stimulus = application
+window.Stimulus = application;
 
-export { application }
+export { application };

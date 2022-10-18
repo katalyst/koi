@@ -1,2 +1,18 @@
+# builds (generated)
 app/assets/builds
 spec/dummy/app/assets/builds
+
+# ckeditor (legacy)
+app/assets/javascripts/koi/ckeditor
+
+# jquery components (legacy)
+app/assets/javascripts/koi/jquery
+app/assets/stylesheets/koi/jquery
+
+# ornament components (legacy)
+app/assets/javascripts/koi/ornament
+app/assets/stylesheets/koi/ornament
+
+# grunticon (generated)
+**/grunticon
+grunticon.*

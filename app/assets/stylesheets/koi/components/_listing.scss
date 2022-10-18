@@ -13,7 +13,7 @@
   @include display-flex;
   @include flex-direction(column);
 
-  @include media-query(780px,min) {
+  @include media-query(780px, min) {
     @include flex-direction(row);
     @include align-items(center);
   }

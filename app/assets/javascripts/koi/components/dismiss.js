@@ -15,28 +15,22 @@
 */
 
 (function (document, window, $) {
-
   "use strict";
 
   $(document).on("ornament:refresh", function () {
-
     var $dismisses = $("[data-dismiss]");
 
-    $dismisses.each(function(){
-
+    $dismisses.each(function () {
       var $anchor = $(this);
-      var $target = $anchor.closest("."+$anchor.attr("data-dismiss"));
-      if($target.length) {
-
-        $anchor.on("click", function(e) {
+      var $target = $anchor.closest("." + $anchor.attr("data-dismiss"));
+      if ($target.length) {
+        $anchor.on("click", function (e) {
           e.preventDefault();
-          $target.fadeOut('fast', function(){
+          $target.fadeOut("fast", function () {
             $target.remove();
           });
         });
       }
     });
-
   });
-
-}(document, window, jQuery));
+})(document, window, jQuery);

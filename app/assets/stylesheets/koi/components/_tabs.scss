@@ -1,9 +1,8 @@
-$tab-inactive-color: #ECF0F1;
+$tab-inactive-color: #ecf0f1;
 
 // TABS
 
 .tabs--links {
-
   &.tabs--links__flush {
     overflow: hidden;
   }
@@ -34,11 +33,11 @@ $tab-inactive-color: #ECF0F1;
   padding-left: $x-small-unit;
   padding-right: $x-small-unit;
   @include line-height-padding($button-height);
-  transition: border-color .2s;
+  transition: border-color 0.2s;
   border-radius: $border-radius $border-radius 0 0;
 
   .tabs--links__flush & {
-    border-radius: 0;;
+    border-radius: 0;
   }
 }
 
@@ -115,14 +114,13 @@ $tab-inactive-color: #ECF0F1;
   }
   &.shadow-left:before {
     left: 0;
-    box-shadow: inset 8px 0px 11px -7px rgba(0,0,0,0.8);
+    box-shadow: inset 8px 0px 11px -7px rgba(0, 0, 0, 0.8);
   }
   &.shadow-right:after {
     right: 0;
-    box-shadow: inset -8px 0px 11px -7px rgba(0,0,0,0.8);
+    box-shadow: inset -8px 0px 11px -7px rgba(0, 0, 0, 0.8);
   }
 }
-
 
 // =========================================================================
 // Styleguide feature tabs
@@ -135,7 +133,7 @@ $sg-feature-background: $background-color;
   margin-top: $default-unit;
   margin-bottom: $default-unit;
   @include flush-children;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .sg-feature > .tabs--links {
@@ -162,7 +160,7 @@ $sg-feature-background: $background-color;
   @include decorate-link(none, none);
   font-size: $small-font-size;
   text-transform: uppercase;
-  border-radius: 0;;
+  border-radius: 0;
 }
 
 .sg-feature > .tabs--links > ul > li:first-child > .tabs--link {

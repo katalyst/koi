@@ -1,4 +1,3 @@
-
 .button-object {
   // empty class to extend all our buttons in to so we
   // can target them all with .button regardless of what
@@ -8,11 +7,11 @@
 // MIXINS
 
 // Custom button background colours and hovers
-@mixin button-background($color, $hover-color:false) {
+@mixin button-background($color, $hover-color: false) {
   background: $color;
-  transition: background .2s;
+  transition: background 0.2s;
 
-  @if($hover-color) {
+  @if ($hover-color) {
     &:hover {
       background: $hover-color;
     }
@@ -24,15 +23,15 @@
 }
 
 // Line button style mixin
-@mixin button-line($color, $hover-color:false, $text-color:false) {
+@mixin button-line($color, $hover-color: false, $text-color: false) {
   background: transparent;
   border: 2px solid $color;
 
-  @if($text-color) {
+  @if ($text-color) {
     @include color-link($text-color, $text-color);
   }
 
-  @if($hover-color) {
+  @if ($hover-color) {
     &:hover {
       background: transparent;
       border-color: $hover-color;
@@ -97,7 +96,6 @@
   @include button-background($button-inactive-background);
 }
 
-
 // basic button
 .button,
 .button__back,
@@ -128,21 +126,41 @@
 }
 
 // line styles
-.button__line, .button--outline {
+.button__line,
+.button--outline {
   @include button-base;
-  @include button-line($button-primary-background, false, $button-primary-background);
+  @include button-line(
+    $button-primary-background,
+    false,
+    $button-primary-background
+  );
 }
-.button__secondary__line, .button--secondary--outline {
+.button__secondary__line,
+.button--secondary--outline {
   @include button-base;
-  @include button-line($button-secondary-background, false, $button-secondary-background);
+  @include button-line(
+    $button-secondary-background,
+    false,
+    $button-secondary-background
+  );
 }
-.button__confirm__line, .button--confirm--outline {
+.button__confirm__line,
+.button--confirm--outline {
   @include button-base;
-  @include button-line($button-success-background, false, $button-success-background);
+  @include button-line(
+    $button-success-background,
+    false,
+    $button-success-background
+  );
 }
-.button__cancel__line, .button--cancel--outline {
+.button__cancel__line,
+.button--cancel--outline {
   @include button-base;
-  @include button-line($button-error-background, false, $button-error-background);
+  @include button-line(
+    $button-error-background,
+    false,
+    $button-error-background
+  );
 }
 
 // button text styles
@@ -152,7 +170,10 @@
 }
 
 %button-disabled {
-  @include button-background($button-disabled-background,$button-disabled-background);
+  @include button-background(
+    $button-disabled-background,
+    $button-disabled-background
+  );
   color: $white;
   cursor: not-allowed;
 }
@@ -243,7 +264,7 @@
   // Take advantage of the fact that buttons all extend the
   // .button class here
   .button-object {
-    border-radius: 0;;
+    border-radius: 0;
     float: left;
   }
 
@@ -278,7 +299,7 @@
 // Label buttons
 // =========================================================================
 
-@mixin button__pill($background:$passive-color, $color:foreground-color) {
+@mixin button__pill($background: $passive-color, $color: foreground-color) {
   border-radius: $border-radius;
   padding: 4px 8px;
   font-size: $small-font-size;
@@ -315,7 +336,7 @@
 // Badges
 // =========================================================================
 
-@mixin button__badge($background-color:$primary-color, $color:$white) {
+@mixin button__badge($background-color: $primary-color, $color: $white) {
   border-radius: 50px;
   background-color: $background-color;
   color: $color;

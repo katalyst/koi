@@ -1,25 +1,25 @@
-$navigation-tray-background:            $mobile-pane-background;
-$navigation-forward-hitbox:             44px;
-$navigation-forward-background:         transparent;
-$navigation-forward-selected:           $primary-color;
-$navigation-max-pane-depth:             $mobile-pane-max-depth;
+$navigation-tray-background: $mobile-pane-background;
+$navigation-forward-hitbox: 44px;
+$navigation-forward-background: transparent;
+$navigation-forward-selected: $primary-color;
+$navigation-max-pane-depth: $mobile-pane-max-depth;
 
 // Primary pane styles
-$navigation-first-pane-border:          $primary-color;
-$navigation-first-pane-selected:        $mobile-pane-focus-background;
-$navigation-first-pane-link-color:      $mobile-pane-link-color;
-$navigation-first-pane-link-hover:      $mobile-pane-link-hover;
+$navigation-first-pane-border: $primary-color;
+$navigation-first-pane-selected: $mobile-pane-focus-background;
+$navigation-first-pane-link-color: $mobile-pane-link-color;
+$navigation-first-pane-link-hover: $mobile-pane-link-hover;
 $navigation-first-pane-link-background: $mobile-pane-link-background;
-$navigation-first-pane-padding:         $xxx-small-unit;
-$navigation-first-pane-focus:           $mobile-pane-focus-background;
+$navigation-first-pane-padding: $xxx-small-unit;
+$navigation-first-pane-focus: $mobile-pane-focus-background;
 
 // Settings if the secondary panes are different colours than primary
 // If false, primary pane styles above can be considered global styles
-$navigation-secondary-pane-different:   false;
-$navigation-secondary-pane-background:  transparent;
-$navigation-secondary-pane-border:      lighten($primary-color, 20);
-$navigation-secondary-pane-selected:    lighten($primary-color, 20);
-$navigation-secondary-pane-link-color:  #fff;
+$navigation-secondary-pane-different: false;
+$navigation-secondary-pane-background: transparent;
+$navigation-secondary-pane-border: lighten($primary-color, 20);
+$navigation-secondary-pane-selected: lighten($primary-color, 20);
+$navigation-secondary-pane-link-color: #fff;
 
 .layout--mobile-tray {
   background: $navigation-tray-background;
@@ -64,7 +64,7 @@ $navigation-secondary-pane-link-color:  #fff;
     visibility: visible;
     .pane-wrapper {
       will-change: transform;
-      transition: .15s transform linear;
+      transition: 0.15s transform linear;
     }
   }
 }
@@ -90,7 +90,7 @@ $navigation-secondary-pane-link-color:  #fff;
     &[data-level="#{$i}"] > .pane-wrapper {
       $offsetLevel: $i - 1;
       $offset: $offsetLevel * 100%;
-      transform: translate( -($offset), 0 );
+      transform: translate(-($offset), 0);
 
       .no-csstransforms & {
         left: -($offset);
@@ -111,7 +111,7 @@ $navigation-secondary-pane-link-color:  #fff;
     .pane {
       left: 100%;
       background: $navigation-tray-background;
-      
+
       @if $navigation-secondary-pane-different == true {
         background: $navigation-secondary-pane-background;
       }
@@ -145,9 +145,13 @@ $navigation-secondary-pane-link-color:  #fff;
 
   // Link styles
   .pane-wrapper .pane {
-    a, .faux-link {
+    a,
+    .faux-link {
       position: relative;
-      @include color-link($navigation-first-pane-link-color,$navigation-first-pane-link-hover);
+      @include color-link(
+        $navigation-first-pane-link-color,
+        $navigation-first-pane-link-hover
+      );
       @include font($bold-font);
       @include line-height-padding($navigation-forward-hitbox);
       @include disable-mouse-outline;
@@ -219,7 +223,7 @@ $navigation-secondary-pane-link-color:  #fff;
       > a,
       > span.faux-link,
       > button {
-        @include grunticon("plus-16-white", 16px, $psuedo:after);
+        @include grunticon("plus-16-white", 16px, $psuedo: after);
       }
     }
   }
@@ -228,7 +232,10 @@ $navigation-secondary-pane-link-color:  #fff;
   @if $navigation-secondary-pane-different == true {
     .pane-wrapper .pane .pane {
       a {
-        @include color-link($navigation-secondary-pane-link-color, $navigation-secondary-pane-link-color);
+        @include color-link(
+          $navigation-secondary-pane-link-color,
+          $navigation-secondary-pane-link-color
+        );
         border-top-color: $navigation-secondary-pane-border;
       }
 
@@ -256,7 +263,7 @@ $navigation-secondary-pane-link-color:  #fff;
       @include display-flex;
       @include flex-direction(row);
       @include align-items(center);
-      border-radius: 0;;
+      border-radius: 0;
     }
 
     .icon-chevron {
@@ -300,7 +307,6 @@ $navigation-secondary-pane-link-color:  #fff;
 }
 
 .navigation-mobile.simple {
-
   // First level menus
   a {
     display: block;

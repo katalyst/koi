@@ -5,7 +5,7 @@
   background: $primary-color;
   z-index: 995;
   @include color-link($white, $white);
-  transition: top .1s ease-in;
+  transition: top 0.1s ease-in;
 
   &:focus {
     top: 0;

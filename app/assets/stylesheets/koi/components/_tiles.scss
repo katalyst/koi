@@ -22,7 +22,7 @@
 .tile {
   background: $light-grey;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden;
   @include display-flex;
   @include flex-direction(column);
   @include flex-grow(1);

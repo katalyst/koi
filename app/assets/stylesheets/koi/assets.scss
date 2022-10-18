@@ -1,6 +1,32 @@
-.tagify.buttons > span:after { content: " "; }
-.tagify.buttons > span { background-color:#fff; padding: 3px 5px; padding-right:2px; cursor: default; margin-right: 7px; display:inline-block; margin-top:7px;}
-.tagify.buttons > span a { color:#ed6c00; display:inline; margin-left: 4px; cursor: pointer; padding: 3px 5px; font-weight:bold; padding-left:2px; }
-.ui-autocomplete-input { margin-top:7px; display: block;width:190px; }
+.tagify.buttons > span:after {
+  content: " ";
+}
+.tagify.buttons > span {
+  background-color: #fff;
+  padding: 3px 5px;
+  padding-right: 2px;
+  cursor: default;
+  margin-right: 7px;
+  display: inline-block;
+  margin-top: 7px;
+}
+.tagify.buttons > span a {
+  color: #ed6c00;
+  display: inline;
+  margin-left: 4px;
+  cursor: pointer;
+  padding: 3px 5px;
+  font-weight: bold;
+  padding-left: 2px;
+}
+.ui-autocomplete-input {
+  margin-top: 7px;
+  display: block;
+  width: 190px;
+}
 
-.asset-manager[name=close] { font-size:20px; line-height:0px; cursor:pointer; }
+.asset-manager[name="close"] {
+  font-size: 20px;
+  line-height: 0px;
+  cursor: pointer;
+}

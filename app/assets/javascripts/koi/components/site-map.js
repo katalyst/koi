@@ -1,26 +1,25 @@
-var Sitemap = Ornament.C.Sitemap = {
-
+var Sitemap = (Ornament.C.Sitemap = {
   // =========================================================================
   // Configuration
   // =========================================================================
 
   logging: false,
   disabledButtonClass: "button__depressed",
-  closedNodeClass: 'mjs-nestedSortable-collapsed',
-  expandedNodeClass: 'mjs-nestedSortable-expanded',
+  closedNodeClass: "mjs-nestedSortable-collapsed",
+  expandedNodeClass: "mjs-nestedSortable-expanded",
   selectors: {
     tree: ".sitemap.application",
     lockButtonSelector: "[data-sitemap-lock]",
     closeAllSelector: "[data-sitemap-close-all]",
-    openAllSelector: "[data-sitemap-open-all]"
+    openAllSelector: "[data-sitemap-open-all]",
   },
   storageKeys: {
     dragDisabledKey: "koiSitemapDragDropDisabled",
-    closedNodeIds: "koiSitemapClosedNodes"
+    closedNodeIds: "koiSitemapClosedNodes",
   },
   lang: {
     enabledButton: "Lock Dragging",
-    disabledButton: "Unlock Dragging"
+    disabledButton: "Unlock Dragging",
   },
 
   log: function (log) {
@@ -39,10 +38,13 @@ var Sitemap = Ornament.C.Sitemap = {
 
     !function () {
       var $this = $(this);
-      var node = { id: $this.data('id'), parent_id: $this.componentOf().data('id') };
+      var node = {
+        id: $this.data("id"),
+        parent_id: $this.componentOf().data("id"),
+      };
 
       node.lft = n++;
-      $(this).components('.nav-item.application').each(arguments.callee);
+      $(this).components(".nav-item.application").each(arguments.callee);
       node.rgt = n++;
 
       nodes.push(node);
@@ -52,35 +54,37 @@ var Sitemap = Ornament.C.Sitemap = {
   },
 
   _bindSortableTree: function () {
-    Sitemap.$rootList.not(".enabled").nestedSortable({
-      forcePlaceholderSize: true,
-      handle: '.information',
-      helper: 'clone',
-      items: '.sortable',
-      opacity: .6,
-      distance: 8,
-      placeholder: 'placeholder',
-      revert: 250,
-      tabSize: 32,
-      tolerance: 'pointer',
-      toleranceElement: '> div',
-      maxLevels: 0,
-      isTree: true,
-      startCollapsed: false,
-      start: function (event, ui) {
-        keyboardJS.bind("esc", Sitemap.cancelDrag);
-      },
-      stop: function (event, ui) {
-        keyboardJS.unbind("esc", Sitemap.cancelDrag);
-        if (Sitemap.$rootList.hasClass("cancelling")) {
-          // Cancel drag and drop if asked to cancel
-          Sitemap.$rootList
-            .sortable("cancel")
-            .removeClass("cancelling")
-            .sortable("option", "revert", 250)
-        }
-      }
-    })
+    Sitemap.$rootList
+      .not(".enabled")
+      .nestedSortable({
+        forcePlaceholderSize: true,
+        handle: ".information",
+        helper: "clone",
+        items: ".sortable",
+        opacity: 0.6,
+        distance: 8,
+        placeholder: "placeholder",
+        revert: 250,
+        tabSize: 32,
+        tolerance: "pointer",
+        toleranceElement: "> div",
+        maxLevels: 0,
+        isTree: true,
+        startCollapsed: false,
+        start: function (event, ui) {
+          keyboardJS.bind("esc", Sitemap.cancelDrag);
+        },
+        stop: function (event, ui) {
+          keyboardJS.unbind("esc", Sitemap.cancelDrag);
+          if (Sitemap.$rootList.hasClass("cancelling")) {
+            // Cancel drag and drop if asked to cancel
+            Sitemap.$rootList
+              .sortable("cancel")
+              .removeClass("cancelling")
+              .sortable("option", "revert", 250);
+          }
+        },
+      })
       .addClass("enabled draggable")
       .on("sortupdate", Sitemap._saveSort);
   },
@@ -114,7 +118,9 @@ var Sitemap = Ornament.C.Sitemap = {
   },
 
   _bindToggleButtons: function () {
-    Sitemap.getToggleButtons().off('click').on('click', Sitemap._toggleNodeEvent);
+    Sitemap.getToggleButtons()
+      .off("click")
+      .on("click", Sitemap._toggleNodeEvent);
   },
 
   _bindToggleAllButtons: function () {
@@ -140,7 +146,7 @@ var Sitemap = Ornament.C.Sitemap = {
   // Optionally, get only the visible ones
   getToggleButtons: function (visible) {
     visible = visible || false;
-    var $toggles = Sitemap.$tree.find('.disclose');
+    var $toggles = Sitemap.$tree.find(".disclose");
     if (visible) {
       return $toggles.filter(":visible");
     } else {
@@ -150,7 +156,7 @@ var Sitemap = Ornament.C.Sitemap = {
 
   // Get the parent container for the toggle button
   getToggleContainer: function ($toggle) {
-    return $toggle.closest('li');
+    return $toggle.closest("li");
   },
 
   // Get the icon for the toggle button
@@ -226,7 +232,9 @@ var Sitemap = Ornament.C.Sitemap = {
     var allClosed = true;
     Sitemap.getToggleButtons(true).each(function () {
       var $node = $(this);
-      if (Sitemap.getToggleContainer($node).is("." + Sitemap.expandedNodeClass)) {
+      if (
+        Sitemap.getToggleContainer($node).is("." + Sitemap.expandedNodeClass)
+      ) {
         Sitemap.log("[ALLNODES]" + $node.attr("data-node-id") + "is open");
         allClosed = false;
         return false;
@@ -270,7 +278,9 @@ var Sitemap = Ornament.C.Sitemap = {
 
   // Toggle a nodes visibility
   toggleNode: function ($node) {
-    $node = $node.is("[data-node-id]") ? $node : $node.closest("[data-node-id]");
+    $node = $node.is("[data-node-id]")
+      ? $node
+      : $node.closest("[data-node-id]");
     var nodeId = $node.attr("data-node-id");
     if (Sitemap.isNodeOpen($node)) {
       Sitemap.log(nodeId + " is closed");
@@ -284,8 +294,12 @@ var Sitemap = Ornament.C.Sitemap = {
   // Open a node
   openNode: function ($node, storage) {
     storage = storage || false;
-    Sitemap.getToggleContainer($node).removeClass(Sitemap.closedNodeClass).addClass(Sitemap.expandedNodeClass);
-    Sitemap.getToggleIcon($node).removeClass('ui-icon-plusthick').addClass('ui-icon-minusthick');
+    Sitemap.getToggleContainer($node)
+      .removeClass(Sitemap.closedNodeClass)
+      .addClass(Sitemap.expandedNodeClass);
+    Sitemap.getToggleIcon($node)
+      .removeClass("ui-icon-plusthick")
+      .addClass("ui-icon-minusthick");
     Sitemap.setToggleAllVisibility();
     if (storage) {
       var currentClosedNodes = Sitemap.getClosedNodesFromLocalStorage() || [];
@@ -303,8 +317,12 @@ var Sitemap = Ornament.C.Sitemap = {
   // Close a node
   closeNode: function ($node, storage) {
     storage = storage || false;
-    Sitemap.getToggleContainer($node).addClass(Sitemap.closedNodeClass).removeClass(Sitemap.expandedNodeClass);
-    Sitemap.getToggleIcon($node).addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick');
+    Sitemap.getToggleContainer($node)
+      .addClass(Sitemap.closedNodeClass)
+      .removeClass(Sitemap.expandedNodeClass);
+    Sitemap.getToggleIcon($node)
+      .addClass("ui-icon-plusthick")
+      .removeClass("ui-icon-minusthick");
     Sitemap.setToggleAllVisibility();
     if (storage) {
       var currentClosedNodes = Sitemap.getClosedNodesFromLocalStorage() || [];
@@ -376,7 +394,10 @@ var Sitemap = Ornament.C.Sitemap = {
   },
 
   cancelDrag: function () {
-    Sitemap.$rootList.addClass("cancelling").sortable("option", "revert", 0).trigger("mouseup");
+    Sitemap.$rootList
+      .addClass("cancelling")
+      .sortable("option", "revert", 0)
+      .trigger("mouseup");
   },
 
   // After the sitemap updates, rebind the new nodes
@@ -410,9 +431,9 @@ var Sitemap = Ornament.C.Sitemap = {
     // Bind sitemap functions
     Sitemap.$tree.each(function () {
       var $sitemap = $(this);
-      var path = $sitemap.data('uri-save');
-      var $rootList = $sitemap.find('.sitemap--root');
-      var $rootItem = $sitemap.component('.nav-item');
+      var path = $sitemap.data("uri-save");
+      var $rootList = $sitemap.find(".sitemap--root");
+      var $rootItem = $sitemap.component(".nav-item");
 
       // Expose to API
       Sitemap.$rootList = $rootList;
@@ -437,7 +458,5 @@ var Sitemap = Ornament.C.Sitemap = {
 
     // Show/hide the toggle all buttons
     Sitemap.setToggleAllVisibility();
-
-  }
-
-}
+  },
+});

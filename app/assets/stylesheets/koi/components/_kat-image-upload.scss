@@ -54,7 +54,7 @@ $file-upload-breakpoint: 545px;
   progress::-webkit-progress-value {
     background: $success-color;
     opacity: 0.1;
-    transition: width .2s;
+    transition: width 0.2s;
   }
   progress::-moz-progress-bar {
     background: $success-color;
@@ -138,7 +138,7 @@ $file-upload-breakpoint: 545px;
   }
 }
 
-// 
+//
 .form--file-upload--current {
   margin-top: $xxxxx-small-unit;
 }
@@ -224,7 +224,7 @@ $file-upload-breakpoint: 545px;
 .file-uploader--notes {
   @include pie-clearfix();
   p {
-    color: #A8A8A8;
+    color: #a8a8a8;
     font-size: 14px;
   }
 }
@@ -265,7 +265,6 @@ $file-upload-breakpoint: 545px;
     max-height: none;
     pointer-events: none;
   }
-
 }
 
 .file-upload--undo {
@@ -329,9 +328,9 @@ $file-upload-breakpoint: 545px;
 
 // Crop modal styles
 .form--file-crop {
-  overflow: hidden; 
-  @include display-flex;  
-  @include flex-direction(column);  
+  overflow: hidden;
+  @include display-flex;
+  @include flex-direction(column);
 
   // img {
   //   display: block;

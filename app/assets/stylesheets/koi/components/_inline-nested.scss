@@ -21,7 +21,7 @@
     margin-top: 0;
     color: inherit;
     font-size: inherit;
-    margin-left: .5em;
+    margin-left: 0.5em;
   }
 }
 
@@ -77,7 +77,7 @@
   .icon-chevron {
     width: 16px;
     height: 11px;
-    transition: transform .2s;
+    transition: transform 0.2s;
 
     .nested-fields-visible & {
       transform: rotateZ(-180deg);

@@ -7,11 +7,11 @@
   top: 0;
   border-bottom: $header-border;
   z-index: 990;
-  position: fixed;  
+  position: fixed;
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 
   @include media-query($breakpoint-header, min) {
     left: $tray-width;
@@ -22,7 +22,13 @@
   }
 
   .body__staging & {
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba($primary-color, .5) 20px, rgba($primary-color, .5) 40px)
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba($primary-color, 0.5) 20px,
+      rgba($primary-color, 0.5) 40px
+    );
   }
 }
 
@@ -66,7 +72,8 @@
   color: $foreground-color;
 }
 
-.header--actions, .refresh-actions {
+.header--actions,
+.refresh-actions {
   @include display-flex;
   @include flex-direction(row);
   @include align-items(center);

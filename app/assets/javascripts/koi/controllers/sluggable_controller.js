@@ -7,7 +7,7 @@ export default class SluggableController extends Controller {
   static targets = ["source", "slug"];
   static values = {
     slug: String,
-  }
+  };
 
   sourceChanged(e) {
     if (this.slugValue === "") {
@@ -21,9 +21,10 @@ export default class SluggableController extends Controller {
 }
 
 function parameterize(input) {
-  return input.toLowerCase()
-    .replace(/'/g, '-')
-    .replace(/[^-\w\s]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  return input
+    .toLowerCase()
+    .replace(/'/g, "-")
+    .replace(/[^-\w\s]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }

@@ -13,7 +13,7 @@ $pagination-status-breakpoint: 950px;
 .pagination--last,
 .pagination--next,
 .pagination--pages,
-.pagination--previous, 
+.pagination--previous,
 .pagination--status {
   border-right: $divider;
 
@@ -65,7 +65,6 @@ $pagination-status-breakpoint: 950px;
   .page.current {
     @include font($bold-font);
   }
-
 }
 
 .pagination--pages {
@@ -86,7 +85,7 @@ $pagination-status-breakpoint: 950px;
     opacity: 0;
   }
 
-  @include media-query($pagination-status-breakpoint,min) {
+  @include media-query($pagination-status-breakpoint, min) {
     display: none;
   }
 }

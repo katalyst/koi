@@ -1,11 +1,11 @@
 @import "koi/magnific-popup";
 
-$lightbox-padding-x:        $x-small-unit;
-$lightbox-padding-y:        $x-small-unit;
+$lightbox-padding-x: $x-small-unit;
+$lightbox-padding-y: $x-small-unit;
 $lightbox-padding-y-bottom: $small-unit;
 
-// Content Container 
-.mfp-inline-holder .mfp-content, 
+// Content Container
+.mfp-inline-holder .mfp-content,
 .mfp-ajax-holder .mfp-content {
   background: #fff;
   width: 90%;
@@ -13,7 +13,7 @@ $lightbox-padding-y-bottom: $small-unit;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: $border-radius;
-  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.20);
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
 
   .lightbox__small & {
     max-width: 500px;
@@ -45,7 +45,7 @@ $lightbox-padding-y-bottom: $small-unit;
   z-index: 2;
   @include display-flex;
   border-bottom: 2px solid $primary-color;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.10);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .lightbox--header--logo {
   @include display-flex;
@@ -85,7 +85,8 @@ $lightbox-padding-y-bottom: $small-unit;
 
 // Sections in a lightbox
 .lightbox--section {
-  padding: $lightbox-padding-y $lightbox-padding-x $lightbox-padding-y-bottom $lightbox-padding-x;
+  padding: $lightbox-padding-y $lightbox-padding-x $lightbox-padding-y-bottom
+    $lightbox-padding-x;
 
   img {
     display: block;
@@ -115,18 +116,26 @@ $lightbox-padding-y-bottom: $small-unit;
 }
 .lightbox--shadow-top {
   top: 0;
-  background: linear-gradient(to top, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+  background: linear-gradient(
+    to top,
+    rgba($overlay-color, 0) 0%,
+    rgba($overlay-color, 0.3) 100%
+  );
 }
 .lightbox--shadow-bottom {
   bottom: 0;
-  background: linear-gradient(to bottom, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba($overlay-color, 0) 0%,
+    rgba($overlay-color, 0.3) 100%
+  );
 }
 
 // Lightbox arrows
 .mfp-ajax-holder .mfp-arrow-left,
 .mfp-image-holder .mfp-arrow-left {
   left: 0;
-  @include grunticon("chevron-left-white", 10px, 18px); 
+  @include grunticon("chevron-left-white", 10px, 18px);
 }
 
 .mfp-ajax-holder .mfp-arrow-right,
@@ -140,22 +149,22 @@ $lightbox-padding-y-bottom: $small-unit;
   position: fixed;
   top: 50%;
   background: $secondary-color;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0, 0, 0, 0.25);
   margin-top: -9px;
   z-index: 9999;
   overflow: visible;
 }
 
 // Lightbox Close Button
-.mfp-inline-holder .mfp-close, 
-.mfp-ajax-holder .mfp-close ,
+.mfp-inline-holder .mfp-close,
+.mfp-ajax-holder .mfp-close,
 .mfp-figure .mfp-close {
   opacity: 1;
   position: absolute;
   color: $white;
 }
 
-.mfp-inline-holder .mfp-close, 
+.mfp-inline-holder .mfp-close,
 .mfp-ajax-holder .mfp-close {
   top: -46px;
   right: -12px;

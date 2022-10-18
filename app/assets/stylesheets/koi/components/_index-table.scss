@@ -1,6 +1,6 @@
 @mixin sort-icon {
   display: inline-block;
-  content: ' ';
+  content: " ";
   position: relative;
   right: -1rem;
   background-image: url("koi/application/select-arrow.svg");
@@ -33,7 +33,8 @@ $row-height: $xxx-large-unit;
     background-color: $primary-color-x-light;
   }
 
-  th, td {
+  th,
+  td {
     border: none;
     vertical-align: middle;
     box-shadow: inset 0px -1px 0px $light-grey;
@@ -42,7 +43,8 @@ $row-height: $xxx-large-unit;
     text-overflow: ellipsis;
   }
 
-  th > a, td > a {
+  th > a,
+  td > a {
     display: block;
     overflow: hidden;
     white-space: nowrap;
@@ -54,13 +56,15 @@ $row-height: $xxx-large-unit;
     font-weight: bold;
   }
 
-  thead a.ascending:after, [data-sort="asc"] a::after {
+  thead a.ascending:after,
+  [data-sort="asc"] a::after {
     @include sort-icon;
     top: 0;
     transform: rotate(180deg);
   }
 
-  thead a.descending:after, [data-sort="desc"] a::after {
+  thead a.descending:after,
+  [data-sort="desc"] a::after {
     @include sort-icon;
     top: 4px;
   }

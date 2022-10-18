@@ -1,15 +1,15 @@
 // BODY
 
 @mixin body-type() {
- @include font($body-font);
- font-size: $base-font-size;
- line-height: $base-line-height;
+  @include font($body-font);
+  font-size: $base-font-size;
+  line-height: $base-line-height;
 }
 
-body, .body-type {
+body,
+.body-type {
   @include body-type();
 }
-
 
 // HEADINGS
 
@@ -100,7 +100,8 @@ body, .body-type {
   @include heading-four;
 }
 
-@mixin heading-five() {}
+@mixin heading-five() {
+}
 .heading-give {
   @include heading-five;
 }
@@ -133,21 +134,26 @@ body, .body-type {
   }
 }
 
-
 // INLINE STYLES
 
-strong, b {
+strong,
+b {
   @include font($bold-font);
 }
 
-em, i {
+em,
+i {
   @include font($italic-font);
 }
 
-em b, em strong,
-i b, i strong,
-b i, b em,
-strong i, strong em {
+em b,
+em strong,
+i b,
+i strong,
+b i,
+b em,
+strong i,
+strong em {
   @include font($bold-italic-font);
 }
 
@@ -167,7 +173,8 @@ small {
 
 // LINKS
 
-a, button {
+a,
+button {
   @include decorate-link(none, underline);
   @include color-link($link-color, $link-hover-color);
 }
@@ -187,22 +194,31 @@ body {
   @include font($body-font);
 }
 
-a, button {
+a,
+button {
   @include decorate-link(none, underline);
   @include color-link($link-color, $link-hover-color);
 }
 
 .ornament-form {
-  [type="text"], [type="password"], [type="date"], [type="datetime"],
-  [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
-  [type="url"], textarea {
+  [type="text"],
+  [type="password"],
+  [type="date"],
+  [type="datetime"],
+  [type="email"],
+  [type="number"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="url"],
+  textarea {
     font: inherit;
     line-height: $base-line-height;
     @include font($body-font);
   }
 }
 
-// STYLEGUIDE CODE 
+// STYLEGUIDE CODE
 
 @mixin pre-code {
   border: 1px solid $light-grey;
@@ -212,7 +228,7 @@ a, button {
   word-wrap: normal;
   font-family: $code-font;
   border-radius: $border-radius;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
   text-shadow: 1px 1px #fff;
 }
 
@@ -224,7 +240,7 @@ pre.code {
   font-family: $code-font;
   border: $divider;
   background: $passive-color;
-  padding: .3em .3em .2em;
+  padding: 0.3em 0.3em 0.2em;
   border-radius: $border-radius;
   text-shadow: 1px 1px #fff;
   white-space: nowrap;

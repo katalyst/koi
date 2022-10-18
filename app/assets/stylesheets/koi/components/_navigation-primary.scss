@@ -14,14 +14,13 @@
 .navigation-primary > li > a {
   @include color-link($white);
   @include decorate-link(none, none);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   padding: $xxxxx-small-unit 0;
   display: block;
 }
 
 // with children
 .navigation-primary > li.dropdown {
-
   > a {
     position: relative;
     padding-right: $xxxx-small-unit;
@@ -47,13 +46,13 @@
 .navigation-primary > li > ul,
 .navigation-primary > li > ul > li > ul {
   display: none;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 4px 0;
   background: #fff;
   z-index: 1000;
   min-width: 225px;
   margin-top: 1px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: $border-radius;
 }
 
@@ -68,7 +67,7 @@
     vertical-align: middle;
     border: 7px solid transparent;
     border-bottom-color: $border;
-    border-bottom-color: rgba(0,0,0,0.2);
+    border-bottom-color: rgba(0, 0, 0, 0.2);
     position: absolute;
     top: -14px;
     right: 8px;

@@ -19,7 +19,7 @@
   background: $primary-color;
   color: $white;
   a {
-    @include color-link($white,$white);
+    @include color-link($white, $white);
   }
 }
 
@@ -57,7 +57,7 @@
   padding-top: $panel-padding;
   padding-bottom: $panel-padding;
   // border-bottom: 1px solid currentColor;
-  border-radius: 0;;
+  border-radius: 0;
 }
 
 .panel__flash--inner {

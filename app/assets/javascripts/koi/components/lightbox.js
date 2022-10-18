@@ -4,155 +4,163 @@
 /*global jQuery,Ornament /*/
 
 (function (document, window, $) {
-
   "use strict";
 
   $(document).on("ornament:lightbox", function () {
-
     // Single lightbox anchors
-    $("[data-lightbox]").each(function(){
-
+    $("[data-lightbox]").each(function () {
       var $anchor = $(this);
       var anchorType = "inline";
 
       // Setup lightbox options with a default type of "inline"
       var popupOptions = $.extend({}, Ornament.popupOptions);
 
-      if($anchor.is("[data-lightbox-small]")) {
+      if ($anchor.is("[data-lightbox-small]")) {
         popupOptions.mainClass = popupOptions.mainClass + " lightbox__small";
       }
 
-      if($anchor.is("[data-lightbox-flush]")) {
+      if ($anchor.is("[data-lightbox-flush]")) {
         popupOptions.mainClass = popupOptions.mainClass + " lightbox__flush";
       }
 
-      if($anchor.is("[data-lightbox-gallery]")) {
+      if ($anchor.is("[data-lightbox-gallery]")) {
         popupOptions.gallery = {
-          enabled: true
-        }
+          enabled: true,
+        };
       }
 
       // Update type based on setting passed in to our anchor
-      if($anchor.data("lightbox")) {
+      if ($anchor.data("lightbox")) {
         popupOptions.type = $anchor.data("lightbox");
 
-        if($anchor.data("lightbox") === "iframe" || $anchor.data("lightbox") === "image") {
+        if (
+          $anchor.data("lightbox") === "iframe" ||
+          $anchor.data("lightbox") === "image"
+        ) {
           popupOptions.showCloseBtn = true;
-          popupOptions.mainClass = popupOptions.mainClass += " lightbox__with-close";
+          popupOptions.mainClass = popupOptions.mainClass +=
+            " lightbox__with-close";
         }
       }
 
       // Init magnificPopup on our anchors
       $anchor.magnificPopup(popupOptions);
-
     });
 
-    $("[data-lightbox-close]").on("click", function(e){
+    $("[data-lightbox-close]").on("click", function (e) {
       e.preventDefault();
       $.magnificPopup.close();
     });
 
-    $(document).delegate("[data-lightbox-close]", "click", function(e){
+    $(document).delegate("[data-lightbox-close]", "click", function (e) {
       e.preventDefault();
       $.magnificPopup.close();
     });
-
   });
 
   // Override Rails handling of confirmation
-  $.rails.allowAction = function(element) {
-
+  $.rails.allowAction = function (element) {
     // The message is something like "Are you sure?"
-    var message = element.data('confirm');
+    var message = element.data("confirm");
 
     // If there's no message, there's no data-confirm attribute,
     // which means there's nothing to confirm
-    if(!message) {
+    if (!message) {
       return true;
     }
 
     // Over-ride this functionality to return to regular rails
-    // function 
-    if(element.is("[data-confirm-no-override]")) {
+    // function
+    if (element.is("[data-confirm-no-override]")) {
       return confirm(message);
     }
 
     // Clone the clicked element (probably a delete link) so we can use it in the dialog box.
-    var $modalConfirm = element.clone()
+    var $modalConfirm = element
+      .clone()
       // We don't necessarily want the same styling as the original link/button.
-      .removeAttr('class')
+      .removeAttr("class")
       // We don't want to pop up another confirmation (recursion)
-      .removeAttr('data-confirm')
+      .removeAttr("data-confirm")
       // We want a button
-      .addClass('button__confirm')
+      .addClass("button__confirm")
       // We want it to sound confirmy
       .html("Yes");
 
-    // Create buttons 
-    var $modalCancel = $("<button class='button button__cancel'>Cancel</button>");
+    // Create buttons
+    var $modalCancel = $(
+      "<button class='button button__cancel'>Cancel</button>"
+    );
 
     // Update confirm button text
-    if(element.is("[data-confirm-confirm]")) {
+    if (element.is("[data-confirm-confirm]")) {
       $modalConfirm.text(element.attr("data-confirm-confirm"));
     }
 
     // Update cancel button text
-    if(element.is("[data-confirm-cancel]")) {
+    if (element.is("[data-confirm-cancel]")) {
       $modalCancel.text(element.attr("data-confirm-cancel"));
     }
 
-    var modalHtml = $('<div class="lightbox--body">' + 
-                    '  <div class="lightbox--header">' + 
-                    '    <div class="lightbox--header--logo">' + 
-                    '      Please confirm' + 
-                    '    </div>' + 
-                    '    <div class="lightbox--header--close" data-lightbox-close title="Close">' + 
-                    '      ' + Ornament.icons.close + 
-                    '    </div>' + 
-                    '  </div>' + 
-                    '  <div class="lightbox--content">' + 
-                    '    <div class="panel--padding">' + 
-                    '    ' + message + 
-                    '    </div>' + 
-                    '  </div>' + 
-                    ' <div class="lightbox--footer" data-lightbox-buttons></div>' + 
-                    '</div>');
+    var modalHtml = $(
+      '<div class="lightbox--body">' +
+        '  <div class="lightbox--header">' +
+        '    <div class="lightbox--header--logo">' +
+        "      Please confirm" +
+        "    </div>" +
+        '    <div class="lightbox--header--close" data-lightbox-close title="Close">' +
+        "      " +
+        Ornament.icons.close +
+        "    </div>" +
+        "  </div>" +
+        '  <div class="lightbox--content">' +
+        '    <div class="panel--padding">' +
+        "    " +
+        message +
+        "    </div>" +
+        "  </div>" +
+        ' <div class="lightbox--footer" data-lightbox-buttons></div>' +
+        "</div>"
+    );
 
-    modalHtml.find("[data-lightbox-buttons]").append($modalConfirm).append(" ").append($modalCancel);
+    modalHtml
+      .find("[data-lightbox-buttons]")
+      .append($modalConfirm)
+      .append(" ")
+      .append($modalCancel);
 
-    var openConfirmModal = function(){
+    var openConfirmModal = function () {
       // Open popup
       var popupOptions = $.extend({}, Ornament.popupOptions);
       popupOptions.items = {
-        src: modalHtml
+        src: modalHtml,
       };
       $.magnificPopup.open(popupOptions);
-    }
+    };
 
     // Check if there's an existing modal
     var currentModal = $.magnificPopup.instance.currItem;
-    if(currentModal) {
+    if (currentModal) {
       var previousModal = currentModal.src;
       $.magnificPopup.close();
 
-      setTimeout(function(){
+      setTimeout(function () {
         openConfirmModal();
       }, Ornament.popupOptions.removalDelay);
     } else {
       openConfirmModal();
     }
 
-
     // Clicking on the cancel button hides the popup
-    $modalCancel.on("click", function(e){
+    $modalCancel.on("click", function (e) {
       $.magnificPopup.close();
 
-      if(previousModal) {
+      if (previousModal) {
         var popupOptions = $.extend({}, Ornament.popupOptions);
         popupOptions.items = {
-          src: previousModal
+          src: previousModal,
         };
-        setTimeout(function(){
+        setTimeout(function () {
           $.magnificPopup.open(popupOptions);
         }, Ornament.popupOptions.removalDelay);
       }
@@ -161,11 +169,10 @@
     });
 
     // Prevent the original link from working
-    return false
-  }
+    return false;
+  };
 
   $(document).on("ornament:refresh", function () {
     $(document).trigger("ornament:lightbox");
   });
-
-}(document, window, jQuery));
+})(document, window, jQuery);

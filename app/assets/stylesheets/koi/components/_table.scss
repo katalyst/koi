@@ -64,7 +64,8 @@ table {
 }
 
 .table__soft {
-  td,th {
+  td,
+  th {
     padding: $xxxxx-small-unit;
   }
   thead th {
@@ -145,7 +146,7 @@ table {
 }
 
 // =========================================================================
-// Cell styling, widths and variations 
+// Cell styling, widths and variations
 // =========================================================================
 
 .table-row__error td {
@@ -201,7 +202,7 @@ table {
 }
 
 // =========================================================================
-// Sorting and  ordering 
+// Sorting and  ordering
 // =========================================================================
 
 .table td.table__td__sorter {
@@ -228,16 +229,22 @@ table {
 }
 
 // Sortable table icons
-table .icon.sort, 
+table .icon.sort,
 table .icon.sort:hover {
-  min-height: 16px; 
-  min-width: 16px; 
+  min-height: 16px;
+  min-width: 16px;
   background-position: right center;
   background-repeat: no-repeat;
   padding-right: 15px;
 
-  &.ascending, &.asc { background-image:   url("koi/application/icon-index-sort-ascending.png"); }
-  &.descending, &.desc { background-image: url("koi/application/icon-index-sort-descending.png"); }
+  &.ascending,
+  &.asc {
+    background-image: url("koi/application/icon-index-sort-ascending.png");
+  }
+  &.descending,
+  &.desc {
+    background-image: url("koi/application/icon-index-sort-descending.png");
+  }
 }
 
 .table-container--outer {
@@ -260,12 +267,20 @@ table .icon.sort:hover {
 
 .table-container--shadow__left {
   left: 0;
-  background: linear-gradient(to left, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+  background: linear-gradient(
+    to left,
+    rgba($overlay-color, 0) 0%,
+    rgba($overlay-color, 0.3) 100%
+  );
 }
 
 .table-container--shadow__right {
   right: 0;
-  background: linear-gradient(to right, rgba($overlay-color, 0) 0%, rgba($overlay-color, .3) 100%);
+  background: linear-gradient(
+    to right,
+    rgba($overlay-color, 0) 0%,
+    rgba($overlay-color, 0.3) 100%
+  );
 }
 
 .table--sorter {

@@ -1,7 +1,7 @@
-$form-line-height:    $button-height - 2;
-$form-inline-height:  $button-height;
-$form-width:          748px; // used for calculating % widths of inputs
-$hint-color:          $grey;
+$form-line-height: $button-height - 2;
+$form-inline-height: $button-height;
+$form-width: 748px; // used for calculating % widths of inputs
+$hint-color: $grey;
 
 @mixin input__flat-right {
   border-top-right-radius: 0;
@@ -26,20 +26,31 @@ $hint-color:          $grey;
     display: none;
   }
 
-  [type="text"], [type="password"], [type="date"], [type="datetime"],
-  [type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
-  [type="url"], textarea {
+  [type="text"],
+  [type="password"],
+  [type="date"],
+  [type="datetime"],
+  [type="email"],
+  [type="number"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="url"],
+  textarea {
     background: $input-background;
     border: $input-border;
     color: $input-color;
     width: $input-width;
   }
 
-  [type="radio"], [type="checkbox"], [type="submit"] {
+  [type="radio"],
+  [type="checkbox"],
+  [type="submit"] {
     cursor: pointer;
   }
 
-  [type="radio"], [type="checkbox"] {
+  [type="radio"],
+  [type="checkbox"] {
     margin: $checkbox-radio-padding;
   }
 
@@ -48,11 +59,15 @@ $hint-color:          $grey;
     margin: 0;
   }
 
-  input, select {
+  input,
+  select {
     vertical-align: middle;
   }
 
-  input, textarea, keygen, select {
+  input,
+  textarea,
+  keygen,
+  select {
     display: inline-block;
     vertical-align: middle;
   }
@@ -63,11 +78,12 @@ $hint-color:          $grey;
     max-width: 100%;
   }
 
-  input[type=file] {
+  input[type="file"] {
     max-width: 100%;
   }
 
-  button, input[type=submit] {
+  button,
+  input[type="submit"] {
     -webkit-appearance: none;
   }
 
@@ -102,16 +118,16 @@ $hint-color:          $grey;
   }
 
   // Styling input fields
-  input[type=text],
-  input[type=password],
-  input[type=number],
-  input[type=search],
-  input[type=tel],
-  input[type=email],
-  input[type=url],
-  input[type=date],
-  input[type=datetime],
-  input[type=time],
+  input[type="text"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="time"],
   select,
   textarea,
   .form-label-combo,
@@ -123,7 +139,7 @@ $hint-color:          $grey;
     padding-left: $xxxx-small-unit;
     padding-right: $xxxx-small-unit;
     margin: 0;
-    transition: border-color .2s;
+    transition: border-color 0.2s;
     border-radius: $input-border-radius;
 
     .layout--main & {
@@ -134,7 +150,7 @@ $hint-color:          $grey;
     .layout--main .error &,
     .layout--main .fieldWithErrors & {
       border-color: $error-color;
-      box-shadow: inset 2px 2px 2px 0px rgba($error-color, 0.20);
+      box-shadow: inset 2px 2px 2px 0px rgba($error-color, 0.2);
     }
 
     &.input__flat-right {
@@ -166,7 +182,6 @@ $hint-color:          $grey;
 
   @include input-placeholder {
     color: $input-border-color;
-
   }
 
   select {
@@ -178,7 +193,6 @@ $hint-color:          $grey;
   // WEBKIT AND FIREFOX SELECT MENU OVER-RIDE
 
   @include pretty-select {
-
     select[multiple],
     select[multiple][size],
     select[size] {
@@ -187,14 +201,13 @@ $hint-color:          $grey;
     }
 
     select,
-    select[size='0'],
-    select[size='1'] {
+    select[size="0"],
+    select[size="1"] {
       background-image: url("koi/application/select_arrow.png");
       background-repeat: no-repeat;
       background-position: right center;
       padding-right: 36px;
     }
-
   }
 
   // FIELD LENGTH MODIFIERS
@@ -244,17 +257,14 @@ $hint-color:          $grey;
     }
   }
 
-
   // Enhanced input fields
   .form--enhanced {
-
     .radio .form--enhanced--control {
       border-radius: 50%;
     }
 
     .radio,
     .checkbox {
-
       .form--enhanced--control {
         content: "";
         width: 1em;
@@ -265,7 +275,7 @@ $hint-color:          $grey;
         left: 0;
         background: $primary-color;
         box-shadow: inset 0 0 0 1em $white;
-        transition: box-shadow .2s;
+        transition: box-shadow 0.2s;
       }
 
       .form--enhanced--control:hover {
@@ -293,7 +303,6 @@ $hint-color:          $grey;
         padding: 0;
       }
     }
-
   }
 
   .form--horizontal {
@@ -362,7 +371,7 @@ $hint-color:          $grey;
 
   // REQUIRED FIELDS
   .control-label abbr,
-  abbr[title=required] {
+  abbr[title="required"] {
     color: $primary-color;
     margin-right: -3px;
   }
@@ -439,7 +448,6 @@ $hint-color:          $grey;
 
   // TINY SEARCH COMPONENT
   .form--tiny-search {
-
     form {
       @include display-flex;
       @include flex-direction(row);
@@ -551,7 +559,7 @@ $hint-color:          $grey;
     padding-left: $xxxx-small-unit;
     box-shadow: $input-shadow;
     min-height: $form-inline-height;
-    transition: border-color .2s;
+    transition: border-color 0.2s;
     height: 100%;
 
     // select styles
@@ -649,5 +657,4 @@ $hint-color:          $grey;
       @include flex-shrink(0);
     }
   }
-
 }

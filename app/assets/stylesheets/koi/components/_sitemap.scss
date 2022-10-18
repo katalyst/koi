@@ -1,8 +1,12 @@
 // Lock/Unlock Component
 
 @mixin sitemap-media-query {
-  @media only screen and (max-width:1050px) and (min-width:($breakpoint-page + 1px)) { @content; }
-  @media only screen and (max-width: 450px) { @content; }
+  @media only screen and (max-width: 1050px) and (min-width: ($breakpoint-page + 1px)) {
+    @content;
+  }
+  @media only screen and (max-width: 450px) {
+    @content;
+  }
 }
 
 .sitemap--lock {

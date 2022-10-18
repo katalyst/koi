@@ -4,21 +4,18 @@
 /*global jQuery,Ornament */
 
 (function (document, window, $) {
-
   "use strict";
 
   $(document).on("ornament:refresh", function () {
+    $(".fotorama")
+      .not(".fotorama-initialized")
+      .each(function () {
+        var $fotoramaContainer = $(this);
+        $fotoramaContainer.fotorama();
 
-    $(".fotorama").not(".fotorama-initialized").each(function () {
-
-      var $fotoramaContainer = $(this);
-      $fotoramaContainer.fotorama();
-
-      // Get API
-      var fotorama = $fotoramaContainer.data("fotorama");
-
-    }).addClass("fotorama-initialized");
-
+        // Get API
+        var fotorama = $fotoramaContainer.data("fotorama");
+      })
+      .addClass("fotorama-initialized");
   });
-
-}(document, window, jQuery));
+})(document, window, jQuery);

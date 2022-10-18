@@ -1,16 +1,16 @@
-
 // NOTE: Potentially transitioning from .content-* to .normal-*
 // For now both classes are being used during the transition preiod.
 
 // LISTS
 // Normalising bullets and numbered lists
 
-@mixin normal-lists($list-type:false) {
+@mixin normal-lists($list-type: false) {
   margin-left: 2em;
   margin-bottom: $small-unit;
 
   // Remove nested margins
-  ul,ol {
+  ul,
+  ol {
     margin-bottom: 0;
   }
 
@@ -19,8 +19,7 @@
     li {
       list-style: disc;
     }
-  } 
-  @else if ($list-type == ol) {
+  } @else if ($list-type == ol) {
     li {
       list-style: decimal;
     }
@@ -47,7 +46,6 @@
   &[type="iup"] > li {
     list-style: upper-roman;
   }
-
 }
 
 .content-lists ul,
@@ -60,7 +58,7 @@ ol.content-lists {
   @include normal-lists(ol);
 }
 
-// NORMAL SPACING 
+// NORMAL SPACING
 
 @mixin normal-spacing {
   p {
@@ -128,7 +126,7 @@ ol.content-lists {
 // FONT SIZE INCREASER
 
 @mixin normal-sizing {
-  @include media-query($breakpoint-medium,"min") {
+  @include media-query($breakpoint-medium, "min") {
     font-size: $large-font-size;
   }
 }
@@ -186,7 +184,7 @@ ol.content-lists {
   }
 
   // koi-inserted images working resposively
-  img[style*='height'] {
+  img[style*="height"] {
     height: auto !important;
   }
 

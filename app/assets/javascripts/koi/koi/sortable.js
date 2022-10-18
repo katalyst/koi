@@ -2,8 +2,8 @@ var $;
 
 $ = jQuery;
 
-$.fn.koiSortable = function() {
+$.fn.koiSortable = function () {
   return this.sortable({
-    containment: 'parent'
+    containment: "parent",
   });
 };
