@@ -121,7 +121,7 @@
           <% end %>
         </header>
 
-        <main class="layout--main <%= yield(:layout_class) %> <%= content_for(:form_class) %>" id="main">
+        <main class="layout--main <%= action_name %> <%= yield(:layout_class) %> <%= content_for(:form_class) %>" id="main">
           <!--[if lte IE 10 ]>
             <div class="browser-warning">
               <div class="browser-warning--inner compressed">

@@ -12,7 +12,8 @@
 $row-height: $xxx-large-unit;
 
 .index-table {
-  margin-top: $x-small-unit;
+  margin: $x-small-unit 0;
+
   border: none;
   table-layout: fixed;
 
