@@ -2,8 +2,9 @@
 
 .layout--main.show {
   .show--actions {
-    margin: $default-unit 0;
-    @include flush-children;
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
   }
 
   .show--inline-items {
@@ -21,7 +22,6 @@
   .show--inline-item + .show--inline-item {
     border-top: $divider;
   }
-
 
   .heading-four {
     margin-top: 2rem;
