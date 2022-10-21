@@ -107,7 +107,7 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def default_form_group_options(**form_group_options)
-        add_option(form_group_options, :class, "govuk-image-field")
+        add_option(form_group_options, :class, "govuk-form-group govuk-image-field")
         add_option(form_group_options, :data, :controller, IMAGE_FIELD_CONTROLLER)
         add_option(form_group_options, :data, :action, ACTIONS)
         add_option(form_group_options, :data, :"#{IMAGE_FIELD_CONTROLLER}_mime_types_value",
