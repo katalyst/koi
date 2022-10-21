@@ -1,29 +1,14 @@
 # frozen_string_literal: true
 
 require "govuk_design_system_formbuilder"
+require "govuk_design_system_formbuilder/elements/document"
 
 module GOVUKDesignSystemFormBuilder
   module Elements
     class Image < Base
-      using PrefixableArray
+      include FileElement
 
-      include Traits::Error
-      include Traits::Hint
-      include Traits::Label
-      include Traits::Supplemental
-      include Traits::HTMLAttributes
-      include Traits::HTMLClasses
-      include ActionDispatch::Routing::RouteSet::MountedHelpers
-
-      IMAGE_FIELD_CONTROLLER = "image-field"
-      MIME_TYPES             = %w[image/png image/gif image/jpeg image/webp].freeze
-
-      ACTIONS = <<~ACTIONS.gsub(/\s+/, " ").freeze
-        dragover->#{IMAGE_FIELD_CONTROLLER}#dragover
-        dragenter->#{IMAGE_FIELD_CONTROLLER}#dragenter
-        dragleave->#{IMAGE_FIELD_CONTROLLER}#dragleave
-        drop->#{IMAGE_FIELD_CONTROLLER}#drop
-      ACTIONS
+      MIME_TYPES = %w[image/png image/gif image/jpeg image/webp].freeze
 
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
         super(builder, object_name, attribute_name, &block)
@@ -36,35 +21,9 @@ module GOVUKDesignSystemFormBuilder
         @form_group      = form_group
       end
 
-      def html
-        Containers::FormGroup.new(*bound, **default_form_group_options(**@form_group)).html do
-          safe_join([label_element, preview, hint_element, error_element, file, destroy_element, supplemental_content])
-        end
-      end
-
-      private
-
-      def file
-        @builder.file_field(@attribute_name, attributes(@html_attributes))
-      end
-
-      def destroy_element
-        return if @html_attributes[:optional].blank?
-
-        @builder.fields_for(:"#{@attribute_name}_attachment") do |form|
-          form.hidden_field :_destroy, value: false, data: { "#{IMAGE_FIELD_CONTROLLER}_target" => "destroyImage" }
-        end
-      end
-
-      def destroy_element_trigger
-        return if @html_attributes[:optional].blank?
-
-        content_tag(:button, "", class: "image-destroy", data: { action: "#{IMAGE_FIELD_CONTROLLER}#setDestroy" })
-      end
-
       def preview
         options = {}
-        add_option(options, :data, "#{IMAGE_FIELD_CONTROLLER}_target", "preview")
+        add_option(options, :data, "#{stimulus_controller}_target", "preview")
         add_option(options, :class, "preview-image")
         add_option(options, :class, "hidden") unless preview?
 
@@ -73,55 +32,8 @@ module GOVUKDesignSystemFormBuilder
         end
       end
 
-      def preview_url
-        preview? ? main_app.url_for(value) : ""
-      end
-
-      def preview?
-        value&.attached? && value&.persisted?
-      end
-
-      def value
-        @builder.object.send(@attribute_name)
-      end
-
-      def file_input_options
-        default_file_input_options = options
-
-        add_option(default_file_input_options, :accept, @mime_types.join(","))
-        add_option(default_file_input_options, :data, :action, "change->#{IMAGE_FIELD_CONTROLLER}#onUpload")
-
-        default_file_input_options
-      end
-
-      def options
-        {
-          id:    field_id(link_errors: true),
-          class: classes,
-          aria:  { describedby: combine_references(hint_id, error_id, supplemental_id) },
-        }
-      end
-
-      def classes
-        build_classes(%(file-upload), %(file-upload--error) => has_errors?).prefix(brand)
-      end
-
-      def default_form_group_options(**form_group_options)
-        add_option(form_group_options, :class, "govuk-form-group govuk-image-field")
-        add_option(form_group_options, :data, :controller, IMAGE_FIELD_CONTROLLER)
-        add_option(form_group_options, :data, :action, ACTIONS)
-        add_option(form_group_options, :data, :"#{IMAGE_FIELD_CONTROLLER}_mime_types_value",
-                   @mime_types.to_json)
-
-        form_group_options
-      end
-
-      def add_option(options, key, *path)
-        if path.length > 1
-          add_option(options[key] ||= {}, *path)
-        else
-          options[key] = [options[key], *path].compact.join(" ")
-        end
+      def stimulus_controller
+        "image-field"
       end
     end
   end

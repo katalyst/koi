@@ -72,7 +72,7 @@ module Koi
       end
 
       def attribute_value
-        @attribute_value ||= object.public_send(attribute)
+        @attribute_value ||= object.public_send(attribute).to_s
       end
     end
   end

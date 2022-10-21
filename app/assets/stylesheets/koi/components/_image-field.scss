@@ -4,11 +4,12 @@
   }
 }
 
-.preview-image {
+.preview-image,
+.preview-file {
   display: inline-flex;
   padding: 0.5rem;
 
-  .image-destroy {
+  .file-destroy {
     align-self: center;
     padding-left: 0.5rem;
 
