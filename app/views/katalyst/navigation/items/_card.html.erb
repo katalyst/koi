@@ -1,0 +1,34 @@
+<%= form_with model: item, scope: :item, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.hidden_field :type %>
+
+  <%= form.govuk_text_field :title %>
+
+  <%= form.govuk_text_field :url %>
+
+  <%= form.govuk_text_field :caption, label: { text: "Short description" } %>
+
+  <%= form.govuk_image_field :wide_image %>
+
+  <%= form.govuk_image_field :square_image %>
+
+  <%= form.govuk_image_field :alt_text %>
+
+  <%= form.govuk_check_boxes_fieldset :visible,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
+  <% end %>
+
+  <%= form.govuk_check_boxes_fieldset :new_tab,
+                                      small:    true,
+                                      legend:   nil,
+                                      multiple: false do %>
+    <%= form.govuk_check_box :new_tab, 1, 0, multiple: false, label: { text: "Open in new tab?" } %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", katalyst_navigation.menu_path(item.menu), class: "govuk-link" %>
+  </div>
+<% end %>
