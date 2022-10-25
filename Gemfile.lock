@@ -192,7 +192,7 @@ GEM
       active_storage_validations
     katalyst-govuk-formbuilder (1.2.0)
       govuk_design_system_formbuilder
-    katalyst-navigation (1.1.2)
+    katalyst-navigation (1.2.0)
     katalyst-tables (1.0.0)
     loofah (2.19.0)
       crass (~> 1.0.2)
