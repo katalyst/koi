@@ -1,21 +1,13 @@
 <%= form_with model: figure, scope: :item, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
   <%= render "hidden_fields", form: form %>
 
-  <%= form.govuk_image_field :image,
-                             hint:       { text: t("views.katalyst.content.item.size_hint",
-                                                   max_size: number_to_human_size(Katalyst::Content.config.max_image_size.megabytes)) } do %>
+  <%= form.govuk_image_field :image do %>
     <%= form.govuk_text_field :heading, label: { text: "Alternate text" } %>
     <%= form.govuk_text_field :caption %>
   <% end %>
 
   <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
-
-  <%= form.govuk_check_boxes_fieldset :visible,
-                                      small:    true,
-                                      legend:   nil,
-                                      multiple: false do %>
-    <%= form.govuk_check_box :visible, 1, 0, multiple: false, label: { text: "Visible?" } %>
-  <% end %>
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
 
   <div class="govuk-button-group">
     <%= form.govuk_submit "Done" %>

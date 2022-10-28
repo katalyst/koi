@@ -2,12 +2,7 @@
   <%= form.hidden_field :type %>
   <%= form.govuk_text_field :title %>
 
-  <%= form.govuk_check_boxes_fieldset :visible,
-                                      small:    true,
-                                      legend:   nil,
-                                      multiple: false do %>
-    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
-  <% end %>
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
 
   <div class="govuk-button-group">
     <%= form.govuk_submit "Done" %>

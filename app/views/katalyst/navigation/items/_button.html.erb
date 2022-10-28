@@ -5,12 +5,7 @@
 
   <%= form.govuk_select :http_method, Katalyst::Navigation::Button::HTTP_METHODS %>
 
-  <%= form.govuk_check_boxes_fieldset :visible,
-                                      small:    true,
-                                      legend:   nil,
-                                      multiple: false do %>
-    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
-  <% end %>
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
 
   <%= form.govuk_check_boxes_fieldset :new_tab,
                                       small:    true,
