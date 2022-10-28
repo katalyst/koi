@@ -26,8 +26,8 @@ module Koi
       end
     end
 
-    def item(object, attribute, **options)
-      Definition.new(@context, object, attribute).render(**options)
+    def item(object, attribute, **options, &block)
+      Definition.new(@context, object, attribute).render(**options, &block)
     end
 
     class Definition
@@ -41,10 +41,10 @@ module Koi
         @attribute = attribute
       end
 
-      def render(**options)
+      def render(**options, &block)
         return unless render?(**options)
 
-        term_tag(**options) + definition_tag(**options)
+        term_tag(**options) + definition_tag(&block)
       end
 
       private
@@ -57,12 +57,16 @@ module Koi
         tag.dt label_for(**options)
       end
 
-      def definition_tag(**_options)
-        case attribute_value
-        when Array
-          tag.dd(attribute_value.join(", "))
+      def definition_tag(&block)
+        if block
+          tag.dd { yield attribute_value }
         else
-          tag.dd(attribute_value)
+          case attribute_value
+          when Array
+            tag.dd(attribute_value.join(", "))
+          else
+            tag.dd(attribute_value)
+          end
         end
       end
 
@@ -72,7 +76,7 @@ module Koi
       end
 
       def attribute_value
-        @attribute_value ||= object.public_send(attribute).to_s
+        @attribute_value ||= object.public_send(attribute)
       end
     end
   end
