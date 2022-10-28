@@ -38,3 +38,8 @@ en:
         - :zero
         - :one
         - :other
+  helpers:
+    hint:
+      default:
+        document: Must be less than %{max_size}
+        image: Must be less than %{max_size}

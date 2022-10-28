@@ -13,7 +13,7 @@ module Katalyst
         private
 
         def form_builder
-          GOVUKDesignSystemFormBuilder::FormBuilder.new(container.model_name.param_key, container, self, {})
+          Koi::FormBuilder.new(container.model_name.param_key, container, self, {})
         end
       end
     end

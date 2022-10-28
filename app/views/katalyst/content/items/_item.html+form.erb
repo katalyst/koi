@@ -1,25 +1,14 @@
-<%= form_with model: item, scope: :item, url: path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
-  <%= form.hidden_field :container_type %>
-  <%= form.hidden_field :container_id %>
-  <%= form.hidden_field :type %>
+<%= form_with model: item, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
+  <%= render "hidden_fields", form: form %>
 
-  <%= form.govuk_text_field :heading %>
-
-  <%= form.govuk_check_boxes_fieldset :show_heading,
-                                      small:    true,
-                                      legend:   nil,
-                                      multiple: false do %>
-    <%= form.govuk_check_box :show_heading, 1, 0, multiple: false %>
+  <%= form.govuk_fieldset legend: nil do %>
+    <%= form.govuk_text_field :heading %>
+    <%= form.govuk_check_box_field :show_heading, label: { text: "Show heading?" } %>
   <% end %>
 
   <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
 
-  <%= form.govuk_check_boxes_fieldset :visible,
-                                      small:    true,
-                                      legend:   nil,
-                                      multiple: false do %>
-    <%= form.govuk_check_box :visible, 1, 0, multiple: false %>
-  <% end %>
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
 
   <div class="govuk-button-group">
     <%= form.govuk_submit "Done" %>
