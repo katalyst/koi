@@ -166,7 +166,8 @@ ol.content-lists {
 
 // EVERYTHING ALL TOGETHER IN ONE CLASS
 
-.content, trix-editor {
+.content,
+trix-editor {
   @include normal-spacing;
   // @include normal-sizing;
   @include normal-headings;

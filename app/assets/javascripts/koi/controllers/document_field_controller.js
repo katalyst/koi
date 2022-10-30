@@ -1,4 +1,4 @@
-import FileFieldController from "./file_field_controller";
+import FileFieldController from "koi/controllers/file_field_controller";
 
 export default class DocumentFieldController extends FileFieldController {
   connect() {
