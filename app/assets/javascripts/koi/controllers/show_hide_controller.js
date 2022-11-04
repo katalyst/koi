@@ -1,0 +1,32 @@
+import { Controller } from "@hotwired/stimulus";
+import { Transition } from "./utils/transition";
+
+export default class ShowHideController extends Controller {
+  static targets = ["content", "priceBand"];
+
+  togglePriceBand() {
+    this.toggle(this.priceBandTarget)
+  }
+
+  toggleContent() {
+    this.toggle(this.contentTarget)
+  }
+
+  toggle(element) {
+    const hide = element.toggleAttribute("data-collapsed");
+
+    // cancel previous animation, if any
+    if (this.transition) this.transition.cancel();
+
+    const transition = this.transition = new Transition(element)
+      .addCallback("starting", function () {
+        element.setAttribute("data-collapsed-transitioning", "true")
+      })
+      .addCallback("complete", function () {
+        element.removeAttribute("data-collapsed-transitioning")
+      });
+    hide ? transition.collapse() : transition.expand();
+
+    transition.start();
+  }
+}
