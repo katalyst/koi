@@ -53,6 +53,10 @@ $row-height: $xxx-large-unit;
     text-decoration: none;
   }
 
+  td > img {
+    padding: 1rem 0;
+  }
+
   th {
     font-weight: bold;
   }
