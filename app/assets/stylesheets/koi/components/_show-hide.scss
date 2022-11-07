@@ -1,0 +1,15 @@
+// CSS for show-hide behaviour
+
+.hidden {
+  display: none !important;
+}
+
+[data-hide] {
+  display: none !important;
+}
+
+[data-collapsed] {
+  max-height: 0;
+  overflow: hidden;
+  margin-bottom: 0 !important;
+}
