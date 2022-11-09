@@ -2,11 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import { Transition } from "./utils/transition";
 
 export default class ShowHideController extends Controller {
-  static targets = ["content", "priceBand"];
-
-  togglePriceBand() {
-    this.toggle(this.priceBandTarget)
-  }
+  static targets = ["content"];
 
   toggleContent() {
     this.toggle(this.contentTarget)
