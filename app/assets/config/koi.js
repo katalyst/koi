@@ -10,3 +10,6 @@
 
 /* Stimulus controllers */
 //= link_tree ../javascripts/koi/controllers
+
+/* Koi4 utilities */
+//= link_tree ../javascripts/koi/utils

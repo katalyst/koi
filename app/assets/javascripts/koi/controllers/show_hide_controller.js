@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { Transition } from "./utils/transition";
+import { Transition } from "koi/utils/transition";
 
 export default class ShowHideController extends Controller {
   static targets = ["content"];
