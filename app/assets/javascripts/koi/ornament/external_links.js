@@ -21,7 +21,15 @@
   $(document).on("ornament:refresh", function () {
     // Handle clicks.
     $(query.join(", ")).each(function(){
-      $(this).attr("target","_blank");
+      if(!this.is("[data-same-window]")) {
+        $(this).attr("target", "_blank");
+
+        // Add noopener to external links programatically
+        // https://mathiasbynens.github.io/rel-noopener/
+        if (!this.is("[rel]")) {
+          this.attr("rel", "noopener");
+        }
+      }
     });
   });
 
