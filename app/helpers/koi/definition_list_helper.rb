@@ -65,7 +65,7 @@ module Koi
           when Array
             tag.dd(attribute_value.join(", "))
           when ActiveStorage::Attached::One
-            tag.dd(link_to attribute_value.filename, url_for(attribute_value))
+            tag.dd(link_to(attribute_value.filename, url_for(attribute_value)))
           else
             tag.dd(attribute_value)
           end

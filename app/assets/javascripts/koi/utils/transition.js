@@ -48,7 +48,7 @@ class Transition {
 
   /** Adds callback for transition events */
   addCallback(type, callback) {
-    switch(type){
+    switch (type) {
       case "starting":
         this.startingCallbacks.push(callback);
         break;
@@ -64,22 +64,38 @@ class Transition {
 
   /** Collapse an element in place, assumes overflow is set appropriately, margin is not collapsed */
   collapse() {
-    return this.add(new PropertyTransition("max-height", `${this.target.scrollHeight}px`, "0px"));
+    return this.add(
+      new PropertyTransition(
+        "max-height",
+        `${this.target.scrollHeight}px`,
+        "0px"
+      )
+    );
   }
 
   /** Restore a collapsed element */
   expand() {
-    return this.add(new PropertyTransition("max-height", "0px", `${this.target.scrollHeight}px`));
+    return this.add(
+      new PropertyTransition(
+        "max-height",
+        "0px",
+        `${this.target.scrollHeight}px`
+      )
+    );
   }
 
   /** Slide an element left or right by its scroll width, assumes position relative */
   slideOut(direction) {
-    return this.add(new PropertyTransition(direction, "0px", `-${this.target.scrollWidth}px`));
+    return this.add(
+      new PropertyTransition(direction, "0px", `-${this.target.scrollWidth}px`)
+    );
   }
 
   /** Restore an element that has been slid */
   slideIn(direction) {
-    return this.add(new PropertyTransition(direction, `-${this.target.scrollWidth}px`, "0px"));
+    return this.add(
+      new PropertyTransition(direction, `-${this.target.scrollWidth}px`, "0px")
+    );
   }
 
   /** Cause an element to become transparent by transforming opacity */
@@ -108,19 +124,19 @@ class Transition {
 
   _starting() {
     const event = new Event("transition:starting");
-    this.startingCallbacks.forEach(cb => cb(event));
+    this.startingCallbacks.forEach((cb) => cb(event));
     this.target.dispatchEvent(event);
   }
 
   _started() {
     const event = new Event("transition:started");
-    this.startedCallbacks.forEach(cb => cb(event));
+    this.startedCallbacks.forEach((cb) => cb(event));
     this.target.dispatchEvent(event);
   }
 
   _complete() {
     const event = new Event("transition:complete");
-    this.completeCallbacks.forEach(cb => cb(event));
+    this.completeCallbacks.forEach((cb) => cb(event));
     this.target.dispatchEvent(event);
   }
 
@@ -141,7 +157,7 @@ class Runner {
 
   start(target) {
     // 1. Set the initial state(s)
-    this.transition.properties.forEach(t => t.onStarting(target));
+    this.transition.properties.forEach((t) => t.onStarting(target));
 
     // 2. On next update, set transition and final state(s)
     requestAnimationFrame(() => this.onStarted(target));
@@ -153,9 +169,11 @@ class Runner {
   }
 
   onStarted(target) {
-    target.style.transitionProperty = this.transition.properties.map(t => t.property).join(",");
+    target.style.transitionProperty = this.transition.properties
+      .map((t) => t.property)
+      .join(",");
     target.style.transitionDuration = `${this.delay}ms`;
-    this.transition.properties.forEach(t => t.onStarted(target));
+    this.transition.properties.forEach((t) => t.onStarted(target));
 
     this.transition._started();
   }
@@ -168,7 +186,7 @@ class Runner {
 
     target.style.removeProperty("transition-property");
     target.style.removeProperty("transition-duration");
-    this.transition.properties.forEach(t => t.onComplete(target));
+    this.transition.properties.forEach((t) => t.onComplete(target));
 
     this.transition._complete();
   }
