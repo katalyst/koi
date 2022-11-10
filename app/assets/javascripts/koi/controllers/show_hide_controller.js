@@ -5,7 +5,7 @@ export default class ShowHideController extends Controller {
   static targets = ["content"];
 
   toggleContent() {
-    this.toggle(this.contentTarget)
+    this.toggle(this.contentTarget);
   }
 
   toggle(element) {
@@ -14,13 +14,13 @@ export default class ShowHideController extends Controller {
     // cancel previous animation, if any
     if (this.transition) this.transition.cancel();
 
-    const transition = this.transition = new Transition(element)
+    const transition = (this.transition = new Transition(element)
       .addCallback("starting", function () {
-        element.setAttribute("data-collapsed-transitioning", "true")
+        element.setAttribute("data-collapsed-transitioning", "true");
       })
       .addCallback("complete", function () {
-        element.removeAttribute("data-collapsed-transitioning")
-      });
+        element.removeAttribute("data-collapsed-transitioning");
+      }));
     hide ? transition.collapse() : transition.expand();
 
     transition.start();
