@@ -24,12 +24,10 @@
 //= require koi/jquery/ui/nestedSortable
 
 //= require koi/ornament/defaults
-//= require koi/ornament/settings
 //= require koi/ornament/console
 //= require koi/ornament/window-dimensions
 //= require koi/ornament/debounce
 //= require koi/ornament/accessibility
-//= require koi/ornament/external_links
 //= require koi/ornament/uploader
 
 //= require koi/components/show
