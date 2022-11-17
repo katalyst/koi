@@ -6,7 +6,7 @@
   <%= form.govuk_select :http_method, Katalyst::Navigation::Button::HTTP_METHODS %>
 
   <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
-  <%= form.govuk_check_box_field :new_tab, label: { text: "Open in new tab?" } %>
+  <%= form.govuk_select :target, Katalyst::Navigation::Item::TARGETS %>
 
   <div class="govuk-button-group">
     <%= form.govuk_submit "Done" %>
