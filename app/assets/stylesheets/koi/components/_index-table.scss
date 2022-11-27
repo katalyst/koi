@@ -58,6 +58,10 @@ $row-height: $xxx-large-unit;
     padding: 1rem 0;
   }
 
+  td > a > img {
+    padding-top: 1rem;
+  }
+
   th {
     font-weight: bold;
   }
