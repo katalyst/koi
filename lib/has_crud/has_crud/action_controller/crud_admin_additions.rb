@@ -51,28 +51,21 @@ module HasCrud
         def redirect_path
           if params[:commit].eql?("Continue")
             edit_resource_path
-          elsif @site_parent || (resource.respond_to?(:resource_nav_item) && resource.resource_nav_item)
-            koi_engine.sitemap_nav_items_path
           else
             collection_path
           end
         end
 
         def create_resource(object)
-          @site_parent = params[:site_parent] if params[:site_parent].present?
-          result = object.save
-          if result
+          if (result = object.save) && (respond_to? :parent)
             # FIXME: hacky way to handle associations
-            parent.send(plural_name.to_sym) << object if respond_to? :parent
-            object.to_navigator!(parent_id: params[:site_parent]) if object.respond_to? :to_navigator
+            parent.send(plural_name.to_sym) << object
           end
           result
         end
 
         def update_resource(object, attributes)
-          result = object.update(*attributes)
-          object.to_navigator! if result && (object.respond_to? :to_navigator)
-          result
+          object.update(*attributes)
         end
       end
     end

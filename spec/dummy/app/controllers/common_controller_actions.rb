@@ -9,7 +9,6 @@ module CommonControllerActions
     protect_from_forgery
     layout :layout_by_resource
     helper :all
-    helper Koi::NavigationHelper
     before_action :sign_in_as_admin!, if: -> { Rails.env.development? && !admin_signed_in? }
   end
 

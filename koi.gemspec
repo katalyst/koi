@@ -62,9 +62,6 @@ Gem::Specification.new do |s|
   s.add_dependency "has_scope", ">= 0.8"
   s.add_dependency "inherited_resources", ">= 1.13.0"
 
-  # Navigation Rendering
-  s.add_dependency "simple-navigation", "~> 3.14.0"
-
   # Tags
   s.add_dependency "acts-as-taggable-on", ">= 7.0.0"
 

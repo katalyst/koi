@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NewsItem < ApplicationRecord
-  has_crud navigation: true, exportable: false
+  has_crud exportable: false
 
   crud.config do
     config :admin do

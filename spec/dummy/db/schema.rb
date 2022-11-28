@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_022235) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_232759) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -132,31 +132,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_022235) do
     t.string "slug"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.boolean "hidden", default: false
     t.index ["slug"], name: "index_legacy_pages_on_slug", unique: true
-  end
-
-  create_table "nav_items", force: :cascade do |t|
-    t.string "type"
-    t.string "title"
-    t.string "url"
-    t.string "admin_url"
-    t.string "key"
-    t.boolean "is_hidden"
-    t.integer "alias_id"
-    t.integer "parent_id"
-    t.integer "lft"
-    t.integer "rgt"
-    t.text "method"
-    t.integer "navigable_id"
-    t.string "navigable_type"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.boolean "is_mobile", default: false
-    t.string "setting_prefix"
-    t.boolean "link_to_first_child", default: false, null: false
-    t.index ["navigable_id"], name: "index_nav_items_on_navigable_id"
-    t.index ["navigable_type"], name: "index_nav_items_on_navigable_type"
-    t.index ["url"], name: "index_nav_items_on_url"
   end
 
   create_table "news_items", force: :cascade do |t|

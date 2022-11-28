@@ -23,17 +23,6 @@ Koi::Engine.routes.draw do
   resources :url_rewrites
   resources :friendly_id_slugs
   resources :admins, path: :site_users
-  resources :module_nav_items
-  resources :folder_nav_items
-  resources :alias_nav_items
-  resources :resource_nav_items
-  resources :nav_items do
-    get :toggle, on: :member
-    collection do
-      get :sitemap
-      post :savesort
-    end
-  end
   post "clear-cache" => "application#clear_cache", :as => :clear_cache
   get  "help" => "application#help", :as => :help
   get  "dashboard" => "application#index", :as => :dashboard

@@ -7,7 +7,6 @@ module Koi
     included do
       include Exportable
       include HasSettings
-      include HasNavigation
       include HasCrud::ActiveRecord
     end
   end

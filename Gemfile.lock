@@ -22,7 +22,6 @@ PATH
       rails (>= 6.1)
       scoped_search (>= 4.1.8)
       select2-rails (>= 4)
-      simple-navigation (~> 3.14.0)
       simple_form (>= 5.1.0)
       stimulus-rails
       turbo-rails
@@ -323,8 +322,6 @@ GEM
     select2-rails (4.0.13)
     shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
-    simple-navigation (3.14.0)
-      activesupport (>= 2.3.2)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)

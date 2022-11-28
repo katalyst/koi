@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class LegacyPage < ApplicationRecord
-  has_crud paginate: false, navigation: true,
-           settings: true
+  has_crud paginate: false, settings: true
 
   validates_presence_of :title
 
@@ -23,15 +22,6 @@ class LegacyPage < ApplicationRecord
       index   fields: %i[id title]
       form    except: [:type]
     end
-  end
-
-  # overriding has_navigation methods to work with koi page route namespacing
-  def self.get_new_admin_url(options = {})
-    Koi::Engine.routes.url_helpers.new_legacy_page_path(options)
-  end
-
-  def get_edit_admin_url(options = {})
-    Koi::Engine.routes.url_helpers.edit_legacy_page_path(self, options)
   end
 
   def self.settings_prefix

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  has_crud orderable: true, settings: true, navigation: true
+  has_crud orderable: true, settings: true
   has_many :products, -> { order("ordinal ASC") }
 
   accepts_nested_attributes_for :products, allow_destroy: true

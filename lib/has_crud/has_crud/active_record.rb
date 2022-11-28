@@ -49,7 +49,6 @@ module HasCrud
       def after_setup_crud; end
 
       def setup_crud
-        setup_navigation
         setup_settings
         setup_orderable
         setup_sortable
@@ -61,10 +60,6 @@ module HasCrud
         setup_exportable
       rescue ::ActiveRecord::ConnectionNotEstablished, ::ActiveRecord::NoDatabaseError
         # skip initialization, no database available
-      end
-
-      def setup_navigation
-        has_navigation if options[:navigation].eql?(true)
       end
 
       def setup_orderable
