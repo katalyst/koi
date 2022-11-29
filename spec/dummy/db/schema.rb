@@ -98,8 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_022235) do
     t.string "title"
     t.string "url"
     t.string "http_method"
+    t.string "target"
     t.boolean "visible", default: true
-    t.boolean "new_tab", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["menu_id"], name: "index_katalyst_navigation_items_on_menu_id"
