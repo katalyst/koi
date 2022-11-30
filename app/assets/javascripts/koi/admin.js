@@ -15,7 +15,6 @@
 //= require koi/jquery.minicolors
 //= require koi/what-input
 
-//= require koi/jquery/bbq
 //= require koi/jquery/liveQuery
 //= require koi/jquery/nestedFields
 //= require koi/jquery/ui/nestedSortable
