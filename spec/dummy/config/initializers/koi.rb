@@ -74,9 +74,6 @@ Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
 Koi::Settings.skip_on_create = [:news_item]
 
-# Sitemap toggles
-Koi::Sitemap.toggles = true
-
 # Caching enabled by default
 Koi::Caching.enabled = true
 
