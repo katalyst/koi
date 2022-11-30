@@ -14,7 +14,6 @@
 //= require koi/jquery.mask
 //= require koi/jquery.minicolors
 //= require koi/what-input
-//= require koi/form-for
 
 //= require koi/jquery/bbq
 //= require koi/jquery/highcharts
