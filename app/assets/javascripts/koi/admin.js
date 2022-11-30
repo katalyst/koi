@@ -43,7 +43,6 @@
 //= require koi/components/toggle
 //= require koi/components/form-latlng
 //= require koi/components/table
-//= require koi/components/site-map
 
 //= require koi/common
 //= require koi/koi/koi
