@@ -79,5 +79,10 @@
     @include media-query($breakpoint-page) {
       @include order(-1);
     }
+
+    > * {
+      position: sticky;
+      top: ($header-height + 32px);
+    }
   }
 }
