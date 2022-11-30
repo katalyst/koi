@@ -16,7 +16,6 @@
 //= require koi/what-input
 
 //= require koi/jquery/bbq
-//= require koi/jquery/highcharts
 //= require koi/jquery/twitter-fetcher
 //= require koi/jquery/liveQuery
 //= require koi/jquery/nestedFields
