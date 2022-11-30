@@ -100,9 +100,6 @@
         );
         var masterOffsetTop = $toggleMaster.offset().top;
 
-        // Account for sticky header
-        // masterOffsetTop = masterOffsetTop - Ornament.stickyHeightComparison(masterOffsetTop);
-
         // Check if user has scrolled past the master element
         // we don't want the user to be scrolled down, only up
         var scrollTop = $(document).scrollTop();
