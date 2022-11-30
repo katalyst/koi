@@ -122,15 +122,6 @@
         </header>
 
         <main class="layout--main <%= action_name %> <%= yield(:layout_class) %> <%= content_for(:form_class) %>" id="main">
-          <!--[if lte IE 10 ]>
-            <div class="browser-warning">
-              <div class="browser-warning--inner compressed">
-                <p>It looks like you're using an out-dated version of Internet Explorer.</p>
-                <p>Please either use at least Internet Explorer 11, or try a free alternative browser such as <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>.</p>
-              </div>
-            </div>
-          <![endif]-->
-
           <%= render "/koi/shared/flash_messages" %>
 
           <% if content_for?(:breadcrumbs) %>
