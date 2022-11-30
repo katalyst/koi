@@ -31,7 +31,6 @@
 
 //= require koi/components/show
 //= require koi/components/tabs
-//= require koi/components/fotorama
 //= require koi/components/sticky
 //= require koi/components/enhanced-form
 //= require koi/components/navigation-mobile
