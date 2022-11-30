@@ -50,5 +50,4 @@
 //= require koi/koi/shed
 //= require koi/koi/stuff
 //= require koi/koi/sortable
-//= require koi/koi/hover
 //= require koi/koi/assets
