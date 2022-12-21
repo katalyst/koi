@@ -21,8 +21,10 @@ module Koi
     end
 
     def items_with(model:, attributes:, **options)
-      attributes.each do |attribute|
-        concat item(model, attribute, **options)
+      capture do
+        attributes.each do |attribute|
+          concat item(model, attribute, **options)
+        end
       end
     end
 
