@@ -1,41 +1,27 @@
 <% content_for :title, "Sign in" %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => koi_engine.new_admin_session_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
+<%= form_with model:   resource,
+              scope:   resource_name,
+              url:     koi_engine.new_admin_session_path,
+              builder: Koi::FormBuilder do |form| %>
 
-  <div class="bg-lightgrey">
-  
-    <div class="inputs">
+  <% %i[error alert].each do |key| %>
+    <% if flash[key].present? %>
+      <p class="error"><%= key %></p>
+    <% end %>
+  <% end %>
 
-      <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-      <% end %>
+  <%= form.govuk_text_field :email %>
+  <%= form.govuk_text_field :password %>
 
-      <% if flash[:alert] %>
-        <p class="error"><%= flash[:alert] %></p>
-      <% end %>
+  <% if devise_mapping.rememberable? %>
+    <%= form.govuk_check_box_field :remember_me, label: { text: "Keep me logged in on this computer" } %>
+  <% end %>
 
-      <%= f.input :email, required: true, autofocus: true, input_html: { class: "form--medium" } %>
-
-      <%= f.input :password, required: true, input_html: { class: "form--medium", data: { password_reveal: "" } } %>
-
-      <%= f.input :remember_me, as: :boolean, wrapper: :checkbox, wrapper_html: { class: "checkbox__single form--enhanced" }, label: "Keep me logged in on this computer" if devise_mapping.rememberable? %>
-
-    </div>
+  <div class="button-group">
+    <%= form.govuk_submit "Sign in", class: "button__success" %>
+    <% if devise_mapping.recoverable? && controller_name != "passwords" %>
+      <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
+    <% end %>
   </div>
-
-  <div class="bg-mediumgrey">
-    <div class="button-group">
-      <div>
-        <%= f.button :button, "Sign in", class: "button__success" %>
-      </div>
-      <% if devise_mapping.recoverable? && controller_name != 'passwords' %>
-        <div>
-          <%= link_to "Forgot your password?", koi_engine.new_admin_password_path, class: "button" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
 <% end %>
-
-

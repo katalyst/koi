@@ -1,6 +1,8 @@
 <% content_for :title, "Password Reset" %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => koi_engine.admin_password_path, :html => { method: :post, class: "form-vertical" }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name,
+                    :url => koi_engine.admin_password_path,
+                    :html => { method: :post, class: "form-vertical" }) do |f| %>
   <div class="bg-lightgrey">
     <div class="inputs">
       <%= f.input :email,required: true, autofocus: true, input_html: { class: "form--medium" } %>

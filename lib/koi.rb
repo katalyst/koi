@@ -19,7 +19,6 @@ require "govuk_design_system_formbuilder/elements/image"
 require "katalyst/tables"
 require "scoped_search"
 require "select2-rails"
-require "simple_form"
 require "stimulus-rails"
 require "turbo-rails"
 

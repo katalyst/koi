@@ -16,3 +16,39 @@
     <%= link_to "Back", koi_engine.new_admin_session_path, class: "button" %>
   </div>
 <% end %>
+
+<%= form_with model:   resource,
+              scope:   resource_name,
+              url:     koi_engine.admin_password_path,
+              method:  :put,
+              builder: Koi::FormBuilder do |form| %>
+
+  <div class="bg-lightgrey">
+    <%= form.input :reset_password_token, :as => :hidden %>
+    <%= form.full_error :reset_password_token %>
+
+    <div class="inputs">
+      <%= form.govuk_text_field :password, label: { text: "New password" }, autofocus: true, input_html: { class: "w-510" } %>
+      <%= form.govuk_text_field :password_confirmation, label: { text: "Confirm your new password" }, input_html: { class: "w-510" } %>
+    </div>
+  </div>
+  <div class="bg-mediumgrey">
+    <%= form.button :submit, "Change my password", class: "button__primary" %>
+    <%= link_to "Back", koi_engine.new_admin_session_path, class: "button" %>
+  </div>
+
+  <%= form.govuk_fieldset legend: nil do %>
+    <%= form.govuk_text_field :heading %>
+    <%= form.govuk_check_box_field :show_heading, label: { text: "Show heading?" } %>
+  <% end %>
+
+  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
+
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", :back, class:"govuk-link" %>
+  </div>
+<% end %>
+
