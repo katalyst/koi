@@ -9,12 +9,6 @@
       <%= navigation_helper("Documents", koi_engine.documents_path(tags: nil)) %>
     </ul>
   </li>
-  <li>
-    <a href="#">Legacy</a>
-    <ul>
-      <%= navigation_helper("Pages (deprecated)", koi_engine.legacy_pages_path) %>
-    </ul>
-  </li>
   <% if Object.const_defined?("Flipper::UI") %>
     <%= navigation_helper("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %>
   <% end %>
