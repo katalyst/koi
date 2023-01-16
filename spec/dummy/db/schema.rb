@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_28_232759) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_16_070115) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -124,16 +124,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_232759) do
     t.index ["draft_version_id"], name: "index_katalyst_navigation_menus_on_draft_version_id"
     t.index ["published_version_id"], name: "index_katalyst_navigation_menus_on_published_version_id"
     t.index ["slug"], name: "index_katalyst_navigation_menus_on_slug"
-  end
-
-  create_table "legacy_pages", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "slug"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.boolean "hidden", default: false
-    t.index ["slug"], name: "index_legacy_pages_on_slug", unique: true
   end
 
   create_table "news_items", force: :cascade do |t|

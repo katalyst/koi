@@ -78,7 +78,7 @@ module Koi
     end
 
     def is_koi_core_class?(klass)
-      %w[AdminUser LegacyPage Setting Translation NavItem AliasNavItem
+      %w[AdminUser Setting Translation NavItem AliasNavItem
          ModuleNavItem ResourceNavItem FolderNavItem RootNavItem
          FriendlyIdSlug UrlRewrite].include? klass.name
     end
