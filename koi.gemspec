@@ -83,9 +83,6 @@ Gem::Specification.new do |s|
   # Content
   s.add_dependency "katalyst-content"
 
-  # Allow non-digest references to assets (ckeditor)
-  s.add_dependency "non-digest-assets"
-
   s.metadata = {
     "rubygems_mfa_required" => "true",
   }
