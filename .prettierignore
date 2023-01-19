@@ -2,9 +2,6 @@
 app/assets/builds
 spec/dummy/app/assets/builds
 
-# ckeditor (legacy)
-app/assets/javascripts/koi/ckeditor
-
 # jquery components (legacy)
 app/assets/javascripts/koi/jquery
 app/assets/stylesheets/koi/jquery

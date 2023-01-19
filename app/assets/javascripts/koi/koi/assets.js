@@ -13,11 +13,6 @@ $(function () {
             params[key] = eval(params[key]);
           } catch (ex) {}
 
-      var CKEditorFuncNum = location.href.match(
-        /[?&]CKEditorFuncNum=([^&]+)/i
-      )[1];
-
-      window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, url);
       window.close();
 
       return false;

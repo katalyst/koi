@@ -82,7 +82,7 @@ module Koi
     def init
       @tags = params[:tags] || []
       @all_tags = resource_class.tag_counts_on(:tags).map(&:name)
-      self.custom_url_options = { tags: @tags, CKEditorFuncNum: params[:CKEditorFuncNum] }
+      self.custom_url_options = { tags: @tags }
     end
 
     def create_resource(object)

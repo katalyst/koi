@@ -2,10 +2,6 @@
 <% js_data :asset_type, resource_class.to_s %>
 <% js_data :accepted_extensions, Koi::KoiAsset.const_get(resource_class.name).extensions.join(', ') %>
 
-<% if params[:CKEditor] %>
-  <% content_for :hide_header, "true" %>
-<% end %>
-
 <% content_for :title, "Select #{resource_class.name}" %>
 
 <% content_for :global do %>
@@ -18,7 +14,7 @@
       <%= yield :side %>
     </div>
   </div>
-  
+
 <% end %>
 
 <%= render template: "layouts/koi/global" %>

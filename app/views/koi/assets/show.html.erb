@@ -18,20 +18,7 @@
   <% end %>
 
   <form class="asset--form insert asset application">
-
-    <% if params[:CKEditorFuncNum] %>
-      <div>
-        <input type="hidden" name="asset[url]" value="<%= resource.url %>" />
-        <%= render "options" %>
-      </div>
-    <% end %>
-
     <div class="button-group">
-      <% if params[:CKEditorFuncNum] %>
-        <div>
-          <button class="button__confirm insert asset application link">Add to Page</button>
-        </div>
-      <% end %>
       <div>
         <%= link_to "Edit tags", { action: :edit }, class: "button__primary" %>
       </div>
