@@ -6,7 +6,7 @@ module HasSettings
       options = {
         key:        key.to_s,
         label:      key.to_s.titleize,
-        field_type: "rich_text",
+        field_type: "text",
         value:      value,
       }.merge(opt).merge({
                            prefix: settings_prefix,
@@ -46,7 +46,7 @@ module HasSettings
       {
         key:        key.to_s,
         label:      key.to_s.titleize,
-        field_type: "rich_text",
+        field_type: "text",
         prefix:     settings_prefix,
         value:      nil,
       }

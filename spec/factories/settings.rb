@@ -24,10 +24,5 @@ FactoryBot.define do
       field_type { "text" }
       value { Faker::Lorem.sentence }
     end
-
-    trait :rich_text do
-      field_type { "rich_text" }
-      value { Faker::Lorem.sentence }
-    end
   end
 end

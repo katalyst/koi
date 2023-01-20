@@ -25,13 +25,6 @@ Naming/MemoizedInstanceVariableName:
   Exclude:
     - 'app/controllers/koi/translations_controller.rb'
 
-# Offense count: 2
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: at, by, db, id, in, io, ip, of, on, os, pp, to
-Naming/MethodParameterName:
-  Exclude:
-    - 'app/helpers/koi/html_helper.rb'
-
 # Offense count: 4
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:

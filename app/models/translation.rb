@@ -20,11 +20,10 @@ class Translation < ApplicationRecord
   scope :by_created, -> { order("created_at ASC") }
 
   FIELD_TYPES = {
-    "String"    => "string",
-    "Boolean"   => "boolean",
-    "Text"      => "text",
-    "Rich Text" => "rich_text",
-    "Images"    => "images",
+    "String"  => "string",
+    "Boolean" => "boolean",
+    "Text"    => "text",
+    "Images"  => "images",
   }.freeze
 
   scope :admin, -> { where(role: "Admin") }

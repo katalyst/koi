@@ -52,7 +52,6 @@ settings = {
 
   input:       { label: "Input", field_type: "string" },
   text:        { label: "Text", field_type: "text" },
-  rich_text:   { label: "Rich Text", field_type: "rich_text" },
   select:      { label: "Select", field_type: "select", data_source: proc { SETTING_OPTIONS } },
   radio:       { label: "Radio Buttons", field_type: "radio", data_source: proc { SETTING_OPTIONS } },
   checkboxes:  { label: "Check Boxes", field_type: "check_boxes", data_source: proc { SETTING_OPTIONS } },
