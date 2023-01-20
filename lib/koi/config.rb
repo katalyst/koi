@@ -16,7 +16,7 @@ module Koi
           data_uid:  :data,
         },
         fields: {
-          description: { type: :rich_text },
+          description: { type: :text },
           image:       { type: :image },
           file:        { type: :file },
         },

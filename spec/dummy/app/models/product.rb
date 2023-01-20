@@ -51,7 +51,7 @@ class Product < ApplicationRecord
            manual:            { type: :file },
            products:          { type: :multiselect_association },
            product_images:    { type: :inline },
-           description:       { type: :rich_text },
+           description:       { type: :text },
            launch_date:       { type: :mask, mask_type: "00/00/0000" }
 
     config :admin do

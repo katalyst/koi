@@ -53,7 +53,7 @@ module Exportable
       #
       #  [
       #    active: { type: boolean },
-      #    description: { type: :rich_text },
+      #    description: { type: :text },
       #  ]
       #
       def field_definitions
@@ -140,10 +140,6 @@ module Exportable
 
       def csv_format_time(object, attr)
         object.send(attr).try(:strftime, "%H:%M:%S")
-      end
-
-      def csv_format_rich_text(object, attr)
-        object.send(attr)
       end
     end
   end
