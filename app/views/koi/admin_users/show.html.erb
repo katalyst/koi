@@ -10,7 +10,7 @@
   <%= builder.items_with(model: admin, attributes: AdminUser.attribute_names.sort - %w[encrypted_password], skip_blank: true) %>
 <% end %>
 
-<div class="show--actions">
+<div class="actions-group">
   <%= button_to "Delete", admin_user_path(admin),
                 class:  "button button__secondary",
                 method: :delete,

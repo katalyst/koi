@@ -1,19 +1,6 @@
 <% content_for :title, "Admin users" %>
 
-<nav class="index-table-actions">
-  <%= form_with url: request.path, method: :get, class: "form-search form-inline" do |form| %>
-    <div class="form-inline--input">
-      <%= form.search_field :search, placeholder: "Search", value: params[:search], class: "form-inline--input" %>
-    </div>
-    <%= form.submit "Go", class: "button--primary" %>
-    <div class="form-inline--button">
-      <%= link_to "Reset", request.path, class: "button button--secondary" %>
-    </div>
-  <% end %>
-  <div class="item-actions">
-    <%= link_to "Add", new_admin_user_path, class: "button button--primary" %>
-  </div>
-</nav>
+<%= koi_index_actions create: true, search: true %>
 
 <%= table_with collection: admins, sort: sort, class: "index-table" do |row, admin| %>
   <%= row.cell :email do |cell| %>

@@ -21,6 +21,7 @@ module Koi
       helper Katalyst::Navigation::FrontendHelper
       helper Katalyst::Tables::Frontend
       helper Pagy::Frontend
+      helper IndexActionsHelper
       helper :all
 
       layout "koi/application"

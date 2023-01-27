@@ -20,7 +20,13 @@
   <!-- SCRIPTS -->
   <%= javascript_importmap_tags "koi/admin" %>
 </head>
-<body>
+<body data-controller="keyboard"
+      data-action="keyup->keyboard#event"
+      data-keyboard-mapping-value="
+          Backslash->shortcut:search
+          KeyN->shortcut:create
+          Escape->shortcut:cancel
+        ">
 <%= render "layouts/koi/navigation" %>
 <main>
   <%= render "layouts/koi/header" %>

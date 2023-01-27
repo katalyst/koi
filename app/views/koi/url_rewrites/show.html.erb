@@ -10,7 +10,7 @@
   <%= builder.items_with(model: url_rewrite, attributes: UrlRewrite.attribute_names.sort, skip_blank: true) %>
 <% end %>
 
-<div class="show--actions">
+<div class="actions-group">
   <%= button_to "Delete", url_rewrite_path(url_rewrite),
                 class:  "button button__secondary",
                 method: :delete,
