@@ -46,7 +46,15 @@
     <% end %>
 
   </head>
-  <body class="js-enabled body__<%= Rails.env.downcase %>" data-controller="ornament">
+  <body class="js-enabled body__<%= Rails.env.downcase %>"
+        data-controller="ornament keyboard"
+        data-action="keyup->keyboard#event"
+        data-keyboard-window-value="3"
+        data-keyboard-mapping-value="
+          Backslash->shortcut:search
+          KeyC->shortcut:create
+          Escape->shortcut:cancel
+        ">
 
     <a class="skip-link" href="#main">skip to content</a>
 
