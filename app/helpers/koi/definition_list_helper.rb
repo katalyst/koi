@@ -75,8 +75,7 @@ module Koi
       end
 
       def label_for(**options)
-        options.dig(:label, :text) ||
-          t(attribute, scope: object.model_name.param_key.to_sym, default: attribute.to_s.humanize)
+        options.dig(:label, :text) || object.class.human_attribute_name(attribute)
       end
 
       def attribute_value
