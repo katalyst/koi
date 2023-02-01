@@ -52,7 +52,7 @@ module Koi
       private
 
       def render?(**options)
-        !(options[:skip_blank] && attribute_value.blank?)
+        !(options[:skip_blank] && attribute_value.blank? && attribute_value != false)
       end
 
       def term_tag(**options)
@@ -69,7 +69,7 @@ module Koi
           when ActiveStorage::Attached::One
             tag.dd(attribute_value.attached? ? link_to(attribute_value.filename, url_for(attribute_value)) : "")
           else
-            tag.dd(attribute_value)
+            tag.dd(attribute_value.to_s)
           end
         end
       end
