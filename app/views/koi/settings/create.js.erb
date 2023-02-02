@@ -1,9 +1,0 @@
-<% if resource.errors.any? %>
-  $.magnificPopup.instance.currItem.inlineElement.html("<%= escape_javascript render ("modal_setting") %>");
-  Ornament.C.FormHelpers.init();
-  Ornament.globalLightboxSizing();
-<% else %>
-  $.magnificPopup.close();
-  $("#settings-list").html("<%= escape_javascript render("/koi/settings/settings_list",
-                                        { settings: Setting.where(prefix: resource.prefix) }) %>");
-<% end %>

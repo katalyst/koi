@@ -1,8 +1,0 @@
-<% group_settings.each do |group, settings| %>
-  <% group = "General" if group.blank? %>
-  <%= render 'koi/settings/settings', group: group, settings: settings %>
-<% end %>
-
-<% if current_admin.god? %>
-  <%= render 'koi/settings/extra' %>
-<% end %>

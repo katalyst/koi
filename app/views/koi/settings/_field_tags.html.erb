@@ -1,8 +1,0 @@
-<%
-  tag_list = object.tags.collect { |t| t.name }
-  tag_list = tag_list | object.data_source.call if object.data_source
-  tag_list.sort!
-%>
-
-<%= f.input :tag_list, collection: tag_list, input_html: { class: "form--medium", multiple: "", data: { controller: "select2", tags: "true" } }, label: label, hint: hint %>
-<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_16_070115) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_035425) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -220,28 +220,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_070115) do
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
-  end
-
-  create_table "translations", force: :cascade do |t|
-    t.string "locale", default: "en"
-    t.string "label"
-    t.string "key"
-    t.text "value"
-    t.text "interpolations"
-    t.string "role"
-    t.string "field_type", default: "string"
-    t.string "hint"
-    t.boolean "is_proc", default: false
-    t.boolean "is_required", default: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "prefix"
-    t.string "file_uid"
-    t.string "file_name"
-    t.text "serialized_value"
-    t.string "group"
-    t.index ["locale", "prefix", "key"], name: "index_translations_on_locale_and_prefix_and_key", unique: true
-    t.index ["prefix", "key"], name: "index_translations_on_prefix_and_key"
   end
 
   create_table "url_rewrites", force: :cascade do |t|

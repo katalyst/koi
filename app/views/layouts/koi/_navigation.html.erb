@@ -12,7 +12,6 @@
   <% if Object.const_defined?("Flipper::UI") %>
     <%= navigation_helper("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %>
   <% end %>
-  <%= navigation_helper("Settings", koi_engine.translations_path) %>
   <%= navigation_helper("Help", koi_engine.help_path) %>
   <% if Rails.env.development? %>
     <%= navigation_helper("Developer Styleguide", koi_engine.styleguide_path) %>

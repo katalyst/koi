@@ -49,7 +49,6 @@ module HasCrud
       def after_setup_crud; end
 
       def setup_crud
-        setup_settings
         setup_orderable
         setup_sortable
         setup_ajaxable
@@ -76,20 +75,6 @@ module HasCrud
           options[:sortable]   = false if options[:sortable].nil?
 
           scope :ordered, -> { order("ordinal ASC") }
-        end
-      end
-
-      def setup_settings
-        if options[:settings].eql?(true)
-          has_settings
-
-          if database_and_table_exists?
-            Koi::Settings.collection.each do |key, values|
-              create_setting(key, values)
-            end
-          end
-        else
-          options[:settings] = false
         end
       end
 

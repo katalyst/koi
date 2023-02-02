@@ -26,35 +26,6 @@ module Koi
       end
     end
 
-    def is_settable?
-      defined?(resource_class) && resource_class.options[:settings]
-    end
-
-    def settings
-      return [] unless is_settable?
-      return @settings if @settings
-
-      @settings = get_settings_by(:settings)
-    end
-
-    def group_settings
-      return [] unless is_settable?
-      return @group_settings if @group_settings
-
-      @group_settings = get_settings_by(:grouped_settings)
-    end
-
-    def settings_prefix
-      return nil unless is_settable?
-      return @settings_prefix if @settings_prefix
-
-      begin
-        @settings_prefix = resource.settings_prefix
-      rescue ::ActiveRecord::RecordNotFound
-        @settings_prefix = resource_class.settings_prefix
-      end
-    end
-
     # Example:
     #
     #   placeholder_image("No Image", width: 100, height: 100) # => <Image>
@@ -78,7 +49,7 @@ module Koi
     end
 
     def is_koi_core_class?(klass)
-      %w[AdminUser Setting Translation NavItem AliasNavItem
+      %w[AdminUser NavItem AliasNavItem
          ModuleNavItem ResourceNavItem FolderNavItem RootNavItem
          FriendlyIdSlug UrlRewrite].include? klass.name
     end
@@ -103,12 +74,6 @@ module Koi
 
     def current_url
       "#{params[:controller]}/#{params[:action]}".gsub("/", ".")
-    end
-
-    def get_settings_by(kind)
-      resource.send(kind)
-    rescue ::ActiveRecord::RecordNotFound
-      resource_class.send(kind)
     end
 
     def single_content_for(name, content = nil, &block)

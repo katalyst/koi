@@ -6,7 +6,6 @@ module Koi
 
     included do
       include Exportable
-      include HasSettings
       include HasCrud::ActiveRecord
     end
   end

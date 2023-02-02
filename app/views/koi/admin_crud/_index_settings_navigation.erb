@@ -1,16 +1,5 @@
 <nav class="tabs--links" data-tabs data-tabs-deeplink>
   <ul>
     <li><a href="#tab-main" data-tab="tab-main" class="tabs--link">Main</a></li>
-
-    <% if is_settable? %>
-      <% group_settings.each do |group, settings| %>
-        <% group = "General" if group.blank? %>
-        <li><a href="#tab-<%= group.parameterize %>" data-tab="tab-<%= group.parameterize %>" class="tabs--link"><%= group %></a></li>
-      <% end %>
-    <% end %>
-
-    <% if current_admin.god? && is_settable? %>
-      <li><a href="#tab-extra" data-tab="tab-extra" class="tabs--link">Extra</a></li>
-    <% end %>
   </ul>
 </nav>

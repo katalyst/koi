@@ -21,7 +21,7 @@ class AdminUser < ApplicationRecord
   validates :role, inclusion: ROLES
 
   has_crud searchable: %i[id first_name last_name email role],
-           ajaxable: true, settings: false
+           ajaxable:   true
 
   crud.config do
     fields role: { type: :roles }

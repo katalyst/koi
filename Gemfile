@@ -10,7 +10,6 @@ group :development, :test do
   gem "dartsass-rails", "~> 0.4.0"
   gem "factory_bot_rails"
   gem "faker"
-  gem "i18n-active_record", require: "i18n/active_record"
   gem "puma"
   gem "rake"
   gem "rspec-rails"

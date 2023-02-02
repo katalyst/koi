@@ -10,8 +10,7 @@ module HasCrud
         base.send :inherit_resources
         base.send :attr_accessor, :path
         base.send :helper_method, :is_allowed?, :is_orderable?, :is_paginated?,
-                  :singular_name, :plural_name, :path, :crud_partial,
-                  :settings_prefix
+                  :singular_name, :plural_name, :path, :crud_partial
         base.send :has_scope, :page, default: 1, if: :is_paginated?,
                                      except: %i[create update destroy] do |controller, scope, value|
           scope.page(value).per(controller.per_page)

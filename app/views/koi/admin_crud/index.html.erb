@@ -26,16 +26,6 @@
   <% end %>
 <% end %>
 
-<% if is_settable? %>
-  <% content_for :title_tabs do %>
-    <%= render "index_settings_navigation" %>
-  <% end %>
-<% end %>
-
-<% if is_settable? %>
-  <div class="tabs--pane tabs--pane__flush" id="tab-main" data-tab-for="tab-main">
-<% end %>
-
 <% if sidebar %>
   <div class="page__with-sidebar-right">
     <div class="page--main">
@@ -83,12 +73,4 @@
     </div>
     <%= sidebar %>
   </div>
-<% end %>
-
-<% if is_settable? %>
-  </div>
-<% end %>
-
-<% if is_settable? %>
-  <%= render "index_settings" %>
 <% end %>

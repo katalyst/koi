@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Document < Asset
-  has_crud paginate: false, settings: false
+  has_crud paginate: false
 
   dragonfly_accessor :data, app: :file
 

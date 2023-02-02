@@ -19,7 +19,7 @@ module HasCrud
         base.send :include, ActionView::Helpers::OutputSafetyHelper
         base.send :helper_method, :sort_column, :sort_direction, :page_list,
                   :search_fields, :is_searchable?, :is_sortable?, :is_ajaxable?,
-                  :is_exportable?, :title_for, :per_page, :settings_prefix
+                  :is_exportable?, :title_for, :per_page
         base.send :respond_to, :html, :js, :csv
         base.send :before_action, :allow_all_parameters!
       end

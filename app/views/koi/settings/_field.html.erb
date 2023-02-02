@@ -1,7 +1,0 @@
-<%=
-  begin
-    render crud_partial(attr, :form, f.object.class), :f => f, :attr => attr, object: f.object
-  rescue ActionView::MissingTemplate
-    render "form_field_default", :f => f, :attr => attr
-  end
-%>

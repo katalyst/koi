@@ -13,13 +13,6 @@ Koi::Engine.routes.draw do
   resources :images
   resources :documents
 
-  resources :translations, path: :site_settings do
-    get :seed, on: :collection
-  end
-  resources :settings do
-    put :update_multiple, on: :collection
-  end
-  resources :legacy_pages
   resources :url_rewrites
   resources :friendly_id_slugs
   resources :admins, path: :site_users

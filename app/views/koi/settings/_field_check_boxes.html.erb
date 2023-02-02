@@ -1,8 +1,0 @@
-<% data = object.data_source.call if object.data_source %>
-<% if data.nil? %>
-  <%= f.input :serialized_value, :as => :check_boxes, label: label, hint: hint %>
-<% else %>
-  <%= f.input :serialized_value, :as => :check_boxes, collection: data, label: label, hint: hint %>
-<% end %>
-
-<%= render "koi/admin_crud/form_field_collection_errors", f: f, attr: attr %>

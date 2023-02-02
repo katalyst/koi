@@ -12,7 +12,6 @@ en:
       display: "%a, %e %b %Y"
   activerecord:
     models:
-      translation: Settings
       product: "Add products to this category"
     attributes:
       nav_item:
@@ -25,13 +24,6 @@ en:
         previous: "‹ Prev"
         next: "Next ›"
         truncate: "..."
-  # https://github.com/svenfuchs/i18n-active_record/issues/106
-  i18n:
-    plural:
-      keys:
-        - :zero
-        - :one
-        - :other
   helpers:
     hint:
       default:

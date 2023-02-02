@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class SuperHero < ApplicationRecord
-  has_crud ajaxable: true,
+  has_crud ajaxable:   true,
            searchable: %i[id name gender powers],
-           orderable: false, settings: true,
-           paginate: false
+           orderable:  false,
+           paginate:   false
 
   # FIXME: Refactored from has
   has_many :images, as: :attributable
