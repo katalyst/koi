@@ -1,0 +1,8 @@
+/db/*.sqlite3
+/log/*.log
+/tmp
+/public/assets
+
+# dartsass-rails
+/app/assets/builds
+!/app/assets/builds/.keep

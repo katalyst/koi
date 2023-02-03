@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 Koi::Menu.items = {
-  "Modules"  => {
-    "News"       => "/admin/news_items",
-    "Categories" => "/admin/categories",
-    "Heroes"     => {
-      "Super Heros" => "/admin/super_heros",
-      "Kid Heros"   => "/admin/kid_heros",
-    },
-  },
+  "Modules"  => {},
   "Advanced" => {
-    "Admins"       => "/admin/admin_users",
+    "Admin Users"  => "/admin/admin_users",
     "URL Rewriter" => "/admin/url_rewrites",
   },
 }
@@ -21,10 +14,6 @@ Koi::PriorityMenu.items = [
     url:       "/",
     icon:      "planet_filled",
     icon_opts: { fill: "#2ECC71" },
-  },
-  {
-    label: "Super Heros",
-    url:   "/admin/super_heros",
   },
 ]
 

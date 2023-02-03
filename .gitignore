@@ -2,15 +2,6 @@
 tmp
 log/*.log
 pkg
-spec/dummy/config/database.yml
-spec/dummy/db/*.sqlite3
-spec/dummy/log/*.log
-spec/dummy/tmp
-spec/dummy/.sass-cache
-spec/dummy/public/system
-spec/dummy/public/assets
-spec/dummy/.powenv
-spec/dummy/dragonfly
 .DS_Store
 .rspec
 /.rspec_status
