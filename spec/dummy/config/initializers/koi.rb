@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-Koi::Menu.modules = {}
+Koi::Menu.modules = {
+  "Articles" => "/admin/articles",
+}
 
 Koi::Menu.advanced = {
   "Admin Users"  => "/admin/admin_users",

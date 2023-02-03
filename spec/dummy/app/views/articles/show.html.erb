@@ -1,0 +1,13 @@
+<%
+  content_for :banner, page_banner(version: version) if current_admin
+%>
+
+<div class="spacing">
+  <div class="layout--container--katalyst-content page__katalyst-content">
+    <div class="page--title type--secondary visually-hidden">
+      <h1 class="heading-one"><%= article.title %></h1>
+    </div>
+
+    <%= render_content version %>
+  </div>
+</div>

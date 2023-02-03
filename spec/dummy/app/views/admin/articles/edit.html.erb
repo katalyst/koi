@@ -1,0 +1,6 @@
+<% content_for :title, "Edit article" %>
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Articles", admin_articles_path %>
+<% end %>
+
+<%= render "form", article: article %>

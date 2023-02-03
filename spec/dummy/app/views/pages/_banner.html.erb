@@ -1,0 +1,24 @@
+<div class="version-banner <%= banner.state %>">
+  <div class="version-banner--content">
+    <div class="version-banner--text">
+      <span class="version-banner--text--caption"><%= banner.caption %></span>
+      -
+      <%= banner.date %>
+      <span class="version-banner--text--nav-links">
+        <% if banner.draft? %>
+          <%= link_to "See published", banner.published_path if banner.published? && banner.preview? %>
+          <%= link_to "See draft", banner.draft_path unless banner.preview? %>
+          <% end %>
+      </span>
+    </div>
+    <div class="version-banner--actions">
+      <%= link_to "Edit", banner.edit_path, class: "button" %>
+      <% if banner.preview? && banner.draft? %>
+        <%= form_with model: banner.parent, url: banner.edit_path do |form| %>
+          <%= form.button "Publish", name: :commit, value: :publish, class: "button" %>
+          <%= form.button "Revert", name: :commit, value: :revert, class: "button" if banner.published? %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

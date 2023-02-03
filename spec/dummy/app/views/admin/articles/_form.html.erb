@@ -1,0 +1,19 @@
+<%= form_with model: article, url: [:admin, article], builder: Koi::FormBuilder do |form| %>
+  <%= form.govuk_fieldset legend: nil, data: { controller: "sluggable", sluggable_slug_value: form.object.slug } do %>
+    <%= form.govuk_text_field :title,
+                              label: { size: "s" },
+                              data:  { sluggable_target: "source", action: "keyup->sluggable#sourceChanged" } %>
+
+    <%= form.govuk_text_field :slug,
+                              label: { size: "s" },
+                              data:  { sluggable_target: "slug", action: "keyup->sluggable#slugChanged" } %>
+  <% end %>
+
+  <%= form.govuk_check_box_field :show_title, label: { text: "Show title", size: "s" } %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Save" %>
+
+    <%= form.govuk_submit text: "Delete", method: :delete if form.object.persisted? %>
+  </div>
+<% end %>

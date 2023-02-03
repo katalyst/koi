@@ -1,0 +1,23 @@
+<% content_for :title, article.title %>
+<% content_for(:breadcrumbs) { link_to "Articles", admin_articles_path } %>
+<% content_for :layout_class, "collapse-header-spacing extra-side-spacing" %>
+<% content_for :actions do %>
+  <%= link_to "Preview", article %>
+  <%= link_to "Edit", [:edit, :admin, article] %>
+<% end %>
+
+<%= content_editor_status_bar container: article %>
+
+<%= content_editor_container container: article, url: [:admin, article] do |form| %>
+  <div role="rowheader">
+    <h4>Heading</h4>
+    <h4></h4>
+    <h4>Actions</h4>
+  </div>
+
+  <%= content_editor_list container: article %>
+<% end %>
+
+<%= content_for :sidebar do %>
+  <%= render "katalyst/content/editor/new_items", container: article %>
+<% end %>

@@ -1,0 +1,9 @@
+<% content_for :title, "Articles" %>
+
+<%= koi_index_actions create: true %>
+
+<%= table_with collection: articles, class: "index-table" do |row, article| %>
+  <%= row.cell :title do |cell| %>
+    <%= link_to cell.value, url_for([:admin, article]) %>
+  <% end %>
+<% end %>

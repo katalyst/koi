@@ -4,6 +4,7 @@ module CommonControllerActions
   extend ActiveSupport::Concern
 
   include Katalyst::Navigation::HasNavigation
+  include Koi::HasAdminUsers
 
   included do
     protect_from_forgery

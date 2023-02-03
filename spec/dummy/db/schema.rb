@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_02_234907) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_044737) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -47,6 +47,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_234907) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "article_versions", force: :cascade do |t|
+    t.integer "parent_id", null: false
+    t.json "nodes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_article_versions_on_parent_id"
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title", null: false
+    t.boolean "show_title", default: false, null: false
+    t.string "slug", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "published_version_id"
+    t.integer "draft_version_id"
+    t.index ["draft_version_id"], name: "index_articles_on_draft_version_id"
+    t.index ["published_version_id"], name: "index_articles_on_published_version_id"
   end
 
   create_table "katalyst_content_items", force: :cascade do |t|
@@ -99,6 +119,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_234907) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "article_versions", "articles", column: "parent_id"
+  add_foreign_key "articles", "article_versions", column: "draft_version_id"
+  add_foreign_key "articles", "article_versions", column: "published_version_id"
   add_foreign_key "katalyst_navigation_items", "katalyst_navigation_menus", column: "menu_id"
   add_foreign_key "katalyst_navigation_menu_versions", "katalyst_navigation_menus", column: "parent_id"
   add_foreign_key "katalyst_navigation_menus", "katalyst_navigation_menu_versions", column: "draft_version_id"
