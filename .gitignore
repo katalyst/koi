@@ -8,6 +8,7 @@ pkg
 /.idea
 /.rakeTasks
 /node_modules
+storage
 
 # dartsass-rails
 /app/assets/builds/*
