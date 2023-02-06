@@ -32,8 +32,7 @@ module Koi
 
     def is_koi_core_class?(klass)
       %w[AdminUser NavItem AliasNavItem
-         ModuleNavItem ResourceNavItem FolderNavItem RootNavItem
-         FriendlyIdSlug UrlRewrite].include? klass.name
+         ModuleNavItem ResourceNavItem FolderNavItem RootNavItem UrlRewrite].include? klass.name
     end
 
     def ancestor_controllers

@@ -54,7 +54,6 @@ module HasCrud
         setup_ajaxable
         setup_searchable
         setup_scope
-        setup_slug
         setup_pagination
         setup_exportable
       rescue ::ActiveRecord::ConnectionNotEstablished, ::ActiveRecord::NoDatabaseError
@@ -110,15 +109,6 @@ module HasCrud
         end
 
         scope ? (default_scope { order("id ASC") }) : (default_scope { order(scope) })
-      end
-
-      def setup_slug
-        if !options[:slugged].eql?(false) && database_and_table_exists? && column_names.include?("slug")
-          send :extend, FriendlyId
-          use = %i[slugged finders]
-          use << :history if FriendlyIdSlug.table_exists?
-          friendly_id (options[:slugged] || :to_s), use: use
-        end
       end
 
       # Note: table_exists? throws an exception if the database doesn't exist.
