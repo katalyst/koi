@@ -9,10 +9,6 @@ Koi::Engine.routes.draw do
 
   resources :uploads, only: :create
 
-  resources :assets
-  resources :images
-  resources :documents
-
   resources :url_rewrites
   resources :friendly_id_slugs
   resources :admins, path: :site_users

@@ -19,7 +19,6 @@ RuboCop::RakeTask.new
 def dartsass_build_mapping
   <<-BUILDS.gsub(/\s+/, " ")
     app/assets/stylesheets/koi/admin.scss:app/assets/builds/koi/admin.css
-    app/assets/stylesheets/koi/assets.scss:app/assets/builds/koi/assets.css
     app/assets/stylesheets/koi/nav_items.scss:app/assets/builds/koi/nav_items.css
   BUILDS
 end

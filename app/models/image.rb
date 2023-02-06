@@ -1,36 +1,9 @@
 # frozen_string_literal: true
 
 class Image < Asset
-  has_crud paginate: false
-
   dragonfly_accessor :data, app: :image
 
-  validates_size_of :data, maximum: Koi::KoiAsset::Image.size_limit
-  validates_property :mime_type, of: :data,
-                                 in: Koi::KoiAsset::Image.mime_types, case_sensitive: false
-
-  crud.config do
-    fields data: { type: :file, label: false }, tag_list: { type: :tags }
-    config(:admin) { form fields: [:data] }
-  end
-
-  def html_options
-    { width: width, height: height }
-  end
-
   delegate :width, :height, to: :data
-
-  def title_options
-    "#{width} x #{height}px"
-  end
-
-  def dragonfly_options
-    "#{width}x#{height}"
-  end
-
-  def thumbnail(options = {})
-    url options
-  end
 
   def url(*args)
     opt  = args.extract_options!

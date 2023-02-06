@@ -24,13 +24,11 @@
 //= require koi/ornament/window-dimensions
 //= require koi/ornament/debounce
 //= require koi/ornament/accessibility
-//= require koi/ornament/uploader
 
 //= require koi/components/show
 //= require koi/components/tabs
 //= require koi/components/enhanced-form
 //= require koi/components/navigation-mobile
-//= require koi/components/kat-image-upload
 //= require koi/components/tooltip
 //= require koi/components/pagination-helper
 //= require koi/components/select-link
@@ -49,4 +47,3 @@
 //= require koi/koi/shed
 //= require koi/koi/stuff
 //= require koi/koi/sortable
-//= require koi/koi/assets
