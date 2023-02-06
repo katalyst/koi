@@ -11,7 +11,6 @@ Koi::Menu.items = {
   },
   "Advanced" => {
     "Admins"       => "/admin/site_users",
-    "URL History"  => "/admin/friendly_id_slugs",
     "URL Rewriter" => "/admin/url_rewrites",
   },
 }
