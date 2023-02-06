@@ -2,13 +2,6 @@
   <li><%= link_to "View site", "/", data: { turbo: false } %></li>
   <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
   <%= navigation_items_with(items: Koi::Menu.menu.published_tree) %>
-  <li>
-    <a href="#">Assets</a>
-    <ul>
-      <%= navigation_helper("Images", koi_engine.images_path(tags: nil)) %>
-      <%= navigation_helper("Documents", koi_engine.documents_path(tags: nil)) %>
-    </ul>
-  </li>
   <% if Object.const_defined?("Flipper::UI") %>
     <%= navigation_helper("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %>
   <% end %>

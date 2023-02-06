@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Koi::KoiAsset::Document.extensions = [:pdf, :doc]
-
 Koi::Menu.items = {
   "Modules"  => {
     "News"       => "/admin/news_items",
@@ -29,12 +27,6 @@ Koi::PriorityMenu.items = [
     label: "Super Heros",
     url:   "/admin/super_heros",
   },
-]
-
-Koi::KoiAsset::Image.sizes = [
-  { width: "200", title: "200 pixels wide" },
-  { width: "400", title: "400 pixels wide" },
-  { width: "600", title: "600 pixels wide" },
 ]
 
 # Caching enabled by default

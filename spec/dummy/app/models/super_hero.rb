@@ -28,13 +28,7 @@ class SuperHero < ApplicationRecord
     map image_uid: :image
     map file_uid:  :file
 
-    fields image:              { type: :image },
-           file:               { type: :file },
-           document_upload:    { type: :uploader, types: "pdf, xls, xlsx, doc, docx", max_size: 10 },
-           document_upload_id: { type: :uploader },
-           image_upload:       { type: :uploader, croppable: true, ratio: "2/1" },
-           image_upload_id:    { type: :uploader },
-           gender:             { type: :select, data: GENDERS, size: :small },
+    fields gender:             { type: :select, data: GENDERS, size: :small },
            is_alive:           { type: :boolean },
            url:                { type: :disabled, wrapper_data: { show: "super_hero_is_alive" } },
            last_location_seen: { type: :latlng },

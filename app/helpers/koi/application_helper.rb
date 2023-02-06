@@ -26,24 +26,6 @@ module Koi
       end
     end
 
-    # Example:
-    #
-    #   placeholder_image("No Image", width: 100, height: 100) # => <Image>
-    #
-    def placeholder_image(text, args = {})
-      image = Dragonfly::App[:images].generate(:text, text, { color: "#fff", background_color: "#ccc", padding: "200" })
-      image.process(:crop, { width: 100, height: 100, gravity: "c" }.merge(args))
-    end
-
-    # Example:
-    #
-    #   placeholder_image_tag("No Image", width: 100, height: 100)
-    #   => "<img src='/example.png' width='100' height='100' />"
-    #
-    def placeholder_image_tag(_text, args = {})
-      image_tag(path_to_image("koi/application/placeholder-image-none.png"), args)
-    end
-
     def new_uuid
       SecureRandom.uuid
     end
