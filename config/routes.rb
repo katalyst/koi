@@ -10,7 +10,7 @@ Koi::Engine.routes.draw do
   resources :uploads, only: :create
 
   resources :url_rewrites
-  resources :admins, path: :site_users
+  resources :admin_users
   post "clear-cache" => "application#clear_cache", :as => :clear_cache
   get  "help" => "application#help", :as => :help
   get  "dashboard" => "application#index", :as => :dashboard

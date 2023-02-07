@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminUser < ApplicationRecord
-  include HasCrud::ActiveRecord
+  include PgSearch::Model
 
   class << self
     def model_name
@@ -20,18 +20,9 @@ class AdminUser < ApplicationRecord
 
   validates :role, inclusion: ROLES
 
-  has_crud searchable: %i[id first_name last_name email role],
-           ajaxable:   true
+  scope :alphabetical, -> { order("LOWER(admins.last_name)", "LOWER(admins.first_name)") }
 
-  crud.config do
-    fields role: { type: :roles }
-    config :admin do
-      index fields: %i[id first_name last_name email role]
-      form  fields: %i[first_name last_name email role password password_confirmation]
-      show  fields: %i[first_name last_name email role sign_in_count current_sign_in_ip
-                       last_sign_in_at last_sign_in_ip]
-    end
-  end
+  pg_search_scope :admin_search, against: %i[email first_name last_name], using: { tsearch: { prefix: true } }
 
   def to_s
     "#{first_name} #{last_name}"

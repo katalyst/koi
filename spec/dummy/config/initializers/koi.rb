@@ -10,7 +10,7 @@ Koi::Menu.items = {
     },
   },
   "Advanced" => {
-    "Admins"       => "/admin/site_users",
+    "Admins"       => "/admin/admin_users",
     "URL Rewriter" => "/admin/url_rewrites",
   },
 }

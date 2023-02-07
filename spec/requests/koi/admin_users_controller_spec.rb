@@ -3,13 +3,13 @@
 require "rails_helper"
 require "support/requests/admin_examples"
 
-RSpec.describe "Admins", type: :request do
+RSpec.describe Koi::AdminUsersController, type: :request do
   let(:admin) { create :admin }
 
   include_context "with admin session"
 
-  describe "GET /admin/site_users" do
-    let(:action) { get koi_engine.admins_path }
+  describe "GET /admin/admin_users" do
+    let(:action) { get koi_engine.admin_users_path }
 
     it_behaves_like "requires admin"
 
@@ -19,8 +19,8 @@ RSpec.describe "Admins", type: :request do
     end
   end
 
-  describe "GET /admin/site_users/new" do
-    let(:action) { get koi_engine.new_admin_path }
+  describe "GET /admin/admin_users/new" do
+    let(:action) { get koi_engine.new_admin_user_path }
 
     it_behaves_like "requires admin"
 
@@ -30,15 +30,15 @@ RSpec.describe "Admins", type: :request do
     end
   end
 
-  describe "POST /admin/site_users" do
-    let(:action) { post koi_engine.admins_path, params: { admin: admin_params } }
+  describe "POST /admin/admin_users" do
+    let(:action) { post koi_engine.admin_users_path, params: { admin: admin_params } }
     let(:admin_params) { attributes_for :admin }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admins_path)
+      expect(response).to redirect_to(koi_engine.admin_user_path(assigns(:admin)))
     end
 
     it "creates an admin" do
@@ -46,8 +46,8 @@ RSpec.describe "Admins", type: :request do
     end
   end
 
-  describe "GET /admin/site_users/:id" do
-    let(:action) { get koi_engine.admin_path(admin) }
+  describe "GET /admin/admin_users/:id" do
+    let(:action) { get koi_engine.admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
@@ -57,8 +57,8 @@ RSpec.describe "Admins", type: :request do
     end
   end
 
-  describe "GET /admin/site_users/:id/edit" do
-    let(:action) { get koi_engine.edit_admin_path(admin) }
+  describe "GET /admin/admin_users/:id/edit" do
+    let(:action) { get koi_engine.edit_admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
@@ -68,15 +68,15 @@ RSpec.describe "Admins", type: :request do
     end
   end
 
-  describe "PATCH /admin/site_users/:id" do
-    let(:action) { patch koi_engine.admin_path(admin), params: { admin: admin_params } }
+  describe "PATCH /admin/admin_users/:id" do
+    let(:action) { patch koi_engine.admin_user_path(admin), params: { admin: admin_params } }
     let(:admin_params) { attributes_for :admin }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admins_path)
+      expect(response).to redirect_to(koi_engine.admin_user_path(admin))
     end
 
     it "updates name" do
@@ -100,19 +100,19 @@ RSpec.describe "Admins", type: :request do
 
       it "renders with errors" do
         action
-        expect(response.body).to have_selector(".admin_first_name.error")
+        expect(response.body).to have_selector("#admin-first-name-error")
       end
     end
   end
 
-  describe "DELETE /admin/site_users/:id" do
-    let(:action) { delete koi_engine.admin_path(admin) }
+  describe "DELETE /admin/admin_users/:id" do
+    let(:action) { delete koi_engine.admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admins_path)
+      expect(response).to redirect_to(koi_engine.admin_users_path)
     end
   end
 end
