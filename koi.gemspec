@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
 
   # Pagination
   s.add_dependency "kaminari", ">= 1.2.1"
+  s.add_dependency "pagy"
 
   # Inherited Resources
   s.add_dependency "has_scope", ">= 0.8"
@@ -65,7 +66,8 @@ Gem::Specification.new do |s|
   # Tags
   s.add_dependency "acts-as-taggable-on", ">= 7.0.0"
 
-  # Scoped Search
+  # Search
+  s.add_dependency "pg_search"
   s.add_dependency "scoped_search", ">= 4.1.8"
 
   # Nice Multi Select

@@ -2,9 +2,31 @@
 
 module Koi
   class FormBuilder < ActionView::Helpers::FormBuilder
-    delegate :content_tag, :tag, :safe_join, :link_to, :capture, :concat, :t, to: :@template
+    delegate_missing_to :@template
 
     include GOVUKDesignSystemFormBuilder::Builder
+
+    # Generates a submit button for saving admin resources.
+    def admin_save(text: "Save", **kwargs)
+      govuk_submit(text, value: :save, name: :commit, **kwargs)
+    end
+
+    # Generates a delete link formatted as a button that will perform a turbo
+    # delete with a confirmation.
+    def admin_delete(text: "Delete", url: nil, confirm: "Are you sure?", data: {}, **kwargs)
+      return unless object.persisted?
+
+      link_to(text, url || url_for(action: :destroy),
+              class: "govuk-button govuk-button--secondary",
+              data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm),
+              **kwargs)
+    end
+
+    # Generates an archive link formatted as a button that will perform a turbo
+    # delete with a confirmation.
+    def admin_archive(text: "Archive", **kwargs)
+      admin_delete(text: text, **kwargs)
+    end
 
     # @api internal
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_document_field
