@@ -20,7 +20,7 @@ class AdminUser < ApplicationRecord
 
   scope :alphabetical, -> { order("LOWER(admins.last_name)", "LOWER(admins.first_name)") }
 
-  if AdminUser.connection_db_config.adapter == "postgresql" && require("pg_search")
+  if "PgSearch::Model".safe_constantize
     include PgSearch::Model
 
     pg_search_scope :admin_search, against: %i[email first_name last_name], using: { tsearch: { prefix: true } }
