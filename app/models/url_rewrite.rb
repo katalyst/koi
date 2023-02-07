@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 class UrlRewrite < ApplicationRecord
-  has_crud
-
   validates :from, :to, presence: true
+  validates :from, format: { with: %r{\A/}, message: "should start with /" }
 
   scope :active, -> { where(active: true) }
+  scope :alphabetical, -> { order(from: :asc) }
 
   def to_s
     "#{from} -> #{to}"
   end
 
-  crud.config do
-    fields active: { type: :boolean }
-
-    config :admin do
-      index fields: %i[from to active]
-    end
+  scope :admin_search, ->(query) do
+    where(arel_table[:from].matches("%#{query}%").or(arel_table[:to].matches("%#{query}%")))
   end
 
   def self.redirect_path_for(path)
