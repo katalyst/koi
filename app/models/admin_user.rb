@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AdminUser < ApplicationRecord
-  include PgSearch::Model
-
   class << self
     def model_name
       ActiveModel::Name.new(self, nil, "Admin")
@@ -22,7 +20,15 @@ class AdminUser < ApplicationRecord
 
   scope :alphabetical, -> { order("LOWER(admins.last_name)", "LOWER(admins.first_name)") }
 
-  pg_search_scope :admin_search, against: %i[email first_name last_name], using: { tsearch: { prefix: true } }
+  if AdminUser.connection_db_config.adapter == "postgresql" && require("pg_search")
+    include PgSearch::Model
+
+    pg_search_scope :admin_search, against: %i[email first_name last_name], using: { tsearch: { prefix: true } }
+  else
+    scope :admin_search, ->(query) do
+      where("email LIKE :query OR first_name LIKE :query OR last_name LIKE :query", query: "%#{query}%")
+    end
+  end
 
   def to_s
     "#{first_name} #{last_name}"

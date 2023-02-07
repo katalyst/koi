@@ -67,7 +67,6 @@ Gem::Specification.new do |s|
   s.add_dependency "acts-as-taggable-on", ">= 7.0.0"
 
   # Search
-  s.add_dependency "pg_search"
   s.add_dependency "scoped_search", ">= 4.1.8"
 
   # Nice Multi Select

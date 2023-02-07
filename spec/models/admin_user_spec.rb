@@ -26,12 +26,7 @@ RSpec.describe AdminUser, type: :model do
     end
   end
 
-  describe "#searchable" do
-    it "supports search on all fields" do
-      expect(described_class.scoped_search_definition.default_fields.map(&:field))
-        .to contain_exactly(:id, :first_name, :last_name, :email, :role)
-    end
-
-    it { expect(described_class.search_for(admin.first_name)).to include(admin) }
+  describe "#admin_search" do
+    it { expect(described_class.admin_search(admin.first_name)).to include(admin) }
   end
 end
