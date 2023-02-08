@@ -19,7 +19,7 @@ PATH
       katalyst-navigation
       katalyst-tables
       pagy
-      rails (>= 6.1)
+      rails (>= 7.0)
       scoped_search (>= 4.1.8)
       select2-rails (>= 4)
       stimulus-rails

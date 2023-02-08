@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'koi'
+gem "koi"
 ```
 
 And then execute:

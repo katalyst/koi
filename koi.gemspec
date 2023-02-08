@@ -7,19 +7,21 @@ require "koi/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name          = "koi"
-  s.version       = Koi::VERSION
-  s.authors       = ["Katalyst"]
-  s.email         = ["admin@katalyst.com.au"]
-  s.homepage      = "https://github.com/katalyst/koi"
-  s.summary       = "Koi CMS admin framework"
-  s.description   = "Framework to provide rapid application development"
+  s.name        = "koi"
+  s.version     = Koi::VERSION
+  s.authors     = ["Katalyst"]
+  s.email       = ["admin@katalyst.com.au"]
+  s.homepage    = "https://github.com/katalyst/koi"
+  s.summary     = "Koi CMS admin framework"
+  s.description = "Framework to provide rapid application development"
+
+  s.required_ruby_version = ">= 3.1.0"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency "rails", ">= 6.1"
+  s.add_dependency "rails", ">= 7.0"
 
   # Import maps for ES6 JS
   s.add_dependency "importmap-rails"
