@@ -1,5 +1,0 @@
-<% field_value = object.send(attr) %>
-<% if field_value.blank? %>
-<% else %>
-  <%= field_value.reject(&:blank?).to_sentence %>
-<% end %>

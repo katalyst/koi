@@ -1,8 +1,0 @@
-<%
-  value = resource.send(attr)
-  data = resource_class.crud.find(:fields, attr, :data)
-  human_value = value
-  human_value = data.invert.with_indifferent_access[value] if data.is_a?(Hash)
-%>
-
-<%= human_value %>

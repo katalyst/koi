@@ -1,8 +1,0 @@
-<% content_for(:include_google_maps, true) %>
-
-<%= resource.send(attr) %> - <a href="#map" data-lightbox>show on map</a>
-<%= render layout: "koi/shared/inline_lightbox", locals: { inline_id: "map", title: "Location" } do %>
-  <div data-map>
-    <div data-map-pin="<%= resource.send(attr) %>"></div>
-  </div>
-<% end %>

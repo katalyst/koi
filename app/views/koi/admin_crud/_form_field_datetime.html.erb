@@ -1,9 +1,0 @@
-<%
-  datetime_value = ""
-  datetime_value = resource.send(attr).strftime('%a, %b %e %Y at %l:%M %p') if resource.send(attr)
-
-  input_opts[:value] = datetime_value
-  input_opts[:class] += " datetime input datetimepicker"
-%>
-
-<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>

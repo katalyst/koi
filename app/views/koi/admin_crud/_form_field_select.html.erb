@@ -1,3 +1,0 @@
-<% data = f.object.class.crud.find(:fields, attr, :data) %>
-<% raise ArgumentError, "You must provide a 'data' hash value for '#{attr}' field type" if data.nil? %>
-<%= f.input attr.to_sym, :as => :select, collection: data, wrapper_html: wrapper_opts, input_html: input_opts %>

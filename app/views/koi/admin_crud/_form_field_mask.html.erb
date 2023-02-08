@@ -1,7 +1,0 @@
-<%
-  if crud_settings && crud_settings[:mask_type]
-    input_opts[:data][:input_mask] = crud_settings[:mask_type]
-  end
-%>
-
-<%= f.input attr, as: :string, wrapper_html: wrapper_opts, input_html: input_opts %>

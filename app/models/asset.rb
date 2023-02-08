@@ -3,6 +3,9 @@
 class Asset < ApplicationRecord
   include FriendlyId
 
+  extend Dragonfly::Model
+  extend Dragonfly::Model::Validations
+
   friendly_id :to_s, use: %i[slugged finders history]
 
   dragonfly_accessor :data, app: :file

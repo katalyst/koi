@@ -25,8 +25,6 @@ require "stimulus-rails"
 require "turbo-rails"
 
 require "koi/config"
-require "has_crud/has_crud"
-require "exportable/exportable"
 require "koi/form_builder"
 require "koi/menu"
 require "koi/priority_menu"

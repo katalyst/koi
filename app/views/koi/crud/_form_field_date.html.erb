@@ -1,8 +1,0 @@
-<% content_for :head do %>
-  <script type="text/javascript">
-    $(function() {
-      $(".datepicker").datepicker({ dateFormat: 'dd M yy' });
-    });
-  </script>
-<% end %>
-<%= f.input attr, :as => :string, :input_html => { :class => "datepicker" } %>

@@ -1,7 +1,0 @@
-<% 
-  writable_method = resource_class.crud.find :fields, attr, :writable_method
-%>
-
-<% input_opts.merge! disabled: true unless current_admin.send writable_method if writable_method %>
-
-<%= f.input attr, wrapper_html: wrapper_opts, input_html: input_opts %>

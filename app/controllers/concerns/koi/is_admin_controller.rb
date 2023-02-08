@@ -5,8 +5,17 @@ module Koi
     extend ActiveSupport::Concern
 
     included do
-      helper :all
+      include IsAdminController
+      include Katalyst::Tables::Backend
+      include Pagy::Backend
+
+      default_form_builder "Koi::FormBuilder"
+
+      helper Katalyst::GOVUK::Formbuilder::Frontend
       helper Katalyst::Navigation::FrontendHelper
+      helper Katalyst::Tables::Frontend
+      helper Pagy::Frontend
+      helper :all
 
       layout :layout_by_resource
       before_action :authenticate_admin, except: :login
