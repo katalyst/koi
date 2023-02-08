@@ -1,0 +1,9 @@
+<%= render "koi/shared/flash_messages" %>
+
+<%= form_with(model: resource, scope: resource_name, url: admin_session_path, class: "panel--padding") do |f| %>
+  <%= f.govuk_fieldset legend: { text: "Log in" } do %>
+    <%= f.govuk_email_field :email, autofocus: true %>
+    <%= f.govuk_password_field :password %>
+  <% end %>
+  <%= f.govuk_submit "Log in", class: "button" %>
+<% end %>

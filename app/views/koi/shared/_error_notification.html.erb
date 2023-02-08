@@ -1,9 +1,0 @@
-<div class="island island__error alert-block">
-  <a href="" class="close" data-dismiss="island">x</a>
-  <p><strong><%= t('simple_form.error_notification.default_message') %></strong></p>
-  <ul>
-    <% errors.each do |error| %>
-      <li><%= raw "<strong>#{error[:name].to_s.humanize}</strong> #{error[:message]}" %></li>
-    <% end %>
-  </ul>
-</div>

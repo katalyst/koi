@@ -5,53 +5,36 @@
     <meta charset="UTF-8" />
 
     <!-- title -->
-    <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
+    <title>Koi</title>
 
     <!-- META -->
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
-    <% unless Rails.env == "production" %>
-      <meta name="robots" content="noindex,nofollow"/>
-    <% end  %>
+    <meta name="robots" content="noindex,nofollow"/>
     <%= yield :meta %>
 
-    <!-- APPLIACTION -->
+    <!-- APPLICATION -->
     <meta name="theme-color" content="#ff521f" />
-
-    <!-- DATA -->
-    <!-- FIXME: helper isn't loaded by DeviseController -->
-    <%= js_data if defined?(js_data) %>
 
     <!-- WEBFONTS -->
     <%= render "layouts/koi/webfonts" %>
 
     <!-- STYLES -->
+    <%= stylesheet_link_tag "katalyst/govuk/formbuilder" %>
     <%= stylesheet_link_tag "koi/admin" %>
-    <%= yield :styles %>
-    <%= yield :stylesheets %>
-
-    <!-- SCRIPTS -->
-    <%= javascript_include_tag "koi" %>
-    <%= yield :javascripts %>
-    <%= yield :scripts %>
 
     <!-- ETC -->
     <%= yield(:head) %>
 
   </head>
   <body>
-
     <div class="layout--container devise">
       <div class="devise--logo">
         <h1>Koi</h1>
       </div>
-      <div class="devise--body ornament-form">
-        <%= render "/koi/shared/flash_messages" %>
+      <div class="devise--body">
         <%= content_for?(:devise) ? yield(:devise) : yield %>
       </div>
     </div>
-
-    <%= render "/layouts/koi/icons" %>
-
   </body>
 </html>

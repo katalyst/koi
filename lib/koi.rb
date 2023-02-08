@@ -20,7 +20,6 @@ require "katalyst/tables"
 require "pagy"
 require "scoped_search"
 require "select2-rails"
-require "simple_form"
 require "stimulus-rails"
 require "turbo-rails"
 

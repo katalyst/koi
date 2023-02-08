@@ -2,6 +2,8 @@
 
 module Koi
   class SessionsController < Devise::SessionsController
-    helper :all
+    default_form_builder "Koi::FormBuilder"
+
+    helper Katalyst::GOVUK::Formbuilder::Frontend
   end
 end

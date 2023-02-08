@@ -102,17 +102,6 @@
       "maxTime",
     ],
 
-    enhanceForms: function () {
-      // Enhance simple_form
-      $(".form--enhanced input")
-        .not(".enhanced")
-        .each(function () {
-          $(this)
-            .addClass("enhanced")
-            .after("<span class='form--enhanced--control'></span>");
-        });
-    },
-
     // Build settings from a field
     _buildDatepickerSettingsForField: function ($field, defaultSettings) {
       defaultSettings = $.extend({}, defaultSettings || {});
@@ -277,7 +266,6 @@
     },
 
     init: function () {
-      FormHelpers.enhanceForms();
       FormHelpers.bindDatepickers();
       FormHelpers.bindCustomDisableLinks();
       FormHelpers.bindInputMasks();

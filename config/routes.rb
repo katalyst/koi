@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 Koi::Engine.routes.draw do
-  devise_for :admins, class_name:  "AdminUser",
-                      controllers: {
-                        passwords: "koi/passwords",
-                        sessions:  "koi/sessions",
-                      }
+  devise_for :admins, class_name: "AdminUser"
 
   resources :uploads, only: :create
 

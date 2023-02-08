@@ -7,8 +7,7 @@ class AdminUser < ApplicationRecord
     end
   end
 
-  devise :database_authenticatable, :recoverable,
-         :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :trackable, :validatable
 
   before_validation :set_default_values
 
