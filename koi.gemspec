@@ -43,10 +43,6 @@ Gem::Specification.new do |s|
   # Form builder for admin crud
   s.add_dependency "katalyst-govuk-formbuilder"
 
-  # Tree
-  # awesome_nested_set v3.3.0 supports rails 6.1
-  s.add_dependency "awesome_nested_set", ">= 3.3.0"
-
   # File Handling
   s.add_dependency "dragonfly", "= 1.3.0"
 

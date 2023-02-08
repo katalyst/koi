@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "acts-as-taggable-on"
-require "awesome_nested_set"
 require "cocoon"
 require "csv"
 require "devise"
