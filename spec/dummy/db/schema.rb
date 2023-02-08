@@ -32,19 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_040543) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "assets", force: :cascade do |t|
-    t.string "data_uid"
-    t.string "data_name"
-    t.string "type"
-    t.integer "attribute_ordinal"
-    t.string "attribute_name"
-    t.integer "attributable_id"
-    t.string "attributable_type"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "slug"
-  end
-
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
