@@ -32,16 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_040543) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 40
-    t.datetime "created_at", precision: nil
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
-  end
-
   create_table "katalyst_content_items", force: :cascade do |t|
     t.string "type"
     t.string "container_type"
@@ -88,24 +78,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_040543) do
     t.index ["draft_version_id"], name: "index_katalyst_navigation_menus_on_draft_version_id"
     t.index ["published_version_id"], name: "index_katalyst_navigation_menus_on_published_version_id"
     t.index ["slug"], name: "index_katalyst_navigation_menus_on_slug"
-  end
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id"
-    t.string "taggable_type"
-    t.integer "taggable_id"
-    t.string "tagger_type"
-    t.integer "tagger_id"
-    t.string "context", limit: 128
-    t.datetime "created_at", precision: nil
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "url_rewrites", force: :cascade do |t|

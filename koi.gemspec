@@ -43,31 +43,11 @@ Gem::Specification.new do |s|
   # Form builder for admin crud
   s.add_dependency "katalyst-govuk-formbuilder"
 
-  # File Handling
-  s.add_dependency "dragonfly", "= 1.3.0"
-
-  # User Friendly Slugs
-  s.add_dependency "friendly_id"
-
   # Pagination
-  s.add_dependency "kaminari", ">= 1.2.1"
   s.add_dependency "pagy"
-
-  # Inherited Resources
-  s.add_dependency "has_scope", ">= 0.8"
-  s.add_dependency "inherited_resources", ">= 1.13.0"
-
-  # Tags
-  s.add_dependency "acts-as-taggable-on", ">= 7.0.0"
-
-  # Search
-  s.add_dependency "scoped_search", ">= 4.1.8"
 
   # Nice Multi Select
   s.add_dependency "select2-rails", ">= 4"
-
-  # Nested Forms
-  s.add_dependency "cocoon", ">= 1.2.15"
 
   # Index tables
   s.add_dependency "katalyst-tables"
