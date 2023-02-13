@@ -28,12 +28,12 @@
 
   </head>
   <body>
-    <div class="layout--container devise">
-      <div class="devise--logo">
+    <div class="layout--container admin-login">
+      <div class="admin-login--logo">
         <h1>Koi</h1>
       </div>
-      <div class="devise--body">
-        <%= content_for?(:devise) ? yield(:devise) : yield %>
+      <div class="admin-login--body">
+        <%= yield %>
       </div>
     </div>
   </body>

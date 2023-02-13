@@ -4,8 +4,14 @@ module Koi
   module IsAdminController
     extend ActiveSupport::Concern
 
+    class_methods do
+      def authenticate_local_admins(value)
+        Koi::IsAdminController.authenticate_local_admins = value
+      end
+    end
+
     included do
-      include IsAdminController
+      include HasAdminUsers
       include Katalyst::Tables::Backend
       include Pagy::Backend
 
@@ -17,16 +23,10 @@ module Koi
       helper Pagy::Frontend
       helper :all
 
-      layout :layout_by_resource
-      before_action :authenticate_admin, except: :login
-    end
+      layout "koi/application"
 
-    def login
-      if admin_signed_in?
-        redirect_to dashboard_path
-      else
-        redirect_to koi_engine.new_admin_session_path
-      end
+      before_action :authenticate_local_admin, if: -> { Koi::IsAdminController.authenticate_local_admins }
+      before_action :authenticate_admin, unless: :admin_signed_in?
     end
 
     def clear_cache
@@ -35,29 +35,20 @@ module Koi
       redirect_back(fallback_location: dashboard_path)
     end
 
+    class << self
+      attr_accessor :authenticate_local_admins
+    end
+
     protected
 
-    # FIXME: Hack to set layout for admin devise resources
-    def layout_by_resource
-      if devise_controller? && resource_name == :admin
-        "koi/devise"
-      else
-        "koi/application"
-      end
-    end
+    def authenticate_local_admin
+      return if admin_signed_in? || !Rails.env.development?
 
-    # FIXME: Hack to redirect back to admin after admin login
-    def after_sign_in_path_for(resource_or_scope)
-      resource_or_scope.is_a?(AdminUser) ? koi_engine.root_path : super
-    end
-
-    # FIXME: Hack to redirect back to admin after admin logout
-    def after_sign_out_path_for(resource_or_scope)
-      resource_or_scope == :admin ? koi_engine.root_path : super
+      session[:admin_user_id] = AdminUser.where(email: %W[#{ENV['user']}@katalyst.com.au admin@katalyst.com.au]).first&.id
     end
 
     def authenticate_admin
-      redirect_to koi_engine.new_admin_session_path unless admin_signed_in?
+      redirect_to koi_engine.new_admin_session_path, status: :temporary_redirect
     end
   end
 end

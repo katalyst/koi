@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "devise"
 require "importmap-rails"
 require "jquery-rails"
 require "jquery-ui-rails"

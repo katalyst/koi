@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     koi (4.0.0)
-      devise (>= 4.8.0)
+      bcrypt
       importmap-rails
       jquery-rails (>= 4.4)
       jquery-ui-rails (>= 6)
@@ -109,12 +109,6 @@ GEM
     dartsass-rails (0.4.1)
       railties (>= 6.0.0)
     date (3.3.3)
-    devise (4.8.1)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     diff-lcs (1.5.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
@@ -180,7 +174,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.0-x86-mingw32)
       racc (~> 1.4)
-    orm_adapter (0.5.0)
     pagy (5.10.1)
       activesupport
     parallel (1.22.1)
@@ -226,9 +219,6 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.6.2)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rexml (3.2.5)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
@@ -303,8 +293,6 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
-    warden (1.2.9)
-      rack (>= 2.0.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)

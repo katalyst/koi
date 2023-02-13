@@ -24,6 +24,29 @@
       "note": ""
     },
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "94dbf7e25579e2569d1774e53cb53c78d2ea7830c44849bc63456bcb304cea8b",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/koi/admin_users_controller.rb",
+      "line": 65,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:admin).permit(:first_name, :last_name, :email, :role, :password)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Koi::AdminUsersController",
+        "method": "admin_user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Format Validation",
       "warning_code": 30,
       "fingerprint": "a2a1a3826c3f29800e15bb1c0921df87eb5a3da3bf8c5dc4b217564482089f72",
@@ -44,31 +67,8 @@
         777
       ],
       "note": ""
-    },
-    {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "fce114980fc81b276fd44dae49008d2abdbca1495e06b590c1a2ab1fbc64483b",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/koi/admin_users_controller.rb",
-      "line": 71,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:admin).permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Koi::AdminUsersController",
-        "method": "admin_user_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": ""
     }
   ],
-  "updated": "2023-02-08 20:06:53 +1030",
+  "updated": "2023-02-18 19:49:54 +1030",
   "brakeman_version": "5.4.0"
 }

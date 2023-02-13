@@ -9,5 +9,5 @@
   <% if Rails.env.development? %>
     <%= navigation_helper("Developer Styleguide", koi_engine.styleguide_path) %>
   <% end %>
-  <li><%= link_to "Logout", koi_engine.destroy_admin_session_path, method: :delete %></li>
+  <li><%= link_to "Logout", koi_engine.admin_session_path, method: :delete %></li>
 </ul>

@@ -37,8 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", ">= 6"
 
   # Authorization
-  # # devise 4.8.0 supports rails 6.1
-  s.add_dependency "devise", ">= 4.8.0"
+  s.add_dependency "bcrypt"
 
   # Form builder for admin crud
   s.add_dependency "katalyst-govuk-formbuilder"

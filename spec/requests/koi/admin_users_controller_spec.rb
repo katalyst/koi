@@ -88,7 +88,7 @@ RSpec.describe Koi::AdminUsersController, type: :request do
     end
 
     context "with empty password" do
-      let(:admin_params) { { password: "", password_confirmation: "" } }
+      let(:admin_params) { { password: "" } }
 
       it "updates password" do
         expect { action }.not_to(change { admin.reload.password })

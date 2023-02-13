@@ -1,4 +1,4 @@
-.devise {
+.admin-login {
   padding-top: $large-unit;
   padding-bottom: $large-unit;
   min-height: 100%;
@@ -8,7 +8,7 @@
   @include justify-content(center);
 }
 
-.devise--logo {
+.admin-login--logo {
   text-align: center;
 
   h1 {
@@ -16,11 +16,11 @@
   }
 }
 
-.devise--body .panel__notice {
+.admin-login--body .panel__notice {
   border-bottom: 1px solid $border;
 }
 
-.devise--body {
+.admin-login--body {
   margin: 0 auto;
   width: 100%;
   max-width: 320px;
@@ -28,18 +28,18 @@
   border: 1px solid $border;
 }
 
-.devise .bg-lightgrey {
+.admin-login .bg-lightgrey {
   background: $x-light-grey;
   padding: $panel-padding;
 }
 
-.devise .bg-mediumgrey {
+.admin-login .bg-mediumgrey {
   border-top: 1px solid $border;
   background: $light-grey;
   padding: $xxx-small-unit $panel-padding;
 }
 
-.devise .button-group {
+.admin-login .button-group {
   @include media-query(450px) {
     > div {
       width: 100%;

@@ -42,13 +42,7 @@ module Koi
     end
 
     def update
-      update = if admin_user_params[:password].blank? && admin_user_params[:password_confirmation].blank?
-                 @admin.update_without_password(admin_user_params)
-               else
-                 @admin.update(admin_user_params)
-               end
-
-      if update
+      if @admin.update(admin_user_params)
         redirect_to action: :show
       else
         render :edit, locals: { admin: @admin }, status: :unprocessable_entity
@@ -68,7 +62,7 @@ module Koi
     end
 
     def admin_user_params
-      params.require(:admin).permit(:first_name, :last_name, :email, :role, :password, :password_confirmation)
+      params.require(:admin).permit(:first_name, :last_name, :email, :role, :password)
     end
   end
 end
