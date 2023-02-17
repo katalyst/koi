@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     resources :articles, only: %i[index show new create edit update destroy]
   end
 
-  resources :articles, only: %i[index show] do
+  resources :articles, only: %i[index show], param: :slug do
     get "preview", on: :member
   end
+  resolve("Article") { |article, options = {}| [:article, { slug: article.slug }.merge(options)] }
 
   root to: "articles#index"
 
