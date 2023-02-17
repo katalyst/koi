@@ -2,13 +2,16 @@
 
 class ArticlesController < ApplicationController
   helper Katalyst::Content::FrontendHelper
+  include Pagy::Backend
 
   before_action :set_article, only: %i[show preview]
 
   def index
-    @articles = Article.published
+    @articles = Article.published.chronological
 
-    render locals: { articles: @articles }
+    @pagy, @articles = pagy(@articles)
+
+    render locals: { articles: @articles, pagy: @pagy }
   end
 
   def show

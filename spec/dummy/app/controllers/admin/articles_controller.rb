@@ -9,7 +9,9 @@ module Admin
     def index
       @articles = Article.all
 
-      render :index, locals: { articles: @articles }
+      @articles = sort_and_paginate(@articles)
+
+      render :index, locals: { articles: @articles, sort: @sort, pagy: @pagy }
     end
 
     def show
@@ -83,8 +85,7 @@ module Admin
                                       :slug,
                                       :short_description,
                                       :image,
-                                      { items_attributes: %i[id index depth] },
-      )
+                                      { items_attributes: %i[id index depth] })
     end
   end
 end

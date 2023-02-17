@@ -2,4 +2,5 @@
 
 module ApplicationHelper
   include Koi::ApplicationHelper
+  include Pagy::Frontend
 end

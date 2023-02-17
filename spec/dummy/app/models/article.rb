@@ -6,6 +6,8 @@ class Article < ApplicationRecord
 
   has_one_attached_image :image
 
+  scope :chronological, -> { order(created_at: :desc) }
+
   class Version < ApplicationRecord
     include Katalyst::Content::Version
   end
