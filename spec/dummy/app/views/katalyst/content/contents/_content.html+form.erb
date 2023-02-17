@@ -1,0 +1,19 @@
+<%= form_with model: content, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
+  <%= render "hidden_fields", form: form %>
+
+  <%= form.govuk_fieldset legend: nil do %>
+    <%= form.govuk_text_field :heading %>
+    <%= form.govuk_check_box_field :show_heading, label: { text: "Show heading?" } %>
+  <% end %>
+
+  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
+
+  <%= form.govuk_rich_text_area :content, **content_editor_rich_text_options(class: "content") %>
+
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
+
+  <div class="govuk-button-group">
+    <%= form.govuk_submit "Done" %>
+    <%= link_to "Discard", :back, class: "govuk-link" %>
+  </div>
+<% end %>
