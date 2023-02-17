@@ -1,0 +1,237 @@
+// BASE UNITS
+
+$base-pixel: 16px;
+
+$x-small-font-size: 12px;
+$small-font-size: 14px;
+$base-font-size: $base-pixel;
+$large-font-size: 18px;
+$base-line-height: 1.375;
+$base-line-size: $base-font-size * $base-line-height;
+
+// CONTAINER WIDTH
+
+$container-width: 1152px;
+$container-percentage: 92%;
+
+// SIZES
+
+$xxxxxxx-small-unit: 2px;
+$xxxxxx-small-unit: 4px;
+$xxxxx-small-unit: 8px;
+$xxxx-small-unit: 12px;
+$xxx-small-unit: 16px;
+$xx-small-unit: 20px;
+$x-small-unit: 24px;
+$small-unit: 28px;
+$default-unit: 32px;
+$large-unit: 36px;
+$x-large-unit: 40px;
+$xx-large-unit: 44px;
+$xxx-large-unit: 48px;
+$xxxx-large-unit: 56px;
+$xxxxx-large-unit: 64px;
+$xxxxxx-large-unit: 72px;
+$xxxxxxx-large-unit: 80px;
+$xxxxxxxx-large-unit: 96px;
+
+$border-radius: 6px;
+$button-height: 44px;
+
+$panel-padding-large: $default-unit !default;
+$panel-padding: $x-small-unit !default;
+$panel-padding-small: $xxx-small-unit !default;
+$panel-padding-tiny: $xxxx-small-unit !default;
+
+$panel-spacer: $x-small-unit !default;
+
+// BREAKPOINTS
+
+$breakpoint-typography: 600px;
+$breakpoint-large: 1080px;
+$breakpoint-medium: 935px;
+$breakpoint-small: 780px;
+$breakpoint-tiny: 620px;
+
+// Header breakpoint
+// If changing, remember to update the JS variable in defaults.js
+$breakpoint-header: 1100px;
+$breakpoint-search-results: 920px;
+$breakpoint-tiles-pull: 600px;
+$breakpoint-tiles-mobile: $breakpoint-tiles-pull;
+
+$page-breakpoint: $breakpoint-header;
+
+$site-breakpoints: (tiny, $breakpoint-tiny), (small, $breakpoint-small),
+  (medium, $breakpoint-medium), (large, $breakpoint-large);
+
+// GUTTERS
+
+$mobile-gutters: $xxx-small-unit;
+$desktop-gutters: $x-small-unit !default;
+
+$large-gutter: $large-unit !default;
+$medium-gutter: $large-unit !default;
+$small-gutter: $large-unit !default;
+$tiny-gutter: $default-unit !default;
+
+$site-gutters: (large, $desktop-gutters), false !default;
+
+// COLORS
+
+$white: #fff !default;
+$black: #000 !default;
+$off-black: #0d0d0d !default;
+$grey-light: #f2f2f2 !default;
+$grey: #b3b3b3 !default; // tile field labels
+$grey-dark: #696969 !default; // grey text in shop
+$fringe-pink: #ef5994 !default;
+
+$primary-color: $fringe-pink !default;
+$primary-color-light: mix($primary-color, $white, 40%) !default;
+$primary-color-x-light: mix($primary-color, $white, 20%) !default;
+$secondary-color: #80225f !default;
+$secondary-color-light: #e2d0e1 !default;
+$secondary-hover-color: #6b1c4f !default;
+$secondary-color-x-light: #f4eef3 !default;
+$tertiary-color: #8c458a !default;
+$tertiary-color-light: #e2d0e1 !default;
+$tertiary-color-x-light: #9d609b !default;
+$background-color-light: #fcdeea !default;
+$background-hover-color-light: #f7acc9 !default;
+$background-color-grey: #ebebeb !default;
+$header-button: rgba(#711e49, 0.5) !default;
+$tertiary-foreground-color: $white !default;
+$secondary-foreground-color: $white !default;
+
+$primary-color-hover: darken($primary-color, 10) !default;
+$tertiary-color-hover: darken($tertiary-color, 10) !default;
+$black-hover: #474647;
+
+$foreground-color: #000 !default;
+$background-color: #fff !default;
+
+$passive-color: #e6e6e6 !default; // tile border (default state)
+$passive-color-primary: mix(
+  $primary-color,
+  $white,
+  30
+) !default; // lines on datepicker
+
+$link-color: $secondary-color !default;
+$link-hover-color: false !default;
+$link-secondary-color: $secondary-color !default;
+
+$error-color: #7f1a2a !default;
+$error-background: mix($error-color, $white, 25) !default;
+$notice-color: #ff6600 !default;
+$notice-background: mix($notice-color, $white, 25) !default;
+$success-color: #8dc026 !default;
+$success-background: mix($success-color, $white, 25) !default;
+
+$cancelled-color: #828282 !default;
+$stopped-color: #203d81 !default;
+$tix-available-color: #7ed321 !default; // "tix available" for calendar
+$member-color: $fringe-pink !default;
+$group-six-color: #8c458a !default;
+$bank-sa-color: #002f6c !default;
+$sold-out-color: #a81818 !default;
+
+$buytix-background-color: $secondary-color-light !default;
+$buytix-hover-color: $secondary-color-x-light !default;
+
+$input-border-color: #c5cbd4 !default;
+$input-border-focus-color: darken($input-border-color, 20) !default;
+$divider: $passive-color !default;
+$divider-white: rgba(255, 255, 255, 0.25) !default;
+
+// UI VARIABLES
+
+$dropdown-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2) !default;
+$button-transition: background-color 0.2s, color 0.2s, border-color 0.2s !default;
+
+// THEME VARIABLES
+
+$header-background: $white !default;
+$footer-background: $background-color-grey !default;
+
+// SOCIAL NETWORKS
+
+$facebook: #3b5998;
+$facebook-light: lighten($facebook, 10%);
+$twitter: #44ccf6;
+$twitter-light: lighten($twitter, 10%);
+$instagram: #833ab4;
+$instagram-light: lighten($instagram, 10%);
+$linkedin: #1b86bd;
+$linkedin-light: lighten($linkedin, 10%);
+$youtube: #ff0000;
+$youtube-light: lighten($youtube, 10%);
+
+// Genre colours
+// get specific ones with map-get($categories, comedy);
+$categories: (
+  cabaret: #009ed2,
+  children: #ed6825,
+  circus: #36b6a7,
+  comedy: #bd120f,
+  dance_theatre: #7f4a95,
+  events: #fec900,
+  family_friendly: $secondary-color,
+  film_multimedia: #bfc0c0,
+  food_and_beverage: #857835,
+  interactive: #8dc026,
+  magic: #ccbe00,
+  music: #163d86,
+  theatre: #832157,
+  visual_arts: #3e6f1f,
+  visual_theatre: #3e6f1f,
+  workshops: $fringe-pink,
+) !default;
+
+// INPUTS
+
+$checkbox-radio-padding: -0.2em 0 0 0.2em !default;
+$input-background: #ffffff !default;
+$input-border: 1px solid $input-border-color !default;
+$input-border-radius: 0 !default;
+$input-color: $foreground-color !default;
+$input-padding: 0.3em 0.2em 0.1em !default;
+$input-width: 100% !default;
+$textarea-height: $base-line-size * 5 !default;
+
+// LAYOUT VARIABLES
+
+$layout-mobile-tray-width: 250px !default;
+$layout-animation-duration: 0.5s !default;
+
+// 2021 additions
+
+$homepage-section-header: $black !default;
+
+// Background pattern
+@mixin background-pattern {
+  background: $primary-color;
+}
+@mixin background-pattern-tertiary {
+  background: $tertiary-color;
+}
+@mixin background-pattern-light {
+  background: $passive-color;
+}
+
+// Typography
+
+$body-font: ("Open Sans", sans-serif) normal normal;
+$italic-font: ("Open Sans", sans-serif) italic normal;
+
+$bold-font: ("Open Sans", sans-serif) normal bold;
+$bold-italic-font: ("Open Sans", sans-serif) italic bold;
+
+$heading-alpha-font: ("Open Sans", sans-serif) normal bold;
+$heading-alpha-font-italic: ("Open Sans", sans-serif) italic bold;
+
+$heading-beta-font: ("Open Sans", sans-serif) normal bold;
+$heading-beta-font-italic: ("Open Sans", sans-serif) italic bold;
+
+$input-typeface: $body-font;

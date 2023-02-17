@@ -1,0 +1,543 @@
+@import "settings";
+@import "../utils/font";
+@import "../utils/flex";
+
+$button-primary-background: $secondary-color !default;
+$button-secondary-background: $secondary-color !default;
+$button-tertiary-background: $tertiary-color !default;
+$button-color: white !default;
+$button-line-width: $xxxxxxx-small-unit !default;
+$button-count-color: $white !default;
+$button-count-background-color: $buytix-background-color !default;
+$button-border: none !default;
+
+// MIXINS
+
+@mixin button-base {
+  padding: ((44px - $base-line-size) * 0.5) $xxx-small-unit;
+  @include font($bold-font);
+  border-radius: $border-radius;
+  @include color-link($button-color, $button-color);
+  //@include decorate-link(none, none);
+  display: inline-block;
+  vertical-align: middle;
+  @include button-background($button-primary-background);
+
+  border: $button-border;
+
+  &.button__small {
+    padding-left: $xxxx-small-unit;
+    padding-right: $xxxx-small-unit;
+  }
+
+  &.button__large {
+    padding: ((54px - $base-line-size) * 0.5) $x-small-unit;
+  }
+}
+
+// Custom button background colours and hovers
+@mixin button-background($color, $hover-color: false) {
+  background-color: $color;
+  transition: $button-transition;
+
+  @if ($hover-color) {
+    &:hover {
+      background-color: $hover-color;
+    }
+  } @else {
+    &:hover {
+      background-color: darken($color, 10);
+    }
+  }
+}
+
+// Line button style mixin
+@mixin button-line(
+  $color,
+  $hover-color: false,
+  $text-color: false,
+  $text-color-hover: $text-color
+) {
+  @include button-base;
+
+  background-color: transparent;
+  border: $button-line-width solid $color;
+  padding: ((40px - $base-line-size) * 0.5) $xxx-small-unit;
+
+  &.button__small {
+    padding-left: $xxxx-small-unit;
+    padding-right: $xxxx-small-unit;
+  }
+
+  @if ($text-color) {
+    @include color-link($text-color, $text-color-hover);
+  }
+
+  @if ($hover-color) {
+    &:hover {
+      background-color: transparent;
+      border-color: $hover-color;
+    }
+  } @else {
+    &:hover {
+      background-color: transparent;
+      border-color: darken($color, 10);
+    }
+  }
+}
+
+// BUTTON CLASSES
+
+.button__inactive {
+  @extend .button;
+  @include button-background($grey);
+}
+
+// basic button
+.button {
+  @include button-base;
+}
+
+// button colours
+.button__secondary {
+  @extend .button;
+  @include button-background(
+    $button-secondary-background,
+    $secondary-hover-color
+  );
+}
+
+.button__tertiary {
+  @extend .button;
+  @include button-background($button-tertiary-background);
+  @include color-link($tertiary-foreground-color, $tertiary-foreground-color);
+}
+
+.button__keep-shopping {
+  @include button-background($secondary-color, #f6acc8);
+  @include color-link($white, $black);
+  border: 0.2rem solid #f6acc8;
+}
+
+.button__checkout {
+  @include button-background($white, $primary-color);
+  @include color-link($black, $black);
+  border: 0.2rem solid $white;
+
+  &:hover {
+    border: 0.2rem solid $primary-color;
+  }
+}
+
+.button__confirm {
+  @extend .button;
+  @include button-background($success-color);
+}
+
+.button__cancel {
+  @extend .button;
+  @include button-background($error-color);
+}
+
+// line styles
+.button__line {
+  @extend .button;
+  @include button-line($black, transparent, $black);
+
+  &:hover {
+    background: $black;
+    color: $white;
+    border: $button-line-width solid $black;
+  }
+}
+
+.button__secondary__line {
+  @extend .button;
+  @include button-line($secondary-color, false, $secondary-color);
+
+  &:hover {
+    background: $secondary-color;
+    color: $white;
+  }
+}
+
+.button__white__line {
+  @extend .button;
+  @include button-line($white, false, $white);
+
+  &:hover {
+    background: $white;
+    color: $secondary-color;
+  }
+}
+
+.button__tertiary__line {
+  @extend .button;
+  @include button-line($tertiary-color, false, $tertiary-color);
+}
+
+.button__confirm__line {
+  @extend .button;
+  @include button-line($success-color, false, $success-color);
+}
+
+.button__cancel__line {
+  @extend .button;
+  @include button-line($error-color, false, $error-color);
+}
+
+.button__disabled__line {
+  @extend .button;
+  @include button-line($grey, $grey, $grey);
+}
+
+.button__white__line {
+  @extend .button;
+  @include button-line($white, $white, $white);
+}
+
+// Buytix button
+.button__buytix,
+.button-buy-tix {
+  @extend .button;
+  @include color-link($black, $black);
+  background: $buytix-background-color;
+  border: solid $black;
+
+  &:hover {
+    background: $buytix-hover-color;
+  }
+}
+
+// Favourite button
+.button__favourite {
+  @extend .button;
+  background: $primary-color;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include color-link($tertiary-foreground-color, $tertiary-foreground-color);
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+
+  &:hover {
+    background: darken($tertiary-color, 10);
+  }
+
+  .icon-favourite--filled {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 50% 50% 0;
+    transition: 0.2s opacity, 0.2s transform;
+  }
+
+  .icon--fill {
+    fill: $tertiary-foreground-color;
+  }
+
+  &.active .icon-favourite--filled {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  svg {
+    display: block;
+    margin-right: $xxxxx-small-unit;
+  }
+
+  &.active {
+    fill: white;
+    stroke: none;
+  }
+}
+
+// Facebook button
+.button__facebook {
+  @extend .button;
+  background: $facebook;
+  text-transform: none;
+  padding-left: 42px;
+  position: relative;
+  fill: $white;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    width: 12px;
+    height: 24px;
+    margin-top: -11px;
+  }
+
+  &:hover {
+    background: darken($facebook, 10);
+  }
+}
+
+// disabled buttons
+@mixin button__disabled {
+  @include button-background($grey, $grey);
+  color: $white;
+  cursor: not-allowed;
+}
+
+.button__disabled {
+  @include button__disabled;
+}
+
+.button[data-disabled],
+.button[disabled] {
+  cursor: not-allowed;
+}
+
+// full width buttons
+.button__full {
+  text-align: center;
+  width: 100%;
+}
+
+// buttons with icons
+.button__icon-right,
+.button__icon-left {
+  display: inline-block;
+
+  svg {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+.button__icon-flex {
+  @include display-flex;
+
+  svg {
+    @include flex-static;
+  }
+
+  span {
+    @include flex-fluid;
+    text-align: left;
+  }
+
+  svg + span,
+  span + svg {
+    margin-left: $xxx-small-unit;
+  }
+}
+
+.button__icon-right {
+  svg {
+    margin-left: $xxxxx-small-unit * 0.5;
+  }
+
+  &.button__full {
+    text-align: left;
+  }
+}
+
+.button__icon-left {
+  svg {
+    margin-right: $xxxxx-small-unit * 0.5;
+  }
+
+  &.button__full {
+    text-align: right;
+  }
+}
+
+.button__icon {
+  display: inline-block;
+
+  &:before {
+    float: left;
+  }
+}
+
+// Loader button
+.button__loader[disabled] {
+  color: transparent;
+  pointer-events: none;
+
+  background-image: url("spinners/spinner-20-primary.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &.button__secondary {
+    background-image: url("spinners/spinner-20-secondary.gif");
+  }
+
+  &.button__tertiary {
+    background-image: url("spinners/spinner-20-tertiary.gif");
+  }
+
+  svg {
+    visibility: hidden;
+  }
+}
+
+[data-turbo="true"] .button[disabled] {
+  background-image: url("spinners/spinner-20-primary.gif");
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+}
+
+// button groups
+.button-group {
+  .button {
+    border-radius: 0;
+    float: left;
+  }
+
+  .button + .button {
+    margin-left: 1px;
+  }
+
+  .button:first-child {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  }
+
+  .button:last-child {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+}
+
+// button set
+.button-set {
+  margin: $xxxxx-small-unit * -0.5;
+
+  > div {
+    float: left;
+    padding: $xxxxx-small-unit * 0.5;
+  }
+}
+
+// button sides
+.button-sides {
+  .button__back {
+    float: left;
+  }
+
+  .button__forward {
+    float: right;
+  }
+}
+
+.pill {
+  // border-radius: $border-radius;
+  @include font($bold-font);
+  background: $primary-color;
+  color: $white;
+  padding: 2px 8px;
+  display: inline-block;
+  font-size: $x-small-font-size;
+}
+
+// Loop over each category and create pill and line buttons
+@each $category, $colour in $categories {
+  .button__line__#{$category} {
+    @include button-line($colour, $text-color: $colour);
+
+    &:hover {
+      background: darken($colour, 10);
+      color: $white;
+    }
+  }
+  .pill__#{$category} {
+    background: $colour;
+  }
+}
+
+// Social buttons (Used on the event page)
+
+.button__facebook__line,
+.button__facebook_event__line,
+.button__twitter__line,
+.button__youtube__line,
+.button__instagram__line,
+.button__website__line {
+  svg {
+    display: block;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: $grey-dark;
+    }
+  }
+}
+
+.button__social__line {
+  @include button-line(
+    $grey-dark,
+    $secondary-color,
+    $grey-dark,
+    $secondary-color
+  );
+}
+
+.button__facebook__line,
+.button__facebook_event__line {
+  @include button-line($grey-dark, $facebook, $grey-dark, $facebook);
+
+  &:hover {
+    path {
+      fill: $facebook;
+    }
+  }
+
+  svg {
+    width: 11px;
+  }
+}
+
+.button__twitter__line {
+  @include button-line($grey-dark, $twitter, $grey-dark, $twitter);
+
+  &:hover {
+    path {
+      fill: $twitter;
+    }
+  }
+}
+
+.button__website__line {
+  @include button-line(
+    $grey-dark,
+    $secondary-color,
+    $grey-dark,
+    $secondary-color
+  );
+
+  &:hover {
+    path {
+      fill: $secondary-color;
+    }
+  }
+}
+
+.button__youtube__line {
+  @include button-line($grey-dark, $youtube, $grey-dark, $youtube);
+
+  &:hover {
+    path {
+      fill: $youtube;
+    }
+  }
+}
+
+.button__instagram__line {
+  @include button-line($grey-dark, $instagram, $grey-dark, $instagram);
+
+  &:hover {
+    path {
+      fill: $instagram;
+    }
+  }
+}

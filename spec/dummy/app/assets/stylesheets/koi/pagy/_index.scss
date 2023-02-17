@@ -1,0 +1,33 @@
+.pagination.pagy-nav {
+  display: flex;
+  justify-content: space-between;
+  min-width: auto;
+  max-width: fit-content;
+  border: none;
+
+  span {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 0.2em;
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5rem;
+    min-width: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  span a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+
+  span.active {
+    background-color: #ececec;
+  }
+}

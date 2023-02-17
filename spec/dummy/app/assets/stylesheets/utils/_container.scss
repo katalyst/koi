@@ -1,0 +1,19 @@
+// Layout container
+@mixin layout-container($break-at: false) {
+  max-width: $container-width;
+  width: $container-percentage;
+  margin: 0 auto;
+
+  // Basic Search custom breakpoint
+  @if $break-at {
+    @include media-query($break-at) {
+      width: 100%;
+    }
+  } @else {
+    @include media-query($breakpoint-header) {
+      width: 100%;
+      padding-left: $desktop-gutters;
+      padding-right: $desktop-gutters;
+    }
+  }
+}

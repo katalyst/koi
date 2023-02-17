@@ -1,0 +1,63 @@
+@import "settings";
+@import "../utils/media-query";
+
+.version-banner {
+  border-bottom: 1px solid black;
+  padding: 0.5rem 1.5rem;
+
+  &.published_no_changes {
+    background-color: $primary-color-light;
+  }
+
+  &.published_has_changes {
+    background-color: $secondary-color-light;
+  }
+
+  &.draft {
+    background-color: $secondary-color-x-light;
+  }
+
+  .version-banner--content {
+    min-height: 5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .version-banner--text {
+    flex: 1;
+  }
+
+  .version-banner--text--caption {
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .version-banner--text--nav-links {
+    & > * {
+      margin-left: 1rem;
+    }
+  }
+
+  .version-banner--actions {
+    display: flex;
+
+    & > * + * {
+      margin-left: 0.25rem;
+    }
+  }
+
+  .button {
+    font-size: inherit;
+  }
+
+  @include media-query($breakpoint-header) {
+    font-size: $x-small-font-size;
+    padding: 0.5rem 0.25rem;
+
+    .version-banner--content {
+      min-height: auto;
+    }
+  }
+}

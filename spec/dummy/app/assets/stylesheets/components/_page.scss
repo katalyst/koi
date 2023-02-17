@@ -1,0 +1,521 @@
+@import "settings";
+@import "../utils/media-query";
+@import "../utils/color-link";
+@import "button";
+@import "../utils/font";
+@import "../utils/container";
+
+// =========================================================================
+// Katalyst Content
+// =========================================================================
+
+$body-text-max-width: 800px;
+
+.layout__katalyst-content {
+  padding-bottom: 0;
+}
+
+.page__katalyst-content {
+  .page--title,
+  h2,
+  h3,
+  .trix-content,
+  nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $body-text-max-width;
+  }
+
+  .page--title {
+    margin-bottom: $x-large-unit;
+    max-width: calc($body-text-max-width + (2 * 1.5rem));
+
+    h1 {
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+      text-align: left;
+    }
+
+    @include media-query($breakpoint-typography) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+
+    @include media-query($breakpoint-typography) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  h3 {
+    margin-bottom: 2rem;
+
+    @include media-query($breakpoint-typography) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  h4 {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+
+    @include media-query($breakpoint-typography) {
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .content-item {
+    --text-color: #{$black};
+    --background-color: #{$white};
+    --link-color: #{$link-color};
+    --hover-color: #{$link-hover-color};
+    --button-color: #{$secondary-color};
+    --button-active-color: #{darken($secondary-color, 10)};
+    --button-text-color: #{$white};
+
+    padding: 3rem 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    h2,
+    h3 {
+      color: var(--text-color);
+    }
+
+    a {
+      @include color-link(var(--link-color), var(--link-hover-color));
+    }
+
+    .button {
+      @include color-link(var(--button-text-color), var(--button-text-color));
+      @include button-background(
+        var(--button-color),
+        var(--button-active-color)
+      );
+    }
+
+    @include media-query($breakpoint-typography) {
+      padding: 2rem 0;
+    }
+
+    &[data-content-depth="0"] > * {
+      @include layout-container;
+    }
+
+    &[data-content-depth="0"]:last-child {
+      padding-bottom: 80px;
+    }
+
+    &[data-content-depth]:not([data-content-depth="0"]) {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .page--title:not(.visually-hidden) + .content-item.light {
+    padding-top: 0;
+  }
+
+  .content-item.light {
+    --text-color: #{$black};
+    --background-color: #{$white};
+    --link-color: #{$link-color};
+    --link-active-color: #{$link-color};
+    --hover-color: #{$link-hover-color};
+    --button-color: #{$secondary-color};
+    --button-active-color: #{darken($secondary-color, 10)};
+    --button-text-color: #{$white};
+  }
+
+  .content-item.pink {
+    --text-color: #{$black};
+    --background-color: #{$background-color-light};
+    --link-color: #{$link-color};
+    --link-active-color: #{$link-color};
+    --hover-color: #{$link-hover-color};
+    --button-color: #{$secondary-color};
+    --button-active-color: #{darken($secondary-color, 10)};
+    --button-text-color: #{$white};
+  }
+
+  .content-item.dark {
+    --text-color: #{$white};
+    --background-color: #{$secondary-color};
+    --link-color: #{$background-color-light};
+    --link-active-color: #{$background-color-light};
+    --hover-color: #{$background-color-light};
+    --button-color: #{$white};
+    --button-active-color: #{$background-color-light};
+    --button-text-color: #{$black};
+  }
+
+  figure {
+    margin-inline: auto;
+    text-align: center;
+    background: none;
+    img {
+      width: unset;
+    }
+  }
+
+  figcaption {
+    position: unset;
+    text-align: center;
+    font-size: 11px;
+    margin-top: 0.5rem;
+  }
+
+  div[role="aside-container"] {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 3rem;
+
+    @include media-query($breakpoint-small) {
+      grid-template-columns: auto;
+    }
+
+    > * {
+      display: grid;
+    }
+  }
+
+  .columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include media-query($breakpoint-small) {
+      grid-template-columns: auto;
+      grid-gap: 2rem;
+
+      //removes padding inline in mobile
+      > .column > .content-item {
+        padding-inline: 0 !important;
+      }
+    }
+
+    > .column {
+      display: grid;
+    }
+  }
+
+  .content-item.column,
+  .content-item.aside {
+    h2,
+    h3,
+    .trix-content {
+      max-width: unset;
+    }
+  }
+
+  .content-item.content_banner {
+    width: 100%;
+
+    &[data-content-index="0"] {
+      padding: 0;
+    }
+
+    &[data-content-depth="0"] > * {
+      max-width: unset;
+      width: 100%;
+      padding: 0;
+    }
+
+    h2 {
+      color: white;
+      text-align: center;
+    }
+  }
+
+  // =========================================================================
+  // mobile group rules
+  // =========================================================================
+
+  .mobile-group {
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    > [role="toggle"] {
+      display: flex;
+      cursor: pointer;
+      background-color: $tertiary-color;
+      padding: 1rem;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        color: $black;
+      }
+    }
+
+    > [role="toggle"]::after {
+      content: "";
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 22 22' xmlns='http://www.w3.org/2000/svg' style='width: 18px; height: 18px;'%3E%3Cg fill='%23EF5994' fill-rule='evenodd'%3E%3Cpath d='M10.083 0h1.833v22h-1.833z'%3E%3C/path%3E%3Cpath d='M22 10.083v1.834H0v-1.834z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: 1rem;
+      background-position: center;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    > [role="toggle"][active]::after {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 22 22' xmlns='http://www.w3.org/2000/svg' style='width: 18px; height: 18px;'%3E%3Cg fill='%23EF5994' fill-rule='evenodd'%3E%3Cpath d='M22 10.083v1.834H0v-1.834z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    @include media-query($breakpoint-small, min) {
+      border-radius: 0;
+
+      > [role="toggle"] {
+        display: none;
+      }
+
+      > [data-collapsed] {
+        max-height: unset;
+      }
+    }
+  }
+
+  // =========================================================================
+  // navigation rules
+  // =========================================================================
+
+  aside .content-item.content_navigation > div {
+    margin-inline: -1.5rem;
+  }
+
+  $themes: "light", "dark", "pink";
+  @each $theme in $themes {
+    // Clear negative margin when nested in an aside and the theme matches the parents
+    .content-item.#{$theme} > div > div {
+      > aside > .content-item.#{$theme} > div {
+        margin-inline: unset;
+      }
+    }
+  }
+
+  .content_navigation {
+    &.light {
+      --link-active-color: #{$secondary-color};
+      --hover-color: #{$secondary-color-x-light};
+    }
+
+    &.pink {
+      --link-active-color: #{$black};
+      --hover-color: #{$primary-color-light};
+    }
+
+    &.dark {
+      --link-active-color: #{$primary-color-light};
+      --hover-color: #{$primary-color-hover};
+    }
+  }
+
+  // =========================================================================
+  // Section theme rules
+  // =========================================================================
+
+  $themes: "light", "dark", "pink";
+  @each $theme in $themes {
+    // collapse padding when siblings share a theme
+    .content-item.#{$theme} + .content-item.#{$theme} {
+      margin-top: -3rem;
+    }
+
+    // collapse padding on first child when themes match
+    .content-item.#{$theme} > div > div > .content-item.#{$theme}:first-child {
+      margin-top: -3rem;
+    }
+
+    // collapse padding on last child when themes match
+    .content-item.#{$theme} > div > div > .content-item.#{$theme}:last-child {
+      margin-bottom: -3rem;
+    }
+
+    // omit background when themes match
+    .content-item.#{$theme} > div > div > .content-item.#{$theme} {
+      background-color: unset;
+    }
+
+    //in mobile padding is 2rem
+    @include media-query($breakpoint-typography) {
+      // collapse padding when siblings share a theme
+      .content-item.#{$theme} + .content-item.#{$theme} {
+        margin-top: -2rem;
+      }
+
+      // collapse padding on first child when themes match
+      .content-item.#{$theme}
+        > div
+        > div
+        > .content-item.#{$theme}:first-child {
+        margin-top: -2rem;
+      }
+
+      // collapse padding on last child when themes match
+      .content-item.#{$theme} > div > div > .content-item.#{$theme}:last-child {
+        margin-bottom: -2rem;
+      }
+    }
+
+    // collapse side padding when themes match
+    .content-item.#{$theme} > div > div > .content-item.#{$theme} {
+      padding-inline: 0;
+    }
+
+    // If content_banner in first position and has a sibling with the same colour background, unset negative margins
+    .content-item.content_banner[data-content-index="0"].#{$theme}
+      + .content-item.#{$theme} {
+      margin-top: unset;
+    }
+  }
+
+  // =========================================================================
+  // Column theme rules
+  // =========================================================================
+
+  $themes: "light", "dark", "pink";
+  @each $theme in $themes {
+    // collapse column padding when theme match parent
+    .content-item.#{$theme} > div > .columns-container {
+      // omit background when themes match
+      > .column > .content-item.#{$theme} {
+        background-color: unset;
+      }
+
+      // collapse top padding when themes match
+      > .column > .content-item.#{$theme}:first-child {
+        margin-top: -3rem;
+      }
+
+      // collapse bottom padding when themes match
+      > .column > .content-item.#{$theme}:last-child {
+        margin-bottom: -3rem;
+      }
+
+      //in mobile padding is 2rem
+      @include media-query($breakpoint-typography) {
+        // collapse top padding when themes match
+        > .column > .content-item.#{$theme}:first-child {
+          margin-top: -2rem;
+        }
+
+        // collapse bottom padding when themes match
+        > .column > .content-item.#{$theme}:last-child {
+          margin-bottom: -2rem;
+        }
+      }
+
+      // Keep right padding for left column
+      > .column:first-child > .content-item.#{$theme} {
+        padding-inline: 0 1.5rem;
+      }
+
+      // Keep left padding for right column
+      > .column:last-child > .content-item.#{$theme} {
+        padding-inline: 1.5rem 0;
+      }
+
+      @include media-query($breakpoint-small) {
+        // Collapse both columns padding on mobile
+        > .column > .content-item.#{$theme} {
+          padding-inline: 0 !important;
+        }
+      }
+    }
+  }
+
+  // =========================================================================
+  // Aside theme rules
+  // =========================================================================
+
+  $themes: "light", "dark", "pink";
+  @each $theme in $themes {
+    // collapse side padding when themes match
+    .content-item.#{$theme} > div > div {
+      > div > .content-item.#{$theme},
+      > aside > .content-item.#{$theme} {
+        padding-inline: 0;
+      }
+    }
+  }
+}
+
+.page-debug-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  padding: 0 !important;
+  display: grid;
+  height: 100%;
+  opacity: 0.3;
+  background: none !important;
+
+  > * {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+
+  .content-line {
+    box-sizing: content-box; // pushes borders outside of content
+    border-inline: 2px solid red;
+  }
+
+  .trix-content {
+    box-sizing: content-box; // pushes borders outside of content
+    border-inline: 2px solid blue;
+    height: 100%;
+  }
+
+  .center-line {
+    width: 2px !important;
+    background: green;
+    padding-inline: 0 !important;
+  }
+}
+
+.content_youtube_embed {
+  > div > iframe {
+    aspect-ratio: 16/9;
+  }
+}
+
+.content_google-maps_embed {
+  position: relative;
+  padding-bottom: 75%; // This is the aspect ratio
+  height: 0;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.contact--form {
+  .page--title {
+    margin-bottom: $xx-small-unit;
+  }
+
+  .content-item.light {
+    background-color: unset;
+
+    .govuk-error-summary {
+      --link-color: #d4351c !important;
+
+      li {
+        list-style: none;
+      }
+
+      ul {
+        margin-left: unset;
+      }
+    }
+  }
+}
