@@ -308,6 +308,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_storage_validations (~> 1.0)
   brakeman
   capybara
   dartsass-rails (~> 0.4.0)

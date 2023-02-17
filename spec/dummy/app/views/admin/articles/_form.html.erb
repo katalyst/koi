@@ -11,8 +11,13 @@
 
   <%= form.govuk_check_box_field :show_title, label: { text: "Show title", size: "s" } %>
 
+  <%= form.govuk_image_field :image, label: { text: 'Upload image', size: "s" } %>
+
+  <%= form.govuk_text_area :short_description, label: { text: "Short description", size: "s" } %>
+
+
   <div class="govuk-button-group">
-    <%= form.govuk_submit "Save" %>
+    <%= form.govuk_submit "Save", name: :commit, value: :save %>
 
     <%= form.govuk_submit text: "Delete", method: :delete if form.object.persisted? %>
   </div>

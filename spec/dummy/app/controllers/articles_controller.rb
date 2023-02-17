@@ -3,7 +3,11 @@
 class ArticlesController < ApplicationController
   helper Katalyst::Content::FrontendHelper
 
-  def index; end
+  def index
+    @articles = Article.published
+
+    render locals: { articles: @articles }
+  end
 
   def show
     @article = Article.find_by(params[:id])

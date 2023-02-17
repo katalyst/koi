@@ -1,0 +1,10 @@
+<div>
+  <figure>
+    <%= image_tag article.image if article.image.attached? %>
+  </figure>
+  <%= link_to article.title, article %>
+  <div>
+    <%= article.short_description %>
+  </div>
+  <span><%= l article.updated_at %></span>
+</div>

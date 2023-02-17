@@ -81,6 +81,8 @@ module Admin
       params.require(:article).permit(:title,
                                       :show_title,
                                       :slug,
+                                      :short_description,
+                                      :image,
                                       { items_attributes: %i[id index depth] },
       )
     end

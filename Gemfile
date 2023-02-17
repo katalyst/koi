@@ -6,6 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
+  gem "active_storage_validations", "~> 1.0"
   gem "brakeman"
   gem "dartsass-rails", "~> 0.4.0"
   gem "factory_bot_rails"
