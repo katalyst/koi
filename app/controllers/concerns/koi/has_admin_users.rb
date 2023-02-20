@@ -20,5 +20,28 @@ module Koi
 
     # @deprecated Use current_admin_user instead
     alias_method :current_admin, :current_admin_user
+
+    module Test
+      # Include in view specs to stub out the current admin user
+      module ViewHelper
+        extend ActiveSupport::Concern
+
+        included do
+          before do
+            view.singleton_class.module_eval do
+              def admin_signed_in?
+                current_admin_user.present?
+              end
+
+              def current_admin_user
+                self.respond_to?(:admin_user) ? admin_user : nil
+              end
+
+              alias_method :current_admin, :current_admin_user
+            end
+          end
+        end
+      end
+    end
   end
 end
