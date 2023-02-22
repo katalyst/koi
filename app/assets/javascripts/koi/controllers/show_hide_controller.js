@@ -4,11 +4,8 @@ import { Transition } from "koi/utils/transition";
 export default class ShowHideController extends Controller {
   static targets = ["content"];
 
-  toggleContent() {
-    this.toggle(this.contentTarget);
-  }
-
-  toggle(element) {
+  toggle() {
+    const element = this.contentTarget;
     const hide = element.toggleAttribute("data-collapsed");
 
     // cancel previous animation, if any
