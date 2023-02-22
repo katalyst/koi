@@ -33,9 +33,6 @@ Gem::Specification.new do |s|
   # Overwrite for default rails
   s.add_dependency "jquery-rails", ">= 4.4"
 
-  # jQuery UI
-  s.add_dependency "jquery-ui-rails", ">= 6"
-
   # Authorization
   s.add_dependency "bcrypt"
 
@@ -44,9 +41,6 @@ Gem::Specification.new do |s|
 
   # Pagination
   s.add_dependency "pagy"
-
-  # Nice Multi Select
-  s.add_dependency "select2-rails", ">= 4"
 
   # Index tables
   s.add_dependency "katalyst-tables"

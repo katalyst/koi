@@ -231,7 +231,7 @@
 
       // Update mobile menu height based on content
       updateMenuHeight: function () {
-        var windowHeight = Ornament.windowHeight();
+        var windowHeight = window.innerHeight;
         var $currentTab = mobileNav.getCurrentTab();
         var paneHeight = 0;
         var navHeight = 0;
@@ -475,7 +475,7 @@
                 var $result = $item.clone();
                 if ($ancestors.length) {
                   var ancestorText = "";
-                  $ancestors.reverse().each(function (i) {
+                  $ancestors.each(function (i) {
                     ancestorText += $(this).children("a").text().trim();
                     if (i + 1 !== $ancestors.length) {
                       ancestorText += " › ";

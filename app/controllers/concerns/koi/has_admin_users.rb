@@ -34,7 +34,7 @@ module Koi
               end
 
               def current_admin_user
-                self.respond_to?(:admin_user) ? admin_user : nil
+                respond_to?(:admin_user) ? admin_user : nil
               end
 
               alias_method :current_admin, :current_admin_user

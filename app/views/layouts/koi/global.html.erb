@@ -78,19 +78,14 @@
                 </button>
               </li>
               <% Koi::PriorityMenu.items.each do |menu_item| %>
-                <li class="<%= "action" if menu_item[:icon] %>">
+                <li>
                   <%
                     link_opts = {}
                     link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
                     link_opts.merge!({title: menu_item[:label]})
-                    link_opts.merge!({ data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } }) if menu_item[:icon]
                   %>
                   <%= link_to menu_item[:url], link_opts do %>
-                    <% if menu_item[:icon] %>
-                      <%= icon(menu_item[:icon], menu_item[:icon_opts]) %>
-                    <% else %>
-                      <%= menu_item[:label] %>
-                    <% end %>
+                    <%= menu_item[:label] %>
                   <% end %>
                 </li>
               <% end %>
@@ -108,7 +103,7 @@
           <% if current_admin.god? %>
             <ul class="header--actions refresh-actions" role="navigation" aria-label="Refresh Navigation">
               <li class="action">
-                <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh Cache", data: { tooltip: "", tooltip_basic: "", tooltip_position: "bottom middle" } do %>
+                <%= link_to koi_engine.clear_cache_path, method: :post, title: "Refresh cache" do %>
                   <%= icon("refresh", fill: "#2ECC71") %>
                 <% end %>
               </li>
@@ -162,24 +157,6 @@
         <%= yield :below_layout %>
 
       </div>
-    </div>
-
-    <div id="void" class="hidden">
-
-      <div koi="ask" class="modal hide fade">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 koi:bind="question">What?</h3>
-        </div>
-        <div class="modal-body">
-          <input class="input-xlarge" name="answer" koi:bind="answer" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" name="cancel" class="btn close" data-dismiss="modal">Cancel</button>
-          <button type="button" name="submit" class="space-r-1 btn btn-primary" data-dismiss="modal">Ok</button>
-        </div>
-      </div>
-
     </div>
 
     <%= render "/layouts/koi/icons" %>

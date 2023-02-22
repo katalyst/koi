@@ -2,14 +2,12 @@
 
 require "importmap-rails"
 require "jquery-rails"
-require "jquery-ui-rails"
 require "katalyst/govuk/formbuilder"
 require "govuk_design_system_formbuilder/concerns/file_element"
 require "govuk_design_system_formbuilder/elements/document"
 require "govuk_design_system_formbuilder/elements/image"
 require "katalyst/tables"
 require "pagy"
-require "select2-rails"
 require "stimulus-rails"
 require "turbo-rails"
 
