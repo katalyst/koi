@@ -25,14 +25,14 @@ module Koi
     # Generates an archive link formatted as a button that will perform a turbo
     # delete with a confirmation.
     def admin_archive(text: "Archive", **kwargs)
-      admin_delete(text: text, **kwargs)
+      admin_delete(text:, **kwargs)
     end
 
     # @api internal
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_document_field
     def govuk_document_field(attribute_name, hint: {}, **kwargs, &block)
       max_size = hint[:max_size] || App::PERMITTED_IMAGE_SIZE
-      super(attribute_name, hint: hint, **kwargs) do
+      super(attribute_name, hint:, **kwargs) do
         if block
           concat(yield)
         else
@@ -45,7 +45,7 @@ module Koi
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_image_field
     def govuk_image_field(attribute_name, hint: {}, **kwargs, &block)
       max_size = hint[:max_size] || App::PERMITTED_IMAGE_SIZE
-      super(attribute_name, hint: hint, **kwargs) do
+      super(attribute_name, hint:, **kwargs) do
         if block
           concat(yield)
         else
@@ -64,7 +64,7 @@ module Koi
         controller:        "content--editor--trix",
         action:            "trix-initialize->content--editor--trix#trixInitialize",
       )
-      super(attribute_name, data: data, **kwargs, &block)
+      super(attribute_name, data:, **kwargs, &block)
     end
   end
 end

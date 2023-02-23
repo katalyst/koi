@@ -14,7 +14,7 @@ module Koi
 
       @admins = @admins.alphabetical
 
-      render :index, locals: { admins: @admins, sort: sort, pagy: pagy }
+      render :index, locals: { admins: @admins, sort:, pagy: }
     end
 
     def new

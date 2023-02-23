@@ -14,7 +14,7 @@ module Koi
       options[:stroke] = "#000000" if options[:stroke].blank?
       options[:fill] = "#000000" if options[:fill].blank?
       options[:class] = "" if options[:class].blank?
-      render("koi/shared/icons/#{icon_path}", options: options)
+      render("koi/shared/icons/#{icon_path}", options:)
     end
   end
 end

@@ -14,7 +14,7 @@ module Koi
 
       @url_rewrites = @url_rewrites.alphabetical
 
-      render :index, locals: { url_rewrites: @url_rewrites, sort: sort, pagy: pagy }
+      render :index, locals: { url_rewrites: @url_rewrites, sort:, pagy: }
     end
 
     def show

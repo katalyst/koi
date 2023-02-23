@@ -19,8 +19,8 @@ module Koi
 
       def add_link(title, url)
         @menu.items.build(type:  Katalyst::Navigation::Link.name,
-                          title: title,
-                          url:   url,
+                          title:,
+                          url:,
                           index: @index,
                           depth: @depth)
         @index += 1

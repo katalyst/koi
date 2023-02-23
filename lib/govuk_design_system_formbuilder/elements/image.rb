@@ -79,7 +79,8 @@ module GOVUKDesignSystemFormBuilder
     #   = f.govuk_image_field :image, label: -> { tag.h3('Upload your image') }
     #
     def govuk_image_field(attribute_name, label: {}, caption: {}, hint: {}, form_group: {}, **kwargs, &block)
-      Elements::Image.new(self, object_name, attribute_name, label: label, caption: caption, hint: hint, form_group: form_group, **kwargs, &block).html
+      Elements::Image.new(self, object_name, attribute_name,
+                          label:, caption:, hint:, form_group:, **kwargs, &block).html
     end
   end
 end

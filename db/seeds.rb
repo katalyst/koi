@@ -11,5 +11,5 @@ unless AdminUser.find_by(email: "admin@katalyst.com.au")
            :green)
 
   # Default Super admin
-  AdminUser.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au", role: "Super", password: password)
+  AdminUser.create(first_name: "Admin", last_name: "Katalyst", email: "admin@katalyst.com.au", role: "Super", password:)
 end

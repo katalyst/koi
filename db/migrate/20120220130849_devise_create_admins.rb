@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DeviseCreateAdmins < ActiveRecord::Migration[4.2]
+  # rubocop:disable Metrics/BlockLength
   def change
     create_table(:admins) do |t|
       ## Database authenticatable
@@ -51,4 +52,5 @@ class DeviseCreateAdmins < ActiveRecord::Migration[4.2]
     # add_index :koi_admins, :unlock_token,         :unique => true
     # add_index :koi_admins, :authentication_token, :unique => true
   end
+  # rubocop:enable Metrics/BlockLength
 end

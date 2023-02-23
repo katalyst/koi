@@ -44,7 +44,8 @@ module Koi
     def authenticate_local_admin
       return if admin_signed_in? || !Rails.env.development?
 
-      session[:admin_user_id] = AdminUser.where(email: %W[#{ENV['user']}@katalyst.com.au admin@katalyst.com.au]).first&.id
+      session[:admin_user_id] =
+        AdminUser.where(email: %W[#{ENV['user']}@katalyst.com.au admin@katalyst.com.au]).first&.id
     end
 
     def authenticate_admin
