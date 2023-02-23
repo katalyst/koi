@@ -69,36 +69,22 @@
       <div class="layout--content">
 
         <header class="header global-header" role="banner">
-          <% if Koi::PriorityMenu.present? %>
-            <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
-              <li>
-                <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
-                  <%= icon("menu", fill: "#ffffff") %>
-                  <%= icon("cross", fill: "#ffffff") %>
-                </button>
-              </li>
-              <% Koi::PriorityMenu.items.each do |menu_item| %>
-                <li>
-                  <%
-                    link_opts = {}
-                    link_opts.merge!(menu_item[:link_opts]) if menu_item[:link_opts]
-                    link_opts.merge!({title: menu_item[:label]})
-                  %>
-                  <%= link_to menu_item[:url], link_opts do %>
-                    <%= menu_item[:label] %>
-                  <% end %>
-                </li>
+          <ul class="header--actions" role="navigation" aria-label="Priority Navigation">
+            <li>
+              <button class="layout--switch header--menu" data-mobile-menu-switch aria-label="Toggle menu">
+                <%= icon("menu", fill: "#ffffff") %>
+                <%= icon("cross", fill: "#ffffff") %>
+              </button>
+            </li>
+            <li>
+              <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
+                Koi
               <% end %>
-              <li>
-                <%= link_to koi_engine.dashboard_path, class: "header--logo" do %>
-                  Koi
-                <% end %>
-                <span class="header--environment button__pill">
-                  <%= Rails.env.upcase %>
-                </span>
-              </li>
-            </ul>
-          <% end %>
+              <span class="header--environment button__pill">
+                <%= Rails.env.upcase %>
+              </span>
+            </li>
+          </ul>
 
           <% if current_admin.god? %>
             <ul class="header--actions refresh-actions" role="navigation" aria-label="Refresh Navigation">
@@ -159,8 +145,6 @@
       </div>
     </div>
 
-    <%= render "/layouts/koi/icons" %>
     <%= yield :scripts_bottom %>
-
   </body>
 </html>

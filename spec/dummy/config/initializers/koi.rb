@@ -8,15 +8,6 @@ Koi::Menu.items = {
   },
 }
 
-Koi::PriorityMenu.items = [
-  {
-    label:     "View Website",
-    url:       "/",
-    icon:      "planet_filled",
-    icon_opts: { fill: "#2ECC71" },
-  },
-]
-
 # Caching enabled by default
 Koi::Caching.enabled = true
 

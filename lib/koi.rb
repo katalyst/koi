@@ -14,7 +14,6 @@ require "turbo-rails"
 require "koi/config"
 require "koi/form_builder"
 require "koi/menu"
-require "koi/priority_menu"
 require "koi/caching"
 require "koi/engine"
 

@@ -1,13 +1,9 @@
 <ul class="non-pane">
   <li><%= link_to "View site", "/", data: { turbo: false } %></li>
-  <%= navigation_helper("Dashboard", koi_engine.dashboard_path) %>
+  <li><%= link_to("Dashboard", koi_engine.dashboard_path) %></li>
   <%= navigation_items_with(items: Koi::Menu.menu.published_tree) %>
   <% if Object.const_defined?("Flipper::UI") %>
-    <%= navigation_helper("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %>
-  <% end %>
-  <%= navigation_helper("Help", koi_engine.help_path) %>
-  <% if Rails.env.development? %>
-    <%= navigation_helper("Developer Styleguide", koi_engine.styleguide_path) %>
+    <li><%= link_to("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %></li>
   <% end %>
   <li><%= link_to "Logout", koi_engine.admin_session_path, method: :delete %></li>
 </ul>
