@@ -5,7 +5,7 @@ $separator: rgba(255, 255, 255, 0.2);
   color: $heading;
   font-size: 0.8rem;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -23,14 +23,20 @@ $separator: rgba(255, 255, 255, 0.2);
     font-weight: unset;
     color: var(--site-primary);
     margin: 0;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 
   .admin-name {
     grid-area: secondary;
-    color: var(--site-primary);
+    color: white;
     padding-left: 1rem;
     @extend %subheading;
     opacity: 0.75;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 
   .site-icon {

@@ -1,7 +1,10 @@
-<nav role="navigation" aria-label="Main menu">
+<nav role="navigation" aria-label="Main menu" data-controller="navigation"
+     data-action="shortcut:go@document->navigation#focus">
   <%= render "layouts/koi/navigation_header" %>
   <div class="filter">
-    <input type="search" placeholder="Filter menu"/>
+    <input type="search" placeholder="Filter menu"
+           data-navigation-target="filter"
+           data-action="input->navigation#filter change->navigation#filter keydown.enter->navigation#go" />
   </div>
   <%= navigation_menu_with(menu: Koi::Menu.admin_menu(self)) %>
 </nav>
