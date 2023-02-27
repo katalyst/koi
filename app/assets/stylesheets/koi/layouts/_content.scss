@@ -1,4 +1,5 @@
 @use "header";
+@use "flash";
 
 $inset: 1rem !default;
 $space: 1rem !default;
@@ -23,5 +24,9 @@ $space: 1rem !default;
       position: sticky;
       top: $space;
     }
+  }
+
+  #flash {
+    @include flash.flash;
   }
 }

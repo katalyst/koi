@@ -1,0 +1,41 @@
+@mixin flash {
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    min-height: 3rem;
+    line-height: 3rem;
+    padding: 0 1.5rem;
+    list-style: none;
+    grid-area: status;
+    font-weight: bold;
+    border: 1px solid var(--flash-color);
+    color: var(--flash-color);
+  }
+
+  button {
+    display: inline;
+    background: white;
+    border: none;
+    color: var(--flash-color);
+    cursor: pointer;
+  }
+
+  .alert {
+    --flash-color: var(--site-alert);
+  }
+
+  .notice {
+    --flash-color: var(--site-notice);
+  }
+
+  .success {
+    --flash-color: var(--site-success);
+  }
+
+  .warning,
+  .error {
+    --flash-color: var(--site-warning);
+  }
+}

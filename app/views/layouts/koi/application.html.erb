@@ -33,6 +33,7 @@
 
   <div class="page <%= "has-sidebar" if content_for?(:sidebar) %>">
     <div class="page--content stack" role="main">
+      <%= render "layouts/koi/flash" unless flash.empty? %>
       <%= yield %>
     </div>
     <%= tag.div class: "page--sidebar" do %>

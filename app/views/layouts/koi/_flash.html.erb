@@ -1,0 +1,8 @@
+<ul id="flash" aria-label="Notifications" data-controller="flash" class="stack">
+  <% flash.each do |type, message| %>
+    <%= tag.li role: "alertdialog", class: type do %>
+      <%= message %>
+      <%= tag.button "Close", aria: { label: "Dismiss" }, data: { action: "flash#close" } %>
+    <% end %>
+  <% end %>
+</ul>
