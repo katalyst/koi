@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-const DEBUG = true;
+const DEBUG = false;
 
 export default class KeyboardController extends Controller {
   static values = {
