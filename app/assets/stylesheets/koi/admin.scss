@@ -51,3 +51,8 @@
     --paragraph: 1rem;
   }
 }
+
+[data-controller="content--editor--container"],
+[data-controller="navigation--editor--menu"] {
+  --heading--h4: 1rem;
+}
