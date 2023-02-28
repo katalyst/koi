@@ -15,6 +15,7 @@ require "koi/form_builder"
 require "koi/menu"
 require "koi/caching"
 require "koi/engine"
+require "koi/release"
 
 require "katalyst/content"
 require "katalyst/navigation"

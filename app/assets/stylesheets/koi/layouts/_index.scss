@@ -1,5 +1,6 @@
 @use "navigation" as *;
 @use "main" as *;
+@use "banner" as *;
 @use "stack";
 
 html,
@@ -10,8 +11,16 @@ body {
 
 body {
   display: grid;
-  grid-template-areas: "navigation main";
+  grid-template-areas: "banner banner" "navigation main";
+  grid-template-rows: auto 1fr;
   grid-template-columns: 30ch 3fr;
+}
+
+body > header {
+  grid-area: banner;
+  height: 2rem;
+  overflow-y: auto;
+  @extend %banner;
 }
 
 body > nav {
