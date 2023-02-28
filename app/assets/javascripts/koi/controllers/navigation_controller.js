@@ -26,19 +26,20 @@ export default class NavigationController extends Controller {
 
   applyFilter(filter) {
     // hide items that don't match the search filter
-    this.element.querySelectorAll("li:has(> a)").forEach((li) => {
-      if (this.fuzzySearch(filter.toLowerCase(), li.innerText.toLowerCase())) {
-        li.toggleAttribute("hidden", false);
-      } else {
+    this.links
+      .filter(
+        (li) =>
+          !this.prefixSearch(filter.toLowerCase(), li.innerText.toLowerCase())
+      )
+      .forEach((li) => {
         li.toggleAttribute("hidden", true);
-      }
-    });
+      });
 
-    this.element.querySelectorAll("li:has(ul)").forEach((li) => {
-      if (!li.matches("li:has(ul > li:not([hidden]))")) {
+    this.menus
+      .filter((li) => !li.matches("li:has(li:not([hidden]) > a)"))
+      .forEach((li) => {
         li.toggleAttribute("hidden", true);
-      }
-    });
+      });
   }
 
   clearFilter(filter) {
@@ -47,26 +48,37 @@ export default class NavigationController extends Controller {
     });
   }
 
-  // Fuzzysearch
-  // https://github.com/bevacqua/fuzzysearch/blob/master/index.js
-  fuzzySearch(needle, haystack) {
-    const hlen = haystack.length;
-    const nlen = needle.length;
-    if (nlen > hlen) {
+  prefixSearch(needle, haystack) {
+    const haystackLength = haystack.length;
+    const needleLength = needle.length;
+    if (needleLength > haystackLength) {
       return false;
     }
-    if (nlen === hlen) {
+    if (needleLength === haystackLength) {
       return needle === haystack;
     }
-    outer: for (let i = 0, j = 0; i < nlen; i++) {
-      const nch = needle.charCodeAt(i);
-      while (j < hlen) {
-        if (haystack.charCodeAt(j++) === nch) {
-          continue outer;
-        }
+    outer: for (let i = 0, j = 0; i < needleLength; i++) {
+      const needleChar = needle.charCodeAt(i);
+      if (needleChar === 32) {
+        // skip ahead to next space in the haystack
+        while (j < haystackLength && haystack.charCodeAt(j++) !== 32) {}
+        continue;
+      }
+      while (j < haystackLength) {
+        if (haystack.charCodeAt(j++) === needleChar) continue outer;
+        // skip ahead to the next space in the haystack
+        while (j < haystackLength && haystack.charCodeAt(j++) !== 32) {}
       }
       return false;
     }
     return true;
+  }
+
+  get links() {
+    return Array.from(this.element.querySelectorAll("li:has(> a)"));
+  }
+
+  get menus() {
+    return Array.from(this.element.querySelectorAll("li:has(> ul)"));
   }
 }
