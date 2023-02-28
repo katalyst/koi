@@ -8,12 +8,8 @@ FactoryBot.define do
     role { "Admin" }
     password { Faker::Internet.password }
 
-    trait :god do
-      role { "Super" }
-    end
-
     factory :super_admin do
-      god
+      role { "Super" }
     end
   end
 end

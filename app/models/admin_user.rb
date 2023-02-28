@@ -38,12 +38,12 @@ class AdminUser < ApplicationRecord
     role.eql?(value)
   end
 
-  def self.god
+  def self.super_admin
     "Super"
   end
 
-  def god?
-    is? self.class.god
+  def super_admin?
+    is? self.class.super_admin
   end
 
   # TODO(sfn) remove once Rails 7.1 is released
