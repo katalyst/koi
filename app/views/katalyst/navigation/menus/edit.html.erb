@@ -1,6 +1,5 @@
 <% content_for :title, "Edit navigation" %>
 <% content_for(:breadcrumbs) { link_to "Navigations", katalyst_navigation.menus_path } %>
-<% content_for :form_class, "govuk-forms" %>
 
 <%= form_with model: menu, url: katalyst_navigation.menu_path(menu), builder: Koi::FormBuilder do |form| %>
   <%= form.govuk_text_field :title %>

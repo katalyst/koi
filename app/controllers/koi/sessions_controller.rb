@@ -25,7 +25,7 @@ module Koi
         admin_user = AdminUser.new(session_params)
         admin_user.errors.add(:email, "Invalid email or password")
 
-        render :new, locals: { admin_user: }
+        render :new, status: :unprocessable_entity, locals: { admin_user: }
       end
     end
 

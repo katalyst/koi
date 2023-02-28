@@ -1,6 +1,6 @@
 <% content_for :title, admin %>
 <% content_for(:breadcrumbs) { link_to "Admin users", admin_users_path } %>
-<% content_for :title_actions do %>
+<% content_for :actions do %>
   <%= link_to "Edit", edit_admin_user_path(admin) %>
 <% end %>
 

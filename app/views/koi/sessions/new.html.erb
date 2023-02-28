@@ -1,7 +1,6 @@
-<%= render "koi/shared/flash_messages" %>
-
-<%= form_with(model: admin_user, url: admin_session_path, class: "panel--padding") do |f| %>
-  <%= f.govuk_fieldset legend: { text: "Log in" } do %>
+<%= render "layouts/koi/navigation_header" %>
+<%= form_with(model: admin_user, url: admin_session_path) do |f| %>
+  <%= f.govuk_fieldset legend: nil do %>
     <%= f.govuk_email_field :email, autofocus: true %>
     <%= f.govuk_password_field :password %>
   <% end %>

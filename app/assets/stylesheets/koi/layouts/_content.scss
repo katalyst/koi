@@ -1,0 +1,27 @@
+@use "header";
+
+$inset: 1rem !default;
+$space: 1rem !default;
+
+%content {
+  margin: $space $inset;
+
+  &.has-sidebar {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas: "main sidebar";
+    grid-gap: $space;
+  }
+
+  .page--main {
+    grid-area: main;
+  }
+
+  .page--sidebar {
+    grid-area: sidebar;
+    > * {
+      position: sticky;
+      top: $space;
+    }
+  }
+}

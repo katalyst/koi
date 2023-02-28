@@ -1,6 +1,6 @@
 <% content_for :title, url_rewrite.from %>
 <% content_for(:breadcrumbs) { link_to "URL rewrites", url_rewrites_path } %>
-<% content_for :title_actions do %>
+<% content_for :actions do %>
   <%= link_to "Edit", edit_url_rewrite_path(url_rewrite) %>
 <% end %>
 

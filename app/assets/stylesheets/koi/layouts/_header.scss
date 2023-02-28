@@ -1,0 +1,65 @@
+@mixin list($separator, $space: 1rem) {
+  display: flex;
+  list-style-position: outside;
+
+  > * {
+    display: list-item;
+    margin-left: $space;
+  }
+
+  > *::marker {
+    content: " " + $separator + " ";
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  > *:first-child {
+    display: block;
+    margin-left: 0;
+  }
+}
+
+$inset: 2rem !default;
+
+$title: 4rem;
+$breadcrumbs: 3rem;
+$actions: 3rem;
+$height: $title + $breadcrumbs + $actions;
+
+%header {
+  border-bottom: 1px solid #ececec;
+  color: #b2b2b2;
+  background: #ececec;
+
+  display: grid;
+  grid-template-areas: "breadcrumbs" "title" "actions";
+  grid-template-rows: $breadcrumbs $title $actions;
+
+  .heading {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: normal;
+    color: var(--site-primary);
+    margin: 0 $inset;
+  }
+
+  .breadcrumbs {
+    grid-area: breadcrumbs;
+    display: flex;
+    align-items: center;
+    margin: 0 $inset;
+
+    @include list("› ", 1.2rem);
+  }
+
+  .actions {
+    grid-area: actions;
+    display: flex;
+    align-items: center;
+    margin: 0 $inset;
+
+    @include list("|", 1rem);
+    list-style-type: square;
+  }
+}

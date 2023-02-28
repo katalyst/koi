@@ -1,0 +1,29 @@
+@use "navigation" as *;
+@use "main" as *;
+@use "stack";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-areas: "navigation main";
+  grid-template-columns: 30ch 3fr;
+}
+
+body > nav {
+  grid-area: navigation;
+  height: 100%;
+  overflow-y: auto;
+  @extend %navigation;
+}
+
+body > main {
+  grid-area: main;
+  height: 100%;
+  overflow: clip auto;
+  @extend %main;
+}

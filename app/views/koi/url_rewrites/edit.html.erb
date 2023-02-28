@@ -3,7 +3,6 @@
   <%= link_to "URL rewrites", url_rewrites_path %> >
   <%= link_to url_rewrite.from.delete_prefix("/"), url_rewrite_path(url_rewrite) %>
 <% end %>
-<% content_for :form_class, "govuk-forms" %>
 
 <%= form_with(model: url_rewrite, url: url_rewrite_path(url_rewrite)) do |form| %>
   <%= render "form_fields", form: %>

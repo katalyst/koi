@@ -2,3 +2,52 @@
 
 @use "katalyst/content/editor" as content-editor;
 @use "katalyst/navigation/editor" as navigation-editor;
+
+@use "base";
+@use "components";
+@use "layouts";
+@use "pages";
+@use "utils";
+@use "utils/breakpoints";
+
+:root {
+  /* Color styles */
+  --site-primary-light: #5a87c9;
+  --site-primary: #266dd3;
+  --site-primary-dark: #344055;
+  --site-on-primary: #ffffff;
+  --site-secondary-light: #dfc2f2;
+  --site-secondary: #cfb3cd;
+  --site-secondary-dark: #888098;
+  --site-on-secondary: #000000;
+  --site-text-color: #485569;
+  --site-success: #129d7f;
+  --site-warning: #ffc759;
+  --site-alert: #ea3946;
+  --site-notice: rgb(37, 99, 235);
+  --site-disabled: #9ca3af;
+  --site-link: #888098;
+
+  /* Text-size styles */
+  /* base size: paragraph (16px) */
+  --heading--h1: 2rem;
+  --heading--h2: 1.75rem;
+  --heading--h3: 1.38rem;
+  --heading--h4: 1.25rem;
+  --heading--h5: 1.12rem;
+  --heading--h6: 1rem;
+  --paragraph: 1rem;
+  --paragraph--strong: 1rem;
+  --paragraph--em: 0.88rem;
+  --paragraph--small: 0.88rem;
+
+  @include breakpoints.tablet-breakpoint {
+    --heading--h1: 2rem;
+    --heading--h2: 1.75rem;
+    --heading--h3: 1.38rem;
+    --heading--h4: 1.25rem;
+    --heading--h5: 1.12rem;
+    --heading--h6: 1rem;
+    --paragraph: 1rem;
+  }
+}

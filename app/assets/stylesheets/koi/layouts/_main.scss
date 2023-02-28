@@ -1,0 +1,23 @@
+@use "header" as * with (
+  $inset: 2rem
+);
+@use "content" as * with (
+  $inset: 2rem,
+  $space: 2rem
+);
+
+%main {
+  display: grid;
+  grid-template-areas: "header" "content";
+  grid-template-rows: auto 1fr;
+
+  > header {
+    grid-area: header;
+    @extend %header;
+  }
+
+  > .page {
+    grid-area: content;
+    @extend %content;
+  }
+}

@@ -1,0 +1,110 @@
+$heading: rgba(255, 255, 255, 0.6);
+$separator: rgba(255, 255, 255, 0.2);
+
+%subheading {
+  color: $heading;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0;
+}
+
+@mixin header {
+  display: grid;
+  grid-template-areas: "icon primary" "icon secondary";
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 3rem 1fr;
+  padding: 1rem;
+
+  .site-name {
+    grid-area: primary;
+    padding-left: 1rem;
+    font-size: 1.25rem;
+    font-weight: unset;
+    color: var(--site-primary);
+    margin: 0;
+  }
+
+  .admin-name {
+    grid-area: secondary;
+    color: var(--site-primary);
+    padding-left: 1rem;
+    @extend %subheading;
+    opacity: 0.75;
+  }
+
+  .site-icon {
+    grid-area: icon;
+    display: flex;
+    background-color: var(--site-primary);
+    color: var(--site-on-primary);
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: space-around;
+    text-transform: capitalize;
+    font-size: 2rem;
+    border-radius: 0.25rem;
+  }
+}
+
+%navigation {
+  background: black;
+  color: white;
+  padding-bottom: 2rem;
+  --site-link: white;
+
+  header {
+    @include header;
+    border-bottom: 1px solid $separator;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    list-style: none;
+  }
+
+  .filter {
+    margin: 1rem 1rem 0;
+
+    input {
+      width: 100%;
+      line-height: 2rem;
+      padding: 0 0.5rem;
+      border: none;
+      border-radius: 4px;
+    }
+  }
+
+  li > span {
+    display: block;
+    padding: 1.25rem 1rem 0.25rem;
+    color: $heading;
+  }
+
+  > ul > li > span {
+    border-top: 1px solid $separator;
+    margin-top: 1rem;
+    padding: 1.25rem 1rem 0.25rem;
+    @extend %subheading;
+  }
+
+  li li li > a[href] {
+    padding-left: 2.5rem;
+  }
+
+  li > a[href] {
+    display: block;
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  li > a[href]:hover,
+  li > a[href]:focus {
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+  }
+}

@@ -4,24 +4,45 @@ require "koi/menu/builder"
 
 module Koi
   module Menu
-    mattr_accessor :items
-    @@items = {}
+    mattr_accessor :priority
+    @@priority = {}
+
+    mattr_accessor :modules
+    @@modules = {}
 
     mattr_accessor :advanced
-    @@items = {}
+    @@advanced = {}
 
-    mattr_accessor :filterable
-    @@filterable = true
-
-    mattr_accessor :filter_urls
-    @@filter_urls = true
-
-    def menu
+    def admin_menu(context)
       builder = Builder.new
-      items.each { |title, value| builder.add_item(title, value) }
+      builder.add_menu(title: "Priority") do |b|
+        b.add_link(title: "View site", url: "/", target: "_blank")
+        b.add_link(title: "Dashboard", url: context.koi_engine.dashboard_path)
+        b.add_items(priority)
+        b.add_button(title: "Logout", url: context.koi_engine.admin_session_path, http_method: :delete)
+      end
+      builder.add_menu(title: "Modules") do |b|
+        b.add_items(modules)
+      end
+      builder.add_menu(title: "Advanced") do |b|
+        b.add_items(advanced)
+
+        if Object.const_defined?("Flipper::UI")
+          b.add_link(title: "Flipper", url: context.koi_engine.root_path.concat("flipper"),
+                     target: "_blank")
+        end
+        if Object.const_defined?("Sidekiq::Web")
+          b.add_link(title: "Sidekiq", url: context.koi_engine.root_path.concat("sidekiq"),
+                     target: "_blank")
+        end
+        if context.current_admin.super_admin?
+          b.add_button(title: "Clear cache", url: context.koi_engine.clear_cache_path,
+                       http_method: :post)
+        end
+      end
       builder.render
     end
 
-    module_function(:menu)
+    module_function(:admin_menu)
   end
 end

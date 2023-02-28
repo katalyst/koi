@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-Koi::Menu.items = {
-  "Modules"  => {},
-  "Advanced" => {
-    "Admin Users"  => "/admin/admin_users",
-    "URL Rewriter" => "/admin/url_rewrites",
-  },
+Koi::Menu.modules = {}
+
+Koi::Menu.advanced = {
+  "Admin Users"  => "/admin/admin_users",
+  "URL Rewriter" => "/admin/url_rewrites",
 }
 
 # Caching enabled by default

@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- meta -->
-    <meta charset="UTF-8" />
+<head>
+  <!-- meta -->
+  <meta charset="UTF-8"/>
 
-    <!-- title -->
-    <title>Koi</title>
+  <!-- title -->
+  <title>Koi</title>
 
-    <!-- META -->
-    <%= csrf_meta_tags %>
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
-    <meta name="robots" content="noindex,nofollow"/>
-    <%= yield :meta %>
+  <!-- META -->
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <%= yield :meta %>
 
-    <!-- APPLICATION -->
-    <meta name="theme-color" content="#ff521f" />
+  <!-- STYLES -->
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css"/>
+  <%= stylesheet_link_tag "katalyst/govuk/formbuilder" %>
+  <%= stylesheet_link_tag "koi/admin" %>
 
-    <!-- WEBFONTS -->
-    <%= render "layouts/koi/webfonts" %>
-
-    <!-- STYLES -->
-    <%= stylesheet_link_tag "katalyst/govuk/formbuilder" %>
-    <%= stylesheet_link_tag "koi/admin" %>
-
-    <!-- ETC -->
-    <%= yield(:head) %>
-
-  </head>
-  <body>
-    <div class="layout--container admin-login">
-      <div class="admin-login--logo">
-        <h1>Koi</h1>
-      </div>
-      <div class="admin-login--body">
-        <%= yield %>
-      </div>
-    </div>
-  </body>
+  <!-- SCRIPTS -->
+  <%= javascript_importmap_tags "koi/admin" %>
+</head>
+<body class="admin-login">
+<main class="stack">
+  <%= yield %>
+</main>
+</body>
 </html>

@@ -1,0 +1,17 @@
+@use "button";
+@use "icon";
+@use "link";
+@use "list";
+@use "typography";
+
+.button--primary {
+  @include button.button-filled;
+}
+
+.button--secondary {
+  @include button.button-outline;
+}
+
+.button--text {
+  @include button.button-text;
+}

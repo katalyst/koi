@@ -1,37 +1,38 @@
-<% content_for :global do %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta -->
+  <meta charset="UTF-8"/>
 
-  <% if content_for? :sidebar %>
-    <div class="page__with-sidebar">
-      <div class="page--main" role="main">
-        <%= content_for?(:application) ? yield(:application) : yield %>
-      </div>
-      <div class="page--sidebar">
-        <%= yield :sidebar %>
-      </div>
-    </div>
-  <% elsif content_for? :side %>
-    <div class="page__with-sidebar-right">
-      <div class="page--main" role="main">
-        <%= content_for?(:application) ? yield(:application) : yield %>
-      </div>
-      <div class="page--sidebar">
-        <%= yield :side %>
-      </div>
-    </div>
-  <% elsif content_for? :side_top %>
-    <div class="page__with-sidebar-right page__with-sidebar-top">
-      <div class="page--main" role="main">
-        <%= content_for?(:application) ? yield(:application) : yield %>
-      </div>
-      <div class="page--sidebar">
-        <%= yield :side_top %>
-      </div>
-    </div>
-  <% else %>
-    <div role="main">
-      <%= content_for?(:application) ? yield(:application) : yield %>
-    </div>
-  <% end %>
-<% end %>
+  <!-- title -->
+  <title>Koi <%= "- #{ yield :title }" if content_for? :title %></title>
 
-<%= render template: "layouts/koi/global" %>
+  <!-- META -->
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667"/>
+  <meta name="robots" content="noindex,nofollow"/>
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css"/>
+  <%= stylesheet_link_tag "katalyst/govuk/formbuilder" %>
+  <%= stylesheet_link_tag "koi/admin" %>
+
+  <!-- SCRIPTS -->
+  <%= javascript_importmap_tags "koi/admin" %>
+</head>
+<body>
+<%= render "layouts/koi/navigation" %>
+<main>
+  <%= render "layouts/koi/header" %>
+
+  <div class="page <%= "has-sidebar" if content_for?(:sidebar) %>">
+    <div class="page--content stack" role="main">
+      <%= yield %>
+    </div>
+    <%= tag.div class: "page--sidebar" do %>
+      <%= yield :sidebar %>
+    <% end if content_for?(:sidebar) %>
+  </div>
+</main>
+</body>
+</html>

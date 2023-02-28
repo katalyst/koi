@@ -1,0 +1,123 @@
+// BASE UNITS
+
+$base-font-size: 14px;
+
+$small-font-size: 12px;
+$base-font-size: $base-font-size;
+$large-font-size: 16px;
+$base-line-height: 1.5;
+$base-line-size: $base-font-size * $base-line-height;
+
+// CONTAINER WIDTH
+
+$container-width: 1072px;
+$container-percentage: 92%;
+
+// SIZES
+
+$xxxxx-small-unit: 8px;
+$xxxx-small-unit: 12px;
+$xxx-small-unit: 16px;
+$xx-small-unit: 20px;
+$x-small-unit: 24px;
+$small-unit: 28px;
+$default-unit: 32px;
+$large-unit: 36px;
+$x-large-unit: 40px;
+$xx-large-unit: 44px;
+$xxx-large-unit: 48px;
+$xxxx-large-unit: 56px;
+$xxxxx-large-unit: 64px;
+$xxxxxx-large-unit: 72px;
+$xxxxxxx-large-unit: 80px;
+
+$border-radius: 4px;
+$button-height: 44px;
+
+$panel-padding: $xx-small-unit;
+$panel-padding-small: $xxx-small-unit;
+$panel-spacing: $xx-small-unit;
+
+$tray-width: 250px;
+
+// BREAKPOINTS
+
+$breakpoint-typography: 480px;
+$breakpoint-large: 1080px;
+$breakpoint-medium: 935px;
+$breakpoint-small: 780px;
+$breakpoint-tiny: 620px;
+$breakpoint-header: 1200px;
+$breakpoint-page: 780px;
+
+$site-breakpoints: (tiny, $breakpoint-tiny), (small, $breakpoint-small),
+  (medium, $breakpoint-medium), (large, $breakpoint-large);
+
+// GUTTERS
+
+$desktop-gutters: $default-unit;
+$small-gutters: $xx-small-unit;
+$x-small-gutters: $xxx-small-unit;
+
+$site-gutters: false;
+
+// DEFAULT COLORS
+
+$primary-color: #ff521f;
+$primary-color-light: lighten($primary-color, 20);
+$primary-color-x-light: lighten($primary-color, 40);
+
+$secondary-color: #999;
+$orange: #fc6b02;
+$light-green: #bde9d5;
+$green: #00a362;
+
+$x-light-grey: #f4f4f4;
+$light-grey: #ececec;
+$grey: #999999;
+$dark-grey: #666;
+
+$black: #2e2e2e;
+$white: #fff;
+
+$passive-color: #f2f4f5;
+
+$foreground-color: #222;
+$background-color: #fff;
+
+$link-color: $primary-color;
+$link-hover-color: false;
+
+$error-color: #990000;
+$error-color-light: #e74c3c;
+$error-background: #ffcccc;
+
+$warning-color: #d2aa0e;
+$warning-background: #ffffcc;
+
+$success-color: #2ecc71;
+$success-background: #ccffcc;
+
+$input-border-color: #c5cbd4;
+$input-border-focus-color: darken($input-border-color, 20);
+$input-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
+
+$facebook: #3b5998;
+$twitter: #44ccf6;
+$linkedin: #1b86bd;
+
+$divider-color: #e1e3e6;
+$divider: 1px solid $divider-color;
+$image-border: 0;
+$border: #ccc;
+
+// INPUTS
+
+$checkbox-radio-padding: -0.2em 0 0 0.2em;
+$input-background: #ffffff;
+$input-border: 1px solid $input-border-color;
+$input-border-radius: $border-radius;
+$input-color: $foreground-color;
+$input-padding: 0.3em 0.2em 0.1em;
+$input-width: 100%;
+$textarea-height: $base-line-size * 5;

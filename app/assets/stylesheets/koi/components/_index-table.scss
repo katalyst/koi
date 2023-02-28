@@ -3,42 +3,58 @@
   content: " ";
   position: relative;
   right: -1rem;
-  background-image: url("koi/application/select-arrow.svg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 13'%3E%3Cpath d='M.541 0l11.125 12.573a.5.5 0 00.749 0L23.541 0h-23z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E");
   background-size: 14px 14px;
   height: 14px;
   width: 14px;
 }
 
-$row-height: $xxx-large-unit;
+$grey-light: #f4f4f4 !default;
+$grey: #ececec !default;
+
+$table-header-color: $grey !default;
+$row-background-color: $grey-light !default;
+$row-border-color: $grey !default;
+$row-hover-color: #fff0eb !default;
+$row-height: 48px !default;
 
 .index-table {
-  margin: $x-small-unit 0;
+  --row-height: #{$row-height};
+  --table-header-color: #{$table-header-color};
+  --row-background-color: #{$row-background-color};
+  --row-border-color: #{$row-border-color};
+  --row-hover-color: #{$row-hover-color};
+}
 
+.index-table {
   border: none;
   table-layout: fixed;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
 
   thead {
-    background: $light-grey;
+    background: var(--table-header-color);
   }
 
   tr {
-    height: $row-height;
-    line-height: $row-height;
+    height: var(--row-height);
+    line-height: var(--row-height);
   }
 
   tbody tr:nth-child(even) {
-    background: $x-light-grey;
+    background: var(--row-background-color);
   }
 
   tbody tr:hover {
-    background-color: $primary-color-x-light;
+    background-color: var(--row-hover-color);
   }
 
   th,
   td {
     border: none;
     vertical-align: middle;
-    box-shadow: inset 0px -1px 0px $light-grey;
+    box-shadow: inset 0px -1px 0px var(--row-border-color);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

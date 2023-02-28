@@ -1,0 +1,26 @@
+a[href]:not(.button) {
+  color: var(--site-link);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--site-link);
+    text-decoration: underline;
+    outline: none;
+  }
+
+  &.no-hover-link {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  &[disabled] {
+    color: var(--site-disabled);
+    pointer-events: none;
+    opacity: 0.45;
+  }
+}

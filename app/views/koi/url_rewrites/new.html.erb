@@ -2,7 +2,6 @@
 <% content_for(:breadcrumbs) do %>
   <%= link_to "URL rewrites", url_rewrites_path %>
 <% end %>
-<% content_for :form_class, "govuk-forms" %>
 
 <%= form_with(model: url_rewrite, url: url_rewrites_path) do |form| %>
   <%= render "form_fields", form: %>

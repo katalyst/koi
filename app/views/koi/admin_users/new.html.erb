@@ -2,7 +2,6 @@
 <% content_for(:breadcrumbs) do %>
   <%= link_to "Admin users", admin_users_path %>
 <% end %>
-<% content_for :form_class, "govuk-forms" %>
 
 <%= form_with(model: admin, url: admin_users_path) do |form| %>
   <%= render "form_fields", form: %>

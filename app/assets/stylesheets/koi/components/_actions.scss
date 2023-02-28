@@ -2,9 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 
   .item-actions {
     align-items: center;
     margin-left: auto;
   }
+}
+
+.show--actions {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
 }

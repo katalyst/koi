@@ -1,9 +1,7 @@
-<ul class="non-pane">
-  <li><%= link_to "View site", "/", data: { turbo: false } %></li>
-  <li><%= link_to("Dashboard", koi_engine.dashboard_path) %></li>
-  <%= navigation_items_with(items: Koi::Menu.menu.published_tree) %>
-  <% if Object.const_defined?("Flipper::UI") %>
-    <li><%= link_to("Flipper", koi_engine.root_path.concat("flipper"), data: { turbo: false }) %></li>
-  <% end %>
-  <li><%= link_to "Logout", koi_engine.admin_session_path, method: :delete %></li>
-</ul>
+<nav role="navigation" aria-label="Main menu">
+  <%= render "layouts/koi/navigation_header" %>
+  <div class="filter">
+    <input type="search" placeholder="Filter menu"/>
+  </div>
+  <%= navigation_menu_with(menu: Koi::Menu.admin_menu(self)) %>
+</nav>
