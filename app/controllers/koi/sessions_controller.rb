@@ -20,7 +20,9 @@ module Koi
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to dashboard_path
+        flash.clear
+
+        redirect_to dashboard_path, notice: "You have been logged in"
       else
         admin_user = AdminUser.new(session_params)
         admin_user.errors.add(:email, "Invalid email or password")
