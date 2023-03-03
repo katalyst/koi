@@ -11,6 +11,7 @@ group :development, :test do
   gem "dartsass-rails", "~> 0.4.0"
   gem "factory_bot_rails"
   gem "faker"
+  gem "image_processing", "~> 1.12.1"
   gem "puma"
   gem "rake"
   gem "rspec-rails"
