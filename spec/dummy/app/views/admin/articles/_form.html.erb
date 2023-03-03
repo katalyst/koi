@@ -17,8 +17,7 @@
 
 
   <div class="govuk-button-group">
-    <%= form.govuk_submit "Save", name: :commit, value: :save %>
-
-    <%= form.govuk_submit text: "Delete", method: :delete if form.object.persisted? %>
+    <%= form.admin_save %>
+    <%= form.admin_delete if form.object.persisted? %>
   </div>
 <% end %>

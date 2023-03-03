@@ -4,7 +4,7 @@ module Admin
   class ArticlesController < ApplicationController
     helper Katalyst::Content::EditorHelper
 
-    before_action :set_article, only: %i[show edit update]
+    before_action :set_article, only: %i[show edit update destroy]
 
     def index
       @articles = Article.all
@@ -66,6 +66,12 @@ module Admin
       else
         render :new, locals: { article: @article }, status: :unprocessable_entity
       end
+    end
+
+    def destroy
+      @article.destroy
+
+      redirect_to admin_articles_path
     end
 
     private
