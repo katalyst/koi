@@ -1,0 +1,311 @@
+@import "../utils/font";
+@import "../utils/media-query";
+@import "../utils/color-link";
+@import "settings";
+// FONTS
+
+$body-font: ('Univers Next W01 Light', sans-serif) normal normal;
+$italic-font: ('UniversNextW01-LightIta', sans-serif) normal normal;
+$bold-font: ('Univers Next W01 Medium', sans-serif) normal normal;
+$bold-italic-font: ('UniversNextW01-MediumIt', sans-serif) normal normal;
+$heading-alpha-font: ('Univers Next W01 Medium', sans-serif) normal normal;
+$heading-alpha-font-italic: ('UniversNextW01-MediumIt', sans-serif) normal normal;
+$heading-beta-font: ('Univers Next W01 Medium', sans-serif) normal normal;
+$heading-beta-font-italic: ('UniversNextW01-MediumIt', sans-serif) normal normal;
+
+$input-typeface: $body-font;
+
+
+// BODY
+
+@mixin body-type {
+  @include font($body-font);
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $foreground-color;
+}
+
+body, .body-type {
+  @include body-type;
+}
+
+@mixin small-type {
+  @include font($body-font);
+  font-size: $small-font-size;
+}
+
+@mixin x-small-type {
+  @include font($body-font);
+  font-size: $x-small-font-size;
+  line-height: 1;
+}
+
+small {
+  @include x-small-type;
+}
+
+.type--small {
+  @include small-type;
+}
+
+.type--x-small {
+  @include x-small-type;
+}
+
+.type--light {
+  @include font($body-font);
+  em {
+    @include font($italic-font);
+  }
+}
+
+// HEADINGS
+
+@mixin heading-one {
+  @include font($heading-alpha-font);
+  font-size: 36px;
+  em {
+    @include font($heading-alpha-font-italic);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 28px;
+  }
+}
+
+.heading-one {
+  @include heading-one;
+}
+
+@mixin heading-two {
+  @include font($heading-alpha-font);
+  font-size: 32px;
+  em {
+    @include font($heading-alpha-font-italic);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 26px;
+  }
+}
+
+.heading-two {
+  @include heading-two;
+}
+
+@mixin heading-three {
+  @include font($heading-alpha-font);
+  font-size: 28px;
+  em {
+    @include font($heading-alpha-font-italic);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 24px;
+  }
+}
+
+.heading-three {
+  @include heading-three;
+}
+
+@mixin heading-four {
+  @include font($heading-alpha-font);
+  font-size: 24px;
+  em {
+    @include font($heading-alpha-font-italic);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 22px;
+  }
+}
+
+.heading-four {
+  @include heading-four;
+}
+
+@mixin heading-five {
+  @include font($heading-alpha-font);
+  font-size: 22px;
+  em {
+    @include font($heading-alpha-font);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 20px;
+  }
+}
+
+.heading-five {
+  @include heading-five;
+}
+
+@mixin heading-six {
+  @include font($heading-alpha-font);
+  font-size: 20px;
+  em {
+    @include font($heading-alpha-font);
+  }
+  @include media-query($breakpoint-typography) {
+    font-size: 18px;
+  }
+}
+
+.heading-six {
+  @include heading-six;
+}
+
+@mixin headline($heading-wrapper:span, $background:$white) {
+  position: relative;
+  text-align: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -2px;
+    height: 4px;
+    background: $divider;
+    z-index: 1;
+  }
+
+  #{$heading-wrapper} {
+    max-width: 80%;
+    background: $background;
+    padding: 7px $xxx-small-unit;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+  }
+}
+
+.heading__headline {
+  @include headline(span, $white);
+}
+
+// INLINE STYLES
+
+strong, b, .strong {
+  @include font($bold-font);
+}
+
+em, i {
+  @include font($italic-font);
+}
+
+em b, em strong,
+i b, i strong,
+b i, b em,
+strong i, strong em,
+.strong i, .strong em,
+em .strong, i .strong {
+  @include font($bold-italic-font);
+}
+
+del {
+  text-decoration: line-through;
+}
+
+.type__lower {
+  text-transform: lowercase;
+}
+
+.no-break {
+  white-space: nowrap;
+}
+
+@mixin type--grey {
+  color: $grey-dark;
+}
+
+.type--grey {
+  @include type--grey;
+
+  a {
+    @include color-link($grey-dark, $grey-dark);
+    text-decoration-color: $grey-dark;
+  }
+}
+
+.type--primary {
+  color: $fringe-pink;
+}
+
+.type--secondary {
+  color: $secondary-color;
+}
+
+.type--tertiary {
+  color: $primary-color;
+}
+
+.type--success {
+  color: $success-color;
+}
+
+.type--error {
+  color: $error-color;
+}
+
+// Loop over each category and create typography classes
+@each $category, $colour in $categories {
+  .type__#{$category} {
+    color: $colour;
+  }
+}
+
+// sub/sup styling
+// https://gist.github.com/unruthless/413930
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+// LINKS
+
+a, button {
+  @include color-link($link-secondary-color, $link-hover-color);
+  text-decoration: underline;
+  text-decoration-color: $background-hover-color-light;
+  text-decoration-thickness: $xxxxxxx-small-unit;
+}
+
+.button {
+  text-decoration: none;
+}
+
+.no-decoration {
+  text-decoration: none;
+
+  a, button {
+    text-decoration: none;
+  }
+}
+
+// TABLES
+
+th {
+  @include font($bold-font);
+}
+
+// FORMS
+
+[type="text"], [type="password"], [type="date"], [type="datetime"],
+[type="email"], [type="number"], [type="search"], [type="tel"], [type="time"],
+[type="url"], textarea {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  @include font($input-typeface);
+}
+
+.required--star {
+  color: red;
+}

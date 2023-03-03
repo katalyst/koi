@@ -219,19 +219,3 @@ $homepage-section-header: $black !default;
 @mixin background-pattern-light {
   background: $passive-color;
 }
-
-// Typography
-
-$body-font: ("Open Sans", sans-serif) normal normal;
-$italic-font: ("Open Sans", sans-serif) italic normal;
-
-$bold-font: ("Open Sans", sans-serif) normal bold;
-$bold-italic-font: ("Open Sans", sans-serif) italic bold;
-
-$heading-alpha-font: ("Open Sans", sans-serif) normal bold;
-$heading-alpha-font-italic: ("Open Sans", sans-serif) italic bold;
-
-$heading-beta-font: ("Open Sans", sans-serif) normal bold;
-$heading-beta-font-italic: ("Open Sans", sans-serif) italic bold;
-
-$input-typeface: $body-font;
