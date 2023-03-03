@@ -1,10 +1,20 @@
-<div>
+<div class="content-item figure light" data-content-index="1" data-content-depth="0">
   <figure>
-    <%= image_tag article.image if article.image.attached? %>
+    <div>
+      <%= image_tag article.image if article.image.attached? %>
+    </div>
   </figure>
-  <%= link_to article.title, article %>
   <div>
-    <%= article.short_description %>
+    <div class="content trix-content">
+      <div>
+        <h4><%= link_to article.title, article %></h4>
+      </div>
+      <div>
+        <%= article.short_description %>
+      </div>
+      <div>
+        <span><%= l article.updated_at, format: :dd_MM_yyyy %></span>
+      </div>
+    </div>
   </div>
-  <span><%= l article.updated_at %></span>
 </div>

@@ -1,17 +1,18 @@
-<div class="layout--container">
-  <div class="layout__x-narrow">
-    <div class="page--header spacing-xx-tight">
-      <h1 class="heading-one type--light">Articles</h1>
-      <p>We want to share what we learn—opinions, announcements, views, and advice from the individuals at Katalyst.</p>
-
-    </div>
-    <ul class="list--vertical">
-      <% articles.each do |article| %>
-        <li><%= render "tile", article: article %></li>
-      <% end %>
-    </ul>
-
+<div class="layout--container--katalyst-content page__katalyst-content">
+  <div class="page--title type--secondary ">
+    <h1 class="heading-one type--light">Articles</h1>
   </div>
+  <div class="content-item content light" data-content-index="0" data-content-depth="0">
+    <div>
+      <div class="trix-content">
+        We want to share what we learn—opinions, announcements, views, and advice from the individuals at Katalyst.
+      </div>
+    </div>
+  </div>
+  <% articles.each do |article| %>
+    <%= render "tile", article: article %>
+  <% end %>
+  <%== pagy_nav(pagy) %>
 </div>
 
-<%== pagy_nav(pagy) %>
+

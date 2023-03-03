@@ -86,21 +86,22 @@ $grey-light: #f2f2f2 !default;
 $grey: #b3b3b3 !default; // tile field labels
 $grey-dark: #696969 !default; // grey text in shop
 $fringe-pink: #ef5994 !default;
+$katalyst-color: #FF5900 !default;
 
-$primary-color: $fringe-pink !default;
+$primary-color: $katalyst-color !default;
 $primary-color-light: mix($primary-color, $white, 40%) !default;
 $primary-color-x-light: mix($primary-color, $white, 20%) !default;
-$secondary-color: #80225f !default;
-$secondary-color-light: #e2d0e1 !default;
-$secondary-hover-color: #6b1c4f !default;
-$secondary-color-x-light: #f4eef3 !default;
+$secondary-color: #24323A !default;
+$secondary-color-light: #394853 !default;
+$secondary-hover-color: #24323a !default;
+$secondary-color-x-light: mix($secondary-color, $white, 20%) !default;
 $tertiary-color: #8c458a !default;
 $tertiary-color-light: #e2d0e1 !default;
 $tertiary-color-x-light: #9d609b !default;
-$background-color-light: #fcdeea !default;
-$background-hover-color-light: #f7acc9 !default;
+$background-color-light: $primary-color-x-light !default;
+$background-hover-color-light: $primary-color-light !default;
 $background-color-grey: #ebebeb !default;
-$header-button: rgba(#711e49, 0.5) !default;
+$header-button: rgba($katalyst-color, 0.5) !default;
 $tertiary-foreground-color: $white !default;
 $secondary-foreground-color: $white !default;
 
