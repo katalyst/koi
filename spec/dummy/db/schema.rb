@@ -49,6 +49,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_053940) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.integer "sign_in_count", default: 0
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "locked_at", precision: nil
+    t.string "first_name"
+    t.string "last_name"
+    t.string "role"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
   create_table "article_versions", force: :cascade do |t|
     t.integer "parent_id", null: false
     t.json "nodes"
@@ -116,6 +137,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_053940) do
     t.index ["draft_version_id"], name: "index_katalyst_navigation_menus_on_draft_version_id"
     t.index ["published_version_id"], name: "index_katalyst_navigation_menus_on_published_version_id"
     t.index ["slug"], name: "index_katalyst_navigation_menus_on_slug"
+  end
+
+  create_table "url_rewrites", force: :cascade do |t|
+    t.text "from"
+    t.text "to"
+    t.boolean "active", default: true
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
