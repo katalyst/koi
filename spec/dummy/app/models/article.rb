@@ -6,6 +6,8 @@ class Article < ApplicationRecord
 
   has_one_attached_image :image
 
+  validates :title, presence: true
+
   scope :chronological, -> { order(created_at: :desc) }
 
   class Version < ApplicationRecord
