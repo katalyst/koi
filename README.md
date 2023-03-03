@@ -22,4 +22,4 @@ This project rocks and uses MIT-LICENSE.
 
 ## Upgrading
 
-See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.  
+See the [upgrade document](Upgrade.md) for information about breaking changes and upgrade paths.
