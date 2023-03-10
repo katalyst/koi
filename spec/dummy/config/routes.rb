@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :articles, only: %i[index show new create edit update destroy]
+    get "dashboard", to: "articles#index"
   end
 
   resources :articles, only: %i[index show], param: :slug do
