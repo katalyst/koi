@@ -60,6 +60,16 @@ $separator: rgba(255, 255, 255, 0.2);
   padding-bottom: 2rem;
   --site-link: white;
 
+  > * {
+    transition: opacity 0.25s;
+  }
+
+  &:not([aria-expanded]) {
+    > * {
+      opacity: 0;
+    }
+  }
+
   header {
     @include header;
     border-bottom: 1px solid $separator;
@@ -113,5 +123,34 @@ $separator: rgba(255, 255, 255, 0.2);
   li > a[href]:focus {
     background: rgba(255, 255, 255, 0.2);
     text-decoration: none;
+  }
+}
+
+.navigation-collapse {
+  width: 2rem;
+  border-radius: 50%;
+  margin-top: 1rem;
+  justify-self: right;
+  align-self: start;
+  background-color: white;
+  box-shadow: 0px 1px 7px 2px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(50%);
+  transition: opacity 0.25s, background-color 0.25s;
+  cursor: pointer;
+
+  nav[aria-expanded] + & {
+    transform: translateX(50%) rotate(180deg);
+  }
+
+  nav:hover + &,
+  &:hover {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: var(--site-primary);
   }
 }
