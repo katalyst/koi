@@ -1,9 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
 
-/**
- A stimulus controller to request form submissions.
- This controller should be attached to a form element.
- */
 export default class NavigationController extends Controller {
   static targets = ["filter"];
 
@@ -72,6 +68,10 @@ export default class NavigationController extends Controller {
       return false;
     }
     return true;
+  }
+
+  toggle() {
+    this.element.toggleAttribute("aria-expanded");
   }
 
   get links() {

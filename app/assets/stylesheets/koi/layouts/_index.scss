@@ -13,7 +13,7 @@ body {
   display: grid;
   grid-template-areas: "banner banner" "navigation main";
   grid-template-rows: auto 1fr;
-  grid-template-columns: 30ch 3fr;
+  grid-template-columns: auto 3fr;
 }
 
 body > header {
@@ -27,7 +27,17 @@ body > nav {
   grid-area: navigation;
   height: 100%;
   overflow-y: auto;
+  width: 2rem;
+  transition: width 0.25s;
   @extend %navigation;
+
+  &[aria-expanded] {
+    width: 17rem;
+  }
+}
+
+.navigation-collapse {
+  grid-area: navigation;
 }
 
 body > main {
