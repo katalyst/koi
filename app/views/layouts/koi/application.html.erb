@@ -34,7 +34,7 @@
 <main>
   <%= render "layouts/koi/header" %>
 
-  <div class="page <%= "has-sidebar" if content_for?(:sidebar) %>">
+  <div class="page <%= "has-sidebar" if content_for?(:sidebar) %> <%= "has-preview" if content_for?(:preview) %>">
     <div class="page--content stack" role="main">
       <%= render "layouts/koi/flash" unless flash.empty? %>
       <%= yield %>
@@ -42,6 +42,10 @@
     <%= tag.div class: "page--sidebar" do %>
       <%= yield :sidebar %>
     <% end if content_for?(:sidebar) %>
+
+    <%= tag.div class: "page--preview" do %>
+      <%= yield :preview %>
+    <% end if content_for?(:preview) %>
   </div>
 </main>
 <%= render "layouts/koi/environment" %>

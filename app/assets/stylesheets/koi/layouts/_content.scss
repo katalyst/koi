@@ -26,11 +26,28 @@ $space: 1rem !default;
     }
   }
 
+  &.has-preview {
+    display: grid;
+    grid-template-columns: minmax(auto, 72rem) 1fr 400px;
+    grid-template-areas: "main sidebar preview";
+    grid-gap: $space;
+  }
+
   .page--sidebar {
     grid-area: sidebar;
     > * {
       position: sticky;
       top: $space;
+    }
+  }
+
+  .page--preview {
+    grid-area: preview;
+    padding: 0.5rem;
+    background: var(--site-primary-dark);
+
+    iframe {
+      border: none;
     }
   }
 
