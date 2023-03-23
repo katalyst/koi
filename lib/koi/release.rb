@@ -22,7 +22,7 @@ module Koi
 
     def read(file)
       return "HEAD" if Rails.env.development?
-      return "unknown" unless File.exists?(file)
+      return "unknown" unless File.exist?(file)
 
       File.read(file).strip
     end
