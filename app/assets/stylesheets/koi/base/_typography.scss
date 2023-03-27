@@ -1,9 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-
-html {
-  font-family: "Open Sans", sans-serif;
+:root {
+  font-family: "Inter", sans-serif;
   font-size: 100%; // defaults to 16px
   color: var(--site-text-color);
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: "Inter var", sans-serif;
+  }
 }
 
 h1,
