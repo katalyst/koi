@@ -137,7 +137,7 @@ GEM
     json (2.6.3)
     katalyst-content (1.0.0)
       active_storage_validations
-    katalyst-govuk-formbuilder (1.3.2)
+    katalyst-govuk-formbuilder (1.4.0)
       govuk_design_system_formbuilder
     katalyst-navigation (1.3.3)
     katalyst-tables (1.0.0)

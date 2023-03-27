@@ -1,5 +1,9 @@
 // DEPENDENCIES
 
+@use "katalyst/govuk/formbuilder" as formbuilder with (
+  $govuk-font-family: "Inter"
+);
+
 @use "katalyst/content/editor" as content-editor;
 @use "katalyst/navigation/editor" as navigation-editor;
 
