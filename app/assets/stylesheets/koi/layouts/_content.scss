@@ -6,16 +6,22 @@ $space: 1rem !default;
 
 %content {
   margin: $space $inset;
+  display: grid;
+  grid-template-columns: minmax(auto, 72rem);
+  grid-template-areas: "main";
+  grid-gap: $space;
 
-  &.has-sidebar {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-areas: "main sidebar";
-    grid-gap: $space;
+  > [role="main"] {
+    grid-area: main;
   }
 
-  .page--main {
-    grid-area: main;
+  &.has-sidebar {
+    grid-template-columns: minmax(auto, 72rem) 1fr;
+    grid-template-areas: "main sidebar";
+
+    > [role="main"] {
+      grid-column: 1/2;
+    }
   }
 
   .page--sidebar {
