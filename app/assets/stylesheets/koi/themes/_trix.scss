@@ -1,3 +1,9 @@
 // navigation and content already load trix, ensure they are loaded first
 @use "content";
 @use "navigation";
+
+// set a maximim width for the text editor and toolbar to match other inputs
+trix-toolbar,
+trix-editor {
+  max-width: var(--text-width);
+}

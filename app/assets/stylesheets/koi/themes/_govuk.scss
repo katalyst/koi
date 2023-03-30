@@ -30,3 +30,7 @@ $govuk-typography-scale: (
 );
 
 @import "katalyst/govuk/formbuilder";
+
+.govuk-hint {
+  max-width: var(--text-width);
+}

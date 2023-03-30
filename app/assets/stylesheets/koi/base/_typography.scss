@@ -43,6 +43,7 @@ $line-heights: (
   --paragraph--strong: #{font-size(paragraph)};
   --paragraph--em: #{font-size(paragraph)};
   --paragraph--small: #{font-size(small)};
+  --text-width: 70ch;
 }
 
 @supports (font-variation-settings: normal) {
@@ -152,6 +153,7 @@ p,
 small,
 legend,
 label,
-input {
-  max-width: 70ch;
+input,
+textarea {
+  max-width: var(--text-width);
 }
