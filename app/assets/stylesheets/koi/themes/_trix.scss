@@ -2,6 +2,29 @@
 @use "content";
 @use "navigation";
 
+// overrides for default trix styles to match our button styles
+trix-toolbar {
+  .trix-button-group {
+    border: 1px solid var(--site-text-color);
+    border-radius: 0;
+  }
+
+  .trix-button {
+    color: var(--site-secondary);
+    border-bottom: none;
+  }
+
+  .trix-button:not(:first-child) {
+    border-left: 1px solid var(--site-text-color);
+  }
+
+  .trix-button.trix-active {
+    background-color: var(--site-secondary-light);
+    color: var(--site-on-secondary);
+    border-bottom: none;
+  }
+}
+
 // set a maximim width for the text editor and toolbar to match other inputs
 trix-toolbar,
 trix-editor {
