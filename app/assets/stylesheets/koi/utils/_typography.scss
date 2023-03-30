@@ -1,0 +1,24 @@
+@use "sass:math";
+
+$-font-sizes: () !default;
+$-line-heights: () !default;
+
+@function font-size($size, $breakpoint: null, $unit: rem) {
+  $font-size: map-get($-font-sizes, $size);
+
+  @if $unit == rem {
+    @return $font-size;
+  } @else if $unit == px {
+    @return math.div($font-size, 1rem) * 16px;
+  }
+}
+
+@function line-height($size, $breakpoint: null, $unit: em) {
+  $line-height: map-get($-line-heights, $size);
+
+  @if $unit == em {
+    @return $line-height;
+  } @else if $unit == px {
+    @return math.div($line-height, 1em) * 16px;
+  }
+}

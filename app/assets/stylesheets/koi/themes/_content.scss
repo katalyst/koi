@@ -1,0 +1,5 @@
+@use "katalyst/content/editor";
+
+[data-controller="content--editor--container"] {
+  --heading--h4: 1rem;
+}

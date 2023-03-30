@@ -1,0 +1,32 @@
+@use "../utils/typography" as *;
+
+@function govuk-definition($size) {
+  @return (
+    null: (
+      font-size: font-size($size, mobile, px),
+      line-height: line-height($size, mobile, px),
+    ),
+    tablet: (
+      font-size: font-size($size, tablet, px),
+      line-height: line-height($size, tablet, px),
+    ),
+    print: (
+      font-size: font-size($size, print, px),
+      line-height: line-height($size, print, px),
+    )
+  );
+}
+
+$govuk-font-family: "Inter";
+$govuk-typography-scale: (
+  80: govuk-definition(h1),
+  48: govuk-definition(h2),
+  36: govuk-definition(h3),
+  27: govuk-definition(h4),
+  24: govuk-definition(h5),
+  19: govuk-definition(h6),
+  16: govuk-definition(paragraph),
+  14: govuk-definition(small),
+);
+
+@import "katalyst/govuk/formbuilder";

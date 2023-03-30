@@ -1,6 +1,6 @@
-// At a 16px base font size this will be 784px
+// At a 16px base font size this will be 640px (to match govuk)
 @mixin tablet-breakpoint {
-  @media screen and (max-width: 49rem) {
+  @media screen and (max-width: 40rem) {
     @content;
   }
 }
