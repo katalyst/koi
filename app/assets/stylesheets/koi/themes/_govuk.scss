@@ -18,6 +18,7 @@
 }
 
 $govuk-font-family: "Inter";
+$govuk-text-colour: #{var(--site-text-color)};
 $govuk-typography-scale: (
   80: govuk-definition(h1),
   48: govuk-definition(h2),
@@ -29,7 +30,14 @@ $govuk-typography-scale: (
   14: govuk-definition(small),
 );
 
+$govuk-input-border-colour: #{var(--site-text-color)};
+
 @import "katalyst/govuk/formbuilder";
+
+.govuk-input,
+.govuk-textarea {
+  color: $govuk-text-colour;
+}
 
 .govuk-hint {
   max-width: var(--text-width);
