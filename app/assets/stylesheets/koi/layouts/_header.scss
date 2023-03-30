@@ -38,9 +38,6 @@ $height: $title + $breadcrumbs + $actions;
     grid-area: title;
     display: flex;
     align-items: center;
-    font-size: 2rem;
-    font-weight: normal;
-    color: var(--site-primary);
     margin: 0 $inset;
   }
 
