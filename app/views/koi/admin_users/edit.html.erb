@@ -7,8 +7,8 @@
 <%= form_with(model: admin, url: admin_user_path(admin)) do |form| %>
   <%= render "form_fields", form: %>
 
-  <div class="govuk-button-group">
+  <div class="actions">
     <%= form.admin_save %>
-    <%= form.admin_delete text: "Delete" %>
+    <%= form.admin_delete %>
   </div>
 <% end %>

@@ -10,8 +10,8 @@
 
   <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
 
-  <div class="govuk-button-group">
-    <%= form.govuk_submit "Done" %>
-    <%= link_to "Discard", :back, class: "govuk-link" %>
+  <div class="actions">
+    <%= form.admin_save "Done" %>
+    <%= form.admin_discard %>
   </div>
 <% end %>

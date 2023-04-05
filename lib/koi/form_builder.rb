@@ -7,25 +7,31 @@ module Koi
     include GOVUKDesignSystemFormBuilder::Builder
 
     # Generates a submit button for saving admin resources.
-    def admin_save(text: "Save", **kwargs)
-      govuk_submit(text, value: :save, name: :commit, **kwargs)
+    def admin_save(text = "Save", name: :commit, value: :save, class: "button button--primary", **kwargs)
+      button(text, name:, value:, class:, **kwargs)
     end
 
     # Generates a delete link formatted as a button that will perform a turbo
     # delete with a confirmation.
-    def admin_delete(text: "Delete", url: nil, confirm: "Are you sure?", data: {}, **kwargs)
+    def admin_delete(text = "Delete", url: nil, confirm: "Are you sure?", data: {}, **kwargs)
       return unless object.persisted?
 
       link_to(text, url || url_for(action: :destroy),
-              class: "govuk-button govuk-button--secondary",
+              class: "button button--secondary",
               data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm),
               **kwargs)
     end
 
     # Generates an archive link formatted as a button that will perform a turbo
     # delete with a confirmation.
-    def admin_archive(text: "Archive", **kwargs)
-      admin_delete(text:, **kwargs)
+    def admin_archive(text = "Archive", **kwargs)
+      admin_delete(text, **kwargs)
+    end
+
+    # Generates a discard changes link formatted as a text button that navigates
+    # the user back to the previous page.
+    def admin_discard(text = "Discard", url: :back, **kwargs)
+      link_to(text, url, class: "button button--text", **kwargs)
     end
 
     # @api internal
