@@ -8,8 +8,8 @@
   <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
   <%= form.govuk_select :target, Katalyst::Navigation::Item::TARGETS %>
 
-  <div class="govuk-button-group">
-    <%= form.govuk_submit "Done" %>
-    <%= link_to "Discard", katalyst_navigation.menu_path(item.menu), class:"govuk-link" %>
+  <div class="actions">
+    <%= form.admin_save "Done" %>
+    <%= form.admin_discard %>
   </div>
 <% end %>

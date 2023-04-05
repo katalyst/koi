@@ -5,9 +5,8 @@
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :slug %>
   <%= form.govuk_text_field :depth %>
-  <%= form.govuk_submit name: :commit, value: :save do %>
-    <%= link_to "Delete", katalyst_navigation.menu_path(menu),
-                class: "govuk-button govuk-button--warning",
-                data: { turbo_confirm: "Are you sure? This cannot be undone.", turbo_method: :delete } %>
-  <% end %>
+  <div class="actions">
+    <%= form.admin_save %>
+    <%= form.admin_delete url: katalyst_navigation.menu_path(menu) %>
+  </div>
 <% end %>
