@@ -18,6 +18,7 @@ require "koi/engine"
 require "koi/release"
 
 require "katalyst/content"
+require "katalyst/kpop"
 require "katalyst/navigation"
 
 module Koi

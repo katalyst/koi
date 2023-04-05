@@ -44,5 +44,9 @@
   </div>
 </main>
 <%= render "layouts/koi/environment" %>
+<%= scrim_tag %>
+<%= kpop_frame_tag do %>
+  <%= content_for :kpop %>
+<% end %>
 </body>
 </html>

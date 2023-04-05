@@ -51,6 +51,9 @@ Gem::Specification.new do |s|
   # Content
   s.add_dependency "katalyst-content"
 
+  # Modals
+  s.add_dependency "katalyst-kpop"
+
   s.metadata = {
     "rubygems_mfa_required" => "true",
   }
