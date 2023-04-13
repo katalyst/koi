@@ -13,7 +13,7 @@ module GOVUKDesignSystemFormBuilder
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
         super(builder, object_name, attribute_name, &block)
 
-        @mime_types      = MIME_TYPES || kwargs[:mime_types]
+        @mime_types      = kwargs[:mime_types] || MIME_TYPES
         @label           = label
         @caption         = caption
         @hint            = hint
