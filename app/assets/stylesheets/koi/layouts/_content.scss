@@ -10,14 +10,16 @@ $space: 1rem !default;
   grid-template-columns: minmax(auto, 72rem);
   grid-template-areas: "main";
   grid-gap: $space;
+  max-width: 72rem;
 
   > [role="main"] {
     grid-area: main;
   }
 
   &.has-sidebar {
-    grid-template-columns: minmax(auto, 72rem) 1fr;
+    grid-template-columns: minmax(auto, 2fr) minmax(auto, 1fr);
     grid-template-areas: "main sidebar";
+    max-width: (72rem + 36rem);
 
     > [role="main"] {
       grid-column: 1/2;
