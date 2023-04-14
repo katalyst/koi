@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
 
   # Authorization
   s.add_dependency "bcrypt"
+  s.add_dependency "webauthn"
 
   # Form builder for admin crud
   s.add_dependency "katalyst-govuk-formbuilder"

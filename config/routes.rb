@@ -4,7 +4,10 @@ Koi::Engine.routes.draw do
   resource :session, as: :admin_session, only: %i[new create destroy]
 
   resources :url_rewrites
-  resources :admin_users
+  resources :admin_users do
+    resources :credentials, only: %i[new create destroy]
+  end
+
   post "clear-cache" => "application#clear_cache", :as => :clear_cache
   get "dashboard" => "application#index", :as => :dashboard
   root to: redirect("dashboard")

@@ -2,15 +2,15 @@
 
 .admin-login {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
   background: var(--site-primary);
 }
 
 .admin-login > main {
+  flex: 1 1 auto;
+  max-width: 20rem;
   background: white;
   border-radius: 0.25rem;
   height: unset;
@@ -26,5 +26,15 @@
 }
 
 .admin-login form {
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
+}
+
+.admin-login .actions-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.admin-login .button--primary {
+  flex: 1;
 }

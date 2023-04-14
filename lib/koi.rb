@@ -10,6 +10,7 @@ require "katalyst/tables"
 require "pagy"
 require "stimulus-rails"
 require "turbo-rails"
+require "webauthn"
 
 require "koi/form_builder"
 require "koi/menu"

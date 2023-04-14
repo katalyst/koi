@@ -2,6 +2,8 @@
 
 module Koi
   class SessionsController < ApplicationController
+    include HasWebauthn
+
     skip_before_action :authenticate_admin, only: %i[new create]
 
     layout "koi/login"
@@ -13,18 +15,20 @@ module Koi
     end
 
     def create
-      admin_user = AdminUser.authenticate_by(session_params)
-
-      if admin_user
+      if (admin_user = webauthn_authenticate!)
         record_sign_in!(admin_user)
 
         session[:admin_user_id] = admin_user.id
 
-        flash.clear
+        redirect_to dashboard_path, notice: "You have been logged in"
+      elsif (admin_user = AdminUser.authenticate_by(session_params.slice(:email, :password)))
+        record_sign_in!(admin_user)
+
+        session[:admin_user_id] = admin_user.id
 
         redirect_to dashboard_path, notice: "You have been logged in"
       else
-        admin_user = AdminUser.new(session_params)
+        admin_user = AdminUser.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
 
         render :new, status: :unprocessable_entity, locals: { admin_user: }
@@ -42,7 +46,7 @@ module Koi
     private
 
     def session_params
-      params.require(:admin).permit(:email, :password)
+      params.require(:admin).permit(:email, :password, :response)
     end
 
     def update_last_sign_in(admin_user)

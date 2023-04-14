@@ -2,12 +2,14 @@
 
 require "rails_helper"
 
-RSpec.describe AdminUser, type: :model do
+RSpec.describe AdminUser do
   subject(:admin) { create :admin }
 
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
   it { is_expected.to validate_presence_of(:email) }
+
+  it { is_expected.to have_many(:credentials).class_name("AdminCredential").dependent(:destroy) }
 
   it { is_expected.to allow_values("a@b.com").for(:email) }
   it { is_expected.not_to allow_values("@b.com", "fail").for(:email) }

@@ -9,6 +9,8 @@ class AdminUser < ApplicationRecord
 
   has_secure_password :password
 
+  has_many :credentials, class_name: "AdminCredential", dependent: :destroy
+
   before_validation :set_default_values
 
   validates :first_name, :last_name, :email, :role, presence: true

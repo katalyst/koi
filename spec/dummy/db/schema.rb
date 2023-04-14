@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_053854) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_12_023411) do
+  create_table "admin_credentials", force: :cascade do |t|
+    t.string "external_id"
+    t.integer "admin_id", null: false
+    t.string "public_key"
+    t.string "nickname"
+    t.bigint "sign_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_credentials_on_admin_id"
+    t.index ["external_id"], name: "index_admin_credentials_on_external_id", unique: true
+  end
+
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
@@ -28,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_053854) do
     t.string "role"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "webauthn_id"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -88,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_053854) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "admin_credentials", "admins"
   add_foreign_key "katalyst_navigation_items", "katalyst_navigation_menus", column: "menu_id"
   add_foreign_key "katalyst_navigation_menu_versions", "katalyst_navigation_menus", column: "parent_id"
   add_foreign_key "katalyst_navigation_menus", "katalyst_navigation_menu_versions", column: "draft_version_id"
