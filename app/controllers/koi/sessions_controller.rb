@@ -2,7 +2,7 @@
 
 module Koi
   class SessionsController < ApplicationController
-    include HasWebauthn
+    include Koi::Controller::HasWebauthn
 
     skip_before_action :authenticate_admin, only: %i[new create]
 

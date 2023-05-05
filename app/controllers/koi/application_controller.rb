@@ -2,6 +2,6 @@
 
 module Koi
   class ApplicationController < ActionController::Base
-    include IsAdminController
+    include Koi::Controller::IsAdminController
   end
 end

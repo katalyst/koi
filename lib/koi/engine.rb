@@ -33,7 +33,7 @@ module Koi
     end
 
     config.to_prepare do
-      Katalyst::Navigation::BaseController.include Koi::IsAdminController
+      Katalyst::Navigation::BaseController.include Koi::Controller::IsAdminController
       Katalyst::Navigation::BaseController.helper Koi::Engine.helpers
     end
   end

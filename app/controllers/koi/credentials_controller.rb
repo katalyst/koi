@@ -2,7 +2,7 @@
 
 module Koi
   class CredentialsController < ApplicationController
-    include HasWebauthn
+    include Koi::Controller::HasWebauthn
 
     layout "kpop"
 
