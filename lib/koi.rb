@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "importmap-rails"
-require "jquery-rails"
 require "katalyst/govuk/formbuilder"
 require "govuk_design_system_formbuilder/concerns/file_element"
 require "govuk_design_system_formbuilder/elements/document"

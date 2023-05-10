@@ -30,9 +30,6 @@ Gem::Specification.new do |s|
   s.add_dependency "stimulus-rails"
   s.add_dependency "turbo-rails"
 
-  # Overwrite for default rails
-  s.add_dependency "jquery-rails", ">= 4.4"
-
   # Authorization
   s.add_dependency "bcrypt"
   s.add_dependency "webauthn"

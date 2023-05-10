@@ -7,7 +7,7 @@ gemspec
 
 group :development, :test do
   gem "brakeman"
-  gem "dartsass-rails", "~> 0.4.0"
+  gem "dartsass-rails"
   gem "factory_bot_rails"
   gem "faker"
   gem "puma"
@@ -15,7 +15,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
   gem "shoulda-matchers"
-  gem "sprockets-rails", "~> 3.4"
+  gem "sprockets-rails"
   gem "sqlite3"
 end
 
