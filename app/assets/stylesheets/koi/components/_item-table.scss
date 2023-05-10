@@ -1,18 +1,14 @@
 $grey-light: #f4f4f4 !default;
-$grey: #ececec !default;
+$grey: #b1b4b6 !default;
 
-$table-header-color: $grey !default;
-$row-background-color: $grey-light !default;
+$table-header-color: transparent !default;
 $row-border-color: $grey !default;
-$row-hover-color: #fff0eb !default;
 $row-height: 48px !default;
 
 .item-table {
   --row-height: #{$row-height};
   --table-header-color: #{$table-header-color};
-  --row-background-color: #{$row-background-color};
   --row-border-color: #{$row-border-color};
-  --row-hover-color: #{$row-hover-color};
 }
 
 .item-table {
@@ -33,10 +29,6 @@ $row-height: 48px !default;
 
   dt {
     font-weight: bold;
-  }
-
-  dt:nth-of-type(odd),
-  dd:nth-of-type(odd) {
-    background-color: var(--row-background-color);
+    padding-left: 0;
   }
 }

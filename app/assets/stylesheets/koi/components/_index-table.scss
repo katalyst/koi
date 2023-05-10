@@ -10,12 +10,11 @@
 }
 
 $grey-light: #f4f4f4 !default;
-$grey: #ececec !default;
+$grey: #b1b4b6 !default;
 
-$table-header-color: $grey !default;
+$table-header-color: transparent !default;
 $row-background-color: $grey-light !default;
 $row-border-color: $grey !default;
-$row-hover-color: #fff0eb !default;
 $row-height: 48px !default;
 
 .index-table {
@@ -23,7 +22,6 @@ $row-height: 48px !default;
   --table-header-color: #{$table-header-color};
   --row-background-color: #{$row-background-color};
   --row-border-color: #{$row-border-color};
-  --row-hover-color: #{$row-hover-color};
 }
 
 .index-table {
@@ -40,14 +38,6 @@ $row-height: 48px !default;
   tr {
     height: var(--row-height);
     line-height: var(--row-height);
-  }
-
-  tbody tr:nth-child(even) {
-    background: var(--row-background-color);
-  }
-
-  tbody tr:hover {
-    background-color: var(--row-hover-color);
   }
 
   th,

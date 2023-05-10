@@ -1,0 +1,17 @@
+@use "../base/button" as *;
+
+.pagination {
+  .page {
+    @include button-text;
+  }
+
+  .active {
+    @include button-outline;
+    pointer-events: none;
+  }
+
+  .disabled {
+    pointer-events: none;
+    color: var(--site-disabled);
+  }
+}
