@@ -3,7 +3,8 @@
 
   <%= form.govuk_fieldset legend: nil do %>
     <%= form.govuk_text_field :heading %>
-    <%= form.govuk_check_box_field :show_heading, label: { text: "Show heading?" } %>
+    <%= form.govuk_collection_radio_buttons :heading_style, Katalyst::Content.config.heading_styles, :itself, :itself,
+                                            legend: { text: 'Heading style' } %>
   <% end %>
 
   <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>

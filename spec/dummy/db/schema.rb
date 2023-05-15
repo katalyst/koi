@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_023411) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_17_025633) do
   create_table "admin_credentials", force: :cascade do |t|
     t.string "external_id"
     t.integer "admin_id", null: false
@@ -50,12 +50,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_023411) do
     t.string "container_type"
     t.integer "container_id"
     t.string "heading", null: false
-    t.boolean "show_heading", default: true, null: false
     t.string "background", null: false
     t.boolean "visible", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "caption"
+    t.integer "heading_style", default: 0, null: false
     t.index ["container_type", "container_id"], name: "index_katalyst_content_items_on_container"
   end
 
