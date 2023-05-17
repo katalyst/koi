@@ -18,7 +18,7 @@ module Koi
       end
 
       def webauthn_auth_options
-        options                            = webauthn_relying_party.options_for_authentication(
+        options = webauthn_relying_party.options_for_authentication(
           allow: AdminCredential.pluck(:external_id),
         )
         session[:authentication_challenge] = options.challenge
