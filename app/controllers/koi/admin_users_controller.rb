@@ -17,10 +17,18 @@ module Koi
       render :index, locals: { admins: @admins, sort:, pagy: }
     end
 
+    def show
+      render :show, locals: { admin: @admin }
+    end
+
     def new
       @admin = AdminUser.new
 
       render :new, locals: { admin: @admin }
+    end
+
+    def edit
+      render :edit, locals: { admin: @admin }
     end
 
     def create
@@ -31,14 +39,6 @@ module Koi
       else
         render :new, locals: { admin: @admin }, status: :unprocessable_entity
       end
-    end
-
-    def show
-      render :show, locals: { admin: @admin }
-    end
-
-    def edit
-      render :edit, locals: { admin: @admin }
     end
 
     def update

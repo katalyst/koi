@@ -26,6 +26,10 @@ module Koi
       render :new, locals: { url_rewrite: @url_rewrite }
     end
 
+    def edit
+      render :edit, locals: { url_rewrite: @url_rewrite }
+    end
+
     def create
       @url_rewrite = UrlRewrite.new(url_rewrite_params)
 
@@ -34,10 +38,6 @@ module Koi
       else
         render :new, status: :unprocessable_entity, locals: { url_rewrite: @url_rewrite }
       end
-    end
-
-    def edit
-      render :edit, locals: { url_rewrite: @url_rewrite }
     end
 
     def update

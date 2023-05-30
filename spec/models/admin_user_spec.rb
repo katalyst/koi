@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe AdminUser do
-  subject(:admin) { create :admin }
+  subject(:admin) { create(:admin) }
 
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
@@ -21,7 +21,7 @@ RSpec.describe AdminUser do
     it { is_expected.to be_is "Admin" }
 
     context "when super-admin" do
-      subject(:admin) { create :super_admin }
+      subject(:admin) { create(:super_admin) }
 
       it { is_expected.to be_super_admin }
       it { is_expected.to be_is "Super" }

@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe UrlRewrite, type: :model do
-  subject(:url_rewrite) { create :url_rewrite }
+RSpec.describe UrlRewrite do
+  subject(:url_rewrite) { create(:url_rewrite) }
 
   it { is_expected.to validate_presence_of(:from) }
   it { is_expected.to validate_presence_of(:to) }

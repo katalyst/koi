@@ -2,8 +2,8 @@
 
 module Koi
   module DefinitionListHelper
-    def definition_list(**options, &block)
-      DefinitionListBuilder.new(self).render(**options, &block)
+    def definition_list(**options, &)
+      DefinitionListBuilder.new(self).render(**options, &)
     end
   end
 
@@ -28,8 +28,8 @@ module Koi
       end
     end
 
-    def item(object, attribute, **options, &block)
-      Definition.new(@context, object, attribute).render(**options, &block)
+    def item(object, attribute, **options, &)
+      Definition.new(@context, object, attribute).render(**options, &)
     end
 
     class Definition
@@ -43,10 +43,10 @@ module Koi
         @attribute = attribute
       end
 
-      def render(**options, &block)
+      def render(**options, &)
         return unless render?(**options)
 
-        term_tag(**options) + definition_tag(&block)
+        term_tag(**options) + definition_tag(&)
       end
 
       private

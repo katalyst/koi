@@ -12,3 +12,6 @@ pkg
 # dartsass-rails
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# dummy app is generated
+/spec/dummy

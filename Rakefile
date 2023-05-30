@@ -5,13 +5,18 @@ require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "rubocop/rake_task"
 
+unless File.exist?("spec/dummy/Rakefile")
+  puts "Please run `bin/setup` before running rake tasks"
+  exit 1
+end
+
 APP_RAKEFILE = File.expand_path("spec/dummy/Rakefile", __dir__)
 
 load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
 # prepend test:prepare to run generators, and db:prepare to run migrations
-RSpec::Core::RakeTask.new(spec: %w[app:test:prepare app:db:prepare])
+RSpec::Core::RakeTask.new(spec: %w[app:spec:prepare])
 
 RuboCop::RakeTask.new
 

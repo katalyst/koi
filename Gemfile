@@ -10,10 +10,14 @@ group :development, :test do
   gem "dartsass-rails"
   gem "factory_bot_rails"
   gem "faker"
+  gem "katalyst-basic-auth", git: "https://github.com/katalyst/katalyst-basic-auth"
+  gem "katalyst-healthcheck"
   gem "puma"
+  gem "rails"
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
+  gem "sentry-rails"
   gem "shoulda-matchers"
   gem "sprockets-rails"
   gem "sqlite3"
@@ -21,5 +25,8 @@ end
 
 group :test do
   gem "capybara"
+  gem "cuprite"
+  gem "rack_session_access"
   gem "rails-controller-testing"
+  gem "webmock"
 end

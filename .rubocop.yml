@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 require:
   - rubocop-katalyst
   - rubocop-capybara
@@ -7,10 +5,14 @@ require:
 
 AllCops:
   Exclude:
-    - "Rakefile"
-    - "bin/*"
-    - "spec/dummy/db/schema.rb"
-    - "vendor/bundle/**/*"
+    - Rakefile
+    - bin/*
+    - config/**/*
+    - db/**/*
+    - spec/dummy/bin/*
+    - spec/dummy/config/**/*
+    - spec/dummy/db/**/*
+    - vendor/bundle/**/*
   TargetRubyVersion: 3.1
 
 # Disable cops that conflict with legacy Koi practices to reduce noise
@@ -20,3 +22,9 @@ Naming/PredicateName:
 
 Rails/HelperInstanceVariable:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - lib/tasks/*
+    - spec/**/*

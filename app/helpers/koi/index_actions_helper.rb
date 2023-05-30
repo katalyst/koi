@@ -24,7 +24,7 @@ module Koi
       !!@create
     end
 
-    def render(&block)
+    def render(&)
       tag.nav class: "index-actions", data: { controller: "index-actions", action: actions } do
         form_with(**search_options,
                   data: { controller: "search",
@@ -34,7 +34,7 @@ module Koi
                             submit->index-actions#submit
                           ACTIONS
                   }) do |form|
-          concat(links(form, &block))
+          concat(links(form, &))
           concat(search(form)) if create? || search?
         end
       end

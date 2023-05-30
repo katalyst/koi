@@ -49,7 +49,7 @@ module Koi
     end
 
     def destroy
-      credential = current_admin.credentials.find_by!(id: params[:id])
+      credential = current_admin.credentials.find(params[:id])
       credential.destroy!
 
       redirect_to koi_engine.admin_user_path(current_admin), status: :see_other

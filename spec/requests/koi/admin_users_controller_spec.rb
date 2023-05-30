@@ -3,8 +3,8 @@
 require "rails_helper"
 require "support/requests/admin_examples"
 
-RSpec.describe Koi::AdminUsersController, type: :request do
-  let(:admin) { create :admin }
+RSpec.describe Koi::AdminUsersController do
+  let(:admin) { create(:admin) }
 
   include_context "with admin session"
 
@@ -32,7 +32,7 @@ RSpec.describe Koi::AdminUsersController, type: :request do
 
   describe "POST /admin/admin_users" do
     let(:action) { post koi_engine.admin_users_path, params: { admin: admin_params } }
-    let(:admin_params) { attributes_for :admin }
+    let(:admin_params) { attributes_for(:admin) }
 
     it_behaves_like "requires admin"
 
@@ -70,7 +70,7 @@ RSpec.describe Koi::AdminUsersController, type: :request do
 
   describe "PATCH /admin/admin_users/:id" do
     let(:action) { patch koi_engine.admin_user_path(admin), params: { admin: admin_params } }
-    let(:admin_params) { attributes_for :admin }
+    let(:admin_params) { attributes_for(:admin) }
 
     it_behaves_like "requires admin"
 

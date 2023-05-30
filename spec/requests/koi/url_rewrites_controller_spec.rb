@@ -3,10 +3,10 @@
 require "rails_helper"
 require "support/requests/admin_examples"
 
-RSpec.describe Koi::UrlRewritesController, type: :request do
+RSpec.describe Koi::UrlRewritesController do
   subject { action && response }
 
-  let(:admin) { create :admin }
+  let(:admin) { create(:admin) }
 
   include_context "with admin session"
 
@@ -45,7 +45,7 @@ RSpec.describe Koi::UrlRewritesController, type: :request do
 
   describe "POST /admin/url_rewrites" do
     let(:action) { post koi_engine.url_rewrites_path, params: { url_rewrite: url_rewrite_params } }
-    let(:url_rewrite_params) { attributes_for :url_rewrite }
+    let(:url_rewrite_params) { attributes_for(:url_rewrite) }
 
     it_behaves_like "requires admin"
 
@@ -58,7 +58,7 @@ RSpec.describe Koi::UrlRewritesController, type: :request do
 
   describe "GET /admin/url_rewrites/:id" do
     let(:action) { get koi_engine.url_rewrite_path(url_rewrite) }
-    let(:url_rewrite) { create :url_rewrite }
+    let(:url_rewrite) { create(:url_rewrite) }
 
     it_behaves_like "requires admin"
 
@@ -67,7 +67,7 @@ RSpec.describe Koi::UrlRewritesController, type: :request do
 
   describe "GET /admin/url_rewrites/:id/edit" do
     let(:action) { get koi_engine.edit_url_rewrite_path(url_rewrite) }
-    let(:url_rewrite) { create :url_rewrite }
+    let(:url_rewrite) { create(:url_rewrite) }
 
     it_behaves_like "requires admin"
 
@@ -77,7 +77,7 @@ RSpec.describe Koi::UrlRewritesController, type: :request do
   describe "PATCH /admin/url_rewrites/:id" do
     let(:action) { patch koi_engine.url_rewrite_path(url_rewrite), params: { url_rewrite: url_rewrite_params } }
     let(:url_rewrite_params) { { to: "/offers" } }
-    let(:url_rewrite) { create :url_rewrite, from: "/deals" }
+    let(:url_rewrite) { create(:url_rewrite, from: "/deals") }
 
     before { url_rewrite }
 
@@ -98,7 +98,7 @@ RSpec.describe Koi::UrlRewritesController, type: :request do
 
   describe "DELETE /admin/url_rewrites/:id" do
     let(:action) { delete koi_engine.url_rewrite_path(url_rewrite) }
-    let(:url_rewrite) { create :url_rewrite }
+    let(:url_rewrite) { create(:url_rewrite) }
 
     before { url_rewrite }
 
