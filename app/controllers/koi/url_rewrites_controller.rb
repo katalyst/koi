@@ -34,7 +34,7 @@ module Koi
       @url_rewrite = UrlRewrite.new(url_rewrite_params)
 
       if @url_rewrite.save
-        redirect_to url_rewrite_path(@url_rewrite)
+        redirect_to admin_url_rewrite_path(@url_rewrite)
       else
         render :new, status: :unprocessable_entity, locals: { url_rewrite: @url_rewrite }
       end
@@ -44,7 +44,7 @@ module Koi
       @url_rewrite.attributes = url_rewrite_params
 
       if @url_rewrite.save
-        redirect_to url_rewrite_path(@url_rewrite)
+        redirect_to admin_url_rewrite_path(@url_rewrite)
       else
         render :edit, status: :unprocessable_entity, locals: { url_rewrite: @url_rewrite }
       end
@@ -53,7 +53,7 @@ module Koi
     def destroy
       @url_rewrite.destroy!
 
-      redirect_to url_rewrites_path
+      redirect_to admin_url_rewrites_path
     end
 
     private

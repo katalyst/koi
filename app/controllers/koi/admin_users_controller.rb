@@ -35,7 +35,7 @@ module Koi
       @admin = AdminUser.new(admin_user_params)
 
       if @admin.save
-        redirect_to admin_user_path(@admin)
+        redirect_to admin_admin_user_path(@admin)
       else
         render :new, locals: { admin: @admin }, status: :unprocessable_entity
       end
@@ -52,7 +52,7 @@ module Koi
     def destroy
       @admin.destroy
 
-      redirect_to admin_users_path
+      redirect_to admin_admin_users_path
     end
 
     private

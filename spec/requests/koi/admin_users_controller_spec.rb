@@ -9,7 +9,7 @@ RSpec.describe Koi::AdminUsersController do
   include_context "with admin session"
 
   describe "GET /admin/admin_users" do
-    let(:action) { get koi_engine.admin_users_path }
+    let(:action) { get admin_admin_users_path }
 
     it_behaves_like "requires admin"
 
@@ -20,7 +20,7 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "GET /admin/admin_users/new" do
-    let(:action) { get koi_engine.new_admin_user_path }
+    let(:action) { get new_admin_admin_user_path }
 
     it_behaves_like "requires admin"
 
@@ -31,14 +31,14 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "POST /admin/admin_users" do
-    let(:action) { post koi_engine.admin_users_path, params: { admin: admin_params } }
+    let(:action) { post admin_admin_users_path, params: { admin: admin_params } }
     let(:admin_params) { attributes_for(:admin) }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admin_user_path(assigns(:admin)))
+      expect(response).to redirect_to(admin_admin_user_path(assigns(:admin)))
     end
 
     it "creates an admin" do
@@ -47,7 +47,7 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "GET /admin/admin_users/:id" do
-    let(:action) { get koi_engine.admin_user_path(admin) }
+    let(:action) { get admin_admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
@@ -58,7 +58,7 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "GET /admin/admin_users/:id/edit" do
-    let(:action) { get koi_engine.edit_admin_user_path(admin) }
+    let(:action) { get edit_admin_admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
@@ -69,14 +69,14 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "PATCH /admin/admin_users/:id" do
-    let(:action) { patch koi_engine.admin_user_path(admin), params: { admin: admin_params } }
+    let(:action) { patch admin_admin_user_path(admin), params: { admin: admin_params } }
     let(:admin_params) { attributes_for(:admin) }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admin_user_path(admin))
+      expect(response).to redirect_to(admin_admin_user_path(admin))
     end
 
     it "updates name" do
@@ -106,13 +106,13 @@ RSpec.describe Koi::AdminUsersController do
   end
 
   describe "DELETE /admin/admin_users/:id" do
-    let(:action) { delete koi_engine.admin_user_path(admin) }
+    let(:action) { delete admin_admin_user_path(admin) }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admin_users_path)
+      expect(response).to redirect_to(admin_admin_users_path)
     end
   end
 end

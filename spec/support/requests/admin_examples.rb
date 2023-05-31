@@ -5,7 +5,7 @@ RSpec.shared_context "with admin session" do
 
   before do
     if session_for.present?
-      post koi_engine.admin_session_path, params: { admin: { email: admin.email, password: admin.password } }
+      post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }
     end
   end
 end
@@ -15,6 +15,6 @@ RSpec.shared_examples "requires admin" do
 
   it "redirects to admin login" do
     action
-    expect(response).to redirect_to(koi_engine.new_admin_session_path)
+    expect(response).to redirect_to(new_admin_session_path)
   end
 end

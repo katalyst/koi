@@ -4,7 +4,7 @@
 
 <%= table_with collection: admins, sort: sort, class: "index-table" do |row, admin| %>
   <%= row.cell :email do |cell| %>
-    <%= link_to cell.value, admin_user_path(admin) %>
+    <%= link_to cell.value, admin_admin_user_path(admin) %>
   <% end %>
   <%= row.cell :first_name %>
   <%= row.cell :last_name %>

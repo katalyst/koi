@@ -14,7 +14,7 @@ RSpec.describe Koi::SessionsController do
   end
 
   describe "GET /admin/sessions/new" do
-    let(:action) { get koi_engine.new_admin_session_path }
+    let(:action) { get new_admin_session_path }
 
     it "renders successfully" do
       action
@@ -24,11 +24,11 @@ RSpec.describe Koi::SessionsController do
 
   describe "POST /admin/sessions" do
     let(:action) do
-      get koi_engine.new_admin_session_path
+      get new_admin_session_path
 
       return nil unless response.successful?
 
-      post koi_engine.admin_session_path,
+      post admin_session_path,
            params: { admin: session_params },
            as:     :turbo_stream
     end
@@ -43,7 +43,7 @@ RSpec.describe Koi::SessionsController do
 
       it "renders successfully" do
         action
-        expect(response).to redirect_to(koi_engine.dashboard_path)
+        expect(response).to redirect_to(admin_dashboard_path)
       end
 
       it "creates the admin session" do
@@ -85,7 +85,7 @@ RSpec.describe Koi::SessionsController do
 
       it "renders successfully" do
         action
-        expect(response).to redirect_to(koi_engine.dashboard_path)
+        expect(response).to redirect_to(admin_dashboard_path)
       end
 
       it "creates the admin session" do
@@ -105,14 +105,14 @@ RSpec.describe Koi::SessionsController do
 
   describe "DELETE /admin/session" do
     let(:action) do
-      delete koi_engine.admin_session_path, as: :turbo_stream
+      delete admin_session_path, as: :turbo_stream
     end
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.new_admin_session_path)
+      expect(response).to redirect_to(new_admin_session_path)
     end
 
     it "destroys the admin session" do

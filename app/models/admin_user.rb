@@ -33,7 +33,7 @@ class AdminUser < ApplicationRecord
   end
 
   def to_s
-    "#{first_name} #{last_name}"
+    name
   end
 
   def is?(value)
@@ -46,6 +46,14 @@ class AdminUser < ApplicationRecord
 
   def super_admin?
     is? self.class.super_admin
+  end
+
+  def name=(value)
+    self.first_name, self.last_name = value.split(" ", 2)
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 
   # TODO(sfn) remove once Rails 7.1 is released

@@ -45,14 +45,14 @@ module Koi
         sign_count: webauthn_credential.sign_count,
       )
 
-      redirect_to koi_engine.admin_user_path(current_admin), status: :see_other
+      redirect_to admin_admin_user_path(current_admin), status: :see_other
     end
 
     def destroy
       credential = current_admin.credentials.find(params[:id])
       credential.destroy!
 
-      redirect_to koi_engine.admin_user_path(current_admin), status: :see_other
+      redirect_to admin_admin_user_path(current_admin), status: :see_other
     end
 
     private

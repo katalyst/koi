@@ -4,7 +4,7 @@ require_relative "middleware/url_redirect"
 
 module Koi
   class Engine < ::Rails::Engine
-    isolate_namespace Koi
+    engine_name "koi"
 
     initializer "koi.assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"

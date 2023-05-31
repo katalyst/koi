@@ -9,7 +9,7 @@ module Koi
     layout "koi/login"
 
     def new
-      return redirect_to dashboard_path if admin_signed_in?
+      return redirect_to admin_dashboard_path if admin_signed_in?
 
       render :new, locals: { admin_user: AdminUser.new }
     end
@@ -20,13 +20,13 @@ module Koi
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to dashboard_path, notice: "You have been logged in"
+        redirect_to admin_dashboard_path, notice: "You have been logged in"
       elsif (admin_user = AdminUser.authenticate_by(session_params.slice(:email, :password)))
         record_sign_in!(admin_user)
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to dashboard_path, notice: "You have been logged in"
+        redirect_to admin_dashboard_path, notice: "You have been logged in"
       else
         admin_user = AdminUser.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
@@ -40,7 +40,7 @@ module Koi
 
       session[:admin_user_id] = nil
 
-      redirect_to dashboard_path, notice: "You have been logged out"
+      redirect_to admin_dashboard_path, notice: "You have been logged out"
     end
 
     private

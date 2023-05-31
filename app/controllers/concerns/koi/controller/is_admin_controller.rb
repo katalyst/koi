@@ -34,7 +34,7 @@ module Koi
       def clear_cache
         Rails.logger.warn("[CACHE CLEAR] - Cleaning entire cache manually by #{current_admin} request")
         Rails.cache.clear
-        redirect_back(fallback_location: dashboard_path)
+        redirect_back(fallback_location: admin_dashboard_path)
       end
 
       class << self
@@ -51,7 +51,7 @@ module Koi
       end
 
       def authenticate_admin
-        redirect_to koi_engine.new_admin_session_path, status: :temporary_redirect
+        redirect_to new_admin_session_path, status: :temporary_redirect
       end
     end
   end
