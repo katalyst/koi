@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "25edcd4a1369a233ff067cc4c218d93d9817a9a56d4c88b08b23585c0fdbce71",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/koi/styleguide_controller.rb",
-      "line": 8,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => params[:template], {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Koi::StyleguideController",
-        "method": "show"
-      },
-      "user_input": "params[:template]",
-      "confidence": "High",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "94dbf7e25579e2569d1774e53cb53c78d2ea7830c44849bc63456bcb304cea8b",
@@ -45,30 +22,8 @@
         915
       ],
       "note": ""
-    },
-    {
-      "warning_type": "Format Validation",
-      "warning_code": 30,
-      "fingerprint": "a2a1a3826c3f29800e15bb1c0921df87eb5a3da3bf8c5dc4b217564482089f72",
-      "check_name": "ValidationRegex",
-      "message": "Insufficient validation for `from` using `/\\A\\//`. Use `\\A` and `\\z` as anchors",
-      "file": "app/models/url_rewrite.rb",
-      "line": 5,
-      "link": "https://brakemanscanner.org/docs/warning_types/format_validation/",
-      "code": null,
-      "render_path": null,
-      "location": {
-        "type": "model",
-        "model": "UrlRewrite"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "cwe_id": [
-        777
-      ],
-      "note": ""
     }
   ],
-  "updated": "2023-02-18 19:49:54 +1030",
-  "brakeman_version": "5.4.0"
+  "updated": "2023-05-31 13:53:57 +0930",
+  "brakeman_version": "6.0.0"
 }

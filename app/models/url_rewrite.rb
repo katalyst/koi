@@ -2,7 +2,7 @@
 
 class UrlRewrite < ApplicationRecord
   validates :from, :to, presence: true
-  validates :from, format: { with: %r{\A/}, message: "should start with /" }
+  validates :from, format: { with: %r{\A/.*\z}, message: "should start with /" }
 
   scope :active, -> { where(active: true) }
   scope :alphabetical, -> { order(from: :asc) }
