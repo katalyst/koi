@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Koi
+module Admin
   class AdminUsersController < ApplicationController
     before_action :set_admin, only: %i[show edit update destroy]
 

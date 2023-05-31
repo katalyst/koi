@@ -28,17 +28,15 @@ module Koi
         b.add_items(advanced)
 
         if Object.const_defined?("Flipper::UI")
-          b.add_link(title: "Flipper", url: context.root_path.concat("flipper"),
+          b.add_link(title:  "Flipper", url: context.admin_root_path.concat("flipper"),
                      target: "_blank")
         end
         if Object.const_defined?("Sidekiq::Web")
-          b.add_link(title: "Sidekiq", url: context.root_path.concat("sidekiq"),
+          b.add_link(title:  "Sidekiq", url: context.admin_root_path.concat("sidekiq"),
                      target: "_blank")
         end
-        if context.current_admin.super_admin?
-          b.add_button(title: "Clear cache", url: context.clear_cache_path,
-                       http_method: :post)
-        end
+        b.add_button(title:       "Clear cache", url: context.admin_cache_path,
+                     http_method: :delete)
       end
       builder.render
     end

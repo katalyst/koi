@@ -4,7 +4,7 @@ require "rails_helper"
 require "support/requests/admin_examples"
 require "webauthn/fake_client"
 
-RSpec.describe Koi::CredentialsController do
+RSpec.describe Admin::CredentialsController do
   let(:admin) { create(:admin) }
   let(:client) { WebAuthn::FakeClient.new(origin) }
   let(:origin) { "http://www.example.com" }

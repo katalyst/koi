@@ -31,12 +31,6 @@ module Koi
         before_action :authenticate_admin, unless: :admin_signed_in?
       end
 
-      def clear_cache
-        Rails.logger.warn("[CACHE CLEAR] - Cleaning entire cache manually by #{current_admin} request")
-        Rails.cache.clear
-        redirect_back(fallback_location: admin_dashboard_path)
-      end
-
       class << self
         attr_accessor :authenticate_local_admins
       end

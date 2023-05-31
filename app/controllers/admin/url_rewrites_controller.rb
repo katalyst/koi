@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Koi
+module Admin
   class UrlRewritesController < ApplicationController
     before_action :set_url_rewrite, only: %i[show edit update destroy]
 
