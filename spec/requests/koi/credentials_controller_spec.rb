@@ -16,7 +16,7 @@ RSpec.describe Koi::CredentialsController do
   include_context "with admin session"
 
   describe "GET /admin/admin_users/:admin_user_id/credential/new" do
-    let(:action) { get koi_engine.new_admin_user_credential_path(admin), as: :turbo_stream }
+    let(:action) { get new_admin_admin_user_credential_path(admin), as: :turbo_stream }
 
     it_behaves_like "requires admin"
 
@@ -28,11 +28,11 @@ RSpec.describe Koi::CredentialsController do
 
   describe "POST /admin/admin_users/:admin_user_id/credential" do
     let(:action) do
-      get koi_engine.new_admin_user_credential_path(admin)
+      get new_admin_admin_user_credential_path(admin)
 
       return unless response.successful?
 
-      post koi_engine.admin_user_credentials_path(admin),
+      post admin_admin_user_credentials_path(admin),
            params: { admin_credential: credential_params },
            as:     :turbo_stream
     end
@@ -48,7 +48,7 @@ RSpec.describe Koi::CredentialsController do
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admin_user_path(admin))
+      expect(response).to redirect_to(admin_admin_user_path(admin))
     end
 
     it "creates an admin credential" do
@@ -58,7 +58,7 @@ RSpec.describe Koi::CredentialsController do
 
   describe "DELETE /admin/admin_users/:id" do
     let(:action) do
-      delete koi_engine.admin_user_credential_path(admin, credential), as: :turbo_stream
+      delete admin_admin_user_credential_path(admin, credential), as: :turbo_stream
     end
 
     let!(:credential) do
@@ -72,7 +72,7 @@ RSpec.describe Koi::CredentialsController do
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(koi_engine.admin_user_path(admin))
+      expect(response).to redirect_to(admin_admin_user_path(admin))
     end
 
     it "destroys an admin credential" do

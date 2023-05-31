@@ -4,7 +4,7 @@
 
 <%= table_with collection: url_rewrites, sort: sort, class: "index-table" do |row, url_rewrite| %>
   <%= row.cell :from do |cell| %>
-    <%= link_to cell.value, url_rewrite_path(url_rewrite) %>
+    <%= link_to cell.value, admin_url_rewrite_path(url_rewrite) %>
   <% end %>
   <%= row.cell :to %>
   <%= row.cell :active do |cell| %>

@@ -17,9 +17,9 @@ module Koi
       builder = Builder.new
       builder.add_menu(title: "Priority") do |b|
         b.add_link(title: "View site", url: "/", target: "_blank")
-        b.add_link(title: "Dashboard", url: context.koi_engine.dashboard_path)
+        b.add_link(title: "Dashboard", url: context.admin_dashboard_path)
         b.add_items(priority)
-        b.add_button(title: "Logout", url: context.koi_engine.admin_session_path, http_method: :delete)
+        b.add_button(title: "Logout", url: context.admin_session_path, http_method: :delete)
       end
       builder.add_menu(title: "Modules") do |b|
         b.add_items(modules)
@@ -28,15 +28,15 @@ module Koi
         b.add_items(advanced)
 
         if Object.const_defined?("Flipper::UI")
-          b.add_link(title: "Flipper", url: context.koi_engine.root_path.concat("flipper"),
+          b.add_link(title: "Flipper", url: context.root_path.concat("flipper"),
                      target: "_blank")
         end
         if Object.const_defined?("Sidekiq::Web")
-          b.add_link(title: "Sidekiq", url: context.koi_engine.root_path.concat("sidekiq"),
+          b.add_link(title: "Sidekiq", url: context.root_path.concat("sidekiq"),
                      target: "_blank")
         end
         if context.current_admin.super_admin?
-          b.add_button(title: "Clear cache", url: context.koi_engine.clear_cache_path,
+          b.add_button(title: "Clear cache", url: context.clear_cache_path,
                        http_method: :post)
         end
       end

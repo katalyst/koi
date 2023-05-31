@@ -62,7 +62,7 @@ class Dummy < Thor
 
     # Re-generate database using locally installed migrations
     run "bundle exec rake app:db:create"
-    run "bundle exec rake app:db:schema:load"
+    run "bundle exec rake app:db:setup"
   end
 
   private

@@ -1,10 +1,10 @@
 <% content_for :title, "Edit admin user" %>
 <% content_for(:breadcrumbs) do %>
-  <%= link_to "Admin users", admin_users_path %>
-  <%= link_to admin.to_s, admin_user_path(admin) %>
+  <%= link_to "Admin users", admin_admin_users_path %>
+  <%= link_to admin.to_s, admin_admin_user_path(admin) %>
 <% end %>
 
-<%= form_with(model: admin, url: admin_user_path(admin)) do |form| %>
+<%= form_with(model: admin, url: admin_admin_user_path(admin)) do |form| %>
   <%= render "form_fields", form: %>
 
   <div class="actions">
