@@ -1,23 +1,23 @@
 $font-sizes: (
-  h1: 2rem,
-  h2: 1.75rem,
-  h3: 1.38rem,
-  h4: 1.25rem,
-  h5: 1.12rem,
+  h1: 3.3125rem,
+  h2: 2rem,
+  h3: 1.5rem,
+  h4: 1.125rem,
+  h5: 1.125rem,
   h6: 1rem,
   paragraph: 1rem,
-  small: 0.88rem,
+  small: 0.875rem,
 ) !default;
 
 $line-heights: (
-  h1: 1.02em,
-  h2: 1.29em,
-  h3: 1.38em,
-  h4: 1.52em,
-  h5: 1.25em,
-  h6: 1.5em,
-  paragraph: 1.5em,
-  small: 1.5em,
+  h1: 1.03em,
+  h2: 1.09em,
+  h3: 1.04em,
+  h4: 1.11em,
+  h5: 1.11em,
+  h6: 1em,
+  paragraph: 1.14em,
+  small: 1.25em,
 ) !default;
 
 @use "../utils/breakpoints";
