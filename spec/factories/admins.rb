@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :admin, class: "AdminUser" do
+  factory :admin, class: "Admin::User" do
     email { Faker::Internet.email }
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
-    role { "Admin" }
+    name { Faker::Name.name }
     password { Faker::Internet.password }
-
-    factory :super_admin do
-      role { "Super" }
-    end
   end
 end

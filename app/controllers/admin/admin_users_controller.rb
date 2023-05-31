@@ -5,7 +5,7 @@ module Admin
     before_action :set_admin, only: %i[show edit update destroy]
 
     def index
-      @admins ||= AdminUser.strict_loading.all
+      @admins ||= Admin::User.strict_loading.all
 
       @admins = @admins.admin_search(params[:search]) if params[:search]
 
@@ -22,7 +22,7 @@ module Admin
     end
 
     def new
-      @admin = AdminUser.new
+      @admin = Admin::User.new
 
       render :new, locals: { admin: @admin }
     end
@@ -32,7 +32,7 @@ module Admin
     end
 
     def create
-      @admin = AdminUser.new(admin_user_params)
+      @admin = Admin::User.new(admin_user_params)
 
       if @admin.save
         redirect_to admin_admin_user_path(@admin)
@@ -58,11 +58,11 @@ module Admin
     private
 
     def set_admin
-      @admin = AdminUser.find(params[:id])
+      @admin = Admin::User.find(params[:id])
     end
 
     def admin_user_params
-      params.require(:admin).permit(:first_name, :last_name, :email, :role, :password)
+      params.require(:admin).permit(:name, :email, :password)
     end
   end
 end

@@ -42,7 +42,7 @@ RSpec.describe Admin::AdminUsersController do
     end
 
     it "creates an admin" do
-      expect { action }.to change(AdminUser, :count).by(1)
+      expect { action }.to change(Admin::User, :count).by(1)
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe Admin::AdminUsersController do
     end
 
     it "updates name" do
-      expect { action }.to(change { admin.reload.first_name })
+      expect { action }.to(change { admin.reload.name })
     end
 
     it "updates password" do
@@ -96,11 +96,11 @@ RSpec.describe Admin::AdminUsersController do
     end
 
     context "with errors" do
-      let(:admin_params) { { first_name: "" } }
+      let(:admin_params) { { name: "" } }
 
       it "renders with errors" do
         action
-        expect(response.body).to have_selector("#admin-first-name-error")
+        expect(response.body).to have_selector("#admin-name-error")
       end
     end
   end

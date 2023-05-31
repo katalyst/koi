@@ -3,12 +3,10 @@
 <%= koi_index_actions create: true, search: true %>
 
 <%= table_with collection: admins, sort: sort, class: "index-table" do |row, admin| %>
-  <%= row.cell :email do |cell| %>
+  <%= row.cell :name do |cell| %>
     <%= link_to cell.value, admin_admin_user_path(admin) %>
   <% end %>
-  <%= row.cell :first_name %>
-  <%= row.cell :last_name %>
-  <%= row.cell :role %>
+  <%= row.cell :email %>
 <% end %>
 
 <%== pagy_nav(pagy) %>
