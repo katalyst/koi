@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Koi
+module Admin
   class ApplicationController < ActionController::Base
     include Koi::Controller::IsAdminController
 

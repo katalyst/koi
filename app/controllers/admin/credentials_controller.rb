@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Koi
+module Admin
   class CredentialsController < ApplicationController
     include Koi::Controller::HasWebauthn
 

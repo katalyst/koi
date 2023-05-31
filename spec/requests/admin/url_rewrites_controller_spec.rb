@@ -3,7 +3,7 @@
 require "rails_helper"
 require "support/requests/admin_examples"
 
-RSpec.describe Koi::UrlRewritesController do
+RSpec.describe Admin::UrlRewritesController do
   subject { action && response }
 
   let(:admin) { create(:admin) }

@@ -3,7 +3,7 @@
 require "rails_helper"
 require "support/requests/admin_examples"
 
-RSpec.describe Koi::AdminUsersController do
+RSpec.describe Admin::AdminUsersController do
   let(:admin) { create(:admin) }
 
   include_context "with admin session"
