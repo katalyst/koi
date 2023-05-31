@@ -16,7 +16,7 @@ module Koi
       end
 
       def current_admin_user
-        @current_admin_user ||= AdminUser.find(session[:admin_user_id]) if session[:admin_user_id].present?
+        @current_admin_user ||= Admin::User.find(session[:admin_user_id]) if session[:admin_user_id].present?
       end
 
       # @deprecated Use current_admin_user instead

@@ -19,7 +19,7 @@ module Koi
 
       def webauthn_auth_options
         options = webauthn_relying_party.options_for_authentication(
-          allow: AdminCredential.pluck(:external_id),
+          allow: Admin::Credential.pluck(:external_id),
         )
         session[:authentication_challenge] = options.challenge
 
@@ -33,7 +33,7 @@ module Koi
           JSON.parse(session_params[:response]),
           session[:authentication_challenge],
         ) do |credential|
-          AdminCredential.find_by!(external_id: credential.id)
+          Admin::Credential.find_by!(external_id: credential.id)
         end
 
         stored_credential.update!(sign_count: webauthn_credential.sign_count)

@@ -1,5 +1,3 @@
-<%= form.govuk_text_field :email %>
-<%= form.govuk_text_field :first_name, label: { text: "First name" } %>
-<%= form.govuk_text_field :last_name, label: { text: "Last name" } %>
-<%= form.govuk_collection_select :role, AdminUser::ROLES, :to_s, :to_s %>
-<%= form.govuk_password_field :password %>
+<%= form.govuk_text_field :email, label: { size: "s" } %>
+<%= form.govuk_text_field :name, label: { size: "s" } %>
+<%= form.govuk_password_field :password, label: { size: "s" } %>

@@ -2,7 +2,7 @@
 
 # Create a default admin user (only in development)
 if Rails.env.development? && !ENV["CI"]
-  AdminUser.create_with(
+  Admin::User.create_with(
     name:     `id -F`.strip,
     password: "password",
   ).find_or_create_by(email: "#{ENV['USER']}@katalyst.com.au")

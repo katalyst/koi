@@ -11,7 +11,7 @@ module Admin
     def new
       return redirect_to admin_dashboard_path if admin_signed_in?
 
-      render :new, locals: { admin_user: AdminUser.new }
+      render :new, locals: { admin_user: Admin::User.new }
     end
 
     def create
@@ -21,14 +21,14 @@ module Admin
         session[:admin_user_id] = admin_user.id
 
         redirect_to admin_dashboard_path, notice: "You have been logged in"
-      elsif (admin_user = AdminUser.authenticate_by(session_params.slice(:email, :password)))
+      elsif (admin_user = Admin::User.authenticate_by(session_params.slice(:email, :password)))
         record_sign_in!(admin_user)
 
         session[:admin_user_id] = admin_user.id
 
         redirect_to admin_dashboard_path, notice: "You have been logged in"
       else
-        admin_user = AdminUser.new(session_params.slice(:email, :password))
+        admin_user = Admin::User.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
 
         render :new, status: :unprocessable_entity, locals: { admin_user: }

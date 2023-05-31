@@ -63,6 +63,9 @@ class Dummy < Thor
     # Re-generate database using locally installed migrations
     run "bundle exec rake app:db:create"
     run "bundle exec rake app:db:setup"
+
+    # Update commit so we can more easily track changes
+    run "cd spec/dummy && git add -A && git commit --amend -C HEAD" unless ENV["CI"]
   end
 
   private

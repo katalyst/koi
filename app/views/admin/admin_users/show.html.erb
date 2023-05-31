@@ -1,4 +1,4 @@
-<% content_for :title, admin %>
+<% content_for :title, admin.name %>
 <% content_for(:breadcrumbs) { link_to "Admin users", admin_admin_users_path } %>
 <% content_for :actions do %>
   <%= link_to "Edit", edit_admin_admin_user_path(admin) %>
@@ -9,7 +9,7 @@
 <h2 class="heading-four">Summary</h2>
 
 <%= definition_list(class: "item-table") do |builder| %>
-  <%= builder.items_with(model: admin, attributes: AdminUser.attribute_names.sort - %w[encrypted_password], skip_blank: true) %>
+  <%= builder.items_with(model: admin, attributes: Admin::User.attribute_names.sort - %w[password_digest webauthn_id], skip_blank: true) %>
 <% end %>
 
 <div class="actions-group">
