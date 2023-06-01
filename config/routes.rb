@@ -12,12 +12,14 @@ Rails.application.routes.draw do
     resource :cache, only: %i[destroy]
     resource :dashboard, only: %i[show]
 
+    root to: redirect("admin/dashboard")
+  end
+
+  scope :admin do
     constraints ->(req) { req.session[:admin_user_id].present? } do
       mount Katalyst::Content::Engine, at: "content"
       mount Katalyst::Navigation::Engine, at: "navigation"
       mount Flipper::UI.app(Flipper) => "flipper" if Object.const_defined?("Flipper::UI")
     end
-
-    root to: redirect("admin/dashboard")
   end
 end
