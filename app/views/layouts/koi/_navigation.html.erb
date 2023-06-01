@@ -4,9 +4,9 @@
      shortcut:nav-toggle@document->navigation#toggle">
   <%= render "layouts/koi/navigation_header" %>
   <div class="filter">
-    <input type="search" placeholder="Filter menu"
+    <input type="search" placeholder="Filter menu" autocomplete="off"
            data-navigation-target="filter"
-           data-action="input->navigation#filter change->navigation#filter keydown.enter->navigation#go" />
+           data-action="input->navigation#filter change->navigation#filter keydown.enter->navigation#go">
   </div>
   <%= navigation_menu_with(menu: Koi::Menu.admin_menu(self)) %>
 </nav>

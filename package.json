@@ -1,9 +1,5 @@
 {
-  "scripts": {
-    "lint": "prettier --check *.json app/assets spec/dummy/app/assets",
-    "format": "prettier --write *.json app/assets spec/dummy/app/assets"
-  },
   "devDependencies": {
-    "prettier": "2.7.1"
+    "prettier": "^2.8.8"
   }
 }

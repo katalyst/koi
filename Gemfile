@@ -8,6 +8,7 @@ gemspec
 group :development, :test do
   gem "brakeman"
   gem "dartsass-rails"
+  gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "katalyst-basic-auth", git: "https://github.com/katalyst/katalyst-basic-auth"

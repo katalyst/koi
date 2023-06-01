@@ -3,7 +3,6 @@
 require "bundler/setup"
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
-require "rubocop/rake_task"
 
 unless File.exist?("spec/dummy/Rakefile")
   puts "Please run `bin/setup` before running rake tasks"
@@ -18,8 +17,6 @@ load "rails/tasks/statistics.rake"
 # prepend test:prepare to run generators, and db:prepare to run migrations
 RSpec::Core::RakeTask.new(spec: %w[app:spec:prepare])
 
-RuboCop::RakeTask.new
-
 # dartsass.rake override – compile gem resources instead of dummy app resources
 def dartsass_build_mapping
   <<-BUILDS.gsub(/\s+/, " ")
@@ -30,11 +27,14 @@ end
 # compile css before building
 task build: "app:dartsass:build"
 
-desc "Run all linters"
-task lint: %w[rubocop app:yarn:lint]
+require "rubocop/katalyst/rake_task"
+RuboCop::Katalyst::RakeTask.new
 
-desc "Run all auto-formatters"
-task format: %w[rubocop:autocorrect app:yarn:format]
+require "rubocop/katalyst/erb_lint_task"
+RuboCop::Katalyst::ErbLintTask.new
+
+require "rubocop/katalyst/prettier_task"
+RuboCop::Katalyst::PrettierTask.new
 
 task default: %i[lint spec] do
   puts "🎉 build complete! 🎉"

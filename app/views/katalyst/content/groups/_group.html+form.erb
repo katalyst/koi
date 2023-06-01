@@ -1,15 +1,15 @@
 <%= form_with model: group, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
-  <%= render "hidden_fields", form: form %>
+  <%= render "hidden_fields", form: %>
 
   <%= form.govuk_fieldset legend: nil do %>
     <%= form.govuk_text_field :heading %>
     <%= form.govuk_collection_radio_buttons :heading_style, Katalyst::Content.config.heading_styles, :itself, :itself,
-                                            legend: { text: 'Heading style' } %>
+                                            legend: { text: "Heading style" } %>
   <% end %>
 
   <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
 
-  <%= form.govuk_check_box_field :visible, label: { text: "Visible? "} %>
+  <%= form.govuk_check_box_field :visible, label: { text: "Visible?" } %>
 
   <div class="actions">
     <%= form.admin_save "Done" %>

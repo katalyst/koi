@@ -2,7 +2,7 @@
 
 <%= koi_index_actions create: true, search: true %>
 
-<%= table_with collection: url_rewrites, sort: sort, class: "index-table" do |row, url_rewrite| %>
+<%= table_with collection: url_rewrites, sort:, class: "index-table" do |row, url_rewrite| %>
   <%= row.cell :from do |cell| %>
     <%= link_to cell.value, admin_url_rewrite_path(url_rewrite) %>
   <% end %>
