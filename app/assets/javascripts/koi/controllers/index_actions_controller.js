@@ -34,6 +34,14 @@ export default class IndexActionsController extends Controller {
       this.searchTarget.disabled = true;
     }
   }
+
+  nextPage() {
+    this.element.parentElement.querySelector(".pagination .next a").click();
+  }
+
+  prevPage() {
+    this.element.parentElement.querySelector(".pagination .prev a").click();
+  }
 }
 
 function debounce(self, f) {

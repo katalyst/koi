@@ -54,7 +54,7 @@ module Koi
     end
 
     def create_button(_form)
-      tag.button("New",
+      tag.button(t("koi.labels.new", default: "New"),
                  type:       :submit,
                  formaction: @create == true ? url_for(action: :new) : new_polymorphic_path(@create),
                  class:      "button--primary",
@@ -63,7 +63,7 @@ module Koi
 
     def search_input(form)
       form.search_field(:search,
-                        placeholder: "Search",
+                        placeholder: t("koi.labels.search", default: "Search"),
                         value:       params[:search],
                         data:        { index_actions_target: "search" })
     end
@@ -79,6 +79,8 @@ module Koi
         ("shortcut:cancel@document->index-actions#clear" if search?),
         ("shortcut:create@document->index-actions#create" if create?),
         ("shortcut:search@document->index-actions#search" if search?),
+        "shortcut:page-prev@document->index-actions#prevPage",
+        "shortcut:page-next@document->index-actions#nextPage",
       ].compact.join(" ")
     end
 

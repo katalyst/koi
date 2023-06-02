@@ -2,7 +2,30 @@
 
 .pagination {
   .page {
-    @include button-text;
+    a {
+      @include button-text;
+      border: 2px solid transparent;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &.prev,
+    &.next {
+      a {
+        border: none;
+        padding: 0;
+      }
+    }
+
+    &.prev {
+      padding-right: 1rem;
+    }
+
+    &.next {
+      padding-left: 1rem;
+    }
   }
 
   .active {
@@ -13,5 +36,6 @@
   .disabled {
     pointer-events: none;
     color: var(--site-disabled);
+    font-weight: 500;
   }
 }

@@ -1,0 +1,18 @@
+en:
+  time:
+    formats:
+      default: "%Y-%m-%dT%H:%M:%S.%L%z"
+      display: "%a, %e %b %Y"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      display: "%a, %e %b %Y"
+  koi:
+    labels:
+      new: New
+      search: Search
+  helpers:
+    hint:
+      default:
+        document: Must be less than %{max_size}
+        image: Must be less than %{max_size}
