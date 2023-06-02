@@ -1,4 +1,4 @@
 <%= form.govuk_text_field :email, label: { size: "s" } %>
 <%= form.govuk_text_field :name, label: { size: "s" } %>
-<%= form.govuk_password_field :password, label: { size: "s" } %>
+<%= form.govuk_password_field :password, label: { size: "s", text: "Password#{' (optional)' if form.object.persisted?}" } %>
 <%= form.govuk_check_box_field :archived, label: { size: "s" } if form.object.persisted? %>
