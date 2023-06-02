@@ -56,6 +56,45 @@ RSpec.describe Admin::SessionsController do
       end
     end
 
+    context "with archived user" do
+      let(:admin) { create(:admin, archived: true) }
+      let(:session_params) do
+        {
+          email:    admin.email,
+          password: admin.password,
+        }
+      end
+
+      it "renders an error" do
+        action
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "does not create the admin session" do
+        action
+        expect(session[:admin_user_id]).not_to be_present
+      end
+    end
+
+    context "with invalid credentials" do
+      let(:session_params) do
+        {
+          email:    admin.email,
+          password: "invalid",
+        }
+      end
+
+      it "renders an error" do
+        action
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "does not create the admin session" do
+        action
+        expect(session[:admin_user_id]).not_to be_present
+      end
+    end
+
     context "with webauthn params" do
       before do
         relying_party = WebAuthn.configuration.relying_party

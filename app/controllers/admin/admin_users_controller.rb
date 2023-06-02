@@ -4,8 +4,14 @@ module Admin
   class AdminUsersController < ApplicationController
     before_action :set_admin, only: %i[show edit update destroy]
 
+    attr_reader :admin
+
     def index
-      @admins ||= Admin::User.strict_loading.all
+      @admins = Admin::User.strict_loading
+
+      scope = params.fetch("scope", "all").to_sym
+      scope = :all unless %i[all archived with_archived].include?(scope)
+      @admins = @admins.public_send(scope)
 
       @admins = @admins.admin_search(params[:search]) if params[:search]
 
@@ -18,39 +24,39 @@ module Admin
     end
 
     def show
-      render :show, locals: { admin: @admin }
+      render :show, locals: { admin: }
     end
 
     def new
       @admin = Admin::User.new
 
-      render :new, locals: { admin: @admin }
+      render :new, locals: { admin: }
     end
 
     def edit
-      render :edit, locals: { admin: @admin }
+      render :edit, locals: { admin: }
     end
 
     def create
-      @admin = Admin::User.new(admin_user_params)
+      admin = Admin::User.new(admin_user_params)
 
-      if @admin.save
-        redirect_to admin_admin_user_path(@admin)
+      if admin.save
+        redirect_to admin_admin_user_path(admin)
       else
-        render :new, locals: { admin: @admin }, status: :unprocessable_entity
+        render :new, locals: { admin: }, status: :unprocessable_entity
       end
     end
 
     def update
-      if @admin.update(admin_user_params)
+      if admin.update(admin_user_params)
         redirect_to action: :show
       else
-        render :edit, locals: { admin: @admin }, status: :unprocessable_entity
+        render :edit, locals: { admin: }, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @admin.destroy
+      admin.destroy
 
       redirect_to admin_admin_users_path
     end
@@ -58,11 +64,11 @@ module Admin
     private
 
     def set_admin
-      @admin = Admin::User.find(params[:id])
+      @admin = Admin::User.with_archived.find(params[:id])
     end
 
     def admin_user_params
-      params.require(:admin).permit(:name, :email, :password)
+      params.require(:admin).permit(:name, :email, :password, :archived)
     end
   end
 end

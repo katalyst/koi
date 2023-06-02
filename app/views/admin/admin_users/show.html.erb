@@ -12,9 +12,11 @@
   <%= builder.items_with(model: admin, attributes: Admin::User.attribute_names.sort - %w[password_digest webauthn_id], skip_blank: true) %>
 <% end %>
 
-<div class="actions-group">
-  <%= button_to "Delete", admin_admin_user_path(admin),
-                class:  "button button--secondary",
-                method: :delete,
-                form:   { data: { turbo_confirm: "Are you sure?" } } %>
+<div class="actions">
+  <% if admin.archived? %>
+    <%= button_to "Delete", admin_admin_user_path(admin),
+                  class:  "button button--secondary",
+                  method: :delete,
+                  form:   { data: { turbo_confirm: "Are you sure?" } } %>
+  <% end %>
 </div>

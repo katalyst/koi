@@ -1,6 +1,8 @@
 <% content_for :title, "Admin users" %>
 
-<%= koi_index_actions create: true, search: true %>
+<%= koi_index_actions create: true, search: true do %>
+  <%= select_tag(:scope, options_for_select([["Active", ""], ["All", :with_archived], ["Archived", :archived]], params[:scope])) %>
+<% end %>
 
 <%= table_with collection: admins, sort:, class: "index-table" do |row, admin| %>
   <%= row.cell :name do |cell| %>

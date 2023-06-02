@@ -2,6 +2,8 @@
 
 module Admin
   class User < ApplicationRecord
+    include Koi::Model::Archivable
+
     def self.model_name
       ActiveModel::Name.new(self, nil, "Admin")
     end
