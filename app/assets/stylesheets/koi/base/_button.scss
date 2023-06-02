@@ -1,8 +1,10 @@
 %button-base {
   display: inline-block;
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 5px 1rem;
   cursor: pointer;
+  height: 2.5rem;
+  align-self: stretch; // ensure buttons are the same height as inputs
 
   border: none;
   outline: none;

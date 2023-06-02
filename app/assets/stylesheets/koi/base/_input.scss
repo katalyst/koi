@@ -1,0 +1,12 @@
+input {
+  border: 2px solid var(--site-text-color);
+  height: 2.5rem;
+  line-height: 1;
+  padding: 5px;
+
+  &:focus {
+    outline: 3px solid #fd0;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 2px;
+  }
+}

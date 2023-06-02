@@ -66,17 +66,9 @@
   label:has(input[type="checkbox"][checked])::after {
     opacity: 1;
   }
-
-  input[type="search"],
-  select {
-    height: 2.75rem;
-    padding: 0.25rem;
-    border: 2px solid black;
-    border-radius: 2px;
-  }
 }
 
-.actions-group {
+.actions-group, .actions {
   display: flex;
   align-items: baseline;
   flex-direction: row;
