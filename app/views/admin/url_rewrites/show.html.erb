@@ -4,7 +4,7 @@
   <%= link_to "Edit", edit_admin_url_rewrite_path(url_rewrite) %>
 <% end %>
 
-<h2 class="heading-four">Summary</h2>
+<h2>Summary</h2>
 
 <%= definition_list(class: "item-table") do |builder| %>
   <%= builder.items_with(model: url_rewrite, attributes: UrlRewrite.attribute_names.sort, skip_blank: true) %>

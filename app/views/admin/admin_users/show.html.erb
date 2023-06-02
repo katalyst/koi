@@ -6,7 +6,7 @@
 
 <%= render("authentication", admin:) if admin == current_admin %>
 
-<h2 class="heading-four">Summary</h2>
+<h2>Summary</h2>
 
 <%= definition_list(class: "item-table") do |builder| %>
   <%= builder.items_with(model: admin, attributes: Admin::User.attribute_names.sort - %w[password_digest webauthn_id], skip_blank: true) %>
