@@ -15,7 +15,8 @@ $line-heights: (
   h3: 1.04em,
   h4: 1.11em,
   h5: 1.11em,
-  h6: 1em,
+  // used for labels
+  h6: 1.5em,
   paragraph: 1.14em,
   small: 1.25em,
 ) !default;

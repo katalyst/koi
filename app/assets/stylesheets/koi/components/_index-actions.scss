@@ -1,6 +1,6 @@
 .index-actions > form {
   display: flex;
-  align-items: baseline;
+  align-items: stretch;
   justify-content: space-between;
   margin-bottom: 1rem;
 
@@ -10,11 +10,10 @@
     cursor: pointer;
     position: absolute;
     z-index: 1;
-    top: -4px;
-    left: -2px;
-    width: 44px;
-    height: 44px;
-    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2.5rem;
     opacity: 0;
   }
 
@@ -22,7 +21,8 @@
     display: inline-block;
     position: relative;
     margin-bottom: 0;
-    padding: 8px 15px 5px 48px;
+    padding: 0 0 0 calc(2.5rem + 5px);
+    line-height: 2.5rem;
     cursor: pointer;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
@@ -32,10 +32,10 @@
     content: "";
     box-sizing: border-box;
     position: absolute;
-    top: -4px;
+    top: 0;
+    bottom: 0;
     left: 0;
-    width: 44px;
-    height: 44px;
+    aspect-ratio: 1/1;
     border: 2px solid currentcolor;
     background: transparent;
   }
@@ -51,8 +51,8 @@
     content: "";
     box-sizing: border-box;
     position: absolute;
-    top: 11px;
-    left: 11px;
+    top: 12px;
+    left: 9px;
     width: 23px;
     height: 12px;
     transform: rotate(-45deg);
