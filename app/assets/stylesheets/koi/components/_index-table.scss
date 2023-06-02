@@ -84,18 +84,4 @@ $row-height: 48px !default;
     @include sort-icon;
     top: 4px;
   }
-
-  th:first-of-type,
-  td:first-of-type {
-    padding: 0 1em;
-  }
-
-  th:not(:first-of-type),
-  td:not(:first-of-type) {
-    padding-right: 1em;
-  }
-
-  .button_to {
-    line-height: 1.5;
-  }
 }
