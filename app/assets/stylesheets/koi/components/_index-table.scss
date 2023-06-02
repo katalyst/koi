@@ -9,18 +9,15 @@
   width: 14px;
 }
 
-$grey-light: #f4f4f4 !default;
-$grey: #b1b4b6 !default;
+$grey: #f0ecf3 !default;
 
 $table-header-color: transparent !default;
-$row-background-color: $grey-light !default;
 $row-border-color: $grey !default;
 $row-height: 48px !default;
 
 .index-table {
   --row-height: #{$row-height};
   --table-header-color: #{$table-header-color};
-  --row-background-color: #{$row-background-color};
   --row-border-color: #{$row-border-color};
 }
 
@@ -43,29 +40,28 @@ $row-height: 48px !default;
   th,
   td {
     border: none;
-    vertical-align: middle;
     box-shadow: inset 0px -1px 0px var(--row-border-color);
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
-  }
-
-  th > a,
-  td > a {
-    display: block;
-    overflow: hidden;
+    vertical-align: top;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    text-decoration: none;
-  }
 
-  td > img {
-    width: 6rem;
-    padding: 1rem 0;
-  }
+    > a {
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-decoration: none;
+    }
 
-  td > a > img {
-    padding-top: 1rem;
+    > img {
+      width: 6rem;
+      padding: 1rem 0;
+    }
+
+    > a > img {
+      padding-top: 1rem;
+    }
   }
 
   th {
@@ -83,5 +79,9 @@ $row-height: 48px !default;
   [data-sort="desc"] a::after {
     @include sort-icon;
     top: 4px;
+  }
+
+  .button_to {
+    line-height: 1.5;
   }
 }

@@ -3,19 +3,20 @@
 module Koi
   module DefinitionListHelper
     def definition_list(**options, &)
-      DefinitionListBuilder.new(self).render(**options, &)
+      DefinitionListBuilder.new(self, options).render(&)
     end
   end
 
   class DefinitionListBuilder
     delegate_missing_to :@context
 
-    def initialize(context)
+    def initialize(context, options = {})
       @context = context
+      @options = options
     end
 
-    def render(**options, &block)
-      tag.dl class: options.delete(:class) do
+    def render(&block)
+      tag.dl class: @options.delete(:class) do
         concat(capture { yield self }) if block
       end
     end
@@ -29,34 +30,35 @@ module Koi
     end
 
     def item(object, attribute, **options, &)
-      Definition.new(@context, object, attribute).render(**options, &)
+      Definition.new(@context, object, attribute, **@options, **options).render(&)
     end
 
     class Definition
-      attr_reader :object, :attribute
+      attr_reader :object, :attribute, :options
 
       delegate_missing_to :@context
 
-      def initialize(context, object, attribute)
+      def initialize(context, object, attribute, options = {})
         @context   = context
         @object    = object
         @attribute = attribute
+        @options   = options
       end
 
-      def render(**options, &)
-        return unless render?(**options)
+      def render(&)
+        return unless render?
 
-        term_tag(**options) + definition_tag(&)
+        term_tag + definition_tag(&)
       end
 
       private
 
-      def render?(**options)
-        !(options[:skip_blank] && attribute_value.blank? && attribute_value != false)
+      def render?
+        !(options.fetch(:skip_blank, true) && attribute_value.blank? && attribute_value != false)
       end
 
-      def term_tag(**options)
-        tag.dt label_for(**options)
+      def term_tag
+        tag.dt(label)
       end
 
       def definition_tag(&block)
@@ -68,13 +70,17 @@ module Koi
             tag.dd(attribute_value.join(", "))
           when ActiveStorage::Attached::One
             tag.dd(attribute_value.attached? ? link_to(attribute_value.filename, url_for(attribute_value)) : "")
+          when Date, Time, DateTime
+            tag.dd(l(attribute_value, format: :short))
+          when TrueClass, FalseClass
+            tag.dd(attribute_value ? "Yes" : "No")
           else
             tag.dd(attribute_value.to_s)
           end
         end
       end
 
-      def label_for(**options)
+      def label
         options.dig(:label, :text) || object.class.human_attribute_name(attribute)
       end
 

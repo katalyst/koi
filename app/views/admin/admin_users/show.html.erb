@@ -4,12 +4,14 @@
   <%= link_to "Edit", edit_admin_admin_user_path(admin) %>
 <% end %>
 
-<%= render("authentication", admin:) if admin == current_admin %>
-
 <h2>Summary</h2>
 
 <%= definition_list(class: "item-table") do |builder| %>
-  <%= builder.items_with(model: admin, attributes: Admin::User.attribute_names.sort - %w[password_digest webauthn_id], skip_blank: true) %>
+  <%= builder.item admin, :name %>
+  <%= builder.item admin, :email %>
+  <%= builder.item admin, :created_at %>
+  <%= builder.item admin, :last_sign_in_at, label: { text: "Last sign in" } %>
+  <%= builder.item admin, :archived? %>
 <% end %>
 
 <div class="actions">
@@ -20,3 +22,5 @@
                   form:   { data: { turbo_confirm: "Are you sure?" } } %>
   <% end %>
 </div>
+
+<%= render("authentication", admin:) %>

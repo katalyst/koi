@@ -1,13 +1,15 @@
 <h2>Authentication</h2>
 
-<div class="actions-group">
-  <%= kpop_link_to "Add this device", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
-</div>
-
 <%= table_with(collection: current_admin.credentials, class: "index-table") do |t, c| %>
   <%= t.cell :nickname %>
   <%= t.cell :sign_count %>
   <%= t.cell :actions, label: "" do %>
     <%= button_to "Remove device", admin_admin_user_credential_path(admin, c), method: :delete, class: "button button--text" %>
-  <% end %>
+  <% end if admin == current_admin %>
+<% end %>
+
+<% if admin == current_admin %>
+  <div class="actions-group">
+    <%= kpop_link_to "Add this device", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
+  </div>
 <% end %>

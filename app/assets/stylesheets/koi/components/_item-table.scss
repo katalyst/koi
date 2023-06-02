@@ -1,5 +1,4 @@
-$grey-light: #f4f4f4 !default;
-$grey: #b1b4b6 !default;
+$grey: #f0ecf3 !default;
 
 $table-header-color: transparent !default;
 $row-border-color: $grey !default;
@@ -13,7 +12,7 @@ $row-height: 48px !default;
 
 .item-table {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 3fr;
   margin: 1rem 0;
   border-top: 1px solid var(--row-border-color);
 
