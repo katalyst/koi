@@ -71,7 +71,7 @@ module Koi
           when ActiveStorage::Attached::One
             tag.dd(attribute_value.attached? ? link_to(attribute_value.filename, url_for(attribute_value)) : "")
           when Date, Time, DateTime
-            tag.dd(l(attribute_value, format: :short))
+            tag.dd(l(attribute_value, format: :display))
           when TrueClass, FalseClass
             tag.dd(attribute_value ? "Yes" : "No")
           else
