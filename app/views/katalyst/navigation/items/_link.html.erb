@@ -3,7 +3,7 @@
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :url %>
 
-  <%= form.govuk_check_box_field :visible, label: { text: "Visible?" } %>
+  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
   <%= form.govuk_select :target, Katalyst::Navigation::Item::TARGETS %>
 
   <div class="actions">

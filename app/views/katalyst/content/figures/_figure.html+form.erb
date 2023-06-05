@@ -8,7 +8,7 @@
 
   <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
 
-  <%= form.govuk_check_box_field :visible, label: { text: "Visible?" } %>
+  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
 
   <div class="actions">
     <%= form.admin_save "Done" %>

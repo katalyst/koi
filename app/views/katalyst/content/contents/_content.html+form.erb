@@ -11,7 +11,7 @@
 
   <%= form.govuk_rich_text_area :content, **content_editor_rich_text_options(class: "content") %>
 
-  <%= form.govuk_check_box_field :visible, label: { text: "Visible?" } %>
+  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
 
   <div class="actions">
     <%= form.admin_save "Done" %>

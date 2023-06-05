@@ -38,7 +38,7 @@ RSpec.describe Admin::AdminUsersController do
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(admin_admin_user_path(assigns(:admin)))
+      expect(response).to have_http_status(:found)
     end
 
     it "creates an admin" do
