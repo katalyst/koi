@@ -1,0 +1,12 @@
+<% content_for :title, "New HUMAN_NAME" %>
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "HUMAN_PLURAL_NAME", [:admin, CLASS_NAME] %>
+<% end %>
+
+<%= form_with(model: SINGULAR_NAME, url: [:admin, CLASS_NAME]) do |form| %>
+  <%= render "form_fields", form: %>
+
+  <div class="actions">
+    <%= form.admin_save %>
+  </div>
+<% end %>

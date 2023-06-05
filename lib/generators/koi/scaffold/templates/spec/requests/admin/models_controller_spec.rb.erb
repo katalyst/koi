@@ -1,0 +1,94 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+require "support/requests/admin_examples"
+
+RSpec.describe Admin::<%= human_name.pluralize %>Controller do
+  let(:admin) { create(:admin) }
+  let(:model) { create(:<%= singular_name %>) }
+
+  include_context "with admin session"
+
+  describe "GET /admin/<%= plural_name %>" do
+    let(:action) { get polymorphic_path([:admin, <%= class_name %>]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/new" do
+    let(:action) { get new_polymorphic_path([:admin, <%= class_name %>]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "POST /admin/<%= plural_name %>" do
+    let(:action) { post polymorphic_path([:admin, <%= class_name %>]), params: { <%= singular_name %>: params } }
+    let(:params) { attributes_for(:<%= singular_name %>) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to([:admin, assigns(:<%= singular_name %>)])
+    end
+
+    it "creates a <%= singular_name %>" do
+      expect { action }.to change(<%= class_name %>, :count).by(1)
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/:id" do
+    let(:action) { get polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/:id/edit" do
+    let(:action) { get edit_polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PATCH /admin/<%= plural_name %>/:id" do
+    let(:action) { patch polymorphic_path([:admin, model]), params: { <%= singular_name %>: params } }
+    let(:params) { attributes_for(:<%= singular_name %>) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(polymorphic_path([:admin, model]))
+    end
+  end
+
+  describe "DELETE /admin/<%= plural_name %>/:id" do
+    let(:action) { delete polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(polymorphic_path([:admin, <%= class_name %>]))
+    end
+  end
+end
