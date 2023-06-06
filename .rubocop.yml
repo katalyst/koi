@@ -13,6 +13,7 @@ AllCops:
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*
     - vendor/bundle/**/*
+    - lib/generators/**/templates/**/*
   TargetRubyVersion: 3.1
 
 # Disable cops that conflict with legacy Koi practices to reduce noise

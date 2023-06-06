@@ -58,14 +58,28 @@ class Dummy < Thor
     RUBY
 
     # Remove Koi migrations that will be loaded directly from Koi
-    run "rm -f spec/dummy/db/*.sqlite3 spec/dummy/db/migrate/*.koi.rb"
+    run "rm -f spec/dummy/db/migrate/*.koi.rb"
 
-    # Re-generate database using locally installed migrations
-    run "bundle exec rake app:db:create"
-    run "bundle exec rake app:db:setup"
+    reset_database
 
     # Update commit so we can more easily track changes
     run "cd spec/dummy && git add -A && git commit --amend -C HEAD" unless ENV["CI"]
+  end
+
+  desc "scaffold", "Scaffold example module"
+
+  def scaffold
+    reset_to_head # TODO only run when iterative, e.g. with a flag
+    reset_database
+
+    inside("spec/dummy") do
+      run "rails g scaffold Post name:string title:string content:text"
+      run "rails g koi:scaffold Post"
+      run "rails db:migrate"
+    end
+
+    reset_database
+    format_generated_files
   end
 
   private
@@ -76,5 +90,22 @@ class Dummy < Thor
     return base if base.exist?
 
     "https://raw.githubusercontent.com/katalyst/koi-template/main"
+  end
+
+  def reset_to_head
+    run "cd spec/dummy && git add -A && git reset --hard HEAD"
+  end
+
+  # Re-generate database using locally installed migrations
+  def reset_database
+    run "rails app:db:drop app:db:setup"
+  end
+
+  # Format generated files
+  def format_generated_files
+    inside("spec/dummy") do
+      run "git status --porcelain -u |grep '[.]rb'|awk '{print $2}'|xargs bundle exec rubocop -A || true"
+      run "git status --porcelain -u |grep '[.]erb'|awk '{print $2}'|xargs bundle exec erblint -a || true"
+    end
   end
 end

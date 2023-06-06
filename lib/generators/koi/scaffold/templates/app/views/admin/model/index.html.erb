@@ -1,0 +1,11 @@
+<% content_for :title, "HUMAN_PLURAL_NAME" %>
+
+<%= koi_index_actions create: true %>
+
+<%= table_with collection: PLURAL_NAME, sort:, class: "index-table" do |row, SINGULAR_NAME| %>
+  <%= row.cell :id do |cell| %>
+    <%= link_to cell.value, [:admin, SINGULAR_NAME] %>
+  <% end %>
+<% end %>
+
+<%== pagy_nav(pagy) %>

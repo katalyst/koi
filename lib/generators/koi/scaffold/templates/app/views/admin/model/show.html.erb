@@ -1,0 +1,18 @@
+<% content_for :title, "HUMAN_NAME: #{SINGULAR_NAME.id}" %>
+<% content_for(:breadcrumbs) { link_to "HUMAN_PLURAL_NAME", [:admin, CLASS_NAME] } %>
+<% content_for :actions do %>
+  <%= link_to "Edit", [:edit, :admin, SINGULAR_NAME] %>
+<% end %>
+
+<h2>Summary</h2>
+
+<%= definition_list(class: "item-table") do |builder| %>
+  <%= builder.item SINGULAR_NAME, :id %>
+<% end %>
+
+<div class="actions">
+  <%= button_to "Delete", [:admin, SINGULAR_NAME],
+                class:  "button button--secondary",
+                method: :delete,
+                form:   { data: { turbo_confirm: "Are you sure?" } } %>
+</div>
