@@ -14,6 +14,9 @@ module Koi
 
     def create_views
       directory "app/views/admin/model", "app/views/admin/#{plural_name}"
+      Dir.glob("app/views/admin/#{plural_name}/*").each do |f|
+        gsub_names(f)
+      end
     end
 
     def create_route
@@ -24,16 +27,16 @@ module Koi
                        after: "Koi::Menu.modules = {\n"
     end
 
+    private
+
     # Replacing needles with locals from NamedBase.
     # Not using Thor's template method as these files contains erb code.
-    def gsub_names
-      Dir.glob(%W[app/views/admin/#{plural_name}/* app/controllers/admin/#{plural_name}_controller.rb]).each do |file|
-        gsub_file(file, "HUMAN_NAME", human_name)
-        gsub_file(file, "HUMAN_PLURAL_NAME", human_name.pluralize)
-        gsub_file(file, "PLURAL_NAME", plural_name)
-        gsub_file(file, "SINGULAR_NAME", singular_name)
-        gsub_file(file, "CLASS_NAME", class_name)
-      end
+    def gsub_names(file)
+      gsub_file(file, "HUMAN_NAME", human_name)
+      gsub_file(file, "HUMAN_PLURAL_NAME", human_name.pluralize)
+      gsub_file(file, "PLURAL_NAME", plural_name)
+      gsub_file(file, "SINGULAR_NAME", singular_name)
+      gsub_file(file, "CLASS_NAME", class_name)
     end
   end
 end
