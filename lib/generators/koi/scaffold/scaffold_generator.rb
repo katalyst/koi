@@ -7,9 +7,7 @@ module Koi
     source_root File.expand_path("templates", __dir__)
 
     def create_controller
-      copy_file "app/controllers/admin/models_controller.rb", "app/controllers/admin/#{plural_name}_controller.rb"
-      gsub_file "app/controllers/admin/#{plural_name}_controller.rb", "ModelsController",
-                "#{plural_name.camelize}Controller"
+      template "app/controllers/admin/models_controller.rb.erb", "app/controllers/admin/#{plural_name}_controller.rb"
       template "spec/requests/admin/models_controller_spec.rb.erb",
                "spec/requests/admin/#{plural_name}_controller_spec.rb"
     end

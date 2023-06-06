@@ -1,0 +1,64 @@
+# frozen_string_literal: true
+
+module Admin
+  class <%= plural_name.camelize %>Controller < ApplicationController
+
+    before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
+
+    def index
+      @<%= plural_name %> = ::<%= class_name %>.strict_loading
+
+      sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
+      pagy, @<%= plural_name %> = pagy(@<%= plural_name %>)
+
+      render locals: { <%= plural_name %>: @<%= plural_name %>, sort:, pagy: }
+    end
+
+    def show
+      render locals: { <%= singular_name %>: @<%= singular_name %> }
+    end
+
+    def new
+      render locals: { <%= singular_name %>: ::<%= class_name %>.new }
+    end
+
+    def edit
+      render locals: { <%= singular_name %>: @<%= singular_name %> }
+    end
+
+    def create
+      @<%= singular_name %> = ::<%= class_name %>.new(<%= singular_name %>_params)
+
+      if @<%= singular_name %>.save
+        redirect_to [:admin, @<%= singular_name %>]
+      else
+        render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if @<%= singular_name %>.update(<%= singular_name %>_params)
+        redirect_to action: :show
+      else
+        render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      @<%= singular_name %>.destroy
+
+      redirect_to action: :index
+    end
+
+    private
+
+    def <%= singular_name %>_params
+      params.require(:<%= singular_name %>).permit([])
+    end
+
+    def set_<%= singular_name %>
+      @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+    end
+  end
+end
+
