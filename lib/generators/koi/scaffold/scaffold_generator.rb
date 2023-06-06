@@ -10,7 +10,8 @@ module Koi
       copy_file "app/controllers/admin/models_controller.rb", "app/controllers/admin/#{plural_name}_controller.rb"
       gsub_file "app/controllers/admin/#{plural_name}_controller.rb", "ModelsController",
                 "#{plural_name.camelize}Controller"
-      template "spec/requests/admin/models_controller_spec.rb.erb", "spec/requests/admin/#{plural_name}_controller_spec.rb"
+      template "spec/requests/admin/models_controller_spec.rb.erb",
+               "spec/requests/admin/#{plural_name}_controller_spec.rb"
     end
 
     def create_views
