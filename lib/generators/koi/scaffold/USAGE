@@ -5,7 +5,6 @@ Example:
     bin/rails generate koi:scaffold Test
 
     This will create:
-        app/models/test.rb
         app/controllers/admin/tests_controller.rb
         app/views/admin/tests/_form_fields.html.erb
         app/views/admin/tests/edit.html.erb
@@ -16,4 +15,3 @@ Example:
     This will update:
         config/routes/admin.rb to include `resources :tests` to the :admin namespace
         config/initializers/koi.rb to include "Tests => /admin/tests" in the Modules section
-

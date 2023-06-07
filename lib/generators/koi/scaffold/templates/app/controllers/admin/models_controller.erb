@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class <%= plural_name.camelize %>Controller < ApplicationController
+  class <%= class_name.pluralize %>Controller < ApplicationController
 
     before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
@@ -61,4 +61,3 @@ module Admin
     end
   end
 end
-
