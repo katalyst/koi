@@ -44,7 +44,7 @@ module Koi
       content.gsub!("PLURAL_NAME", plural_name)
       content.gsub!("SINGULAR_NAME", singular_name)
       content.gsub!("CLASS_NAME", class_name)
-      File.open(file, "wb") { |file| file.write(content) }
+      File.open(file, "wb") { |f| f.write(content) }
     end
   end
 end

@@ -9,9 +9,12 @@ module Admin
     def index
       @admins = Admin::User.strict_loading
 
-      scope = params.fetch("scope", "all").to_sym
-      scope = :all unless %i[all archived with_archived].include?(scope)
-      @admins = @admins.public_send(scope)
+      case params.fetch("scope", "all").to_sym
+      when :archived
+        @admins = @admins.archived
+      when :with_archived
+        @admins = @admins.with_archived
+      end
 
       @admins = @admins.admin_search(params[:search]) if params[:search]
 

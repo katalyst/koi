@@ -36,6 +36,11 @@ RuboCop::Katalyst::ErbLintTask.new
 require "rubocop/katalyst/prettier_task"
 RuboCop::Katalyst::PrettierTask.new
 
-task default: %i[lint spec] do
+desc "Run security checks"
+task security: :environment do
+  sh "bundle exec brakeman -q -w2"
+end
+
+task default: %i[lint spec security] do
   puts "🎉 build complete! 🎉"
 end

@@ -26,6 +26,3 @@ jobs:
           RAILS_ENV: test
         run: |
           bundle exec rake
-      - name: Run security checks
-        run: |
-          bundle exec brakeman -q -w2
