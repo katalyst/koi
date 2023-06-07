@@ -1,0 +1,14 @@
+<%% content_for :title, "Edit <%= human_name %>" %>
+<%% content_for(:breadcrumbs) do %>
+  <%%= link_to "<%= human_name.pluralize %>", [:admin, <%= class_name %>] %>
+  <%%= link_to "<%= singular_name %>", [:admin, <%= class_name %>] %>
+<%% end %>
+
+<%%= form_with(model: <%= singular_name %>, url: [:admin, <%= singular_name %>], builder: Koi::FormBuilder) do |form| %>
+  <%%= render "fields", form: %>
+
+  <div class="actions">
+    <%%= form.admin_save %>
+    <%%= form.admin_delete %>
+  </div>
+<%% end %>

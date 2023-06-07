@@ -52,10 +52,16 @@ module Admin
 
     private
 
-    def <%= singular_name %>_params
-      params.require(:<%= singular_name %>).permit([])
+    # Only allow a list of trusted parameters through.
+    def <%= "#{singular_name}_params" %>
+      <%- if attributes_names.empty? -%>
+        params.fetch(:<%= singular_name %>, {})
+      <%- else -%>
+        params.require(:<%= singular_name %>).permit(<%= permitted_params %>)
+      <%- end -%>
     end
 
+    # Use callbacks to share common setup or constraints between actions.
     def set_<%= singular_name %>
       @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
     end

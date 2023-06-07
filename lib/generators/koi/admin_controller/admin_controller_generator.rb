@@ -18,11 +18,7 @@ module Koi
     end
 
     def create_views
-      directory("app/views/admin/model",
-                "app/views/admin/#{plural_name}")
-      Dir.glob(%W[app/views/admin/#{plural_name}/*]).each do |path|
-        gsub_names(path)
-      end
+      directory("app/views/admin/model", "app/views/admin/#{plural_name}")
     end
 
     def create_route
@@ -36,19 +32,35 @@ module Koi
 
     private
 
-    # Replacing needles with locals from NamedBase.
-    # Not using Thor's template method as these files contains erb code.
-    def gsub_names(file)
-      file = File.expand_path(file, destination_root)
-      say_status :gsub, relative_to_original_destination_root(file)
+    def govuk_input_for(attribute)
+      case attribute.type
+      when :string
+        %(<%= form.govuk_text_field :#{attribute.name}, label: { size: "s" } %>)
+      when :integer
+        %(<%= form.govuk_number_field :#{attribute.name}, label: { size: "s" } %>)
+      when :boolean
+        %(<%= form.govuk_check_box_field :#{attribute.name}, small: true, label: { size: "s" } %>)
+      when :date
+        %(<%= form.govuk_date_field :#{attribute.name}, legend: { size: "s" } %>)
+      when :text
+        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
+      when :rich_text
+        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
+      else
+        ""
+      end
+    end
 
-      content = File.binread(file)
-      content.gsub!("HUMAN_NAME", human_name)
-      content.gsub!("HUMAN_PLURAL_NAME", human_name.pluralize)
-      content.gsub!("PLURAL_NAME", plural_name)
-      content.gsub!("SINGULAR_NAME", singular_name)
-      content.gsub!("CLASS_NAME", class_name)
-      File.open(file, "wb") { |f| f.write(content) }
+    def permitted_params
+      attachments, others = attributes_names.partition { |name| attachments?(name) }
+      params = others.map { |name| ":#{name}" }
+      params += attachments.map { |name| "#{name}: []" }
+      params.join(", ")
+    end
+
+    def attachments?(name)
+      attribute = attributes.find { |attr| attr.name == name }
+      attribute&.attachments?
     end
   end
 end

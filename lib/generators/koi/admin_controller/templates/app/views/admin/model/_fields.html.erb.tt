@@ -1,0 +1,3 @@
+<%- attributes.each do |attribute| -%>
+<%= govuk_input_for attribute %>
+<%- end -%>

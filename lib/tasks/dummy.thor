@@ -81,7 +81,9 @@ class Dummy < Thor
     end
 
     inside("spec/dummy") do
-      run "rails g koi:scaffold Post name:string title:string content:text"
+      run <<~SH
+        rails g koi:scaffold Post name:string title:string content:rich_text active:boolean ordinal:integer published_on:date
+      SH
       run "rails db:migrate"
     end
 

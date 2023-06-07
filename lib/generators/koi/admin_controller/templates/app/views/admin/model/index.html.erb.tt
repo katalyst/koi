@@ -1,0 +1,12 @@
+<%% content_for :title, "<%= human_name.pluralize %>" %>
+
+<%%= koi_index_actions create: true %>
+
+<%%= table_with collection: <%= human_name.pluralize.downcase %>, sort:, class: "index-table" do |row, <%= singular_name %>| %>
+  <%%= row.cell :name do |cell| %>
+    <%%= link_to cell.value, url_for([:admin, <%= singular_name %>]) %>
+  <%% end %>
+  <%%= row.cell :title %>
+<%% end %>
+
+<%%== pagy_nav(pagy) %>

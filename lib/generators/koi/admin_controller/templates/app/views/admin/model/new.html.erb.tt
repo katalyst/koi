@@ -1,0 +1,12 @@
+<%% content_for :title, "New <%= human_name %>" %>
+<%% content_for(:breadcrumbs) do %>
+  <%%= link_to "<%= human_name.pluralize %>", [:admin, <%= class_name %>] %>
+<%% end %>
+
+<%%= form_with(model: <%= singular_name %>, url: [:admin, <%= class_name %>], builder: Koi::FormBuilder) do |form| %>
+  <%%= render "fields", form: %>
+
+  <div class="actions">
+    <%%= form.admin_save %>
+  </div>
+<%% end %>
