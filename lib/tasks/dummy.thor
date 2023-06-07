@@ -15,6 +15,7 @@ class Dummy < Thor
     invoke :clobber
     invoke :bootstrap
     invoke :adopt
+    invoke :scaffold
     puts "🎉 dummy app regenerated! 🎉"
   end
 
@@ -77,8 +78,7 @@ class Dummy < Thor
     reset_database
 
     inside("spec/dummy") do
-      run "rails g scaffold Post name:string title:string content:text"
-      run "rails g koi:scaffold Post"
+      run "rails g koi:scaffold Post name:string title:string content:text"
       run "rails db:migrate"
     end
 

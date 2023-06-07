@@ -1,17 +1,8 @@
 Description:
-    Generates a Koi admin crud for the given model
+    Generates a model with Koi admin crud
 
 Example:
-    bin/rails generate koi:scaffold Test
+    bin/rails generate koi:scaffold Test name:string description:text
 
-    This will create:
-        app/controllers/admin/tests_controller.rb
-        app/views/admin/tests/_form_fields.html.erb
-        app/views/admin/tests/edit.html.erb
-        app/views/admin/tests/index.html.erb
-        app/views/admin/tests/new.html.erb
-        app/views/admin/tests/show.html.erb
-
-    This will update:
-        config/routes/admin.rb to include `resources :tests` to the :admin namespace
-        config/initializers/koi.rb to include "Tests => /admin/tests" in the Modules section
+    This will create a new model using the rails model generator, then run
+    the Koi admin controller generator.
