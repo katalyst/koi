@@ -4,13 +4,13 @@ require "rails_helper"
 require "rails/generators"
 
 # rubocop:disable RSpec/InstanceVariable, RSpec/BeforeAfterAll
-RSpec.describe "Koi::ScaffoldGenerator" do
+RSpec.describe "Koi::AdminGenerator" do
   before(:all) do
     @tmpdir = Dir.mktmpdir
     FileUtils.cp_r "spec/dummy/", "#{@tmpdir}/"
     @dummy = "#{@tmpdir}/dummy"
     Dir.chdir(@dummy) do
-      `bin/rails g koi:scaffold test`
+      `bin/rails g koi:admin test`
     end
   end
 

@@ -2,7 +2,7 @@ Description:
     Generates a model with Koi admin crud
 
 Example:
-    bin/rails generate koi:scaffold Test name:string description:text
+    bin/rails generate koi:admin Test name:string description:text
 
     This will create a new model using the rails model generator, then run
     the Koi admin controller generator.

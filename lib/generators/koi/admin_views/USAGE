@@ -1,0 +1,12 @@
+Description:
+    Generates a Koi admin crud views for the given model
+
+Example:
+    bin/rails generate koi:admin_views Test
+
+    This will create:
+        app/views/admin/tests/_fields.html.erb
+        app/views/admin/tests/edit.html.erb
+        app/views/admin/tests/index.html.erb
+        app/views/admin/tests/new.html.erb
+        app/views/admin/tests/show.html.erb

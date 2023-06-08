@@ -3,7 +3,7 @@
 require "rails/generators/rails/scaffold/scaffold_generator"
 
 module Koi
-  class ScaffoldGenerator < Rails::Generators::ScaffoldGenerator
+  class AdminGenerator < Rails::Generators::ScaffoldGenerator
     # Disable default controller generation as we do not want to generate public
     # controllers by default
     remove_hook_for(:scaffold_controller)

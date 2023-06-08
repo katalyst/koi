@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class <%= class_name.pluralize %>Controller < ApplicationController
+  class <%= controller_class_name %>Controller < ApplicationController
 
     before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
@@ -53,17 +53,17 @@ module Admin
     private
 
     # Only allow a list of trusted parameters through.
-    def <%= "#{singular_name}_params" %>
+    def <%= "#{singular_table_name}_params" %>
       <%- if attributes_names.empty? -%>
-        params.fetch(:<%= singular_name %>, {})
+        params.fetch(:<%= singular_table_name %>, {})
       <%- else -%>
-        params.require(:<%= singular_name %>).permit(<%= permitted_params %>)
+        params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
       <%- end -%>
     end
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_<%= singular_name %>
-      @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+    def set_<%= singular_table_name %>
+      @<%= singular_table_name %> = ::<%= class_name %>.find(params[:id])
     end
   end
 end

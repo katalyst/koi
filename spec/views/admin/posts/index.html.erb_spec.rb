@@ -18,6 +18,8 @@ RSpec.describe "admin/posts/index" do
     render template: "admin/posts/index", locals: { posts:, sort:, pagy: }
   end
 
+  it { expect(rendered).to have_css("th", text: "Name") }
   it { expect(rendered).to have_css("td", text: posts.first.name) }
+  it { expect(rendered).to have_css("th", text: "Title") }
   it { expect(rendered).to have_css("td", text: posts.first.title) }
 end
