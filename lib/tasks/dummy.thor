@@ -74,8 +74,11 @@ class Dummy < Thor
   desc "scaffold", "Scaffold example module"
 
   def scaffold
-    reset_to_head # TODO only run when iterative, e.g. with a flag
-    reset_database
+    # Support local development of generators by clearing changes from previous run
+    unless ENV["CI"]
+      reset_to_head
+      reset_database
+    end
 
     inside("spec/dummy") do
       run "rails g koi:scaffold Post name:string title:string content:text"
