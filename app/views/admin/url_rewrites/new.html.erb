@@ -1,6 +1,5 @@
-<% content_for :title, "New URL rewrite" %>
-<% content_for(:breadcrumbs) do %>
-  <%= link_to "URL rewrites", admin_url_rewrites_path %>
+<% content_for :header do %>
+  <%= render Koi::Header::NewComponent.new(model: UrlRewrite) %>
 <% end %>
 
 <%= form_with(model: url_rewrite, url: admin_url_rewrites_path) do |form| %>

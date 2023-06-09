@@ -1,11 +1,9 @@
-<% content_for :title, "Edit admin user" %>
-<% content_for(:breadcrumbs) do %>
-  <%= link_to "Admin users", admin_admin_users_path %>
-  <%= link_to admin.name, admin_admin_user_path(admin) %>
+<% content_for :header do %>
+  <%= render Koi::Header::EditComponent.new(resource: admin) %>
 <% end %>
 
 <%= form_with(model: admin, url: admin_admin_user_path(admin)) do |form| %>
-  <%= render "form_fields", form: %>
+  <%= render "fields", form: %>
 
   <div class="actions">
     <%= form.admin_save %>

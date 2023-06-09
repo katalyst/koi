@@ -1,7 +1,5 @@
-<% content_for :title, "Edit URL rewrite" %>
-<% content_for(:breadcrumbs) do %>
-  <%= link_to "URL rewrites", admin_url_rewrites_path %> >
-  <%= link_to url_rewrite.from.delete_prefix("/"), admin_url_rewrite_path(url_rewrite) %>
+<% content_for :header do %>
+  <%= render Koi::Header::EditComponent.new(resource: url_rewrite) %>
 <% end %>
 
 <%= form_with(model: url_rewrite, url: admin_url_rewrite_path(url_rewrite)) do |form| %>

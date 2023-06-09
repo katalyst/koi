@@ -1,10 +1,8 @@
-<% content_for :title, url_rewrite.from %>
-<% content_for(:breadcrumbs) { link_to "URL rewrites", admin_url_rewrites_path } %>
-<% content_for :actions do %>
-  <%= link_to "Edit", edit_admin_url_rewrite_path(url_rewrite) %>
+<% content_for :header do %>
+  <%= render Koi::Header::ShowComponent.new(resource: url_rewrite) do |component| %>
+    <%= component.with_action "Preview", url_rewrite.to, target: "_blank" %>
+  <% end %>
 <% end %>
-
-<h2>Summary</h2>
 
 <%= definition_list(class: "item-table") do |builder| %>
   <%= builder.items_with(model: url_rewrite, attributes: UrlRewrite.attribute_names.sort, skip_blank: true) %>
