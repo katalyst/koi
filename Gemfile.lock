@@ -20,6 +20,7 @@ PATH
       rails (>= 7.0)
       stimulus-rails
       turbo-rails
+      view_component
       webauthn
 
 GEM
@@ -359,6 +360,10 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
+    view_component (3.1.0)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     webauthn (3.0.0)
       android_key_attestation (~> 0.3.0)
       awrence (~> 1.1)
