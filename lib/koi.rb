@@ -21,5 +21,7 @@ require "katalyst/content"
 require "katalyst/kpop"
 require "katalyst/navigation"
 
+require "view_component"
+
 module Koi
 end
