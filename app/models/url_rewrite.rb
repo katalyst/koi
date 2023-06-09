@@ -18,4 +18,8 @@ class UrlRewrite < ApplicationRecord
   def self.redirect_path_for(path)
     active.find_by(from: path).try(:to)
   end
+
+  def title
+    from.delete_prefix("/")
+  end
 end

@@ -1,4 +1,6 @@
-<% content_for :title, "Admin users" %>
+<% content_for :header do %>
+  <%= render Koi::Header::IndexComponent.new(model: Admin::User) %>
+<% end %>
 
 <%= koi_index_actions create: true, search: true do %>
   <%= select_tag(:scope, options_for_select([["Active", ""], ["All", :with_archived], ["Archived", :archived]], params[:scope])) %>

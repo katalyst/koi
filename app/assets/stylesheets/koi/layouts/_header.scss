@@ -56,7 +56,7 @@ $height: $title + $breadcrumbs + $actions;
     align-items: center;
     margin: 0 $inset;
 
-    @include list("|", 1rem);
+    @include list("|", 0.5rem);
     list-style-type: square;
   }
 }

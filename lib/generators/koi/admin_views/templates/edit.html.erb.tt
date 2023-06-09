@@ -1,7 +1,5 @@
-<%% content_for :title, "Edit <%= human_name %>" %>
-<%% content_for(:breadcrumbs) do %>
-  <%%= link_to "<%= human_name.pluralize %>", [:admin, <%= class_name %>] %>
-  <%%= link_to "<%= singular_name %>", [:admin, <%= class_name %>] %>
+<%% content_for :header do %>
+  <%%= render(Koi::Header::EditComponent.new(resource: <%= singular_name %>)) %>
 <%% end %>
 
 <%%= form_with(model: <%= singular_name %>, url: [:admin, <%= singular_name %>], builder: Koi::FormBuilder) do |form| %>

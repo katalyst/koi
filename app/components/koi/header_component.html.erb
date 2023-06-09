@@ -1,0 +1,16 @@
+<% content_for :title, @title %>
+<header>
+  <h1 class="heading"><%= @title %></h1>
+
+  <div class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+    <% breadcrumbs.each do |breadcrumb| %>
+      <%= breadcrumb %>
+    <% end %>
+  </div>
+
+  <div class="actions" role="navigation" aria-label="Related pages">
+    <% actions.each do |action| %>
+      <%= action %>
+    <% end %>
+  </div>
+</header>
