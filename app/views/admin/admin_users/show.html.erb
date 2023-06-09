@@ -1,8 +1,5 @@
 <% content_for :header do %>
-  <%= render(PageHeaderComponent.new(title: admin.name)) do |c| %>
-    <% c.with_breadcrumb("Admin users", admin_admin_users_path) %>
-    <% c.with_action("Edit", admin_admin_user_path(admin)) %>
-  <% end %>
+  <%= render ResourceHeaderComponent.new(resource: admin) %>
 <% end %>
 
 <h2>Summary</h2>
