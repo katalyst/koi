@@ -31,17 +31,18 @@ module Koi
     def govuk_input_for(attribute)
       case attribute.type
       when :string
-        %(<%= form.govuk_text_field :#{attribute.name}, label: { size: "s" } %>)
+        %(<%= form.govuk_text_field :#{attribute.name}, label: { size: "s", text: "#{attribute.name.humanize}" } %>)
       when :integer
-        %(<%= form.govuk_number_field :#{attribute.name}, label: { size: "s" } %>)
+        %(<%= form.govuk_number_field :#{attribute.name}, label: { size: "s", text: "#{attribute.name.humanize}" } %>)
       when :boolean
-        %(<%= form.govuk_check_box_field :#{attribute.name}, small: true, label: { size: "s" } %>)
+        %(<%= form.govuk_check_box_field :#{attribute.name}, small: true,
+          label: { size: "s", text: "#{attribute.name.humanize}" } %>)
       when :date
-        %(<%= form.govuk_date_field :#{attribute.name}, legend: { size: "s" } %>)
+        %(<%= form.govuk_date_field :#{attribute.name}, legend: { size: "s", text: "#{attribute.name.humanize}" } %>)
       when :text
-        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
+        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s", text: "#{attribute.name.humanize}" } %>)
       when :rich_text
-        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
+        %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s", text: "#{attribute.name.humanize}" } %>)
       else
         ""
       end
