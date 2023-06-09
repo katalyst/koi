@@ -82,7 +82,7 @@ class Dummy < Thor
 
     inside("spec/dummy") do
       run <<~SH
-        rails g koi:admin Post name:string title:string content:rich_text active:boolean ordinal:integer published_on:date
+        rails g koi:admin Post name:string title:string content:rich_text active:boolean ordinal:integer image:attachment published_on:date
       SH
       run "rails db:migrate"
     end

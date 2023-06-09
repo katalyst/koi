@@ -42,6 +42,14 @@ module Koi
         %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
       when :rich_text
         %(<%= form.govuk_rich_text_area :#{attribute.name}, label: { size: "s" } %>)
+      when :attachment
+        if attribute.name.include?("image")
+          %(<%= form.govuk_image_field :#{attribute.name},
+            label: { size: "s", text: "#{attribute.name.humanize}" }, hint: { max_size: 10.megabytes } %>)
+        else
+          %(<%= form.govuk_document_field :#{attribute.name},
+            label: { size: "s", text: "#{attribute.name.humanize}" }, hint: { max_size: 10.megabytes } %>)
+        end
       else
         ""
       end
