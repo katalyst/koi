@@ -1,6 +1,7 @@
-<% content_for :title, "New admin user" %>
-<% content_for(:breadcrumbs) do %>
-  <%= link_to "Admin users", admin_admin_users_path %>
+<% content_for :header do %>
+  <%= render(PageHeaderComponent.new(title: "New admin user")) do |c| %>
+    <% c.with_breadcrumb("Admin users", admin_admin_users_path) %>
+  <% end %>
 <% end %>
 
 <%= form_with(model: admin, url: admin_admin_users_path) do |form| %>

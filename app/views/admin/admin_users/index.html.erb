@@ -1,4 +1,7 @@
 <% content_for :title, "Admin users" %>
+<% content_for :header do %>
+  <%= render(PageHeaderComponent.new(title: "Admin users")) %>
+<% end %>
 
 <%= koi_index_actions create: true, search: true do %>
   <%= select_tag(:scope, options_for_select([["Active", ""], ["All", :with_archived], ["Archived", :archived]], params[:scope])) %>

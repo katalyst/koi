@@ -1,7 +1,8 @@
-<% content_for :title, admin.name %>
-<% content_for(:breadcrumbs) { link_to "Admin users", admin_admin_users_path } %>
-<% content_for :actions do %>
-  <%= link_to "Edit", edit_admin_admin_user_path(admin) %>
+<% content_for :header do %>
+  <%= render(PageHeaderComponent.new(title: admin.name)) do |c| %>
+    <% c.with_breadcrumb("Admin users", admin_admin_users_path) %>
+    <% c.with_action("Edit", admin_admin_user_path(admin)) %>
+  <% end %>
 <% end %>
 
 <h2>Summary</h2>
