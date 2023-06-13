@@ -1,7 +1,5 @@
-<%% content_for :title, "<%= human_name %>" %>
-<%% content_for(:breadcrumbs) { link_to "<%= human_name.pluralize %>", [:admin, <%= class_name %>] } %>
-<%% content_for :actions do %>
-  <%%= link_to "Edit", [:edit, :admin, <%= singular_name %>] %>
+<%% content_for :header do %>
+    <%%= render(ResourceHeaderComponent.new(resource: <%= singular_name %>)) %>
 <%% end %>
 
 <h2>Summary</h2>

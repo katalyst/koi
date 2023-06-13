@@ -1,4 +1,6 @@
-<%% content_for :title, "<%= human_name.pluralize %>" %>
+<%% content_for :header do %>
+    <%%= render(ResourceHeaderComponent.new(model: <%= class_name %>)) %>
+<%% end %>
 
 <%%= koi_index_actions create: true %>
 
