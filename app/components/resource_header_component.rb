@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ResourceHeaderComponent < ViewComponent::Base
-  attr_reader :model, :resource
+  attr_reader :model, :resource, :editable
 
-  def initialize(resource: nil, model: resource&.class)
+  def initialize(resource: nil, model: resource&.class, editable: true)
     super
 
     @model    = model
     @resource = resource
+    @editable = editable
   end
 
   def render_in(view_context)
@@ -65,6 +66,6 @@ class ResourceHeaderComponent < ViewComponent::Base
   end
 
   def add_edit(header)
-    header.with_action("Edit", url_for(action: :edit, id: resource))
+    header.with_action("Edit", url_for(action: :edit, id: resource)) if editable
   end
 end
