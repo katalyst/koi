@@ -52,6 +52,10 @@ class ResourceHeaderComponent < ViewComponent::Base
   def resource_title
     if resource.respond_to?(:name)
       resource.name
+    elsif resource.respond_to?(:full_name)
+      resource.full_name
+    elsif resource.respond_to?(:title)
+      resource.title
     else
       resource.model_name.human
     end
