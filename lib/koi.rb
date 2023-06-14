@@ -14,6 +14,7 @@ require "webauthn"
 require "koi/form_builder"
 require "koi/menu"
 require "koi/caching"
+require "koi/config"
 require "koi/engine"
 require "koi/release"
 
@@ -24,4 +25,13 @@ require "katalyst/navigation"
 require "view_component"
 
 module Koi
+  extend self
+
+  def config
+    @config ||= Config.new
+  end
+
+  def configure
+    yield config
+  end
 end

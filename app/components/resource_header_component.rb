@@ -49,15 +49,11 @@ class ResourceHeaderComponent < ViewComponent::Base
   end
 
   def resource_title
-    if resource.respond_to?(:name)
-      resource.name
-    elsif resource.respond_to?(:full_name)
-      resource.full_name
-    elsif resource.respond_to?(:title)
-      resource.title
-    else
-      resource.model_name.human
+    title = Koi.config.resource_name_candidates.reduce(nil) do |name, key|
+      name || resource.respond_to?(key) && resource.public_send(key)
     end
+
+    title.presence || resource.model_name.human
   end
 
   def add_index(header)
