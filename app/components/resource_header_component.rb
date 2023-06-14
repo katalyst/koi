@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class ResourceHeaderComponent < ViewComponent::Base
-  attr_reader :model, :resource, :editable
+  attr_reader :model, :resource
 
-  def initialize(resource: nil, model: resource&.class, editable: true)
+  def initialize(resource: nil, model: resource&.class)
     super
 
     @model    = model
     @resource = resource
-    @editable = editable
   end
 
   def render_in(view_context)
@@ -66,10 +65,14 @@ class ResourceHeaderComponent < ViewComponent::Base
   end
 
   def add_show(header)
-    header.with_breadcrumb(title("show"), url_for(action: :show, id: resource))
+    header.with_breadcrumb(title("show"), url_for(action: :show))
+  rescue ActionController::UrlGenerationError
+    nil
   end
 
   def add_edit(header)
-    header.with_action("Edit", url_for(action: :edit, id: resource)) if editable
+    header.with_action("Edit", url_for(action: :edit))
+  rescue ActionController::UrlGenerationError
+    nil
   end
 end
