@@ -3,6 +3,8 @@
 class ResourceHeaderComponent < ViewComponent::Base
   attr_reader :model, :resource
 
+  delegate :with_breadcrumb, :with_action, to: :@header
+
   def initialize(resource: nil, model: resource&.class)
     super
 
@@ -18,6 +20,13 @@ class ResourceHeaderComponent < ViewComponent::Base
 
   def call
     render PageHeaderComponent.new(title:) do |header|
+      # capture nested component
+      @header = header
+
+      # render block, if any (delegating slots to header)
+      content
+
+      # add our breadcrumbs and actions
       case @action_name
       when "show"
         add_index(header)

@@ -3,10 +3,11 @@
 require "rails_helper"
 
 describe ResourceHeaderComponent do
+  let(:content) { nil }
   let(:page) do
     with_request_url url[0] do
       vc_test_controller.action_name = url[1].to_s
-      render_inline(component)
+      render_inline(component, &content)
     end
     Capybara::Node::Simple.new(rendered_content)
   end
@@ -28,6 +29,17 @@ describe ResourceHeaderComponent do
 
     it "does not render any actions" do
       expect(page).not_to have_css("div[class='actions'] a")
+    end
+
+    context "with a parent" do
+      let(:content) do
+        Proc.new { |component| component.with_breadcrumb("Admin", "/admin") }
+      end
+
+      it "renders parent breadcrumb" do
+        expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+          .to contain_exactly(%w[Admin /admin])
+      end
     end
   end
 
@@ -53,11 +65,24 @@ describe ResourceHeaderComponent do
     context "when edit is not available" do
       before do
         allow(component).to receive(:url_for).and_call_original
-        allow(component).to receive(:url_for).with(action: :edit) { raise ActionController::UrlGenerationError.new("Not found (test)") }
+        allow(component).to receive(:url_for).with(action: :edit) {
+                              raise ActionController::UrlGenerationError.new("Not found (test)")
+                            }
       end
 
       it "does not render show link" do
         expect(page).not_to have_css("div[class='actions'] a")
+      end
+    end
+
+    context "with a parent resource" do
+      let(:content) do
+        Proc.new { |component| component.with_breadcrumb("Admin", "/admin") }
+      end
+
+      it "renders parent breadcrumbs" do
+        expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+          .to contain_exactly(%w[Admin /admin], %w[Admins /admin/admin_users])
       end
     end
   end
@@ -83,7 +108,9 @@ describe ResourceHeaderComponent do
     context "when show is not available" do
       before do
         allow(component).to receive(:url_for).and_call_original
-        allow(component).to receive(:url_for).with(action: :show) { raise ActionController::UrlGenerationError.new("Not found (test)") }
+        allow(component).to receive(:url_for).with(action: :show) {
+                              raise ActionController::UrlGenerationError.new("Not found (test)")
+                            }
       end
 
       it "does not render show link" do
