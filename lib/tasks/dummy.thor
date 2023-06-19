@@ -66,7 +66,7 @@ class Dummy < Thor
     reset_database(migrate: true)
 
     # Update commit so we can more easily track changes
-    run "cd spec/dummy && git add -A && git commit --amend -C HEAD" unless ENV["CI"]
+    run "cd spec/dummy && git add -A && git commit --amend -C HEAD"
 
     invoke :check
   end
