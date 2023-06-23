@@ -29,12 +29,6 @@ export default class IndexActionsController extends Controller {
     this.searchTarget.closest("form").requestSubmit();
   }
 
-  submit() {
-    if (this.searchTarget.value === "") {
-      this.searchTarget.disabled = true;
-    }
-  }
-
   nextPage() {
     this.element.parentElement.querySelector(".pagination .next a").click();
   }
