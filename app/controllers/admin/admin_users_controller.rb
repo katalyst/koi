@@ -51,8 +51,10 @@ module Admin
     end
 
     def update
-      if admin.update(admin_user_params)
+      if admin && admin.update(admin_user_params)
         redirect_to action: :show
+      elsif admins && admins.update(admin_user_params)
+        redirect_to action: :index
       else
         render :edit, locals: { admin: }, status: :unprocessable_entity
       end

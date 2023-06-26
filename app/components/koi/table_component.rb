@@ -6,7 +6,7 @@ module Koi
     include Pagy::Frontend
     include Turbo::StreamsHelper
 
-    def self.with(context, items, paginate: true, sort:, **options)
+    def self.with(context, items, paginate: true, selection: true, sort:, **options)
       collection = Collection.new(items).tap do |collection|
         collection.with_sort(context, sort) if sort
         collection.with_pagination(context) if paginate
@@ -15,7 +15,7 @@ module Koi
       new(collection, **options)
     end
 
-    attr_reader :collection, :id, :partial
+    attr_reader :collection, :id, :partial, :selection
 
     delegate :items, :sort, :pagy, :paginated?, to: :collection
 
@@ -24,11 +24,13 @@ module Koi
       @id           = id
       @partial      = partial
       @html_options = html_options
+
+      @selection = SelectionComponent.new(parent: self)
     end
 
     def call
       content = tag.div(id:, class: @html_options.delete(:class) || "stack", **@html_options) do
-        render(partial:, locals: { collection: items, sort: sort }, formats: :html) + pagination
+        render(partial:, locals: { collection: items, sort:, selection: }, formats: :html) + pagination
       end
 
       view_context.controller.respond_to do |format|
@@ -39,6 +41,27 @@ module Koi
 
     def pagination
       pagy_nav(pagy).html_safe if paginated?
+    end
+
+    class SelectionComponent < ViewComponent::Base
+
+      delegate_missing_to :@form
+      def initialize(parent:)
+        super
+
+        @parent = parent
+      end
+
+      def id
+        "#{@parent.id}_selection"
+      end
+
+      def call
+        form_with(id:, data: { controller: "selection", action: "selection#submit" }) do |form|
+          @form = form
+          content
+        end
+      end
     end
 
     class Collection
