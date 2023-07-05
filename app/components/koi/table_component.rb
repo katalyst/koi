@@ -6,18 +6,12 @@ module Koi
     include Pagy::Frontend
     include Turbo::StreamsHelper
 
-    def self.with(context, items, paginate: true, selection: true, sort:, **options)
-      collection = Collection.new(items).tap do |collection|
-        collection.with_sort(context, sort) if sort
-        collection.with_pagination(context) if paginate
-      end
-
-      new(collection, **options)
-    end
-
     attr_reader :collection, :id, :partial, :selection
 
-    delegate :items, :sort, :pagy, :paginated?, to: :collection
+    delegate :paginated?, to: :collection
+
+    renders_many(:selected_actions)
+    renders_many(:unselected_actions)
 
     def initialize(collection, id: "table", partial: "table", **html_options)
       @collection   = collection
@@ -29,8 +23,12 @@ module Koi
     end
 
     def call
+      table = render(partial:, locals: { component: self, collection:, sort: collection.sorting, selection: }, formats: :html)
+
       content = tag.div(id:, class: @html_options.delete(:class) || "stack", **@html_options) do
-        render(partial:, locals: { collection: items, sort:, selection: }, formats: :html) + pagination
+        actions +
+          table +
+          pagination
       end
 
       view_context.controller.respond_to do |format|
@@ -39,13 +37,29 @@ module Koi
       end
     end
 
+    def actions
+      tag.div do
+        concat(tag.div(selected_actions.map(&:to_s).sum("".html_safe), class: "actions")) if selected_actions?
+        concat(tag.div(unselected_actions.map(&:to_s).sum("".html_safe), class: "actions")) if unselected_actions?
+      end
+    end
+
     def pagination
-      pagy_nav(pagy).html_safe if paginated?
+      pagy_nav(collection.pagination).html_safe if paginated?
+    end
+
+    def url
+      url_for
+    end
+
+    def url_for(**params)
+      view_context.url_for(**collection.attributes.compact_blank, **params)
     end
 
     class SelectionComponent < ViewComponent::Base
 
       delegate_missing_to :@form
+
       def initialize(parent:)
         super
 
@@ -57,39 +71,10 @@ module Koi
       end
 
       def call
-        form_with(id:, data: { controller: "selection", action: "selection#submit" }) do |form|
+        form_with(id:, class: "hidden", data: { controller: "selection", action: "selection#submit" }) do |form|
           @form = form
           content
         end
-      end
-    end
-
-    class Collection
-      attr_accessor :items, :pagy, :sort
-
-      def initialize(items)
-        @items = items
-      end
-
-      def with_pagination(context)
-        @pagy, @items = context.send(:pagy, @items)
-
-        self
-      end
-
-      def with_sort(context, sort)
-        @sort, @items = context.table_sort(@items)
-
-        raise ArgumentError, "Default sort scope not provided" if sort && !sort.is_a?(Symbol)
-
-        # default sort after main sort as a fallback
-        @items = @items.public_send(sort) if sort
-
-        self
-      end
-
-      def paginated?
-        pagy.present?
       end
     end
   end

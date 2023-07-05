@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { Turbo } from "@hotwired/turbo-rails";
 
 export default class SelectionController extends Controller {
   static values = {
@@ -14,6 +15,15 @@ export default class SelectionController extends Controller {
 
     const templateUrl = e.submitter.formAction;
     e.submitter.formAction = e.submitter.formAction.replace("%5B%5D", this.selectedValue.join(","));
+
+    if (e.submitter.dataset.selectionAction === "reset") {
+      this.selectedValue = [];
+    }
+
+    if (e.submitter.getAttribute("formmethod") === "get") {
+      e.preventDefault();
+      Turbo.visit(e.submitter.formAction)
+    }
 
     setTimeout(() => {
       e.submitter.formAction = templateUrl;
