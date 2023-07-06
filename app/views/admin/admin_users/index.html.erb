@@ -6,11 +6,20 @@
   <%= select_tag(:scope, options_for_select([["Active", ""], ["All", :with_archived], ["Archived", :archived]], params[:scope])) %>
 <% end %>
 
+<%# Before %>
 <%= table_with collection: admins, sort:, class: "index-table" do |row, admin| %>
   <%= row.cell :name do |cell| %>
     <%= link_to cell.value, admin_admin_user_path(admin) %>
   <% end %>
   <%= row.cell :email %>
+<% end %>
+
+<%# After %>
+<%= render Koi::TableBuilderComponent.new(collection: admins, sort:, class: "index-table") do |row, admin| %>
+  <% row.with_column(:name) do |cell| %>
+    <%= link_to cell.value, admin_admin_user_path(admin) %>
+  <% end %>
+  <% row.with_column(:email) %>
 <% end %>
 
 <%== pagy_nav(pagy) %>
