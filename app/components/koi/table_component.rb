@@ -10,6 +10,7 @@ module Koi
 
     delegate :paginated?, to: :collection
 
+    renders_one(:filters)
     renders_many(:selected_actions)
     renders_many(:unselected_actions)
 
@@ -25,22 +26,25 @@ module Koi
     def call
       table = render(partial:, locals: { component: self, collection:, sort: collection.sorting, selection: }, formats: :html)
 
-      content = tag.div(id:, class: @html_options.delete(:class) || "stack", **@html_options) do
-        actions +
-          table +
-          pagination
+      content = tag.div(id:, class: @html_options.delete(:class) || "stack", data: { controller: "selected" }, **@html_options) do
+        actions + table + pagination
       end
 
       view_context.controller.respond_to do |format|
-        format.html { content }
+        format.html { filters.to_s + render(selection) + content }
         format.turbo_stream { turbo_stream.replace(id, content) }
       end
     end
 
     def actions
       tag.div do
-        concat(tag.div(selected_actions.map(&:to_s).sum("".html_safe), class: "actions")) if selected_actions?
-        concat(tag.div(unselected_actions.map(&:to_s).sum("".html_safe), class: "actions")) if unselected_actions?
+        concat(tag.div(class: "actions", data: { selected_target: "selectedActions" }) do
+          "<span data-selected-target='number'></span> selected".html_safe +
+          selected_actions.map(&:to_s).sum("".html_safe)
+        end) if selected_actions?
+        concat(tag.div(class: "actions", data: { selected_target: "unselectedActions" }) do
+          unselected_actions.map(&:to_s).sum("".html_safe)
+        end) if unselected_actions?
       end
     end
 
@@ -71,7 +75,13 @@ module Koi
       end
 
       def call
-        form_with(id:, class: "hidden", data: { controller: "selection", action: "selection#submit" }) do |form|
+        form_with(id:,
+                  class: "hidden",
+                  data: {
+                    controller: "selection",
+                    action: "selection#submit",
+                    selection_selected_outlet: "##{@parent.id}",
+                  }) do |form|
           @form = form
           content
         end

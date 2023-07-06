@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import { Turbo } from "@hotwired/turbo-rails";
 
 export default class SelectionController extends Controller {
+  static outlets = ["selected"];
   static values = {
     selected: Array,
     template: String,
@@ -42,5 +43,15 @@ export default class SelectionController extends Controller {
 
   isSelected(selected) {
     return this.selectedValue.indexOf(selected) >= 0;
+  }
+
+  selectedValueChanged(selected) {
+    if (this.hasSelectedOutlet) {
+      this.selectedOutlet.selectedValueChanged(selected);
+    }
+  }
+
+  selectedOutletConnected(outlet) {
+    outlet.selectedValueChanged(this.selectedValue);
   }
 }

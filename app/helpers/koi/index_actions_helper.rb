@@ -5,6 +5,12 @@ module Koi
     def koi_index_actions(search: false, create: false, &block)
       IndexActionsBuilder.new(self, search:, create:).render(&block)
     end
+
+    def koi_filter_form(collection: nil, component: Koi::FiltersComponent.new(collection:))
+      render component do
+        yield component.form, component
+      end
+    end
   end
 
   class IndexActionsBuilder
