@@ -11,9 +11,10 @@ module Admin
       @<%= plural_name %> = @<%= plural_name %>.admin_search(params[:search]) if params[:search].present?
 
       sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
-      pagy, @<%= plural_name %> = pagy(@<%= plural_name %>)
 
-      render locals: { <%= plural_name %>: @<%= plural_name %>, sort:, pagy: }
+      @collection = Collection.new(params).apply(@<%= plural_name %>)
+
+      render locals: { <%= plural_name %>: @collection, sort: }
     end
 
     def show
@@ -66,6 +67,37 @@ module Admin
     # Use callbacks to share common setup or constraints between actions.
     def set_<%= singular_table_name %>
       @<%= singular_table_name %> = ::<%= class_name %>.find(params[:id])
+    end
+
+    class Collection
+        include ActiveModel::Model
+        include ActiveModel::Attributes
+        include Pagy::Backend
+
+        attr_accessor :params, :items, :pagination
+
+        attribute :page, :integer
+
+        def initialize(params = ActionController::Parameters.new)
+            super(**params.permit(self.class.attribute_types.keys))
+
+            @params = params
+        end
+
+        def apply(items)
+            @items = items
+
+            with_pagination
+
+            self
+        end
+
+
+        def with_pagination
+          @pagination, @items = pagy(@items)
+
+          self
+        end
     end
   end
 end
