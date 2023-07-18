@@ -11,11 +11,10 @@ RSpec.describe "admin/posts/index" do
   before do
     view.extend(Pagy::Frontend)
 
-    posts       = Post.all
-    sort, posts = table_sort(posts)
-    pagy, posts = pagy(posts)
+    collection = Admin::PostsController::Collection.new.apply(Post.all)
+    table      = Katalyst::TableComponent.new(collection:)
 
-    render template: "admin/posts/index", locals: { posts:, sort:, pagy: }
+    render template: "admin/posts/index", locals: { collection:, table: }
   end
 
   it { expect(rendered).to have_css("th", text: "Name") }

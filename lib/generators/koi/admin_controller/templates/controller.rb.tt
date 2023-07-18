@@ -6,14 +6,13 @@ module Admin
     before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
     def index
-      @<%= plural_name %> = ::<%= class_name %>.strict_loading
+      collection = Collection.new(params).apply(::<%= class_name %>.strict_loading.all)
+      table      = Katalyst::TurboCollectionComponent.new(collection:, class: "index-table")
 
-      @<%= plural_name %> = @<%= plural_name %>.admin_search(params[:search]) if params[:search].present?
-
-      sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
-      pagy, @<%= plural_name %> = pagy(@<%= plural_name %>)
-
-      render locals: { <%= plural_name %>: @<%= plural_name %>, sort:, pagy: }
+      respond_to do |format|
+        format.html { render :index, locals: { table:, collection: } }
+        format.turbo_stream { render table }
+      end
     end
 
     def show
@@ -66,6 +65,17 @@ module Admin
     # Use callbacks to share common setup or constraints between actions.
     def set_<%= singular_table_name %>
       @<%= singular_table_name %> = ::<%= class_name %>.find(params[:id])
+    end
+
+    class Collection < Katalyst::Tables::Collection::Base
+      attribute :search, :string
+
+      config.sorting  = :<%= search_attribute %>
+      config.paginate = true
+
+      def filter
+        self.items = items.admin_search(search) if search.present?
+      end
     end
   end
 end

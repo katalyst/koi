@@ -33,7 +33,7 @@ RSpec.describe "index/sorting" do
     expect(page).to have_css("tr:first-child", text: "third")
   end
 
-  xit "shows the default sort" do
+  it "shows the default sort" do
     visit "/admin/posts"
 
     expect(page).to have_css("thead th[data-sort='asc'] a[href$='name+desc']")

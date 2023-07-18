@@ -1,0 +1,10 @@
+<%- index_attributes.each_with_index do |attribute, index| -%>
+<%- if index.zero? -%>
+<%% row.cell :<%= attribute.name %>, header: true do |cell| %>
+  <%%= link_to cell.value, url_for([:admin, <%= singular_name %>]) %>
+<%% end %>
+
+<%- else -%>
+<%% row.cell :<%= attribute.name %> %>
+<%- end -%>
+<%- end -%>

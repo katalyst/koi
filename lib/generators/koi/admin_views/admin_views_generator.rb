@@ -16,16 +16,16 @@ module Koi
     end
 
     def copy_view_files
-      available_views.each do |view|
-        filename = "#{view}.html.erb"
-        template filename, File.join("app/views/admin", controller_file_path, filename)
+      available_views.each do |filename|
+        target = filename.gsub("record", singular_name)
+        template filename, File.join("app/views/admin", controller_file_path, target)
       end
     end
 
     private
 
     def available_views
-      %w(index edit show new _fields)
+      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _fields.html.erb _record.html+row.erb)
     end
 
     def govuk_input_for(attribute)

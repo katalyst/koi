@@ -49,7 +49,7 @@ RSpec.describe "index/filtering" do
   end
 
   context "when the content changes" do
-    xit "retains focus" do
+    it "retains focus" do
       visit "/admin/posts"
 
       find("main input[type=search]").click

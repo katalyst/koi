@@ -27,8 +27,9 @@ module Koi
     def render(&)
       tag.nav class: "index-actions", data: { controller: "index-actions", action: actions } do
         form_with(**search_options,
-                  data: { controller: "search",
-                          action:     <<~ACTIONS,
+                  data: { controller:   "search",
+                          turbo_stream: "",
+                          action:       <<~ACTIONS,
                             input->index-actions#update
                             change->index-actions#update
                             submit->index-actions#submit

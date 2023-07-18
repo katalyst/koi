@@ -23,7 +23,7 @@ RSpec.describe Admin::<%= controller_class_name %>Controller do
 
       it "paginates the collection" do
         action
-        expect(assigns(:<%= plural_name %>).length).to eq 20
+        expect(response.body).to have_selector("tbody tr", count: 20)
       end
     end
 
