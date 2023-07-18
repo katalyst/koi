@@ -17,6 +17,48 @@ RSpec.describe Admin::<%= controller_class_name %>Controller do
       action
       expect(response).to have_http_status(:success)
     end
+
+    context "with a large collection" do
+      before { create_list(:<%= singular_name %>, 25) }
+
+      it "paginates the collection" do
+        action
+        expect(assigns(:<%= plural_name %>).length).to eq 20
+      end
+    end
+
+    context "with sort parameter" do
+      let(:action) { get polymorphic_path([:admin, <%= class_name %>], sort: "<%= search_attribute %> desc") }
+
+      before do
+        create(:<%= singular_name %>, <%= search_attribute %>: "first")
+        create(:<%= singular_name %>, <%= search_attribute %>: "second")
+      end
+
+      it "finds first in second place" do
+        action
+        expect(response.body).to have_selector("tbody tr + tr td", text: "first")
+      end
+    end
+
+    context "with search parameter" do
+      let(:action) { get polymorphic_path([:admin, <%= class_name %>], search: "first") }
+
+      before do
+        create(:<%= singular_name %>, <%= search_attribute %>: "first")
+        create(:<%= singular_name %>, <%= search_attribute %>: "second")
+      end
+
+      it "finds the needle" do
+        action
+        expect(response.body).to have_selector("table td", text: "first")
+      end
+
+      it "removes the chaff" do
+        action
+        expect(response.body).not_to have_selector("table td", text: "second")
+      end
+    end
   end
 
   describe "GET /admin/<%= plural_name %>/new" do
