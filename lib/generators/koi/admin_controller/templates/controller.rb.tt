@@ -8,8 +8,6 @@ module Admin
     def index
       @<%= plural_name %> = ::<%= class_name %>.strict_loading
 
-      @<%= plural_name %> = @<%= plural_name %>.admin_search(params[:search]) if params[:search].present?
-
       sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
 
       @collection = Collection.new(params).apply(@<%= plural_name %>)
@@ -77,6 +75,7 @@ module Admin
         attr_accessor :params, :items, :pagination
 
         attribute :page, :integer
+        attribute :search, :string
 
         def initialize(params = ActionController::Parameters.new)
             super(**params.permit(self.class.attribute_types.keys))
@@ -87,11 +86,17 @@ module Admin
         def apply(items)
             @items = items
 
+            with_filters
             with_pagination
 
             self
         end
 
+        def with_filters
+            self.items = items.admin_search(search) if search.present?
+
+            self
+        end
 
         def with_pagination
           @pagination, @items = pagy(@items)
