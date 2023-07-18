@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "support/requests/admin_examples"
 
 RSpec.describe Admin::AdminUsersController do
   let(:admin) { create(:admin) }

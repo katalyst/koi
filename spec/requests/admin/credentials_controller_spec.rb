@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "support/requests/admin_examples"
 require "webauthn/fake_client"
 
 RSpec.describe Admin::CredentialsController do
