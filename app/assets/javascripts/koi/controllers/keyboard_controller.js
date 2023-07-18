@@ -94,7 +94,7 @@ export default class KeyboardController extends Controller {
 
     mappings = keys.reduceRight(
       (mappings, key) => (mappings[key] ||= {}),
-      mappings
+      mappings,
     );
     mappings[first] = event;
   }

@@ -25,7 +25,7 @@ export default class NavigationController extends Controller {
     this.links
       .filter(
         (li) =>
-          !this.prefixSearch(filter.toLowerCase(), li.innerText.toLowerCase())
+          !this.prefixSearch(filter.toLowerCase(), li.innerText.toLowerCase()),
       )
       .forEach((li) => {
         li.toggleAttribute("hidden", true);

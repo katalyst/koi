@@ -68,8 +68,8 @@ class Transition {
       new PropertyTransition(
         "max-height",
         `${this.target.scrollHeight}px`,
-        "0px"
-      )
+        "0px",
+      ),
     );
   }
 
@@ -79,22 +79,22 @@ class Transition {
       new PropertyTransition(
         "max-height",
         "0px",
-        `${this.target.scrollHeight}px`
-      )
+        `${this.target.scrollHeight}px`,
+      ),
     );
   }
 
   /** Slide an element left or right by its scroll width, assumes position relative */
   slideOut(direction) {
     return this.add(
-      new PropertyTransition(direction, "0px", `-${this.target.scrollWidth}px`)
+      new PropertyTransition(direction, "0px", `-${this.target.scrollWidth}px`),
     );
   }
 
   /** Restore an element that has been slid */
   slideIn(direction) {
     return this.add(
-      new PropertyTransition(direction, `-${this.target.scrollWidth}px`, "0px")
+      new PropertyTransition(direction, `-${this.target.scrollWidth}px`, "0px"),
     );
   }
 

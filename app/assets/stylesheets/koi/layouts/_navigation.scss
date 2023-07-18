@@ -135,7 +135,9 @@ $separator: rgba(255, 255, 255, 0.2);
   visibility: hidden;
   opacity: 0;
   transform: translateX(50%);
-  transition: opacity 0.25s, background-color 0.25s;
+  transition:
+    opacity 0.25s,
+    background-color 0.25s;
   cursor: pointer;
 
   nav[aria-expanded] + & {
