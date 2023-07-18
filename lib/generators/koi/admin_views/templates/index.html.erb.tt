@@ -4,7 +4,7 @@
 
 <%%= koi_index_actions create: true, search: true %>
 
-<%%= table_with collection: <%= human_name.pluralize.downcase %>.items, sort:, class: "index-table" do |row, <%= singular_name %>| %>
+<%%= table_with collection: <%= human_name.pluralize.downcase %>.items, sort: <%= human_name.pluralize.downcase %>.sorting, class: "index-table" do |row, <%= singular_name %>| %>
   <%- index_attributes.each_with_index do |attribute, index| -%>
   <%- if index.zero? -%>
   <%%= row.cell :<%= attribute.name %> do |cell| %>

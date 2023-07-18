@@ -6,13 +6,9 @@ module Admin
     before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
     def index
-      @<%= plural_name %> = ::<%= class_name %>.strict_loading
+      <%= plural_name %> = Collection.new(params, default_sort: :<%= search_attribute %>).apply(::<%= class_name %>.strict_loading.all)
 
-      sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
-
-      @collection = Collection.new(params).apply(@<%= plural_name %>)
-
-      render locals: { <%= plural_name %>: @collection, sort: }
+      render locals: { <%= plural_name %>: }
     end
 
     def show
@@ -70,23 +66,32 @@ module Admin
     class Collection
         include ActiveModel::Model
         include ActiveModel::Attributes
+        include ActiveSupport::Configurable
         include Pagy::Backend
+        include Katalyst::Tables::Backend
 
-        attr_accessor :params, :items, :pagination
+        attr_accessor :params, :items, :pagination, :sorting
 
         attribute :page, :integer
         attribute :search, :string
+        attribute :sort, :string
 
-        def initialize(params = ActionController::Parameters.new)
+        config_accessor :default_sort, default: "unset"
+
+        def initialize(params = ActionController::Parameters.new, default_sort: config.default_sort)
             super(**params.permit(self.class.attribute_types.keys))
 
+            raise ArgumentError, "Default sort scope is unset" if !default_sort.nil? && !default_sort.is_a?(Symbol)
+
             @params = params
+            @sort = default_sort
         end
 
         def apply(items)
             @items = items
 
             with_filters
+            with_sort
             with_pagination
 
             self
@@ -98,10 +103,16 @@ module Admin
             self
         end
 
-        def with_pagination
-          @pagination, @items = pagy(@items)
+        def with_sort
+            @sorting, @items = table_sort(@items)
 
-          self
+            self
+        end
+
+        def with_pagination
+            @pagination, @items = pagy(@items)
+
+            self
         end
     end
   end

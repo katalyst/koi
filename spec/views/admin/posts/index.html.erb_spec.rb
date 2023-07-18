@@ -11,11 +11,9 @@ RSpec.describe "admin/posts/index" do
   before do
     view.extend(Pagy::Frontend)
 
-    posts       = Post.all
-    sort, posts = table_sort(posts)
-    pagy, posts = pagy(posts)
+    posts = Admin::PostsController::Collection.new(default_sort: :name).apply(Post.all)
 
-    render template: "admin/posts/index", locals: { posts:, sort:, pagy: }
+    render template: "admin/posts/index", locals: { posts: }
   end
 
   it { expect(rendered).to have_css("th", text: "Name") }
