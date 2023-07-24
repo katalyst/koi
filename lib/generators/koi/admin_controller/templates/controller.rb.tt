@@ -8,6 +8,8 @@ module Admin
     def index
       @<%= plural_name %> = ::<%= class_name %>.strict_loading
 
+      @<%= plural_name %> = @<%= plural_name %>.admin_search(params[:search]) if params[:search].present?
+
       sort, @<%= plural_name %> = table_sort(@<%= plural_name %>)
       pagy, @<%= plural_name %> = pagy(@<%= plural_name %>)
 

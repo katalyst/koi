@@ -2,7 +2,7 @@
   <%%= render(Koi::Header::IndexComponent.new(model: <%= class_name %>)) %>
 <%% end %>
 
-<%%= koi_index_actions create: true %>
+<%%= koi_index_actions create: true, search: true %>
 
 <%%= table_with collection: <%= human_name.pluralize.downcase %>, sort:, class: "index-table" do |row, <%= singular_name %>| %>
   <%- index_attributes.each_with_index do |attribute, index| -%>

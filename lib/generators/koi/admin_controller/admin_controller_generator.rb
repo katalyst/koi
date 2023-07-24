@@ -43,5 +43,9 @@ module Koi
       attribute = attributes.find { |attr| attr.name == name }
       attribute&.attachments?
     end
+
+    def search_attribute
+      attributes.find { |attr| attr.type == :string }&.name
+    end
   end
 end
