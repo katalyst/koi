@@ -48,7 +48,7 @@ RSpec.describe "index/sorting" do
   end
 
   context "when a new filter is applied" do
-    xit "retains sorting" do
+    it "retains sorting" do
       visit "/admin/posts?sort=title+asc"
 
       fill_in "Search", with: "first"

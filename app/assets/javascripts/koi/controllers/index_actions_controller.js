@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class IndexActionsController extends Controller {
-  static targets = ["create", "search"];
+  static targets = ["create", "search", "sort"];
 
   initialize() {
     // debounce search
@@ -33,6 +33,13 @@ export default class IndexActionsController extends Controller {
     if (this.searchTarget.value === "") {
       this.searchTarget.disabled = true;
     }
+    if (this.sortTarget.value === "") {
+      this.sortTarget.disabled = true;
+    }
+    setTimeout(() => {
+      this.searchTarget.disabled = false;
+      this.sortTarget.disabled = false;
+    });
   }
 
   nextPage() {

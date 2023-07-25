@@ -36,6 +36,7 @@ module Koi
                           ACTIONS
                   }) do |form|
           concat(links(form, &))
+          concat(sort_input(form))
           concat(search(form)) if create? || search?
         end
       end
@@ -47,6 +48,10 @@ module Koi
         concat(create_button(form)) if create?
         concat(search_input(form)) if search?
       end
+    end
+
+    def sort_input(form)
+      form.hidden_field(:sort, value: params[:sort], data: { index_actions_target: "sort" })
     end
 
     # Hidden button to trigger search, avoids triggering create instead.
