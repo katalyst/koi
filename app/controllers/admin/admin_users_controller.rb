@@ -7,23 +7,13 @@ module Admin
     attr_reader :admin
 
     def index
-      @admins = Admin::User.strict_loading
+      collection = Collection.new.with_params(params).apply(Admin::User.strict_loading)
+      table      = Koi::IndexTableComponent.new(collection:)
 
-      case params.fetch("scope", "all").to_sym
-      when :archived
-        @admins = @admins.archived
-      when :with_archived
-        @admins = @admins.with_archived
+      respond_to do |format|
+        format.html { render :index, locals: { table:, collection: } }
+        format.turbo_stream { render(table) }
       end
-
-      @admins = @admins.admin_search(params[:search]) if params[:search]
-
-      sort, @admins = table_sort(@admins)
-      pagy, @admins = pagy(@admins)
-
-      @admins = @admins.alphabetical
-
-      render :index, locals: { admins: @admins, sort:, pagy: }
     end
 
     def show
@@ -72,6 +62,27 @@ module Admin
 
     def admin_user_params
       params.require(:admin).permit(:name, :email, :password, :archived)
+    end
+
+    class Collection < Katalyst::Tables::Collection::Base
+      attribute :search, :string, default: ""
+      attribute :scope, :string, default: "active"
+
+      config.sorting  = :name
+      config.paginate = true
+
+      def filter
+        self.items = items.admin_search(search) if search.present?
+
+        self.items = case scope&.to_sym
+                     when :archived
+                       items.archived
+                     when :all
+                       items.with_archived
+                     else
+                       items
+                     end
+      end
     end
   end
 end
