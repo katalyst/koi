@@ -41,10 +41,10 @@ RSpec.describe "index/filtering" do
   end
 
   context "when there are no results" do
-    xit "shows a placeholder message" do
+    it "shows a placeholder message" do
       visit "/admin/posts?search=xxxxxx"
 
-      expect(page).to have_css("caption", text: "No posts found")
+      expect(page).to have_css("caption", text: "No posts found.")
     end
   end
 
