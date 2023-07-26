@@ -29,7 +29,7 @@ RSpec.describe Admin::UrlRewritesController do
 
       it "filters" do
         action
-        expect(assigns(:url_rewrites)).to contain_exactly(found)
+        expect(response.body).to have_selector("tbody tr", count: 1)
       end
     end
   end

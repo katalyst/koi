@@ -5,16 +5,13 @@ module Admin
     before_action :set_url_rewrite, only: %i[show edit update destroy]
 
     def index
-      @url_rewrites ||= UrlRewrite.all
+      collection = Collection.new.with_params(params).apply(UrlRewrite.strict_loading)
+      table      = Koi::IndexTableComponent.new(collection:)
 
-      @url_rewrites = @url_rewrites.admin_search(params[:search]) if params[:search]
-
-      sort, @url_rewrites = table_sort(@url_rewrites)
-      pagy, @url_rewrites = pagy(@url_rewrites)
-
-      @url_rewrites = @url_rewrites.alphabetical
-
-      render :index, locals: { url_rewrites: @url_rewrites, sort:, pagy: }
+      respond_to do |format|
+        format.html { render :index, locals: { table:, collection: } }
+        format.turbo_stream { render(table) }
+      end
     end
 
     def show
@@ -59,11 +56,32 @@ module Admin
     private
 
     def url_rewrite_params
-      params.require(:url_rewrite).permit(:from, :to)
+      params.require(:url_rewrite).permit(:from, :to, :active)
     end
 
     def set_url_rewrite
       @url_rewrite = UrlRewrite.find(params[:id])
+    end
+
+    class Collection < Katalyst::Tables::Collection::Base
+      attribute :search, :string, default: ""
+      attribute :scope, :string, default: "active"
+
+      config.sorting  = "from"
+      config.paginate = true
+
+      def filter
+        self.items = items.admin_search(search) if search.present?
+
+        self.items = case scope&.to_sym
+                     when :active
+                       items.where(active: true)
+                     when :inactive
+                       items.where(active: false)
+                     else
+                       items
+                     end
+      end
     end
   end
 end
