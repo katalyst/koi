@@ -16,7 +16,7 @@ module Koi
     def admin_menu(context)
       builder = Builder.new
       builder.add_menu(title: "Priority") do |b|
-        b.add_link(title: "View site", url: "/", target: "_blank")
+        b.add_link(title: "View site", url: "/", target: :blank)
         b.add_link(title: "Dashboard", url: context.main_app.admin_dashboard_path)
         b.add_items(priority)
         b.add_button(title: "Logout", url: context.main_app.admin_session_path, http_method: :delete)
