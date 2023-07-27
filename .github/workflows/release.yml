@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags: [ v* ]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Release Notes
+        uses: octokit/request-action@v2.1.6
+        id: get_release_notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          route: POST /repos/${{ github.repository }}/releases/generate-notes
+          tag_name: ${{ github.ref_name }}
+          previous_tag_name: ${{ steps.last_release.outputs.tag }}
+      - name: Set Release content
+        run: |
+          echo "RELEASE_CONTENT<<EOF" >> $GITHUB_ENV
+          echo "${{ fromJson(steps.get_release_notes.outputs.data).body }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Generate Release
+        uses: octokit/request-action@v2.1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          route: POST /repos/${{ github.repository }}/releases
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body: ${{ toJSON(env.RELEASE_CONTENT) }}
