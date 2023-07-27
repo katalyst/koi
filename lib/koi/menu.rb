@@ -29,11 +29,11 @@ module Koi
 
         if Object.const_defined?("Flipper::UI")
           b.add_link(title:  "Flipper", url: context.main_app.admin_root_path.concat("/flipper"),
-                     target: "_blank")
+                     target: :blank)
         end
         if Object.const_defined?("Sidekiq::Web")
           b.add_link(title:  "Sidekiq", url: context.main_app.admin_root_path.concat("sidekiq"),
-                     target: "_blank")
+                     target: :blank)
         end
         b.add_button(title:       "Clear cache", url: context.main_app.admin_cache_path,
                      http_method: :delete)
