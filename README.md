@@ -5,20 +5,18 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "koi"
+gem "katalyst-koi"
 ```
 
 And then execute:
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install koi
+```sh
+bundle install
+```
 
 ## License
 
-This project rocks and uses MIT-LICENSE.
+This uses MIT-LICENSE.
 
 ## Upgrading
 

@@ -7,18 +7,20 @@ require "koi/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "koi"
+  s.name        = "katalyst-koi"
   s.version     = Koi::VERSION
-  s.authors     = ["Katalyst"]
-  s.email       = ["admin@katalyst.com.au"]
-  s.homepage    = "https://github.com/katalyst/koi"
+  s.authors     = ["Katalyst Interactive"]
+  s.email       = ["developers@katalyst.com.au"]
+
   s.summary     = "Koi CMS admin framework"
-  s.description = "Framework to provide rapid application development"
+  s.homepage    = "https://github.com/katalyst/koi"
+  s.license     = "MIT"
+  s.required_ruby_version = ">= 3.1"
 
-  s.required_ruby_version = ">= 3.1.0"
-
-  s.files         = `git ls-files`.split("\n")
+  s.files         = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
+                      .reject { |f| f =~ %r{^lib/tasks} }
   s.require_paths = ["lib"]
+  s.metadata["rubygems_mfa_required"] = "true"
 
   s.add_dependency "rails", ">= 7.0"
 
@@ -33,27 +35,14 @@ Gem::Specification.new do |s|
   s.add_dependency "bcrypt"
   s.add_dependency "webauthn"
 
-  # Form builder for admin crud
+  # Third party libraries for admin pages
   s.add_dependency "katalyst-govuk-formbuilder"
-
-  # Pagination
   s.add_dependency "pagy"
-
-  # Index tables
-  s.add_dependency "katalyst-tables"
-
-  # Navigation
-  s.add_dependency "katalyst-navigation"
-
-  # Content
-  s.add_dependency "katalyst-content"
-
-  # Modals
-  s.add_dependency "katalyst-kpop"
-
   s.add_dependency "view_component"
 
-  s.metadata = {
-    "rubygems_mfa_required" => "true",
-  }
+  # Katalyst libraries
+  s.add_dependency "katalyst-content"
+  s.add_dependency "katalyst-kpop"
+  s.add_dependency "katalyst-navigation"
+  s.add_dependency "katalyst-tables"
 end

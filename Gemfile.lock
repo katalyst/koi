@@ -1,14 +1,7 @@
-GIT
-  remote: https://github.com/katalyst/katalyst-basic-auth
-  revision: 24f60a9856e894c3c929b69d08c6ace7a6b169ee
-  specs:
-    katalyst-basic-auth (0.4.0)
-      rack
-
 PATH
   remote: .
   specs:
-    koi (4.0.0)
+    katalyst-koi (4.0.0)
       bcrypt
       importmap-rails
       katalyst-content
@@ -110,7 +103,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindata (2.4.15)
-    brakeman (6.0.0)
+    brakeman (6.0.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -163,13 +156,13 @@ GEM
     google-protobuf (3.23.4-aarch64-linux)
     google-protobuf (3.23.4-arm64-darwin)
     google-protobuf (3.23.4-x86_64-linux)
-    govuk_design_system_formbuilder (4.1.0)
+    govuk_design_system_formbuilder (4.1.1)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 1)
     hashdiff (1.0.1)
-    html-attributes-utils (1.0.0)
+    html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -178,6 +171,8 @@ GEM
       railties (>= 6.0.0)
     json (2.6.3)
     jwt (2.7.1)
+    katalyst-basic-auth (0.4.0)
+      rack
     katalyst-content (1.1.0)
       active_storage_validations
     katalyst-govuk-formbuilder (1.5.0)
@@ -204,8 +199,8 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.18.1)
-    net-imap (0.3.6)
+    minitest (5.19.0)
+    net-imap (0.3.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -298,7 +293,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.54.2)
+    rubocop (1.55.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -306,7 +301,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.0, < 2.0)
+      rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
@@ -337,11 +332,11 @@ GEM
     ruby-progressbar (1.13.0)
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
-    sass-embedded (1.63.6-aarch64-linux-gnu)
+    sass-embedded (1.64.1-aarch64-linux-gnu)
       google-protobuf (~> 3.23)
-    sass-embedded (1.63.6-arm64-darwin)
+    sass-embedded (1.64.1-arm64-darwin)
       google-protobuf (~> 3.23)
-    sass-embedded (1.63.6-x86_64-linux-gnu)
+    sass-embedded (1.64.1-x86_64-linux-gnu)
       google-protobuf (~> 3.23)
     sentry-rails (5.10.0)
       railties (>= 5.0)
@@ -376,7 +371,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
-    view_component (3.4.0)
+    view_component (3.5.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -394,12 +389,12 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
-    websocket-driver (0.7.5)
+    websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.8)
+    zeitwerk (2.6.9)
 
 PLATFORMS
   aarch64-linux
@@ -415,9 +410,9 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
-  katalyst-basic-auth!
+  katalyst-basic-auth
   katalyst-healthcheck
-  koi!
+  katalyst-koi!
   puma
   rack_session_access
   rails

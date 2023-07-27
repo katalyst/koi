@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in koi.gemspec.
+# Specify your gem's dependencies in katalyst-koi.gemspec.
 gemspec
 
 group :development, :test do
@@ -11,7 +11,7 @@ group :development, :test do
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
-  gem "katalyst-basic-auth", git: "https://github.com/katalyst/katalyst-basic-auth"
+  gem "katalyst-basic-auth"
   gem "katalyst-healthcheck"
   gem "puma"
   gem "rails"
