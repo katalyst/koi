@@ -11,8 +11,8 @@ module Admin
       table      = Koi::IndexTableComponent.new(collection:)
 
       respond_to do |format|
+        format.turbo_stream { render(table) } if self_referred?
         format.html { render :index, locals: { table:, collection: } }
-        format.turbo_stream { render(table) }
       end
     end
 
