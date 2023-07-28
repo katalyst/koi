@@ -4,7 +4,7 @@
   <%= form.govuk_text_field :url %>
 
   <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-  <%= form.govuk_select :target, Katalyst::Navigation::Item::TARGETS %>
+  <%= form.govuk_select :target, Katalyst::Navigation::Link::TARGETS %>
 
   <div class="actions">
     <%= form.admin_save "Done" %>

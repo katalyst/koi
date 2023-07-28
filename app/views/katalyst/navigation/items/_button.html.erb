@@ -3,10 +3,10 @@
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :url %>
 
-  <%= form.govuk_select :http_method, Katalyst::Navigation::Button::HTTP_METHODS %>
-
   <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-  <%= form.govuk_select :target, Katalyst::Navigation::Item::TARGETS %>
+
+  <%= form.govuk_select :http_method, Katalyst::Navigation::Button::HTTP_METHODS, label: { text: "HTTP Method" } %>
+  <%= form.govuk_select :target, Katalyst::Navigation::Button::TARGETS %>
 
   <div class="actions">
     <%= form.admin_save "Done" %>
