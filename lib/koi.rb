@@ -3,6 +3,7 @@
 require "importmap-rails"
 require "katalyst/govuk/formbuilder"
 require "govuk_design_system_formbuilder/concerns/file_element"
+require "govuk_design_system_formbuilder/elements/datetime"
 require "govuk_design_system_formbuilder/elements/document"
 require "govuk_design_system_formbuilder/elements/image"
 require "katalyst/tables"
