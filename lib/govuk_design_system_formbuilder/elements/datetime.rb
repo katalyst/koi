@@ -4,45 +4,12 @@ require "govuk_design_system_formbuilder"
 
 module GOVUKDesignSystemFormBuilder
   module Elements
-    class DateTime < Base
-      using PrefixableArray
-
-      include Traits::Error
-      include Traits::Hint
-      include Traits::Supplemental
-      include Traits::HTMLClasses
+    class DateTime < Date
 
       SEGMENTS           = { day: "3i", month: "2i", year: "1i", hour: "4i", minute: "5i", offset: "8i" }.freeze
       MULTIPARAMETER_KEY = { day: 3, month: 2, year: 1, hour: 4, minute: 5, offset: 8 }.freeze
 
-      def initialize(builder, object_name, attribute_name, legend:, caption:, hint:, omit_day:, maxlength_enabled:,
-                     form_group:, date_of_birth: false, **kwargs, &block)
-        super(builder, object_name, attribute_name, &block)
-
-        @legend            = legend
-        @caption           = caption
-        @hint              = hint
-        @date_of_birth     = date_of_birth
-        @omit_day          = omit_day
-        @maxlength_enabled = maxlength_enabled
-        @form_group        = form_group
-        @html_attributes   = kwargs
-      end
-
-      def html
-        Containers::FormGroup.new(*bound, **@form_group, **@html_attributes).html do
-          Containers::Fieldset.new(*bound, **fieldset_options).html do
-            safe_join([supplemental_content, hint_element, error_element, date])
-          end
-        end
-      end
-
       private
-
-      def fieldset_options
-        { legend: @legend, caption: @caption, described_by: [error_id, hint_id, supplemental_id],
-          data:   { controller: "datetimes" } }
-      end
 
       def date
         tag.div(class: %(#{brand}-date-input)) do
@@ -50,33 +17,21 @@ module GOVUKDesignSystemFormBuilder
         end
       end
 
-      def omit_day?
-        @omit_day
-      end
-
-      def maxlength_enabled?
-        @maxlength_enabled
-      end
-
-      def day
-        if omit_day?
-          return tag.input(
-            id:    id(:day, false),
-            name:  name(:day),
-            type:  "hidden",
-            value: value(:day) || 1,
-          )
+      def id(segment, link_errors)
+        if has_errors? && link_errors
+          field_id(link_errors: link_errors)
+        else
+          [@object_name, @attribute_name, SEGMENTS.fetch(segment)].join("_")
         end
-
-        date_part(:day, width: 2, link_errors: true)
       end
 
-      def month
-        date_part(:month, width: 2, link_errors: omit_day?)
-      end
-
-      def year
-        date_part(:year, width: 4)
+      def name(segment)
+        format(
+          "%<object_name>s[%<input_name>s(%<segment>s)]",
+          object_name: @object_name,
+          input_name:  @attribute_name,
+          segment:     SEGMENTS.fetch(segment)
+        )
       end
 
       def hour
@@ -98,23 +53,23 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def visible_hour
-        tag.input(name:      "#{@attribute_name}_hours_visible",
+        tag.input(id:        "#{@attribute_name}_hour",
+                  name:      "#{@attribute_name}_hours_visible",
                   value:     attribute&.strftime("%I"),
+                  class:     classes(2),
+                  maxlength: "2",
+                  width:     2,
+                  inputmode: "numeric",
+                  pattern:   "^([0]{0,1}[1-9]|[1][0-2])$",
                   data:      {
                     datetimes_target: "hour",
                     action:           <<~ACTIONS,
                       input->datetimes#validateHour blur->datetimes#blurValidateHour
                       input->datetimes#tabHour blur->datetimes#updateHiddenHourAmPm
                     ACTIONS
-                    pattern:          "^([0]|[0]{0,1}[1-9]|[1][0-2])$", # allow single initial 0 while typing
-                    blur_pattern:     "^([0]{0,1}[1-9]|[1][0-2])$", # but require 2 digits on blur
-                  },
-                  id:        "#{@attribute_name}_hour",
-                  class:     classes(2),
-                  maxlength: "2",
-                  width:     2,
-                  inputmode: "numeric",
-                  pattern:   "^([0]{0,1}[1-9]|[1][0-2])$")
+                    pattern: "^([0]|[0]{0,1}[1-9]|[1][0-2])$", # allow single initial 0 while typing
+                    blur_pattern: "^([0]{0,1}[1-9]|[1][0-2])$", # but require 2 digits on blur
+                  })
       end
 
       def minute
@@ -126,20 +81,20 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def minute_input
-        tag.input(name:      name(:minute),
+        tag.input(id:        "#{@attribute_name}_minute",
+                  name:      name(:minute),
                   value:     attribute&.strftime("%M"),
-                  data:      {
-                    datetimes_target: "minute",
-                    action:           "input->datetimes#validateMinute blur->datetimes#blurValidateMinute",
-                    pattern:          "^([0-9]|[0][0-9]|[1-5][0-9])$", # allow single numeric input while typing
-                    blur_pattern:     "^([0-5][0-9])$", # but require 2 digits on blur
-                  },
-                  id:        "#{@attribute_name}_minute",
                   class:     classes(2),
                   maxlength: "2",
                   width:     2,
                   inputmode: "numeric",
-                  pattern:   "^([0-5][0-9])$")
+                  pattern:   "^([0-5][0-9])$",
+                  data:      {
+                    datetimes_target: "minute",
+                    action:           "input->datetimes#validateMinute blur->datetimes#blurValidateMinute",
+                    pattern:          "^([0-9]|[0][0-9]|[1-5][0-9])$", # allow single numeric input while typing
+                    blur_pattern: "^([0-5][0-9])$", # but require 2 digits on blur
+                  })
       end
 
       def offset
@@ -177,99 +132,6 @@ module GOVUKDesignSystemFormBuilder
 
       def attribute
         @builder.object.try(@attribute_name)
-      end
-
-      def date_part(segment, width:, link_errors: false)
-        tag.div(class: %(#{brand}-date-input__item)) do
-          tag.div(class: %(#{brand}-form-group)) do
-            safe_join([label(segment, link_errors), input(segment, link_errors, width, value(segment))])
-          end
-        end
-      end
-
-      def value(segment)
-        attribute = @builder.object.try(@attribute_name)
-
-        return unless attribute
-
-        if attribute.respond_to?(segment)
-          attribute.send(segment)
-        elsif attribute.respond_to?(:fetch)
-          attribute.fetch(MULTIPARAMETER_KEY[segment]) do
-            warn("No key '#{segment}' found in MULTIPARAMETER_KEY hash. Expected to find #{MULTIPARAMETER_KEY.values}")
-
-            nil
-          end
-        else
-          fail(ArgumentError,
-               "invalid Date-like object: must be a Date, Time, DateTime or Hash in MULTIPARAMETER_KEY format")
-        end
-      end
-
-      def label(segment, link_errors)
-        tag.label(
-          segment.capitalize,
-          class: label_classes,
-          for:   id(segment, link_errors),
-        )
-      end
-
-      def input(segment, link_errors, width, value)
-        tag.input(
-          id:           id(segment, link_errors),
-          class:        classes(width),
-          name:         name(segment),
-          type:         "text",
-          inputmode:    "numeric",
-          value:,
-          autocomplete: date_of_birth_autocomplete_value(segment),
-          maxlength:    (width if maxlength_enabled?),
-        )
-      end
-
-      def classes(width)
-        build_classes(
-          %(input),
-          %(date-input__input),
-          %(input--width-#{width}),
-          %(input--error) => has_errors?,
-        ).prefix(brand)
-      end
-
-      # if the field has errors we want the govuk_error_summary to
-      # be able to link to the day field. Otherwise, generate IDs
-      # in the normal fashion
-      def id(segment, link_errors)
-        if has_errors? && link_errors
-          field_id(link_errors:)
-        else
-          [@object_name, @attribute_name, SEGMENTS.fetch(segment)].join("_")
-        end
-      end
-
-      def name(segment)
-        format(
-          "%<object_name>s[%<input_name>s(%<segment>s)]",
-          object_name: @object_name,
-          input_name:  @attribute_name,
-          segment:     SEGMENTS.fetch(segment),
-        )
-      end
-
-      def date_of_birth_autocomplete_value(segment)
-        return unless @date_of_birth
-
-        { day: "bday-day", month: "bday-month", year: "bday-year" }.fetch(segment)
-      end
-
-      def label_classes
-        build_classes(%(label), %(date-input__label)).prefix(brand)
-      end
-    end
-
-    def date
-      tag.div(class: %(#{brand}-date-input)) do
-        safe_join([day, month, year, hour, minute])
       end
     end
   end
@@ -336,7 +198,7 @@ module GOVUKDesignSystemFormBuilder
                              object_name,
                              attribute_name,
                              hint:,
-                             legend:            label,
+                             legend: label,
                              caption:,
                              omit_day:,
                              maxlength_enabled:,
