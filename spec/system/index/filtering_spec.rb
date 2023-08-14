@@ -82,7 +82,26 @@ RSpec.describe "index/filtering" do
       click_on "Title"
 
       expect(page).to have_current_path("/admin/posts?sort=title+asc&search=#{query}")
-      expect(page).to have_css("input[type=search][value=#{query}")
+      expect(page).to have_css("input[type=search][value=#{query}]")
+    end
+  end
+
+  context "with history navigation" do
+    it "restores search state" do
+      visit "/admin/posts"
+
+      fill_in "Search", with: query
+
+      expect(page).to have_current_path("/admin/posts?search=#{query}")
+
+      click_on "Dashboard" # leave the page with turbo
+
+      expect(page).to have_selector("h1", text: "Dashboard")
+
+      page.go_back
+
+      expect(page).to have_current_path("/admin/posts?search=#{query}")
+      expect(page).to have_css("input[type=search][value=#{query}]")
     end
   end
 end
