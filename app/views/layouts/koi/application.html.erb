@@ -12,6 +12,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667">
   <meta name="robots" content="noindex,nofollow">
   <%= Koi::Release.meta_tags(self) %>
+  <%= yield :meta %>
 
   <!-- STYLES -->
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
