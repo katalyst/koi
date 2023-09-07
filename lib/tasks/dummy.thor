@@ -32,6 +32,7 @@ class Dummy < Thor
     run <<~SH
       cd spec && \
       rails new dummy \
+        --database sqlite3 \
         --skip-action-cable \
         --skip-action-mailer \
         --skip-action-mailbox \
