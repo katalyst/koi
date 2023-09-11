@@ -21,7 +21,7 @@ module Koi
 
       insert_into_file "app/models/#{file_name}.rb", before: "end\n" do
         <<~RUBY
-          pg_search :admin_search, against: %i[#{search_fields.join(' ')}], using: { tsearch: { prefix: true } }
+          pg_search_scope :admin_search, against: %i[#{search_fields.join(' ')}], using: { tsearch: { prefix: true } }
         RUBY
       end
     end
