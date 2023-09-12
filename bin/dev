@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+cd spec/dummy && exec bin/dev $@
