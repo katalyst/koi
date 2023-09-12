@@ -85,12 +85,17 @@ class Dummy < Thor
       run <<~SH
         rails g koi:admin Post name:string title:string content:rich_text active:boolean ordinal:integer published_on:date
       SH
+      File.write("db/seeds.rb", <<~RUBY)
+        Koi::Engine.load_seed
+        FactoryBot.create_list(:post, 25, active: true, published_on: 15.days.ago)
+        FactoryBot.create_list(:post, 5, active: false)
+      RUBY
       run "rails db:migrate"
     end
 
     # Load the schema
     # Rails writes the current db/schema.rb SHA1 to internal metadata on load but not on migrate.
-    run "rails app:db:schema:load"
+    run "rails app:db:schema:load app:db:seed"
 
     format_generated_files
     invoke :check
