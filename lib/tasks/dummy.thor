@@ -5,6 +5,14 @@ require "active_support/core_ext/module/delegation"
 class Dummy < Thor
   include Thor::Actions
 
+  source_root File.expand_path("../../spec/support/templates", __dir__)
+
+  def initialize(args = [], local_options = {}, config = {})
+    super
+
+    self.destination_root = File.expand_path("../../spec/dummy", __dir__)
+  end
+
   def self.exit_on_failure?
     true
   end
@@ -54,9 +62,9 @@ class Dummy < Thor
   desc "adopt", "Re-configure dummy app to use local koi"
 
   def adopt
-    gsub_file("spec/dummy/config/boot.rb", %r{"../Gemfile"}, '"../../../Gemfile"')
+    gsub_file("config/boot.rb", %r{"../Gemfile"}, '"../../../Gemfile"')
 
-    append_to_file("spec/dummy/config/boot.rb", <<~RUBY)
+    append_to_file("config/boot.rb", <<~RUBY)
 
       $LOAD_PATH.unshift File.expand_path("../../../lib", __dir__)
     RUBY
@@ -85,12 +93,12 @@ class Dummy < Thor
       run <<~SH
         rails g koi:admin Post name:string title:string content:rich_text active:boolean ordinal:integer published_on:date
       SH
-      File.write("db/seeds.rb", <<~RUBY)
-        Koi::Engine.load_seed
-        FactoryBot.create_list(:post, 25, active: true, published_on: 15.days.ago)
-        FactoryBot.create_list(:post, 5, active: false)
-      RUBY
+
       run "rails db:migrate"
+    end
+
+    Dir.glob(File.join(self.class.source_root, "**/*")).each do |file|
+      copy_file(file[(self.class.source_root.size + 1)..], force: true) if File.file?(file)
     end
 
     # Load the schema
