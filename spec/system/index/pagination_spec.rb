@@ -4,9 +4,11 @@ require "rails_helper"
 
 RSpec.describe "index/pagination" do
   let(:admin) { create(:admin) }
-  let!(:posts) { create_list(:post, 25) }
+  let(:posts) { Post.order(name: :asc) }
 
   before do
+    create_list(:post, 25)
+
     visit "/admin"
 
     fill_in "Email", with: admin.email
