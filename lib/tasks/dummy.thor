@@ -5,7 +5,7 @@ require "active_support/core_ext/module/delegation"
 class Dummy < Thor
   include Thor::Actions
 
-  source_root File.expand_path("../../spec/support/templates", __dir__)
+  source_root File.expand_path("../../spec/templates", __dir__)
 
   def initialize(args = [], local_options = {}, config = {})
     super
