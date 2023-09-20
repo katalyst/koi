@@ -1,3 +1,5 @@
+@use "index-table/ordinal" as *;
+
 @mixin sort-icon {
   display: inline-block;
   content: " ";
@@ -54,13 +56,10 @@ $row-height: 48px !default;
       text-decoration: none;
     }
 
-    > img {
-      width: 6rem;
-      padding: 1rem 0;
-    }
-
+    > img,
     > a > img {
-      padding-top: 1rem;
+      max-height: 3rem;
+      padding: 0;
     }
   }
 

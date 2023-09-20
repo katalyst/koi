@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.0.3)
+    katalyst-koi (4.1.0)
       bcrypt
       importmap-rails
       katalyst-content
@@ -184,7 +184,7 @@ GEM
       redlock (>= 1.2)
     katalyst-kpop (2.0.9)
     katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.1)
+    katalyst-tables (2.2.2)
       html-attributes-utils
       view_component
     language_server-protocol (3.17.0.3)

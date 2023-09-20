@@ -10,6 +10,16 @@ module Koi
       "PgSearch::Model".safe_constantize ? pg_search : sql_search
     end
 
+    def ordinal_scope
+      return unless attributes.any? { |attr| attr.name == "ordinal" }
+
+      insert_into_file "app/models/#{file_name}.rb", before: /end\Z/ do
+        <<~RUBY
+          default_scope -> { order(ordinal: :asc) }
+        RUBY
+      end
+    end
+
     private
 
     def pg_search
@@ -19,7 +29,7 @@ module Koi
         RUBY
       end
 
-      insert_into_file "app/models/#{file_name}.rb", before: "end\n" do
+      insert_into_file "app/models/#{file_name}.rb", before: /end\Z/ do
         <<~RUBY
           pg_search_scope :admin_search, against: %i[#{search_fields.join(' ')}], using: { tsearch: { prefix: true } }
         RUBY
@@ -27,10 +37,11 @@ module Koi
     end
 
     def sql_search
-      insert_into_file "app/models/#{file_name}.rb", before: "end\n" do
+      insert_into_file "app/models/#{file_name}.rb", before: /end\Z/ do
+        clause = search_fields.map { |f| "#{f} LIKE :query" }.join(" OR ")
         <<~RUBY
           scope :admin_search, ->(query) do
-            where("#{search_fields.map { |f| "#{f} LIKE :query" }.join(' OR ')}", query: "%\#{query}%")
+            where("#{clause}", query: "%\#{query}%")
           end
         RUBY
       end

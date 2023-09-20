@@ -1,0 +1,21 @@
+$width: 2rem !default;
+
+.index-table {
+  th.ordinal {
+    width: $width;
+    padding-left: 0;
+    a {
+      width: $width;
+      height: 3rem;
+    }
+    a::after {
+      right: 0;
+    }
+  }
+
+  td.ordinal {
+    width: $width;
+    padding-left: 0;
+    cursor: grab;
+  }
+}

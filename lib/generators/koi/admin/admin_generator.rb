@@ -16,5 +16,6 @@ module Koi
     hook_for :admin_controller, in: :koi, as: :admin, type: :boolean, default: true
 
     Rails::Generators::ModelGenerator.hook_for :admin_search, type: :boolean, default: true
+    Rails::Generators::ModelGenerator.hook_for :ordinal_scope, type: :boolean, default: true
   end
 end

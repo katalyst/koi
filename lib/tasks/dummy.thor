@@ -92,10 +92,17 @@ class Dummy < Thor
     inside("spec/dummy") do
       run <<~SH
         rails g koi:admin Post name:string title:string content:rich_text active:boolean published_on:date
+        rails g koi:admin Banner name:string image:attachment ordinal:integer
       SH
 
       run "rails db:migrate"
     end
+
+    gsub_file("config/routes/admin.rb", "resources :banners\n", <<~RUBY)
+      resources :banners do
+        patch :order, on: :collection
+      end
+    RUBY
 
     Dir.glob(File.join(self.class.source_root, "**/*")).each do |file|
       copy_file(file[(self.class.source_root.size + 1)..], force: true) if File.file?(file)
