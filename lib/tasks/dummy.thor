@@ -141,21 +141,19 @@ class Dummy < Thor
   # Format generated files
   def format_generated_files
     say_status :run, "Format generated files", :green
-    inside("spec/dummy") do
-      run(<<~SH.gsub(/\s+/, " ").strip, verbose: false, abort_on_failure: false, capture: true)
-        git status --porcelain -u |
-        grep '[.]rb'|
-        awk '{print $2}'|
-        grep -v schema.rb|
-        xargs bundle exec rubocop -A
-      SH
-      run(<<~SH.gsub(/\s+/, " ").strip, verbose: false, abort_on_failure: false, capture: true)
-        git status --porcelain -u |
-        grep '[.]erb'|
-        awk '{print $2}'|
-        xargs bundle exec erblint -a
-      SH
-    end
+    run(<<~SH.gsub(/\s+/, " ").strip, verbose: false, abort_on_failure: false, capture: true)
+      (cd spec/dummy && git status --porcelain -u) |
+      grep '[.]rb'|
+      awk '{print "spec/dummy/" $2}'|
+      grep -v schema.rb|
+      xargs rubocop -A
+    SH
+    run(<<~SH.gsub(/\s+/, " ").strip, verbose: false, abort_on_failure: true, capture: true)
+      (cd spec/dummy && git status --porcelain -u) |
+      grep '[.]erb'|
+      awk '{print "spec/dummy/" $2}'|
+      xargs erblint -a
+    SH
   end
 end
 
