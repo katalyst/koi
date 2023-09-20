@@ -9,10 +9,9 @@ module Koi
     def call(env)
       status, headers, body = @app.call(env)
 
-      current_path = env["REQUEST_PATH"]
+      current_path = env["REQUEST_URI"]
 
-      if status.to_i == 404 && current_path.exclude?("mini-profiler-resources") &&
-          (new_path = find_redirect(current_path))
+      if status.to_i == 404 && (new_path = find_redirect(current_path))
         request = ActionDispatch::Request.new(env)
 
         # Close the body as we will not use it for a 301 redirect

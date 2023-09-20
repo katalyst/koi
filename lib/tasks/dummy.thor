@@ -139,7 +139,7 @@ class Dummy < Thor
   # Re-generate database using locally installed migrations
   def reset_database(migrate: false)
     if migrate
-      run("rails app:db:drop app:db:prepare app:db:schema:dump app:db:schema:load")
+      run("rails app:db:drop app:db:create app:db:migrate app:db:schema:dump app:db:schema:load")
     else
       run("rails app:db:reset")
     end
