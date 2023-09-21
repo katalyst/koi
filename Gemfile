@@ -26,7 +26,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "cuprite"
+  gem "cuprite", github: "rubycdp/cuprite"
   gem "rack_session_access"
   gem "rails-controller-testing"
   gem "webmock"

@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/rubycdp/cuprite.git
+  revision: cc26d526c5d6d784298f3282f8ea4a191eb0a177
+  specs:
+    cuprite (0.14.3)
+      capybara (~> 3.0)
+      ferrum (~> 0.13.0)
+
 PATH
   remote: .
   specs:
@@ -124,9 +132,6 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    cuprite (0.14.3)
-      capybara (~> 3.0)
-      ferrum (~> 0.13.0)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -184,7 +189,7 @@ GEM
       redlock (>= 1.2)
     katalyst-kpop (2.0.9)
     katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.2)
+    katalyst-tables (2.2.4)
       html-attributes-utils
       view_component
     language_server-protocol (3.17.0.3)
@@ -407,7 +412,7 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   capybara
-  cuprite
+  cuprite!
   dartsass-rails
   erb_lint
   factory_bot_rails

@@ -1,6 +1,22 @@
 $width: 2rem !default;
+$time: 125ms !default;
 
 .index-table {
+  tr {
+    transition:
+      top $time ease-in-out,
+      transform $time ease-in-out;
+  }
+
+  tr[dragging] {
+    transition: transform $time ease-in-out;
+    filter: drop-shadow(0 0 0.5rem var(--row-border-color));
+    transform: scale(1.01);
+    td {
+      box-shadow: none;
+    }
+  }
+
   th.ordinal {
     width: $width;
     padding-left: 0;
@@ -17,5 +33,6 @@ $width: 2rem !default;
     width: $width;
     padding-left: 0;
     cursor: grab;
+    text-align: center;
   }
 }
