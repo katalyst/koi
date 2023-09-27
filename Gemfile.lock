@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rubycdp/cuprite.git
-  revision: cc26d526c5d6d784298f3282f8ea4a191eb0a177
+  revision: 7326bff1fe8d9cc94fd7b87b377e02d7fb3f1daa
   specs:
     cuprite (0.14.3)
       capybara (~> 3.0)
@@ -181,7 +181,7 @@ GEM
       rack
     katalyst-content (1.1.0)
       active_storage_validations
-    katalyst-govuk-formbuilder (1.5.0)
+    katalyst-govuk-formbuilder (1.5.1)
       govuk_design_system_formbuilder
     katalyst-healthcheck (0.5.2)
       activesupport (>= 3)
@@ -213,7 +213,7 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
-    net-smtp (0.3.3)
+    net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
     nokogiri (1.15.4-aarch64-linux)
@@ -222,7 +222,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
-    openssl (3.1.0)
+    openssl (3.2.0)
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
     pagy (6.0.4)
@@ -231,7 +231,7 @@ GEM
       ast (~> 2.4.1)
       racc
     public_suffix (5.0.3)
-    puma (6.3.1)
+    puma (6.4.0)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -332,18 +332,18 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (2.24.0)
+    rubocop-rspec (2.24.1)
       rubocop (~> 1.33)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
-    sass-embedded (1.67.0-aarch64-linux-gnu)
+    sass-embedded (1.68.0-aarch64-linux-gnu)
       google-protobuf (~> 3.23)
-    sass-embedded (1.67.0-arm64-darwin)
+    sass-embedded (1.68.0-arm64-darwin)
       google-protobuf (~> 3.23)
-    sass-embedded (1.67.0-x86_64-linux-gnu)
+    sass-embedded (1.68.0-x86_64-linux-gnu)
       google-protobuf (~> 3.23)
     sentry-rails (5.11.0)
       railties (>= 5.0)
@@ -401,7 +401,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.11)
+    zeitwerk (2.6.12)
 
 PLATFORMS
   aarch64-linux
