@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    katalyst-koi (4.1.1)
+    katalyst-koi (4.1.2)
       bcrypt
       importmap-rails
       katalyst-content
@@ -159,9 +159,9 @@ GEM
       websocket-driver (>= 0.6, < 0.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.24.3-aarch64-linux)
-    google-protobuf (3.24.3-arm64-darwin)
-    google-protobuf (3.24.3-x86_64-linux)
+    google-protobuf (3.24.4-aarch64-linux)
+    google-protobuf (3.24.4-arm64-darwin)
+    google-protobuf (3.24.4-x86_64-linux)
     govuk_design_system_formbuilder (4.1.1)
       actionview (>= 6.1)
       activemodel (>= 6.1)
@@ -189,7 +189,7 @@ GEM
       redlock (>= 1.2)
     katalyst-kpop (2.0.9)
     katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.4)
+    katalyst-tables (2.2.5)
       html-attributes-utils
       view_component
     language_server-protocol (3.17.0.3)
@@ -206,7 +206,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
-    net-imap (0.3.7)
+    net-imap (0.4.0)
       date
       net-protocol
     net-pop (0.1.2)
@@ -225,9 +225,9 @@ GEM
     openssl (3.2.0)
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
-    pagy (6.0.4)
+    pagy (6.1.0)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
     public_suffix (5.0.3)
@@ -299,7 +299,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.56.3)
+    rubocop (1.56.4)
       base64 (~> 0.1.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -326,7 +326,7 @@ GEM
     rubocop-performance (1.19.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.21.1)
+    rubocop-rails (2.21.2)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -377,7 +377,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.4.2)
+    unicode-display_width (2.5.0)
     view_component (3.6.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -407,6 +407,7 @@ PLATFORMS
   aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
+  arm64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
