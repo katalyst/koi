@@ -36,9 +36,10 @@ $height: $title + $breadcrumbs + $actions;
 
   .heading {
     grid-area: title;
-    display: flex;
-    align-items: center;
     margin: 0 $inset;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .breadcrumbs {
