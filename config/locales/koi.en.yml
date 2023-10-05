@@ -2,11 +2,11 @@ en:
   time:
     formats:
       default: "%Y-%m-%dT%H:%M:%S.%L%z"
-      display: "%e %B %Y, %l:%M%P"
+      admin: "%e %B %Y, %l:%M%P"
   date:
     formats:
       default: "%Y-%m-%d"
-      display: "%e %B %Y"
+      admin: "%e %B %Y"
   koi:
     labels:
       new: New
