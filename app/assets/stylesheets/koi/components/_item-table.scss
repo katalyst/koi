@@ -12,16 +12,18 @@ $row-height: 48px !default;
 
 .item-table {
   display: grid;
-  grid-template-columns: 1fr 3fr;
   margin: 1rem 0;
-  border-top: 1px solid var(--row-border-color);
+  border-bottom: 1px solid var(--row-border-color);
+  grid-template-columns: 1fr 3fr;
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
 
   dt,
   dd {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--row-border-color);
-    padding: 0 1rem;
+    border-top: 1px solid var(--row-border-color);
+    padding: 0.5rem 1rem;
     min-height: var(--row-height);
     line-height: 1.5rem;
   }
@@ -29,5 +31,10 @@ $row-height: 48px !default;
   dt {
     font-weight: bold;
     padding-left: 0;
+    grid-column-start: 1;
+  }
+
+  dd {
+    grid-column-start: 2;
   }
 }
