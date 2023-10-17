@@ -47,7 +47,7 @@ RSpec.describe Admin::CredentialsController do
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to(admin_admin_user_path(admin))
+      expect(response).to kpop_redirect_to(admin_admin_user_path(admin))
     end
 
     it "creates an admin credential" do

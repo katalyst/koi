@@ -52,8 +52,8 @@
   </div>
 </main>
 <%= render "layouts/koi/environment" %>
-<%= scrim_tag %>
-<%= kpop_frame_tag do %>
+<%= render ScrimComponent.new %>
+<%= render Kpop::FrameComponent.new do %>
   <%= content_for :kpop %>
 <% end %>
 </body>

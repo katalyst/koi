@@ -45,7 +45,10 @@ module Admin
         sign_count: webauthn_credential.sign_count,
       )
 
-      redirect_to admin_admin_user_path(current_admin), status: :see_other
+      respond_to do |format|
+        format.html { redirect_to admin_admin_user_path(current_admin), status: :see_other }
+        format.turbo_stream { render turbo_stream: turbo_stream.kpop.redirect_to(admin_admin_user_path(current_admin)) }
+      end
     end
 
     def destroy
