@@ -1,0 +1,7 @@
+<%= render "layouts/koi/navigation_header" %>
+<%= form_with(model: admin_user, url: admin_passkey_resets_path) do |f| %>
+  <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="actions-group">
+    <%= f.admin_save "Reset" %>
+  </div>
+<% end %>

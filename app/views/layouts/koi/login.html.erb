@@ -23,6 +23,9 @@
 </head>
 <body class="admin-login">
 <main class="stack">
+  <% if notice.present? %>
+    <div style="padding: 1rem; color:var(--site-secondary); margin-bottom: -1.5rem;"><%= notice %></div>
+  <% end %>
   <%= yield %>
 </main>
 </body>
