@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    katalyst-koi (4.2.0.beta.1)
+    katalyst-koi (4.2.0.beta.2)
       bcrypt
       importmap-rails
       katalyst-content
@@ -187,7 +187,7 @@ GEM
       activesupport (>= 3)
       redis (>= 3)
       redlock (>= 1.2)
-    katalyst-kpop (3.0.0.beta.1)
+    katalyst-kpop (3.0.0.beta.2)
       html-attributes-utils
       turbo-rails
       view_component

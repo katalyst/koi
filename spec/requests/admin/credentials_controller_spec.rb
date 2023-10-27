@@ -4,6 +4,8 @@ require "rails_helper"
 require "webauthn/fake_client"
 
 RSpec.describe Admin::CredentialsController do
+  subject { action && response }
+
   let(:admin) { create(:admin) }
   let(:client) { WebAuthn::FakeClient.new(origin) }
   let(:origin) { "http://www.example.com" }
@@ -45,9 +47,13 @@ RSpec.describe Admin::CredentialsController do
 
     it_behaves_like "requires admin"
 
-    it "renders successfully" do
+    it { is_expected.to kpop_dismiss }
+
+    it "returns an update to the credentials table" do
       action
-      expect(response).to kpop_redirect_to(admin_admin_user_path(admin))
+      html = Nokogiri::HTML.fragment(response.body)
+      root = Capybara::Node::Simple.new(html)
+      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_#{admin.id}']")
     end
 
     it "creates an admin credential" do
@@ -69,9 +75,11 @@ RSpec.describe Admin::CredentialsController do
 
     it_behaves_like "requires admin"
 
-    it "renders successfully" do
+    it "returns an update to the credentials table" do
       action
-      expect(response).to redirect_to(admin_admin_user_path(admin))
+      html = Nokogiri::HTML.fragment(response.body)
+      root = Capybara::Node::Simple.new(html)
+      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_#{admin.id}']")
     end
 
     it "destroys an admin credential" do
