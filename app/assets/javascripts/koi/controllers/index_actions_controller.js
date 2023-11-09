@@ -30,15 +30,22 @@ export default class IndexActionsController extends Controller {
   }
 
   submit() {
+    const shouldFocus = document.activeElement === this.searchTarget;
+
     if (this.searchTarget.value === "") {
       this.searchTarget.disabled = true;
     }
     if (this.sortTarget.value === "") {
       this.sortTarget.disabled = true;
     }
-    setTimeout(() => {
+
+    // restore state and focus after submit
+    Promise.resolve().then(() => {
       this.searchTarget.disabled = false;
       this.sortTarget.disabled = false;
+      if (shouldFocus) {
+        this.searchTarget.focus();
+      }
     });
   }
 

@@ -187,7 +187,7 @@ GEM
       turbo-rails
       view_component
     katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.9)
+    katalyst-tables (2.2.10)
       html-attributes-utils
       view_component
     language_server-protocol (3.17.0.3)
