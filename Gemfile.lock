@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/rubycdp/cuprite.git
-  revision: 7326bff1fe8d9cc94fd7b87b377e02d7fb3f1daa
-  specs:
-    cuprite (0.14.3)
-      capybara (~> 3.0)
-      ferrum (~> 0.13.0)
-
 PATH
   remote: .
   specs:
@@ -72,7 +64,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_storage_validations (1.0.4)
+    active_storage_validations (1.1.1)
       activejob (>= 5.2.0)
       activemodel (>= 5.2.0)
       activestorage (>= 5.2.0)
@@ -102,7 +94,6 @@ GEM
     android_key_attestation (0.3.0)
     ast (2.4.2)
     awrence (1.2.1)
-    base64 (0.1.1)
     bcrypt (3.1.19)
     better_html (2.0.2)
       actionview (>= 6.0)
@@ -132,10 +123,13 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    cuprite (0.15)
+      capybara (~> 3.0)
+      ferrum (~> 0.14.0)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
-    date (3.3.3)
+    date (3.3.4)
     diff-lcs (1.5.0)
     erb_lint (0.5.0)
       activesupport
@@ -150,18 +144,18 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (3.2.1)
+    faker (3.2.2)
       i18n (>= 1.8.11, < 2)
-    ferrum (0.13)
+    ferrum (0.14)
       addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.24.4-aarch64-linux)
-    google-protobuf (3.24.4-arm64-darwin)
-    google-protobuf (3.24.4-x86_64-linux)
+    google-protobuf (3.25.0-aarch64-linux)
+    google-protobuf (3.25.0-arm64-darwin)
+    google-protobuf (3.25.0-x86_64-linux)
     govuk_design_system_formbuilder (4.1.1)
       actionview (>= 6.1)
       activemodel (>= 6.1)
@@ -172,8 +166,9 @@ GEM
       activesupport (>= 6.1.4.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.2.1)
+    importmap-rails (1.2.3)
       actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     json (2.6.3)
     jwt (2.7.1)
@@ -187,12 +182,12 @@ GEM
       activesupport (>= 3)
       redis (>= 3)
       redlock (>= 1.2)
-    katalyst-kpop (3.0.0.beta.2)
+    katalyst-kpop (3.0.0)
       html-attributes-utils
       turbo-rails
       view_component
     katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.5)
+    katalyst-tables (2.2.9)
       html-attributes-utils
       view_component
     language_server-protocol (3.17.0.3)
@@ -209,12 +204,12 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
-    net-imap (0.4.0)
+    net-imap (0.4.4)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.4.0)
       net-protocol
@@ -236,7 +231,7 @@ GEM
     public_suffix (5.0.3)
     puma (6.4.0)
       nio4r (~> 2.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rack-test (2.1.0)
       rack (>= 1.3)
@@ -276,14 +271,14 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
-    redis (5.0.7)
-      redis-client (>= 0.9.0)
-    redis-client (0.17.0)
+    rake (13.1.0)
+    redis (5.0.8)
+      redis-client (>= 0.17.0)
+    redis-client (0.18.0)
       connection_pool
-    redlock (2.0.4)
+    redlock (2.0.6)
       redis-client (>= 0.14.1, < 1.0.0)
-    regexp_parser (2.8.1)
+    regexp_parser (2.8.2)
     rexml (3.2.6)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -302,19 +297,18 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.56.4)
-      base64 (~> 0.1.1)
+    rubocop (1.57.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.3)
+      parser (>= 3.2.2.4)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     rubocop-capybara (2.19.0)
       rubocop (~> 1.41)
@@ -329,29 +323,29 @@ GEM
     rubocop-performance (1.19.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.21.2)
+    rubocop-rails (2.22.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (2.24.1)
-      rubocop (~> 1.33)
+    rubocop-rspec (2.25.0)
+      rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
-    sass-embedded (1.68.0-aarch64-linux-gnu)
+    sass-embedded (1.69.5-aarch64-linux-gnu)
       google-protobuf (~> 3.23)
-    sass-embedded (1.68.0-arm64-darwin)
+    sass-embedded (1.69.5-arm64-darwin)
       google-protobuf (~> 3.23)
-    sass-embedded (1.68.0-x86_64-linux-gnu)
+    sass-embedded (1.69.5-x86_64-linux-gnu)
       google-protobuf (~> 3.23)
-    sentry-rails (5.11.0)
+    sentry-rails (5.12.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.11.0)
-    sentry-ruby (5.11.0)
+      sentry-ruby (~> 5.12.0)
+    sentry-ruby (5.12.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
@@ -363,13 +357,13 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.6-aarch64-linux)
-    sqlite3 (1.6.6-arm64-darwin)
-    sqlite3 (1.6.6-x86_64-linux)
-    stimulus-rails (1.2.2)
+    sqlite3 (1.6.8-aarch64-linux)
+    sqlite3 (1.6.8-arm64-darwin)
+    sqlite3 (1.6.8-x86_64-linux)
+    stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     thor (1.3.0)
-    timeout (0.4.0)
+    timeout (0.4.1)
     tpm-key_attestation (0.12.0)
       bindata (~> 2.4)
       openssl (> 2.0)
@@ -381,7 +375,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    view_component (3.6.0)
+    view_component (3.7.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -416,7 +410,7 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   capybara
-  cuprite!
+  cuprite
   dartsass-rails
   erb_lint
   factory_bot_rails
@@ -426,7 +420,7 @@ DEPENDENCIES
   katalyst-koi!
   puma
   rack_session_access
-  rails
+  rails (< 7.1)
   rails-controller-testing
   rake
   rspec-rails
@@ -438,4 +432,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.4.19
+   2.4.21

@@ -14,7 +14,7 @@ group :development, :test do
   gem "katalyst-basic-auth"
   gem "katalyst-healthcheck"
   gem "puma"
-  gem "rails"
+  gem "rails", "< 7.1"
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
@@ -26,7 +26,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "cuprite", github: "rubycdp/cuprite"
+  gem "cuprite"
   gem "rack_session_access"
   gem "rails-controller-testing"
   gem "webmock"
