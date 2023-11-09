@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.2.0.beta.2)
+    katalyst-koi (4.2.0)
       bcrypt
       importmap-rails
       katalyst-content
       katalyst-govuk-formbuilder
-      katalyst-kpop
+      katalyst-kpop (>= 3.0)
       katalyst-navigation
       katalyst-tables
       pagy
