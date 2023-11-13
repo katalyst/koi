@@ -8,6 +8,7 @@ module Koi
     helper :all
     layout :layout_by_resource
     before_action :authenticate_admin, except: :login
+    protect_from_forgery
 
     def login
       if admin_signed_in?
