@@ -18,6 +18,9 @@
       },
       "user_input": "params[:template]",
       "confidence": "High",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -38,6 +41,9 @@
       },
       "user_input": "params[:set]",
       "confidence": "High",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -58,6 +64,9 @@
       },
       "user_input": null,
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": ""
     },
     {
@@ -88,9 +97,31 @@
       },
       "user_input": "(Unresolved Model).new.admin_url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 121,
+      "fingerprint": "edf687f759ec9765bd5db185dbc615c80af77d6e7e19386fc42934e7a80307af",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 2.7.5 ended on 2023-03-31",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
       "note": ""
     }
   ],
-  "updated": "2022-04-05 16:21:52 +0930",
-  "brakeman_version": "5.2.1"
+  "updated": "2023-11-13 16:16:49 +1030",
+  "brakeman_version": "5.4.1"
 }
