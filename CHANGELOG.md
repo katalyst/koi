@@ -1,3 +1,9 @@
+2.6.6 / 2022-12-12
+==================
+
+* Adds rails 7.1 support
+* Fix for missing protect_from_forgery in Koi::ApplicationController
+
 2.6.4 / 2022-07-13
 ==================
 

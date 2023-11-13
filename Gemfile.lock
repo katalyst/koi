@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    koi (2.6.4)
+    koi (2.6.6)
       acts-as-taggable-on (>= 7.0.0)
       awesome_nested_set (>= 3.3.0)
       cocoon (>= 1.2.15)
