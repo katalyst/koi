@@ -12,7 +12,7 @@ class SuperHero < ApplicationRecord
 
   dragonfly_accessor :image
   dragonfly_accessor :file
-  serialize :powers, Array
+  serialize :powers, type: Array, coder: Psych
 
   scope :alphabetical, -> { order("name DESC") }
 

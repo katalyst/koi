@@ -16,7 +16,7 @@ class Product < ApplicationRecord
                           association_foreign_key: "product_b_id"
 
   acts_as_taggable_on :genre
-  serialize :countries
+  serialize :countries, coder: Psych
 
   dragonfly_accessor :banner
   dragonfly_accessor :manual

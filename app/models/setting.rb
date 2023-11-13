@@ -17,7 +17,7 @@ class Setting < Translation
   ).freeze
 
   dragonfly_accessor :file
-  serialize :serialized_value, Array
+  serialize :serialized_value, type: Array, coder: Psych
 
   has_crud paginate: false, searchable: false,
            orderable: false, settings: false
