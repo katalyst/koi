@@ -65,11 +65,11 @@ module HasNavigation
   class << self
     def url_helpers
       @url_helpers ||= begin
-        # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
-        UrlHelpers.include Rails.application.routes.url_helpers
-        UrlHelpers.include Rails.application.routes.mounted_helpers
-        UrlHelpers.new
-      end
+                         # delayed initialization to ensure Rails application has loaded, Rails 5 has better options
+                         UrlHelpers.include Rails.application.routes.url_helpers
+                         UrlHelpers.include Rails.application.routes.mounted_helpers
+                         UrlHelpers.new
+                       end
     end
   end
 
