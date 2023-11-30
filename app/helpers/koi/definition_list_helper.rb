@@ -70,7 +70,7 @@ module Koi
             tag.dd(attribute_value.join(", "))
           when ActiveStorage::Attached::One
             tag.dd(attribute_value.attached? ? link_to(attribute_value.filename, url_for(attribute_value)) : "")
-          when Date, Time, DateTime
+          when Date, Time, DateTime, ActiveSupport::TimeWithZone
             tag.dd(l(attribute_value, format: :admin))
           when TrueClass, FalseClass
             tag.dd(attribute_value ? "Yes" : "No")
