@@ -3,3 +3,9 @@
 [data-controller="content--editor--container"] {
   --heading--h4: 1rem;
 }
+
+#content--editor--item-frame {
+  h3 {
+    margin-bottom: 2rem;
+  }
+}

@@ -45,7 +45,7 @@ $govuk-input-border-colour: #{var(--site-text-color)};
 
 // in the context of Koi admin forms, hang the error border in the gutter
 // not a generally applicable style
-.govuk-form-group--error {
+.govuk-form-group--error:not(.govuk-form-group .govuk-form-group--error) {
   position: relative;
   margin-left: -18px;
   padding-left: 13px;

@@ -1,18 +1,3 @@
-<%= form_with model: column, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
-  <%= render "hidden_fields", form: %>
-
-  <%= form.govuk_fieldset legend: nil do %>
-    <%= form.govuk_text_field :heading %>
-    <%= form.govuk_collection_radio_buttons :heading_style, Katalyst::Content.config.heading_styles, :itself, :itself,
-                                            legend: { text: "Heading style" } %>
-  <% end %>
-
-  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
-
-  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-
-  <div class="actions">
-    <%= form.admin_save "Done" %>
-    <%= form.admin_discard %>
-  </div>
+<%= render Koi::Content::EditorComponent.new(model: column, url: path) do |form| %>
+  <%= form.content_heading_fieldset %>
 <% end %>

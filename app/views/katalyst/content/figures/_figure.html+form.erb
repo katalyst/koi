@@ -1,17 +1,6 @@
-<%= form_with model: figure, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
-  <%= render "hidden_fields", form: %>
-
+<%= render Koi::Content::EditorComponent.new(model: figure, url: path) do |form| %>
   <%= form.govuk_image_field :image do %>
-    <%= form.govuk_text_field :heading, label: { text: "Alternate text" } %>
-    <%= form.govuk_text_field :caption %>
+    <%= form.govuk_text_field :heading, label: { text: "Alternate text", size: "s" } %>
+    <%= form.govuk_text_field :caption, label: { text: "Caption (optional)", size: "s" }, optional: true %>
   <% end %>
-
-  <%= form.govuk_select :background, Katalyst::Content.config.backgrounds %>
-
-  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-
-  <div class="actions">
-    <%= form.admin_save "Done" %>
-    <%= form.admin_discard %>
-  </div>
 <% end %>
