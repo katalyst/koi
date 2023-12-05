@@ -14,7 +14,7 @@ group :development, :test do
   gem "katalyst-basic-auth"
   gem "katalyst-healthcheck"
   gem "puma"
-  gem "rails", "< 7.1"
+  gem "rails"
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
