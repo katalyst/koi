@@ -1,4 +1,4 @@
-<%= render Koi::Content::EditorComponent.new(model: figure, url: path) do |form| %>
+<%= render Koi::Content::Editor::ItemFormComponent.new(model: figure, url: path) do |form| %>
   <%= form.govuk_image_field :image do %>
     <%= form.govuk_text_field :heading, label: { text: "Alternate text", size: "s" } %>
     <%= form.govuk_text_field :caption, label: { text: "Caption (optional)", size: "s" }, optional: true %>

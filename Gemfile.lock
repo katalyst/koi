@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.3.0.pre.beta)
+    katalyst-koi (4.3.0.beta.2)
       bcrypt
       importmap-rails
       katalyst-content
@@ -191,7 +191,7 @@ GEM
     jwt (2.7.1)
     katalyst-basic-auth (0.4.0)
       rack
-    katalyst-content (2.0.0)
+    katalyst-content (2.0.1)
       active_storage_validations
       katalyst-html-attributes
       view_component
