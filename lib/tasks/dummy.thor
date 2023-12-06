@@ -37,11 +37,13 @@ class Dummy < Thor
 
   def bootstrap
     run "rm -f bin/rails" # rails new will check for this file and fail if it exists
+
+    # Note: we have temporarily removed --skip-action-cable
+    # https://github.com/hotwired/turbo-rails/issues/512
     run <<~SH
       cd spec && \
       rails new dummy \
         --database sqlite3 \
-        --skip-action-cable \
         --skip-action-mailer \
         --skip-action-mailbox \
         --skip-active-job \
