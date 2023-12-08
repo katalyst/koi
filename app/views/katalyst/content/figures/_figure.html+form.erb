@@ -1,6 +1,6 @@
 <%= render Koi::Content::Editor::ItemFormComponent.new(model: figure, url: path) do |form| %>
-  <%= form.govuk_image_field :image do %>
-    <%= form.govuk_text_field :heading, label: { text: "Alternate text", size: "s" } %>
-    <%= form.govuk_text_field :caption, label: { text: "Caption (optional)", size: "s" }, optional: true %>
+  <%= form.govuk_image_field :image, label: { size: "s" } do %>
+    <%= form.govuk_text_field :heading, label: { text: "Alternate text" } %>
+    <%= form.govuk_text_field :caption, label: { text: "Caption (optional)" }, optional: true %>
   <% end %>
 <% end %>

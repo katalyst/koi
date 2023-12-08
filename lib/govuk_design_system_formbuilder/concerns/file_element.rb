@@ -39,7 +39,10 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def file
-        @builder.file_field(@attribute_name, attributes(@html_attributes))
+        previous_input = @builder.hidden_field(@attribute_name, id: nil, value: value.signed_id) if attached?
+        file_input     = @builder.file_field(@attribute_name, attributes(@html_attributes))
+
+        safe_join([previous_input, file_input])
       end
 
       def destroy_element
@@ -65,7 +68,11 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def preview?
-        value&.attached? && value&.persisted?
+        attached?
+      end
+
+      def attached?
+        value&.attached? && value.blob.persisted?
       end
 
       def value
@@ -94,7 +101,7 @@ module GOVUKDesignSystemFormBuilder
       end
 
       def default_form_group_options(**form_group_options)
-        add_option(form_group_options, :class, "govuk-form-group govuk-image-field")
+        add_option(form_group_options, :class, "govuk-form-group #{form_group_class}")
         add_option(form_group_options, :data, :controller, stimulus_controller)
         add_option(form_group_options, :data, :action, stimulus_controller_actions)
         add_option(form_group_options, :data, :"#{stimulus_controller}_mime_types_value",

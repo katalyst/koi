@@ -49,6 +49,9 @@ export default class FileFieldController extends Controller {
         this.previewTarget.classList.add("hidden");
         this.setPreviewContent("");
       }
+      if (this.previousInput) {
+        this.previousInput.toggleAttribute("disabled", true);
+      }
     }
 
     this.fileInput.value = "";
@@ -99,6 +102,12 @@ export default class FileFieldController extends Controller {
 
   get fileInput() {
     return this.element.querySelector("input[type='file']");
+  }
+
+  get previousInput() {
+    return this.element.querySelector(
+      `input[type='hidden'][name='${this.fileInput.name}']`,
+    );
   }
 
   get filenameTag() {

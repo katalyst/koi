@@ -35,8 +35,14 @@ module GOVUKDesignSystemFormBuilder
         end
       end
 
+      private
+
       def stimulus_controller
         "document-field"
+      end
+
+      def form_group_class
+        "govuk-document-field"
       end
     end
   end

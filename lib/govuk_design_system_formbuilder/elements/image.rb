@@ -32,8 +32,14 @@ module GOVUKDesignSystemFormBuilder
         end
       end
 
+      private
+
       def stimulus_controller
         "image-field"
+      end
+
+      def form_group_class
+        "govuk-image-field"
       end
     end
   end

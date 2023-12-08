@@ -1,0 +1,79 @@
+.govuk-document-field {
+  display: grid;
+  grid-template-areas:
+    "label"
+    "hint"
+    "error"
+    "preview"
+    "file"
+    "supplemental";
+  grid-template-columns: minmax(auto, var(--text-width));
+  grid-auto-rows: auto;
+
+  label {
+    grid-area: label;
+  }
+
+  .govuk-hint {
+    grid-area: hint;
+  }
+
+  .govuk-error-message {
+    grid-area: error;
+  }
+
+  input {
+    grid-area: file;
+  }
+
+  .govuk-file-upload {
+    margin-left: 0;
+    padding: 3px;
+    max-width: var(--text-width);
+  }
+
+  .preview-file {
+    grid-area: preview;
+    position: relative;
+    overflow: visible;
+    background-color: #f4f4f4;
+    border: 2px solid black;
+    margin-bottom: 0.5rem;
+    padding: 5px;
+    line-height: 1.5;
+    align-items: start;
+    display: inline-flex;
+    margin-right: auto;
+
+    .preview-filename {
+      line-height: unset;
+    }
+
+    .file-destroy {
+      appearance: none;
+      color: black;
+      border: none;
+      background: none;
+      display: inline-block;
+      margin-left: 0.2rem;
+      padding: 0;
+
+      &::after {
+        content: "×";
+        display: block;
+        position: relative;
+        width: 21px;
+        line-height: 21px;
+        font-size: 21px;
+      }
+    }
+  }
+
+  > div:last-child {
+    grid-area: supplemental;
+  }
+
+  .govuk-form-group {
+    margin-top: 30px;
+  }
+}

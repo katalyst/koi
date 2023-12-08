@@ -191,7 +191,7 @@ GEM
     jwt (2.7.1)
     katalyst-basic-auth (0.4.0)
       rack
-    katalyst-content (2.1.0)
+    katalyst-content (2.1.1)
       active_storage_validations
       katalyst-html-attributes
       katalyst-kpop

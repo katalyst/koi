@@ -1,33 +1,95 @@
 .govuk-image-field {
-  .govuk-form-group {
-    margin-top: 30px;
+  display: grid;
+  grid-template-areas:
+    "label preview"
+    "hint preview"
+    "error preview"
+    "file preview"
+    "supplemental supplemental";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 0 1rem;
+  max-width: var(--text-width);
+
+  label {
+    grid-area: label;
   }
-}
 
-.preview-image,
-.preview-file {
-  display: inline-flex;
-  padding: 0.5rem;
+  .govuk-hint {
+    grid-area: hint;
+  }
 
-  .file-destroy {
-    align-self: center;
-    padding-left: 0.5rem;
+  .govuk-error-message {
+    grid-area: error;
+  }
 
-    &::after {
-      content: "";
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjQjJCMkIyIj48cGF0aCBkPSJNMi41OTIuMDQ0bDE4LjM2NCAxOC4zNjQtMi41NDggMi41NDhMLjA0NCAyLjU5MnoiLz48cGF0aCBkPSJNMCAxOC4zNjRMMTguMzY0IDBsMi41NDggMi41NDhMMi41NDggMjAuOTEyeiIvPjwvZz48L3N2Zz4=");
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-left: 0.5rem;
+  input {
+    grid-area: file;
+    align-self: start;
+  }
+
+  .govuk-file-upload {
+    margin-left: 0;
+    padding: 3px;
+  }
+
+  .preview-image {
+    grid-area: preview;
+    position: relative;
+    display: grid;
+    overflow: visible;
+    align-self: start;
+    align-items: center;
+    justify-items: center;
+    background-color: #f4f4f4;
+    border: 2px solid black;
+
+    min-width: calc(8rem + 4px);
+    min-height: calc(8rem + 4px);
+
+    .image-thumbnail {
+      max-width: 8rem;
+      max-height: 8rem;
+    }
+
+    .file-destroy {
+      appearance: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border-radius: 1rem;
+      border: none;
+      display: block;
+      padding: 0;
+      bottom: -10px;
+      right: 50%;
+      margin-right: -10px;
+
+      &::after {
+        content: "×";
+        display: block;
+        position: relative;
+        width: 21px;
+        line-height: 21px;
+        font-size: 21px;
+        top: -1px;
+      }
     }
   }
 
-  .image-thumbnail {
-    max-width: 100%;
-    max-height: 80px;
+  > div:last-child {
+    grid-area: supplemental;
+  }
+
+  .govuk-form-group {
+    margin-top: 30px;
+  }
+
+  .preview-image.hidden {
+    display: block !important;
+
+    .file-destroy {
+      display: none;
+    }
   }
 }
