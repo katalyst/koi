@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.3.0)
+    katalyst-koi (4.3.1)
       bcrypt
       importmap-rails
       katalyst-content
@@ -169,7 +169,7 @@ GEM
     google-protobuf (3.25.1-aarch64-linux)
     google-protobuf (3.25.1-arm64-darwin)
     google-protobuf (3.25.1-x86_64-linux)
-    govuk_design_system_formbuilder (4.1.1)
+    govuk_design_system_formbuilder (5.0.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -196,7 +196,7 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.5.1)
+    katalyst-govuk-formbuilder (1.6.0)
       govuk_design_system_formbuilder
     katalyst-healthcheck (0.5.2)
       activesupport (>= 3)
