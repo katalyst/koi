@@ -196,7 +196,7 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.6.0)
+    katalyst-govuk-formbuilder (1.7.1)
       govuk_design_system_formbuilder
     katalyst-healthcheck (0.5.2)
       activesupport (>= 3)
