@@ -15,10 +15,4 @@ RSpec.describe UrlRewrite do
 
     it { is_expected.to include(url_rewrite) }
   end
-
-  describe "#redirect_path_for" do
-    subject { described_class.redirect_path_for(url_rewrite.from) }
-
-    it { is_expected.to eq(url_rewrite.to) }
-  end
 end

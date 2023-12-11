@@ -56,7 +56,7 @@ module Admin
     private
 
     def url_rewrite_params
-      params.require(:url_rewrite).permit(:from, :to, :active)
+      params.require(:url_rewrite).permit(:from, :to, :status_code, :active)
     end
 
     def set_url_rewrite

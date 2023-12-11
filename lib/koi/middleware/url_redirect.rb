@@ -11,15 +11,15 @@ module Koi
 
       current_path = env["REQUEST_URI"]
 
-      if status.to_i == 404 && (new_path = find_redirect(current_path))
+      if status.to_i == 404 && (redirect = UrlRewrite.active.find_by(from: current_path))
         request = ActionDispatch::Request.new(env)
 
         # Close the body as we will not use it for a 301 redirect
         body.close
 
-        # Issue a "Moved permanently" response with the redirect location
-        [301, { "Location" => new_location(current_path, new_path, request) },
-         ["#{current_path} moved. The document has moved to #{new_path}"]]
+        # Return a redirect response
+        [redirect.status_code, { "Location" => new_location(current_path, redirect.to, request) },
+         ["#{redirect.from} moved. The document has moved to #{redirect.to}"]]
       else
         # Not a 404 or no redirect found, just send the response as is
         [status, headers, body]
@@ -34,10 +34,6 @@ module Koi
       else
         request.original_url.gsub(current_path, new_path)
       end
-    end
-
-    def find_redirect(path)
-      UrlRewrite.redirect_path_for(path)
     end
   end
 end

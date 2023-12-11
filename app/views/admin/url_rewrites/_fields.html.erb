@@ -1,0 +1,4 @@
+<%= form.govuk_text_field :from, hint: { text: "Should begin with /" } %>
+<%= form.govuk_text_field :to %>
+<%= form.govuk_collection_radio_buttons :status_code, UrlRewrite::STATUS_CODES, :code, :label %>
+<%= form.govuk_check_box_field :active %>

@@ -3,7 +3,7 @@
 <% end %>
 
 <%= form_with(model: url_rewrite, url: admin_url_rewrite_path(url_rewrite)) do |form| %>
-  <%= render "form_fields", form: %>
+  <%= render "fields", form: %>
 
   <div class="actions">
     <%= form.admin_save %>
