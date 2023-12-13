@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.3.2)
+    katalyst-koi (4.3.3)
       bcrypt
       importmap-rails
       katalyst-content
@@ -112,7 +112,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     bindata (2.4.15)
     brakeman (6.1.0)
     builder (3.2.4)
@@ -174,7 +174,7 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 1)
-    hashdiff (1.0.1)
+    hashdiff (1.1.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
     i18n (1.14.1)
@@ -183,7 +183,7 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.6.0)
+    io-console (0.7.0)
     irb (1.10.1)
       rdoc
       reline (>= 0.3.8)
@@ -202,15 +202,19 @@ GEM
       activesupport (>= 3)
       redis (>= 3)
       redlock (>= 1.2)
-    katalyst-html-attributes (1.0.0)
+    katalyst-html-attributes (1.0.1)
       activesupport
       html-attributes-utils
     katalyst-kpop (3.0.1)
       katalyst-html-attributes
       turbo-rails
       view_component
-    katalyst-navigation (1.4.1)
-    katalyst-tables (2.2.12)
+    katalyst-navigation (1.5.1)
+      katalyst-html-attributes
+      katalyst-kpop
+      katalyst-tables
+      view_component
+    katalyst-tables (2.3.1)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
@@ -228,7 +232,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     mutex_m (0.2.0)
-    net-imap (0.4.7)
+    net-imap (0.4.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -333,7 +337,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.58.0)
+    rubocop (1.59.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)

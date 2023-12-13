@@ -31,10 +31,5 @@ module Koi
       g.fixture_replacement :factory_bot
       g.factory_bot dir: "spec/factories"
     end
-
-    config.to_prepare do
-      Katalyst::Navigation::BaseController.include Koi::Controller::IsAdminController
-      Katalyst::Navigation::BaseController.helper Koi::Engine.helpers
-    end
   end
 end

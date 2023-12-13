@@ -1,18 +1,9 @@
 <% content_for :title, menu.title %>
 <% content_for(:breadcrumbs) { link_to "Navigations", katalyst_navigation.menus_path } %>
 
-<%= navigation_editor_status_bar menu: %>
-
-<%= navigation_editor_menu menu: do |form| %>
-  <div role="rowheader">
-    <h4>Title</h4>
-    <h4>Url</h4>
-    <h4>Actions</h4>
-  </div>
-
-  <%= navigation_editor_list menu: %>
-<% end %>
+<%= render editor.status_bar %>
+<%= render editor %>
 
 <%= content_for :sidebar do %>
-  <%= render "katalyst/navigation/menus/new_items", menu: %>
+  <%= render editor.new_items %>
 <% end %>
