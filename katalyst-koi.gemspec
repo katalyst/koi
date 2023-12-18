@@ -3,7 +3,7 @@
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "katalyst-koi"
-  s.version     = "4.3.4"
+  s.version     = "4.3.5"
   s.authors     = ["Katalyst Interactive"]
   s.email       = ["developers@katalyst.com.au"]
 
