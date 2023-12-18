@@ -21,7 +21,7 @@ module Koi
         end
 
         def form_builder
-          Koi::FormBuilder.new(menu.model_name.param_key, container, self, {})
+          Koi::FormBuilder.new(menu.model_name.param_key, menu, self, {})
         end
       end
     end
