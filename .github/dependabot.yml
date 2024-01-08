@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: '22:00'
+      timezone: Australia/Adelaide
+    groups:
+      dependencies:
+        patterns:
+          - "*" # Update all dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    groups:
+      dependencies:
+        patterns:
+          - "*" # Update all dependencies
