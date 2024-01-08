@@ -18,7 +18,7 @@ RSpec.describe Admin::BannersController do
     end
 
     context "with a large collection" do
-      before { create_list(:banner, 25) }
+      before { create_list(:banner, 25) } # rubocop:disable FactoryBot/ExcessiveCreateList
 
       it "does not paginate the collection" do
         action

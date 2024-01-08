@@ -11,7 +11,7 @@ RSpec.describe "index/pagination" do
 
     fill_in "Email", with: admin.email
     fill_in "Password", with: admin.password
-    click_button "Log in"
+    click_on "Log in"
   end
 
   it "can redirect to index via turbo" do

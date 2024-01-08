@@ -10,7 +10,7 @@ RSpec.describe "index/sorting" do
 
     fill_in "Email", with: admin.email
     fill_in "Password", with: admin.password
-    click_button "Log in"
+    click_on "Log in"
 
     %i[first second third].map do |n|
       create(:post, name: n, title: n.to_s.titleize)

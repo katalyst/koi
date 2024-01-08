@@ -13,7 +13,7 @@ RSpec.describe "index/pagination" do
 
     fill_in "Email", with: admin.email
     fill_in "Password", with: admin.password
-    click_button "Log in"
+    click_on "Log in"
   end
 
   context "when there are more than 20 results" do

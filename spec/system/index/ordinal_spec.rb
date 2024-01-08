@@ -10,7 +10,7 @@ RSpec.describe "index/ordinal" do
 
     fill_in "Email", with: admin.email
     fill_in "Password", with: admin.password
-    click_button "Log in"
+    click_on "Log in"
 
     %i[first second third].each_with_index do |n, i|
       create(:banner, name: n, ordinal: i)

@@ -19,7 +19,7 @@ RSpec.describe Admin::<%= controller_class_name %>Controller do
     end
 
     context "with a large collection" do
-      before { create_list(:<%= singular_name %>, 25) }
+      before { create_list(:<%= singular_name %>, 25) } # rubocop:disable FactoryBot/ExcessiveCreateList
 
       it "paginates the collection" do
         action

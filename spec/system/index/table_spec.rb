@@ -10,7 +10,7 @@ RSpec.describe "index/table" do
 
     fill_in "Email", with: admin.email
     fill_in "Password", with: admin.password
-    click_button "Log in"
+    click_on "Log in"
   end
 
   it "renders a table" do
