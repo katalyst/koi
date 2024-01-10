@@ -257,6 +257,11 @@ GEM
     parser (3.3.0.2)
       ast (~> 2.4.1)
       racc
+    propshaft (0.8.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -393,13 +398,6 @@ GEM
     shoulda-matchers (6.0.0)
       activesupport (>= 5.2.0)
     smart_properties (1.17.0)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     sqlite3 (1.7.0-aarch64-linux)
     sqlite3 (1.7.0-arm64-darwin)
     sqlite3 (1.7.0-x86_64-linux)
@@ -462,6 +460,7 @@ DEPENDENCIES
   katalyst-basic-auth
   katalyst-healthcheck
   katalyst-koi!
+  propshaft
   puma
   rack_session_access
   rails
@@ -471,7 +470,6 @@ DEPENDENCIES
   rubocop-katalyst
   sentry-rails
   shoulda-matchers
-  sprockets-rails
   sqlite3
   webmock
 

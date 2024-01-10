@@ -54,7 +54,7 @@ class Dummy < Thor
         --skip-test \
         --skip-git \
         --skip-keeps \
-        -a sprockets \
+        -a propshaft \
         -m #{template_base}/template.rb
     SH
     run "rm -rf spec/dummy/Gemfile*" # remove Gemfile* files

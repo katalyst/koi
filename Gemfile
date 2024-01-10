@@ -13,6 +13,7 @@ group :development, :test do
   gem "faker"
   gem "katalyst-basic-auth"
   gem "katalyst-healthcheck"
+  gem "propshaft"
   gem "puma"
   gem "rails"
   gem "rake"
@@ -20,7 +21,6 @@ group :development, :test do
   gem "rubocop-katalyst", require: false
   gem "sentry-rails"
   gem "shoulda-matchers"
-  gem "sprockets-rails"
   gem "sqlite3"
 end
 
