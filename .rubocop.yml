@@ -28,3 +28,11 @@ Metrics/BlockLength:
     - config/**/*
     - lib/tasks/*
     - spec/**/*
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/generators/**/*
+    - spec/system/**/*

@@ -100,6 +100,10 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    ammeter (1.1.6)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     android_key_attestation (0.3.0)
     ast (2.4.2)
     awrence (1.2.1)
@@ -450,6 +454,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  ammeter
   brakeman
   capybara
   cuprite
