@@ -7,8 +7,22 @@ module Koi
   class AdminRouteGenerator < Rails::Generators::NamedBase
     include Rails::Generators::ResourceHelpers
 
+    source_root File.expand_path("templates", __dir__)
+
+    def create_routes
+      return if Pathname.new(destination_root).join("config/routes/admin.rb").exist?
+
+      template("routes.rb", "config/routes/admin.rb")
+    end
+
     def add_route
       route "resources :#{file_name.pluralize}", namespace: regular_class_path
+    end
+
+    def create_navigation
+      return if Pathname.new(destination_root).join("config/initializers/koi.rb").exist?
+
+      template("initializer.rb", "config/initializers/koi.rb")
     end
 
     def add_navigation

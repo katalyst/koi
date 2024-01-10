@@ -6,6 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
+  gem "ammeter", require: false
   gem "brakeman"
   gem "dartsass-rails"
   gem "erb_lint", require: false
