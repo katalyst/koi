@@ -47,6 +47,25 @@ module Koi
       end
     end
 
+    def summary_attribute_for(attribute)
+      case attribute.type
+      when :string
+        %(<% dl.text :#{attribute.name} %>)
+      when :integer
+        %(<% dl.number :#{attribute.name} %>)
+      when :boolean
+        %(<% dl.boolean :#{attribute.name} %>)
+      when :date
+        %(<% dl.date :#{attribute.name} %>)
+      when :datetime
+        %(<% dl.datetime :#{attribute.name} %>)
+      when :rich_text
+        %(<% dl.rich_text :#{attribute.name} %>)
+      else
+        %(<% dl.text :#{attribute.name} %>)
+      end
+    end
+
     def index_attributes
       attributes.select { |attribute| attribute.type == :string }.take(3)
     end

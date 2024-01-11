@@ -4,13 +4,13 @@ $table-header-color: transparent !default;
 $row-border-color: $grey !default;
 $row-height: 48px !default;
 
-.item-table {
+.summary-list {
   --row-height: #{$row-height};
   --table-header-color: #{$table-header-color};
   --row-border-color: #{$row-border-color};
 }
 
-.item-table {
+.summary-list {
   display: grid;
   margin: 1rem 0;
   border-bottom: 1px solid var(--row-border-color);
