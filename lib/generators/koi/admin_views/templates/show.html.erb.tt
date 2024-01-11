@@ -4,9 +4,9 @@
 
 <h2>Summary</h2>
 
-<%%= definition_list(class: "item-table") do |builder| %>
+<%%= render Koi::SummaryListComponent.new(model: <%= singular_name %>) do |dl| %>
 <%- attributes.each do |attribute| -%>
-  <%%= builder.item <%= singular_name %>, :<%= attribute.name %> %>
+  <%= summary_attribute_for attribute %>
 <%- end -%>
 <%% end %>
 

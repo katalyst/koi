@@ -31,4 +31,21 @@ RSpec.describe Koi::AdminViewsGenerator do
     expect(Pathname.new(file("app/views/admin/tests/_fields.html.erb"))).to exist
     expect(Pathname.new(file("app/views/admin/tests/_test.html+row.erb"))).to exist
   end
+
+  describe "views/admin/tests/show.html.erb" do
+    subject { file("app/views/admin/tests/show.html.erb") }
+
+    before do
+      gen = generator(%w(test title:string description:rich_text ordinal:integer archived_at:datetime active:boolean))
+      Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }
+    end
+
+    it { is_expected.to contain "<h2>Summary</h2>" }
+    it { is_expected.to contain "<%= render Koi::SummaryListComponent.new(model: test) do |dl| %>" }
+    it { is_expected.to contain "<% dl.text :title %>" }
+    it { is_expected.to contain "<% dl.rich_text :description %>" }
+    it { is_expected.to contain "<% dl.number :ordinal %>" }
+    it { is_expected.to contain "<% dl.datetime :archived_at %>" }
+    it { is_expected.to contain "<% dl.boolean :active %>" }
+  end
 end
