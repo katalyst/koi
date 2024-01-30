@@ -16,6 +16,7 @@ require "koi/menu"
 require "koi/caching"
 require "koi/config"
 require "koi/engine"
+require "koi/extensions"
 require "koi/release"
 
 require "katalyst/content"
