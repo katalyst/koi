@@ -8,7 +8,7 @@ module Admin
 
     def index
       collection = Collection.new.with_params(params).apply(Admin::User.strict_loading)
-      table      = Koi::IndexTableComponent.new(collection:)
+      table      = Koi::IndexTableComponent.new(collection:, partial: "admin")
 
       respond_to do |format|
         format.turbo_stream { render(table) } if self_referred?
