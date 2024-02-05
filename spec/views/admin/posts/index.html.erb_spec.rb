@@ -14,7 +14,10 @@ RSpec.describe "admin/posts/index" do
     collection = Admin::PostsController::Collection.new.apply(Post.all)
     table      = Katalyst::TableComponent.new(collection:)
 
-    render template: "admin/posts/index", locals: { collection:, table: }
+    # Workaround for https://github.com/rspec/rspec-rails/issues/2729
+    view.lookup_context.prefixes.prepend "admin/posts"
+
+    render locals: { collection:, table: }
   end
 
   it { expect(rendered).to have_css("th", text: "Name") }
