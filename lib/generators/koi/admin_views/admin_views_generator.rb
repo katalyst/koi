@@ -17,7 +17,7 @@ module Koi
 
     def copy_view_files
       available_views.each do |filename|
-        target = filename.gsub("record", singular_table_name)
+        target = filename.gsub("record", singular_name)
         template filename, File.join("app/views/admin", controller_file_path, target)
       end
     end
