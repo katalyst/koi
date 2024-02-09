@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Koi
-  class OrdinalTableComponent < Katalyst::Turbo::TableComponent
+  class OrdinalTableComponent < Tables::TableComponent
     include Katalyst::Tables::Orderable
 
     def initialize(collection:,

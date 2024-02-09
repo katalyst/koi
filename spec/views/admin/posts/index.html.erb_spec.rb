@@ -12,7 +12,7 @@ RSpec.describe "admin/posts/index" do
     view.extend(Pagy::Frontend)
 
     collection = Admin::PostsController::Collection.new.apply(Post.all)
-    table      = Katalyst::TableComponent.new(collection:)
+    table      = Koi::Tables::TableComponent.new(collection:, id: "index-table")
 
     # Workaround for https://github.com/rspec/rspec-rails/issues/2729
     view.lookup_context.prefixes.prepend "admin/posts"
@@ -21,6 +21,7 @@ RSpec.describe "admin/posts/index" do
   end
 
   it { expect(rendered).to have_css("th", text: "Name") }
+  it { expect(rendered).to have_link(posts.first.name, href: admin_post_path(posts.first)) }
   it { expect(rendered).to have_css("td", text: posts.first.name) }
   it { expect(rendered).to have_css("th", text: "Title") }
   it { expect(rendered).to have_css("td", text: posts.first.title) }
