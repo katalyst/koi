@@ -5,15 +5,16 @@ module Koi
     include Katalyst::HtmlAttributes
 
     renders_many :definitions, types: {
-      boolean:   SummaryList::BooleanComponent,
-      date:      SummaryList::DateComponent,
-      datetime:  SummaryList::DatetimeComponent,
-      number:    SummaryList::NumberComponent,
-      rich_text: SummaryList::RichTextComponent,
-      text:      SummaryList::TextComponent,
+      boolean:    SummaryList::BooleanComponent,
+      date:       SummaryList::DateComponent,
+      datetime:   SummaryList::DatetimeComponent,
+      number:     SummaryList::NumberComponent,
+      rich_text:  SummaryList::RichTextComponent,
+      text:       SummaryList::TextComponent,
+      attachment: SummaryList::AttachmentComponent,
 
       # @deprecated legacy interface
-      item:      SummaryList::ItemComponent,
+      item:       SummaryList::ItemComponent,
     }
 
     def initialize(model: nil, skip_blank: true, **attributes)
@@ -45,6 +46,10 @@ module Koi
 
     def text(attribute, label: nil, skip_blank: @skip_blank)
       with_definition_text(@model, attribute, label:, skip_blank:)
+    end
+
+    def attachment(attribute, label: nil, skip_blank: @skip_blank)
+      with_definition_attachment(@model, attribute, label:, skip_blank:)
     end
 
     # @deprecated legacy interface
