@@ -9,7 +9,7 @@ module GOVUKDesignSystemFormBuilder
 
       MIME_TYPES            = %w[
         image/png image/gif image/jpeg image/webp
-        application/pdf
+        application/pdf audio/*
       ].freeze
 
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
