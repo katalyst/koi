@@ -4,7 +4,8 @@ module Koi
   class IndexTableComponent < ViewComponent::Base
     attr_reader :id, :pagy_id
 
-    renders_one :table, Katalyst::Turbo::TableComponent
+    # Use the Koi::Tables::TableComponent to support custom header and body row components
+    renders_one :table, Koi::Tables::TableComponent
     renders_one :pagination, Katalyst::Turbo::PagyNavComponent
 
     def initialize(collection:, id: "index-table", **options)

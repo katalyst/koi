@@ -66,8 +66,27 @@ module Koi
       end
     end
 
+    def index_attribute_for(attribute)
+      case attribute.type
+      when :integer
+        %(<% row.number :#{attribute.name} %>)
+      when :boolean
+        %(<% row.boolean :#{attribute.name} %>)
+      when :date
+        %(<% row.date :#{attribute.name} %>)
+      when :datetime
+        %(<% row.datetime :#{attribute.name} %>)
+      when :rich_text
+        %(<% row.rich_text :#{attribute.name} %>)
+      when :attachment
+        %(<% row.image :#{attribute.name} %>)
+      else
+        %(<% row.text :#{attribute.name} %>)
+      end
+    end
+
     def index_attributes
-      attributes.select { |attribute| attribute.type == :string }.take(3)
+      attributes
     end
   end
 end
