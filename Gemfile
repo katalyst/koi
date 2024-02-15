@@ -27,6 +27,7 @@ end
 
 group :test do
   gem "capybara"
+  gem "compare-xml"
   gem "cuprite"
   gem "rack_session_access"
   gem "rails-controller-testing"
