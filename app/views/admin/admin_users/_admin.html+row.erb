@@ -1,4 +1,2 @@
-<%= row.cell :name do |cell| %>
-  <%= link_to cell.value, admin_admin_user_path(admin) %>
-<% end %>
-<%= row.cell :email %>
+<%= row.link :name, url: :admin_admin_user_path %>
+<%= row.text :email %>

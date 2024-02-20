@@ -77,10 +77,27 @@ module Koi
 
       # Displays a link to the record
       # The link text is the value of the attribute
-      # The link url can be configured, defaults to the admin show path for the record
+      # @param url [Proc] a proc that takes the record and returns the url, defaults to [:admin, record]
       class LinkComponent < BodyCellComponent
-        def rendered_value
-          value.present? ? link_to(value, url_for([:admin, object])) : ""
+        def initialize(table, record, attribute, url: ->(object) { [:admin, object] }, **attributes)
+          super(table, record, attribute, **attributes)
+
+          @url_builder = url
+        end
+
+        def call
+          content # ensure content is set before rendering options
+
+          link = content.present? && url.present? ? link_to(value, url) : ""
+          content_tag(@type, link, **html_attributes)
+        end
+
+        def url
+          @url ||= if @url_builder.is_a?(Symbol)
+                     helpers.public_send(@url_builder, record)
+                   else
+                     @url_builder.call(record)
+                   end
         end
       end
 

@@ -12,10 +12,6 @@ module Koi
       def rendered_value
         value.to_s
       end
-
-      def inspect
-        "#<#{self.class.name} #{@attribute.inspect}>"
-      end
     end
   end
 end

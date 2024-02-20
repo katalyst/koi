@@ -1,7 +1,3 @@
-<%= row.cell :from do |cell| %>
-  <%= link_to cell.value, admin_url_rewrite_path(url_rewrite) %>
-<% end %>
-<%= row.cell :to %>
-<%= row.cell :active do |cell| %>
-  <%= cell.value ? "Yes" : "No" %>
-<% end %>
+<%= row.link :from %>
+<%= row.text :to %>
+<%= row.boolean :active %>

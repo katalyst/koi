@@ -1,4 +1,2 @@
 <% row.ordinal %>
-<% row.cell :name do |cell| %>
-  <%= link_to cell.value, url_for([:admin, banner]) %>
-<% end %>
+<% row.link :name %>
