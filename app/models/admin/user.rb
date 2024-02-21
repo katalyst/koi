@@ -26,26 +26,5 @@ module Admin
         where("email LIKE :query OR name LIKE :query", query: "%#{query}%")
       end
     end
-
-    # TODO(sfn) remove once Rails 7.1 is released
-    # https://edgeapi.rubyonrails.org/classes/ActiveRecord/SecurePassword/ClassMethods.html#method-i-authenticate_by
-    # rubocop:disable Metrics/PerceivedComplexity
-    def self.authenticate_by(attributes)
-      passwords, identifiers = attributes.to_h.partition do |name, _value|
-        !has_attribute?(name) && has_attribute?("#{name}_digest")
-      end.map(&:to_h)
-
-      raise ArgumentError, "One or more password arguments are required" if passwords.empty?
-      raise ArgumentError, "One or more finder arguments are required" if identifiers.empty?
-
-      if (record = find_by(identifiers))
-        record if passwords.count { |name, value| record.public_send(:"authenticate_#{name}", value) } == passwords.size
-      else
-        new(passwords)
-        nil
-      end
-    end
-
-    # rubocop:enable Metrics/PerceivedComplexity
   end
 end
