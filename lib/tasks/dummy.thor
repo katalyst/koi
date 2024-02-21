@@ -100,6 +100,12 @@ class Dummy < Thor
       run "rails db:migrate"
     end
 
+    gsub_file("app/models/banner.rb", "has_one_attached :image\n", <<~RUBY)
+      has_one_attached :image do |image|
+        image.variant :thumb, resize_to_fill: [100, 100]
+      end
+    RUBY
+
     gsub_file("config/routes/admin.rb", "resources :banners\n", <<~RUBY)
       resources :banners do
         patch :order, on: :collection
