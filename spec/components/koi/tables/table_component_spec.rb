@@ -120,7 +120,7 @@ describe Koi::Tables::TableComponent do
           <thead><tr><th>Content</th></tr></thead>
           <tbody><tr>
             <td title="#{collection.items.first&.content&.to_plain_text}">
-              #{collection.items.first&.content&.to_plain_text}
+              #{collection.items.first&.content}
             </td>
           </tr></tbody>
         </table>

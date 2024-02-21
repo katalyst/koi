@@ -66,12 +66,8 @@ module Koi
       # Displays the plain text for rich text content
       # Adds a title attribute to allow for hover over display of the full content
       class RichTextComponent < BodyCellComponent
-        def rendered_value
-          value.to_plain_text
-        end
-
         def default_html_attributes
-          { title: rendered_value }
+          { title: value.to_plain_text }
         end
       end
 
@@ -88,7 +84,7 @@ module Koi
         def call
           content # ensure content is set before rendering options
 
-          link = content.present? && url.present? ? link_to(value, url) : ""
+          link = content.present? && url.present? ? link_to(content, url) : content.to_s
           content_tag(@type, link, **html_attributes)
         end
 
@@ -102,7 +98,7 @@ module Koi
       end
 
       # Shows a thumbnail image
-      # The value is expected to be an ActiveStorage attachment with a variant named :thumb
+      # The value is expected to be an ActiveStorage attachment with a default variant named :thumb
       class ImageComponent < BodyCellComponent
         def initialize(table, record, attribute, variant: :thumb, **options)
           super(table, record, attribute, **options)
