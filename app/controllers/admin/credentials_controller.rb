@@ -6,8 +6,6 @@ module Admin
 
     before_action :set_admin_user
 
-    layout "kpop"
-
     def new
       unless @admin_user.webauthn_id
         @admin_user.update!(webauthn_id: WebAuthn.generate_user_id)

@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   # Hotwire JS dependencies
   s.add_dependency "stimulus-rails"
-  s.add_dependency "turbo-rails"
+  s.add_dependency "turbo-rails", ">= 2.0"
 
   # Authorization
   s.add_dependency "bcrypt"
@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
 
   # Katalyst libraries
   s.add_dependency "katalyst-content"
-  s.add_dependency "katalyst-kpop", ">= 3"
+  s.add_dependency "katalyst-kpop", ">= 3.1"
   s.add_dependency "katalyst-navigation"
   s.add_dependency "katalyst-tables"
 end

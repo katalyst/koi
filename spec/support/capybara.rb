@@ -10,7 +10,7 @@ module WaitForTurbo
   end
 
   def form_submission_complete?
-    page.evaluate_script("Turbo.navigator.formSubmission.state === 5")
+    page.evaluate_script("Turbo.navigator.formSubmission.state === 'stopped'")
   end
 end
 

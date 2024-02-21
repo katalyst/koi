@@ -25,7 +25,7 @@ module Koi
         helper IndexActionsHelper
         helper :all
 
-        layout "koi/application"
+        layout -> { turbo_frame_layout || "koi/application" }
 
         before_action :authenticate_local_admin, if: -> { Koi::Controller::IsAdminController.authenticate_local_admins }
         before_action :authenticate_admin, unless: :admin_signed_in?
@@ -46,6 +46,14 @@ module Koi
 
       def authenticate_admin
         redirect_to new_admin_session_path, status: :temporary_redirect
+      end
+
+      def turbo_frame_layout
+        if kpop_frame_request?
+          "koi/frame"
+        elsif turbo_frame_request?
+          "turbo_rails/frame"
+        end
       end
     end
   end
