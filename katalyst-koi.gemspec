@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
 
   # Third party libraries for admin pages
   s.add_dependency "katalyst-govuk-formbuilder"
-  s.add_dependency "pagy"
+  s.add_dependency "pagy", ">= 7.0"
   s.add_dependency "view_component"
 
   # Katalyst libraries

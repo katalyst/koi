@@ -28,12 +28,12 @@
     }
   }
 
-  .active {
+  .page.active a {
     @include button-outline;
     pointer-events: none;
   }
 
-  .disabled {
+  .page.disabled a {
     pointer-events: none;
     color: var(--site-disabled);
     font-weight: 500;

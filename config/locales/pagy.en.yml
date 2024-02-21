@@ -1,6 +1,5 @@
 en:
   pagy:
-    nav:
-      prev: "←&nbsp;&nbsp;Previous"
-      next: "Next&nbsp;&nbsp;→"
-      gap: "&hellip;"
+    prev: "←&nbsp;&nbsp;Previous"
+    next: "Next&nbsp;&nbsp;→"
+    gap: "&hellip;"
