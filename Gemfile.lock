@@ -214,7 +214,7 @@ GEM
     katalyst-html-attributes (1.0.1)
       activesupport
       html-attributes-utils
-    katalyst-kpop (3.1.1)
+    katalyst-kpop (3.1.2)
       katalyst-html-attributes
       turbo-rails
       view_component
