@@ -45,7 +45,7 @@ RSpec.describe Koi::AdminRouteGenerator do
 
     context "when admin routes file exists" do
       let(:stubs) do
-        RSpec::Support::DirectoryMaker.mkdir_p(file("config/routes"))
+        RSpec::Support::DirectoryMaker.mkdir_p(file("config/routes").to_s)
         File.write(file("config/routes/admin.rb"), <<~RUBY)
           namespace :admin do
           end
@@ -74,7 +74,7 @@ RSpec.describe Koi::AdminRouteGenerator do
     context "when the module is nested and the namespace already exists" do
       let(:gen) { generator(%w(nested/test)) }
       let(:stubs) do
-        RSpec::Support::DirectoryMaker.mkdir_p(file("config/routes"))
+        RSpec::Support::DirectoryMaker.mkdir_p(file("config/routes").to_s)
         File.write(file("config/routes/admin.rb"), <<~RUBY)
           namespace :admin do
             namespace :nested do
