@@ -8,13 +8,6 @@ module Koi
       end
 
       def attribute_value
-        # preserve the legacy syntax where the value is passed to the block
-        if content?
-          return @__vc_original_view_context.capture do
-            @__vc_render_in_block.call(raw_value)
-          end
-        end
-
         case raw_value
         when Array
           raw_value.join(", ")

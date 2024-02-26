@@ -18,7 +18,8 @@ module Koi
       end
 
       def call
-        tag.dt(attribute_name, **term_attributes) + tag.dd(attribute_value, **description_attributes)
+        tag.dt(attribute_name, **term_attributes) +
+          tag.dd(content_or_value, **description_attributes)
       end
 
       def render?
@@ -39,6 +40,19 @@ module Koi
 
       def inspect
         "#<#{self.class.name} #{@attribute.inspect}>"
+      end
+
+      # Convenience method for rendering the content of the cell
+      # <% dl.text(:name) { |cell| tag.em(cell) } %>
+      # => <dt>Name</dt><dd><em>Jamie Banks</em></dd>
+      def to_s
+        attribute_value
+      end
+
+      private
+
+      def content_or_value
+        content? ? content : attribute_value
       end
     end
   end

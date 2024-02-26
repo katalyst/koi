@@ -24,32 +24,32 @@ module Koi
       @skip_blank = skip_blank
     end
 
-    def boolean(attribute, label: nil)
-      with_definition_boolean(@model, attribute, label:)
+    def boolean(attribute, label: nil, &)
+      with_definition_boolean(@model, attribute, label:, &)
     end
 
-    def date(attribute, label: nil, format: :admin, skip_blank: @skip_blank)
-      with_definition_date(@model, attribute, label:, format:, skip_blank:)
+    def date(attribute, label: nil, format: :admin, skip_blank: @skip_blank, &)
+      with_definition_date(@model, attribute, label:, format:, skip_blank:, &)
     end
 
-    def datetime(attribute, label: nil, format: :admin, skip_blank: @skip_blank)
-      with_definition_datetime(@model, attribute, label:, format:, skip_blank:)
+    def datetime(attribute, label: nil, format: :admin, skip_blank: @skip_blank, &)
+      with_definition_datetime(@model, attribute, label:, format:, skip_blank:, &)
     end
 
-    def rich_text(attribute, label: nil, skip_blank: @skip_blank)
-      with_definition_rich_text(@model, attribute, label:, skip_blank:)
+    def rich_text(attribute, label: nil, skip_blank: @skip_blank, &)
+      with_definition_rich_text(@model, attribute, label:, skip_blank:, &)
     end
 
-    def number(attribute, label: nil, skip_blank: @skip_blank)
-      with_definition_number(@model, attribute, label:, skip_blank:)
+    def number(attribute, label: nil, skip_blank: @skip_blank, &)
+      with_definition_number(@model, attribute, label:, skip_blank:, &)
     end
 
-    def text(attribute, label: nil, skip_blank: @skip_blank)
-      with_definition_text(@model, attribute, label:, skip_blank:)
+    def text(attribute, label: nil, skip_blank: @skip_blank, &)
+      with_definition_text(@model, attribute, label:, skip_blank:, &)
     end
 
-    def attachment(attribute, label: nil, skip_blank: @skip_blank)
-      with_definition_attachment(@model, attribute, label:, skip_blank:)
+    def attachment(attribute, label: nil, skip_blank: @skip_blank, &)
+      with_definition_attachment(@model, attribute, label:, skip_blank:, &)
     end
 
     # @deprecated legacy interface

@@ -7,6 +7,8 @@ describe Koi::SummaryList::DateComponent do
 
   let(:model) { create(:post) }
 
+  include ActionView::Helpers::TagHelper
+
   describe "#date" do
     let(:render) do
       render_inline(component) do |dl|
@@ -41,6 +43,17 @@ describe Koi::SummaryList::DateComponent do
       let(:model) { create(:post, published_on: nil) }
 
       it { expect(page).to have_css("dt + dd", text: "") }
+    end
+
+    context "with block" do
+      let(:render) do
+        render_inline(component) do |dl|
+          dl.date(:published_on) { |cell| tag.em(cell) }
+        end
+      end
+
+      it { expect(page).to have_css("dt", text: "Published on") }
+      it { expect(page).to have_css("dt + dd > em", text: I18n.l(model.published_on, format: :admin)) }
     end
   end
 end
