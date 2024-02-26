@@ -7,6 +7,8 @@ describe Koi::SummaryList::DatetimeComponent do
 
   let(:model) { create(:post) }
 
+  include ActionView::Helpers::TagHelper
+
   describe "#datetime" do
     let(:render) do
       render_inline(component) do |dl|
@@ -41,6 +43,17 @@ describe Koi::SummaryList::DatetimeComponent do
       let(:model) { build(:post) }
 
       it { expect(page).to have_css("dt + dd", text: "") }
+    end
+
+    context "with block" do
+      let(:render) do
+        render_inline(component) do |dl|
+          dl.datetime(:updated_at) { |cell| tag.em(cell) }
+        end
+      end
+
+      it { expect(page).to have_css("dt", text: "Updated at") }
+      it { expect(page).to have_css("dt + dd > em", text: I18n.l(model.updated_at, format: :admin)) }
     end
   end
 end

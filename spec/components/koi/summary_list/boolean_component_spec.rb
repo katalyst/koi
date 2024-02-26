@@ -7,6 +7,8 @@ describe Koi::SummaryList::BooleanComponent do
 
   let(:model) { create(:post) }
 
+  include ActionView::Helpers::TagHelper
+
   describe "#boolean" do
     let(:render) do
       render_inline(component) do |dl|
@@ -34,6 +36,17 @@ describe Koi::SummaryList::BooleanComponent do
 
       it { expect(page).to have_css("dt", text: "Active") }
       it { expect(page).to have_css("dt + dd", text: "No") }
+    end
+
+    context "with block" do
+      let(:render) do
+        render_inline(component) do |dl|
+          dl.boolean(:active) { |cell| tag.em(cell) }
+        end
+      end
+
+      it { expect(page).to have_css("dt", text: "Active") }
+      it { expect(page).to have_css("dt + dd > em", text: "Yes") }
     end
   end
 end

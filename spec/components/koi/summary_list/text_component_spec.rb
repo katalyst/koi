@@ -7,6 +7,8 @@ describe Koi::SummaryList::TextComponent do
 
   let(:model) { create(:post) }
 
+  include ActionView::Helpers::TagHelper
+
   describe "#text" do
     let(:render) do
       render_inline(component) do |dl|
@@ -50,6 +52,17 @@ describe Koi::SummaryList::TextComponent do
 
       it { expect(page).to have_css("dt", text: "Name") }
       it { expect(page.find("dt + dd").native.to_html).to eq("<dd>&lt;strong&gt;Foo&lt;/strong&gt;</dd>") }
+    end
+
+    context "with block" do
+      let(:render) do
+        render_inline(component) do |dl|
+          dl.text(:name) { |cell| tag.em(cell) }
+        end
+      end
+
+      it { expect(page).to have_css("dt", text: "Name") }
+      it { expect(page).to have_css("dt + dd > em", text: model.name) }
     end
   end
 end
