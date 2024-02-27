@@ -28,8 +28,8 @@ module Koi
         with_column(Body::RichTextComponent.new(@table, @record, attribute, **options), &block)
       end
 
-      def link(attribute, **options, &block)
-        with_column(Body::LinkComponent.new(@table, @record, attribute, **options), &block)
+      def link(attribute, url: [:admin, @record], link: {}, **attributes, &block)
+        with_column(Body::LinkComponent.new(@table, @record, attribute, url:, link:, **attributes), &block)
       end
 
       def text(attribute, **options, &block)

@@ -14,7 +14,7 @@ describe Koi::Tables::Body do
 
   describe Koi::Tables::Body::LinkComponent do
     it "renders column" do
-      component = described_class.new(table, record, :name)
+      component = described_class.new(table, record, :name, url: [:admin, record])
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
         <td>
@@ -45,11 +45,22 @@ describe Koi::Tables::Body do
     end
 
     it "supports content" do
-      component = described_class.new(table, record, :name).with_content("Redirect from #{record.name}")
+      component = described_class.new(table, record, :name, url: [:admin, record])
+                    .with_content("Redirect from #{record.name}")
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
         <td>
           <a href="#{polymorphic_path([:admin, record])}">Redirect from #{record.name}</a>
+        </td>
+      HTML
+    end
+
+    it "supports attributes for anchor tag" do
+      component = described_class.new(table, record, :name, url: [:admin, record], link: { class: "custom" })
+      rendered  = render_inline(component)
+      expect(rendered).to match_html(<<~HTML)
+        <td>
+          <a class="custom" href="#{polymorphic_path([:admin, record])}">#{record.name}</a>
         </td>
       HTML
     end
