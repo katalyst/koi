@@ -23,26 +23,24 @@ describe Koi::Tables::TableComponent do
   end
 
   it "renders column" do
-    expect(table).to match_html(<<~HTML,
+    expect(table).to match_html(<<~HTML)
       <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
         <thead><tr><th>Name</th></tr></thead>
         <tbody><tr><td>#{collection.items.first&.name}</td></tr></tbody>
       </table>
     HTML
-                               )
   end
 
   context "with boolean" do
     let(:content) { Proc.new { |row| row.boolean :active } }
 
     it "renders boolean column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Active</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-xs koi--tables-col-boolean">Active</th></tr></thead>
           <tbody><tr><td>Yes</td></tr></tbody>
         </table>
       HTML
-                                 )
     end
 
     context "with content" do
@@ -55,13 +53,12 @@ describe Koi::Tables::TableComponent do
       end
 
       it "renders boolean column with custom content" do
-        expect(table).to match_html(<<~HTML,
+        expect(table).to match_html(<<~HTML)
           <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-            <thead><tr><th>Active</th></tr></thead>
+            <thead><tr><th class="koi--tables-col-xs koi--tables-col-boolean">Active</th></tr></thead>
             <tbody><tr><td>Green</td></tr></tbody>
           </table>
         HTML
-                                   )
       end
     end
   end
@@ -71,13 +68,12 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.date :published_on } }
 
     it "renders date column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Published on</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-s koi--tables-col-date">Published on</th></tr></thead>
           <tbody><tr><td>#{value}</td></tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 
@@ -86,13 +82,12 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.datetime :created_at } }
 
     it "renders datetime column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Created at</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-m koi--tables-col-datetime">Created at</th></tr></thead>
           <tbody><tr><td>#{value}</td></tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 
@@ -101,13 +96,12 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.number :ordinal } }
 
     it "renders number column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th class="number">Ordinal</th></tr></thead>
-          <tbody><tr><td class="number">#{collection.items.first&.ordinal}</td></tr></tbody>
+          <thead><tr><th class="koi--tables-col-xs koi--tables-col-number">Ordinal</th></tr></thead>
+          <tbody><tr><td class="koi--tables-col-number">#{collection.items.first&.ordinal}</td></tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 
@@ -115,9 +109,9 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.rich_text :content } }
 
     it "renders rich text column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Content</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-text">Content</th></tr></thead>
           <tbody><tr>
             <td title="#{collection.items.first&.content&.to_plain_text}">
               #{collection.items.first&.content}
@@ -125,7 +119,6 @@ describe Koi::Tables::TableComponent do
           </tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 
@@ -133,15 +126,14 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.link :name } }
 
     it "renders link column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Name</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-link">Name</th></tr></thead>
           <tbody><tr>
             <td><a href="/admin/posts/#{collection.items.first&.id}">#{collection.items.first&.name}</a></td>
           </tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 
@@ -149,13 +141,12 @@ describe Koi::Tables::TableComponent do
     let(:content) { Proc.new { |row| row.text :title } }
 
     it "renders text column" do
-      expect(table).to match_html(<<~HTML,
+      expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
-          <thead><tr><th>Title</th></tr></thead>
+          <thead><tr><th class="koi--tables-col-text">Title</th></tr></thead>
           <tbody><tr><td>#{collection.items.first&.title}</td></tr></tbody>
         </table>
       HTML
-                                 )
     end
   end
 end

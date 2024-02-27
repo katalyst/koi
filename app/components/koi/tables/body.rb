@@ -11,6 +11,7 @@ module Koi
       end
 
       # Formats the value as a date
+      #
       # default format is :admin
       class DateComponent < BodyCellComponent
         def initialize(table, record, attribute, format: :admin, **options)
@@ -25,6 +26,7 @@ module Koi
       end
 
       # Formats the value as a datetime
+      #
       # default format is :admin
       class DatetimeComponent < BodyCellComponent
         def initialize(table, record, attribute, format: :admin, **options)
@@ -39,19 +41,27 @@ module Koi
       end
 
       # Formats the value as a money value
-      # The value is expected to be in cents
+      #
+      # The value is expected to be in cents.
       # Adds a class to the cell to allow for custom styling
-      class MoneyComponent < BodyCellComponent
+      class CurrencyComponent < BodyCellComponent
+        def initialize(table, record, attribute, options: {}, **html_attributes)
+          super(table, record, attribute, **html_attributes)
+
+          @options = options
+        end
+
         def rendered_value
-          value.present? ? number_to_currency(value / 100.0) : ""
+          value.present? ? number_to_currency(value / 100.0, @options) : ""
         end
 
         def default_html_attributes
-          { class: "number" }
+          { class: "koi--tables-col-currency" }
         end
       end
 
       # Formats the value as a number
+      #
       # Adds a class to the cell to allow for custom styling
       class NumberComponent < BodyCellComponent
         def rendered_value
@@ -59,11 +69,12 @@ module Koi
         end
 
         def default_html_attributes
-          { class: "number" }
+          { class: "koi--tables-col-number" }
         end
       end
 
       # Displays the plain text for rich text content
+      #
       # Adds a title attribute to allow for hover over display of the full content
       class RichTextComponent < BodyCellComponent
         def default_html_attributes
@@ -102,6 +113,7 @@ module Koi
       end
 
       # Shows a thumbnail image
+      #
       # The value is expected to be an ActiveStorage attachment with a default variant named :thumb
       class ImageComponent < BodyCellComponent
         def initialize(table, record, attribute, variant: :thumb, **options)

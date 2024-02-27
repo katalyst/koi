@@ -120,7 +120,18 @@ describe Koi::Tables::Body do
       component = described_class.new(table, record, :ordinal)
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
-        <td class="number">#{record.ordinal}</td>
+        <td class="koi--tables-col-number">#{record.ordinal}</td>
+      HTML
+    end
+  end
+
+  describe Koi::Tables::Body::CurrencyComponent do
+    it "renders column" do
+      record    = create(:banner)
+      component = described_class.new(table, record, :ordinal)
+      rendered  = render_inline(component)
+      expect(rendered).to match_html(<<~HTML)
+        <td class="koi--tables-col-currency">$#{record.ordinal / 100.0}</td>
       HTML
     end
   end

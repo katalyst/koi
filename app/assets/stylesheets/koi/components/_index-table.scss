@@ -62,8 +62,11 @@ $row-height: 48px !default;
       max-height: 3rem;
       padding: 0;
     }
+  }
 
-    &.number {
+  td {
+    &.koi--tables-col-currency,
+    &.koi--tables-col-number {
       text-align: right;
       padding-right: 0.5rem;
     }
@@ -71,6 +74,22 @@ $row-height: 48px !default;
 
   th {
     font-weight: bold;
+
+    &.koi--tables-col-xs {
+      width: 5rem;
+    }
+
+    &.koi--tables-col-s {
+      width: 10rem;
+    }
+
+    &.koi--tables-col-m {
+      width: 15rem;
+    }
+
+    &.koi--tables-col-l {
+      width: 20rem;
+    }
   }
 
   thead a.ascending:after,
