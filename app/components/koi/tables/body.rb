@@ -72,19 +72,23 @@ module Koi
       end
 
       # Displays a link to the record
-      # The link text is the value of the attribute
-      # @param url [Proc] a proc that takes the record and returns the url, defaults to [:admin, record]
+      #
+      # Link options can be passed in to customise the link,
+      # the link text is the value of the attribute
+      #
+      # @see Koi::Tables::BodyRowComponent#link
       class LinkComponent < BodyCellComponent
-        def initialize(table, record, attribute, url: ->(object) { [:admin, object] }, **attributes)
-          super(table, record, attribute, **attributes)
+        def initialize(table, record, attribute, link: {}, **html_attributes)
+          super(table, record, attribute, **html_attributes)
 
-          @url_builder = url
+          @url_builder = link.delete(:url) || ->(object) { [:admin, object] }
+          @link_options = link
         end
 
         def call
           content # ensure content is set before rendering options
 
-          link = content.present? && url.present? ? link_to(content, url) : content.to_s
+          link = content.present? && url.present? ? link_to(content, url, @link_options) : content.to_s
           content_tag(@type, link, **html_attributes)
         end
 

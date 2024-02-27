@@ -24,7 +24,7 @@ describe Koi::Tables::Body do
     end
 
     it "supports path helpers" do
-      component = described_class.new(table, record, :name, url: :edit_admin_post_path)
+      component = described_class.new(table, record, :name, link: { url: :edit_admin_post_path })
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
         <td>
@@ -35,7 +35,7 @@ describe Koi::Tables::Body do
 
     it "supports procs" do
       record    = create(:url_rewrite, to: "www.example.com")
-      component = described_class.new(table, record, :from, url: ->(object) { object.to })
+      component = described_class.new(table, record, :from, link: { url: ->(object) { object.to } })
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
         <td>
@@ -50,6 +50,16 @@ describe Koi::Tables::Body do
       expect(rendered).to match_html(<<~HTML)
         <td>
           <a href="#{polymorphic_path([:admin, record])}">Redirect from #{record.name}</a>
+        </td>
+      HTML
+    end
+
+    it "supports attributes for anchor tag" do
+      component = described_class.new(table, record, :name, link: { class: "custom" })
+      rendered  = render_inline(component)
+      expect(rendered).to match_html(<<~HTML)
+        <td>
+          <a class="custom" href="#{polymorphic_path([:admin, record])}">#{record.name}</a>
         </td>
       HTML
     end
