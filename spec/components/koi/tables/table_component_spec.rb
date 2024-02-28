@@ -85,7 +85,7 @@ describe Koi::Tables::TableComponent do
       expect(table).to match_html(<<~HTML)
         <table data-controller="tables--turbo--collection" data-tables--turbo--collection-query-value="" id="table">
           <thead><tr><th class="koi--tables-col-m koi--tables-col-datetime">Created at</th></tr></thead>
-          <tbody><tr><td>#{value}</td></tr></tbody>
+          <tbody><tr><td title="#{value}">Less than a minute ago</td></tr></tbody>
         </table>
       HTML
     end
