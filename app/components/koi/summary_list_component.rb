@@ -48,8 +48,8 @@ module Koi
       with_definition_text(@model, attribute, label:, skip_blank:, &)
     end
 
-    def attachment(attribute, label: nil, skip_blank: @skip_blank, &)
-      with_definition_attachment(@model, attribute, label:, skip_blank:, &)
+    def attachment(attribute, label: nil, skip_blank: @skip_blank, variant: :thumb, &)
+      with_definition_attachment(@model, attribute, label:, skip_blank:, variant:, &)
     end
 
     # @deprecated legacy interface

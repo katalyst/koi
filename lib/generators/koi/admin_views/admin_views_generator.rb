@@ -38,10 +38,10 @@ module Koi
         %(<%= form.govuk_check_box_field :#{attribute.name} %>)
       when :date
         %(<%= form.govuk_date_field :#{attribute.name}, legend: { size: "s" } %>)
-      when :text
+      when :rich_text, :text
         %(<%= form.govuk_rich_text_area :#{attribute.name} %>)
-      when :rich_text
-        %(<%= form.govuk_rich_text_area :#{attribute.name} %>)
+      when :attachment
+        %(<%= form.govuk_image_field :#{attribute.name} %>)
       else
         ""
       end
@@ -61,6 +61,8 @@ module Koi
         %(<% dl.datetime :#{attribute.name} %>)
       when :rich_text
         %(<% dl.rich_text :#{attribute.name} %>)
+      when :attachment
+        %(<% dl.attachment :#{attribute.name} %>)
       else
         %(<% dl.text :#{attribute.name} %>)
       end
@@ -79,7 +81,7 @@ module Koi
       when :rich_text
         %(<% row.rich_text :#{attribute.name} %>)
       when :attachment
-        %(<% row.image :#{attribute.name} %>)
+        %(<% row.attachment :#{attribute.name} %>)
       else
         %(<% row.text :#{attribute.name} %>)
       end

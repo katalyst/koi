@@ -102,9 +102,14 @@ module Koi
         end
       end
 
-      # Shows a thumbnail image
-      # The value is expected to be an ActiveStorage attachment with a default variant named :thumb
-      class ImageComponent < BodyCellComponent
+      # Shows an attachment in a cell
+      #
+      # The value is expected to be an ActiveStorage attachment
+      #
+      # If it is representable, shows as a image tag using a default variant named :thumb.
+      #
+      # Otherwise shows as a link to download.
+      class AttachmentComponent < BodyCellComponent
         def initialize(table, record, attribute, variant: :thumb, **options)
           super(table, record, attribute, **options)
 
@@ -112,7 +117,13 @@ module Koi
         end
 
         def rendered_value
-          value.present? ? image_tag(value.variant(@variant)) : ""
+          if value.try(:representable?)
+            image_tag(@variant.nil? ? value : value.variant(@variant))
+          elsif value.try(:attached?)
+            link_to value.blob.filename, rails_blob_path(value, disposition: :attachment)
+          else
+            ""
+          end
         end
       end
     end

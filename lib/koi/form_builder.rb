@@ -37,7 +37,7 @@ module Koi
     # @api internal
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_document_field
     def govuk_document_field(attribute_name, hint: {}, **kwargs, &block)
-      max_size = hint[:max_size] || App::PERMITTED_IMAGE_SIZE
+      max_size = hint[:max_size] || Koi.config.image_size_limit
       super(attribute_name, hint:, **kwargs) do
         if block
           concat(yield)
@@ -50,7 +50,7 @@ module Koi
     # @api internal
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_image_field
     def govuk_image_field(attribute_name, hint: {}, **kwargs, &block)
-      max_size = hint[:max_size] || App::PERMITTED_IMAGE_SIZE
+      max_size = hint[:max_size] || Koi.config.image_size_limit
       super(attribute_name, hint:, **kwargs) do
         if block
           concat(yield)

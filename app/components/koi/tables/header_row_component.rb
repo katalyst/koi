@@ -37,7 +37,7 @@ module Koi
         header_cell(attribute, **attributes, &block)
       end
 
-      def image(attribute, **attributes, &block)
+      def attachment(attribute, **attributes, &block)
         header_cell(attribute, **attributes, &block)
       end
 

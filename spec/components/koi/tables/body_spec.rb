@@ -66,15 +66,6 @@ describe Koi::Tables::Body do
     end
   end
 
-  describe Koi::Tables::Body::ImageComponent do
-    it "renders column" do
-      record    = create(:banner, :with_image)
-      component = described_class.new(table, record, :image)
-      rendered  = render_inline(component)
-      expect(rendered).to have_css("td > img[src*='dummy.png']")
-    end
-  end
-
   describe Koi::Tables::Body::RichTextComponent do
     it "renders column" do
       component = described_class.new(table, record, :content)
@@ -123,6 +114,15 @@ describe Koi::Tables::Body do
       expect(rendered).to match_html(<<~HTML)
         <td class="number">#{record.ordinal}</td>
       HTML
+    end
+  end
+
+  describe Koi::Tables::Body::AttachmentComponent do
+    it "renders column with a preview of the image" do
+      record    = create(:banner, :with_image)
+      component = described_class.new(table, record, :image)
+      rendered  = render_inline(component)
+      expect(rendered).to have_css("td > img[src*='dummy.png']")
     end
   end
 end

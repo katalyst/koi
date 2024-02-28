@@ -12,6 +12,7 @@ group :development, :test do
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
+  gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
   gem "katalyst-healthcheck"
   gem "propshaft"
