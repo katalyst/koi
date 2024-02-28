@@ -1,36 +1,26 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/MethodName
 module Koi
   module DateHelper
-    # @deprecated
-    def date_format(date, format)
-      date.strftime format.gsub(/yyyy/, "%Y")
-                      .gsub(/yy/,    "%y")
-                      .gsub(/Month/, "%B")
-                      .gsub(/M/,     "%b")
-                      .gsub(/mm/,    "%m")
-                      .gsub(/m/,     "%-m")
-                      .gsub(/Day/,   "%A")
-                      .gsub(/D/,     "%a")
-                      .gsub(/dd/,    "%d")
-                      .gsub(/d/,     "%-d")
-    end
+    # Returns a string representing the number of days ago or from now.
+    # If the date is not 'recent' returns nil.
+    def days_ago_in_words(value)
+      from_time = value.to_time
+      to_time = Date.current.to_time
+      distance_in_days = ((to_time - from_time) / (24.0 * 60.0 * 60.0)).round
 
-    # @deprecated
-    def date_Month_d_yyyy(date)
-      date.strftime "%B %-d, %Y"
-    end
-
-    # @deprecated
-    def date_d_Month_yyyy(date)
-      date.strftime "%-d %B %Y"
-    end
-
-    # @deprecated
-    def date_d_M_yy(date)
-      date.strftime "%-d %b %y"
+      case distance_in_days
+      when 0
+        "today"
+      when 1
+        "yesterday"
+      when -1
+        "tomorrow"
+      when 2..5
+        "#{distance_in_days} days ago"
+      when -5..-2
+        "#{distance_in_days.abs} days from now"
+      end
     end
   end
 end
-# rubocop:enable Naming/MethodName

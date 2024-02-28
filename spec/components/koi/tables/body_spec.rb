@@ -87,12 +87,50 @@ describe Koi::Tables::Body do
   end
 
   describe Koi::Tables::Body::DateComponent do
+    let(:record) { create(:post, published_on: 1.month.ago) }
+
     it "renders column" do
       component = described_class.new(table, record, :published_on)
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
         <td>#{I18n.l(record.published_on, format: :admin)}</td>
       HTML
+    end
+
+    context "when not relative" do
+      let(:record) { create(:post, published_on: Date.current) }
+
+      it "renders column" do
+        component = described_class.new(table, record, :published_on, relative: false)
+        rendered  = render_inline(component)
+        expect(rendered).to match_html(<<~HTML)
+          <td>#{I18n.l(record.published_on, format: :admin)}</td>
+        HTML
+      end
+    end
+
+    context "when date is within 5 days" do
+      let(:record) { create(:post, published_on: 2.days.ago) }
+
+      it "renders column" do
+        component = described_class.new(table, record, :published_on)
+        rendered  = render_inline(component)
+        expect(rendered).to match_html(<<~HTML)
+          <td title="#{I18n.l(record.published_on, format: :admin)}">2 days ago</td>
+        HTML
+      end
+    end
+
+    context "when future date" do
+      let(:record) { create(:post, published_on: 3.days.from_now) }
+
+      it "renders column" do
+        component = described_class.new(table, record, :published_on)
+        rendered  = render_inline(component)
+        expect(rendered).to match_html(<<~HTML)
+          <td title="#{I18n.l(record.published_on, format: :admin)}">3 days from now</td>
+        HTML
+      end
     end
   end
 
@@ -101,8 +139,18 @@ describe Koi::Tables::Body do
       component = described_class.new(table, record, :created_at)
       rendered  = render_inline(component)
       expect(rendered).to match_html(<<~HTML)
-        <td>#{I18n.l(record.created_at, format: :admin)}</td>
+        <td title="#{I18n.l(record.created_at, format: :admin)}">Less than a minute ago</td>
       HTML
+    end
+
+    context "when not relative" do
+      it "renders column" do
+        component = described_class.new(table, record, :created_at, relative: false)
+        rendered  = render_inline(component)
+        expect(rendered).to match_html(<<~HTML)
+          <td>#{I18n.l(record.created_at, format: :admin)}</td>
+        HTML
+      end
     end
   end
 

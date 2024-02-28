@@ -13,32 +13,92 @@ module Koi
       end
 
       # Formats the value as a date
-      #
-      # default format is :admin
+      # @param format [String] date format, defaults to :admin
+      # @param relative [Boolean] if true, the date may be(if within 5 days) shown as a relative date
       class DateComponent < BodyCellComponent
-        def initialize(table, record, attribute, format: :admin, **options)
+        include Koi::DateHelper
+
+        def initialize(table, record, attribute, format: :admin, relative: true, **options)
           super(table, record, attribute, **options)
 
-          @format = format
+          @format   = format
+          @relative = relative
+        end
+
+        def value
+          super&.to_date
         end
 
         def rendered_value
-          value.present? ? l(value.to_date, format: @format) : ""
+          @relative ? relative_time : absolute_time
+        end
+
+        private
+
+        def absolute_time
+          value.present? ? I18n.l(value, format: @format) : ""
+        end
+
+        def relative_time
+          if value.blank?
+            ""
+          else
+            days_ago_in_words(value)&.capitalize || absolute_time
+          end
+        end
+
+        def default_html_attributes
+          @relative && value.present? && days_ago_in_words(value).present? ? { title: absolute_time } : {}
         end
       end
 
       # Formats the value as a datetime
-      #
-      # default format is :admin
+      # @param format [String] datetime format, defaults to :admin
+      # @param relative [Boolean] if true, the datetime may be(if today) shown as a relative date/time
       class DatetimeComponent < BodyCellComponent
-        def initialize(table, record, attribute, format: :admin, **options)
+        include ActionView::Helpers::DateHelper
+
+        def initialize(table, record, attribute, format: :admin, relative: true, **options)
           super(table, record, attribute, **options)
 
-          @format = format
+          @format   = format
+          @relative = relative
+        end
+
+        def value
+          super&.to_datetime
         end
 
         def rendered_value
-          value.present? ? l(value.to_datetime, format: @format) : ""
+          @relative ? relative_time : absolute_time
+        end
+
+        private
+
+        def absolute_time
+          value.present? ? I18n.l(value, format: @format) : ""
+        end
+
+        def today?
+          value.to_date == Date.current
+        end
+
+        def relative_time
+          return "" if value.blank?
+
+          if today?
+            if value > DateTime.current
+              "#{distance_of_time_in_words(value, DateTime.current)} from now".capitalize
+            else
+              "#{distance_of_time_in_words(value, DateTime.current)} ago".capitalize
+            end
+          else
+            absolute_time
+          end
+        end
+
+        def default_html_attributes
+          @relative && today? ? { title: absolute_time } : {}
         end
       end
 
