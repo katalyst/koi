@@ -39,6 +39,10 @@ module Koi
       def image(attribute, variant: :thumb, **options, &block)
         with_column(Body::ImageComponent.new(@table, @record, attribute, variant:, **options), &block)
       end
+
+      def attachment(attribute, **options, &block)
+        with_column(Body::AttachmentComponent.new(@table, @record, attribute, **options), &block)
+      end
     end
   end
 end

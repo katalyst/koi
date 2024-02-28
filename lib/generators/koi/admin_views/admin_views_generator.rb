@@ -79,7 +79,7 @@ module Koi
       when :rich_text
         %(<% row.rich_text :#{attribute.name} %>)
       when :attachment
-        %(<% row.image :#{attribute.name} %>)
+        %(<% row.attachment :#{attribute.name} %>)
       else
         %(<% row.text :#{attribute.name} %>)
       end

@@ -33,6 +33,10 @@ module Koi
         header_cell(attribute, **attributes, &block)
       end
 
+      def attachment(attribute, **attributes, &block)
+        header_cell(attribute, type: :link, **attributes, &block)
+      end
+
       def text(attribute, **attributes, &block)
         header_cell(attribute, **attributes, &block)
       end

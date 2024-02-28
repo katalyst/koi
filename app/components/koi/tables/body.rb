@@ -114,6 +114,21 @@ module Koi
           value.present? ? image_tag(value.variant(@variant)) : ""
         end
       end
+
+      # Shows an attachment in a cell
+      #
+      # If it is representable, shows as a image tag(assumes a variant called :thumb is defined for the attachment)
+      #
+      # Otherwise shows as a link to download
+      class AttachmentComponent < BodyCellComponent
+        def rendered_value
+          if value.representable?
+            image_tag(value.variant(:thumb))
+          else
+            link_to value.blob.filename, rails_blob_path(value, disposition: :attachment)
+          end
+        end
+      end
     end
   end
 end

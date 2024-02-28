@@ -124,4 +124,13 @@ describe Koi::Tables::Body do
       HTML
     end
   end
+
+  describe Koi::Tables::Body::AttachmentComponent do
+    it "renders column with a preview of the image" do
+      record    = create(:banner, :with_image)
+      component = described_class.new(table, record, :image)
+      rendered  = render_inline(component)
+      expect(rendered).to have_css("td > img[src*='dummy.png']")
+    end
+  end
 end
