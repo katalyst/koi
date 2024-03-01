@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Katalyst::HtmlAttributes::HasHtmlAttributes
+
 module Koi
   module Tables
     module Body
@@ -11,6 +13,7 @@ module Koi
       end
 
       # Formats the value as a date
+      #
       # default format is :admin
       class DateComponent < BodyCellComponent
         def initialize(table, record, attribute, format: :admin, **options)
@@ -25,6 +28,7 @@ module Koi
       end
 
       # Formats the value as a datetime
+      #
       # default format is :admin
       class DatetimeComponent < BodyCellComponent
         def initialize(table, record, attribute, format: :admin, **options)
@@ -59,6 +63,7 @@ module Koi
       end
 
       # Formats the value as a number
+      #
       # Adds a class to the cell to allow for custom styling
       class NumberComponent < BodyCellComponent
         def rendered_value
@@ -66,11 +71,12 @@ module Koi
         end
 
         def default_html_attributes
-          { class: "number" }
+          super.merge_html(class: "type-number")
         end
       end
 
       # Displays the plain text for rich text content
+      #
       # Adds a title attribute to allow for hover over display of the full content
       class RichTextComponent < BodyCellComponent
         def default_html_attributes
@@ -109,7 +115,7 @@ module Koi
         end
       end
 
-      # Shows an attachment in a cell
+      # Shows an attachment
       #
       # The value is expected to be an ActiveStorage attachment
       #
