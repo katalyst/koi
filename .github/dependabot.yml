@@ -3,20 +3,16 @@ updates:
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: '22:00'
-      timezone: Australia/Adelaide
+      interval: "monthly"
     groups:
-      dependencies:
+      ruby:
         patterns:
-          - "*" # Update all dependencies
+          - "*"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: "monthly"
     groups:
-      dependencies:
+      js:
         patterns:
-          - "*" # Update all dependencies
+          - "*"
