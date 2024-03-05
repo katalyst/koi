@@ -1,4 +1,5 @@
 @use "../layouts/navigation" as nav;
+@use "../layouts/flash";
 
 .admin-login {
   display: flex;
@@ -37,4 +38,9 @@
 
 .admin-login .button--primary {
   flex: 1;
+}
+
+.admin-login .govuk-error-summary {
+  padding: 15px;
+  margin-bottom: 30px;
 }

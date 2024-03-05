@@ -8,7 +8,8 @@ module Admin
       ActiveModel::Name.new(self, nil, "Admin")
     end
 
-    has_secure_password :password
+    # disable validations for password_digest
+    has_secure_password validations: false
 
     has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
 

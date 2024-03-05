@@ -1,0 +1,13 @@
+<%= render "layouts/koi/navigation_header" %>
+
+<%= form_with(url: accept_admin_session_path) do |form| %>
+  <%= tag.input name: :token, type: :hidden, value: token %>
+  <p>Welcome to Koi Admin</p>
+  <%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
+    <%= builder.text :name %>
+    <%= builder.text :email %>
+  <% end %>
+  <div class="actions-group">
+    <%= form.admin_save "Sign in" %>
+  </div>
+<% end %>

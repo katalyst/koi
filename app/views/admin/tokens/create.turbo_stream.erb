@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "invite" do %>
+  <div class="action copy-to-clipboard govuk-input__wrapper" data-controller="clipboard" data-clipboard-supported-class="clipboard--supported">
+    <%= text_field_tag :invite_link, admin_token_url(token), readonly: true, data: { clipboard_target: "source" } %>
+    <button class="govuk-input__suffix clipboard-button" aria-hidden="true" data-action="clipboard#copy">
+      Copy link
+    </button>
+    <div class="copy-to-clipboard-feedback" role="alert"></div>
+  </div>
+<% end %>
