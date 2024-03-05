@@ -11,6 +11,8 @@ module Admin
     def new
       return redirect_to admin_dashboard_path if admin_signed_in?
 
+      return redirect_to admin_token_path(params[:token]) if params[:token].present?
+
       render :new, locals: { admin_user: Admin::User.new }
     end
 

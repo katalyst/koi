@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     resources :url_rewrites
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]
+      post :invite, on: :member, to: "tokens#create"
+      post :accept, on: :member, to: "tokens#update"
     end
+
+    # JWT tokens have dots(represents the 3 parts of data) in them, so we need to allow them in the URL
+    # can by pass if we use token as a query param
+    get "token/:token", to: "tokens#show", as: :token, token: /[^\/]+/
 
     resource :cache, only: %i[destroy]
     resource :dashboard, only: %i[show]

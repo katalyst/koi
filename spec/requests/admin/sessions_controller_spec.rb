@@ -19,6 +19,16 @@ RSpec.describe Admin::SessionsController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    context "with token" do
+      let(:token) { "token" }
+      let(:action) { get new_admin_session_path, params: { token: } }
+
+      it "redirects to the token path" do
+        action
+        expect(response).to redirect_to(admin_token_path(token))
+      end
+    end
   end
 
   describe "POST /admin/sessions" do

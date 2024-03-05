@@ -23,7 +23,14 @@
 </head>
 <body class="admin-login">
 <main class="stack">
+  <div>
+    <%= render "layouts/koi/flash" unless flash.empty? %>
+  </div>
   <%= yield %>
 </main>
+<%= render ScrimComponent.new %>
+<%= render Kpop::FrameComponent.new do %>
+  <%= content_for :kpop %>
+<% end %>
 </body>
 </html>

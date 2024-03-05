@@ -1,0 +1,13 @@
+<%= render "layouts/koi/navigation_header" %>
+
+<%= form_with(model: admin, url: accept_admin_admin_user_path(admin), method: :post) do |form| %>
+  <%= tag.input name: :token, type: :hidden, value: token %>
+  <%= form.govuk_fieldset legend: { text: 'Sign up to admin terminal' }, id: "signup-fields" do %>
+    <%= form.govuk_email_field :email, readonly: true %>
+    <%= form.govuk_text_field :name, readonly: true %>
+  <% end %>
+  <div class="actions-group">
+    <%= form.admin_save "Signup with passkey", value: :passkey, data: { turbo_frame: "kpop" } %>
+    <%= form.admin_save "Signup with password", value: :password %>
+  </div>
+<% end %>

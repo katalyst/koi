@@ -8,7 +8,10 @@ module Admin
       ActiveModel::Name.new(self, nil, "Admin")
     end
 
-    has_secure_password :password
+    # disable validations for password_digest, as we don't want to validate the password on create
+    has_secure_password validations: false
+    # validate password on update if no credentials are present or password is present
+    validate :validate_password, on: :update, if: -> { credentials.blank? || password.present? }
 
     has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
 
@@ -24,6 +27,14 @@ module Admin
     else
       scope :admin_search, ->(query) do
         where("email LIKE :query OR name LIKE :query", query: "%#{query}%")
+      end
+    end
+
+    def validate_password
+      errors.add(:password, :blank) if password_digest.blank?
+
+      if password.present? && password.bytesize > ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED
+        record.errors.add(:password, :password_too_long)
       end
     end
   end

@@ -8,7 +8,8 @@ module Admin
 
     def new
       unless @admin_user.webauthn_id
-        @admin_user.update!(webauthn_id: WebAuthn.generate_user_id)
+        # disable validations to allow saving without password or passkey credentials
+        @admin_user.update_attribute!(:webauthn_id, WebAuthn.generate_user_id)
       end
 
       options = webauthn_relying_party.options_for_registration(
@@ -46,8 +47,8 @@ module Admin
       )
 
       respond_to do |format|
+        format.turbo_stream { render locals: { admin: @admin_user } } if self_referred?
         format.html { redirect_to admin_admin_user_path(@admin_user), status: :see_other }
-        format.turbo_stream { render locals: { admin: @admin_user } }
       end
     end
 
