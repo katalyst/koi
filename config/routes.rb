@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resource :session, only: %i[new create destroy]
-
+    resource :passkey_resets, only: %i[new edit create update]
     resources :url_rewrites
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]

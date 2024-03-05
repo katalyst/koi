@@ -15,5 +15,6 @@
   <div class="actions-group">
     <%= f.admin_save "Log in" %>
     <%= f.button "🔑", type: :button, class: "button button--secondary", data: { action: "webauthn-authentication#authenticate" } %>
+    <%= link_to "Reset 🔑", new_admin_passkey_resets_path, class:  "button button--secondary" %>
   </div>
 <% end %>

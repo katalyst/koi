@@ -1,0 +1,13 @@
+<%= render "layouts/koi/navigation_header" %>
+<%= form_with model: admin_user,
+              url:   admin_passkey_resets_path(token: params[:token]),
+              data:  {
+                controller:                          "webauthn-registration",
+                action:                              "submit->webauthn-registration#submit",
+                webauthn_registration_options_value: { publicKey: options },
+              } do |form| %>
+  <%= form.govuk_text_field :nickname %>
+  <%= form.hidden_field :response, data: { webauthn_registration_target: "response" } %>
+
+  <%= form.admin_save %>
+<% end %>

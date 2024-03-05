@@ -17,6 +17,10 @@ module Admin
 
     scope :alphabetical, -> { order(name: :asc) }
 
+    generates_token_for :passkey_reset_token, expires_in: 5.minutes do
+      email
+    end
+
     if "PgSearch::Model".safe_constantize
       include PgSearch::Model
 
