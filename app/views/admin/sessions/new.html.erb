@@ -7,6 +7,15 @@
         webauthn_authentication_options_value: { publicKey: webauthn_auth_options },
       },
     ) do |f| %>
+  <% unless flash.empty? %>
+    <div class="govuk-error-summary">
+      <ul class="govuk-error-summary__list">
+        <% flash.each do |_, message| %>
+          <%= tag.li message %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= f.govuk_fieldset legend: nil do %>
     <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email" %>
     <%= f.govuk_password_field :password, autocomplete: "current-password" %>

@@ -1,0 +1,46 @@
+.copy-to-clipboard {
+  position: relative;
+
+  .copy-to-clipboard-feedback {
+    animation: ease-in-out 0.5s;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin-top: -1em;
+    z-index: 10;
+    white-space: nowrap;
+    text-align: center;
+
+    &:after {
+      content: "Link copied to your clipboard!";
+      display: inline-block;
+      padding: 0.33em 1em 0.33em 1em;
+      border-radius: 3rem;
+      color: white;
+      background-color: black;
+    }
+  }
+
+  &.copied .copy-to-clipboard-feedback {
+    display: block;
+  }
+
+  .clipboard-button {
+    display: none;
+  }
+
+  &.clipboard--supported .clipboard-button {
+    display: initial;
+  }
+}
+
+.actions .action.copy-to-clipboard {
+  display: flex;
+  flex: auto;
+
+  input[type="text"] {
+    flex: auto;
+  }
+}

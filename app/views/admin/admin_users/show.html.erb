@@ -2,12 +2,12 @@
   <%= render Koi::Header::ShowComponent.new(resource: admin) %>
 <% end %>
 
-<%= definition_list(class: "item-table") do |builder| %>
-  <%= builder.item admin, :name %>
-  <%= builder.item admin, :email %>
-  <%= builder.item admin, :created_at %>
-  <%= builder.item admin, :last_sign_in_at, label: { text: "Last sign in" } %>
-  <%= builder.item admin, :archived? %>
+<%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
+  <%= builder.text :name %>
+  <%= builder.text :email %>
+  <%= builder.datetime :created_at %>
+  <%= builder.datetime :last_sign_in_at, label: { text: "Last sign in" } %>
+  <%= builder.boolean :archived? %>
 <% end %>
 
 <div class="actions">
@@ -16,6 +16,9 @@
                   class:  "button button--secondary",
                   method: :delete,
                   form:   { data: { turbo_confirm: "Are you sure?" } } %>
+  <% end %>
+  <% if admin != current_admin %>
+    <%= button_to "Invite", invite_admin_admin_user_path(admin), class: "button button--primary", form: { id: "invite" } %>
   <% end %>
 </div>
 
