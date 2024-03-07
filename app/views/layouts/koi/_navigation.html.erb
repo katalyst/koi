@@ -2,7 +2,7 @@
      data-action="shortcut:go@document->navigation#focus
      navigation:toggle@document->navigation#toggle
      shortcut:nav-toggle@document->navigation#toggle">
-  <%= render "layouts/koi/navigation_header" %>
+  <%= render "layouts/koi/navigation_header", admin: current_admin %>
   <div class="filter">
     <input type="search" placeholder="Filter menu" autocomplete="off"
            data-navigation-target="filter"

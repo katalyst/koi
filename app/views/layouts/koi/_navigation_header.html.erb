@@ -1,6 +1,11 @@
 <header>
   <h2 class="site-name"><%= URI.parse(root_url).host %></h2>
-  <h3 class="admin-name">Koi Admin</h3>
+  <%# show username on nav header and Koi Admin on login page %>
+  <% if local_assigns[:admin].present? %>
+    <%= link_to admin.name, admin_admin_user_path(admin), class: "admin-name" %>
+  <% else %>
+    <h3 class="admin-name">Koi Admin</h3>
+  <% end %>
   <%# default, prefer using an icon in a Koi override %>
   <span class="site-icon"><%= URI.parse(root_url).host[0] %></span>
 </header>
