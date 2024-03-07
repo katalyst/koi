@@ -3,7 +3,7 @@
   <% hint = f.hint(attr) || false %>
   <% if attr == :value %>
     <% f.object.derive_data_source(collection: true) %>
-    <%= render "field_#{klass.crud.find(:fields, attr, :type)}", f: f, attr: attr, object: f.object, label: :value, hint: hint %>
+    <%= render "field_#{klass.crud.find(:fields, attr, :type)}", f: f, attr: attr, object: f.object, label: :value, hint: hint, value: f.object.value %>
   <% else %>
     <%=
       assoc    = klass.reflect_on_association(attr)

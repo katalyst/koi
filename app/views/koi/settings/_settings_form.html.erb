@@ -2,7 +2,7 @@
   <%- next if object.role.eql?("Super") && !current_admin.god? -%>
   <% field = object['field_type'] if Setting::FIELD_TYPES.values.include? object['field_type'] %>
   <% field ||= 'string' %>
-  <%= f.simple_fields_for "setting[#{object.id}]", object do |setting| %>
-    <%= render "/koi/settings/field_#{field}", object: object, f: setting, attr: :value, hint: object.hint, label: object.label %>
+  <%= f.simple_fields_for "setting_#{object.id}" do |setting| %>
+    <%= render "/koi/settings/field_#{field}", object: object, f: setting, attr: :value, hint: object.hint, label: object.label, value: object.value %>
   <% end %>
 <% end %>

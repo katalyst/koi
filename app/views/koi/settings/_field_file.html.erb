@@ -63,35 +63,3 @@
   </div>
 
 </div>
-
-<!-- kept in case any of the above doesn't work for settings -->
-<!--
-<%= f.label(label) %>
-
-<div class="media">
-  <% if !is_nil_or_new %>
-    <%= attachment_image_tag(value, class: "media-object pull-left") %>
-  <% else %>
-    <%= placeholder_image_tag("No File", size: "100x100", class: "media-object pull-left") %>
-  <% end %>
-  <div class="media-body">
-    <% unless is_nil_or_new %>
-      <p><%= link_to "View #{kind}", value.url, :target => "_blank" %></p>
-    <% end %>
-
-      <%= fields_for "setting[setting[#{object.id}]]" do |setting| %>
-        <div class="controls">
-        <% if !is_nil_or_new %>
-            <label class="radio"><%= setting.radio_button :remove_file, false, checked: !is_nil_or_new %> Keep this <%= kind %></label>
-            <label class="radio"><%= setting.radio_button :remove_file, true %> Remove this <%= kind %></label>
-        <% end %>
-
-        <label class="radio"><%= setting.radio_button :remove_file, false, checked: is_nil_or_new, id: html_id %> Upload a new <%= kind %></label>
-
-        <%= setting.file_field :file, label: false, onclick: "document.getElementById('#{html_id}').click()" %>
-      <% end %>
-
-    </div>
-  </div>
-</div>
--->

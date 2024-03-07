@@ -1,8 +1,8 @@
 <%=
   begin
-    render "field_#{f.object.field_type}", :f => f, :attr => attr, object: f.object, label: attr, hint: hint
+    render "field_#{f.object.field_type}", :f => f, :attr => attr, object: f.object, label: attr, hint: hint, value: value
   rescue ActionView::MissingTemplate
-    render "field_string", :f => f, :attr => attr, object: f.object, label: attr, hint: hint
+    render "field_string", :f => f, :attr => attr, object: f.object, label: attr, hint: hint, value: value
   end
 %>
 <% if !current_admin.god? && !f.object.hint.blank? %>
