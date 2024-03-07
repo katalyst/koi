@@ -17,9 +17,12 @@ module Koi
     end
 
     def update_multiple
-      params[:setting][:setting].each do |id, _value|
-        @setting = Setting.find(id.to_i)
-        @setting.update(params[:setting][:setting][id])
+      params[:setting].each do |key, data|
+        setting_id = key.delete_prefix("setting_")
+        next unless /\A\d+\z/.match?(setting_id)
+
+        @setting = Setting.find(setting_id.to_i)
+        @setting.update(value: data[:value])
       end
 
       params[:group] = "main" if params[:group].blank?

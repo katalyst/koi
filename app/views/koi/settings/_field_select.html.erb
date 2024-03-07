@@ -1,6 +1,6 @@
 <% data = object.data_source.call if object.data_source %>
 <% if data.nil? %>
-  <%= f.input attr, as: :string, label: label, hint: hint, input_html: { class: "form--medium" } %>
+  <%= f.input attr, as: :string, label: label, hint: hint, input_html: { value: value, class: "form--medium" } %>
 <% else %>
   <%= f.input attr.to_sym, :as => :select, collection: data, label: label, hint: hint, input_html: { class: "form--medium" } %>
 <% end %>
