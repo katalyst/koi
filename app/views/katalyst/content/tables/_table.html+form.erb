@@ -1,0 +1,41 @@
+<%= render Koi::Content::Editor::ItemFormComponent.new(model: table, url: path, data: { controller: "content--editor--table" }) do |form| %>
+  <%= form.content_heading_fieldset %>
+
+  <div class="govuk-form-group">
+    <label for="item-content-field" class="govuk-label govuk-label--s">Content</label>
+    <% content = sanitize_content_table(normalize_content_table(form.object, heading: false)) %>
+    <div class="govuk-textarea content--editor--table-editor"
+         contenteditable="true"
+         data-content--editor--table-target="content"
+         data-action="paste->content--editor--table#paste"
+         id="item-content-field">
+      <%= content %>
+    </div>
+    <%= form.hidden_field :content, value: content, data: { content__editor__table_target: "input" } %>
+  </div>
+
+  <%# hidden button to receive <Enter> events (HTML-default is to click first button in form) %>
+  <%= form.button "Save", hidden: "" %>
+
+  <%# hidden button to submit the table for re-rendering %>
+  <%= form.button "Update",
+                  formaction: table.persisted? ? content_routes.table_path : content_routes.tables_path,
+                  hidden:     "",
+                  data:       { content__editor__table_target: "update" } %>
+
+  <%= form.govuk_number_field :heading_rows,
+                              label:       { text: "Heading rows" },
+                              width:       2,
+                              placeholder: 0,
+                              min:         0,
+                              data:        { content__editor__table_target: "headerRows",
+                                             action:                        "input->content--editor--table#update" } %>
+
+  <%= form.govuk_number_field :heading_columns,
+                              label:       { text: "Heading columns" },
+                              width:       2,
+                              placeholder: 0,
+                              min:         0,
+                              data:        { content__editor__table_target: "headerColumns",
+                                             action:                        "input->content--editor--table#update" } %>
+<% end %>

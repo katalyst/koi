@@ -3,3 +3,41 @@
 [data-controller="content--editor--container"] {
   --heading--h4: 1rem;
 }
+
+[data-controller="content--editor--table"] {
+  .content--editor--table-editor {
+    // ensure the table editor is easy to target when empty
+    &:not(:has(table)) {
+      min-height: 4rem !important;
+    }
+
+    // tight wrap the table editor around the table and use table borders
+    &:has(table) {
+      border: none !important;
+      padding: 0 !important;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid black;
+    }
+  }
+
+  // restore webkit spinners, hidden by govuk
+  // these are not ideal, but spinners are much easier to work with for this
+  // use case than the default number input, because we submit the form on
+  // change to implement the live preview
+  input[type="number"]::-webkit-inner-spin-button {
+    position: relative;
+    right: -1px;
+    margin-top: -2px;
+    margin-bottom: -4px;
+    -webkit-appearance: inner-spin-button !important;
+    opacity: 1 !important;
+  }
+}

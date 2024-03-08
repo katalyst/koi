@@ -1,4 +1,4 @@
-<%= form_with model:, scope: :item, url:, builder: do |form| %>
+<%= form_with model:, scope: :item, url:, builder:, **html_attributes do |form| %>
   <%= form.hidden_field :container_type %>
   <%= form.hidden_field :container_id %>
   <%= form.hidden_field :type %>

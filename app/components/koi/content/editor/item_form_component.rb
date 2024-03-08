@@ -4,10 +4,12 @@ module Koi
   module Content
     module Editor
       class ItemFormComponent < ViewComponent::Base
+        include Katalyst::HtmlAttributes
+
         attr_reader :model, :url, :builder, :form
 
-        def initialize(model:, url:, builder: Koi::FormBuilder)
-          super()
+        def initialize(model:, url:, builder: Koi::FormBuilder, **)
+          super(**)
 
           @model   = model
           @url     = url
