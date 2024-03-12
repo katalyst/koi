@@ -24,7 +24,7 @@ RSpec.describe "admin/invites" do
 
     expect(page).to have_css("button", text: "Invite")
 
-    click_button "Invite"
+    click_button "Generate login link"
 
     expect(page).to have_css("input[type=text][value*=token]")
   end
