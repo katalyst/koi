@@ -1,0 +1,7 @@
+<%% content_for :header do %>
+  <%%= render(Koi::Header::IndexComponent.new(model: <%= class_name %>)) %>
+<%% end %>
+
+<%%= koi_index_actions search: true, create: true %>
+
+<%%= render table %>

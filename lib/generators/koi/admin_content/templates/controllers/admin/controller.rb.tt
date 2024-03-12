@@ -1,0 +1,122 @@
+# frozen_string_literal: true
+
+module Admin
+  class <%= controller_class_name %>Controller < ApplicationController
+    helper Katalyst::Content::EditorHelper
+
+    before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
+
+    # GET /admin/<%= plural_name %>
+    def index
+      collection = Collection.new.with_params(params).apply(::<%= class_name %>.all)
+      table      = Koi::IndexTableComponent.new(collection:)
+
+      respond_to do |format|
+        format.turbo_stream { render table } if self_referred?
+        format.html { render :index, locals: { table:, collection: } }
+      end
+    end
+
+    # GET /admin/<%= plural_name %>/:id
+    def show
+      editor = Katalyst::Content::EditorComponent.new(container: @<%= singular_name %>)
+
+      render :show, locals: { <%= singular_name %>: @<%= singular_name %>, editor: }
+    end
+
+    # GET /admin/<%= plural_name %>/new
+    def new
+      @<%= singular_name %> = ::<%= class_name %>.new
+
+      render :new, locals: { <%= singular_name %>: @<%= singular_name %> }
+    end
+
+    # GET /admin/<%= plural_name %>/:id/edit
+    def edit
+      render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }
+    end
+
+    # POST /admin/<%= plural_name %>
+    def create
+      @<%= singular_name %> = ::<%= class_name %>.new(<%= singular_name %>_params)
+
+      if @<%= singular_name %>.save
+        @<%= singular_name %>.build_draft_version
+        @<%= singular_name %>.save!
+
+        redirect_to admin_<%= plural_name %>_path, status: :see_other
+      else
+        render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+      end
+    end
+
+    # PATCH /admin/<%= plural_name %>/:id
+    def update
+      @<%= singular_name %>.assign_attributes <%= singular_name %>_params
+
+      unless @<%= singular_name %>.valid?
+        case previous_action
+        when "show"
+          editor = Katalyst::Content::EditorComponent.new(container: @<%= singular_name %>)
+
+          return respond_to { |format| format.turbo_stream { render editor.errors, status: :unprocessable_entity } }
+        when "edit"
+          return render previous_action, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+        end
+      end
+
+      case params[:commit]
+      when "publish"
+        @<%= singular_name %>.save!
+        @<%= singular_name %>.publish!
+      when "save"
+        @<%= singular_name %>.save!
+      when "revert"
+        @<%= singular_name %>.revert!
+      end
+
+      return redirect_to admin_<%= singular_name %>_path(@<%= singular_name %>) if previous_action == "edit"
+
+      redirect_back fallback_location: admin_<%= singular_name %>_path(@<%= singular_name %>)
+    end
+
+    # DELETE /admin/<%= plural_name %>/:id
+    def destroy
+      @<%= singular_name %>.destroy!
+
+      redirect_to admin_<%= plural_name %>_path
+    end
+
+    private
+
+    def set_<%= singular_name %>
+      @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+    end
+
+    def <%= singular_name %>_params
+      params
+        .require(:<%= singular_name %>)
+        .permit(:title,
+                :slug,
+                :show_title,
+                items_attributes: %i[id index depth])
+    end
+
+    def previous_action
+      previous = request.referer&.split("/")&.last
+
+      %w[show edit].include?(previous) ? previous : "show"
+    end
+
+    class Collection < Katalyst::Tables::Collection::Base
+      config.sorting  = :title
+      config.paginate = true
+
+      attribute :search, :string
+
+      def filter
+        self.items = items.admin_search(search) if search.present?
+      end
+    end
+  end
+end

@@ -1,0 +1,153 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe Admin::<%= controller_class_name %>Controller do
+  let(:admin) { create(:admin) }
+  let!(:model) { create(:<%= singular_name %>) }
+
+  include_context "with admin session"
+
+  describe "GET /admin/<%= plural_name %>" do
+    let(:action) { get polymorphic_path([:admin, <%= class_name %>]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+
+    context "with a large collection" do
+      before { create_list(:<%= singular_name %>, 25) } # rubocop:disable FactoryBot/ExcessiveCreateList
+
+      it "paginates the collection" do
+        action
+        expect(response.body).to have_css("tbody tr", count: 20)
+      end
+    end
+
+    context "with sort parameter" do
+      let(:action) { get polymorphic_path([:admin, <%= class_name %>], sort: "title desc") }
+
+      before do
+        create(:<%= singular_name %>, title: "first")
+        create(:<%= singular_name %>, title: "second")
+      end
+
+      it "finds first in second place" do
+        action
+        expect(response.body).to have_css("tbody tr + tr td", text: "first")
+      end
+    end
+
+    context "with search parameter" do
+      let(:action) { get polymorphic_path([:admin, <%= class_name %>], search: "first") }
+
+      before do
+        create(:<%= singular_name %>, title: "first")
+        create(:<%= singular_name %>, title: "second")
+      end
+
+      it "finds the needle" do
+        action
+        expect(response.body).to have_css("table td", text: "first")
+      end
+
+      it "removes the chaff" do
+        action
+        expect(response.body).to have_no_css("table td", text: "second")
+      end
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/new" do
+    let(:action) { get new_polymorphic_path([:admin, <%= class_name %>]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "POST /admin/<%= plural_name %>" do
+    let(:action) { post polymorphic_path([:admin, <%= class_name %>]), params: { <%= singular_name %>: params } }
+    let(:params) { attributes_for(:<%= singular_name %>) }
+
+    it_behaves_like "requires admin"
+
+    it { expect { action }.to change(<%= class_name %>, :count).by(1) }
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to polymorphic_path([:admin, <%= class_name %>])
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/:id" do
+    let(:action) { get polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/<%= plural_name %>/:id/edit" do
+    let(:action) { get edit_polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PATCH /admin/<%= plural_name %>/:id" do
+    let(:action) { patch polymorphic_path([:admin, model]), params: { commit:, <%= singular_name %>: params } }
+
+    let(:commit) { :save }
+    let(:params) { { title: "updated-title" } }
+
+    it_behaves_like "requires admin"
+
+    it { expect { action }.to change { model.reload.title }.to("updated-title") }
+
+    it "redirects back to show after update" do
+      action
+      expect(response).to redirect_to polymorphic_path([:admin, model])
+    end
+
+    context "with publish" do
+      let(:commit) { :publish }
+      let(:model) { create(:<%= singular_name %>, :draft) }
+
+      it { expect { action }.to change { model.reload.published_version }.to(model.draft_version) }
+    end
+
+    context "with revert" do
+      let(:commit) { :revert }
+      let(:model) { create(:<%= singular_name %>, :draft) }
+
+      it { expect { action }.to change { model.reload.draft_version }.to(model.published_version) }
+    end
+  end
+
+  describe "DELETE /admin/<%= plural_name %>/:id" do
+    let(:action) { delete polymorphic_path([:admin, model]) }
+
+    it_behaves_like "requires admin"
+
+    it { expect { action }.to change(<%= class_name %>, :count).by(-1) }
+
+    it "redirects back to index after delete" do
+      action
+      expect(response).to redirect_to polymorphic_path([:admin, <%= class_name %>])
+    end
+  end
+end

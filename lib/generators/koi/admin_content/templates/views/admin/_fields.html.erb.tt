@@ -1,0 +1,15 @@
+<%%= form.govuk_fieldset legend: nil,
+                         data:   { controller:           "sluggable",
+                                   sluggable_slug_value: form.object.slug } do %>
+  <%%= form.govuk_text_field :title,
+                             label: { size: "s" },
+                             data:  { sluggable_target: "source",
+                                      action:           "keyup->sluggable#sourceChanged" } %>
+
+  <%%= form.govuk_check_box_field :show_title, label: { text: "Show on <%= singular_name %>?" }, small: true %>
+
+  <%%= form.govuk_text_field :slug,
+                             label: { size: "s" },
+                             data:  { sluggable_target: "slug",
+                                      action:           "keyup->sluggable#slugChanged" } %>
+<%% end %>

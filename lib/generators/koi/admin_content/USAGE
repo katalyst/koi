@@ -1,0 +1,22 @@
+Description:
+    Generates Koi admin crud backed by Katalyst::Content
+
+Example:
+    bin/rails generate koi:admin_content Page
+
+    This will create:
+        app/controllers/admin/pages_controller.rb
+        app/models/page.rb
+        app/views/admin/pages/_fields.html.erb
+        app/views/admin/pages/_page+html+row.erb
+        app/views/admin/pages/edit.html.erb
+        app/views/admin/pages/index.html.erb
+        app/views/admin/pages/new.html.erb
+        app/views/admin/pages/show.html.erb
+        db/migrate/create_pages.rb
+        specs/request/admin/page_controller_spec.rb
+        specs/models/page_spec.rb
+
+    This will update:
+        config/routes/admin.rb to include `resources :pages` to the :admin namespace
+        config/initializers/koi.rb to include "Pages => /admin/pages" in the Modules section

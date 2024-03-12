@@ -1,0 +1,13 @@
+<%% row.link :title %>
+
+<%% row.text :slug %>
+
+<%% row.text :state do |cell| %>
+  <%% status = { published: "success", unpublished: "warning", draft: "warning" }[cell.value] %>
+
+  <span class="button__pill__<%%= status %>">
+    <%%= t("katalyst.content.editor.#{cell.value}", default: cell.value.to_s.humanize) %>
+  </span>
+<%% end %>
+
+<%% row.datetime :updated_at %>

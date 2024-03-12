@@ -1,0 +1,14 @@
+<%% content_for :header do %>
+  <%%= render Koi::Header::EditComponent.new(resource: <%= singular_name %>) %>
+<%% end %>
+
+<%%= form_with model: <%= singular_name %>, url: [:admin, <%= singular_name %>], builder: Koi::FormBuilder do |form| %>
+  <%%= render "fields", form: %>
+
+  <div class="actions">
+    <%%= form.admin_save %>
+    <%%= form.admin_delete if form.object.persisted? %>
+  </div>
+<%% end %>
+
+<%%= govuk_formbuilder_init %>

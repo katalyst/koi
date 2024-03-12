@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+class <%= class_name %> < ApplicationRecord
+  include Katalyst::Content::Container
+  include PgSearch::Model
+
+  validates :title, :slug, presence: true
+  validates :slug, uniqueness: { case_sensitive: false }
+
+  scope :alphabetical, -> { order(title: :desc) }
+
+  pg_search_scope :admin_search, against: %i[title slug], using: { tsearch: { prefix: true } }
+
+  class Version < ApplicationRecord
+    include Katalyst::Content::Version
+  end
+end

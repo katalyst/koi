@@ -1,0 +1,71 @@
+# frozen_string_literal: true
+
+class <%= controller_class_name %>Controller < ApplicationController
+  include Koi::Controller::HasAdminUsers
+
+  helper Katalyst::Content::FrontendHelper
+
+  # GET /:slug
+  def show
+    render locals: { <%= singular_name %>:, version: <%= singular_name %>.published_version }
+  end
+
+  # GET /:slug/preview
+  def preview
+    return redirect_to action: :show if <%= singular_name %>.state == :published
+
+    render :show, locals: { <%= singular_name %>:, version: <%= singular_name %>.draft_version }
+  end
+
+  private
+
+  def <%= singular_name %>
+    if request.has_header?("katalyst.matched.<%= singular_name %>")
+      request.get_header("katalyst.matched.<%= singular_name %>")
+    else
+      <%= class_name %>.find_by!(slug: params[:slug])
+    end
+  end
+
+  class Constraints
+    attr_reader :request
+
+    def self.matches?(request)
+      new(request).match?
+    end
+
+    def initialize(request)
+      @request = request
+    end
+
+    # Implement constraints API
+    def match?
+      request.set_header("katalyst.matched.<%= singular_name %>", <%= singular_name %>)
+
+      return false if <%= singular_name %>.blank?
+
+      case action
+      when "show"
+        <%= singular_name %>.published?
+      when "preview"
+        admin?
+      else
+        false
+      end
+    end
+
+    def action
+      request.params[:action]
+    end
+
+    def admin?
+      request.session[:admin_user_id].present?
+    end
+
+    def <%= singular_name %>
+      nil unless request.params[:slug] && request.get?
+
+      @<%= singular_name%> ||= <%= class_name %>.find_by(slug: request.params[:slug])
+    end
+  end
+end

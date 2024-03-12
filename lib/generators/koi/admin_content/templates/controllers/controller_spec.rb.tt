@@ -1,0 +1,53 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe <%= controller_class_name %>Controller do
+  subject { action && response }
+
+  let(:admin) { nil }
+
+  include_context "with admin session"
+
+  describe "GET /:slug" do
+    let(:action) { get <%= singular_name %>_path(model.slug) }
+
+    let(:model) { create(:<%= singular_name %>, :published) }
+
+    it { is_expected.to be_successful }
+
+    context "with unpublished <%= singular_name %>" do
+      let(:model) { create(:<%= singular_name %>) }
+
+      it { is_expected.to have_http_status(:not_found) }
+    end
+
+    context "when <%= singular_name %> not found" do
+      let(:action) { get <%= singular_name %>_path("test") }
+
+      it { is_expected.to have_http_status(:not_found) }
+    end
+  end
+
+  describe "GET /:slug/preview" do
+    let(:action) { get preview_<%= singular_name %>_path(model.slug) }
+
+    let(:model) { create(:<%= singular_name %>, :draft) }
+
+    it { is_expected.to have_http_status(:not_found) }
+
+    context "with admin" do
+      let(:admin) { create(:admin) }
+
+      it { is_expected.to be_successful }
+    end
+
+    context "with admin and published <%= singular_name %>" do
+      let(:admin) { create(:admin) }
+
+      let(:model) { create(:<%= singular_name %>, :published) }
+
+      it { is_expected.to redirect_to(<%= singular_name %>_path(model.slug)) }
+    end
+  end
+end

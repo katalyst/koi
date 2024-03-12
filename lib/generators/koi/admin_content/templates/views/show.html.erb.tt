@@ -1,0 +1,9 @@
+<div>
+  <div class="<%= singular_name %> <%= singular_name %>__katalyst-content">
+    <div class="<%= singular_name %>--title <%%= "visually-hidden" unless <%= singular_name %>.show_title? %>">
+      <h1><%%= <%= singular_name %>.title %></h1>
+    </div>
+
+    <%%= render_content version %>
+  </div>
+</div>

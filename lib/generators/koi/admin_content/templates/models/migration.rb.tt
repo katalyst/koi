@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+class Create<%= plural_name.camelcase %> < ActiveRecord::Migration[7.1]
+  def change
+    create_table :<%= plural_name %> do |t|
+      t.string :title, null: false
+      t.string :slug, null: false, index: { unique: true }
+      t.boolean :show_title, default: true, null: false
+      t.timestamps
+    end
+
+    create_table :<%= singular_name %>_versions do |t|
+      t.references :parent, foreign_key: { to_table: :<%= plural_name %> }, null: false
+      t.json :nodes
+      t.timestamps
+    end
+
+    change_table :<%= plural_name %> do |t|
+      t.references :published_version, foreign_key: { to_table: :<%= singular_name %>_versions }
+      t.references :draft_version, foreign_key: { to_table: :<%= singular_name %>_versions }
+    end
+  end
+end

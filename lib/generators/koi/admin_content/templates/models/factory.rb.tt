@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :<%= singular_name %> do
+    title { Faker::Game.unique.title }
+    slug { title.parameterize }
+
+    after(:build) do |<%= singular_name %>, _context|
+      <%= singular_name %>.items.each { |item| item.container = <%= singular_name %> }
+    end
+
+    after(:create) do |<%= singular_name %>, _context|
+      <%= singular_name %>.items_attributes = <%= singular_name %>.items.map.with_index { |item, index| { id: item.id, index:, depth: 0 } }
+      <%= singular_name %>.save!
+    end
+
+    trait :published do
+      after(:create) do |<%= singular_name %>, _context|
+        <%= singular_name %>.publish!
+      end
+    end
+
+    trait :draft do
+      after(:create) do |<%= singular_name %>, _context|
+        <%= singular_name %>.publish!
+        <%= singular_name %>.items_attributes = <%= singular_name %>.items.map.with_index { |item, index| { id: item.id, index:, depth: 0 } }
+        <%= singular_name %>.save!
+      end
+    end
+
+    trait :with_content do
+      transient do
+        contents { [] }
+      end
+
+      items { contents.present? ? contents.map { |content| build(:katalyst_content_content, content:) } : [] }
+    end
+  end
+end

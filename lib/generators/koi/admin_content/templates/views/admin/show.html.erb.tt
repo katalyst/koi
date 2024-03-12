@@ -1,0 +1,12 @@
+<%% content_for :header do %>
+  <%%= render Koi::Header::ShowComponent.new(resource: <%= singular_name %>) do |component| %>
+    <%%= component.with_action("Preview", <%= singular_name %>.published? ? <%= singular_name %> : [:preview, <%= singular_name %>], target: "_blank", rel: "noopener") %>
+  <%% end %>
+<%% end %>
+
+<%%= render editor.status_bar %>
+<%%= render editor %>
+
+<%%= content_for :sidebar do %>
+  <%%= render editor.new_items %>
+<%% end %>
