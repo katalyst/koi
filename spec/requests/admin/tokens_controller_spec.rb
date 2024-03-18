@@ -12,12 +12,12 @@ RSpec.describe Admin::TokensController do
   describe "GET /admin/token/:token" do
     let(:action) { get admin_token_path(token) }
     let(:admin) { create(:admin, password: "") }
-    let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.now.to_i) }
+    let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.current.to_i) }
 
     it { is_expected.to be_successful }
 
     context "with used token" do
-      let(:admin) { create(:admin, last_sign_in_at: Time.now) }
+      let(:admin) { create(:admin, last_sign_in_at: Time.current) }
       let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: 1.hour.ago.to_i) }
 
       it { is_expected.to redirect_to(new_admin_session_path) }
@@ -59,7 +59,7 @@ RSpec.describe Admin::TokensController do
   describe "POST /admin/session/accept" do
     let(:action) { post accept_admin_session_path, params: { token: } }
     let(:admin) { create(:admin, password: "") }
-    let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.now.to_i) }
+    let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.current.to_i) }
 
     it { is_expected.to redirect_to(admin_admin_user_path(admin)) }
 

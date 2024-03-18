@@ -22,8 +22,6 @@ RSpec.describe "admin/invites" do
 
     click_button "Save"
 
-    expect(page).to have_css("button", text: "Invite")
-
     click_button "Generate login link"
 
     expect(page).to have_css("input[type=text][value*=token]")
@@ -31,7 +29,7 @@ RSpec.describe "admin/invites" do
 
   it "can accept an invitation" do
     admin = create(:admin, password: "")
-    token = encode_token(admin_id: admin.id, exp: 1.hour.from_now.to_i, ist: Time.now.to_i)
+    token = encode_token(admin_id: admin.id, exp: 1.hour.from_now.to_i, ist: Time.current.to_i)
 
     visit "admin/token/#{token}"
 

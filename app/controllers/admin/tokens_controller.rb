@@ -9,7 +9,7 @@ module Admin
 
     def create
       admin = Admin::User.find(params[:id])
-      token = encode_token(admin_id: admin.id, exp: 5.minutes.from_now.to_i, iat: Time.now.to_i)
+      token = encode_token(admin_id: admin.id, exp: 5.minutes.from_now.to_i, iat: Time.current.to_i)
 
       render locals: { token: }
     end
