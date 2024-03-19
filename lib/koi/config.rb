@@ -10,5 +10,7 @@ module Koi
     config_accessor(:resource_name_candidates) { %i[title name] }
 
     config_accessor(:image_size_limit) { 10.megabytes }
+
+    config_accessor(:admin_stylesheet) { "koi/admin" }
   end
 end
