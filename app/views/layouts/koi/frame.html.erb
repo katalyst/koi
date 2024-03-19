@@ -1,7 +1,7 @@
 <html>
 <head>
   <%# include all turbo-track elements so turbo knows it can cache frame visits %>
-  <%= stylesheet_link_tag "koi/admin", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "koi/admin" %>
   <%= yield :head %>
 </head>
