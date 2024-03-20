@@ -1,18 +1,8 @@
 <%= render Koi::Content::Editor::ItemFormComponent.new(model: table, url: path, data: { controller: "content--editor--table" }) do |form| %>
   <%= form.content_heading_fieldset %>
 
-  <div class="govuk-form-group">
-    <label for="item-content-field" class="govuk-label govuk-label--s">Content</label>
-    <% content = sanitize_content_table(normalize_content_table(form.object, heading: false)) %>
-    <div class="govuk-textarea content--editor--table-editor"
-         contenteditable="true"
-         data-content--editor--table-target="content"
-         data-action="paste->content--editor--table#paste"
-         id="item-content-field">
-      <%= content %>
-    </div>
-    <%= form.hidden_field :content, value: content, data: { content__editor__table_target: "input" } %>
-  </div>
+  <% content = sanitize_content_table(normalize_content_table(form.object, heading: false)) %>
+  <%= form.govuk_text_area :content, value: content, data: { content__editor__table_target: "input" } %>
 
   <%# hidden button to receive <Enter> events (HTML-default is to click first button in form) %>
   <%= form.button "Save", hidden: "" %>
