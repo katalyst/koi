@@ -84,7 +84,7 @@ module Koi
           def content_buttons
             tag.div(class: "actions") do
               concat(admin_save("Done"))
-              concat(admin_discard)
+              concat(admin_discard(data: { action: "click->kpop--frame#dismiss:prevent" }))
             end
           end
         end
