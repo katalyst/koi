@@ -12,6 +12,10 @@ module Koi
       def rendered_value
         value.to_s
       end
+
+      def to_s
+        rendered_value
+      end
     end
   end
 end
