@@ -13,6 +13,7 @@ module Koi
 
       included do
         include HasAdminUsers
+        include HasAttachments
         include Katalyst::Tables::Backend
         include Pagy::Backend
 

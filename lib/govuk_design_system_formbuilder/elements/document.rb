@@ -55,7 +55,7 @@ module GOVUKDesignSystemFormBuilder
     # Generates a +div+ element with an +input+ with +type=file+ with a label, optional hint.
     #
     # @example A upload field with label as a proc
-    #   = f.govuk_file_field :data, label: -> { tag.h3('Upload your document') }
+    #   = f.govuk_document_field :data, label: -> { tag.h3('Upload your document') }
     #
     def govuk_document_field(attribute_name, label: {}, caption: {}, hint: {}, form_group: {}, **kwargs, &block)
       Elements::Document.new(self, object_name, attribute_name, label:, caption:, hint:, form_group:, **kwargs,
