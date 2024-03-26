@@ -14,9 +14,9 @@ module Koi
       end
 
       def representation
-        if value.try(:variable?) && named_variant.present?
-          image_tag(value.variant(@variant))
-        elsif value.try(:attached?)
+        if raw_value.try(:variable?) && named_variant.present?
+          image_tag(raw_value.variant(@variant))
+        elsif raw_value.try(:attached?)
           filename.to_s
         else
           ""
@@ -24,7 +24,7 @@ module Koi
       end
 
       def filename
-        value.blob.filename
+        raw_value.blob.filename
       end
 
       # Utility for accessing the path Rails provides for retrieving the
@@ -33,14 +33,14 @@ module Koi
       #       <%= link_to "Download", cell.internal_path %>
       #    <% end %>
       def internal_path
-        rails_blob_path(value, disposition: :attachment)
+        rails_blob_path(raw_value, disposition: :attachment)
       end
 
       private
 
       # Find the reflective variant by name (i.e. :thumb by default)
       def named_variant
-        value.record.attachment_reflections[@attribute.to_s].named_variants[@variant.to_sym]
+        @model.attachment_reflections[@attribute.to_s].named_variants[@variant.to_sym]
       end
     end
   end

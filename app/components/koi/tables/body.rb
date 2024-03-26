@@ -220,7 +220,7 @@ module Koi
 
         # Find the reflective variant by name (i.e. :thumb by default)
         def named_variant
-          value.record.attachment_reflections[@attribute.to_s].named_variants[@variant.to_sym]
+          object.attachment_reflections[@attribute.to_s].named_variants[@variant.to_sym]
         end
       end
     end
