@@ -7,15 +7,11 @@ module GOVUKDesignSystemFormBuilder
     class Document < Base
       include FileElement
 
-      MIME_TYPES = %w[
-        image/png image/gif image/jpeg image/webp
-        application/pdf audio/*
-      ].freeze
-
-      def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
+      def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, mime_types:,
+                     **kwargs, &block)
         super(builder, object_name, attribute_name, &block)
 
-        @mime_types      = kwargs.fetch(:mime_types, MIME_TYPES)
+        @mime_types      = mime_types
         @label           = label
         @caption         = caption
         @hint            = hint
@@ -57,9 +53,17 @@ module GOVUKDesignSystemFormBuilder
     # @example A upload field with label as a proc
     #   = f.govuk_document_field :data, label: -> { tag.h3('Upload your document') }
     #
-    def govuk_document_field(attribute_name, label: {}, caption: {}, hint: {}, form_group: {}, **kwargs, &block)
-      Elements::Document.new(self, object_name, attribute_name, label:, caption:, hint:, form_group:, **kwargs,
-                             &block).html
+    def govuk_document_field(attribute_name,
+                             label: {},
+                             caption: {},
+                             hint: {},
+                             form_group: {},
+                             mime_types: Koi.config.document_mime_types,
+                             **kwargs,
+                             &block)
+      Elements::Document.new(
+        self, object_name, attribute_name, label:, caption:, hint:, form_group:, mime_types:, **kwargs, &block
+      ).html
     end
   end
 end
