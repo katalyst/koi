@@ -4,5 +4,6 @@ IFS=$'\n\t'
 set -vx
 
 bundle install
+yarn install
 
 [ -f "spec/dummy/Rakefile" ] || bundle exec thor dummy:install

@@ -3,50 +3,32 @@ name: Release
 on:
   push:
     tags: [ v* ]
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate Release Notes
-        uses: octokit/request-action@v2.1.6
-        id: get_release_notes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          route: POST /repos/${{ github.repository }}/releases/generate-notes
-          tag_name: ${{ github.ref_name }}
-          previous_tag_name: ${{ steps.last_release.outputs.tag }}
-      - name: Set Release content
-        run: |
-          echo "RELEASE_CONTENT<<EOF" >> $GITHUB_ENV
-          echo "${{ fromJson(steps.get_release_notes.outputs.data).body }}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Generate Release
-        uses: octokit/request-action@v2.1.6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          route: POST /repos/${{ github.repository }}/releases
-          name: ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
-          body: ${{ toJSON(env.RELEASE_CONTENT) }}
-  push:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           cache: yarn
-      - run: yarn install
-      - name: Run setup
+      - name: Setup
         run: |
           bin/setup
       - uses: rubygems/release-gem@v1
+      - name: Create GitHub release
+        run: |
+          tag_name="$(git describe --tags --abbrev=0)"
+          gh release create "${tag_name}" --verify-tag --generate-notes --latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
