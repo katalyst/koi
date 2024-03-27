@@ -7,7 +7,7 @@ module GOVUKDesignSystemFormBuilder
     class Document < Base
       include FileElement
 
-      MIME_TYPES            = %w[
+      MIME_TYPES = %w[
         image/png image/gif image/jpeg image/webp
         application/pdf audio/*
       ].freeze
@@ -15,7 +15,7 @@ module GOVUKDesignSystemFormBuilder
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, **kwargs, &block)
         super(builder, object_name, attribute_name, &block)
 
-        @mime_types      = MIME_TYPES || kwargs[:mime_types]
+        @mime_types      = kwargs.fetch(:mime_types, MIME_TYPES)
         @label           = label
         @caption         = caption
         @hint            = hint
@@ -29,7 +29,7 @@ module GOVUKDesignSystemFormBuilder
         add_option(options, :class, "preview-file")
         add_option(options, :class, "hidden") unless preview?
 
-        tag.div **options do
+        tag.div(**options) do
           filename = @builder.object.send(@attribute_name).filename.to_s
           tag.p(filename, class: "preview-filename") + destroy_element_trigger
         end
