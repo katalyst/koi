@@ -3,7 +3,7 @@
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "katalyst-koi"
-  s.version     = "4.5.9"
+  s.version     = "4.6.0"
   s.authors     = ["Katalyst Interactive"]
   s.email       = ["developers@katalyst.com.au"]
 
@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
   s.add_dependency "webauthn"
 
   # Third party libraries for admin pages
-  s.add_dependency "katalyst-govuk-formbuilder"
-  s.add_dependency "pagy", ">= 7.0"
+  s.add_dependency "katalyst-govuk-formbuilder", ">= 1.9"
+  s.add_dependency "pagy", ">= 8.0"
   s.add_dependency "view_component"
 
   # Katalyst libraries

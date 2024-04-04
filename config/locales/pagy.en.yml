@@ -1,5 +1,10 @@
 en:
   pagy:
+    aria_label:
+      nav:
+        other: "Pagination"
+      prev: "Previous page"
+      next: "Next page"
     prev: "←&nbsp;&nbsp;Previous"
     next: "Next&nbsp;&nbsp;→"
     gap: "&hellip;"

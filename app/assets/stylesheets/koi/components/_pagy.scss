@@ -1,41 +1,29 @@
 @use "../base/button" as *;
 
-.pagination {
-  .page {
-    a {
-      @include button-text;
-      border: 2px solid transparent;
+.pagy.nav a {
+  @include button-text;
+  border: 2px solid transparent;
 
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    &.prev,
-    &.next {
-      a {
-        border: none;
-        padding: 0;
-      }
-    }
-
-    &.prev {
-      padding-right: 1rem;
-    }
-
-    &.next {
-      padding-left: 1rem;
-    }
+  &[aria-disabled] {
+    pointer-events: none;
+    color: var(--site-disabled);
+    font-weight: 500;
   }
 
-  .page.active a {
+  &[aria-current] {
     @include button-outline;
     pointer-events: none;
   }
 
-  .page.disabled a {
-    pointer-events: none;
-    color: var(--site-disabled);
-    font-weight: 500;
+  &[href]:hover {
+    text-decoration: none;
+  }
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
   }
 }
