@@ -213,10 +213,6 @@ GEM
       view_component
     katalyst-govuk-formbuilder (1.9.0)
       govuk_design_system_formbuilder
-    katalyst-healthcheck (0.5.2)
-      activesupport (>= 3)
-      redis (>= 3)
-      redlock (>= 1.2)
     katalyst-html-attributes (1.0.1)
       activesupport
       html-attributes-utils
@@ -331,12 +327,6 @@ GEM
     rake (13.2.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redis (5.1.0)
-      redis-client (>= 0.17.0)
-    redis-client (0.21.1)
-      connection_pool
-    redlock (2.0.6)
-      redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.9.0)
     reline (0.5.0)
       io-console (~> 0.5)
@@ -481,7 +471,6 @@ DEPENDENCIES
   faker
   image_processing
   katalyst-basic-auth
-  katalyst-healthcheck
   katalyst-koi!
   propshaft
   puma

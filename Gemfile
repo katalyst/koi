@@ -14,7 +14,6 @@ group :development, :test do
   gem "faker"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
-  gem "katalyst-healthcheck"
   gem "propshaft"
   gem "puma"
   gem "rails"
