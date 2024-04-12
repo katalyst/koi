@@ -12,6 +12,9 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667">
   <meta name="robots" content="noindex,nofollow">
   <%= Koi::Release.meta_tags(self) %>
+  <%= yield :head %>
+
+  <%# Deprecated: meta, use :head instead %>
   <%= yield :meta %>
 
   <!-- STYLES -->

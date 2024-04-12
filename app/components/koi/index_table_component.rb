@@ -6,7 +6,7 @@ module Koi
 
     # Use the Koi::Tables::TableComponent to support custom header and body row components
     renders_one :table, Koi::Tables::TableComponent
-    renders_one :pagination, Katalyst::Turbo::PagyNavComponent
+    renders_one :pagination, Katalyst::Tables::PagyNavComponent
 
     def initialize(collection:, id: "index-table", **options)
       super
