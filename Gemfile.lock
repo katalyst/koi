@@ -164,7 +164,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.3.0)
+    faker (3.3.1)
       i18n (>= 1.8.11, < 2)
     ferrum (0.14)
       addressable (~> 2.5)
@@ -180,7 +180,7 @@ GEM
       rake (>= 13)
     google-protobuf (4.26.1-x86_64-linux)
       rake (>= 13)
-    govuk_design_system_formbuilder (5.3.0)
+    govuk_design_system_formbuilder (5.3.3)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -201,10 +201,10 @@ GEM
     irb (1.12.0)
       rdoc
       reline (>= 0.4.2)
-    json (2.7.1)
+    json (2.7.2)
     jwt (2.8.1)
       base64
-    katalyst-basic-auth (0.4.0)
+    katalyst-basic-auth (0.5.0)
       rack
     katalyst-content (2.3.2)
       active_storage_validations
@@ -225,7 +225,7 @@ GEM
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (2.5.0)
+    katalyst-tables (2.6.0)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
@@ -239,7 +239,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    method_source (1.0.0)
+    method_source (1.1.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
@@ -254,18 +254,18 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.3-aarch64-linux)
+    nokogiri (1.16.4-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.16.3-arm64-darwin)
+    nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86_64-linux)
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     openssl (3.2.0)
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
-    pagy (8.0.1)
+    pagy (8.3.0)
     parallel (1.24.0)
-    parser (3.3.0.5)
+    parser (3.3.1.0)
       ast (~> 2.4.1)
       racc
     propshaft (0.8.0)
@@ -275,7 +275,7 @@ GEM
       railties (>= 7.0.0)
     psych (5.1.2)
       stringio
-    public_suffix (5.0.4)
+    public_suffix (5.0.5)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
@@ -324,11 +324,11 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.2.0)
+    rake (13.2.1)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
-    reline (0.5.0)
+    reline (0.5.3)
       io-console (~> 0.5)
     rexml (3.2.6)
     rspec-core (3.13.0)
@@ -348,7 +348,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.62.1)
+    rubocop (1.63.4)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -381,28 +381,28 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (2.28.0)
+    rubocop-rspec (2.29.1)
       rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
       rubocop-rspec_rails (~> 2.28)
-    rubocop-rspec_rails (2.28.2)
+    rubocop-rspec_rails (2.28.3)
       rubocop (~> 1.40)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
-    sass-embedded (1.72.0-aarch64-linux-gnu)
+    sass-embedded (1.75.0-aarch64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.72.0-arm64-darwin)
+    sass-embedded (1.75.0-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.72.0-x86_64-linux-gnu)
+    sass-embedded (1.75.0-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
-    sentry-rails (5.17.1)
+    sentry-rails (5.17.3)
       railties (>= 5.0)
-      sentry-ruby (~> 5.17.1)
-    sentry-ruby (5.17.1)
+      sentry-ruby (~> 5.17.3)
+    sentry-ruby (5.17.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.2.0)
@@ -427,7 +427,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    view_component (3.11.0)
+    view_component (3.12.1)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -482,8 +482,8 @@ DEPENDENCIES
   rubocop-katalyst
   sentry-rails
   shoulda-matchers
-  sqlite3
+  sqlite3 (~> 1.7)
   webmock
 
 BUNDLED WITH
-   2.5.7
+   2.5.9
