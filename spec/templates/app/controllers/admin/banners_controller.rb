@@ -6,12 +6,8 @@ module Admin
 
     def index
       collection = Collection.new.with_params(params).apply(::Banner.strict_loading)
-      table      = Koi::OrdinalTableComponent.new(collection:)
 
-      respond_to do |format|
-        format.turbo_stream { render table } if self_referred?
-        format.html { render :index, locals: { table:, collection: } }
-      end
+      render :index, locals: { collection: }
     end
 
     def show
