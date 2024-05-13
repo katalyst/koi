@@ -1,4 +1,18 @@
 PATH
+  remote: ../html-attributes
+  specs:
+    katalyst-html-attributes (1.0.2)
+      activesupport
+      html-attributes-utils
+
+PATH
+  remote: ../katalyst-tables
+  specs:
+    katalyst-tables (3.0.0.beta1)
+      katalyst-html-attributes
+      view_component
+
+PATH
   remote: .
   specs:
     katalyst-koi (4.6.0)
@@ -8,7 +22,6 @@ PATH
       katalyst-govuk-formbuilder (>= 1.9)
       katalyst-kpop (>= 3.1)
       katalyst-navigation
-      katalyst-tables
       pagy (>= 8.0)
       rails (>= 7.1)
       stimulus-rails
@@ -213,9 +226,6 @@ GEM
       view_component
     katalyst-govuk-formbuilder (1.9.0)
       govuk_design_system_formbuilder
-    katalyst-html-attributes (1.0.1)
-      activesupport
-      html-attributes-utils
     katalyst-kpop (3.1.2)
       katalyst-html-attributes
       turbo-rails
@@ -224,9 +234,6 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       katalyst-tables
-      view_component
-    katalyst-tables (2.6.0)
-      katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
@@ -471,7 +478,9 @@ DEPENDENCIES
   faker
   image_processing
   katalyst-basic-auth
+  katalyst-html-attributes!
   katalyst-koi!
+  katalyst-tables!
   propshaft
   puma
   rack_session_access
