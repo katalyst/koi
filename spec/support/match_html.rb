@@ -27,8 +27,8 @@ class HTMLMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
   def matches?(response)
     case response
     when Nokogiri::XML::Node
-      @actual_doc  = response
       @actual_html = response.to_html
+      @actual_doc  = Nokogiri::HTML.fragment(@actual_html)
     else
       @actual_html = response
       @actual_doc  = Nokogiri::HTML.fragment(response)
@@ -57,8 +57,8 @@ end
 
 module RSpec
   module Matchers
-    def match_html(expected_html, **options)
-      HTMLMatcher.new(expected_html, **options)
+    def match_html(expected_html, **)
+      HTMLMatcher.new(expected_html, **)
     end
   end
 end

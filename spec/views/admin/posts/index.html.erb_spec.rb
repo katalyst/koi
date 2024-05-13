@@ -12,12 +12,13 @@ RSpec.describe "admin/posts/index" do
     view.extend(Pagy::Frontend)
 
     collection = Admin::PostsController::Collection.new.apply(Post.all)
-    table      = Koi::Tables::TableComponent.new(collection:, id: "index-table")
 
     # Workaround for https://github.com/rspec/rspec-rails/issues/2729
     view.lookup_context.prefixes.prepend "admin/posts"
 
-    render locals: { collection:, table: }
+    allow(view).to receive(:default_table_component_class).and_return(Koi::Tables::TableComponent)
+
+    render locals: { collection: }
   end
 
   it { expect(rendered).to have_css("th", text: "Name") }
