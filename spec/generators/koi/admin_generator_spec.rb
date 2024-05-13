@@ -6,7 +6,7 @@ require "generators/koi/admin/admin_generator"
 
 RSpec.describe Koi::AdminGenerator do
   subject(:output) do
-    gen = generator(%w(test title:text content:rich_text))
+    gen = generator(%w(resource title:text content:rich_text))
     Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }
   end
 
