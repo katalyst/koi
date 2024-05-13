@@ -5,7 +5,6 @@ module Koi
     module Editor
       class ErrorsComponent < ViewComponent::Base
         include Katalyst::HtmlAttributes
-        include Katalyst::Tables::TurboReplaceable
         include Turbo::FramesHelper
 
         attr_reader :menu

@@ -6,4 +6,9 @@
   <%= select_tag(:scope, options_for_select([["Active", :active], ["All", :all], ["Archived", :archived]], params[:scope])) %>
 <% end %>
 
-<%= render table %>
+<%= table_with(collection:) do |row, admin| %>
+  <%= row.link :name, url: :admin_admin_user_path %>
+  <%= row.text :email %>
+<% end %>
+
+<%== pagy_nav(collection.pagination) %>

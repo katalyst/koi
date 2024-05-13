@@ -9,4 +9,10 @@
 
 <%= koi_index_actions create: true, search: true %>
 
-<%= render Koi::OrdinalTableComponent.new(collection:) %>
+<%= table_with(collection:) do |row, banner| %>
+  <% row.ordinal %>
+  <% row.link :name, url: [:admin, banner] %>
+  <% row.attachment :image %>
+<% end %>
+
+<%= table_orderable_with(collection:, url: order_admin_banners_path) %>

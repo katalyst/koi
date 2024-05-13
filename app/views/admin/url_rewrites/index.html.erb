@@ -7,4 +7,10 @@
   <%= select_tag(:scope, options_for_select([["Active", :active], ["All", :all], ["Inactive", :inactive]], params[:scope])) %>
 <% end %>
 
-<%= render(table) %>
+<%= table_with(collection:) do |row, url_rewrite| %>
+  <%= row.link :from, url: [:admin, url_rewrite] %>
+  <%= row.text :to %>
+  <%= row.boolean :active %>
+<% end %>
+
+<%== pagy_nav(collection.pagination) %>

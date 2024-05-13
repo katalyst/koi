@@ -18,6 +18,7 @@ module Koi
         include Pagy::Backend
 
         default_form_builder "Koi::FormBuilder"
+        default_table_component Koi::Tables::TableComponent
 
         helper Katalyst::GOVUK::Formbuilder::Frontend
         helper Katalyst::Navigation::FrontendHelper
