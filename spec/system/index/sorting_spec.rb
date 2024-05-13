@@ -65,7 +65,7 @@ RSpec.describe "index/sorting" do
 
       click_on "Next"
 
-      expect(page).to have_current_path("/admin/posts?page=2&sort=title+asc")
+      expect(page).to have_current_path("/admin/posts?sort=title+asc&page=2")
     end
   end
 end

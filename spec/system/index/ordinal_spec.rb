@@ -28,8 +28,6 @@ RSpec.describe "index/ordinal" do
 
     expect(page).to have_css("tr:last-child td", text: "first")
 
-    wait_for_form_submission
-
     expect(Banner.all).to contain_exactly(
       have_attributes(name: "second", ordinal: 0),
       have_attributes(name: "third", ordinal: 1),

@@ -1,7 +1,22 @@
+<%% content_for :head do %>
+  <meta name="turbo-refresh-method" content="morph">
+  <meta name="turbo-refresh-scroll" content="preserve">
+<%% end %>
+
 <%% content_for :header do %>
   <%%= render(Koi::Header::IndexComponent.new(model: <%= class_name %>)) %>
 <%% end %>
 
 <%%= koi_index_actions create: true, search: true %>
 
-<%%= render table %>
+<%%= table_with(collection:) do |row, <%= singular_name %>| %>
+    <% index_attributes.each_with_index do |attribute, index| %>
+    <% if index.zero? %>
+    <%% row.link :<%= attribute.name %> %>
+    <% else %>
+    <%= index_attribute_for attribute %>
+    <% end %>
+    <% end %>
+<%% end %>
+
+<%%== pagy_nav(collection.pagination) %>

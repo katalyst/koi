@@ -25,7 +25,7 @@ module Koi
     private
 
     def available_views
-      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _fields.html.erb _record.html+row.erb)
+      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _fields.html.erb)
     end
 
     def govuk_input_for(attribute)

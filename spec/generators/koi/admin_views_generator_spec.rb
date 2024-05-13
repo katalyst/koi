@@ -18,7 +18,6 @@ RSpec.describe Koi::AdminViewsGenerator do
       "app/views/admin/tests/show.html.erb",
       "app/views/admin/tests/new.html.erb",
       "app/views/admin/tests/_fields.html.erb",
-      "app/views/admin/tests/_test.html+row.erb",
     )
   end
 
@@ -29,7 +28,6 @@ RSpec.describe Koi::AdminViewsGenerator do
     expect(Pathname.new(file("app/views/admin/tests/show.html.erb"))).to exist
     expect(Pathname.new(file("app/views/admin/tests/new.html.erb"))).to exist
     expect(Pathname.new(file("app/views/admin/tests/_fields.html.erb"))).to exist
-    expect(Pathname.new(file("app/views/admin/tests/_test.html+row.erb"))).to exist
   end
 
   describe "views/admin/tests/show.html.erb" do

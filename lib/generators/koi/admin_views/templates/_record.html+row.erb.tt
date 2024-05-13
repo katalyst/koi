@@ -1,7 +1,0 @@
-<%- index_attributes.each_with_index do |attribute, index| -%>
-<%- if index.zero? -%>
-<%% row.link :<%= attribute.name %> %>
-<%- else -%>
-<%= index_attribute_for attribute %>
-<%- end -%>
-<%- end -%>

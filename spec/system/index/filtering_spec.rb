@@ -70,7 +70,7 @@ RSpec.describe "index/filtering" do
 
       click_on "Next"
 
-      expect(page).to have_current_path("/admin/posts?page=2&search=#{query}")
+      expect(page).to have_current_path("/admin/posts?search=#{query}&page=2")
       expect(page).to have_css("input[type=search][value=#{query}")
     end
   end
@@ -81,7 +81,7 @@ RSpec.describe "index/filtering" do
 
       click_on "Title"
 
-      expect(page).to have_current_path("/admin/posts?sort=title+asc&search=#{query}")
+      expect(page).to have_current_path("/admin/posts?search=#{query}&sort=title+asc")
       expect(page).to have_css("input[type=search][value=#{query}]")
     end
   end
