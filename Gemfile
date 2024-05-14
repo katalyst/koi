@@ -14,8 +14,6 @@ group :development, :test do
   gem "faker"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
-  gem "katalyst-html-attributes", path: "../html-attributes"
-  gem "katalyst-tables", path: "../katalyst-tables"
   gem "propshaft"
   gem "puma"
   gem "rails"
