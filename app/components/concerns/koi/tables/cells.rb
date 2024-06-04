@@ -8,7 +8,7 @@ module Koi
       # @param column [Symbol] the column's name, called as a method on the record
       # @param label [String|nil] the label to use for the column header
       # @param heading [boolean] if true, data cells will use `th` tags
-      # @param url [Symbol|String|Proc] arguments for url_For, defaults to the record
+      # @param url [Symbol|String|Proc] arguments for url_for, defaults to the record
       # @param link [Hash] options to be passed to the link_to helper
       # @param ** [Hash] HTML attributes to be added to column cells
       # @param & [Proc] optional block to alter the cell content
@@ -25,9 +25,9 @@ module Koi
       #      Edit <%= cell %>
       #   <% end %>
       #   # => <td><a href="/admin/post/15/edit">Edit About us</a></td>
-      def link(column, label: nil, heading: false, url: [:admin, record], link: {}, **, &)
+      def link(column, label: nil, heading: false, url: (default_url = true), link: {}, **, &)
         with_cell(Tables::Cells::LinkComponent.new(
-                    collection:, row:, column:, record:, label:, heading:, url:, link:, **,
+                    collection:, row:, column:, record:, label:, heading:, url:, default_url:, link:, **,
                   ), &)
       end
 
