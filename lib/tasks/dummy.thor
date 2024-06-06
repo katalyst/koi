@@ -46,7 +46,6 @@ class Dummy < Thor
         --database sqlite3 \
         --skip-action-mailer \
         --skip-action-mailbox \
-        --skip-active-job \
         --skip-bootsnap \
         --skip-dev-gems \
         --skip-jbuilder \
