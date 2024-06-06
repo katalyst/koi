@@ -16,7 +16,7 @@ RSpec.describe "admin/posts/index" do
     # Workaround for https://github.com/rspec/rspec-rails/issues/2729
     view.lookup_context.prefixes.prepend "admin/posts"
 
-    allow(view).to receive(:default_table_component_class).and_return(Koi::Tables::TableComponent)
+    allow(view).to receive(:default_table_component_class).and_return(Koi::TableComponent)
 
     render locals: { collection: }
   end

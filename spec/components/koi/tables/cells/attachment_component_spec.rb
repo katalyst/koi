@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Koi::Tables::Cells::AttachmentComponent do
-  let(:table) { Koi::Tables::TableComponent.new(collection:) }
+  let(:table) { Koi::TableComponent.new(collection:) }
   let(:collection) { create_list(:banner, 1, :with_image) }
   let(:rendered) { render_inline(table) { |row| row.attachment(:image) } }
   let(:label) { rendered.at_css("thead th") }

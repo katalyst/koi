@@ -4,10 +4,14 @@
 
 <h2>Summary</h2>
 
-<%%= render Koi::SummaryListComponent.new(model: <%= singular_name %>) do |dl| %>
-<%- attributes.each do |attribute| -%>
+<%%= summary_table_with(model: <%= singular_name %>) do |row| %>
+  <%- attributes.each_with_index do |attribute, index| -%>
+  <%- if index.zero? -%>
+  <%% row.link :<%= attribute.name %> %>
+  <%- else -%>
   <%= summary_attribute_for attribute %>
-<%- end -%>
+  <%- end -%>
+  <%- end -%>
 <%% end %>
 
 <div class="actions">

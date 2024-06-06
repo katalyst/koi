@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Koi::Tables::Cells::EnumComponent do
-  let(:table) { Koi::Tables::TableComponent.new(collection:) }
+  let(:table) { Koi::TableComponent.new(collection:) }
   let(:collection) { create_list(:banner, 1, status: "published") }
   let(:rendered) { render_inline(table) { |row, _post| row.enum(:status) } }
   let(:label) { rendered.at_css("thead th") }

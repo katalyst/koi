@@ -51,25 +51,6 @@ module Koi
       end
     end
 
-    def summary_attribute_for(attribute)
-      case attribute.type
-      when :integer
-        %(<% dl.number :#{attribute.name} %>)
-      when :boolean
-        %(<% dl.boolean :#{attribute.name} %>)
-      when :date
-        %(<% dl.date :#{attribute.name} %>)
-      when :datetime
-        %(<% dl.datetime :#{attribute.name} %>)
-      when :rich_text
-        %(<% dl.rich_text :#{attribute.name} %>)
-      when :attachment
-        %(<% dl.attachment :#{attribute.name} %>)
-      else
-        %(<% dl.text :#{attribute.name} %>)
-      end
-    end
-
     def index_attribute_for(attribute)
       case attribute.type
       when :integer
@@ -88,6 +69,8 @@ module Koi
         %(<% row.text :#{attribute.name} %>)
       end
     end
+
+    alias_method :summary_attribute_for, :index_attribute_for
 
     def index_attributes
       attributes
