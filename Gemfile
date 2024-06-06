@@ -22,7 +22,7 @@ group :development, :test do
   gem "rubocop-katalyst", require: false
   gem "sentry-rails"
   gem "shoulda-matchers"
-  gem "sqlite3", "~> 1.7"
+  gem "sqlite3", "~> 2.0"
 end
 
 group :test do
