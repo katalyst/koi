@@ -9,8 +9,8 @@ RSpec.describe "admin/posts/show" do
     render template: "admin/posts/show", locals: { post: }
   end
 
-  it { expect(rendered).to have_css("dt", text: "Name") }
-  it { expect(rendered).to have_css("dd", text: post.name) }
-  it { expect(rendered).to have_css("dt", text: "Title") }
-  it { expect(rendered).to have_css("dd", text: post.title) }
+  it { expect(rendered).to have_css("th", text: "Name") }
+  it { expect(rendered).to have_css("td", text: post.name) }
+  it { expect(rendered).to have_css("th", text: "Title") }
+  it { expect(rendered).to have_css("td", text: post.title) }
 end

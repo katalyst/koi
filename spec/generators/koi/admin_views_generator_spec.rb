@@ -39,11 +39,11 @@ RSpec.describe Koi::AdminViewsGenerator do
     end
 
     it { is_expected.to contain "<h2>Summary</h2>" }
-    it { is_expected.to contain "<%= render Koi::SummaryListComponent.new(model: test) do |dl| %>" }
-    it { is_expected.to contain "<% dl.text :title %>" }
-    it { is_expected.to contain "<% dl.rich_text :description %>" }
-    it { is_expected.to contain "<% dl.number :ordinal %>" }
-    it { is_expected.to contain "<% dl.datetime :archived_at %>" }
-    it { is_expected.to contain "<% dl.boolean :active %>" }
+    it { is_expected.to contain "<%= summary_table_with(model: test) do |row| %>" }
+    it { is_expected.to contain "<% row.link :title %>" }
+    it { is_expected.to contain "<% row.rich_text :description %>" }
+    it { is_expected.to contain "<% row.number :ordinal %>" }
+    it { is_expected.to contain "<% row.datetime :archived_at %>" }
+    it { is_expected.to contain "<% row.boolean :active %>" }
   end
 end

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Koi::Tables::Cells::LinkComponent do
-  let(:table) { Koi::Tables::TableComponent.new(collection:) }
+  let(:table) { Koi::TableComponent.new(collection:) }
   let(:collection) { create_list(:post, 1) }
   let(:rendered) { render_inline(table) { |row, _post| row.link(:name) } }
   let(:label) { rendered.at_css("thead th") }
