@@ -18,12 +18,40 @@ RSpec.describe "index/filtering" do
     end
   end
 
-  it "applies filters" do
+  it "supports untagged text filtering" do
     visit "/admin/posts"
 
     fill_in "Search", with: query
 
     expect(page).to have_current_path("/admin/posts?search=#{query}")
+    expect(page).to have_css("td", text: "first")
+    expect(page).not_to have_css("td", text: "third")
+  end
+
+  it "supports tagged text filters" do
+    visit "/admin/posts"
+
+    find("main input[type=search]").click
+    click_on("Title")
+    find("main input[type=search]").native.send_keys(query)
+
+    expect(page).to have_current_path("/admin/posts?title=#{query}")
+    expect(page).to have_css("td", text: "first")
+    expect(page).not_to have_css("td", text: "third")
+  end
+
+  it "supports boolean filters" do
+    %i[first second third].map do |n|
+      create(:banner, name: n, active: n != :third)
+    end
+
+    visit "/admin/banners"
+
+    find("main input[type=search]").click
+    click_on("Active")
+    click_on("Yes")
+
+    expect(page).to have_current_path("/admin/posts?active=1")
     expect(page).to have_css("td", text: "first")
     expect(page).not_to have_css("td", text: "third")
   end

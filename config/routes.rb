@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       post :invite, on: :member, to: "tokens#create"
     end
 
+    resources :filters, param: :model, only: %i[show]
+
     # JWT tokens have dots(represents the 3 parts of data) in them, so we need to allow them in the URL
     # can by pass if we use token as a query param
     get "token/:token", to: "tokens#show", as: :token, token: /[^\/]+/

@@ -1,0 +1,15 @@
+<turbo-frame id="filter-modal">
+  <filter-modal data-controller="filter--modal" data-filter--modal-filter--form-outlet="#filter">
+    <ul class="no-bullet">
+    <% attributes.each do |attribute| %>
+      <li><%= link_to @model.human_attribute_name(attribute),
+                      admin_filter_path(@model.name, key: attribute),
+                      data: {
+                        action: "click->filter--modal#selectKey",
+                        key: attribute,
+                      }
+      %></li>
+    <% end %>
+    </ul>
+  </filter-modal>
+</turbo-frame>

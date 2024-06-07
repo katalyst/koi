@@ -1,0 +1,14 @@
+<%= form_with(method: :get, **html_attributes) do |form| %>
+  <%= form.search_field(:search,
+                        placeholder: t("koi.labels.search", default: "Search"),
+                        autocomplete: "off",
+                        value:       params[:search],
+                        **input_attributes) %>
+  <%= form.submit("Search", hidden: "") %>
+  <%= form.hidden_field(:sort, value: params[:sort], data: { filter__form_target: "sort" }) %>
+  <div hidden data-filter--form-target="inputs">
+  </div>
+  <template data-filter--popper-target="template">
+    <%= turbo_frame_tag "filter-modal", src: filter_path %>
+  </template>
+<% end %>
