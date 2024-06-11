@@ -15,7 +15,7 @@ module Koi
         include HasAdminUsers
         include HasAttachments
         include Katalyst::Tables::Backend
-        include Pagy::Backend
+        include ::Pagy::Backend
 
         default_form_builder "Koi::FormBuilder"
         default_table_component Koi::Tables::TableComponent
@@ -23,7 +23,8 @@ module Koi
         helper Katalyst::GOVUK::Formbuilder::Frontend
         helper Katalyst::Navigation::FrontendHelper
         helper Katalyst::Tables::Frontend
-        helper Pagy::Frontend
+        helper ::Pagy::Frontend
+        helper Koi::Pagy::Frontend
         helper IndexActionsHelper
         helper :all
 

@@ -85,8 +85,6 @@ module Koi
         ("shortcut:cancel@document->index-actions#clear" if search?),
         ("shortcut:create@document->index-actions#create" if create?),
         ("shortcut:search@document->index-actions#search" if search?),
-        "shortcut:page-prev@document->index-actions#prevPage",
-        "shortcut:page-next@document->index-actions#nextPage",
       ].compact.join(" ")
     end
 
