@@ -11,7 +11,7 @@
 <%% end %>
 
 <div class="actions">
-  <%%= button_to "Delete", [:admin, <%= singular_name %>],
+  <%%= button_to "Delete", <%= show_helper(singular_name, type: :path) %>,
                 class:  "button button--secondary",
                 method: :delete,
                 form:   { data: { turbo_confirm: "Are you sure?" } } %>

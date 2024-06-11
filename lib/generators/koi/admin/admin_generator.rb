@@ -13,7 +13,13 @@ module Koi
     remove_hook_for(:scaffold_controller)
     remove_hook_for(:resource_route)
 
-    hook_for :admin_controller, in: :koi, as: :admin, type: :boolean, default: true
+    hook_for :admin_controller, in: :koi, as: :admin, type: :boolean, default: true do |instance, controller|
+      args, opts, config = @_initializer
+      opts               ||= {}
+
+      # setting model_name so that generators will use the controller_class_path
+      instance.invoke controller, args, { model_name: instance.name, **opts }, config
+    end
 
     Rails::Generators::ModelGenerator.hook_for :admin_search, type: :boolean, default: true
     Rails::Generators::ModelGenerator.hook_for :ordinal_scope, type: :boolean, default: true

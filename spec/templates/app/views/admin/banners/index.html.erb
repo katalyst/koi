@@ -6,7 +6,7 @@
 
 <%= table_with(collection:) do |row, banner| %>
   <% row.ordinal %>
-  <% row.link :name, url: [:admin, banner] %>
+  <% row.link :name %>
   <% row.attachment :image %>
 <% end %>
 

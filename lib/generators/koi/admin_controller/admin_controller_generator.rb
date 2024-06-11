@@ -15,14 +15,14 @@ module Koi
 
     def create_controller_files
       template("controller.rb",
-               File.join("app/controllers/admin",
+               File.join("app/controllers",
                          controller_class_path,
                          "#{controller_file_name}_controller.rb"))
     end
 
     def create_spec_files
       template("controller_spec.rb",
-               File.join("spec/requests/admin",
+               File.join("spec/requests",
                          controller_class_path,
                          "#{controller_file_name}_controller_spec.rb"))
     end
@@ -31,6 +31,10 @@ module Koi
     hook_for(:admin_route, in: :koi, type: :boolean, default: true)
 
     private
+
+    def controller_class_path
+      ["admin"] + super
+    end
 
     def permitted_params
       attachments, others = attributes_names.partition { |name| attachments?(name) }

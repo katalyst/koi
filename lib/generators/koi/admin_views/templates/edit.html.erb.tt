@@ -2,7 +2,7 @@
   <%%= render(Koi::Header::EditComponent.new(resource: <%= singular_name %>)) %>
 <%% end %>
 
-<%%= form_with(model: <%= singular_name %>, url: [:admin, <%= singular_name %>], builder: Koi::FormBuilder) do |form| %>
+<%%= form_with(model: <%= singular_name %>, url: <%= show_helper(singular_name, type: :path) %>) do |form| %>
   <%%= render "fields", form: %>
 
   <div class="actions">

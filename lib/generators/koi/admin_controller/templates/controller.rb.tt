@@ -1,76 +1,74 @@
 # frozen_string_literal: true
 
-module Admin
-  class <%= controller_class_name %>Controller < ApplicationController
-    before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
+class <%= controller_class_name %>Controller < ApplicationController
+  before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
-    def index
-      collection = Collection.new.with_params(params).apply(::<%= class_name %>.strict_loading.all)
+  def index
+    collection = Collection.new.with_params(params).apply(::<%= class_name %>.strict_loading.all)
 
-      render locals: { collection: }
+    render locals: { collection: }
+  end
+
+  def show
+    render locals: { <%= singular_name %>: @<%= singular_name %> }
+  end
+
+  def new
+    render locals: { <%= singular_name %>: ::<%= class_name %>.new }
+  end
+
+  def edit
+    render locals: { <%= singular_name %>: @<%= singular_name %> }
+  end
+
+  def create
+    @<%= singular_name %> = ::<%= class_name %>.new(<%= singular_table_name %>_params)
+
+    if @<%= singular_name %>.save
+      redirect_to [:admin, @<%= singular_name %>], status: :see_other
+    else
+      render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
     end
+  end
 
-    def show
-      render locals: { <%= singular_name %>: @<%= singular_name %> }
+  def update
+    if @<%= singular_name %>.update(<%= singular_table_name %>_params)
+      redirect_to action: :show, status: :see_other
+    else
+      render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
     end
+  end
 
-    def new
-      render locals: { <%= singular_name %>: ::<%= class_name %>.new }
-    end
+  def destroy
+    @<%= singular_name %>.destroy!
 
-    def edit
-      render locals: { <%= singular_name %>: @<%= singular_name %> }
-    end
+    redirect_to action: :index, status: :see_other
+  end
 
-    def create
-      @<%= singular_name %> = ::<%= class_name %>.new(<%= singular_table_name %>_params)
+  private
 
-      if @<%= singular_name %>.save
-        redirect_to [:admin, @<%= singular_name %>], status: :see_other
-      else
-        render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
-      end
-    end
+  # Only allow a list of trusted parameters through.
+  def <%= "#{singular_table_name}_params" %>
+    <%- if attributes_names.empty? -%>
+    params.fetch(:<%= singular_table_name %>, {})
+    <%- else -%>
+    params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
+    <%- end -%>
+  end
 
-    def update
-      if @<%= singular_name %>.update(<%= singular_table_name %>_params)
-        redirect_to action: :show, status: :see_other
-      else
-        render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_<%= singular_name %>
+    @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+  end
 
-    def destroy
-      @<%= singular_name %>.destroy!
+  class Collection < Katalyst::Tables::Collection::Base
+    attribute :search, :string
 
-      redirect_to action: :index, status: :see_other
-    end
+    config.sorting  = :<%= search_attribute %>
+    config.paginate = true
 
-    private
-
-    # Only allow a list of trusted parameters through.
-    def <%= "#{singular_table_name}_params" %>
-      <%- if attributes_names.empty? -%>
-      params.fetch(:<%= singular_table_name %>, {})
-      <%- else -%>
-      params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
-      <%- end -%>
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_<%= singular_name %>
-      @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
-    end
-
-    class Collection < Katalyst::Tables::Collection::Base
-      attribute :search, :string
-
-      config.sorting  = :<%= search_attribute %>
-      config.paginate = true
-
-      def filter
-        self.items = items.admin_search(search) if search.present?
-      end
+    def filter
+      self.items = items.admin_search(search) if search.present?
     end
   end
 end

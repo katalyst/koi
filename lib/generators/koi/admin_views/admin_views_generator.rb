@@ -12,13 +12,13 @@ module Koi
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
     def create_root_folder
-      empty_directory File.join("app/views/admin", controller_file_path)
+      empty_directory File.join("app/views", controller_file_path)
     end
 
     def copy_view_files
       available_views.each do |filename|
         target = filename.gsub("record", singular_name)
-        template filename, File.join("app/views/admin", controller_file_path, target)
+        template filename, File.join("app/views", controller_file_path, target)
       end
     end
 
@@ -26,6 +26,10 @@ module Koi
 
     def available_views
       %w(index.html.erb edit.html.erb show.html.erb new.html.erb _fields.html.erb)
+    end
+
+    def controller_class_path
+      ["admin"] + super
     end
 
     def govuk_input_for(attribute)

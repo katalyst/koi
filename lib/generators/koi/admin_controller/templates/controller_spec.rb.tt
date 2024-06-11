@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Admin::<%= controller_class_name %>Controller do
+RSpec.describe <%= controller_class_name %>Controller do
   let(:admin) { create(:admin) }
   let(:model) { create(:<%= singular_name %>) }
 

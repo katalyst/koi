@@ -5,13 +5,13 @@
 <%%= koi_index_actions create: true, search: true %>
 
 <%%= table_with(collection:) do |row, <%= singular_name %>| %>
-    <% index_attributes.each_with_index do |attribute, index| %>
-    <% if index.zero? %>
-    <%% row.link :<%= attribute.name %> %>
-    <% else %>
-    <%= index_attribute_for attribute %>
-    <% end %>
-    <% end %>
+  <%- index_attributes.each_with_index do |attribute, index| -%>
+  <%- if index.zero? -%>
+  <%% row.link :<%= attribute.name %> %>
+  <%- else -%>
+  <%= index_attribute_for attribute %>
+  <%- end -%>
+  <%- end -%>
 <%% end %>
 
 <%%== pagy_nav(collection.pagination) %>
