@@ -1,10 +1,8 @@
 <%# locals: { table:, collection } %>
 <% content_for :header do %>
-  <%= render Koi::Header::IndexComponent.new(model: UrlRewrite) %>
-<% end %>
-
-<%= koi_index_actions create: true, search: true do |form| %>
-  <%= select_tag(:scope, options_for_select([["Active", :active], ["All", :all], ["Inactive", :inactive]], params[:scope])) %>
+  <%= render Koi::Header::IndexComponent.new(model: UrlRewrite) do |component| %>
+    <% component.with_action "New", new_admin_url_rewrite_path %>
+  <% end %>
 <% end %>
 
 <%= table_with(collection:) do |row, url_rewrite| %>

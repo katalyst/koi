@@ -47,7 +47,7 @@ RSpec.describe "index/sorting" do
     end
   end
 
-  context "when a new filter is applied" do
+  context "when a new filter is applied", pending: "filtering not supported" do
     it "retains sorting" do
       visit "/admin/posts?sort=title+asc"
 
