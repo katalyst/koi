@@ -4,6 +4,8 @@
   <% end %>
 <% end %>
 
+<%= table_query_with(collection:) %>
+
 <%= table_with(collection:) do |row, admin| %>
   <%= row.link :name, url: :admin_admin_user_path %>
   <%= row.text :email %>

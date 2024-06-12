@@ -28,11 +28,11 @@ RSpec.describe <%= controller_class_name %>Controller do
     end
 
     context "with sort parameter" do
-      let(:action) { get polymorphic_path([:admin, <%= class_name %>], sort: "<%= search_attribute %> desc") }
+      let(:action) { get polymorphic_path([:admin, <%= class_name %>], sort: "<%= sort_attribute %> desc") }
 
       before do
-        create(:<%= singular_name %>, <%= search_attribute %>: "first")
-        create(:<%= singular_name %>, <%= search_attribute %>: "second")
+        create(:<%= singular_name %>, <%= sort_attribute %>: "first")
+        create(:<%= singular_name %>, <%= sort_attribute %>: "second")
       end
 
       it "finds first in second place" do
@@ -45,8 +45,8 @@ RSpec.describe <%= controller_class_name %>Controller do
       let(:action) { get polymorphic_path([:admin, <%= class_name %>], search: "first") }
 
       before do
-        create(:<%= singular_name %>, <%= search_attribute %>: "first")
-        create(:<%= singular_name %>, <%= search_attribute %>: "second")
+        create(:<%= singular_name %>, <%= sort_attribute %>: "first")
+        create(:<%= singular_name %>, <%= sort_attribute %>: "second")
       end
 
       it "finds the needle" do

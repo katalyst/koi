@@ -18,23 +18,25 @@ RSpec.describe "index/filtering" do
     end
   end
 
-  it "applies filters", pending: "filtering not supported" do
+  it "applies filters" do
     visit "/admin/posts"
 
-    fill_in "Search", with: query
+    fill_in("Search", with: query).click
+    click_on "Apply"
 
-    expect(page).to have_current_path("/admin/posts?search=#{query}")
+    expect(page).to have_current_path("/admin/posts?q=#{query}")
     expect(page).to have_css("td", text: "first")
     expect(page).to have_no_css("td", text: "third")
   end
 
-  it "clears filters", pending: "filtering not supported" do
-    visit "/admin/posts?search=#{query}"
+  it "clears filters" do
+    visit "/admin/posts?q=#{query}"
 
-    expect(page).to have_css("input[type=search][value=#{query}")
+    expect(page).to have_css("input[name=q][value=#{query}")
     expect(page).to have_no_css("td", text: "third")
 
-    fill_in "Search", with: ""
+    fill_in("Search", with: "").click
+    click_on "Apply"
 
     expect(page).to have_current_path("/admin/posts")
     expect(page).to have_css("td", text: "third")
@@ -42,57 +44,44 @@ RSpec.describe "index/filtering" do
 
   context "when there are no results" do
     it "shows a placeholder message" do
-      visit "/admin/posts?search=xxxxxx"
+      visit "/admin/posts?q=xxxxxx"
 
       expect(page).to have_css("caption", text: "No posts found.")
     end
   end
 
-  context "when the content changes", pending: "filtering not supported" do
-    it "retains focus" do
-      visit "/admin/posts"
-
-      find("main input[type=search]").click
-      expect(page).to have_css("main input[type=search]:focus")
-
-      fill_in "Search", with: query
-
-      expect(page).to have_current_path("/admin/posts?search=#{query}")
-      expect(page).to have_css("main input[type=search]:focus")
-    end
-  end
-
-  context "when paginating", pending: "filtering not supported" do
+  context "when paginating" do
     it "retains filter" do
       create_list(:post, 25, name: "first", title: "First") # rubocop:disable FactoryBot/ExcessiveCreateList
 
-      visit "/admin/posts?search=#{query}"
+      visit "/admin/posts?q=#{query}"
 
       click_on "Next"
 
-      expect(page).to have_current_path("/admin/posts?search=#{query}&page=2")
-      expect(page).to have_css("input[type=search][value=#{query}")
+      expect(page).to have_current_path("/admin/posts?q=#{query}&page=2")
+      expect(page).to have_css("input[name=q][value=#{query}]")
     end
   end
 
-  context "when sorting", pending: "filtering not supported" do
+  context "when sorting" do
     it "retains filter" do
-      visit "/admin/posts?search=#{query}"
+      visit "/admin/posts?q=#{query}"
 
       click_on "Title"
 
-      expect(page).to have_current_path("/admin/posts?search=#{query}&sort=title+asc")
-      expect(page).to have_css("input[type=search][value=#{query}]")
+      expect(page).to have_current_path("/admin/posts?q=#{query}&sort=title+asc")
+      expect(page).to have_css("input[name=q][value=#{query}]")
     end
   end
 
-  context "with history navigation", pending: "filtering not supported" do
+  context "with history navigation" do
     it "restores search state" do
       visit "/admin/posts"
 
-      fill_in "Search", with: query
+      fill_in("Search", with: query).click
+      click_on "Apply"
 
-      expect(page).to have_current_path("/admin/posts?search=#{query}")
+      expect(page).to have_current_path("/admin/posts?q=#{query}")
 
       click_on "Dashboard" # leave the page with turbo
 
@@ -100,8 +89,8 @@ RSpec.describe "index/filtering" do
 
       page.go_back
 
-      expect(page).to have_current_path("/admin/posts?search=#{query}")
-      expect(find("input[type=search][name=search]").value).to eql(query)
+      expect(page).to have_current_path("/admin/posts?q=#{query}")
+      expect(find("input[name=q]").value).to eql(query)
     end
   end
 end

@@ -47,13 +47,14 @@ RSpec.describe "index/sorting" do
     end
   end
 
-  context "when a new filter is applied", pending: "filtering not supported" do
+  context "when a new filter is applied" do
     it "retains sorting" do
       visit "/admin/posts?sort=title+asc"
 
-      fill_in "Search", with: "first"
+      fill_in("Search", with: "first").click
+      click_on "Apply"
 
-      expect(page).to have_current_path("/admin/posts?sort=title+asc&search=first")
+      expect(page).to have_current_path("/admin/posts?sort=title+asc&q=first")
     end
   end
 

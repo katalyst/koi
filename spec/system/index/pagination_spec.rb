@@ -28,15 +28,16 @@ RSpec.describe "index/pagination" do
     end
   end
 
-  context "when a new filter is applied", pending: "filtering not supported" do
+  context "when a new filter is applied" do
     let(:search) { posts.first.title.split(/\W+/).first }
 
     it "clears pagination" do
       visit "/admin/posts?page=2"
 
-      fill_in "Search", with: search
+      fill_in("Search", with: search).click
+      click_on "Apply"
 
-      expect(page).to have_current_path("/admin/posts?search=#{search}")
+      expect(page).to have_current_path("/admin/posts?q=#{search}")
     end
   end
 

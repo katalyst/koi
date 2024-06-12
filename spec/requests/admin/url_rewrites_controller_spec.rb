@@ -17,7 +17,7 @@ RSpec.describe Admin::UrlRewritesController do
     it { is_expected.to be_successful }
 
     context "with search" do
-      let(:action) { get admin_url_rewrites_path, params: { search: "dea" } }
+      let(:action) { get admin_url_rewrites_path, params: { q: "dea" } }
       let(:found) { create(:url_rewrite, from: "/deals") }
 
       before do

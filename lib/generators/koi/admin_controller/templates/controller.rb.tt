@@ -61,14 +61,15 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
   end
 
-  class Collection < Katalyst::Tables::Collection::Base
-    attribute :search, :string
-
-    config.sorting  = :<%= search_attribute %>
+  class Collection < Admin::Collection
+    config.sorting  = :<%= sort_attribute %>
     config.paginate = true
 
-    def filter
-      self.items = items.admin_search(search) if search.present?
-    end
+    <%- attributes.each do |attribute| -%>
+    <% definition = collection_attribute_for(attribute) -%>
+    <%- if definition.present? -%>
+    <%= definition %>
+    <%- end -%>
+    <%- end -%>
   end
 end
