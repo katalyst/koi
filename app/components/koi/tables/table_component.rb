@@ -52,10 +52,6 @@ module Koi
                     collection:, row:, column:, record:, label:, heading:, variant:, **,
                   ), &)
       end
-
-      def default_html_attributes
-        { class: "index-table" }
-      end
     end
   end
 end

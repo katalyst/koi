@@ -20,7 +20,7 @@ RSpec.describe "index/ordinal" do
   it "supports mouse re-ordering" do
     visit "/admin/banners"
 
-    within(".index-table tbody") do
+    within("tbody") do
       first = page.find("tr:first-child td.ordinal")
       last  = page.find("tr:last-child td.ordinal")
       first.drag_to(last, steps: 10)
@@ -38,7 +38,7 @@ RSpec.describe "index/ordinal" do
   it "supports keyboard re-ordering", pending: "unimplemented" do
     visit "/admin/banners"
 
-    find(".index-table").send_keys("ff", "k", [:shift, "k"])
+    find("table").send_keys("ff", "k", [:shift, "k"])
 
     expect(page).to have_css("tr:last-child td", text: "second")
   end
