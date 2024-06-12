@@ -60,25 +60,15 @@ module Admin
       params.require(:admin).permit(:name, :email, :password, :archived)
     end
 
-    class Collection < Katalyst::Tables::Collection::Base
-      attribute :search, :string, default: ""
-      attribute :scope, :string, default: "active"
-
+    class Collection < Admin::Collection
       config.sorting  = :name
       config.paginate = true
 
-      def filter
-        self.items = items.admin_search(search) if search.present?
-
-        self.items = case scope&.to_sym
-                     when :archived
-                       items.archived
-                     when :all
-                       items.with_archived
-                     else
-                       items
-                     end
-      end
+      attribute :name, :string
+      attribute :email, :string
+      attribute :status, :boolean, scope: :status
+      attribute :last_sign_in_at, :date
+      attribute :sign_in_count, :integer
     end
   end
 end

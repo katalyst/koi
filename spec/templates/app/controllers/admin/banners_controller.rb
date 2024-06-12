@@ -5,7 +5,7 @@ module Admin
     before_action :set_banner, only: %i[show edit update destroy]
 
     def index
-      collection = Collection.new.with_params(params).apply(::Banner.strict_loading)
+      collection = Collection.new.with_params(params).apply(::Banner.with_attached_image.strict_loading)
 
       render :index, locals: { collection: }
     end
@@ -70,12 +70,10 @@ module Admin
       @banner = ::Banner.find(params[:id])
     end
 
-    class Collection < Katalyst::Tables::Collection::Base
-      attribute :search, :string
-
-      def filter
-        self.items = items.admin_search(search) if search.present?
-      end
+    class Collection < Admin::Collection
+      attribute :name, :string
+      attribute :status, :enum
+      attribute :created_at, :date
     end
   end
 end

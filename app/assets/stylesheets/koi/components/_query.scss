@@ -1,0 +1,57 @@
+[data-controller="tables--query"] {
+  display: flex;
+  flex-grow: 1;
+
+  gap: 0.25rem;
+  position: relative;
+
+  .query-input {
+    flex: 1;
+  }
+
+  input[type="search"] {
+    max-width: unset;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    margin-right: calc(1rem + 3px);
+    height: 1rem;
+    width: 1rem;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  }
+
+  button[type="submit"] {
+    position: absolute;
+    appearance: none;
+    top: 4px;
+    bottom: 4px;
+    right: 4px;
+    width: auto;
+    height: unset;
+    font-size: 0;
+    border: none;
+    background: none;
+    opacity: 0;
+    padding: 5px 4px 0 2px;
+    line-height: 1;
+
+    &::before {
+      content: "⏎";
+      font-size: 1rem;
+    }
+  }
+
+  input[type="search"]:focus ~ button[type="submit"],
+  input[type="search"]:hover ~ button[type="submit"],
+  button[type="submit"]:focus,
+  button[type="submit"]:hover {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .query-input .highlight {
+    padding: 5px;
+    line-height: 1.625;
+  }
+}

@@ -59,25 +59,13 @@ module Admin
       @url_rewrite = UrlRewrite.find(params[:id])
     end
 
-    class Collection < Katalyst::Tables::Collection::Base
-      attribute :search, :string, default: ""
-      attribute :scope, :string, default: "active"
-
+    class Collection < Admin::Collection
       config.sorting  = "from"
       config.paginate = true
 
-      def filter
-        self.items = items.admin_search(search) if search.present?
-
-        self.items = case scope&.to_sym
-                     when :active
-                       items.where(active: true)
-                     when :inactive
-                       items.where(active: false)
-                     else
-                       items
-                     end
-      end
+      attribute :from, :string
+      attribute :to, :string
+      attribute :active, :boolean
     end
   end
 end

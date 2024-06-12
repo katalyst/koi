@@ -3,9 +3,12 @@
 require "rails/generators/named_base"
 require "rails/generators/resource_helpers"
 
+require_relative "../helpers/admin_generator_attributes"
+
 module Koi
   class AdminControllerGenerator < Rails::Generators::NamedBase
     include Rails::Generators::ResourceHelpers
+    include Helpers::AdminGeneratorAttributes
 
     source_root File.expand_path("templates", __dir__)
 
@@ -48,7 +51,7 @@ module Koi
       attribute&.attachments?
     end
 
-    def search_attribute
+    def sort_attribute
       attributes.find { |attr| attr.type == :string }&.name
     end
   end

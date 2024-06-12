@@ -11,11 +11,12 @@ RSpec.describe Koi::AdminRouteGenerator do
 
   let(:gen) { generator(%w(test)) }
 
-  it "updates routes and menus" do
-    expect(output.lines.grep(/insert/).map { |l| l.split.last }).to contain_exactly(
-      "config/initializers/koi.rb",
-      "config/routes/admin.rb",
-    )
+  it "updates routes" do
+    expect(output.lines.grep(/insert/).map { |l| l.split.last }).to include("config/routes/admin.rb")
+  end
+
+  it "updates menus" do
+    expect(output.lines.grep(/gsub/).map { |l| l.split.last }).to include("config/initializers/koi.rb")
   end
 
   describe "menu changes" do

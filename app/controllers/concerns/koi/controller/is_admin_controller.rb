@@ -19,6 +19,7 @@ module Koi
 
         default_form_builder "Koi::FormBuilder"
         default_table_component Koi::TableComponent
+        default_table_query_component Koi::TableQueryComponent
         default_summary_table_component Koi::SummaryTableComponent
 
         helper Katalyst::GOVUK::Formbuilder::Frontend

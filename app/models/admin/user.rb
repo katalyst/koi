@@ -16,6 +16,7 @@ module Admin
     validates :name, :email, presence: true
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+    scope :status, ->(active) { active ? where(archived_at: nil) : where.not(archived_at: nil) }
     scope :alphabetical, -> { order(name: :asc) }
 
     if "PgSearch::Model".safe_constantize

@@ -4,10 +4,13 @@
   <% end %>
 <% end %>
 
+<%= table_query_with(collection:) %>
+
 <%= table_with(collection:) do |row, banner| %>
   <% row.ordinal %>
   <% row.link :name %>
   <% row.attachment :image %>
+  <% row.enum :status %>
 <% end %>
 
 <%= table_orderable_with(collection:, url: order_admin_banners_path) %>
