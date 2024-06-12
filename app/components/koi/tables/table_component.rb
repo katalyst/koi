@@ -31,6 +31,34 @@ module Koi
                   ), &)
       end
 
+      # Generates a column from an enum value rendered as a tag.
+      # The target attribute must be defined as an `enum` in the model.
+      #
+      # @param column [Symbol] the column's name, called as a method on the record.
+      # @param label [String|nil] the label to use for the column header
+      # @param heading [boolean] if true, data cells will use `th` tags
+      # @param ** [Hash] HTML attributes to be added to column cells
+      # @param & [Proc] optional block to wrap the cell content
+      #
+      # When rendering an enum value, the component will check for translations
+      # using the key `active_record.attributes.[model]/[column].[value]`,
+      # e.g. `active_record.attributes.banner/status.published`.
+      #
+      # If a block is provided, it will be called with the cell component as an argument.
+      # @yieldparam cell [Katalyst::Tables::CellComponent] the cell component
+      #
+      # @return [void]
+      #
+      # @example Render a generic text column for any value that supports `to_s`
+      #   <% row.enum :status %>
+      #   <%# label => <th>Status</th> %>
+      #   <%# data => <td class="type-enum"><span data-enum="status" data-value="published">Published</span></td> %>
+      def enum(column, label: nil, heading: false, **, &)
+        with_cell(Tables::Cells::EnumComponent.new(
+                    collection:, row:, column:, record:, label:, heading:, **,
+                  ), &)
+      end
+
       # Generates a column that renders an ActiveStorage attachment as a downloadable link.
       #
       # @param column [Symbol] the column's name, called as a method on the record

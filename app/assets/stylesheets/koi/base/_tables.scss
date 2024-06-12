@@ -1,1 +1,15 @@
 @use "katalyst/tables";
+
+:where(th.type-enum, td.type-enum) {
+  width: var(--width-small);
+}
+
+:where(td.type-enum span) {
+  --background-color: var(--site-primary-light);
+  --color: var(--site-on-primary);
+  background: var(--background-color);
+  color: var(--color);
+  border-radius: 0.25rem;
+  font-size: var(--paragraph--small);
+  padding: 0.25rem 0.5rem;
+}

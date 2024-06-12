@@ -93,17 +93,11 @@ class Dummy < Thor
     inside("spec/dummy") do
       run <<~SH
         rails g koi:admin Post name:string title:string content:rich_text active:boolean published_on:date
-        rails g koi:admin Banner name:string image:attachment ordinal:integer
+        rails g koi:admin Banner name:string image:attachment ordinal:integer status:integer
       SH
 
       run "rails db:migrate"
     end
-
-    gsub_file("app/models/banner.rb", "has_one_attached :image\n", <<~RUBY)
-      has_one_attached :image do |image|
-        image.variant :thumb, resize_to_fill: [100, 100]
-      end
-    RUBY
 
     gsub_file("config/routes/admin.rb", "resources :banners\n", <<~RUBY)
       resources :banners do

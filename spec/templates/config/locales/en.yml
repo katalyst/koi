@@ -1,0 +1,7 @@
+en:
+  active_record:
+    attributes:
+      banner/status:
+        draft: Draft
+        published: Published
+        archived: Archived
