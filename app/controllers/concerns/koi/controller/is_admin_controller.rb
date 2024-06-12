@@ -26,7 +26,6 @@ module Koi
         helper Katalyst::Tables::Frontend
         helper ::Pagy::Frontend
         helper Koi::Pagy::Frontend
-        helper IndexActionsHelper
         helper :all
 
         layout -> { turbo_frame_layout || "koi/application" }
