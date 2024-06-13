@@ -13,7 +13,7 @@ module Koi
 
       def decode_token(token)
         payload = JWT.decode(token, SECRET_KEY)[0]
-        HashWithIndifferentAccess.new(payload)
+        ActiveSupport::HashWithIndifferentAccess.new(payload)
       rescue JWT::DecodeError
         nil
       end

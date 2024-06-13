@@ -12,7 +12,7 @@ describe Koi::Header::IndexComponent do
     end
     Capybara::Node::Simple.new(rendered_content)
   end
-  let(:resource) { create :admin }
+  let(:resource) { create(:admin) }
 
   it "renders name as title" do
     expect(page).to have_css "h1", text: "Admins"
@@ -27,11 +27,11 @@ describe Koi::Header::IndexComponent do
   end
 
   it "does not render any breadcrumbs" do
-    expect(page).not_to have_css("div[class='breadcrumbs'] a")
+    expect(page).to have_no_css("div[class='breadcrumbs'] a")
   end
 
   it "does not render any actions" do
-    expect(page).not_to have_css("div[class='actions'] a")
+    expect(page).to have_no_css("div[class='actions'] a")
   end
 
   context "with a parent" do

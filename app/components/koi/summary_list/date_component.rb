@@ -3,8 +3,8 @@
 module Koi
   module SummaryList
     class DateComponent < Base
-      def initialize(model, attribute, format: :admin, **options)
-        super(model, attribute, **options)
+      def initialize(model, attribute, format: :admin, **)
+        super(model, attribute, **)
 
         @format = format
       end

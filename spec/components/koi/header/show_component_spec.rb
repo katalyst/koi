@@ -12,7 +12,7 @@ describe Koi::Header::ShowComponent do
     end
     Capybara::Node::Simple.new(rendered_content)
   end
-  let(:resource) { create :admin }
+  let(:resource) { create(:admin) }
 
   it "renders name as title" do
     expect(page).to have_css "h1", text: resource.name
@@ -47,7 +47,7 @@ describe Koi::Header::ShowComponent do
     end
 
     it "does not render show link" do
-      expect(page).not_to have_css("div[class='actions'] a")
+      expect(page).to have_no_css("div[class='actions'] a")
     end
   end
 

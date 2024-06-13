@@ -25,14 +25,14 @@ RSpec.describe "index/filtering" do
 
     expect(page).to have_current_path("/admin/posts?search=#{query}")
     expect(page).to have_css("td", text: "first")
-    expect(page).not_to have_css("td", text: "third")
+    expect(page).to have_no_css("td", text: "third")
   end
 
   it "clears filters" do
     visit "/admin/posts?search=#{query}"
 
     expect(page).to have_css("input[type=search][value=#{query}")
-    expect(page).not_to have_css("td", text: "third")
+    expect(page).to have_no_css("td", text: "third")
 
     fill_in "Search", with: ""
 
@@ -64,7 +64,7 @@ RSpec.describe "index/filtering" do
 
   context "when paginating" do
     it "retains filter" do
-      create_list(:post, 25, name: "first", title: "First")
+      create_list(:post, 25, name: "first", title: "First") # rubocop:disable FactoryBot/ExcessiveCreateList
 
       visit "/admin/posts?search=#{query}"
 
@@ -96,7 +96,7 @@ RSpec.describe "index/filtering" do
 
       click_on "Dashboard" # leave the page with turbo
 
-      expect(page).to have_selector("h1", text: "Dashboard")
+      expect(page).to have_css("h1", text: "Dashboard")
 
       page.go_back
 

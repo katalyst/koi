@@ -10,7 +10,7 @@ RSpec.describe "admin/posts/edit" do
     render template: "admin/posts/edit", locals: { post: }
   end
 
-  it { expect(rendered).to have_selector(%(form[action="/admin/posts/#{post.id}"])) }
+  it { expect(rendered).to have_css(%(form[action="/admin/posts/#{post.id}"])) }
   it { expect(rendered).to have_field("Name") }
   it { expect(rendered).to have_field("Title") }
   it { expect(rendered).to have_button(text: "Save") }

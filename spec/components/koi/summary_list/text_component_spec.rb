@@ -24,7 +24,7 @@ describe Koi::SummaryList::TextComponent do
     context "with blank" do
       let(:model) { create(:post, name: "") }
 
-      it { expect(page).not_to have_css("dt") }
+      it { expect(page).to have_no_css("dt") }
     end
 
     context "with blank and skip_blank: false on the list" do

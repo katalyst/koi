@@ -66,7 +66,7 @@ RSpec.describe Admin::SessionsController do
 
       it "renders an error" do
         action
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "does not create the admin session" do
@@ -85,7 +85,7 @@ RSpec.describe Admin::SessionsController do
 
       it "renders an error" do
         action
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "does not create the admin session" do

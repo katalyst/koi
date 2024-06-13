@@ -32,7 +32,7 @@ module Admin
       if admin.save
         redirect_to admin_admin_user_path(admin)
       else
-        render :new, locals: { admin: }, status: :unprocessable_entity
+        render :new, locals: { admin: }, status: :unprocessable_content
       end
     end
 
@@ -40,7 +40,7 @@ module Admin
       if admin.update(admin_user_params)
         redirect_to action: :show
       else
-        render :edit, locals: { admin: }, status: :unprocessable_entity
+        render :edit, locals: { admin: }, status: :unprocessable_content
       end
     end
 

@@ -53,8 +53,6 @@ module Koi
 
     def summary_attribute_for(attribute)
       case attribute.type
-      when :string
-        %(<% dl.text :#{attribute.name} %>)
       when :integer
         %(<% dl.number :#{attribute.name} %>)
       when :boolean

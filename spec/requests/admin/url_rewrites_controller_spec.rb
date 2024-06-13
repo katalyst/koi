@@ -29,7 +29,7 @@ RSpec.describe Admin::UrlRewritesController do
 
       it "filters" do
         action
-        expect(response.body).to have_selector("tbody tr", count: 1)
+        expect(response.body).to have_css("tbody tr", count: 1)
       end
     end
   end

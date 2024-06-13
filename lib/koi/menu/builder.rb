@@ -27,10 +27,10 @@ module Koi
         end
       end
 
-      def add_menu(title:, **options, &)
+      def add_menu(title:, **, &)
         @menu.items.build(type:  Katalyst::Navigation::Heading.name,
                           title:,
-                          **options,
+                          **,
                           index: @index,
                           depth: @depth)
         @index += 1
@@ -39,21 +39,21 @@ module Koi
         @depth -= 1
       end
 
-      def add_link(title:, url:, **options)
+      def add_link(title:, url:, **)
         @menu.items.build(type:  Katalyst::Navigation::Link.name,
                           title:,
                           url:,
-                          **options,
+                          **,
                           index: @index,
                           depth: @depth)
         @index += 1
       end
 
-      def add_button(title:, url:, **options)
+      def add_button(title:, url:, **)
         @menu.items.build(type:  Katalyst::Navigation::Button.name,
                           title:,
                           url:,
-                          **options,
+                          **,
                           index: @index,
                           depth: @depth)
         @index += 1

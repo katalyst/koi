@@ -2,8 +2,8 @@
 
 module Koi
   module IndexActionsHelper
-    def koi_index_actions(search: false, create: false, &block)
-      IndexActionsBuilder.new(self, search:, create:).render(&block)
+    def koi_index_actions(search: false, create: false, &)
+      IndexActionsBuilder.new(self, search:, create:).render(&)
     end
   end
 

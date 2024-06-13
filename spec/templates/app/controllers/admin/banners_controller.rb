@@ -28,7 +28,7 @@ module Admin
       if @banner.save
         redirect_to [:admin, @banner]
       else
-        render :new, locals: { banner: @banner }, status: :unprocessable_entity
+        render :new, locals: { banner: @banner }, status: :unprocessable_content
       end
     end
 
@@ -36,7 +36,7 @@ module Admin
       if @banner.update(banner_params)
         redirect_to action: :show
       else
-        render :edit, locals: { banner: @banner }, status: :unprocessable_entity
+        render :edit, locals: { banner: @banner }, status: :unprocessable_content
       end
     end
 

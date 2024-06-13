@@ -3,8 +3,8 @@
 module Koi
   module DefinitionListHelper
     # @deprecated This method is deprecated and will be removed in Koi 5.
-    def definition_list(**options, &block)
-      render Koi::SummaryListComponent.new(**options), &block
+    def definition_list(**, &)
+      render(Koi::SummaryListComponent.new(**), &)
     end
   end
 end

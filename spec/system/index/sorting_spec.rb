@@ -59,7 +59,7 @@ RSpec.describe "index/sorting" do
 
   context "when paginating" do
     it "retains sorting" do
-      create_list(:post, 25)
+      create_list(:post, 25) # rubocop:disable FactoryBot/ExcessiveCreateList
 
       visit "/admin/posts?sort=title+asc"
 

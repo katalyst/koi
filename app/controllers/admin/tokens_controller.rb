@@ -7,6 +7,18 @@ module Admin
     skip_before_action :authenticate_admin, only: %i[show update]
     before_action :set_token, only: %i[show update]
 
+    def show
+      return redirect_to new_admin_session_path, notice: I18n.t("koi.auth.token_invalid") if @token.blank?
+
+      admin = Admin::User.find(@token[:admin_id])
+
+      if token_utilised?(admin, @token)
+        return redirect_to new_admin_session_path, notice: I18n.t("koi.auth.token_invalid")
+      end
+
+      render locals: { admin:, token: params[:token] }, layout: "koi/login"
+    end
+
     def create
       admin = Admin::User.find(params[:id])
       token = encode_token(admin_id: admin.id, exp: 5.minutes.from_now.to_i, iat: Time.current.to_i)
@@ -17,24 +29,14 @@ module Admin
     def update
       return redirect_to admin_dashboard_path, status: :see_other if admin_signed_in?
 
-      return redirect_to new_admin_session_path, status: :see_other, notice: "invalid token" if @token.blank?
+      if @token.blank?
+        return redirect_to new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid")
+      end
 
       admin = Admin::User.find(@token[:admin_id])
       sign_in_admin(admin)
 
       redirect_to admin_admin_user_path(admin)
-    end
-
-    def show
-      return redirect_to new_admin_session_path, notice: "Token invalid or consumed already" if @token.blank?
-
-      admin = Admin::User.find(@token[:admin_id])
-
-      if token_utilised?(admin, @token)
-        return redirect_to new_admin_session_path, notice: "Token invalid or consumed already"
-      end
-
-      render locals: { admin:, token: params[:token] }, layout: "koi/login"
     end
 
     private

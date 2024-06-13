@@ -36,7 +36,7 @@ module Koi
 
       def resource_title
         title = Koi.config.resource_name_candidates.reduce(nil) do |name, key|
-          name || resource.respond_to?(key) && resource.public_send(key)
+          name || (resource.public_send(key) if resource.respond_to?(key))
         end
 
         title.presence || resource.model_name.human

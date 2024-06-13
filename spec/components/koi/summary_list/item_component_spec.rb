@@ -23,7 +23,7 @@ describe Koi::SummaryList::ItemComponent do
     context "with empty value" do
       let(:model) { create(:post, name: "") }
 
-      it { expect(page).not_to have_css("dt", text: "Name") }
+      it { expect(page).to have_no_css("dt", text: "Name") }
     end
 
     context "with empty value and skip_blank: false on the list" do

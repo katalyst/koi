@@ -29,7 +29,7 @@ module Admin
       if @url_rewrite.save
         redirect_to admin_url_rewrite_path(@url_rewrite)
       else
-        render :new, status: :unprocessable_entity, locals: { url_rewrite: @url_rewrite }
+        render :new, status: :unprocessable_content, locals: { url_rewrite: @url_rewrite }
       end
     end
 
@@ -39,7 +39,7 @@ module Admin
       if @url_rewrite.save
         redirect_to admin_url_rewrite_path(@url_rewrite)
       else
-        render :edit, status: :unprocessable_entity, locals: { url_rewrite: @url_rewrite }
+        render :edit, status: :unprocessable_content, locals: { url_rewrite: @url_rewrite }
       end
     end
 

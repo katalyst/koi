@@ -99,7 +99,7 @@ RSpec.describe Admin::AdminUsersController do
 
       it "renders with errors" do
         action
-        expect(response.body).to have_selector("#admin-name-error")
+        expect(response.body).to have_css("#admin-name-error")
       end
     end
   end

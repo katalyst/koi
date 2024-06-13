@@ -7,31 +7,31 @@ module Koi
     include GOVUKDesignSystemFormBuilder::Builder
 
     # Generates a submit button for saving admin resources.
-    def admin_save(text = "Save", name: :commit, value: :save, class: "button button--primary", **kwargs)
-      button(text, name:, value:, class:, **kwargs)
+    def admin_save(text = "Save", name: :commit, value: :save, class: "button button--primary", **)
+      button(text, name:, value:, class:, **)
     end
 
     # Generates a delete link formatted as a button that will perform a turbo
     # delete with a confirmation.
-    def admin_delete(text = "Delete", url: nil, confirm: "Are you sure?", data: {}, **kwargs)
+    def admin_delete(text = "Delete", url: nil, confirm: "Are you sure?", data: {}, **)
       return unless object.persisted?
 
       link_to(text, url || url_for(action: :destroy),
               class: "button button--secondary",
               data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm),
-              **kwargs)
+              **)
     end
 
     # Generates an archive link formatted as a button that will perform a turbo
     # delete with a confirmation.
-    def admin_archive(text = "Archive", **kwargs)
-      admin_delete(text, **kwargs)
+    def admin_archive(text = "Archive", **)
+      admin_delete(text, **)
     end
 
     # Generates a discard changes link formatted as a text button that navigates
     # the user back to the previous page.
-    def admin_discard(text = "Discard", url: :back, **kwargs)
-      link_to(text, url, class: "button button--text", **kwargs)
+    def admin_discard(text = "Discard", url: :back, **)
+      link_to(text, url, class: "button button--text", **)
     end
 
     # @api internal
@@ -42,7 +42,7 @@ module Koi
         hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
       end
 
-      super(attribute_name, hint:, **, &)
+      super
     end
 
     # @api internal
@@ -53,20 +53,20 @@ module Koi
         hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
       end
 
-      super(attribute_name, hint:, **, &)
+      super
     end
 
     # Use content editor trix setup by default.
     #
     # @api internal
     # @see GOVUKDesignSystemFormBuilder::Builder#govuk_rich_text_area
-    def govuk_rich_text_area(attribute_name, data: {}, **kwargs, &block)
+    def govuk_rich_text_area(attribute_name, data: {}, **, &)
       data = data.reverse_merge(
         direct_upload_url: @template.katalyst_content.direct_uploads_url,
         controller:        "content--editor--trix",
         action:            "trix-initialize->content--editor--trix#trixInitialize",
       )
-      super(attribute_name, data:, **kwargs, &block)
+      super
     end
   end
 end

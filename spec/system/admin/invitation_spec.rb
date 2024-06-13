@@ -20,9 +20,9 @@ RSpec.describe "admin/invites" do
     fill_in "Email", with: "john.doe@gmail.com"
     fill_in "Name", with: "John Doe"
 
-    click_button "Save"
+    click_on "Save"
 
-    click_button "Generate login link"
+    click_on "Generate login link"
 
     expect(page).to have_css("input[type=text][value*=token]")
   end
@@ -35,7 +35,7 @@ RSpec.describe "admin/invites" do
 
     expect(page).to have_content(/Welcome to Koi Admin/)
 
-    click_button "Sign in"
+    click_on "Sign in"
 
     expect(page).to have_current_path(admin_admin_user_path(admin))
   end

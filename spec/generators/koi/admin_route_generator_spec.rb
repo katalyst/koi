@@ -21,7 +21,7 @@ RSpec.describe Koi::AdminRouteGenerator do
   describe "menu changes" do
     subject(:admin_menu) { file("config/initializers/koi.rb") }
 
-    let(:stubs) {}
+    let(:stubs) { nil }
 
     before do
       stubs
@@ -34,7 +34,7 @@ RSpec.describe Koi::AdminRouteGenerator do
   describe "routes changes" do
     subject(:admin_routes) { file("config/routes/admin.rb") }
 
-    let(:stubs) {}
+    let(:stubs) { nil }
 
     before do
       stubs

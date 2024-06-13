@@ -44,7 +44,7 @@ module Koi
         return if admin_signed_in? || !Rails.env.development?
 
         session[:admin_user_id] =
-          Admin::User.where(email: %W[#{ENV['USER']}@katalyst.com.au admin@katalyst.com.au]).first&.id
+          Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first&.id
       end
 
       def authenticate_admin

@@ -31,7 +31,7 @@ describe Koi::Header::NewComponent do
   end
 
   it "does not render any actions" do
-    expect(page).not_to have_css("div[class='actions'] a")
+    expect(page).to have_no_css("div[class='actions'] a")
   end
 
   context "with a parent" do

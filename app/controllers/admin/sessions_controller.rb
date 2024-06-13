@@ -15,23 +15,17 @@ module Admin
     end
 
     def create
-      if (admin_user = webauthn_authenticate!)
+      if (admin_user = webauthn_authenticate! || params_authenticate!)
         record_sign_in!(admin_user)
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to admin_dashboard_path, notice: "You have been logged in"
-      elsif (admin_user = Admin::User.authenticate_by(session_params.slice(:email, :password)))
-        record_sign_in!(admin_user)
-
-        session[:admin_user_id] = admin_user.id
-
-        redirect_to admin_dashboard_path, notice: "You have been logged in"
+        redirect_to admin_dashboard_path, notice: I18n.t("koi.auth.login")
       else
         admin_user = Admin::User.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
 
-        render :new, status: :unprocessable_entity, locals: { admin_user: }
+        render :new, status: :unprocessable_content, locals: { admin_user: }
       end
     end
 
@@ -40,13 +34,17 @@ module Admin
 
       session[:admin_user_id] = nil
 
-      redirect_to admin_dashboard_path, notice: "You have been logged out"
+      redirect_to admin_dashboard_path, notice: I18n.t("koi.auth.logout")
     end
 
     private
 
     def session_params
       params.require(:admin).permit(:email, :password, :response)
+    end
+
+    def params_authenticate!
+      Admin::User.authenticate_by(session_params.slice(:email, :password))
     end
 
     def update_last_sign_in(admin_user)

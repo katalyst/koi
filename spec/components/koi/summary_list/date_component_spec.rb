@@ -34,7 +34,7 @@ describe Koi::SummaryList::DateComponent do
     context "with blank" do
       let(:model) { create(:post, published_on: nil) }
 
-      it { expect(page).not_to have_css("dt") }
+      it { expect(page).to have_no_css("dt") }
     end
 
     context "with blank and skip_blank: false" do

@@ -12,7 +12,7 @@ describe Koi::Header::EditComponent do
     end
     Capybara::Node::Simple.new(rendered_content)
   end
-  let(:resource) { create :admin }
+  let(:resource) { create(:admin) }
 
   it "renders name as title" do
     expect(page).to have_css "h1", text: "Edit admin"
@@ -32,7 +32,7 @@ describe Koi::Header::EditComponent do
   end
 
   it "does not render any actions" do
-    expect(page).not_to have_css("div[class='actions'] a")
+    expect(page).to have_no_css("div[class='actions'] a")
   end
 
   context "when show is not available" do

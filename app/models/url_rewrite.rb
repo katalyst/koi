@@ -14,7 +14,7 @@ class UrlRewrite < ApplicationRecord
   attribute :status_code, :integer, default: 303
 
   validates :from, :to, presence: true
-  validates :from, format: { with: %r{\A/.*\z}, message: "should start with /" }
+  validates :from, format: { with: %r{\A/.*\z}, message: "should start with /" } # rubocop:disable Rails/I18nLocaleTexts
 
   scope :active, -> { where(active: true) }
   scope :alphabetical, -> { order(from: :asc) }

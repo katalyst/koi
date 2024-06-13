@@ -27,7 +27,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     if @<%= singular_name %>.save
       redirect_to [:admin, @<%= singular_name %>], status: :see_other
     else
-      render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+      render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_content
     end
   end
 
@@ -35,7 +35,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     if @<%= singular_name %>.update(<%= singular_table_name %>_params)
       redirect_to action: :show, status: :see_other
     else
-      render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_entity
+      render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_content
     end
   end
 

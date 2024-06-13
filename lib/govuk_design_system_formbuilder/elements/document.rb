@@ -8,8 +8,8 @@ module GOVUKDesignSystemFormBuilder
       include FileElement
 
       def initialize(builder, object_name, attribute_name, hint:, label:, caption:, form_group:, mime_types:,
-                     **kwargs, &block)
-        super(builder, object_name, attribute_name, &block)
+                     **kwargs, &)
+        super(builder, object_name, attribute_name, &)
 
         @mime_types      = mime_types
         @label           = label
@@ -59,10 +59,10 @@ module GOVUKDesignSystemFormBuilder
                              hint: {},
                              form_group: {},
                              mime_types: Koi.config.document_mime_types,
-                             **kwargs,
-                             &block)
+                             **,
+                             &)
       Elements::Document.new(
-        self, object_name, attribute_name, label:, caption:, hint:, form_group:, mime_types:, **kwargs, &block
+        self, object_name, attribute_name, label:, caption:, hint:, form_group:, mime_types:, **, &
       ).html
     end
   end

@@ -7,7 +7,7 @@ RSpec.describe "index/pagination" do
   let(:posts) { Post.order(name: :asc) }
 
   before do
-    create_list(:post, 25)
+    create_list(:post, 25) # rubocop:disable FactoryBot/ExcessiveCreateList
 
     visit "/admin"
 

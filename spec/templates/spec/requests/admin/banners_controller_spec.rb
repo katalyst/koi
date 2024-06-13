@@ -22,7 +22,7 @@ RSpec.describe Admin::BannersController do
 
       it "does not paginate the collection" do
         action
-        expect(response.body).to have_selector("tbody tr", count: 25)
+        expect(response.body).to have_css("tbody tr", count: 25)
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Admin::BannersController do
 
       it "finds first in second place" do
         action
-        expect(response.body).to have_selector("tbody tr + tr td", text: "first")
+        expect(response.body).to have_css("tbody tr + tr td", text: "first")
       end
     end
 
@@ -50,12 +50,12 @@ RSpec.describe Admin::BannersController do
 
       it "finds the needle" do
         action
-        expect(response.body).to have_selector("table td", text: "first")
+        expect(response.body).to have_css("table td", text: "first")
       end
 
       it "removes the chaff" do
         action
-        expect(response.body).not_to have_selector("table td", text: "second")
+        expect(response.body).to have_no_css("table td", text: "second")
       end
     end
   end

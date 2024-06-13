@@ -24,6 +24,6 @@ RSpec.describe "index/pagination" do
     end
 
     expect(page).to have_current_path(admin_posts_path)
-    expect(page).to have_css("button", text: "New")
+    expect(page).to have_button(text: "New")
   end
 end

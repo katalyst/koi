@@ -8,6 +8,10 @@ en:
       default: "%Y-%m-%d"
       admin: "%e %B %Y"
   koi:
+    auth:
+      login: "You have been logged in"
+      logout: "You have been logged out"
+      token_invalid: "Token invalid or consumed already"
     labels:
       new: New
       search: Search

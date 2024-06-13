@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 3.2"
 
   s.files         = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
-                      .reject { |f| f =~ %r{^lib/tasks} }
+                      .grep_v(%r{^lib/tasks})
   s.require_paths = ["lib"]
   s.metadata["rubygems_mfa_required"] = "true"
 
