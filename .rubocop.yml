@@ -1,15 +1,8 @@
 require:
   - rubocop-katalyst
-  - rubocop-capybara
-  - rubocop-factory_bot
-  - rubocop-rspec_rails
 
 AllCops:
   Exclude:
-    - Rakefile
-    - bin/*
-    - config/**/*
-    - db/**/*
     - spec/dummy/bin/*
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*

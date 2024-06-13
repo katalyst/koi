@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UpdateAdminUsers < ActiveRecord::Migration[7.0]
-  class Admin < ActiveRecord::Base; end
+  class Admin < ApplicationRecord; end
 
   def up
     add_column :admins, :name, :string
@@ -21,14 +23,15 @@ class UpdateAdminUsers < ActiveRecord::Migration[7.0]
   def down
     add_column :admins, :first_name, :string
     add_column :admins, :last_name, :string
-    add_column :admins, :reset_password_token, :string, index: { unique: true }
+    add_column :admins, :reset_password_token, :string
+    add_index :admins, :reset_password_token, unique: true
     add_column :admins, :reset_password_sent_at, :datetime
     add_column :admins, :remember_created_at, :datetime
     add_column :admins, :locked_at, :datetime
     add_column :admins, :role, :string
 
     Admin.all.each do |admin|
-      admin.first_name, admin.last_name = admin.name.split(' ', 2)
+      admin.first_name, admin.last_name = admin.name.split(" ", 2)
       admin.save!
     end
 

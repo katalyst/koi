@@ -25,7 +25,7 @@ def dartsass_build_mapping
 end
 
 # compile css before building
-task build: "app:dartsass:build"
+task build: "app:dartsass:build" # rubocop:disable Rake/Desc
 
 require "rubocop/katalyst/rake_task"
 RuboCop::Katalyst::RakeTask.new
