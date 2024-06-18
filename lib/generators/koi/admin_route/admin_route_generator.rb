@@ -26,10 +26,28 @@ module Koi
     end
 
     def add_navigation
-      insert_into_file("config/initializers/koi.rb",
-                       "  \"#{[*regular_class_path.map(&:humanize),
-                               human_name.pluralize].join(' ')}\" => \"/admin#{route_url}\",\n",
-                       after: "Koi::Menu.modules = {\n")
+      gsub_file("config/initializers/koi.rb", /Koi::Menu.modules = ({}|{\n(?:\s+.*\n)*})\n/) do |match|
+        config        = eval(match) # rubocop:disable Security/Eval # we know that this only during generation
+        label         = [*regular_class_path.map(&:humanize), human_name.pluralize].join(" ")
+        path          = "/admin#{route_url}"
+        config[label] = path
+        config        = config.sort.to_h
+        StringIO.new.tap do |io|
+          io.puts "Koi::Menu.modules = {"
+          config.each do |k, v|
+            if v.is_a?(Hash)
+              io.puts "  #{k.inspect} => {"
+              v.each do |kk, vv|
+                io.puts "    #{kk.inspect} => #{vv.inspect},"
+              end
+              io.puts "  },"
+            else
+              io.puts "  #{k.inspect} => #{v.inspect},"
+            end
+          end
+          io.puts "}"
+        end.string
+      end
     end
 
     private
@@ -37,9 +55,9 @@ module Koi
     # See Rails::Generators::Actions
     # Replaces hard-coded route with admin route file
     def route(routing_code, namespace: nil)
-      namespace = Array(namespace)
+      namespace         = Array(namespace)
       namespace_pattern = route_namespace_pattern(namespace)
-      routing_code = namespace.reverse.reduce(routing_code) do |code, name|
+      routing_code      = namespace.reverse.reduce(routing_code) do |code, name|
         "namespace :#{name} do\n#{rebase_indentation(code, 2)}end"
       end
 
@@ -48,7 +66,7 @@ module Koi
       in_root do
         if (namespace_match = match_file(route_file, namespace_pattern))
           base_indent, *, existing_block_indent = namespace_match.captures.compact.map(&:length)
-          existing_line_pattern = /^ {,#{existing_block_indent}}\S.+\n?/
+          existing_line_pattern                 = /^ {,#{existing_block_indent}}\S.+\n?/
           routing_code = rebase_indentation(routing_code, base_indent + 2).gsub(existing_line_pattern, "")
           namespace_pattern = /#{Regexp.escape namespace_match.to_s}/
         end
@@ -61,7 +79,7 @@ module Koi
     # Replaces Routes.draw with namespace :admin as the search term
     def route_namespace_pattern(namespace)
       namespace.each_with_index.reverse_each.reduce(nil) do |pattern, (name, i)|
-        cummulative_margin = "\\#{i + 1}[ ]{2}"
+        cummulative_margin     = "\\#{i + 1}[ ]{2}"
         blank_or_indented_line = "^[ ]*\n|^#{cummulative_margin}.*\n"
         "(?:(?:#{blank_or_indented_line})*?^(#{cummulative_margin})namespace :#{name} do\n#{pattern})?"
       end.then do |pattern|
