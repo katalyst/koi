@@ -12,7 +12,7 @@ module Koi
       def webauthn_relying_party
         @webauthn_relying_party ||=
           WebAuthn::RelyingParty.new(
-            name:   "Koi Admin",
+            name:   Koi.config.admin_name,
             origin: request.base_url,
           )
       end
