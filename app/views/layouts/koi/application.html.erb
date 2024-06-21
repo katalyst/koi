@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
 
   <!-- title -->
-  <title>Koi <%= "- #{yield :title}" if content_for? :title %></title>
+  <title><%= Koi.config.admin_name %><%= " - #{yield :title}" if content_for? :title %></title>
 
   <!-- META -->
   <%= csrf_meta_tags %>

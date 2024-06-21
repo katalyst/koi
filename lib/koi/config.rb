@@ -7,6 +7,8 @@ module Koi
   class Config
     include ActiveSupport::Configurable
 
+    config_accessor(:admin_name) { "Koi" }
+
     config_accessor(:resource_name_candidates) { %i[title name] }
 
     config_accessor(:admin_stylesheet) { "koi/admin" }
