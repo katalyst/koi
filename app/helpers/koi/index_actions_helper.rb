@@ -71,7 +71,7 @@ module Koi
       form.search_field(:search,
                         placeholder: t("koi.labels.search", default: "Search"),
                         value:       params[:search],
-                        data:        { index_actions_target: "search" })
+                        data:        { index_actions_target: "search", turbo_permanent: "" })
     end
 
     def links(form, &)

@@ -101,7 +101,7 @@ RSpec.describe "index/filtering" do
       page.go_back
 
       expect(page).to have_current_path("/admin/posts?search=#{query}")
-      expect(page).to have_css("input[type=search][value=#{query}]")
+      expect(find("input[type=search][name=search]").value).to eql(query)
     end
   end
 end
