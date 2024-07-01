@@ -67,9 +67,9 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
     let(:rendered) { render_inline(table) { |row| row.link(:name) } }
     let(:collection) { create_list(:post, 1, name: nil) }
 
-    it "renders data as url" do
+    it "renders link without content" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><a href="/admin/posts/#{collection.first.id}">/admin/posts/#{collection.first.id}</a></td>
+        <td class="type-link"><a href="/admin/posts/#{collection.first.id}"></a></td>
       HTML
     end
   end
@@ -85,7 +85,7 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
     it "renders the custom data" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><span><a href="/admin/posts/#{collection.first.id}">#{collection.first.name}</a></span></td>
+        <td class="type-link"><a href="/admin/posts/#{collection.first.id}"><span>#{collection.first.name}</span></a></td>
       HTML
     end
   end
