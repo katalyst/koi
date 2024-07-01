@@ -1,5 +1,94 @@
 @use "katalyst/tables";
+@use "button";
 
 table {
   --tag-color: var(--site-primary-light);
+
+  :where(th.selection, td.selection) {
+    width: 2rem;
+  }
+
+  .selection:has(input[type="checkbox"]) {
+    position: relative;
+
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      display: grid;
+      grid-template-areas: "input";
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0 2px;
+
+      input {
+        position: absolute;
+        -webkit-appearance: none;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        border: none !important;
+        z-index: 1;
+        cursor: pointer;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        grid-area: input;
+        border-color: var(--site-text-color);
+        border-style: solid;
+      }
+
+      &::before {
+        border-width: 2px;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &::after {
+        width: 0;
+        border-width: 0.25rem;
+        margin: 0.25rem;
+        opacity: 0;
+      }
+    }
+  }
+
+  .selection:has(input[type="checkbox"]:focus) {
+    label::before {
+      outline: 2px solid #fd0;
+      outline-offset: 0;
+      box-shadow: inset 0 0 0 1px;
+    }
+  }
+
+  .selection:has(input[type="checkbox"]:indeterminate) {
+    label::after {
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      opacity: 1;
+    }
+  }
+
+  .selection:has(input[type="checkbox"]:checked) {
+    label::after {
+      opacity: 1;
+    }
+  }
+}
+
+.tables--selection--form {
+  p {
+    margin-bottom: 0.5rem;
+  }
+
+  button {
+    @extend %button-base;
+  }
 }

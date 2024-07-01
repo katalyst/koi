@@ -6,9 +6,15 @@
 
 <%= table_query_with(collection:) %>
 
+<%= table_selection_with(collection:) do %>
+  <%= tag.button "Archive", formaction: archive_admin_admin_users_path, formmethod: :put %>
+  <%= tag.button "Restore", formaction: restore_admin_admin_users_path, formmethod: :put %>
+<% end %>
+
 <%= table_with(collection:) do |row, admin| %>
-  <%= row.link :name, url: :admin_admin_user_path %>
-  <%= row.text :email %>
+  <% row.select %>
+  <% row.link :name, url: :admin_admin_user_path %>
+  <% row.text :email %>
 <% end %>
 
 <%== pagy_nav(collection.pagination) %>

@@ -44,6 +44,18 @@ module Admin
       end
     end
 
+    def archive
+      Admin::User.where(id: params[:id]).where.not(id: current_admin.id).each(&:archive!)
+
+      redirect_back(fallback_location: admin_admin_users_path, status: :see_other)
+    end
+
+    def restore
+      Admin::User.archived.where(id: params[:id]).each(&:restore!)
+
+      redirect_back(fallback_location: admin_admin_users_path, status: :see_other)
+    end
+
     def destroy
       admin.destroy
 

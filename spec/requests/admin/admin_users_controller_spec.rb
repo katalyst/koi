@@ -104,6 +104,40 @@ RSpec.describe Admin::AdminUsersController do
     end
   end
 
+  describe "PUT /admin/admin_users/archive" do
+    let(:action) { put archive_admin_admin_users_path, params: }
+    let(:params) { { id: admins.take(2).pluck(:id) } }
+    let(:admins) { create_list(:admin, 3) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(admin_admin_users_path)
+    end
+
+    it "updates archived" do
+      expect { action }.to(change { Admin::User.archived.count }.to(2))
+    end
+  end
+
+  describe "PUT /admin/admin_users/restore" do
+    let(:action) { put restore_admin_admin_users_path, params: }
+    let(:params) { { id: admins.take(2).pluck(:id) } }
+    let(:admins) { create_list(:admin, 3, archived: true) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(admin_admin_users_path)
+    end
+
+    it "updates archived" do
+      expect { action }.to(change { Admin::User.not_archived.count }.from(1).to(3))
+    end
+  end
+
   describe "DELETE /admin/admin_users/:id" do
     let(:action) { delete admin_admin_user_path(admin) }
 
