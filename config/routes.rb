@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]
       post :invite, on: :member, to: "tokens#create"
+      put :archive, on: :collection
+      put :restore, on: :collection
     end
 
     # JWT tokens have dots(represents the 3 parts of data) in them, so we need to allow them in the URL
