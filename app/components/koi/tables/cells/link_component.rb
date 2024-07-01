@@ -21,7 +21,7 @@ module Koi
         class WrapperComponent < ViewComponent::Base
           include Katalyst::HtmlAttributes
 
-          delegate :record, :column, :value, to: :@cell
+          delegate :record, :column, :value, :row, to: :@cell
 
           def initialize(cell:, url:, default_url:, **)
             super(**)
@@ -32,7 +32,11 @@ module Koi
           end
 
           def call
-            link_to(content, @default_url ? default_url : url, **html_attributes)
+            if row.header?
+              content
+            else
+              link_to(content, @default_url ? default_url : url, **html_attributes)
+            end
           end
 
           def url
