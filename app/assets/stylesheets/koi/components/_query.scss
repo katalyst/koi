@@ -21,6 +21,32 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
   }
 
+  // keyboard shortcut
+  &::after {
+    content: "/";
+    position: absolute;
+    display: block;
+    top: 4px;
+    bottom: 4px;
+    right: 4px;
+    width: auto;
+    border-radius: 2px;
+    border: 1px solid #999;
+    color: #999;
+    padding: 5px 0.5rem 0 0.5rem;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  &:has(input:focus),
+  &:has(input:hover),
+  &:has(button[type="submit"]):focus,
+  &:has(button[type="submit"]):hover {
+    &::after {
+      opacity: 0;
+    }
+  }
+
   button[type="submit"] {
     position: absolute;
     appearance: none;
@@ -30,11 +56,13 @@
     width: auto;
     height: unset;
     font-size: 0;
-    border: none;
     background: none;
     opacity: 0;
     padding: 5px 4px 0 2px;
     line-height: 1;
+    border-radius: 2px;
+    border: 1px solid #999;
+    color: #999;
 
     &::before {
       content: "⏎";

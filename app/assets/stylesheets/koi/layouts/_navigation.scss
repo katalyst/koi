@@ -83,11 +83,36 @@ $separator: rgba(255, 255, 255, 0.2);
 
   .filter {
     margin: 1rem calc(1rem - 5px) 0;
+    position: relative;
 
     input {
       width: 100%;
       border: none;
       border-radius: 1px;
+    }
+
+    // keyboard shortcut
+    &::after {
+      content: "g";
+      position: absolute;
+      display: block;
+      top: 4px;
+      bottom: 4px;
+      right: 4px;
+      width: auto;
+      border-radius: 2px;
+      border: 1px solid #999;
+      color: #999;
+      padding: 3px 0.3rem 0 0.3rem;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    &:has(input:focus),
+    &:has(input:hover) {
+      &::after {
+        opacity: 0;
+      }
     }
   }
 
