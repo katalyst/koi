@@ -3,9 +3,15 @@
 
 table {
   --tag-color: var(--site-primary-light);
+  --on-tag-color: white;
 
   :where(th.selection, td.selection) {
     width: 2rem;
+  }
+
+  td.type-enum small {
+    color: var(--on-tag-color);
+    font-size: small;
   }
 
   .selection:has(input[type="checkbox"]) {
