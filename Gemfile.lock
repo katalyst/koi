@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.9.3)
+    katalyst-koi (4.9.4)
       bcrypt
       importmap-rails
       katalyst-content
@@ -231,7 +231,7 @@ GEM
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (3.4.4)
+    katalyst-tables (3.4.5)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
@@ -372,7 +372,7 @@ GEM
       rubocop (~> 1.41)
     rubocop-factory_bot (2.26.1)
       rubocop (~> 1.61)
-    rubocop-katalyst (2.0.1)
+    rubocop-katalyst (2.0.2)
       rubocop
       rubocop-capybara
       rubocop-factory_bot

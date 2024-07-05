@@ -1,4 +1,5 @@
-@use "katalyst/content/editor";
+@use "katalyst/content/editor/variables" as variables;
+@use "katalyst/content";
 
 [data-controller="content--editor--container"] {
   --heading--h4: 1rem;
@@ -40,4 +41,22 @@
     -webkit-appearance: inner-spin-button !important;
     opacity: 1 !important;
   }
+}
+
+[data-enum="state"][data-value="published"] {
+  background-color: variables.$status-published-background-color;
+  color: variables.$status-published-color;
+  border: 1px solid variables.$status-published-border-color;
+}
+
+[data-enum="state"][data-value="draft"] {
+  background-color: variables.$status-draft-background-color;
+  color: variables.$status-draft-color;
+  border: 1px solid variables.$status-draft-border-color;
+}
+
+[data-enum="state"][data-value="unpublished"] {
+  background-color: variables.$status-draft-background-color;
+  color: variables.$status-draft-color;
+  border: 1px solid variables.$status-draft-border-color;
 }
