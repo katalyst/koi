@@ -1,5 +1,9 @@
-<% content_for :title, menu.title %>
-<% content_for(:breadcrumbs) { link_to "Navigations", katalyst_navigation.menus_path } %>
+<% content_for :header do %>
+  <%= render Koi::Header::ShowComponent.new(resource: menu, title: menu.title) do |component| %>
+    <% component.with_breadcrumb "Navigations", katalyst_navigation.menus_path %>
+    <% component.with_action "Edit", katalyst_navigation.edit_menu_path(menu) %>
+  <% end %>
+<% end %>
 
 <%= render editor.status_bar %>
 <%= render editor %>

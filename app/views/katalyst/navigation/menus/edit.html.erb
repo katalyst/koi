@@ -1,12 +1,15 @@
-<% content_for :title, "Edit navigation" %>
-<% content_for(:breadcrumbs) { link_to "Navigations", katalyst_navigation.menus_path } %>
+<% content_for :header do %>
+  <%= render Koi::Header::EditComponent.new(resource: menu, title: "Edit navigation") do |component| %>
+    <% component.with_breadcrumb "Navigations", katalyst_navigation.menus_path %>
+    <% component.with_breadcrumb menu.title, katalyst_navigation.menu_path(menu) %>
+  <% end %>
+<% end %>
 
-<%= form_with model: menu, url: katalyst_navigation.menu_path(menu), builder: Koi::FormBuilder do |form| %>
+<%= form_with model: menu, url: katalyst_navigation.menu_path(menu) do |form| %>
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :slug %>
   <%= form.govuk_text_field :depth %>
   <div class="actions">
     <%= form.admin_save %>
-    <%= form.admin_delete url: katalyst_navigation.menu_path(menu) %>
   </div>
 <% end %>

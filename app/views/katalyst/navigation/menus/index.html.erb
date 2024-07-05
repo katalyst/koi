@@ -1,0 +1,10 @@
+<% content_for :header do %>
+  <%= render Koi::Header::IndexComponent.new(model: Katalyst::Navigation::Menu, title: "Navigation") do |component| %>
+    <% component.with_action "New", katalyst_navigation.new_menu_path %>
+  <% end %>
+<% end %>
+
+<%= table_with(collection:) do |row, menu| %>
+  <%= row.link :title, url: (katalyst_navigation.menu_path(menu) if menu) %>
+  <%= row.text :slug %>
+<% end %>
