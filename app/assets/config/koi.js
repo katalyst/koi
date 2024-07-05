@@ -6,5 +6,8 @@
 /* Stimulus controllers */
 //= link_tree ../javascripts/koi/controllers
 
+/* HTML5 elements */
+//= link_tree ../javascripts/koi/elements
+
 /* Koi4 utilities */
 //= link_tree ../javascripts/koi/utils
