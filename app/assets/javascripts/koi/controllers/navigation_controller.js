@@ -20,6 +20,10 @@ export default class NavigationController extends Controller {
     this.element.querySelector("li:not([hidden]) > a").click();
   }
 
+  clear() {
+    if (this.filterTarget.value.length === 0) this.filterTarget.blur();
+  }
+
   applyFilter(filter) {
     // hide items that don't match the search filter
     this.links

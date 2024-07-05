@@ -6,7 +6,8 @@
   <div class="filter">
     <input type="search" placeholder="Filter menu" autocomplete="off"
            data-navigation-target="filter"
-           data-action="input->navigation#filter change->navigation#filter keydown.enter->navigation#go">
+           data-action="input->navigation#filter change->navigation#filter
+                        keydown.enter->navigation#go keydown.esc->navigation#clear">
   </div>
   <%= navigation_menu_with(menu: Koi::Menu.admin_menu(self)) %>
 </nav>
