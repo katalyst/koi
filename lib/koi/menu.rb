@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "koi/menu/builder"
-
 module Koi
   module Menu
     mattr_accessor :priority
