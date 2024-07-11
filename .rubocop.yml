@@ -1,12 +1,16 @@
 require:
   - rubocop-katalyst
 
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   Exclude:
     - spec/dummy/bin/*
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*
-    - vendor/bundle/**/*
+    - spec/dummy/tmp/**/*
   TargetRubyVersion: 3.2
 
 # Disable cops that conflict with legacy Koi practices to reduce noise
