@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.9.5)
+    katalyst-koi (4.9.6)
       bcrypt
       importmap-rails
       katalyst-content
@@ -212,26 +212,26 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (2.5.0)
+    katalyst-content (2.5.1)
       active_storage_validations
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.9.4)
+    katalyst-govuk-formbuilder (1.10.1)
       govuk_design_system_formbuilder
-    katalyst-html-attributes (1.1.0)
+    katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
-    katalyst-kpop (3.1.3)
+    katalyst-kpop (3.2.1)
       katalyst-html-attributes
       turbo-rails
       view_component
-    katalyst-navigation (1.8.2)
+    katalyst-navigation (1.8.3)
       katalyst-html-attributes
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (3.4.5)
+    katalyst-tables (3.4.6)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
@@ -372,7 +372,7 @@ GEM
       rubocop (~> 1.41)
     rubocop-factory_bot (2.26.1)
       rubocop (~> 1.61)
-    rubocop-katalyst (2.0.3)
+    rubocop-katalyst (2.0.4)
       rubocop
       rubocop-capybara
       rubocop-factory_bot
@@ -391,7 +391,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (3.0.2)
+    rubocop-rspec (3.0.3)
       rubocop (~> 1.61)
     rubocop-rspec_rails (2.30.0)
       rubocop (~> 1.61)
@@ -401,12 +401,12 @@ GEM
       ffi (~> 1.12)
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
-    sass-embedded (1.77.5-aarch64-linux-gnu)
-      google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.77.5-arm64-darwin)
-      google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.77.5-x86_64-linux-gnu)
-      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.77.8-aarch64-linux-gnu)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-arm64-darwin)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86_64-linux-gnu)
+      google-protobuf (~> 4.26)
     sentry-rails (5.18.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.18.1)
@@ -463,8 +463,6 @@ GEM
 
 PLATFORMS
   aarch64-linux
-  arm64-darwin-21
-  arm64-darwin-22
   arm64-darwin-23
   x86_64-linux
 

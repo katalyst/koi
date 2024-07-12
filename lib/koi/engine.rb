@@ -63,10 +63,8 @@ module Koi
       Pagy::I18n.load(locale: "en", filepath: root.join("config/locales/pagy.en.yml"))
     end
 
-    initializer "koi.tables" do |app|
-      app.reloader.to_prepare do
-        Katalyst::Tables::Collection::Type.register(:archivable, Koi::Collection::Type::Archivable)
-      end
+    initializer "koi.tables" do
+      Katalyst::Tables.config.collection_types[:archivable] = "Koi::Collection::Type::Archivable"
     end
 
     initializer "koi.views" do
