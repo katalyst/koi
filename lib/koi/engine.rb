@@ -41,7 +41,7 @@ module Koi
     end
 
     initializer "koi.forms", after: "factory_bot.set_factory_paths" do
-      GOVUKDesignSystemFormBuilder::Builder.include(Koi::Form::GovukExtensions)
+      GOVUKDesignSystemFormBuilder::Builder.include(Koi::Form::GOVUKExtensions)
     end
 
     initializer "koi.importmap", before: "importmap" do |app|

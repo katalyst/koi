@@ -2,7 +2,7 @@
 
 module Koi
   module Form
-    module GovukExtensions
+    module GOVUKExtensions
       # Generates a +div+ element with an +input+ with +type=file+ with a label, optional hint.
       #
       # @example A upload field with label as a proc
