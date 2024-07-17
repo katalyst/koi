@@ -1,6 +1,12 @@
+@use "sass:string";
+@use "../utils/typography";
+
+$text-icon-color: #888;
+
 [data-controller="tables--query"] {
   display: flex;
   flex-grow: 1;
+  max-width: var(--text-width);
 
   gap: 0.25rem;
   position: relative;
@@ -9,77 +15,101 @@
     flex: 1;
   }
 
-  input[type="search"] {
+  [role="searchbox"],
+  .query-input .highlight {
     max-width: unset;
-  }
-
-  input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    margin-right: calc(1rem + 3px);
-    height: 1rem;
-    width: 1rem;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
-  }
-
-  // keyboard shortcut
-  &::after {
-    content: "/";
-    position: absolute;
-    display: block;
-    top: 4px;
-    bottom: 4px;
-    right: 4px;
-    width: auto;
-    border-radius: 2px;
-    border: 1px solid #999;
-    color: #999;
-    padding: 5px 0.5rem 0 0.5rem;
-    font-size: 1rem;
-    pointer-events: none;
-  }
-
-  &:has(input:focus),
-  &:has(input:hover),
-  &:has(button[type="submit"]):focus,
-  &:has(button[type="submit"]):hover {
-    &::after {
-      opacity: 0;
-    }
+    outline: none;
+    border-width: 2px;
+    padding: 5px 2rem 5px 5px;
   }
 
   button[type="submit"] {
     position: absolute;
     appearance: none;
-    top: 4px;
-    bottom: 4px;
-    right: 4px;
+    top: 6px;
+    right: 6px;
     width: auto;
-    height: unset;
+    height: 1.75rem;
+    min-width: 1.5rem;
+    text-align: center;
     font-size: 0;
     background: none;
-    opacity: 0;
-    padding: 5px 4px 0 2px;
+    padding: 0;
     line-height: 1;
-    border-radius: 2px;
-    border: 1px solid #999;
-    color: #999;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    color: $text-icon-color;
 
+    // shows keyboard shortcut when not active
     &::before {
-      content: "⏎";
-      font-size: 1rem;
+      display: block;
+      content: "/";
+      font-size: 0.8rem;
     }
   }
 
-  input[type="search"]:focus ~ button[type="submit"],
-  input[type="search"]:hover ~ button[type="submit"],
-  button[type="submit"]:focus,
-  button[type="submit"]:hover {
+  [role="searchbox"]:focus ~ button[type="submit"],
+  button[type="submit"]:focus {
     opacity: 1;
-    pointer-events: auto;
+
+    // submittable
+    &::before {
+      content: "⏎";
+      position: relative;
+      top: 2px;
+    }
   }
 
-  .query-input .highlight {
-    padding: 5px;
-    line-height: 1.625;
+  .query-modal {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  h4 {
+    font-size: #{typography.font-size(small)};
+    font-weight: 500;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  li {
+    display: flex;
+    min-height: 1.75rem;
+    align-items: baseline;
+  }
+
+  li::before {
+    content: "";
+    position: relative;
+    display: inline-block;
+    min-width: 14px;
+    min-height: 16px;
+    margin-inline-end: 0.5rem;
+  }
+
+  li.suggestion.attribute::before {
+    background: url("data:image/svg+xml,%3Csvg width='14' height='16' viewBox='0 0 14 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13 3.1C13 4.2598 10.3137 5.2 7 5.2C3.68629 5.2 1 4.2598 1 3.1M13 3.1C13 1.9402 10.3137 1 7 1C3.68629 1 1 1.9402 1 3.1M13 3.1V12.9C13 14.062 10.3333 15 7 15C3.66667 15 1 14.062 1 12.9V3.1M13 8C13 9.162 10.3333 10.1 7 10.1C3.66667 10.1 1 9.162 1 8' stroke='%23#{string.slice(inspect($text-icon-color), 2)}' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+      no-repeat;
+    top: 2px;
+  }
+
+  li.suggestion.database_value::before,
+  li.suggestion.constant_value::before,
+  li.suggestion.custom_value::before {
+    background: url("data:image/svg+xml,%3Csvg width='14' height='16' viewBox='0 0 16 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.6111 5.16702L7.99998 8.99998M7.99998 8.99998L1.38886 5.16702M7.99998 8.99998L8 16.711M15 12.2943V5.70573C15 5.42761 15 5.28856 14.9607 5.16453C14.926 5.05481 14.8692 4.9541 14.7942 4.86912C14.7094 4.77307 14.5929 4.70553 14.3599 4.57047L8.60436 1.23354C8.38378 1.10565 8.27348 1.04171 8.15668 1.01664C8.05331 0.994453 7.94669 0.994453 7.84332 1.01664C7.72652 1.04171 7.61623 1.10565 7.39564 1.23354L1.64009 4.57047C1.40713 4.70554 1.29064 4.77307 1.20583 4.86912C1.13079 4.9541 1.074 5.05481 1.03927 5.16453C1 5.28856 1 5.42762 1 5.70573V12.2943C1 12.5724 1 12.7114 1.03927 12.8355C1.074 12.9452 1.13079 13.0459 1.20583 13.1309C1.29064 13.2269 1.40713 13.2945 1.64009 13.4295L7.39564 16.7665C7.61623 16.8943 7.72652 16.9583 7.84332 16.9834C7.94669 17.0055 8.05331 17.0055 8.15668 16.9834C8.27348 16.9583 8.38377 16.8943 8.60436 16.7665L14.3599 13.4295C14.5929 13.2945 14.7094 13.2269 14.7942 13.1309C14.8692 13.0459 14.926 12.9452 14.9607 12.8355C15 12.7114 15 12.5724 15 12.2943Z' stroke='%23#{string.slice(inspect($text-icon-color), 2)}' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+      no-repeat;
+    top: 2px;
+  }
+
+  li.suggestion.search_value::before {
+    background: url("data:image/svg+xml,%3Csvg width='14' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z' stroke='%23#{string.slice(inspect($text-icon-color), 2)}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+      no-repeat;
+    top: 2px;
+  }
+
+  li.suggestion.attribute::after {
+    content: ":";
+    color: $text-icon-color;
   }
 }

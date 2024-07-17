@@ -93,7 +93,7 @@ $separator: rgba(255, 255, 255, 0.2);
 
     // keyboard shortcut
     &::after {
-      content: "g";
+      content: "G";
       position: absolute;
       display: block;
       top: 4px;
@@ -101,10 +101,10 @@ $separator: rgba(255, 255, 255, 0.2);
       right: 4px;
       width: auto;
       border-radius: 2px;
-      border: 1px solid #999;
-      color: #999;
-      padding: 3px 0.3rem 0 0.3rem;
-      font-size: 1rem;
+      border: 1px solid #aaa;
+      color: #888;
+      padding: 6px 0.3rem 0 0.3rem;
+      font-size: 0.8rem;
       pointer-events: none;
     }
 
