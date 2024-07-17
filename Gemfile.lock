@@ -165,7 +165,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.4.1)
+    faker (3.4.2)
       i18n (>= 1.8.11, < 2)
     ferrum (0.15)
       addressable (~> 2.5)
@@ -217,12 +217,12 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.10.1)
+    katalyst-govuk-formbuilder (1.10.2)
       govuk_design_system_formbuilder
     katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
-    katalyst-kpop (3.2.1)
+    katalyst-kpop (3.2.2)
       katalyst-html-attributes
       turbo-rails
       view_component
@@ -235,6 +235,7 @@ GEM
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
+    logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -336,7 +337,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.1)
+    rexml (3.3.2)
       strscan
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
@@ -397,8 +398,9 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.2.1)
+    ruby-vips (2.2.2)
       ffi (~> 1.12)
+      logger
     safety_net_attestation (0.4.0)
       jwt (~> 2.0)
     sass-embedded (1.77.8-aarch64-linux-gnu)
@@ -436,7 +438,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    view_component (3.12.1)
+    view_component (3.13.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
