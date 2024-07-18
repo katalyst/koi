@@ -5,11 +5,17 @@ export default class NavigationController extends Controller {
 
   connect() {
     // using JS registration to make controller easier to add to dom
-    this.element.addEventListener("turbo:before-morph-attribute", this.onMorphAttribute);
+    this.element.addEventListener(
+      "turbo:before-morph-attribute",
+      this.onMorphAttribute,
+    );
   }
 
   disconnected() {
-    this.element.removeEventListener("turbo:before-morph-attribute", this.onMorphAttribute);
+    this.element.removeEventListener(
+      "turbo:before-morph-attribute",
+      this.onMorphAttribute,
+    );
   }
 
   focus() {
@@ -91,10 +97,10 @@ export default class NavigationController extends Controller {
     if (e.target !== this.element) return;
 
     switch (e.detail.attributeName) {
-    case "aria-expanded":
-      e.preventDefault();
+      case "aria-expanded":
+        e.preventDefault();
     }
-  }
+  };
 
   get links() {
     return Array.from(this.element.querySelectorAll("li:has(> a)"));
