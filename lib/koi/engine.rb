@@ -37,10 +37,10 @@ module Koi
     end
 
     initializer "koi.factories", after: "factory_bot.set_factory_paths" do
-      FactoryBot.definition_file_paths << root.join("spec/factories")
+      FactoryBot.definition_file_paths << root.join("spec/factories") if defined?(FactoryBot)
     end
 
-    initializer "koi.forms", after: "factory_bot.set_factory_paths" do
+    initializer "koi.forms" do
       GOVUKDesignSystemFormBuilder::Builder.include(Koi::Form::GOVUKExtensions)
     end
 
