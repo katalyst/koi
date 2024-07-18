@@ -12,6 +12,12 @@ module Admin
       render locals: { collection: }
     end
 
+    def archived
+      collection = Collection.new.with_params(params).apply(Admin::User.archived.strict_loading)
+
+      render locals: { collection: }
+    end
+
     def show
       render :show, locals: { admin: }
     end
@@ -78,7 +84,6 @@ module Admin
 
       attribute :name, :string
       attribute :email, :string
-      attribute :status, :archivable, default: :active
       attribute :last_sign_in_at, :date
       attribute :sign_in_count, :integer
     end

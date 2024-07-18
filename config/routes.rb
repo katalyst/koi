@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]
       post :invite, on: :member, to: "tokens#create"
+      get :archived, on: :collection
       put :archive, on: :collection
       put :restore, on: :collection
     end

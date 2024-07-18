@@ -18,6 +18,17 @@ RSpec.describe Admin::AdminUsersController do
     end
   end
 
+  describe "GET /admin/admin_users/archived" do
+    let(:action) { get archived_admin_admin_users_path }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "GET /admin/admin_users/new" do
     let(:action) { get new_admin_admin_user_path }
 

@@ -15,11 +15,6 @@ en:
     labels:
       new: New
       search: Search
-    view:
-      status:
-        active: "%{model} that are not archived"
-        archived: "%{model} that are archived"
-        all: "All %{model}, archived or not"
   helpers:
     hint:
       default:

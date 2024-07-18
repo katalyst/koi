@@ -1,14 +1,13 @@
 <% content_for :header do %>
-  <%= render Koi::Header::IndexComponent.new(model: Admin::User) do |component| %>
-    <% component.with_action "New", new_admin_admin_user_path %>
-    <% component.with_action "Archived", archived_admin_admin_users_path %>
+  <%= render Koi::Header::IndexComponent.new(model: Admin::User, title: "Archived") do |component| %>
+    <% component.with_breadcrumb "Admins", admin_admin_users_path %>
   <% end %>
 <% end %>
 
 <%= table_query_with(collection:) %>
 
 <%= table_selection_with(collection:) do %>
-  <%= tag.button "Archive", formaction: archive_admin_admin_users_path, formmethod: :put %>
+  <%= tag.button "Restore", formaction: restore_admin_admin_users_path, formmethod: :put %>
 <% end %>
 
 <%= table_with(collection:) do |row| %>

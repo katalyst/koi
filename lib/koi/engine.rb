@@ -63,10 +63,6 @@ module Koi
       Pagy::I18n.load(locale: "en", filepath: root.join("config/locales/pagy.en.yml"))
     end
 
-    initializer "koi.tables" do
-      Katalyst::Tables.config.collection_types[:archivable] = "Koi::Collection::Type::Archivable"
-    end
-
     initializer "koi.views" do
       ActiveSupport.on_load(:action_view) do
         # Workaround for de-duplicating nested module paths for admin controllers
