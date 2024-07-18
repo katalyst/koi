@@ -69,7 +69,7 @@ module Koi
       # Archive a record immediately, without validation.
       def archive!
         archive
-        save!(validate: false)
+        save!(validate: false) if persisted?
       end
 
       # Mark a record as no longer archived. It will appear in default queries.
@@ -80,7 +80,7 @@ module Koi
       # Restore a record immediately, without validation.
       def restore!
         restore
-        save!(validate: false)
+        save!(validate: false) if persisted?
       end
     end
   end
