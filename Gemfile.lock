@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.11.0)
+    katalyst-koi (4.11.1)
       bcrypt
       importmap-rails
       katalyst-content
@@ -231,7 +231,7 @@ GEM
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (3.5.0)
+    katalyst-tables (3.5.1)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)

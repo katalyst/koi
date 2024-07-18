@@ -3,6 +3,15 @@ import { Controller } from "@hotwired/stimulus";
 export default class NavigationController extends Controller {
   static targets = ["filter"];
 
+  connect() {
+    // using JS registration to make controller easier to add to dom
+    this.element.addEventListener("turbo:before-morph-attribute", this.onMorphAttribute);
+  }
+
+  disconnected() {
+    this.element.removeEventListener("turbo:before-morph-attribute", this.onMorphAttribute);
+  }
+
   focus() {
     this.filterTarget.focus();
   }
@@ -76,6 +85,15 @@ export default class NavigationController extends Controller {
 
   toggle() {
     this.element.toggleAttribute("aria-expanded");
+  }
+
+  onMorphAttribute = (e) => {
+    if (e.target !== this.element) return;
+
+    switch (e.detail.attributeName) {
+    case "aria-expanded":
+      e.preventDefault();
+    }
   }
 
   get links() {
