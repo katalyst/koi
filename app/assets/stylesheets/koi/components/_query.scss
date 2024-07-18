@@ -60,11 +60,6 @@ $text-icon-color: #888;
     }
   }
 
-  .query-modal {
-    margin-top: 0;
-    padding-bottom: 0.5rem;
-  }
-
   h4 {
     font-size: #{typography.font-size(small)};
     font-weight: 500;
@@ -111,5 +106,9 @@ $text-icon-color: #888;
   li.suggestion.attribute::after {
     content: ":";
     color: $text-icon-color;
+  }
+
+  footer {
+    font-size: #{typography.font-size(small)};
   }
 }
