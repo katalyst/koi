@@ -70,6 +70,7 @@ module Koi
       def archive!
         archive
         save!(validate: false) if persisted?
+        self
       end
 
       # Mark a record as no longer archived. It will appear in default queries.
@@ -81,6 +82,7 @@ module Koi
       def restore!
         restore
         save!(validate: false) if persisted?
+        self
       end
     end
   end
