@@ -25,3 +25,14 @@
   --site-disabled: #9ca3af;
   --site-link: #266dd3;
 }
+
+.extreme {
+  position: relative;
+  &::after {
+    background-color: lightcyan;
+    right: -1rem;
+    font-size: 2rem;
+    content: "!";
+    position: absolute;
+  }
+}

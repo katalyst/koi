@@ -1,10 +1,18 @@
 PATH
+  remote: ../katalyst-content
+  specs:
+    katalyst-content (2.5.1)
+      active_storage_validations
+      katalyst-html-attributes
+      katalyst-kpop
+      view_component
+
+PATH
   remote: .
   specs:
     katalyst-koi (4.11.2)
       bcrypt
       importmap-rails
-      katalyst-content
       katalyst-govuk-formbuilder (>= 1.9)
       katalyst-html-attributes
       katalyst-kpop (>= 3.1)
@@ -186,7 +194,7 @@ GEM
     google-protobuf (4.27.2-x86_64-linux)
       bigdecimal
       rake (>= 13)
-    govuk_design_system_formbuilder (5.4.0)
+    govuk_design_system_formbuilder (5.4.1)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -212,11 +220,6 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (2.5.1)
-      active_storage_validations
-      katalyst-html-attributes
-      katalyst-kpop
-      view_component
     katalyst-govuk-formbuilder (1.10.2)
       govuk_design_system_formbuilder
     katalyst-html-attributes (1.1.1)
@@ -480,6 +483,7 @@ DEPENDENCIES
   faker
   image_processing
   katalyst-basic-auth
+  katalyst-content!
   katalyst-koi!
   propshaft
   puma

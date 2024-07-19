@@ -23,6 +23,12 @@ group :development, :test do
   gem "sentry-rails"
   gem "shoulda-matchers"
   gem "sqlite3", "~> 1.7"
+
+  # HACK
+  #gem "katalyst-govuk-formbuilder", path: "../katalyst-govuk-formbuilder"
+  gem "katalyst-content", path: "../katalyst-content"
+  #s.add_dependency "katalyst-govuk-formbuilder", ">= 1.9"
+
 end
 
 group :test do
