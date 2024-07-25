@@ -11,7 +11,7 @@ AllCops:
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*
     - spec/dummy/tmp/**/*
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.3
 
 # Disable cops that conflict with legacy Koi practices to reduce noise
 
