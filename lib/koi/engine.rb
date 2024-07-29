@@ -73,5 +73,10 @@ module Koi
         )
       end
     end
+
+    # Koi uses table_query_with() which requires a capture patch for form and view_component interoperability
+    initializer "koi.view_component", before: "view_component.enable_capture_patch" do |app|
+      app.config.view_component.enable_capture_patch = true
+    end
   end
 end

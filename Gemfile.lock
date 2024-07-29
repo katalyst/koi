@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.12.0)
+    katalyst-koi (4.12.1)
       bcrypt
       importmap-rails
       katalyst-content
