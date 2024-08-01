@@ -32,7 +32,7 @@ RSpec.describe "index/filtering" do
   it "clears filters" do
     visit "/admin/posts?q=#{query}"
 
-    expect(page).to have_css("[role=searchbox]", text: query)
+    expect(page).to have_css("[role=combobox]", text: query)
     expect(page).to have_no_css("td", text: "third")
 
     fill_in("Search", with: "").click
@@ -59,7 +59,7 @@ RSpec.describe "index/filtering" do
       click_on "Next"
 
       expect(page).to have_current_path("/admin/posts?q=#{query}&page=2")
-      expect(page).to have_css("[role=searchbox]", text: query)
+      expect(page).to have_css("[role=combobox]", text: query)
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe "index/filtering" do
       click_on "Title"
 
       expect(page).to have_current_path("/admin/posts?q=#{query}&sort=title+asc")
-      expect(page).to have_css("[role=searchbox]", text: query)
+      expect(page).to have_css("[role=combobox]", text: query)
     end
   end
 
@@ -90,7 +90,7 @@ RSpec.describe "index/filtering" do
       page.go_back
 
       expect(page).to have_current_path("/admin/posts?q=#{query}")
-      expect(find("[role=searchbox]").value).to eql(query)
+      expect(find("[role=combobox]").value).to eql(query)
     end
   end
 end

@@ -231,7 +231,7 @@ GEM
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (3.5.3)
+    katalyst-tables (3.6.0)
       katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.3)
