@@ -18,14 +18,18 @@ load "rails/tasks/statistics.rake"
 RSpec::Core::RakeTask.new(spec: %w[app:spec:prepare])
 
 # dartsass.rake override – compile gem resources instead of dummy app resources
-def dartsass_build_mapping
-  <<-BUILDS.gsub(/\s+/, " ")
-    app/assets/stylesheets/koi/admin.scss:app/assets/builds/koi/admin.css
-  BUILDS
+module Dartsass
+  module Runner
+    module_function
+
+    def dartsass_build_mapping
+      ["app/assets/stylesheets/koi/admin.scss:app/assets/builds/koi/admin.css"]
+    end
+  end
 end
 
 # compile css before building
-task build: "app:dartsass:build" # rubocop:disable Rake/Desc
+Rake::Task["build"].enhance(["app:dartsass:build"])
 
 require "rubocop/katalyst/rake_task"
 RuboCop::Katalyst::RakeTask.new
