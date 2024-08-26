@@ -212,8 +212,9 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (2.5.1)
+    katalyst-content (2.6.0)
       active_storage_validations
+      activerecord (>= 7.0, < 7.2)
       katalyst-html-attributes
       katalyst-kpop
       view_component
