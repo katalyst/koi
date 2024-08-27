@@ -1,4 +1,5 @@
 import "@hotwired/turbo-rails";
+import { initAll } from "@katalyst/govuk-formbuilder";
 import "@rails/actiontext";
 import "trix";
 
@@ -12,4 +13,5 @@ window.addEventListener("turbo:load", () => {
     "govuk-frontend-supported",
     "noModule" in HTMLScriptElement.prototype,
   );
+  initAll();
 });
