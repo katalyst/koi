@@ -16,7 +16,7 @@ group :development, :test do
   gem "katalyst-basic-auth"
   gem "propshaft"
   gem "puma"
-  gem "rails", "~> 7.1.4"
+  gem "rails", "~> 7.2.1"
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
