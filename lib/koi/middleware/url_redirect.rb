@@ -9,7 +9,7 @@ module Koi
     def call(env)
       status, headers, body = @app.call(env)
 
-      current_path = env["REQUEST_PATH"]
+      current_path = "#{env["SCRIPT_NAME"]}#{env["PATH_INFO"]}"
 
       if status.to_i == 404 && current_path.exclude?("mini-profiler-resources") && new_path = find_redirect(current_path)
         request = ActionDispatch::Request.new(env)
