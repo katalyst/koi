@@ -9,7 +9,7 @@ class UrlRewrite < ApplicationRecord
     StatusCode.new(308, "Permanent redirect"),
   ].freeze
 
-  enum status_code: STATUS_CODES.map(&:code).index_by(&:itself)
+  enum :status_code, STATUS_CODES.map(&:code).index_by(&:itself)
 
   attribute :status_code, :integer, default: 303
 
