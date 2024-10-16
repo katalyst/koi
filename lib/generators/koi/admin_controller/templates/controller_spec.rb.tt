@@ -124,12 +124,17 @@ RSpec.describe <%= controller_class_name %>Controller do
 
   describe "DELETE /admin/<%= plural_name %>/:id" do
     let(:action) { delete polymorphic_path([:admin, model]) }
+    let!(:model) { create(:<%= singular_name %>) }
 
     it_behaves_like "requires admin"
 
     it "renders successfully" do
       action
       expect(response).to redirect_to(polymorphic_path([:admin, <%= class_name %>]))
+    end
+
+    it "deletes the <%= singular_name %>" do
+      expect { action }.to change(<%= class_name %>, :count).by(-1)
     end
   end
 end
