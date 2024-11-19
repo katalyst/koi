@@ -16,6 +16,8 @@ class UrlRewrite < ApplicationRecord
   validates :from, :to, presence: true
   validates :from, format: { with: %r{\A/.*\z}, message: "should start with /" } # rubocop:disable Rails/I18nLocaleTexts
 
+  before_validation :strip_whitespace
+
   scope :active, -> { where(active: true) }
   scope :alphabetical, -> { order(from: :asc) }
 
@@ -29,5 +31,12 @@ class UrlRewrite < ApplicationRecord
 
   def title
     from.delete_prefix("/")
+  end
+
+  private
+
+  def strip_whitespace
+    self.from = from&.strip
+    self.to   = to&.strip
   end
 end
