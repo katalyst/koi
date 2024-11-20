@@ -44,15 +44,21 @@ class Dummy < Thor
       cd spec && \
       rails new dummy \
         --database sqlite3 \
-        --skip-action-mailer \
+        --skip-action-cable \
         --skip-action-mailbox \
+        --skip-action-mailer \
         --skip-bootsnap \
+        --skip-ci \
         --skip-dev-gems \
+        --skip-docker \
+        --skip-git \
         --skip-jbuilder \
+        --skip-kamal \
+        --skip-keeps \
+        --skip-solid \
         --skip-system-test \
         --skip-test \
-        --skip-git \
-        --skip-keeps \
+        --skip-thruster \
         -a propshaft \
         -m #{template_base}/template.rb
     SH

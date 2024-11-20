@@ -12,17 +12,20 @@ group :development, :test do
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
+  gem "flipper"
+  gem "flipper-active_record"
+  gem "flipper-ui"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
   gem "propshaft"
   gem "puma"
-  gem "rails", "< 8"
+  gem "rails"
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
   gem "sentry-rails"
   gem "shoulda-matchers"
-  gem "sqlite3", "~> 1.7"
+  gem "sqlite3"
 end
 
 group :test do
