@@ -15,6 +15,9 @@
   <% row.select %>
   <% row.link :name, url: :admin_admin_user_path %>
   <% row.text :email %>
+  <% row.boolean :credentials, label: "Passkey" do |cell| %>
+    <%= cell.value.any? ? "Yes" : "No" %>
+  <% end %>
 <% end %>
 
 <%= table_pagination_with(collection:) %>

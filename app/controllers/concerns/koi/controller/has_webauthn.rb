@@ -36,7 +36,8 @@ module Koi
           Admin::Credential.find_by!(external_id: credential.id)
         end
 
-        stored_credential.update!(sign_count: webauthn_credential.sign_count)
+        stored_credential.update(sign_count: webauthn_credential.sign_count)
+        stored_credential.touch
 
         stored_credential.admin
       end

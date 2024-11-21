@@ -11,10 +11,9 @@
   <%= builder.date :last_sign_in_at, label: { text: "Last sign in" } %>
 <% end %>
 
-<h3>Passkeys</h3>
+<div class="repel">
+  <h3>Passkeys</h3>
+  <%= kpop_link_to "New passkey", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
+</div>
 
 <%= render "admin/credentials/credentials", admin: %>
-
-<div class="actions-group">
-  <%= kpop_link_to "Add this device", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
-</div>

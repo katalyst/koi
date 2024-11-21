@@ -6,8 +6,11 @@ import {
 } from "@github/webauthn-json/browser-ponyfill";
 
 export default class WebauthnRegistrationController extends Controller {
-  static values = { options: Object };
-  static targets = ["response"];
+  static values = {
+    options: Object,
+    response: String,
+  };
+  static targets = ["intro", "nickname", "response"];
 
   submit(e) {
     if (this.responseTarget.value === "") {
@@ -16,12 +19,17 @@ export default class WebauthnRegistrationController extends Controller {
     }
   }
 
-  createCredential() {
-    create(this.options).then((response) => {
-      this.responseTarget.value = JSON.stringify(response);
+  async createCredential() {
+    const response = await create(this.options);
 
-      this.element.requestSubmit();
-    });
+    this.responseValue = JSON.stringify(response);
+    this.responseTarget.value = JSON.stringify(response);
+  }
+
+  responseValueChanged(response) {
+    const responsePresent = response !== "";
+    this.introTarget.toggleAttribute("hidden", responsePresent);
+    this.nicknameTarget.toggleAttribute("hidden", !responsePresent);
   }
 
   get options() {
