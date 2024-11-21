@@ -42,7 +42,7 @@ RSpec.describe Admin::AdminUsersController do
 
   describe "POST /admin/admin_users" do
     let(:action) { post admin_admin_users_path, params: { admin: admin_params } }
-    let(:admin_params) { attributes_for(:admin) }
+    let(:admin_params) { attributes_for(:admin).except(:password) }
 
     it_behaves_like "requires admin"
 
@@ -94,14 +94,14 @@ RSpec.describe Admin::AdminUsersController do
     end
 
     it "updates password" do
-      expect { action }.not_to(change { admin.reload.password })
+      expect { action }.to(change { admin.reload.password_digest })
     end
 
     context "with empty password" do
       let(:admin_params) { { password: "" } }
 
       it "updates password" do
-        expect { action }.not_to(change { admin.reload.password })
+        expect { action }.not_to(change { admin.reload.password_digest })
       end
     end
 

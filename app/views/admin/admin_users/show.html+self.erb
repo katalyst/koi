@@ -9,19 +9,12 @@
   <%= builder.text :email %>
   <%= builder.date :created_at %>
   <%= builder.date :last_sign_in_at, label: { text: "Last sign in" } %>
-  <%= builder.boolean :archived? %>
 <% end %>
 
 <h3>Passkeys</h3>
 
 <%= render "admin/credentials/credentials", admin: %>
 
-<div class="actions">
-  <% if admin.archived? %>
-    <%= button_to "Delete", admin_admin_user_path(admin),
-                  class:  "button button--secondary",
-                  method: :delete,
-                  form:   { data: { turbo_confirm: "Are you sure?" } } %>
-  <% end %>
-  <%= button_to "Generate login link", admin_admin_user_tokens_path(admin), class: "button button--primary", form: { id: "invite" } %>
+<div class="actions-group">
+  <%= kpop_link_to "Add this device", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
 </div>

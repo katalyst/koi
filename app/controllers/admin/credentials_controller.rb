@@ -70,7 +70,11 @@ module Admin
     def set_admin_user
       @admin_user = Admin::User.find(params[:admin_user_id])
 
-      head(:forbidden) unless current_admin == @admin_user
+      if current_admin == @admin_user
+        request.variant = :self
+      else
+        head(:forbidden)
+      end
     end
   end
 end
