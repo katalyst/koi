@@ -9,8 +9,24 @@ RSpec.describe Admin::TokensController do
     JWT.encode(payload, Rails.application.secret_key_base)
   end
 
-  describe "GET /admin/token/:token" do
-    let(:action) { get admin_token_path(token) }
+  describe "POST /admin/admin_users/:id/tokens" do
+    let(:action) { post admin_admin_user_tokens_path(admin), as: :turbo_stream }
+    let(:admin) { create(:admin) }
+
+    include_context "with admin session"
+
+    it_behaves_like "requires admin"
+
+    it { is_expected.to be_successful }
+
+    it "renders the token" do
+      action
+      expect(response.body).to have_css("turbo-stream[action=replace][target='invite']")
+    end
+  end
+
+  describe "GET /admin/session/tokens/:token" do
+    let(:action) { get admin_session_token_path(token) }
     let(:admin) { create(:admin, password: "") }
     let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.current.to_i) }
 
@@ -40,24 +56,8 @@ RSpec.describe Admin::TokensController do
     end
   end
 
-  describe "POST /admin/admin_users/:id/invite" do
-    let(:action) { post invite_admin_admin_user_path(admin), as: :turbo_stream }
-    let(:admin) { create(:admin) }
-
-    include_context "with admin session"
-
-    it_behaves_like "requires admin"
-
-    it { is_expected.to be_successful }
-
-    it "renders the token" do
-      action
-      expect(response.body).to have_css("turbo-stream[action=replace][target='invite']")
-    end
-  end
-
-  describe "POST /admin/session/accept" do
-    let(:action) { post accept_admin_session_path, params: { token: } }
+  describe "PATCH /admin/session/tokens/:token" do
+    let(:action) { patch admin_session_token_path(token) }
     let(:admin) { create(:admin, password: "") }
     let(:token) { jwt_token(admin_id: admin.id, exp: 5.seconds.from_now.to_i, iat: Time.current.to_i) }
 
@@ -65,14 +65,6 @@ RSpec.describe Admin::TokensController do
 
     it "updates the admin login details" do
       expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present
-    end
-
-    context "when admin is signed in" do
-      let(:admin) { create(:admin) }
-
-      include_context "with admin session"
-
-      it { is_expected.to redirect_to(admin_dashboard_path) }
     end
   end
 end

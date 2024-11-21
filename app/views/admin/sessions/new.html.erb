@@ -7,19 +7,22 @@
         webauthn_authentication_options_value: { publicKey: webauthn_auth_options },
       },
     ) do |f| %>
+  <% (redirect = flash[:redirect] || params[:redirect]) && flash.delete(:redirect) %>
   <% unless flash.empty? %>
     <div class="govuk-error-summary">
       <ul class="govuk-error-summary__list">
-        <% flash.each do |_, message| %>
+        <% flash.each do |type, message| %>
           <%= tag.li message %>
         <% end %>
       </ul>
     </div>
   <% end %>
   <%= f.govuk_fieldset legend: nil do %>
-    <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email" %>
-    <%= f.govuk_password_field :password, autocomplete: "current-password" %>
+    <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
+    <%= f.govuk_email_field :email, autofocus: true, autocomplete: "off" %>
+    <%= f.govuk_password_field :password, autocomplete: "off" %>
     <%= f.hidden_field :response, data: { webauthn_authentication_target: "response" } %>
+    <%= hidden_field_tag(:redirect, redirect) %>
   <% end %>
   <div class="actions-group">
     <%= f.admin_save "Log in" %>

@@ -9,9 +9,8 @@ en:
       admin: "%e %B %Y"
   koi:
     auth:
-      login: "You have been logged in"
-      logout: "You have been logged out"
       token_invalid: "Token invalid or consumed already"
+      token_consumed: "Please create a password or passkey"
     labels:
       new: New
       search: Search

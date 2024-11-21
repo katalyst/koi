@@ -31,9 +31,6 @@ module Koi
         helper :all
 
         layout -> { turbo_frame_layout || "koi/application" }
-
-        before_action :authenticate_local_admin, if: -> { Koi::Controller::IsAdminController.authenticate_local_admins }
-        before_action :authenticate_admin, unless: :admin_signed_in?
       end
 
       class << self
@@ -47,10 +44,14 @@ module Koi
 
         session[:admin_user_id] =
           Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first&.id
+
+        flash.delete(:redirect) if (redirect = flash[:redirect])
+
+        redirect_to(redirect || admin_dashboard_path, status: :see_other)
       end
 
-      def authenticate_admin
-        redirect_to new_admin_session_path, status: :temporary_redirect
+      def authenticate_local_admins?
+        IsAdminController.authenticate_local_admins
       end
 
       def turbo_frame_layout

@@ -31,7 +31,7 @@ RSpec.describe "admin/invites" do
     admin = create(:admin, password: "")
     token = encode_token(admin_id: admin.id, exp: 1.hour.from_now.to_i, ist: Time.current.to_i)
 
-    visit "admin/token/#{token}"
+    visit "admin/session/tokens/#{token}"
 
     expect(page).to have_content(/Welcome to Koi Admin/)
 

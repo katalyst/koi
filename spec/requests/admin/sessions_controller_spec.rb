@@ -146,7 +146,7 @@ RSpec.describe Admin::SessionsController do
       delete admin_session_path, as: :turbo_stream
     end
 
-    it_behaves_like "requires admin"
+    include_context "with admin session"
 
     it "renders successfully" do
       action

@@ -17,7 +17,7 @@
                   method: :delete,
                   form:   { data: { turbo_confirm: "Are you sure?" } } %>
   <% end %>
-  <%= button_to "Generate login link", invite_admin_admin_user_path(admin), class: "button button--primary", form: { id: "invite" } %>
+  <%= button_to "Generate login link", admin_admin_user_tokens_path(admin), class: "button button--primary", form: { id: "invite" } %>
 </div>
 
 <h2>Authentication</h2>

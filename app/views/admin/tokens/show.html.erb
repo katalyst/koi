@@ -1,7 +1,6 @@
 <%= render "layouts/koi/navigation_header" %>
 
-<%= form_with(url: accept_admin_session_path) do |form| %>
-  <%= tag.input name: :token, type: :hidden, value: token %>
+<%= form_with(url: admin_session_token_path(token), method: :patch) do |form| %>
   <p>Welcome to Koi Admin</p>
   <%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
     <%= builder.text :name %>

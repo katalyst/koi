@@ -4,14 +4,13 @@ module Admin
   class SessionsController < ApplicationController
     include Koi::Controller::HasWebauthn
 
-    skip_before_action :authenticate_admin, only: %i[new create]
+    before_action :redirect_authenticated, only: %i[new], if: :admin_signed_in?
+    before_action :authenticate_local_admin, only: %i[new], if: :authenticate_local_admins?
 
     layout "koi/login"
 
     def new
-      return redirect_to admin_dashboard_path if admin_signed_in?
-
-      render :new, locals: { admin_user: Admin::User.new }
+      render locals: { admin_user: Admin::User.new }
     end
 
     def create
@@ -20,12 +19,12 @@ module Admin
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to admin_dashboard_path, notice: I18n.t("koi.auth.login")
+        redirect_to(params[:redirect].presence || admin_dashboard_path, status: :see_other)
       else
         admin_user = Admin::User.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
 
-        render :new, status: :unprocessable_content, locals: { admin_user: }
+        render(:new, status: :unprocessable_content, locals: { admin_user: })
       end
     end
 
@@ -34,10 +33,14 @@ module Admin
 
       session[:admin_user_id] = nil
 
-      redirect_to admin_dashboard_path, notice: I18n.t("koi.auth.logout")
+      redirect_to new_admin_session_path
     end
 
     private
+
+    def redirect_authenticated
+      redirect_to(admin_dashboard_path, status: :see_other)
+    end
 
     def session_params
       params.require(:admin).permit(:email, :password, :response)
@@ -65,6 +68,8 @@ module Admin
     end
 
     def record_sign_out!(admin_user)
+      return unless admin_user
+
       update_last_sign_in(admin_user)
 
       admin_user.current_sign_in_at = nil

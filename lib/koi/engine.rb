@@ -58,6 +58,7 @@ module Koi
     end
 
     initializer "koi.middleware" do |app|
+      app.middleware.use Koi::Middleware::AdminAuthentication
       app.middleware.use ::ActionDispatch::Static, root.join("public").to_s
       app.middleware.insert_before Rack::Sendfile, Koi::Middleware::UrlRedirect
     end
