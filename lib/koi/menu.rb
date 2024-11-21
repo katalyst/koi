@@ -17,7 +17,6 @@ module Koi
         b.add_link(title: "View site", url: "/", target: :blank)
         b.add_link(title: "Dashboard", url: context.main_app.admin_dashboard_path)
         b.add_items(priority)
-        b.add_button(title: "Logout", url: context.main_app.admin_session_path, http_method: :delete)
       end
       builder.add_menu(title: "Modules") do |b|
         b.add_items(modules)

@@ -9,6 +9,15 @@
            data-action="input->navigation#filter change->navigation#filter
                         keydown.enter->navigation#go keydown.esc->navigation#clear">
   </div>
+  <ul role="list">
+    <li>
+      <span><%= current_admin_user.name %></span>
+      <ul role="list">
+        <li><%= link_to("Profile", admin_admin_user_path(current_admin_user)) %></li>
+        <li><%= link_to("Log out", admin_session_path, data: { turbo_method: :delete }) %></li>
+      </ul>
+    </li>
+  </ul>
   <%= navigation_menu_with(menu: Koi::Menu.admin_menu(self)) %>
 </nav>
 <%= render "layouts/koi/navigation_collapse" %>
