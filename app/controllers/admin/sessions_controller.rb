@@ -19,7 +19,7 @@ module Admin
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to(params[:redirect].presence || admin_dashboard_path, status: :see_other)
+        redirect_to(url_from(params[:redirect].presence) || admin_dashboard_path, status: :see_other)
       else
         admin_user = Admin::User.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, "Invalid email or password")
