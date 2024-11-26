@@ -138,6 +138,10 @@ RSpec.describe Admin::SessionsController do
       it "updates credential count" do
         expect { action }.to(change { admin.credentials.last.sign_count })
       end
+
+      it "touches the credential" do
+        expect { action }.to(change { admin.credentials.last.updated_at })
+      end
     end
   end
 
