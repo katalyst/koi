@@ -69,7 +69,7 @@ module Koi
         end
 
         def preview_url
-          preview? ? main_app.url_for(value) : ""
+          preview? ? main_app.polymorphic_path(value, only_path: true) : ""
         end
 
         def preview?
