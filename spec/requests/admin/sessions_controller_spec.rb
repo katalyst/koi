@@ -44,7 +44,8 @@ RSpec.describe Admin::SessionsController do
 
     it "fails on invalid email" do
       post admin_session_path, params: { admin: { email: "invalid@example.com" } }, as: :turbo_stream
-      post admin_session_path, params: { admin: { email: "invalid@example.com", password: admin.password } }, as: :turbo_stream
+      post admin_session_path, params: { admin: { email: "invalid@example.com", password: admin.password } },
+                               as:     :turbo_stream
       expect(response).to have_http_status(:unprocessable_content).and(have_rendered("new"))
     end
 

@@ -5,6 +5,10 @@ module Koi
     module OTP
       extend ActiveSupport::Concern
 
+      included do
+        attribute :token, :string
+      end
+
       def requires_otp?
         otp_secret.present?
       end

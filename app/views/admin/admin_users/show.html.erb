@@ -4,17 +4,15 @@
   <%= render Koi::Header::ShowComponent.new(resource: admin) %>
 <% end %>
 
-<%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
+<%= render Koi::SummaryTableComponent.new(model: admin, class: "item-table") do |builder| %>
   <%= builder.text :name %>
   <%= builder.text :email %>
   <%= builder.date :created_at %>
-  <%= builder.date :last_sign_in_at, label: { text: "Last sign in" } %>
+  <%= builder.date :last_sign_in_at, label: "Last sign in" %>
+  <%= builder.boolean :passkey %>
+  <%= builder.boolean :otp, label: "MFA" %>
   <%= builder.boolean :archived? %>
 <% end %>
-
-<h3>Passkeys</h3>
-
-<%= render "admin/credentials/credentials", admin: %>
 
 <div class="actions">
   <% if admin.archived? %>

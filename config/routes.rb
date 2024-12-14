@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :url_rewrites
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]
+      resource :otp, only: %i[new create destroy]
       resources :tokens, only: %i[create]
       get :archived, on: :collection
       put :archive, on: :collection

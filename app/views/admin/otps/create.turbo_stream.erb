@@ -1,0 +1,5 @@
+<%# locals: (admin:) %>
+
+<%= turbo_stream.replace(dom_id(admin, :otp)) do %>
+  <%= render("form", admin:) %>
+<% end %>

@@ -1,0 +1,31 @@
+<%# locals: (admin:) %>
+
+<%= form_with(id:     dom_id(admin, :otp),
+              model:  admin,
+              url:    admin_admin_user_otp_path(admin),
+              method: :post,
+              class:  "flow") do |form| %>
+  <section class="flow prose">
+    <p>MFA protects your account by requiring you to enter a six-digit
+      token that changes every 30 seconds. If someone knows or guesses your
+      password they also need to know the current token to log in.</p>
+    <p>In general, we recommend using Passkeys over MFA. Passkeys offer better
+      security than a password + MFA, and they are easier to use.</p>
+    <p><strong>Add an MFA authenticator to your account</strong></p>
+    <ol class="flow">
+      <li>Install an MFA app. Most password managers support MFA.</li>
+      <li>Scan this code using your mobile device or password manager:<br>
+        <%== RQRCode::QRCode.new(admin.otp.provisioning_uri(admin.email)).as_svg(
+               color:           "000",
+               shape_rendering: "crispEdges",
+               module_size:     3,
+               use_path:        true,
+             ) %>
+      </li>
+      <li>Enter the token shown in your app into the field below:</li>
+    </ol>
+  </section>
+  <%= form.hidden_field :otp_secret %>
+  <%= form.govuk_text_field :token %>
+  <%= form.admin_save %>
+<% end %>

@@ -28,5 +28,26 @@ module Admin
         where("email LIKE :query OR name LIKE :query", query: "%#{query}%")
       end
     end
+
+    scope :has_otp, ->(otp) do
+      if otp
+        where.not(otp_secret: nil)
+      else
+        where(otp_secret: nil)
+      end
+    end
+
+    scope :has_passkey, ->(passkey) do
+      if passkey
+        where(id: Admin::Credential.select(:admin_id))
+      else
+        where.not(id: Admin::Credential.select(:admin_id))
+      end
+    end
+
+    def passkey
+      credentials.any?
+    end
+    alias passkey? passkey
   end
 end

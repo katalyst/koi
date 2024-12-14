@@ -4,11 +4,25 @@
   <%= render Koi::Header::ShowComponent.new(resource: admin) %>
 <% end %>
 
-<%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
+<%= render Koi::SummaryTableComponent.new(model: admin) do |builder| %>
   <%= builder.text :name %>
   <%= builder.text :email %>
   <%= builder.date :created_at %>
-  <%= builder.date :last_sign_in_at, label: { text: "Last sign in" } %>
+  <%= builder.date :last_sign_in_at, label: "Last sign in" %>
+  <%= builder.boolean :passkey %>
+  <%= builder.boolean :otp, label: "MFA" do |otp| %>
+    <span class="repel">
+      <%= otp %>
+      <% if otp.value %>
+        <%= button_to("Remove", admin_admin_user_otp_path(admin),
+                      class:  "button button--text",
+                      method: :delete,
+                      form:   { data: { turbo_confirm: "Are you sure?" } }) %>
+      <% else %>
+        <%= kpop_link_to "Add", new_admin_admin_user_otp_path(admin) %>
+      <% end %>
+    </span>
+  <% end %>
 <% end %>
 
 <div class="repel">

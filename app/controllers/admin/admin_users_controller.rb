@@ -88,6 +88,8 @@ module Admin
       attribute :email, :string
       attribute :last_sign_in_at, :date
       attribute :sign_in_count, :integer
+      attribute :passkey, :boolean, scope: :has_passkey
+      attribute :mfa, :boolean, scope: :has_otp
     end
   end
 end

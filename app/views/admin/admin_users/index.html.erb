@@ -18,6 +18,9 @@
   <% row.boolean :credentials, label: "Passkey" do |cell| %>
     <%= cell.value.any? ? "Yes" : "No" %>
   <% end %>
+  <% row.boolean :otp, label: "MFA" do |cell| %>
+    <%= cell.value.present? ? "Yes" : "No" %>
+  <% end %>
 <% end %>
 
 <%= table_pagination_with(collection:) %>
