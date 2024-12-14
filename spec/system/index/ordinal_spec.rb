@@ -9,8 +9,13 @@ RSpec.describe "index/ordinal" do
     visit "/admin"
 
     fill_in "Email", with: admin.email
+    click_on "Next"
+
     fill_in "Password", with: admin.password
-    click_on "Log in"
+    click_on "Next"
+
+    fill_in "Token", with: admin.otp.now
+    click_on "Next"
 
     %i[first second third].each_with_index do |n, i|
       create(:banner, name: n, ordinal: i)

@@ -9,8 +9,13 @@ RSpec.describe "index/sorting" do
     visit "/admin"
 
     fill_in "Email", with: admin.email
+    click_on "Next"
+
     fill_in "Password", with: admin.password
-    click_on "Log in"
+    click_on "Next"
+
+    fill_in "Token", with: admin.otp.now
+    click_on "Next"
 
     %i[first second third].map do |n|
       create(:post, name: n, title: n.to_s.titleize)

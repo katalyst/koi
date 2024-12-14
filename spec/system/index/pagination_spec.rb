@@ -12,8 +12,13 @@ RSpec.describe "index/pagination" do
     visit "/admin"
 
     fill_in "Email", with: admin.email
+    click_on "Next"
+
     fill_in "Password", with: admin.password
-    click_on "Log in"
+    click_on "Next"
+
+    fill_in "Token", with: admin.otp.now
+    click_on "Next"
   end
 
   context "when there are more than 20 results" do

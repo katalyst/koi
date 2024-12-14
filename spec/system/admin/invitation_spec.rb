@@ -9,13 +9,16 @@ RSpec.describe "admin/invites" do
 
   it "creates an invitation" do
     admin = create(:admin)
-    visit "/admin"
+    visit "/admin/admin_users/new"
 
     fill_in "Email", with: admin.email
-    fill_in "Password", with: admin.password
-    click_on "Log in"
+    click_on "Next"
 
-    visit "/admin/admin_users/new"
+    fill_in "Password", with: admin.password
+    click_on "Next"
+
+    fill_in "Token", with: admin.otp.now
+    click_on "Next"
 
     fill_in "Email", with: "john.doe@gmail.com"
     fill_in "Name", with: "John Doe"
