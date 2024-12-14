@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
 
   # Authorization
   s.add_dependency "bcrypt"
+  s.add_dependency "rotp"
+  s.add_dependency "rqrcode"
   s.add_dependency "webauthn"
 
   # Third party libraries for admin pages

@@ -3,6 +3,7 @@
 module Admin
   class User < ApplicationRecord
     include Koi::Model::Archivable
+    include Koi::Model::OTP
 
     def self.model_name
       ActiveModel::Name.new(self, nil, "Admin")

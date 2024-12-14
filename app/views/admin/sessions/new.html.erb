@@ -1,4 +1,7 @@
+<%# locals: (admin_user:) %>
+
 <%= render "layouts/koi/navigation_header" %>
+
 <%= form_with(
       model: admin_user,
       url:   admin_session_path,
@@ -6,7 +9,7 @@
         controller:                            "webauthn-authentication",
         webauthn_authentication_options_value: { publicKey: webauthn_auth_options },
       },
-    ) do |f| %>
+    ) do |form| %>
   <% (redirect = flash[:redirect] || params[:redirect]) && flash.delete(:redirect) %>
   <% unless flash.empty? %>
     <div class="govuk-error-summary">
@@ -17,15 +20,12 @@
       </ul>
     </div>
   <% end %>
-  <%= f.govuk_fieldset legend: nil do %>
-    <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
-    <%= f.govuk_email_field :email, autofocus: true, autocomplete: "off" %>
-    <%= f.govuk_password_field :password, autocomplete: "off" %>
-    <%= f.hidden_field :response, data: { webauthn_authentication_target: "response" } %>
-    <%= hidden_field_tag(:redirect, redirect) %>
-  <% end %>
+  <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
+  <%= form.govuk_email_field :email, autofocus: true, autocomplete: "off" %>
+  <%= form.hidden_field :response, data: { webauthn_authentication_target: "response" } %>
+  <%= hidden_field_tag(:redirect, redirect) %>
   <div class="actions-group">
-    <%= f.admin_save "Log in" %>
-    <%= f.button "🔑", type: :button, class: "button button--secondary", data: { action: "webauthn-authentication#authenticate" } %>
+    <%= form.admin_save "Next" %>
+    <%= form.button "🔑", type: :button, class: "button button--secondary", data: { action: "webauthn-authentication#authenticate" } %>
   </div>
 <% end %>

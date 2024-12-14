@@ -14,6 +14,11 @@ en:
     labels:
       new: New
       search: Search
+  activerecord:
+    errors:
+      models:
+        admin:
+          invalid: "Invalid login credentials"
   helpers:
     hint:
       default:
