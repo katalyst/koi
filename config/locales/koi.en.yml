@@ -9,6 +9,7 @@ en:
       admin: "%e %B %Y"
   koi:
     auth:
+      otp_app_name: "%{host}/admin"
       token_invalid: "Token invalid or consumed already"
       token_consumed: "Please create a password or passkey"
     labels:
