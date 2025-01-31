@@ -36,7 +36,7 @@ module Admin
     private
 
     def otp_params
-      params.require(:admin).permit(:otp_secret, :token)
+      params.expect(admin: %i[otp_secret token])
     end
 
     def set_admin_user

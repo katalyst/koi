@@ -56,13 +56,12 @@ module Admin
 
     private
 
-    # Only allow a list of trusted parameters through.
     def banner_params
-      params.require(:banner).permit(:name, :image, :ordinal)
+      params.expect(banner: %i[name image ordinal])
     end
 
     def order_params
-      params.require(:order).permit(banners: [:ordinal])
+      params.expect(order: { banners: [[:ordinal]] })
     end
 
     # Use callbacks to share common setup or constraints between actions.

@@ -77,7 +77,7 @@ module Admin
     end
 
     def admin_user_params
-      params.require(:admin).permit(:name, :email, :password, :archived)
+      params.expect(admin: %i[name email password archived])
     end
 
     class Collection < Admin::Collection

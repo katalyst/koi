@@ -64,7 +64,7 @@ module Admin
     private
 
     def credential_params
-      params.require(:admin_credential).permit(:nickname, :response)
+      params.expect(admin_credential: %i[nickname response])
     end
 
     def set_admin_user

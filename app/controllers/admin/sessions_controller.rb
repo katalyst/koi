@@ -102,7 +102,7 @@ module Admin
     end
 
     def session_params
-      params.require(:admin).permit(:email, :password, :token, :response)
+      params.expect(admin: %i[email password token response])
     end
 
     def update_last_sign_in(admin_user)
