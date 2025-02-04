@@ -1,0 +1,19 @@
+<% content_for :header do %>
+  <%= render(Koi::Header::ShowComponent.new(resource: well_known)) %>
+<% end %>
+
+<h2>Summary</h2>
+
+<%= summary_table_with(model: well_known) do |row| %>
+  <% row.link :name %>
+  <% row.text :purpose %>
+  <% row.text :content_type %>
+  <% row.text :content %>
+<% end %>
+
+<div class="actions">
+  <%= button_to "Delete", admin_well_known_path(well_known),
+                class:  "button button--secondary",
+                method: :delete,
+                form:   { data: { turbo_confirm: "Are you sure?" } } %>
+</div>

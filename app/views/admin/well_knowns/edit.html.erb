@@ -1,0 +1,12 @@
+<% content_for :header do %>
+  <%= render(Koi::Header::EditComponent.new(resource: well_known)) %>
+<% end %>
+
+<%= form_with(model: well_known, url: admin_well_known_path(well_known)) do |form| %>
+  <%= render "fields", form: %>
+
+  <div class="actions">
+    <%= form.admin_save %>
+    <%= form.admin_delete %>
+  </div>
+<% end %>

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       resources :tokens, param: :token, only: %i[show update], token: /[^\/]+/
     end
 
-    resources :url_rewrites
     resources :admin_users do
       resources :credentials, only: %i[new create destroy]
       resource :otp, only: %i[new create destroy]
@@ -19,6 +18,8 @@ Rails.application.routes.draw do
 
     resource :cache, only: %i[destroy]
     resource :dashboard, only: %i[show]
+    resources :well_knowns
+    resources :url_rewrites
 
     root to: redirect("admin/dashboard")
   end
@@ -28,4 +29,6 @@ Rails.application.routes.draw do
     mount Katalyst::Navigation::Engine, at: "navigation"
     mount Flipper::UI.app(Flipper) => "flipper" if Object.const_defined?("Flipper::UI")
   end
+
+  resources :well_knowns, path: ".well-known", param: :name, only: %i[show], name: /[^\/]+/
 end
