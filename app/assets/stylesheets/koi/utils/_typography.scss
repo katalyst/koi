@@ -1,10 +1,11 @@
+@use "sass:map";
 @use "sass:math";
 
 $-font-sizes: () !default;
 $-line-heights: () !default;
 
 @function font-size($size, $breakpoint: null, $unit: rem) {
-  $font-size: map-get($-font-sizes, $size);
+  $font-size: map.get($-font-sizes, $size);
 
   @if $unit == rem {
     @return $font-size;
@@ -14,11 +15,28 @@ $-line-heights: () !default;
 }
 
 @function line-height($size, $breakpoint: null, $unit: em) {
-  $line-height: map-get($-line-heights, $size);
+  $line-height: map.get($-line-heights, $size);
 
   @if $unit == em {
     @return $line-height;
   } @else if $unit == px {
     @return math.div($line-height, 1em) * 16px;
   }
+}
+
+@function govuk-definition($size) {
+  @return (
+    null: (
+      font-size: font-size($size, mobile, px),
+      line-height: line-height($size, mobile, px),
+    ),
+    tablet: (
+      font-size: font-size($size, tablet, px),
+      line-height: line-height($size, tablet, px),
+    ),
+    print: (
+      font-size: font-size($size, print, px),
+      line-height: line-height($size, print, px),
+    )
+  );
 }

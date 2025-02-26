@@ -1,29 +1,33 @@
-@mixin list($separator, $space: 1rem) {
-  display: flex;
-  list-style-position: outside;
-
-  > * {
-    display: list-item;
-    margin-left: $space;
-  }
-
-  > *::marker {
-    content: " " + $separator + " ";
-    color: rgba(0, 0, 0, 0.4);
-  }
-
-  > *:first-child {
-    display: block;
-    margin-left: 0;
-  }
-}
-
 $inset: 2rem !default;
 
 $title: 4rem;
 $breadcrumbs: 3rem;
 $actions: 3rem;
 $height: $title + $breadcrumbs + $actions;
+
+@mixin list($separator, $margin: 1em, $padding: 0.5em) {
+  display: flex;
+  align-items: center;
+  list-style-position: outside;
+  margin-inline: $inset;
+
+  > * {
+    display: list-item;
+    margin-inline-start: $margin;
+    padding-inline-start: $padding;
+  }
+
+  > *::marker {
+    content: $separator;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  > *:first-child {
+    display: block;
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+  }
+}
 
 %header {
   border-bottom: 1px solid #ececec;
@@ -44,20 +48,14 @@ $height: $title + $breadcrumbs + $actions;
 
   .breadcrumbs {
     grid-area: breadcrumbs;
-    display: flex;
-    align-items: center;
-    margin: 0 $inset;
 
-    @include list("› ", 1.2rem);
+    @include list("›");
   }
 
   .actions {
     grid-area: actions;
-    display: flex;
-    align-items: center;
-    margin: 0 $inset;
+    gap: 0;
 
-    @include list("|", 0.5rem);
-    list-style-type: square;
+    @include list("|", $margin: 0.8em);
   }
 }
