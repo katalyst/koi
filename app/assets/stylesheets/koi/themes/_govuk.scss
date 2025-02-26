@@ -50,3 +50,25 @@ $govuk-input-border-colour: #{var(--site-text-color)};
   margin-left: -18px;
   padding-left: 13px;
 }
+
+// add some koi styling to the govuk show/hide password button
+[data-govuk-password-input-init] {
+  max-width: var(--text-width);
+
+  .govuk-password-input__wrapper {
+    gap: 0.5rem;
+  }
+
+  .govuk-button {
+    min-width: 4em;
+    background: none;
+    cursor: pointer;
+    border: 2px solid $govuk-input-border-colour;
+  }
+
+  .govuk-button:focus-visible,
+  .govuk-button:hover {
+    color: var(--site-primary);
+    border-color: var(--site-primary);
+  }
+}
