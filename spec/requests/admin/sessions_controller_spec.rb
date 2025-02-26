@@ -9,7 +9,7 @@ RSpec.describe Admin::SessionsController do
   let(:origin) { "http://www.example.com" }
 
   before do
-    WebAuthn.configuration.origin = origin
+    WebAuthn.configuration.allowed_origins = [origin]
   end
 
   describe "GET /admin/sessions/new" do
