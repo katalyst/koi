@@ -11,7 +11,7 @@ RSpec.describe Admin::CredentialsController do
   let(:origin) { "http://www.example.com" }
 
   before do
-    WebAuthn.configuration.origin = origin
+    WebAuthn.configuration.allowed_origins = [origin]
   end
 
   include_context "with admin session"

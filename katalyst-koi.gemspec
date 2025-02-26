@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bcrypt"
   s.add_dependency "rotp"
   s.add_dependency "rqrcode"
-  s.add_dependency "webauthn"
+  s.add_dependency "webauthn", ">= 3.4.0"
 
   # Third party libraries for admin pages
   s.add_dependency "katalyst-govuk-formbuilder", ">= 1.9"

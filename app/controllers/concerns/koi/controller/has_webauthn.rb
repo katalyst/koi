@@ -12,15 +12,14 @@ module Koi
       def webauthn_relying_party
         @webauthn_relying_party ||=
           WebAuthn::RelyingParty.new(
-            name:   Koi.config.admin_name,
-            origin: request.base_url,
+            name:            Koi.config.admin_name,
+            allowed_origins: [request.base_url],
           )
       end
 
       def webauthn_auth_options
-        options = webauthn_relying_party.options_for_authentication(
-          allow: Admin::Credential.pluck(:external_id),
-        )
+        options = webauthn_relying_party.options_for_authentication
+
         session[:authentication_challenge] = options.challenge
 
         options
@@ -42,6 +41,8 @@ module Koi
         )
 
         stored_credential.admin
+      rescue ActiveRecord::RecordNotFound
+        false
       end
     end
   end
