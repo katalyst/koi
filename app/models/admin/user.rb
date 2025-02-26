@@ -12,6 +12,8 @@ module Admin
     # disable validations for password_digest
     has_secure_password validations: false
 
+    generates_token_for(:password_reset, expires_in: 30.minutes) { current_sign_in_at }
+
     has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
 
     validates :name, :email, presence: true

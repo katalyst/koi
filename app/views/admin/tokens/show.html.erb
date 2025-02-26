@@ -1,8 +1,10 @@
+<%# locals: (admin_user:, token:) %>
+
 <%= render "layouts/koi/navigation_header" %>
 
 <%= form_with(url: admin_session_token_path(token), method: :patch) do |form| %>
   <p>Welcome to Koi Admin</p>
-  <%= render Koi::SummaryListComponent.new(model: admin, class: "item-table") do |builder| %>
+  <%= render Koi::SummaryListComponent.new(model: admin_user, class: "item-table") do |builder| %>
     <%= builder.text :name %>
     <%= builder.text :email %>
   <% end %>
