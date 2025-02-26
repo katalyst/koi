@@ -3,10 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "admin/invites" do
-  def encode_token(**args)
-    JWT.encode(args, Rails.application.secret_key_base)
-  end
-
   it "creates an invitation" do
     admin = create(:admin)
     visit "/admin/admin_users/new"
@@ -32,7 +28,7 @@ RSpec.describe "admin/invites" do
 
   it "can accept an invitation" do
     admin = create(:admin, password: "")
-    token = encode_token(admin_id: admin.id, exp: 1.hour.from_now.to_i, ist: Time.current.to_i)
+    token = admin.generate_token_for(:password_reset)
 
     visit "admin/session/tokens/#{token}"
 
