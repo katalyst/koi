@@ -27,7 +27,8 @@ module Koi
 
     def add_navigation
       gsub_file("config/initializers/koi.rb", /Koi::Menu.modules = ({}|{\n(?:\s+.*\n)*})\n/) do |match|
-        config        = eval(match) # rubocop:disable Security/Eval # we know that this only during generation
+        # Safe because we know that this only called during code generation
+        config        = eval(match) # rubocop:disable Security/Eval
         label         = [*regular_class_path.map(&:humanize), human_name.pluralize].join(" ")
         path          = "/admin#{route_url}"
         config[label] = path
