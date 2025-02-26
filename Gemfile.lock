@@ -232,7 +232,7 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.14.0)
+    katalyst-govuk-formbuilder (1.15.0)
       govuk_design_system_formbuilder
     katalyst-html-attributes (1.1.1)
       activesupport
