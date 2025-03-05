@@ -1,11 +1,4 @@
-<%= form_with model: item, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
-  <%= form.hidden_field :type %>
-  <%= form.govuk_text_field :title %>
+<%# locals: (form:) %>
 
-  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-
-  <div class="actions">
-    <%= form.admin_save "Done" %>
-    <%= form.admin_discard %>
-  </div>
-<% end %>
+<%= form.govuk_text_field :title %>
+<%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
