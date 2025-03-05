@@ -5,10 +5,11 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in katalyst-koi.gemspec.
 gemspec
 
+gem "katalyst-tables", path: "../tables"
+
 group :development, :test do
   gem "ammeter", require: false
   gem "brakeman"
-  gem "dartsass-rails"
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"

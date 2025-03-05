@@ -1,4 +1,11 @@
 PATH
+  remote: ../tables
+  specs:
+    katalyst-tables (3.7.0)
+      katalyst-html-attributes
+      view_component
+
+PATH
   remote: .
   specs:
     katalyst-koi (4.17.0)
@@ -147,9 +154,6 @@ GEM
     cuprite (0.15.1)
       capybara (~> 3.0)
       ferrum (~> 0.15.0)
-    dartsass-rails (0.5.1)
-      railties (>= 6.0.0)
-      sass-embedded (~> 1.63)
     date (3.4.1)
     diff-lcs (1.6.0)
     drb (2.2.1)
@@ -190,15 +194,6 @@ GEM
       sanitize (< 8)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.29.3-aarch64-linux)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.29.3-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.29.3-x86_64-linux)
-      bigdecimal
-      rake (>= 13)
     govuk_design_system_formbuilder (5.8.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
@@ -245,9 +240,6 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       katalyst-tables
-      view_component
-    katalyst-tables (3.7.0)
-      katalyst-html-attributes
       view_component
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
@@ -439,12 +431,6 @@ GEM
     sanitize (7.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
-    sass-embedded (1.85.1-aarch64-linux-gnu)
-      google-protobuf (~> 4.29)
-    sass-embedded (1.85.1-arm64-darwin)
-      google-protobuf (~> 4.29)
-    sass-embedded (1.85.1-x86_64-linux-gnu)
-      google-protobuf (~> 4.29)
     securerandom (0.4.1)
     sentry-rails (5.22.4)
       railties (>= 5.0)
@@ -514,7 +500,6 @@ DEPENDENCIES
   capybara
   compare-xml
   cuprite
-  dartsass-rails
   erb_lint
   factory_bot_rails
   faker
@@ -524,6 +509,7 @@ DEPENDENCIES
   image_processing
   katalyst-basic-auth
   katalyst-koi!
+  katalyst-tables!
   propshaft
   puma
   rack_session_access
