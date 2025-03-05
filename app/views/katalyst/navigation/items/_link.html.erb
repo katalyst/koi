@@ -1,13 +1,8 @@
-<%= form_with model: item, scope: :item, url: path, builder: Koi::FormBuilder do |form| %>
-  <%= form.hidden_field :type %>
-  <%= form.govuk_text_field :title %>
-  <%= form.govuk_text_field :url %>
+<%# locals: (form:) %>
 
-  <%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
-  <%= form.govuk_select :target, Katalyst::Navigation::Link::TARGETS %>
+<%= form.govuk_text_field :title %>
+<%= form.govuk_text_field :url %>
 
-  <div class="actions">
-    <%= form.admin_save "Done" %>
-    <%= form.admin_discard %>
-  </div>
-<% end %>
+<%= form.govuk_check_box_field :visible, small: true, label: { text: "Visible?" } %>
+
+<%= form.govuk_select :target, Katalyst::Navigation::Link::TARGETS %>
