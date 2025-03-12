@@ -26,8 +26,8 @@ RSpec.describe "index/ordinal" do
     visit "/admin/banners"
 
     within("tbody") do
-      first = page.find("tr:first-child td.ordinal")
-      last  = page.find("tr:last-child td.ordinal")
+      first = page.find("tr:first-child [data-cell-type=ordinal]")
+      last  = page.find("tr:last-child [data-cell-type=ordinal]")
       first.drag_to(last, steps: 10)
     end
 
