@@ -1,4 +1,4 @@
-a[href]:not(.button) {
+a[href]:not([class]) {
   color: var(--site-link);
   text-decoration: none;
 

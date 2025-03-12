@@ -44,19 +44,19 @@
 }
 
 [data-enum="state"][data-value="published"] {
-  background-color: variables.$status-published-background-color;
-  color: variables.$status-published-color;
+  --tag-background-color: #{variables.$status-published-background-color};
+  --tag-color: #{variables.$status-published-color};
   border: 1px solid variables.$status-published-border-color;
 }
 
 [data-enum="state"][data-value="draft"] {
-  background-color: variables.$status-draft-background-color;
-  color: variables.$status-draft-color;
+  --tag-background-color: #{variables.$status-draft-background-color};
+  --tag-color: #{variables.$status-draft-color};
   border: 1px solid variables.$status-draft-border-color;
 }
 
 [data-enum="state"][data-value="unpublished"] {
-  background-color: variables.$status-draft-background-color;
-  color: variables.$status-draft-color;
+  --tag-background-color: #{variables.$status-draft-background-color};
+  --tag-color: #{variables.$status-draft-color};
   border: 1px solid variables.$status-draft-border-color;
 }
