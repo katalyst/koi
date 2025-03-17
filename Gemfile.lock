@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (4.17.1)
+    katalyst-koi (4.18.0)
       bcrypt
       importmap-rails
-      katalyst-content
-      katalyst-govuk-formbuilder (>= 1.9)
+      katalyst-content (< 3)
+      katalyst-govuk-formbuilder (< 2)
       katalyst-html-attributes
       katalyst-kpop (>= 3.1)
-      katalyst-navigation
+      katalyst-navigation (< 2)
       katalyst-tables (>= 3.5)
       pagy (>= 8.0)
       rails (>= 7.1)
@@ -190,16 +190,16 @@ GEM
       sanitize (< 8)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.30.0-aarch64-linux)
+    google-protobuf (4.30.1-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.0-arm64-darwin)
+    google-protobuf (4.30.1-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.0-x86_64-linux)
+    google-protobuf (4.30.1-x86_64-linux)
       bigdecimal
       rake (>= 13)
-    govuk_design_system_formbuilder (5.8.0)
+    govuk_design_system_formbuilder (5.9.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -232,8 +232,8 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.15.0)
-      govuk_design_system_formbuilder
+    katalyst-govuk-formbuilder (1.16.0)
+      govuk_design_system_formbuilder (>= 5.8.0)
     katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
@@ -267,7 +267,7 @@ GEM
       benchmark
       logger
     mini_mime (1.1.5)
-    minitest (5.25.4)
+    minitest (5.25.5)
     net-imap (0.5.6)
       date
       net-protocol
@@ -278,11 +278,11 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.3-aarch64-linux-gnu)
+    nokogiri (1.18.4-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.3-arm64-darwin)
+    nokogiri (1.18.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.3-x86_64-linux-gnu)
+    nokogiri (1.18.4-x86_64-linux-gnu)
       racc (~> 1.4)
     openssl (3.3.0)
     openssl-signature_algorithm (1.3.0)
@@ -385,7 +385,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
-    rubocop (1.73.2)
+    rubocop (1.74.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -396,12 +396,12 @@ GEM
       rubocop-ast (>= 1.38.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.38.1)
+    rubocop-ast (1.39.0)
       parser (>= 3.3.1.0)
-    rubocop-capybara (2.22.0)
+    rubocop-capybara (2.22.1)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-factory_bot (2.27.0)
+    rubocop-factory_bot (2.27.1)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
     rubocop-katalyst (2.2.0)
@@ -542,4 +542,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.6.5
+   2.6.6
