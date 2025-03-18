@@ -37,14 +37,6 @@ module Koi
       Katalyst::Content.config.errors_component = "Koi::Content::Editor::ErrorsComponent"
     end
 
-    # Koi (& katalyst gems) generate css assets in build that are useful for non-sass consumers, but we don't
-    # want them getting picked up preferentially by dartsass over their similarly named scss counterparts.
-    initializer "koi.dartsass" do |app|
-      app.config.after_initialize do
-        ::Dartsass::Runner.include(Koi::Extensions::Dartsass) if defined?(::Dartsass::Runner)
-      end
-    end
-
     initializer "koi.factories", after: "factory_bot.set_factory_paths" do
       FactoryBot.definition_file_paths << root.join("spec/factories") if defined?(FactoryBot)
     end
