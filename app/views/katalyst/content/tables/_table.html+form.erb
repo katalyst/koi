@@ -1,31 +1,36 @@
-<%= render Koi::Content::Editor::ItemFormComponent.new(model: table, url: path, data: { controller: "content--editor--table" }) do |form| %>
+<%# locals: (form:, table:) %>
+
+<div class="flow" data-controller="content--editor--table">
   <%= form.content_heading_fieldset %>
 
   <% content = sanitize_content_table(normalize_content_table(form.object, heading: false)) %>
-  <%= form.govuk_text_area :content, value: content, data: { content__editor__table_target: "input" } %>
+  <%= form.govuk_text_area(:content, value: content, data: { content__editor__table_target: "input" }) %>
 
   <%# hidden button to receive <Enter> events (HTML-default is to click first button in form) %>
-  <%= form.button "Save", hidden: "" %>
+  <%= form.button("Save", hidden: "") %>
 
   <%# hidden button to submit the table for re-rendering %>
-  <%= form.button "Update",
-                  formaction: table.persisted? ? content_routes.table_path : content_routes.tables_path,
+  <%= form.button("Update",
                   hidden:     "",
-                  data:       { content__editor__table_target: "update" } %>
+                  formaction: table.persisted? ? katalyst_content.table_path : katalyst_content.tables_path,
+                  data:       { content__editor__table_target: "update" }) %>
 
-  <%= form.govuk_number_field :heading_rows,
+  <%= form.govuk_number_field(:heading_rows,
                               label:       { text: "Heading rows" },
                               width:       2,
                               placeholder: 0,
                               min:         0,
                               data:        { content__editor__table_target: "headerRows",
-                                             action:                        "input->content--editor--table#update" } %>
+                                             action:                        "input->content--editor--table#update" }) %>
 
-  <%= form.govuk_number_field :heading_columns,
+  <%= form.govuk_number_field(:heading_columns,
                               label:       { text: "Heading columns" },
                               width:       2,
                               placeholder: 0,
                               min:         0,
                               data:        { content__editor__table_target: "headerColumns",
-                                             action:                        "input->content--editor--table#update" } %>
-<% end %>
+                                             action:                        "input->content--editor--table#update" }) %>
+</div>
+
+<%= form.content_background_field %>
+<%= form.content_visible_field %>
