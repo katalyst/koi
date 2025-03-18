@@ -1,0 +1,22 @@
+.modal {
+  --modal-gutter: var(--space-s);
+  --modal-width: 80%;
+  --modal-max-width: 36rem;
+  --modal-max-height: 27rem;
+  --modal-padding: var(--space-s);
+
+  container-type: inline-size;
+  padding: var(--modal-padding);
+  width: var(--modal-width);
+
+  max-width: min(
+    calc(100svw - 2 * var(--modal-gutter)),
+    var(--modal-max-width)
+  );
+
+  max-height: calc(100svh - 2 * var(--modal-gutter));
+}
+
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}

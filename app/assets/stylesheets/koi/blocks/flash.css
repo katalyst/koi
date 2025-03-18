@@ -1,0 +1,19 @@
+.flash {
+  color: var(--flash-color);
+}
+
+.flash:is([data-flash-type="alert"]) {
+  --flash-color: var(--site-alert);
+}
+
+.flash:is([data-flash-type="notice"]) {
+  --flash-color: var(--site-notice);
+}
+
+.flash:is([data-flash-type="success"]) {
+  --flash-color: var(--site-success);
+}
+
+.flash:is([data-flash-type="warning"], [data-flash-type="error"]) {
+  --flash-color: var(--site-warning);
+}

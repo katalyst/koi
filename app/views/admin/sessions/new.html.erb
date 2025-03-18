@@ -24,7 +24,7 @@
   <%= form.govuk_email_field :email, autofocus: true, autocomplete: "off" %>
   <%= form.hidden_field :response, data: { webauthn_authentication_target: "response" } %>
   <%= hidden_field_tag(:redirect, redirect) %>
-  <div class="actions-group">
+  <div class="actions">
     <%= form.admin_save "Next" %>
     <%= form.button "🔑", type: :button, class: "button button--secondary", data: { action: "webauthn-authentication#authenticate" } %>
   </div>

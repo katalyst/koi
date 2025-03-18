@@ -1,0 +1,9 @@
+[data-icon="add"] {
+  -webkit-mask: url("icons/add.svg");
+  mask: url("icons/add.svg");
+}
+
+[data-icon="close"] {
+  -webkit-mask: url("icons/close.svg");
+  mask: url("icons/close.svg");
+}
