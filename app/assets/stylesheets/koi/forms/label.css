@@ -1,0 +1,43 @@
+label {
+  font-weight: var(--font-medium);
+  line-height: var(--leading-fine);
+}
+
+label::after {
+  content: "\A";
+  white-space: pre;
+}
+
+.govuk-label {
+  font-weight: var(--font-regular);
+  font-size: var(--size-step-0);
+  display: block;
+  margin-block-end: var(--space-3xs);
+}
+
+.govuk-label--xl,
+.govuk-label--l,
+.govuk-label--m {
+  font-weight: var(--font-bold);
+  margin-block-end: var(--space-xs);
+}
+
+.govuk-label--xl {
+  font-size: var(--size-step-3);
+}
+
+.govuk-label--l {
+  font-size: var(--size-step-2);
+}
+
+.govuk-label--m {
+  font-size: var(--size-step-1);
+}
+
+.govuk-label--s {
+  font-weight: var(--font-bold);
+}
+
+.govuk-label-wrapper {
+  margin: 0;
+}
