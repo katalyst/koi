@@ -4,9 +4,9 @@
 
 <%= form_with(url: admin_session_token_path(token), method: :patch) do |form| %>
   <p>Welcome to Koi Admin</p>
-  <%= render Koi::SummaryListComponent.new(model: admin_user, class: "item-table") do |builder| %>
-    <%= builder.text :name %>
-    <%= builder.text :email %>
+  <%= summary_table_with(model: admin_user) do |row| %>
+    <%= row.text :name %>
+    <%= row.text :email %>
   <% end %>
   <div class="actions-group">
     <%= form.admin_save "Sign in" %>
