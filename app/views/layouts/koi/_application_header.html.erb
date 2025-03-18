@@ -1,0 +1,17 @@
+<header data-environment="<%= Rails.env %>" class="application-header">
+  <div class="repel wrapper">
+    <%= link_to("Koi", main_app.admin_dashboard_path) %>
+    <div>
+      <span class="environment"><%= Rails.env.capitalize %></span>
+      <span class="release">(<%= Koi::Release.version %>)</span>
+    </div>
+    <%= tag.button(class: "button",
+                   data:  {
+                     controller:  "navigation-toggle",
+                     action:      "navigation-toggle#trigger",
+                     text_button: "",
+                   }) do %>
+      Menu <kbd>G</kbd>
+    <% end %>
+  </div>
+</header>

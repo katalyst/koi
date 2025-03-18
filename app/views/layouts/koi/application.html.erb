@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- meta -->
   <meta charset="UTF-8">
 
   <!-- title -->
@@ -18,12 +17,7 @@
   <meta name="turbo-refresh-scroll" content="preserve">
   <%= yield :head %>
 
-  <%# Deprecated: meta, use :head instead %>
-  <%= yield :meta %>
-
   <!-- STYLES -->
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
 
   <!-- SCRIPTS -->
@@ -35,28 +29,32 @@
           Slash->shortcut:search
           KeyN->shortcut:create
           KeyG->shortcut:go
-          BracketLeft->shortcut:nav-toggle
           Escape->shortcut:cancel
           ArrowLeft->shortcut:page-prev
           ArrowRight->shortcut:page-next
         ">
-<%= render "layouts/koi/navigation" %>
-<main>
+<!-- application header -->
+<%= render "layouts/koi/application_header" %>
+
+<main class="flow wrapper">
+  <!-- header -->
   <% if content_for? :header %>
     <%= yield :header %>
   <% else %>
     <%= render "layouts/koi/header" %>
   <% end %>
 
-  <div class="page <%= "has-sidebar" if content_for?(:sidebar) %>">
-    <div class="page--content stack" role="main">
-      <%= render "layouts/koi/flash" unless flash.empty? %>
-      <%= yield %>
-    </div>
-    <%= tag.div class: "page--sidebar" do %>
-      <%= yield :sidebar %>
-    <% end if content_for?(:sidebar) %>
-  </div>
+  <% unless flash.empty? %>
+    <!-- flash -->
+    <%= render "layouts/koi/flash" %>
+  <% end %>
+
+  <!-- content -->
+  <%= yield %>
 </main>
+
+<!-- application navigation -->
+<%= render "layouts/koi/application_navigation" %>
+
 </body>
 </html>

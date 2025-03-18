@@ -43,7 +43,7 @@ module Koi
     end
 
     def search(form)
-      tag.div class: "actions-group" do
+      tag.div class: "actions" do
         concat(search_button(form)) if search?
         concat(create_button(form)) if create?
         concat(search_input(form)) if search?
@@ -75,7 +75,7 @@ module Koi
     end
 
     def links(form, &)
-      tag.div(class: "actions-group") do
+      tag.div(class: "actions") do
         yield(form) if block_given?
       end
     end

@@ -1,0 +1,10 @@
+.application-header {
+  --repel-vertical-alignment: baseline;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding-block: var(--space-2xs);
+
+  kbd {
+    color: var(--color-mid);
+  }
+}
