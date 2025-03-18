@@ -1,0 +1,38 @@
+:root {
+  --govuk-error-bar-padding: var(--space-xs);
+  --govuk-error-stroke-width: var(--space-3xs);
+  --govuk-error-stroke: var(--govuk-error-stroke-width) solid
+    var(--govuk-error-color);
+}
+
+.govuk-error-message {
+  font-weight: var(--font-bold);
+  font-size: var(--size-step-0);
+  line-height: var(--leading-fine);
+  margin-block-end: var(--space-xs);
+  color: var(--govuk-error-color);
+}
+
+/* error indicator as a bar next to group (excludes nested) */
+.govuk-form-group--error:not(.govuk-form-group &) {
+  margin-left: calc(-1 * (var(--space-xs) + var(--govuk-error-stroke-width)));
+  border-left: var(--govuk-error-stroke);
+  padding-left: var(--space-xs);
+}
+
+.govuk-error-summary {
+  padding: var(--space-s);
+  border: var(--govuk-error-stroke);
+}
+
+.govuk-error-summary:focus {
+  outline: var(--focus-outline);
+}
+
+.govuk-error-summary__title {
+  font-size: var(--size-step-1);
+  line-height: var(--leading-fine);
+  font-weight: var(--font-bold);
+  margin-top: 0;
+  margin-bottom: var(--space-s);
+}

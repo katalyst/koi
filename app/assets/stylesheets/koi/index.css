@@ -8,6 +8,8 @@
 @import url("global/variables.css");
 @import url("global/global-styles.css");
 
+@import url("forms/index.css");
+
 @import url("compositions/index.css");
 @import url("utilities/index.css");
 @import url("blocks/index.css");

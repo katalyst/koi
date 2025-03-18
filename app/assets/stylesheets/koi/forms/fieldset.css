@@ -1,0 +1,73 @@
+fieldset {
+  border: var(--stroke);
+  padding: var(--space-s);
+}
+
+legend {
+  font-weight: var(--font-medium);
+  padding-inline: var(--space-xs);
+}
+
+.govuk-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  > * + * {
+    margin-top: var(--flow-space, var(--space-2xs));
+  }
+
+  /* remove space created by hidden inputs */
+  &:has(> [type="hidden"]:first-child) {
+    margin-top: calc(-1 * var(--flow-space, var(--space-2xs)));
+  }
+}
+
+.govuk-fieldset__legend {
+  font-weight: var(--font-regular);
+  font-size: var(--size-step-0);
+  line-height: var(--leading-fine);
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+
+  & + * {
+    --flow-space: var(--space-2xs);
+  }
+}
+
+.govuk-fieldset__legend--xl,
+.govuk-fieldset__legend--l,
+.govuk-fieldset__legend--m {
+  font-weight: var(--font-bold);
+
+  & + * {
+    --flow-space: var(--space-xs);
+  }
+}
+
+.govuk-fieldset__legend--xl {
+  font-size: var(--size-step-4);
+  line-height: var(--leading-fine);
+}
+
+.govuk-fieldset__legend--l {
+  font-size: var(--size-step-3);
+  line-height: var(--leading-fine);
+}
+
+.govuk-fieldset__legend--m {
+  font-size: var(--size-step-1);
+  line-height: var(--leading-fine);
+}
+
+.govuk-fieldset__legend--s {
+  font-weight: var(--font-bold);
+}
+
+.govuk-fieldset__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}

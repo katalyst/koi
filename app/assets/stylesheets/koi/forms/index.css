@@ -1,0 +1,44 @@
+@import url("label.css");
+@import url("hint.css");
+@import url("caption.css");
+
+@import url("form-group.css");
+@import url("fieldset.css");
+@import url("errors.css");
+
+@import url("input.css");
+@import url("checkboxes.css");
+@import url("date-input.css");
+@import url("file-upload.css");
+@import url("image-field.css");
+@import url("document-field.css");
+@import url("radios.css");
+@import url("password.css");
+@import url("select.css");
+@import url("textarea.css");
+@import url("trix.css");
+
+:root {
+  --stroke-input-width: 2px;
+  --stroke-input: var(--stroke-input-width) solid var(--color-dark);
+  --input-radius: 0.2rem;
+  --input-size: var(--size-step-4);
+  --small-input-size: var(--size-step-2);
+  --focus-width: 2px;
+  --focus-outline: var(--focus-width) solid var(--focus-color);
+  --focus-shadow: currentColor inset 0 0 0 1px;
+  --govuk-error-color: var(--color-alert);
+  --govuk-hint-color: var(--color-mid);
+}
+
+.govuk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}

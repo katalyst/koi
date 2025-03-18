@@ -1,0 +1,22 @@
+.govuk-caption-xl,
+.govuk-caption-l,
+.govuk-caption-m {
+  color: var(--govuk-hint-color);
+  display: block;
+  font-weight: var(--font-regular);
+  line-height: var(--leading-fine);
+}
+
+.govuk-caption-xl {
+  font-size: var(--size-step-2);
+  margin-bottom: var(--space-3xs);
+}
+
+.govuk-caption-l {
+  font-size: var(--size-step-1);
+  margin-bottom: var(--space-3xs);
+}
+
+.govuk-caption-m {
+  font-size: var(--size-step-0);
+}

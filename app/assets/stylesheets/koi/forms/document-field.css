@@ -7,7 +7,7 @@
     "preview"
     "file"
     "supplemental";
-  grid-template-columns: minmax(auto, var(--text-width));
+  grid-template-columns: auto;
   grid-auto-rows: auto;
 
   label {
@@ -26,21 +26,15 @@
     grid-area: file;
   }
 
-  .govuk-file-upload {
-    margin-left: 0;
-    padding: 3px;
-    max-width: var(--text-width);
-  }
-
   .preview-file {
     grid-area: preview;
     position: relative;
     overflow: visible;
-    background-color: #f4f4f4;
-    border: 2px solid black;
-    margin-bottom: 0.5rem;
-    padding: 5px;
-    line-height: 1.5;
+    background-color: var(--color-tint);
+    border: var(--stroke-input);
+    margin-bottom: var(--space-2xs);
+    padding: var(--space-3xs);
+    line-height: var(--leading-standard);
     align-items: start;
     display: inline-flex;
     margin-right: auto;
@@ -71,9 +65,9 @@
 
   > div:last-child {
     grid-area: supplemental;
-  }
 
-  .govuk-form-group {
-    margin-top: 30px;
+    > * + * {
+      margin-top: var(--flow-space, var(--space-2xs));
+    }
   }
 }

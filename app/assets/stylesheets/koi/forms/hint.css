@@ -1,0 +1,10 @@
+.govuk-hint {
+  font-weight: var(--font-regular);
+  font-size: var(--size-step-0);
+  line-height: var(--leading-fine);
+  color: var(--govuk-hint-color);
+}
+
+.govuk-fieldset__legend + .govuk-hint {
+  --flow-space: var(--space-2xs);
+}

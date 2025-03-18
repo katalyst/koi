@@ -1,0 +1,12 @@
+.govuk-date-input {
+  display: flex;
+  gap: var(--space-s);
+}
+
+.govuk-date-input__label {
+  display: block;
+}
+
+.govuk-date-input__input {
+  margin-bottom: 0;
+}

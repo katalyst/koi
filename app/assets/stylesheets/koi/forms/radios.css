@@ -1,0 +1,162 @@
+.govuk-radios--small {
+  --input-size: var(--small-input-size);
+}
+
+.govuk-radios__item {
+  display: grid;
+  grid-template-areas: "input label" "input hint";
+  grid-template-columns: var(--input-size) 1fr;
+  grid-column-gap: var(--space-xs);
+  align-items: baseline;
+}
+
+.govuk-radios__input {
+  cursor: pointer;
+  grid-area: input;
+  height: var(--input-size);
+  margin-block-start: calc(-0.5 * var(--input-size));
+  margin: 0;
+  opacity: 0;
+  translate: 0 calc(var(--stroke-input-width) + 0.25 * var(--input-size));
+  width: var(--input-size);
+  z-index: 1;
+}
+
+.govuk-radios__item::before {
+  aspect-ratio: 1;
+  background: transparent;
+  border-radius: 50%;
+  border: var(--stroke-input);
+  content: "";
+  display: inline-block;
+  grid-area: input;
+  margin-block-start: calc(-0.5 * var(--input-size));
+  translate: 0 calc(var(--stroke-input-width) + 0.25 * var(--input-size));
+}
+
+.govuk-radios__item::after {
+  content: "";
+  aspect-ratio: 1;
+  background: currentcolor;
+  border-radius: 50%;
+  border: calc(0.25 * var(--input-size)) solid currentcolor;
+  display: inline-block;
+  grid-area: input;
+  margin-block-start: calc(-0.5 * var(--input-size));
+  margin-inline: calc(0.25 * var(--input-size));
+  opacity: 0;
+  translate: 0 var(--stroke-input-width);
+}
+
+.govuk-radios__label {
+  grid-area: label;
+  padding-block: calc(
+    var(--input-size) * 0.5 + var(--stroke-input-width) - 0.5em
+  );
+  cursor: pointer;
+  touch-action: manipulation;
+  margin-block-end: 0;
+  min-height: var(--input-size);
+}
+
+.govuk-radios__hint {
+  grid-area: hint;
+}
+
+.govuk-radios__label:has(+ .govuk-radios__hint) {
+  padding-block-end: 0;
+}
+
+.govuk-radios__item:has(.govuk-radios__input:focus)::before {
+  border-width: calc(var(--stroke-input-width) + 1px);
+  outline: var(--focus-outline);
+  outline-offset: 0;
+}
+
+@media screen and (forced-colors: active), (-ms-high-contrast: active) {
+  .govuk-radios__item:has(.govuk-radios__input:focus)::before {
+    outline-color: Highlight;
+  }
+}
+
+.govuk-radios__item:has(.govuk-radios__input:checked)::after {
+  opacity: 1;
+}
+
+.govuk-radios__input:disabled,
+.govuk-radios__input:disabled + .govuk-radios__label {
+  cursor: not-allowed;
+}
+
+.govuk-radios__input:disabled + .govuk-radios__label,
+.govuk-radios__input:disabled ~ .govuk-hint {
+  opacity: 0.5;
+}
+
+@media (min-width: 40.0625em) {
+  .govuk-radios--inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .govuk-radios--inline .govuk-radios__item {
+    margin-right: var(--space-s);
+  }
+}
+
+.govuk-radios__divider {
+  width: var(--input-size);
+  text-align: center;
+}
+
+.govuk-radios__conditional {
+  margin-bottom: var(--space-s);
+  margin-left: calc(var(--input-size) * 0.5 - var(--stroke-input-width) * 0.5);
+  padding-left: calc(
+    var(--input-size) * 0.5 - var(--stroke-input-width) * 0.5 + var(--space-xs)
+  );
+  border-left: calc(2 * var(--stroke-input-width)) solid var(--color-mid);
+
+  > :not([type="hidden"]) + * {
+    margin-top: var(--flow-space, var(--space-xs));
+  }
+}
+
+.govuk-frontend-supported .govuk-radios__conditional--hidden {
+  display: none;
+}
+
+.govuk-radios--small {
+  .govuk-radios__item:hover:has(.govuk-radios__input:not(:disabled))::before {
+    outline: var(--focus-width) 1px dashed transparent;
+    outline-offset: 1px;
+    box-shadow: 0 0 0 var(--space-3xs) var(--color-mid);
+  }
+
+  .govuk-radios__item:hover:has(.govuk-radios__input:focus)::before {
+    box-shadow:
+      0 0 0 var(--focus-width) var(--focus-color),
+      0 0 0 var(--space-3xs) var(--color-mid);
+  }
+}
+
+@media screen and (forced-colors: active), (-ms-high-contrast: active) {
+  .govuk-radios--small {
+    .govuk-radios__item:hover:has(.govuk-radios__input:focus)::before {
+      outline-color: Highlight;
+    }
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .govuk-radios--small {
+    .govuk-radios__item:hover:has(.govuk-radios__input:not(:disabled))::before {
+      box-shadow: initial;
+    }
+
+    .govuk-radios__item:hover:has(.govuk-radios__input:focus)::before {
+      box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+    }
+  }
+}
