@@ -13,7 +13,10 @@ export default class WebauthnRegistrationController extends Controller {
   static targets = ["intro", "nickname", "response"];
 
   submit(e) {
-    if (this.responseTarget.value === "") {
+    if (
+      this.responseTarget.value === "" &&
+      e.submitter.formMethod !== "dialog"
+    ) {
       e.preventDefault();
       this.createCredential();
     }

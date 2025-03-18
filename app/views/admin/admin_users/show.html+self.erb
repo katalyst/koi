@@ -19,7 +19,8 @@
                       method: :delete,
                       form:   { data: { turbo_confirm: "Are you sure?" } }) %>
       <% else %>
-        <%= kpop_link_to "Add", new_admin_admin_user_otp_path(admin) %>
+        <%= link_to("Add", new_admin_admin_user_otp_path(admin),
+                    class: "button", data: { turbo_frame: "edit" }) %>
       <% end %>
     </span>
   <% end %>
@@ -27,7 +28,10 @@
 
 <div class="repel">
   <h3>Passkeys</h3>
-  <%= kpop_link_to "New passkey", new_admin_admin_user_credential_path(admin), class: "button button--primary" %>
+  <%= link_to("New passkey", new_admin_admin_user_credential_path(admin),
+              class: "button", data: { turbo_frame: "edit" }) %>
 </div>
 
 <%= render "admin/credentials/credentials", admin: %>
+
+<%= koi_modal_tag("edit") %>

@@ -55,10 +55,8 @@ module Koi
       end
 
       def turbo_frame_layout
-        if kpop_frame_request?
+        if turbo_frame_request?
           "koi/frame"
-        elsif turbo_frame_request?
-          "turbo_rails/frame"
         end
       end
     end
