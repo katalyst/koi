@@ -20,6 +20,7 @@
                color:           "000",
                shape_rendering: "crispEdges",
                module_size:     3,
+               svg_attributes:  { class: "qrcode" },
                use_path:        true,
              ) %>
       </li>
@@ -28,5 +29,4 @@
   </section>
   <%= form.hidden_field :otp_secret %>
   <%= form.govuk_text_field :token %>
-  <%= form.admin_save %>
 <% end %>

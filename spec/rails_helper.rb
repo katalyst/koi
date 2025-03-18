@@ -4,8 +4,6 @@ require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("dummy/spec/rails_helper", __dir__)
 
-require "katalyst/kpop/matchers"
-
 Dir[Koi::Engine.root.join("spec", "support", "**", "*.rb")].each do |f|
   require f unless f.include?("templates")
 end
