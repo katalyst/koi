@@ -4,7 +4,7 @@ PATH
     katalyst-koi (5.0.0.alpha.1)
       bcrypt
       importmap-rails
-      katalyst-content (< 3)
+      katalyst-content (>= 3.0.0.alpha.1)
       katalyst-govuk-formbuilder (< 2)
       katalyst-html-attributes
       katalyst-kpop (>= 3.1)
@@ -226,11 +226,10 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (2.8.1)
+    katalyst-content (3.0.0.alpha.1)
       active_storage_validations
       activerecord
       katalyst-html-attributes
-      katalyst-kpop
       view_component
     katalyst-govuk-formbuilder (1.16.0)
       govuk_design_system_formbuilder (>= 5.8.0)
