@@ -3,7 +3,6 @@
 require "importmap-rails"
 require "katalyst/content"
 require "katalyst/govuk/formbuilder"
-require "katalyst/kpop"
 require "katalyst/navigation"
 require "katalyst/tables"
 require "pagy"

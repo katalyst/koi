@@ -58,10 +58,5 @@
     <% end if content_for?(:sidebar) %>
   </div>
 </main>
-<%= render "layouts/koi/environment" %>
-<%= render ScrimComponent.new %>
-<%= render Kpop::FrameComponent.new do %>
-  <%= content_for :kpop %>
-<% end %>
 </body>
 </html>

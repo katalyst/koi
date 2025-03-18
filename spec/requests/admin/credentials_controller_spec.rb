@@ -47,8 +47,6 @@ RSpec.describe Admin::CredentialsController do
 
     it_behaves_like "requires admin"
 
-    it { is_expected.to kpop_dismiss }
-
     it "returns an update to the credentials table" do
       action
       html = Nokogiri::HTML.fragment(response.body)
