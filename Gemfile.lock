@@ -7,7 +7,6 @@ PATH
       katalyst-content (>= 3.0.0.alpha.1)
       katalyst-govuk-formbuilder (< 2)
       katalyst-html-attributes
-      katalyst-kpop (>= 3.1)
       katalyst-navigation (>= 2)
       katalyst-tables (>= 3.5)
       pagy (>= 8.0)
@@ -236,10 +235,6 @@ GEM
     katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
-    katalyst-kpop (3.2.7)
-      katalyst-html-attributes
-      turbo-rails
-      view_component
     katalyst-navigation (2.0.0)
       katalyst-html-attributes
       katalyst-tables

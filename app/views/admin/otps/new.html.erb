@@ -1,5 +1,7 @@
 <%# locals: (admin:) %>
 
-<%= render Kpop::ModalComponent.new(title: "Configure MFA") do %>
-  <%= render("form", admin:) %>
+<%= koi_modal_tag("edit") do %>
+  <%= koi_modal_header(title: "Configure MFA", form_id: dom_id(admin, :otp)) %>
+  <%= tag.main(render("form", admin:)) %>
+  <%= koi_modal_footer(form_id: dom_id(admin, :otp)) %>
 <% end %>
