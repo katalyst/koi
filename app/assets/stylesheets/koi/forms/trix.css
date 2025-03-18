@@ -1,0 +1,33 @@
+@import url("/trix.css");
+
+trix-toolbar {
+  margin-block-end: var(--flow-space, var(--space-2xs));
+
+  .trix-button-group {
+    border: var(--stroke-input);
+    border-radius: var(--input-radius);
+    margin-block-end: 0;
+  }
+
+  .trix-button {
+    color: var(--color-dark);
+    border-bottom: none;
+  }
+
+  .trix-button--dialog {
+    min-height: 2.2rem;
+  }
+
+  .trix-button:not(:first-child) {
+    border-left: var(--stroke-input);
+  }
+
+  .trix-button.trix-active {
+    background-color: var(--color-mid);
+    border-bottom: none;
+  }
+}
+
+.govuk-richtextarea--error:not(:focus-visible) {
+  border-color: var(--govuk-error-color);
+}

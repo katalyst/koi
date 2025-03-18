@@ -1,0 +1,3 @@
+.govuk-textarea--error:not(:focus-visible) {
+  border-color: var(--govuk-error-color);
+}
