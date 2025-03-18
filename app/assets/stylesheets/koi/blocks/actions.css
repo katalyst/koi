@@ -1,0 +1,8 @@
+.actions {
+  display: flex;
+  gap: var(--space-3xs);
+
+  &[data-reverse] {
+    flex-direction: row-reverse;
+  }
+}

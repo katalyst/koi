@@ -8,7 +8,7 @@
   <%= builder.items_with(model: url_rewrite, attributes: UrlRewrite.attribute_names.sort, skip_blank: true) %>
 <% end %>
 
-<div class="actions-group">
+<div class="actions">
   <%= button_to "Delete", admin_url_rewrite_path(url_rewrite),
                 class:  "button button--secondary",
                 method: :delete,

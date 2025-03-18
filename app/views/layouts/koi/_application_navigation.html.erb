@@ -1,0 +1,34 @@
+<dialog class="application-navigation"
+        data-controller="navigation"
+        data-action="shortcut:go@document->navigation#toggle
+          navigation:toggle@document->navigation#toggle
+          shortcut:nav-toggle@document->navigation#toggle
+          turbo:before-morph-attribute->navigation#onMorphAttribute
+          click->navigation#close">
+  <nav aria-label="Main menu" role="navigation" class="flow" data-action="click->navigation#open:stop">
+    <div class="filter">
+      <input type="search" placeholder="Filter menu" autocomplete="off" autofocus
+             data-navigation-target="filter"
+             data-action="input->navigation#filter change->navigation#filter
+                        keydown.enter->navigation#go keydown.esc->navigation#clear">
+    </div>
+    <ul class="navigation-group | flow" role="list">
+      <li>
+        <span><%= current_admin_user.name %></span>
+        <ul class="navigation-list | flow" role="list">
+          <li><%= link_to("Profile", main_app.admin_admin_user_path(current_admin_user)) %></li>
+          <li><%= link_to("Log out", main_app.admin_session_path, data: { turbo_method: :delete }) %></li>
+        </ul>
+      </li>
+    </ul>
+    <%= navigation_menu_with(
+          menu:  Koi::Menu.admin_menu(self),
+          list:  {
+            class: "navigation-list | flow",
+            role:  "list",
+          },
+          class: "navigation-group | flow",
+          role:  "list",
+        ) %>
+  </nav>
+</dialog>
