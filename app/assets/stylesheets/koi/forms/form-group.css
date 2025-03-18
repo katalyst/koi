@@ -1,0 +1,19 @@
+/* flow for form elements (mostly groups and fieldsets) */
+form:not([class]),
+.govuk-form {
+  > * + * {
+    margin-top: var(--flow-space, var(--space-m));
+  }
+
+  &:has(> [type="hidden"]:first-child) {
+    margin-top: calc(-1 * var(--flow-space, var(--space-m)));
+  }
+}
+
+.govuk-form-group {
+  container: form-group / inline-size;
+
+  .govuk-form-group {
+    container: unset;
+  }
+}

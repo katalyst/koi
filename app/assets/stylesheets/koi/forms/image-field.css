@@ -9,7 +9,6 @@
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto auto 1fr auto;
   gap: 0 1rem;
-  max-width: var(--text-width);
 
   label {
     grid-area: label;
@@ -28,11 +27,6 @@
     align-self: start;
   }
 
-  .govuk-file-upload {
-    margin-left: 0;
-    padding: 3px;
-  }
-
   .preview-image {
     grid-area: preview;
     position: relative;
@@ -41,48 +35,48 @@
     align-self: start;
     align-items: center;
     justify-items: center;
-    background-color: #f4f4f4;
-    border: 2px solid black;
+    background-color: var(--color-tint);
+    border: var(--stroke-input);
 
-    min-width: calc(8rem + 4px);
-    min-height: calc(8rem + 4px);
+    min-width: calc(8em + 2 * var(--stroke-input-width));
+    aspect-ratio: 1;
 
     .image-thumbnail {
-      max-width: 8rem;
-      max-height: 8rem;
+      max-width: 8em;
+      max-height: 8em;
     }
+  }
 
-    .file-destroy {
-      appearance: none;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      border-radius: 1rem;
-      border: none;
+  .file-destroy {
+    appearance: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 1rem;
+    border: none;
+    display: block;
+    padding: 0;
+    bottom: -10px;
+    right: 50%;
+    margin-right: -10px;
+
+    &::after {
+      content: "×";
       display: block;
-      padding: 0;
-      bottom: -10px;
-      right: 50%;
-      margin-right: -10px;
-
-      &::after {
-        content: "×";
-        display: block;
-        position: relative;
-        width: 21px;
-        line-height: 21px;
-        font-size: 21px;
-        top: -1px;
-      }
+      position: relative;
+      width: 21px;
+      line-height: 21px;
+      font-size: 21px;
+      top: -1px;
     }
   }
 
   > div:last-child {
     grid-area: supplemental;
-  }
 
-  .govuk-form-group {
-    margin-top: 30px;
+    > * + * {
+      margin-top: var(--flow-space, var(--space-2xs));
+    }
   }
 
   .preview-image.hidden {

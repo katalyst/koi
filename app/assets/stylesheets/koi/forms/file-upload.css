@@ -1,0 +1,20 @@
+.govuk-file-upload {
+  max-width: 100%;
+}
+
+.govuk-file-upload::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  color: inherit;
+  font: inherit;
+}
+
+.govuk-file-upload:focus,
+.govuk-file-upload:focus-within {
+  outline: var(--focus-outline);
+  box-shadow: var(--focus-shadow);
+}
+
+.govuk-file-upload:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

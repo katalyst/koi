@@ -1,0 +1,18 @@
+select {
+  line-height: var(--leading-fine);
+  min-width: 11.5em;
+  max-width: 100%;
+  height: var(--input-size);
+  background-color: var(--color-light);
+}
+
+select option:active,
+select option:checked,
+select:focus::-ms-value {
+  color: var(--color-light);
+  background-color: var(--color-dark-glare);
+}
+
+.govuk-select--error:not(:focus-visible) {
+  border-color: var(--govuk-error-color);
+}
