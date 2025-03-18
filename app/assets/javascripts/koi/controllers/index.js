@@ -1,8 +1,5 @@
 import { application } from "koi/controllers/application";
 
-import kpop from "@katalyst/kpop";
-application.load(kpop);
-
 import content from "@katalyst/content";
 application.load(content);
 

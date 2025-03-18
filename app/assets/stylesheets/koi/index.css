@@ -1,3 +1,19 @@
+@import url("global/reset.css");
+@import url("global/fonts.css");
+
+@import url("/katalyst/content.css");
+@import url("/katalyst/navigation.css");
+@import url("/katalyst/tables.css");
+
+@import url("global/variables.css");
+@import url("global/global-styles.css");
+
+@import url("compositions/index.css");
+@import url("utilities/index.css");
+@import url("blocks/index.css");
+
+@import url("icons.css");
+
 :root {
   /* Color styles */
   --site-primary-light: #5a87c9;

@@ -1,0 +1,107 @@
+.katalyst-table {
+  --tag-color: var(--color-primary);
+  --on-tag-color: white;
+
+  td.type-enum small {
+    color: var(--on-tag-color);
+    font-size: small;
+  }
+
+  .selection:has(input[type="checkbox"]) {
+    position: relative;
+    padding: 0;
+
+    label {
+      display: inline-grid;
+      position: relative;
+      grid-template-areas: "input";
+      padding: var(--space-xs, 0.5rem) var(--space-s, 0.75rem);
+      cursor: pointer;
+      margin-block-end: 0;
+      min-height: 1.5rem;
+      transform: translateY(1px);
+
+      input {
+        position: absolute;
+        grid-area: input;
+        -webkit-appearance: none;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        border: none !important;
+        z-index: 1;
+        cursor: pointer;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        grid-area: input;
+        border-color: var(--site-text-color);
+        border-style: solid;
+      }
+
+      &::before {
+        border-width: 2px;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &::after {
+        width: 0;
+        border-width: 0.25rem;
+        margin: 0.25rem;
+        opacity: 0;
+      }
+    }
+  }
+
+  tbody [data-cell-type="selection"] {
+    label {
+      transform: translateY(3px);
+    }
+  }
+
+  [data-cell-type="selection"]:has(input[type="checkbox"]:focus) {
+    label::before {
+      outline: 2px solid #fd0;
+      outline-offset: 0;
+      box-shadow: inset 0 0 0 1px;
+    }
+  }
+
+  [data-cell-type="selection"]:has(input[type="checkbox"]:indeterminate) {
+    label::after {
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      opacity: 1;
+    }
+  }
+
+  [data-cell-type="selection"]:has(input[type="checkbox"]:checked) {
+    label::after {
+      opacity: 1;
+    }
+  }
+}
+
+.tables--selection--form {
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.katalyst--tables--query {
+  .query-input {
+    gap: unset;
+  }
+}

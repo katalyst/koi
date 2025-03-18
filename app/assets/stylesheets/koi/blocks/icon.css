@@ -1,0 +1,15 @@
+.icon {
+  --scale: 1;
+  --size: 1em;
+  aspect-ratio: 1;
+  background-color: currentColor;
+  display: inline-block;
+  font-size: calc(var(--scale) * var(--size));
+  height: 1em;
+  line-height: 1em;
+  transform: translateY(var(--offset, 0));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}

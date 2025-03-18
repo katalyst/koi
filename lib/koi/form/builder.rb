@@ -10,7 +10,7 @@ module Koi
       end
 
       # Generates a submit button for saving admin resources.
-      def admin_save(text = "Save", name: :commit, value: :save, class: "button button--primary", **)
+      def admin_save(text = "Save", name: :commit, value: :save, class: "button", **)
         button(text, name:, value:, class:, **)
       end
 

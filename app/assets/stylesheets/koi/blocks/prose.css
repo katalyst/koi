@@ -1,0 +1,37 @@
+.prose {
+  --flow-space: var(--space-l);
+}
+
+.prose :is(h1, h2, h3) {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.prose :is(p, li, dl, figcaption, blockquote) {
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+.prose :is(h1, h2, h3, h4) + *:not([class]) {
+  --flow-space: var(--space-m);
+}
+
+/* Add more space on and around figures and tables */
+.prose :is(figure, table),
+.prose :is(figure, table) + * {
+  --flow-space: var(--space-2xl);
+}
+
+/* Add more space to headings on block start */
+.prose * + :is(h1, h2, h3, h4):not([class]) {
+  --flow-space: var(--space-xl);
+}
+
+.prose :is(ul, ol):not([class]) li + li,
+.prose :is(ul, ol):not([class]) li > :is(ol, ul) {
+  --flow-space: var(--space-xs);
+}
+
+.prose hr {
+  --flow-space: var(--space-2xl);
+}
