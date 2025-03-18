@@ -1,3 +1,5 @@
-<%= render Koi::Content::Editor::ItemFormComponent.new(model: column, url: path) do |form| %>
-  <%= form.content_heading_fieldset %>
-<% end %>
+<%# locals: (form:, column:) %>
+
+<%= form.content_heading_fieldset %>
+<%= form.content_background_field %>
+<%= form.content_visible_field %>

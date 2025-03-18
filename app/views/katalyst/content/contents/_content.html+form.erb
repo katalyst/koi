@@ -1,6 +1,8 @@
-<%= render Koi::Content::Editor::ItemFormComponent.new(model: content, url: path) do |form| %>
-  <%= form.content_heading_fieldset %>
-  <%= form.govuk_rich_text_area :content,
-                                label: { size: "s" },
-                                class: "content" %>
-<% end %>
+<%# locals: (form:, content:) %>
+
+<%= form.content_heading_fieldset %>
+<%= form.govuk_rich_text_area(:content,
+                              label: { size: "s" },
+                              class: "content") %>
+<%= form.content_background_field %>
+<%= form.content_visible_field %>

@@ -1,4 +1,6 @@
-<%= render Koi::Content::Editor::ItemFormComponent.new(model: aside, url: path) do |form| %>
-  <%= form.content_heading_fieldset %>
-  <%= form.govuk_check_box_field :reverse, label: { text: "Show aside before content on mobile" } %>
-<% end %>
+<%# locals: (form:, aside:) %>
+
+<%= form.content_heading_fieldset %>
+<%= form.govuk_check_box_field(:reverse, label: { text: "Show aside before content on mobile" }) %>
+<%= form.content_background_field %>
+<%= form.content_visible_field %>
