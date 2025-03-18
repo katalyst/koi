@@ -8,7 +8,6 @@ gemspec
 group :development, :test do
   gem "ammeter", require: false
   gem "brakeman"
-  gem "dartsass-rails"
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"

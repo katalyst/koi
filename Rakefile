@@ -17,20 +17,6 @@ load "rails/tasks/statistics.rake"
 # prepend test:prepare to run generators, and db:prepare to run migrations
 RSpec::Core::RakeTask.new(spec: %w[app:spec:prepare])
 
-# dartsass.rake override – compile gem resources instead of dummy app resources
-module Dartsass
-  module Runner
-    module_function
-
-    def dartsass_build_mapping
-      ["app/assets/stylesheets/koi/admin.scss:app/assets/builds/koi/admin.css"]
-    end
-  end
-end
-
-# compile css before building
-Rake::Task["build"].enhance(["app:dartsass:build"])
-
 require "rubocop/katalyst/rake_task"
 RuboCop::Katalyst::RakeTask.new
 
