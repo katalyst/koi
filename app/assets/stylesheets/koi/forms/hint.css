@@ -3,6 +3,7 @@
   font-size: var(--size-step-0);
   line-height: var(--leading-fine);
   color: var(--govuk-hint-color);
+  margin-block-end: var(--space-3xs);
 }
 
 .govuk-fieldset__legend + .govuk-hint {
