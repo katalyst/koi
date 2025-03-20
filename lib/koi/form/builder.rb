@@ -20,8 +20,8 @@ module Koi
         return unless object.persisted?
 
         link_to(text, url || url_for(action: :destroy),
-                class: "button button--secondary",
-                data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm),
+                class: "button",
+                data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm, ghost_button: ""),
                 **)
       end
 
@@ -34,7 +34,7 @@ module Koi
       # Generates a discard changes link formatted as a text button that navigates
       # the user back to the previous page.
       def admin_discard(text = "Discard", url: :back, **)
-        link_to(text, url, class: "button button--text", **)
+        link_to(text, url, class: "button", data: { text_button: "" }, **)
       end
 
       # @api internal
