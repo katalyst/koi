@@ -36,14 +36,14 @@
 <!-- application header -->
 <%= render "layouts/koi/application_header" %>
 
-<main class="flow wrapper">
-  <!-- header -->
-  <% if content_for? :header %>
-    <%= yield :header %>
-  <% else %>
-    <%= render "layouts/koi/header" %>
-  <% end %>
+<!-- header -->
+<% if content_for? :header %>
+  <%= yield :header %>
+<% else %>
+  <%= render "layouts/koi/header" %>
+<% end %>
 
+<main class="flow wrapper">
   <% unless flash.empty? %>
     <!-- flash -->
     <%= render "layouts/koi/flash" %>

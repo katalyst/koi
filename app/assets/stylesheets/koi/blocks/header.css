@@ -1,0 +1,12 @@
+.header {
+  background: var(--color-tint);
+  color: var(--color-dark);
+
+  > .wrapper {
+    padding-block: var(--gutter);
+  }
+}
+
+.header + main {
+  padding-top: var(--gutter);
+}
