@@ -24,6 +24,13 @@
 
   input {
     grid-area: file;
+
+    &::file-selector-button {
+      color: var(--color-dark);
+      background: var(--color-tint);
+      border: var(--stroke-input);
+      border-radius: var(--input-radius);
+    }
   }
 
   .preview-file {
@@ -32,12 +39,16 @@
     overflow: visible;
     background-color: var(--color-tint);
     border: var(--stroke-input);
+    border-radius: var(--input-radius);
     margin-bottom: var(--space-2xs);
     padding: var(--space-3xs);
     line-height: var(--leading-standard);
     align-items: start;
-    display: inline-flex;
     margin-right: auto;
+
+    &:not([hidden]) {
+      display: inline-flex;
+    }
 
     .preview-filename {
       line-height: unset;

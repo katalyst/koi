@@ -24,7 +24,7 @@ module Koi
           options = {}
           add_option(options, :data, "#{stimulus_controller}_target", "preview")
           add_option(options, :class, "preview-file")
-          add_option(options, :class, "hidden") unless preview?
+          options[:hidden] = "" unless preview?
 
           tag.div(**options) do
             filename = @builder.object.send(@attribute_name).filename.to_s
