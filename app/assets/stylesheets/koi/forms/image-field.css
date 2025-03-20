@@ -25,6 +25,13 @@
   input {
     grid-area: file;
     align-self: start;
+
+    &::file-selector-button {
+      color: var(--color-dark);
+      background: var(--color-tint);
+      border: var(--stroke-input);
+      border-radius: var(--input-radius);
+    }
   }
 
   .preview-image {
@@ -37,6 +44,7 @@
     justify-items: center;
     background-color: var(--color-tint);
     border: var(--stroke-input);
+    border-radius: var(--input-radius);
 
     min-width: calc(8em + 2 * var(--stroke-input-width));
     aspect-ratio: 1;
@@ -50,15 +58,14 @@
   .file-destroy {
     appearance: none;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border-radius: 1rem;
-    border: none;
+    background-color: var(--color-tint);
+    color: var(--color-dark);
+    border-radius: var(--input-radius);
+    border: var(--stroke-input);
     display: block;
     padding: 0;
-    bottom: -10px;
-    right: 50%;
-    margin-right: -10px;
+    top: calc(-1 * var(--stroke-input-width));
+    right: calc(-1 * var(--stroke-input-width));
 
     &::after {
       content: "×";
@@ -79,7 +86,7 @@
     }
   }
 
-  .preview-image.hidden {
+  .preview-image[hidden] {
     display: block !important;
 
     .file-destroy {

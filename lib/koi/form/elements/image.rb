@@ -22,7 +22,7 @@ module Koi
           options = {}
           add_option(options, :data, "#{stimulus_controller}_target", "preview")
           add_option(options, :class, "preview-image")
-          add_option(options, :class, "hidden") unless preview?
+          options[:hidden] = "" unless preview?
 
           tag.div(**options) do
             tag.img(src: preview_url, class: "image-thumbnail") + destroy_element_trigger

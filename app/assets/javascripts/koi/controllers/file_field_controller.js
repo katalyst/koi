@@ -19,7 +19,7 @@ export default class FileFieldController extends Controller {
     if (this.hasDestroyTarget) {
       this.destroyTarget.value = false;
     }
-    this.previewTarget.classList.remove("hidden");
+    this.previewTarget.removeAttribute("hidden");
 
     // Show preview only if a file has been selected in the file picker popup. If cancelled, show previous file or do
     // not show preview at all
@@ -46,7 +46,7 @@ export default class FileFieldController extends Controller {
         this.destroyTarget.value = true;
       }
       if (this.hasPreviewTarget) {
-        this.previewTarget.classList.add("hidden");
+        this.previewTarget.setAttribute("hidden", "");
         this.setPreviewContent("");
       }
       if (this.previousInput) {
