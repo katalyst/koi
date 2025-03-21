@@ -1,7 +1,7 @@
 @import url("global/reset.css");
 @import url("global/fonts.css");
 
-@import url("/katalyst/content.css");
+@import url("/katalyst/content/editor.css");
 @import url("/katalyst/navigation.css");
 @import url("/katalyst/tables.css");
 
