@@ -1,0 +1,30 @@
+.page-header {
+  background: var(--color-tint);
+  color: var(--color-dark);
+
+  > .wrapper {
+    padding-block: var(--gutter);
+  }
+
+  .breadcrumbs,
+  .related {
+    gap: 0;
+    align-items: baseline;
+  }
+
+  .breadcrumbs > * + * {
+    list-style-type: "›";
+    margin-inline-start: 1.5ch;
+    padding-inline-start: 0.75ch;
+  }
+
+  .related > * + * {
+    list-style-type: "▪";
+    margin-inline-start: 1.5ch;
+    padding-inline-start: 0.5ch;
+  }
+}
+
+.page-header + main {
+  padding-top: var(--gutter);
+}
