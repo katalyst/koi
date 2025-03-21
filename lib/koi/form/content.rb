@@ -40,10 +40,11 @@ module Koi
                      **{ label: { text: "HTTP target", size: "s" } }.deep_merge(args))
       end
 
-      def content_background_field(args = {})
-        govuk_select(:background, Katalyst::Content.config.backgrounds,
-                     **{ label: { size: "s" } }.deep_merge(args))
+      def content_theme_field(args = {})
+        govuk_select(:theme, Katalyst::Content.config.themes,
+                     **{ label: { size: "s" }, options: { include_blank: true } }.deep_merge(args))
       end
+      alias_method :content_background_field, :content_theme_field
 
       def content_visible_field(args = {})
         govuk_check_box_field(:visible,
