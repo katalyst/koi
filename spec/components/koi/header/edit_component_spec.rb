@@ -27,12 +27,12 @@ describe Koi::Header::EditComponent do
   end
 
   it "renders index and show links" do
-    expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+    expect(page.find_all(".breadcrumbs a").map { |a| [a.text, a[:href]] })
       .to contain_exactly(%w[Admins /admin/admin_users], [resource.name, "/admin/admin_users/#{resource.id}"])
   end
 
-  it "does not render any actions" do
-    expect(page).to have_no_css("div[class='actions'] a")
+  it "does not render any related actions" do
+    expect(page).to have_no_css(".related a")
   end
 
   context "when show is not available" do
@@ -46,7 +46,7 @@ describe Koi::Header::EditComponent do
     end
 
     it "does not render show link" do
-      expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+      expect(page.find_all(".breadcrumbs a").map { |a| [a.text, a[:href]] })
         .to contain_exactly(%w[Admins /admin/admin_users])
     end
   end
@@ -57,7 +57,7 @@ describe Koi::Header::EditComponent do
     end
 
     it "renders parent breadcrumbs" do
-      expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+      expect(page.find_all(".breadcrumbs a").map { |a| [a.text, a[:href]] })
         .to contain_exactly(%w[Admin /admin], %w[Admins /admin/admin_users],
                             [resource.name, "/admin/admin_users/#{resource.id}"])
     end

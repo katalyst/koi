@@ -27,12 +27,12 @@ describe Koi::Header::ShowComponent do
   end
 
   it "renders index breadcrumb" do
-    expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+    expect(page.find_all(".breadcrumbs a").map { |a| [a.text, a[:href]] })
       .to contain_exactly(%w[Admins /admin/admin_users])
   end
 
   it "renders edit action" do
-    expect(page.find_all("div[class='actions'] a").map { |a| [a.text, a[:href]] })
+    expect(page.find_all(".related a").map { |a| [a.text, a[:href]] })
       .to contain_exactly(%W[Edit /admin/admin_users/#{resource.id}/edit])
   end
 
@@ -47,7 +47,7 @@ describe Koi::Header::ShowComponent do
     end
 
     it "does not render show link" do
-      expect(page).to have_no_css("div[class='actions'] a")
+      expect(page).to have_no_css(".related a")
     end
   end
 
@@ -57,7 +57,7 @@ describe Koi::Header::ShowComponent do
     end
 
     it "renders parent breadcrumbs" do
-      expect(page.find_all("div[class='breadcrumbs'] a").map { |a| [a.text, a[:href]] })
+      expect(page.find_all(".breadcrumbs a").map { |a| [a.text, a[:href]] })
         .to contain_exactly(%w[Admin /admin], %w[Admins /admin/admin_users])
     end
   end
