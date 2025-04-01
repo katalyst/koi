@@ -8,7 +8,7 @@ PATH
       katalyst-govuk-formbuilder (< 2)
       katalyst-html-attributes
       katalyst-kpop (>= 3.1)
-      katalyst-navigation (< 2)
+      katalyst-navigation (< 3)
       katalyst-tables (>= 3.5)
       pagy (>= 8.0)
       rails (>= 7.1)
@@ -135,7 +135,7 @@ GEM
     chunky_png (1.4.0)
     compare-xml (0.66)
       nokogiri (~> 1.8)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.4)
     connection_pool (2.5.0)
     cose (1.3.1)
       cbor (~> 0.5.9)
@@ -226,7 +226,7 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (2.8.0)
+    katalyst-content (2.8.1)
       active_storage_validations
       activerecord
       katalyst-html-attributes
@@ -241,9 +241,8 @@ GEM
       katalyst-html-attributes
       turbo-rails
       view_component
-    katalyst-navigation (1.8.4)
+    katalyst-navigation (2.0.0)
       katalyst-html-attributes
-      katalyst-kpop
       katalyst-tables
       view_component
     katalyst-tables (3.8.0)
@@ -251,7 +250,7 @@ GEM
       view_component
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
-    logger (1.6.6)
+    logger (1.7.0)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -278,11 +277,11 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.4-aarch64-linux-gnu)
+    nokogiri (1.18.7-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.4-arm64-darwin)
+    nokogiri (1.18.7-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.4-x86_64-linux-gnu)
+    nokogiri (1.18.7-x86_64-linux-gnu)
       racc (~> 1.4)
     openssl (3.3.0)
     openssl-signature_algorithm (1.3.0)
@@ -357,7 +356,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    rdoc (6.12.0)
+    rdoc (6.13.1)
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
     reline (0.6.0)
@@ -464,7 +463,7 @@ GEM
     sqlite3 (2.6.0-x86_64-linux-gnu)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.5)
+    stringio (3.1.6)
     thor (1.3.2)
     timeout (0.4.3)
     tpm-key_attestation (0.14.0)
@@ -481,9 +480,9 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    view_component (3.21.0)
+    view_component (3.22.0)
       activesupport (>= 5.2.0, < 8.1)
-      concurrent-ruby (~> 1.0)
+      concurrent-ruby (= 1.3.4)
       method_source (~> 1.0)
     webauthn (3.4.0)
       android_key_attestation (~> 0.3.0)
