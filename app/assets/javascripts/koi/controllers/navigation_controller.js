@@ -75,13 +75,15 @@ export default class NavigationController extends Controller {
   }
 
   open() {
-    console.log("open navigation controller");
     if (!this.element.open) this.element.showModal();
   }
 
   close() {
-    console.log("close navigation controller");
     if (this.element.open) this.element.close();
+  }
+
+  click(e) {
+    if (e.target === this.element) this.close();
   }
 
   onMorphAttribute = (e) => {

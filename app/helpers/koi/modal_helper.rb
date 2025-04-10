@@ -55,7 +55,7 @@ module Koi
         data:  {
           koi__modal_target: "dialog",
           action:            %w[
-            click->koi--modal#dismiss
+            click->koi--modal#click
             close->koi--modal#dismiss
           ],
         },
@@ -65,7 +65,6 @@ module Koi
     def _koi_modal_article_attributes(attributes)
       {
         class: "flow",
-        data:  { action: ["click->koi--modal#noop:stop"] },
       }.merge_html(attributes)
     end
   end
