@@ -4,8 +4,8 @@
           navigation:toggle@document->navigation#toggle
           shortcut:nav-toggle@document->navigation#toggle
           turbo:before-morph-attribute->navigation#onMorphAttribute
-          click->navigation#close">
-  <nav aria-label="Main menu" role="navigation" class="flow" data-action="click->navigation#open:stop">
+          click->navigation#click">
+  <nav aria-label="Main menu" role="navigation" class="flow">
     <div class="filter">
       <input type="search" placeholder="Filter menu" autocomplete="off" autofocus
              data-navigation-target="filter"
