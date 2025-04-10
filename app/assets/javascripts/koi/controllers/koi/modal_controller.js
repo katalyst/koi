@@ -11,6 +11,10 @@ export default class ModalController extends Controller {
     this.element.removeEventListener("turbo:submit-end", this.onSubmit);
   }
 
+  click(e) {
+    if (e.target.tagName === "DIALOG") this.dismiss();
+  }
+
   dismiss() {
     if (!this.dialogTarget) return;
     if (!this.dialogTarget.open) this.dialogTarget.close();
@@ -33,6 +37,4 @@ export default class ModalController extends Controller {
       this.dialogTarget.remove();
     }
   };
-
-  noop() {}
 }
