@@ -6,7 +6,7 @@
   --modal-padding: var(--space-s);
 
   container-type: inline-size;
-  padding: var(--modal-padding);
+  padding: 0;
   width: var(--modal-width);
 
   max-width: min(
@@ -15,6 +15,10 @@
   );
 
   max-height: calc(100svh - 2 * var(--modal-gutter));
+
+  > * {
+    padding: var(--modal-padding);
+  }
 }
 
 .modal::backdrop {

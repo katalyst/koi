@@ -1,0 +1,17 @@
+/*
+ * Based on cover composition: https://every-layout.dev/layouts/cover/
+ */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  padding: 1rem;
+}
+
+.cover > * {
+  margin-block: auto;
+}
+
+.cover[data-centered] {
+  align-items: center;
+}

@@ -1,0 +1,26 @@
+.login {
+  header {
+    display: grid;
+    grid-template-areas: "logo header" "logo site-name";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-m);
+  }
+
+  h1 {
+    grid-area: header;
+    font-weight: var(--font-light);
+  }
+
+  h2 {
+    grid-area: site-name;
+    font-weight: var(--font-medium);
+    font-size: var(--size-m);
+  }
+
+  img {
+    max-height: 4rem;
+    grid-area: logo;
+    align-self: center;
+  }
+}
