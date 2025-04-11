@@ -7,3 +7,8 @@
   -webkit-mask: url("icons/close.svg");
   mask: url("icons/close.svg");
 }
+
+[data-icon="koi"] {
+  -webkit-mask: url("koi.png") center/cover no-repeat;
+  mask: url("koi.png") center/cover no-repeat;
+}

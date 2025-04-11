@@ -1,6 +1,9 @@
 <header data-environment="<%= Rails.env %>" class="application-header">
   <div class="repel wrapper">
-    <%= link_to("Koi", main_app.admin_dashboard_path) %>
+    <%= link_to(main_app.admin_dashboard_path, class: "brand") do %>
+      <icon aria-hidden="true" class="icon" data-icon="koi">&nbsp;</icon>
+      Koi
+    <% end %>
     <div>
       <span class="environment"><%= Rails.env.capitalize %></span>
       <span class="release">(<%= Koi::Release.version %>)</span>

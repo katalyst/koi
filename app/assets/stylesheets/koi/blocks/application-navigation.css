@@ -1,6 +1,8 @@
 .application-navigation {
+  --navigation-width: 30rem;
+
   width: 100svw;
-  max-width: min(calc(100vw - var(--gutter) * 2), 640px);
+  max-width: min(calc(100vw - var(--gutter) * 2), var(--navigation-width));
   height: 100svh;
   max-height: unset;
   position: fixed;
@@ -14,12 +16,12 @@
     display var(--transition-fade) allow-discrete,
     overlay var(--transition-fade) allow-discrete,
     transform var(--transition-movement);
-  font-size: var(--size-step-1);
+  font-size: var(--size-step-0);
 
   --flow-space: var(--space-m);
 
   .navigation-group > li > span:first-child {
-    font-size: var(--size-step-3);
+    font-size: var(--size-step-2);
     font-weight: var(--font-bold);
   }
 
@@ -29,13 +31,17 @@
   }
 
   .navigation-list > li > span:first-child {
-    font-size: var(--size-step-2);
+    font-size: var(--size-step-1);
     font-weight: var(--font-bold);
   }
 
   .navigation-list > li > * + * {
     margin-block-start: var(--space-2xs);
     --flow-space: var(--space-xs);
+  }
+
+  a[href] {
+    text-decoration: none;
   }
 }
 

@@ -7,4 +7,9 @@
   kbd {
     color: var(--color-mid);
   }
+
+  .brand {
+    color: white;
+    text-decoration: none;
+  }
 }
