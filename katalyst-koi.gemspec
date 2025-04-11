@@ -41,6 +41,6 @@ Gem::Specification.new do |s|
   s.add_dependency "katalyst-content", "< 3"
   s.add_dependency "katalyst-html-attributes"
   s.add_dependency "katalyst-kpop", ">= 3.1"
-  s.add_dependency "katalyst-navigation", "< 2"
+  s.add_dependency "katalyst-navigation", "< 3"
   s.add_dependency "katalyst-tables", ">= 3.5"
 end
