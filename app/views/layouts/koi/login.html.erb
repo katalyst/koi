@@ -14,16 +14,23 @@
   <%= yield :meta %>
 
   <!-- STYLES -->
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <%= stylesheet_link_tag path_to_stylesheet("koi/login.css"), "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
 
   <!-- SCRIPTS -->
   <%= javascript_importmap_tags "koi/admin" %>
 </head>
-<body class="admin-login">
-<main class="stack">
-  <%= yield %>
+<body>
+<main class="cover" data-centered>
+  <div class="login | modal">
+    <header>
+      <img src="<%= path_to_image("koi/koi.png") %>" alt="Koi" aria-hidden>
+      <h1>Koi</h1>
+      <h2 class="site-name"><%= URI.parse(root_url).host %></h2>
+    </header>
+
+    <%= yield %>
+  </div>
 </main>
 </body>
 </html>
