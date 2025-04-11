@@ -1,1 +1,5 @@
 <% content_for :title, "Dashboard" %>
+
+<% content_for :header do %>
+  <%= render Koi::Header::IndexComponent.new(model: nil, title: "Dashboard") %>
+<% end %>

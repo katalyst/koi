@@ -88,7 +88,7 @@ RSpec.describe "index/filtering" do
 
       expect(page).to have_current_path("/admin/posts?q=#{query}")
 
-      click_on "Dashboard" # leave the page with turbo
+      click_on "Koi" # leave the page with turbo
 
       expect(page).to have_css("h1", text: "Dashboard")
 
