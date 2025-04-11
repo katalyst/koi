@@ -65,11 +65,11 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
   context "with nil data value" do
     let(:rendered) { render_inline(table) { |row| row.link(:name) } }
-    let(:collection) { create_list(:post, 1, name: nil) }
+    let(:collection) { build_list(:post, 1, name: nil) }
 
     it "renders link without content" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><a href="/admin/posts/#{collection.first.id}"></a></td>
+        <td class="type-link"><a href="/admin/posts"></a></td>
       HTML
     end
   end
