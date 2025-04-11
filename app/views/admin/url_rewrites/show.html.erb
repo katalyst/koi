@@ -4,8 +4,11 @@
   <% end %>
 <% end %>
 
-<%= definition_list(class: "item-table") do |builder| %>
-  <%= builder.items_with(model: url_rewrite, attributes: UrlRewrite.attribute_names.sort, skip_blank: true) %>
+<%= summary_table_with(model: url_rewrite) do |row| %>
+  <% row.text :from %>
+  <% row.link(:to, url: url_rewrite.to) %>
+  <% row.boolean :active %>
+  <% row.number :status_code %>
 <% end %>
 
 <div class="actions">
