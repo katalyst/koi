@@ -8,7 +8,7 @@
 <%= table_query_with(collection:) %>
 
 <%= table_selection_with(collection:) do %>
-  <%= tag.button "Archive", formaction: archive_admin_admin_users_path, formmethod: :put %>
+  <%= tag.button("Archive", formaction: archive_admin_admin_users_path, formmethod: :put, class: "button") %>
 <% end %>
 
 <%= table_with(collection:) do |row| %>
