@@ -33,7 +33,7 @@
   font-weight: var(--button-font-weight, 500);
   font-size: var(--button-font-size, 1em);
   letter-spacing: 0.05ch;
-  font-family: sans-serif;
+  font-family: var(--font-base);
   line-height: 1.1;
 
   /* Interactive */

@@ -17,9 +17,11 @@
     border-width: 2px;
     padding: 5px 2rem 5px 5px;
     font-size: var(--size-step-0);
+    line-height: var(--leading-standard);
   }
 
   button[type="submit"] {
+    display: block;
     position: absolute;
     appearance: none;
     top: 6px;
@@ -29,6 +31,7 @@
     min-width: 1.5rem;
     text-align: center;
     font-size: 0;
+    font-size-adjust: none;
     background: none;
     padding: 0;
     line-height: 1;
