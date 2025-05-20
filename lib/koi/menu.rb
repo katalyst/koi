@@ -2,6 +2,9 @@
 
 module Koi
   module Menu
+    mattr_accessor :quick_links
+    @@quick_links = {}
+
     mattr_accessor :priority
     @@priority = {}
 
@@ -14,7 +17,7 @@ module Koi
     def admin_menu(context)
       builder = Builder.new
       builder.add_menu(title: "Priority") do |b|
-        b.add_link(title: "View site", url: "/", target: :blank)
+        b.add_link(title: "View website", url: "/", target: :blank)
         b.add_link(title: "Dashboard", url: context.main_app.admin_dashboard_path)
         b.add_items(priority)
       end
@@ -38,6 +41,16 @@ module Koi
       builder.render
     end
 
+    def dashboard_menu
+      builder = Builder.new
+      builder.add_menu(title: "Quick links") do |b|
+        b.add_link(title: "View website", url: "/", target: :blank)
+        b.add_items(quick_links)
+      end
+      builder.render
+    end
+
     module_function(:admin_menu)
+    module_function(:dashboard_menu)
   end
 end
