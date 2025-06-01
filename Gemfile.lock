@@ -65,7 +65,7 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_storage_validations (2.0.3)
+    active_storage_validations (3.0.0)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -107,9 +107,9 @@ GEM
       rspec-rails (>= 2.2)
     android_key_attestation (0.3.0)
     ast (2.4.3)
-    base64 (0.2.0)
+    base64 (0.3.0)
     bcrypt (3.1.20)
-    benchmark (0.4.0)
+    benchmark (0.4.1)
     better_html (2.1.1)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -117,7 +117,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.9)
+    bigdecimal (3.2.1)
     bindata (2.5.1)
     brakeman (7.0.2)
       racc
@@ -144,15 +144,16 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cuprite (0.15.1)
+    cuprite (0.17)
       capybara (~> 3.0)
-      ferrum (~> 0.15.0)
+      ferrum (~> 0.17.0)
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
     date (3.4.1)
-    diff-lcs (1.6.1)
-    drb (2.2.1)
+    diff-lcs (1.6.2)
+    drb (2.2.3)
+    erb (5.0.1)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -161,15 +162,16 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
-    factory_bot (6.5.1)
+    factory_bot (6.5.2)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    ferrum (0.15)
+    ferrum (0.17.1)
       addressable (~> 2.5)
+      base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (~> 0.7)
@@ -190,13 +192,13 @@ GEM
       sanitize (< 8)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.30.2-aarch64-linux)
+    google-protobuf (4.31.1-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-arm64-darwin)
+    google-protobuf (4.31.1-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-x86_64-linux)
+    google-protobuf (4.31.1-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     govuk_design_system_formbuilder (5.10.0)
@@ -204,7 +206,7 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 1)
-    hashdiff (1.1.2)
+    hashdiff (1.2.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
     i18n (1.14.7)
@@ -221,7 +223,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.11.3)
+    json (2.12.2)
     jwt (2.10.1)
       base64
     katalyst-basic-auth (0.5.0)
@@ -232,12 +234,12 @@ GEM
       katalyst-html-attributes
       katalyst-kpop
       view_component
-    katalyst-govuk-formbuilder (1.17.1)
+    katalyst-govuk-formbuilder (1.18.0)
       govuk_design_system_formbuilder (>= 5.8.0)
     katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
-    katalyst-kpop (3.2.7)
+    katalyst-kpop (3.2.8)
       katalyst-html-attributes
       turbo-rails
       view_component
@@ -246,13 +248,13 @@ GEM
       katalyst-kpop
       katalyst-tables
       view_component
-    katalyst-tables (3.8.0)
+    katalyst-tables (3.8.1)
       katalyst-html-attributes
       view_component
-    language_server-protocol (3.17.0.4)
+    language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
-    loofah (2.24.0)
+    loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -301,14 +303,14 @@ GEM
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
-    psych (5.2.4)
+    psych (5.2.6)
       date
       stringio
     public_suffix (6.0.2)
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.14)
+    rack (3.1.15)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -341,7 +343,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -357,8 +359,9 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.2.1)
-    rdoc (6.13.1)
+    rake (13.3.0)
+    rdoc (6.14.0)
+      erb
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
     reline (0.6.1)
@@ -369,12 +372,12 @@ GEM
       chunky_png (~> 1.0)
       rqrcode_core (~> 2.0)
     rqrcode_core (2.0.0)
-    rspec-core (3.13.3)
+    rspec-core (3.13.4)
       rspec-support (~> 3.13.0)
-    rspec-expectations (3.13.4)
+    rspec-expectations (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-mocks (3.13.4)
+    rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-rails (8.0.0)
@@ -385,8 +388,8 @@ GEM
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
-    rspec-support (3.13.3)
-    rubocop (1.75.5)
+    rspec-support (3.13.4)
+    rubocop (1.75.8)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -420,12 +423,12 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.38.0, < 2.0)
-    rubocop-rails (2.31.0)
+    rubocop-rails (2.32.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
     rubocop-rake (0.7.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1)
@@ -445,17 +448,17 @@ GEM
     sanitize (7.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
-    sass-embedded (1.87.0-aarch64-linux-gnu)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.87.0-arm64-darwin)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.87.0-x86_64-linux-gnu)
-      google-protobuf (~> 4.30)
+    sass-embedded (1.89.1-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.1-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.1-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
     securerandom (0.4.1)
-    sentry-rails (5.23.0)
+    sentry-rails (5.24.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.23.0)
-    sentry-ruby (5.23.0)
+      sentry-ruby (~> 5.24.0)
+    sentry-ruby (5.24.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.5.0)
@@ -483,9 +486,9 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    view_component (3.21.0)
+    view_component (3.23.2)
       activesupport (>= 5.2.0, < 8.1)
-      concurrent-ruby (~> 1.0)
+      concurrent-ruby (~> 1)
       method_source (~> 1.0)
     webauthn (3.4.0)
       android_key_attestation (~> 0.3.0)
@@ -500,13 +503,13 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.1)
-    websocket-driver (0.7.7)
+    websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.2)
+    zeitwerk (2.7.3)
 
 PLATFORMS
   aarch64-linux
@@ -544,4 +547,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.6.8
+   2.6.9
