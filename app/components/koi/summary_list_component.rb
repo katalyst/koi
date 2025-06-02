@@ -17,8 +17,8 @@ module Koi
       item:       SummaryList::ItemComponent,
     }
 
-    def initialize(model: nil, skip_blank: true, **attributes)
-      super(**attributes)
+    def initialize(model: nil, skip_blank: true, **)
+      super(**)
 
       @model      = model
       @skip_blank = skip_blank

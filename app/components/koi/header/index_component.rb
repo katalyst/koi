@@ -8,7 +8,7 @@ module Koi
       delegate :with_breadcrumb, :with_action, to: :@header
 
       def initialize(model:, title: model.model_name.human.pluralize)
-        super
+        super()
 
         @header = HeaderComponent.new(title:)
         @model  = model

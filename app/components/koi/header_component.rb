@@ -6,14 +6,14 @@ module Koi
     renders_many :breadcrumbs, "LinkComponent"
 
     def initialize(title:)
-      super
+      super()
 
       @title = title
     end
 
     class LinkComponent < ViewComponent::Base
       def initialize(name, path, **options)
-        super
+        super()
 
         @name    = name
         @path    = path

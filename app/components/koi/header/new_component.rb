@@ -8,7 +8,7 @@ module Koi
       delegate :with_breadcrumb, :with_action, to: :@header
 
       def initialize(model:, title: nil)
-        super
+        super()
 
         @model  = model
         @title  = title
