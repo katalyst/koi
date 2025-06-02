@@ -3,7 +3,7 @@
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "katalyst-koi"
-  s.version     = "4.18.1"
+  s.version     = "5.0.0.content.1"
   s.authors     = ["Katalyst Interactive"]
   s.email       = ["developers@katalyst.com.au"]
 
@@ -38,9 +38,9 @@ Gem::Specification.new do |s|
   s.add_dependency "view_component"
 
   # Katalyst libraries
-  s.add_dependency "katalyst-content", "< 3"
+  s.add_dependency "katalyst-content"
   s.add_dependency "katalyst-html-attributes"
   s.add_dependency "katalyst-kpop", ">= 3.1"
-  s.add_dependency "katalyst-navigation", "< 2"
+  s.add_dependency "katalyst-navigation"
   s.add_dependency "katalyst-tables", ">= 3.5"
 end

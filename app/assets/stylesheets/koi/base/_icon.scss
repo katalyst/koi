@@ -1,29 +1,15 @@
 .icon {
-  width: 1.5em;
-  height: 1.5em;
+  --scale: 1;
+  --size: 1em;
+  aspect-ratio: 1;
+  background-color: currentColor;
   display: inline-block;
-}
-
-.icon-large {
-  width: 2em;
-  height: 2em;
-  display: inline-block;
-}
-
-.icon-small {
-  width: 0.75em;
-  height: 0.75em;
-  display: inline-block;
-}
-
-.icon-medium {
-  width: 1em;
+  font-size: calc(var(--scale) * var(--size));
   height: 1em;
-  display: inline-block;
-}
-
-.leading-icon {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
+  line-height: 1em;
+  transform: translateY(var(--offset, 0));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
