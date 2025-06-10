@@ -1,12 +1,23 @@
 Description:
-    Generates a Koi admin crud views for the given model
+    Generates Koi admin CRUD views for the given model.
+
+    When run without field:type arguments, the generator will automatically
+    introspect the model's attributes and associations to generate appropriate
+    admin views. This makes it easy to create admin views for existing models
+    or re-generate views when models change.
+
+Options:
+    --force Overwrite existing view files
 
 Example:
-    bin/rails generate koi:admin_views Test
+    bin/rails generate koi:admin_views Product name:string price:integer active:boolean
 
     This will create:
-        app/views/admin/tests/_fields.html.erb
-        app/views/admin/tests/edit.html.erb
-        app/views/admin/tests/index.html.erb
-        app/views/admin/tests/new.html.erb
-        app/views/admin/tests/show.html.erb
+        app/views/admin/products/_fields.html.erb
+        app/views/admin/products/edit.html.erb
+        app/views/admin/products/index.html.erb
+        app/views/admin/products/new.html.erb
+        app/views/admin/products/show.html.erb
+
+    For existing models, run without field arguments to auto-introspect:
+    bin/rails generate koi:admin_views Product --force

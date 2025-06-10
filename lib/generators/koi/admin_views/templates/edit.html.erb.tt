@@ -1,12 +1,21 @@
-<%% content_for :header do %>
-  <%%= render(Koi::Header::EditComponent.new(resource: <%= singular_name %>)) %>
+<%%# locals: (<%= singular_name %>:) %>
+
+<%% content_for(:header) do %>
+  <header class="page-header">
+    <div class="flow wrapper">
+      <ul aria-label="Breadcrumbs" class="breadcrumbs | actions" role="list">
+        <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
+        <li><%%= link_to(<%= singular_name %>, <%= admin_show_helper %>) %></li>
+      </ul>
+
+      <h1 class="heading">Edit <%= singular_name %></h1>
+
+      <ul aria-label="Related pages" class="related | actions" role="list">
+        <li><%%= link_to("Delete", <%= admin_show_helper %>,
+                        data: { turbo_method: "delete", turbo_confirm: "Are you sure?" }) %></li>
+      </ul>
+    </div>
+  </header>
 <%% end %>
 
-<%%= form_with(model: <%= singular_name %>, url: <%= show_helper(singular_name, type: :path) %>) do |form| %>
-  <%%= render "fields", form: %>
-
-  <div class="actions">
-    <%%= form.admin_save %>
-    <%%= form.admin_delete %>
-  </div>
-<%% end %>
+<%%= render("form", <%= singular_name %>:) %>

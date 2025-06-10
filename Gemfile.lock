@@ -10,7 +10,7 @@ PATH
       katalyst-navigation (>= 2)
       katalyst-tables (>= 3.5)
       pagy (>= 8.0)
-      rails (>= 7.1)
+      rails (>= 8.0)
       rotp
       rqrcode
       stimulus-rails

@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 plugins:
   - rubocop-katalyst
 
@@ -11,26 +13,12 @@ AllCops:
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*
     - spec/dummy/tmp/**/*
-  TargetRubyVersion: 3.3
-
-# Disable cops that conflict with legacy Koi practices to reduce noise
-
-Naming/PredicateName:
-  Enabled: false
-
-Rails/HelperInstanceVariable:
-  Enabled: false
-
-Metrics/BlockLength:
-  Exclude:
-    - config/**/*
-    - lib/tasks/*
-    - spec/**/*
-
-RSpec/ExampleLength:
-  Max: 10
+  TargetRubyVersion: 3.4
 
 RSpec/MultipleExpectations:
   Exclude:
     - spec/generators/**/*
-    - spec/system/**/*
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/generators/**/*

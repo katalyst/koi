@@ -1,12 +1,25 @@
-<%% content_for :header do %>
-  <%%= render(Koi::Header::IndexComponent.new(model: <%= class_name %>)) do |component| %>
-    <%% component.with_action "New", <%= new_helper(type: :path) %> %>
-  <%% end %>
+<%%# locals: (collection:) %>
+
+<%% content_for(:header) do %>
+  <header class="page-header">
+    <div class="flow wrapper">
+      <h1 class="heading"><%= human_name.pluralize.titleize %></h1>
+
+      <ul aria-label="Related pages" class="related | actions" role="list">
+        <li><%%= link_to("New", <%= new_admin_helper %>) %></li>
+      </ul>
+    </div>
+  </header>
 <%% end %>
 
+<% if query? %>
 <%%= table_query_with(collection:) %>
+<% end %>
 
 <%%= table_with(collection:) do |row, <%= singular_name %>| %>
+  <%- if orderable? -%>
+  <%% row.ordinal unless collection.filtered? %>
+  <%- end -%>
   <%- index_attributes.each_with_index do |attribute, index| -%>
   <%- if index.zero? -%>
   <%% row.link :<%= attribute.name %> %>
@@ -16,4 +29,8 @@
   <%- end -%>
 <%% end %>
 
+<%- if orderable? -%>
+<%%= table_orderable_with(collection:, url: <%= order_admin_helper(type: :path) %>) %>
+<%- elsif paginate? -%>
 <%%= table_pagination_with(collection:) %>
+<%- end -%>
