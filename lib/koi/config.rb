@@ -11,7 +11,7 @@ module Koi
 
     config_accessor(:resource_name_candidates) { %i[title name] }
 
-    config_accessor(:admin_stylesheet) { "koi/admin" }
+    config_accessor(:admin_stylesheet) { "admin" }
 
     config_accessor(:document_mime_types) do
       %w[image/png image/gif image/jpeg image/webp application/pdf audio/*].freeze

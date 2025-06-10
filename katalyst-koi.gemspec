@@ -10,14 +10,14 @@ Gem::Specification.new do |s|
   s.summary     = "Koi CMS admin framework"
   s.homepage    = "https://github.com/katalyst/koi"
   s.license     = "MIT"
-  s.required_ruby_version = ">= 3.3"
+  s.required_ruby_version = ">= 3.4"
 
   s.files         = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
                       .grep_v(%r{^lib/tasks})
   s.require_paths = ["lib"]
   s.metadata["rubygems_mfa_required"] = "true"
 
-  s.add_dependency "rails", ">= 7.1"
+  s.add_dependency "rails", ">= 8.0"
 
   # Import maps for ES6 JS
   s.add_dependency "importmap-rails"

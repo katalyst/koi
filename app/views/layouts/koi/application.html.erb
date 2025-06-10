@@ -37,8 +37,8 @@
 <%= render "layouts/koi/application_header" %>
 
 <!-- header -->
-<% if content_for? :header %>
-  <%= yield :header %>
+<% if content_for?(:header) %>
+  <%= yield(:header) %>
 <% end %>
 
 <main class="flow wrapper">

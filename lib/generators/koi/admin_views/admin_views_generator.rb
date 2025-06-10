@@ -14,25 +14,68 @@ module Koi
 
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
+    class_option :force, type: :boolean, default: false, desc: "Overwrite existing files"
+
+    def initialize(args, *options)
+      super
+
+      load_attributes! if attributes.empty?
+    end
+
     def create_root_folder
       empty_directory File.join("app/views", controller_file_path)
     end
 
     def copy_view_files
       available_views.each do |filename|
-        target = filename.gsub("record", singular_name)
-        template filename, File.join("app/views", controller_file_path, target)
+        template(filename, File.join("app/views", controller_file_path, filename))
       end
+    end
+
+    def remove_legacy
+      remove_file(File.join("app/views", controller_file_path, "_fields.html.erb"), force: true)
     end
 
     private
 
     def available_views
-      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _fields.html.erb)
+      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _form.html.erb)
     end
 
     def controller_class_path
       ["admin"] + super
+    end
+
+    def orderable?
+      attributes_names.include?("ordinal")
+    end
+
+    def paginate?
+      !orderable?
+    end
+
+    def query?
+      true
+    end
+
+    def admin_index_helper(type: :path)
+      "admin_#{plural_route_name}_#{type}"
+    end
+
+    def admin_show_helper(identifier = singular_name, type: :path)
+      "admin_#{singular_route_name}_#{type}(#{identifier})"
+    end
+
+    def edit_admin_helper(identifier = singular_name, type: :path)
+      "edit_#{admin_show_helper(identifier, type:)}"
+    end
+
+    def order_admin_helper(type: :path)
+      "order_admin_#{plural_route_name}_#{type}"
+    end
+
+    def new_admin_helper(type: :path)
+      "new_admin_#{singular_route_name}_#{type}"
     end
   end
 end

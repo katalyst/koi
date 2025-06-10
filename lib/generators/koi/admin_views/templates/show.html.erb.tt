@@ -1,22 +1,23 @@
-<%% content_for :header do %>
-  <%%= render(Koi::Header::ShowComponent.new(resource: <%= singular_name %>)) %>
-<%% end %>
+<%%# locals: (<%= singular_name %>:) %>
 
-<h2>Summary</h2>
+<%% content_for(:header) do %>
+  <header class="page-header">
+    <div class="flow wrapper">
+      <ul aria-label="Breadcrumbs" class="breadcrumbs | actions" role="list">
+        <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
+      </ul>
+
+      <h1 class="heading"><%%= <%= singular_name %> %></h1>
+
+      <ul aria-label="Related pages" class="related | actions" role="list">
+        <li><%%= link_to("Edit", <%= edit_admin_helper %>) %></li>
+      </ul>
+    </div>
+  </header>
+<%% end %>
 
 <%%= summary_table_with(model: <%= singular_name %>) do |row| %>
-  <%- attributes.each_with_index do |attribute, index| -%>
-  <%- if index.zero? -%>
-  <%% row.link :<%= attribute.name %> %>
-  <%- else -%>
-  <%= summary_attribute_for attribute %>
-  <%- end -%>
+  <%- attributes.each do |attribute| -%>
+  <%= show_attribute_for(attribute) %>
   <%- end -%>
 <%% end %>
-
-<div class="actions">
-  <%%= button_to "Delete", <%= show_helper(singular_name, type: :path) %>,
-                class:  "button button--secondary",
-                method: :delete,
-                form:   { data: { turbo_confirm: "Are you sure?" } } %>
-</div>

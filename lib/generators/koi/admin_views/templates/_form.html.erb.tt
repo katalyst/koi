@@ -1,0 +1,8 @@
+<%%# locals: (<%= singular_name %>:) %>
+
+<%%= form_with(model: <%= singular_name %>) do |form| %>
+  <%- attributes.each do |attribute| -%>
+  <%= govuk_input_for attribute %>
+  <%- end -%>
+  <%%= form.button(type: :submit, class: "button") %>
+<%% end %>
