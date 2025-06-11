@@ -29,7 +29,6 @@ module Koi
         helper Koi::Pagy::Frontend
         helper IndexActionsHelper
         helper FormHelper
-        helper :all
 
         layout -> { turbo_frame_layout || "koi/application" }
       end
