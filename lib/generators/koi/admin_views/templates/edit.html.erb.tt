@@ -3,17 +3,16 @@
 <%% content_for(:header) do %>
   <header class="page-header">
     <div class="flow wrapper">
-      <ul aria-label="Breadcrumbs" class="breadcrumbs | actions" role="list">
+      <%%= breadcrumb_list do %>
         <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
         <li><%%= link_to(<%= singular_name %>, <%= admin_show_helper %>) %></li>
-      </ul>
+      <%% end %>
 
-      <h1 class="heading">Edit <%= singular_name %></h1>
+      <h1>Edit <%= singular_name %></h1>
 
-      <ul aria-label="Related pages" class="related | actions" role="list">
-        <li><%%= link_to("Delete", <%= admin_show_helper %>,
-                        data: { turbo_method: "delete", turbo_confirm: "Are you sure?" }) %></li>
-      </ul>
+      <%%= actions_list do %>
+        <li><%%= link_to_archive_or_delete(<%= singular_name %>) %></li>
+      <%% end %>
     </div>
   </header>
 <%% end %>

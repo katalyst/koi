@@ -3,9 +3,9 @@
 <%% content_for(:header) do %>
   <header class="page-header">
     <div class="flow wrapper">
-      <ul aria-label="Breadcrumbs" class="breadcrumbs | actions" role="list">
+      <%%= breadcrumb_list do %>
         <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
-      </ul>
+      <%% end %>
 
       <h1 class="heading">New <%= singular_name %></h1>
     </div>
