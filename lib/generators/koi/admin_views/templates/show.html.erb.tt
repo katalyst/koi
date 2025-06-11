@@ -3,15 +3,15 @@
 <%% content_for(:header) do %>
   <header class="page-header">
     <div class="flow wrapper">
-      <ul aria-label="Breadcrumbs" class="breadcrumbs | actions" role="list">
+      <%%= breadcrumb_list do %>
         <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
-      </ul>
+      <%% end %>
 
-      <h1 class="heading"><%%= <%= singular_name %> %></h1>
+      <h1><%%= <%= singular_name %> %></h1>
 
-      <ul aria-label="Related pages" class="related | actions" role="list">
+      <%%= actions_list do %>
         <li><%%= link_to("Edit", <%= edit_admin_helper %>) %></li>
-      </ul>
+      <%% end %>
     </div>
   </header>
 <%% end %>

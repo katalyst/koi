@@ -3,11 +3,11 @@
 <%% content_for(:header) do %>
   <header class="page-header">
     <div class="flow wrapper">
-      <h1 class="heading"><%= human_name.pluralize.titleize %></h1>
+      <h1><%= human_name.pluralize.titleize %></h1>
 
-      <ul aria-label="Related pages" class="related | actions" role="list">
+      <%%= actions_list do %>
         <li><%%= link_to("New", <%= new_admin_helper %>) %></li>
-      </ul>
+      <%% end %>
     </div>
   </header>
 <%% end %>
