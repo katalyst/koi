@@ -4,68 +4,70 @@ module Admin
   class UrlRewritesController < ApplicationController
     before_action :set_url_rewrite, only: %i[show edit update destroy]
 
+    attr_reader :collection, :url_rewrite
+
     def index
-      collection = Collection.new.with_params(params).apply(UrlRewrite.strict_loading)
+      @collection = Collection.new.with_params(params).apply(UrlRewrite.strict_loading.all)
 
       render locals: { collection: }
     end
 
     def show
-      render :show, locals: { url_rewrite: @url_rewrite }
+      render locals: { url_rewrite: }
     end
 
     def new
       @url_rewrite = UrlRewrite.new
-      render :new, locals: { url_rewrite: @url_rewrite }
+
+      render locals: { url_rewrite: }
     end
 
     def edit
-      render :edit, locals: { url_rewrite: @url_rewrite }
+      render locals: { url_rewrite: }
     end
 
     def create
       @url_rewrite = UrlRewrite.new(url_rewrite_params)
 
       if @url_rewrite.save
-        redirect_to admin_url_rewrite_path(@url_rewrite)
+        redirect_to admin_url_rewrite_path(url_rewrite), status: :see_other
       else
-        render :new, status: :unprocessable_content, locals: { url_rewrite: @url_rewrite }
+        render :new, locals: { url_rewrite: }, status: :unprocessable_content
       end
     end
 
     def update
-      @url_rewrite.attributes = url_rewrite_params
-
-      if @url_rewrite.save
-        redirect_to admin_url_rewrite_path(@url_rewrite)
+      if url_rewrite.update(url_rewrite_params)
+        redirect_to admin_url_rewrite_path(url_rewrite), status: :see_other
       else
-        render :edit, status: :unprocessable_content, locals: { url_rewrite: @url_rewrite }
+        render :edit, locals: { url_rewrite: }, status: :unprocessable_content
       end
     end
 
     def destroy
       @url_rewrite.destroy!
 
-      redirect_to admin_url_rewrites_path
+      redirect_to admin_url_rewrites_path, status: :see_other
     end
 
     private
 
-    def url_rewrite_params
-      params.expect(url_rewrite: %i[from to status_code active])
+    def set_url_rewrite
+      @url_rewrite = ::UrlRewrite.find(params[:id])
     end
 
-    def set_url_rewrite
-      @url_rewrite = UrlRewrite.find(params[:id])
+    def url_rewrite_params
+      params.expect(url_rewrite: %i[from to active status_code])
     end
 
     class Collection < Admin::Collection
-      config.sorting  = "from"
+      config.sorting  = :from
       config.paginate = true
 
       attribute :from, :string
       attribute :to, :string
       attribute :active, :boolean
+      attribute :status_code, :enum
     end
   end
 end

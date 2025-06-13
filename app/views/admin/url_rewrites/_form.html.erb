@@ -1,0 +1,9 @@
+<%# locals: (url_rewrite:) %>
+
+<%= form_with(model: url_rewrite) do |form| %>
+  <%= form.govuk_text_field(:from, hint: { text: "Should begin with /" }) %>
+  <%= form.govuk_text_field :to %>
+  <%= form.govuk_check_box_field :active %>
+  <%= form.govuk_enum_select :status_code %>
+  <%= form.button(type: :submit, class: "button") %>
+<% end %>

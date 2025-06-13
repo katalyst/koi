@@ -1,12 +1,16 @@
-<% content_for :header do %>
-  <%= render Koi::Header::EditComponent.new(resource: url_rewrite) %>
+<%# locals: (url_rewrite:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Url Rewrites", admin_url_rewrites_path) %></li>
+    <li><%= link_to(url_rewrite, admin_url_rewrite_path(url_rewrite)) %></li>
+  <% end %>
+
+  <h1>Edit url rewrite</h1>
+
+  <%= actions_list do %>
+    <li><%= link_to_delete(url_rewrite) %></li>
+  <% end %>
 <% end %>
 
-<%= form_with(model: url_rewrite, url: admin_url_rewrite_path(url_rewrite)) do |form| %>
-  <%= render "fields", form: %>
-
-  <div class="actions">
-    <%= form.admin_save %>
-    <%= form.admin_delete %>
-  </div>
-<% end %>
+<%= render("form", url_rewrite:) %>
