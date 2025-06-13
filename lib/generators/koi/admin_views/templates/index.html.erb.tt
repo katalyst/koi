@@ -1,24 +1,34 @@
 <%%# locals: (collection:) %>
 
 <%% content_for(:header) do %>
-  <header class="page-header">
-    <div class="flow wrapper">
-      <h1><%= human_name.pluralize.titleize %></h1>
+  <h1><%= human_name.pluralize.titleize %></h1>
 
-      <%%= actions_list do %>
-        <li><%%= link_to("New", <%= new_admin_helper %>) %></li>
-      <%% end %>
-    </div>
-  </header>
+  <%%= actions_list do %>
+    <li><%%= link_to("New", <%= new_admin_helper %>) %></li>
+    <%- if archivable? -%>
+    <li><%%= link_to("Archived", <%= archived_admin_helper %>) %></li>
+    <%- end -%>
+  <%% end %>
 <%% end %>
 
-<% if query? %>
+<%- if query? -%>
 <%%= table_query_with(collection:) %>
-<% end %>
+<%- end -%>
+
+<%- if selectable? -%>
+<%%= table_selection_with(collection:) do %>
+<%- if archivable? -%>
+  <%%= tag.button("Archive", formaction: <%= archive_admin_helper %>, formmethod: :put, class: "button") %>
+<%- end -%>
+<%% end %>
+<%- end -%>
 
 <%%= table_with(collection:) do |row, <%= singular_name %>| %>
   <%- if orderable? -%>
   <%% row.ordinal unless collection.filtered? %>
+  <%- end -%>
+  <%- if selectable? -%>
+    <%% row.select %>
   <%- end -%>
   <%- index_attributes.each_with_index do |attribute, index| -%>
   <%- if index.zero? -%>

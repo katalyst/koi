@@ -19,18 +19,18 @@ RSpec.describe "index/table" do
   end
 
   it "renders a table" do
-    posts = create_list(:post, 3)
+    announcements = create_list(:announcement, 3)
 
-    visit "/admin/posts"
+    visit "/admin/announcements"
 
-    expect(page).to have_css("td", text: posts.first.title)
+    expect(page).to have_css("td", text: announcements.first.title)
   end
 
   context "when there are no results" do
     it "shows a placeholder message" do
-      visit "/admin/posts"
+      visit "/admin/announcements"
 
-      expect(page).to have_css("caption", text: "No posts found.")
+      expect(page).to have_css("caption", text: "No announcements found.")
     end
   end
 end

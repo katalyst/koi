@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require "rails/generators/resource_helpers"
+
 require_relative "attribute_types"
 
 module Koi
   module Helpers
-    module AdminGeneratorAttributes
+    module AttributeHelpers
       extend ActiveSupport::Concern
 
       class IntrospectedAttribute < Rails::Generators::GeneratedAttribute
@@ -49,6 +51,12 @@ module Koi
 
       def index_attributes
         attributes
+      end
+
+      def initialize(args, *options)
+        super
+
+        load_attributes! if attributes.empty?
       end
 
       private

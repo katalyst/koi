@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Koi::Tables::Cells::LinkComponent do
   let(:table) { Koi::TableComponent.new(collection:) }
-  let(:collection) { create_list(:post, 1) }
-  let(:rendered) { render_inline(table) { |row, _post| row.link(:name) } }
+  let(:collection) { create_list(:announcement, 1) }
+  let(:rendered) { render_inline(table) { |row, _| row.link(:name) } }
   let(:label) { rendered.at_css("thead th") }
   let(:data) { rendered.at_css("tbody td") }
 
@@ -17,7 +17,7 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
   it "renders column data" do
     expect(data).to match_html(<<~HTML)
-      <td class="type-link"><a href="/admin/posts/#{collection.first.id}">#{collection.first.name}</a></td>
+      <td class="type-link"><a href="/admin/announcements/#{collection.first.id}">#{collection.first.name}</a></td>
     HTML
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
     it "renders data with html_options" do
       expect(data).to match_html(<<~HTML)
-        <td id="ID" class="type-link CLASS" style="style" data-foo="bar" aria-label="LABEL"><a href="/admin/posts/#{collection.first.id}">#{collection.first.name}</a></td>
+        <td id="ID" class="type-link CLASS" style="style" data-foo="bar" aria-label="LABEL"><a href="/admin/announcements/#{collection.first.id}">#{collection.first.name}</a></td>
       HTML
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
     it "renders data without label" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><a href="/admin/posts/#{collection.first.id}">#{collection.first.name}</a></td>
+        <td class="type-link"><a href="/admin/announcements/#{collection.first.id}">#{collection.first.name}</a></td>
       HTML
     end
   end
@@ -65,11 +65,11 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
   context "with nil data value" do
     let(:rendered) { render_inline(table) { |row| row.link(:name) } }
-    let(:collection) { build_list(:post, 1, name: nil) }
+    let(:collection) { build_list(:announcement, 1, name: nil) }
 
     it "renders link without content" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><a href="/admin/posts"></a></td>
+        <td class="type-link"><a href="/admin/announcements"></a></td>
       HTML
     end
   end
@@ -85,7 +85,7 @@ RSpec.describe Koi::Tables::Cells::LinkComponent do
 
     it "renders the custom data" do
       expect(data).to match_html(<<~HTML)
-        <td class="type-link"><a href="/admin/posts/#{collection.first.id}"><span>#{collection.first.name}</span></a></td>
+        <td class="type-link"><a href="/admin/announcements/#{collection.first.id}"><span>#{collection.first.name}</span></a></td>
       HTML
     end
   end

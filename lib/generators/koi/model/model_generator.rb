@@ -3,7 +3,7 @@
 require "rails/generators/active_record/model/model_generator"
 
 module Koi
-  class ActiveRecordGenerator < ActiveRecord::Generators::ModelGenerator
+  class ModelGenerator < ActiveRecord::Generators::ModelGenerator
     source_root ActiveRecord::Generators::ModelGenerator.source_root
 
     def admin_search

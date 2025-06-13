@@ -3,51 +3,58 @@
 class <%= controller_class_name %>Controller < ApplicationController
   before_action :set_<%= singular_name %>, only: %i[show edit update destroy]
 
+  attr_reader :collection, :<%= singular_name %>
+
   def index
-    collection = Collection.new.with_params(params).apply(::<%= class_name %>.strict_loading.all)
+    @collection = Collection.new.with_params(params).apply(::<%= class_name %>.strict_loading.all)
 
     render locals: { collection: }
   end
 
   def show
-    render locals: { <%= singular_name %>: @<%= singular_name %> }
+    render locals: { <%= singular_name %>: }
   end
 
   def new
-    render locals: { <%= singular_name %>: ::<%= class_name %>.new }
+    @<%= singular_name %> = <%= class_name %>.new
+
+    render locals: { <%= singular_name %>: }
   end
 
   def edit
-    render locals: { <%= singular_name %>: @<%= singular_name %> }
+    render locals: { <%= singular_name %>: }
   end
 
   def create
-    @<%= singular_name %> = ::<%= class_name %>.new(<%= singular_table_name %>_params)
+    @<%= singular_name %> = <%= class_name %>.new(<%= singular_table_name %>_params)
 
     if @<%= singular_name %>.save
-      redirect_to [:admin, @<%= singular_name %>], status: :see_other
+      redirect_to <%= admin_show_helper %>, status: :see_other
     else
-      render :new, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_content
+      render :new, locals: { <%= singular_name %>: }, status: :unprocessable_content
     end
   end
 
   def update
-    if @<%= singular_name %>.update(<%= singular_table_name %>_params)
-      redirect_to action: :show, status: :see_other
+    if <%= singular_name %>.update(<%= singular_table_name %>_params)
+      redirect_to <%= admin_show_helper %>, status: :see_other
     else
-      render :edit, locals: { <%= singular_name %>: @<%= singular_name %> }, status: :unprocessable_content
+      render :edit, locals: { <%= singular_name %>: }, status: :unprocessable_content
     end
   end
 
   def destroy
     @<%= singular_name %>.destroy!
 
-    redirect_to action: :index, status: :see_other
+    redirect_to <%= admin_index_helper %>, status: :see_other
   end
 
   private
 
-  # Only allow a list of trusted parameters through.
+  def set_<%= singular_name %>
+    @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+  end
+
   def <%= "#{singular_table_name}_params" %>
     <%- if attributes_names.empty? -%>
     params.expect(<%= singular_table_name %>: [])
@@ -56,14 +63,11 @@ class <%= controller_class_name %>Controller < ApplicationController
     <%- end -%>
   end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_<%= singular_name %>
-    @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
-  end
-
   class Collection < Admin::Collection
-    config.sorting  = :<%= sort_attribute %>
+    config.sorting  = :<%= default_sort_attribute %>
+    <%- if paginate? -%>
     config.paginate = true
+    <%- end -%>
 
     <%- attributes.each do |attribute| -%>
     <% definition = collection_attribute_for(attribute) -%>

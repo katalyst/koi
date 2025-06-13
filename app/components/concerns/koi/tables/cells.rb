@@ -19,12 +19,12 @@ module Koi
       # @return [void]
       #
       # @example Render a column containing the record's title, linked to its show page
-      #   <% row.link :title %> # => <td><a href="/admin/post/15">About us</a></td>
+      #   <% row.link :title %> # => <td><a href="/admin/page/15">About us</a></td>
       # @example Render a column containing the record's title, linked to its edit page
-      #   <% row.link :title, url: :edit_admin_post_path do |cell| %>
+      #   <% row.link :title, url: :edit_admin_page_path do |cell| %>
       #      Edit <%= cell %>
       #   <% end %>
-      #   # => <td><a href="/admin/post/15/edit">Edit About us</a></td>
+      #   # => <td><a href="/admin/page/15/edit">Edit About us</a></td>
       def link(column, label: nil, heading: false, url: (default_url = true), link: {}, **, &)
         with_cell(Tables::Cells::LinkComponent.new(
                     collection:, row:, column:, record:, label:, heading:, url:, default_url:, link:, **,

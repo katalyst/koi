@@ -19,23 +19,23 @@ RSpec.describe "index/filtering" do
     click_on "Next"
 
     %i[first second third].map do |n|
-      create(:post, name: n, title: n.to_s.titleize)
+      create(:announcement, name: n, title: n.to_s.titleize)
     end
   end
 
   it "applies filters" do
-    visit "/admin/posts"
+    visit "/admin/announcements"
 
     fill_in("Search", with: query).click
     click_on "Apply"
 
-    expect(page).to have_current_path("/admin/posts?q=#{query}")
+    expect(page).to have_current_path("/admin/announcements?q=#{query}")
     expect(page).to have_css("td", text: "first")
     expect(page).to have_no_css("td", text: "third")
   end
 
   it "clears filters" do
-    visit "/admin/posts?q=#{query}"
+    visit "/admin/announcements?q=#{query}"
 
     expect(page).to have_css("[name=q]", text: query)
     expect(page).to have_no_css("td", text: "third")
@@ -43,50 +43,50 @@ RSpec.describe "index/filtering" do
     fill_in("Search", with: "").click
     click_on "Apply"
 
-    expect(page).to have_current_path("/admin/posts")
+    expect(page).to have_current_path("/admin/announcements")
     expect(page).to have_css("td", text: "third")
   end
 
   context "when there are no results" do
     it "shows a placeholder message" do
-      visit "/admin/posts?q=xxxxxx"
+      visit "/admin/announcements?q=xxxxxx"
 
-      expect(page).to have_css("caption", text: "No posts found.")
+      expect(page).to have_css("caption", text: "No announcements found.")
     end
   end
 
   context "when paginating" do
     it "retains filter" do
-      create_list(:post, 25, name: "first", title: "First") # rubocop:disable FactoryBot/ExcessiveCreateList
+      create_list(:announcement, 25, name: "first", title: "First") # rubocop:disable FactoryBot/ExcessiveCreateList
 
-      visit "/admin/posts?q=#{query}"
+      visit "/admin/announcements?q=#{query}"
 
       click_on "Next"
 
-      expect(page).to have_current_path("/admin/posts?q=#{query}&page=2")
+      expect(page).to have_current_path("/admin/announcements?q=#{query}&page=2")
       expect(page).to have_css("[name=q]", text: query)
     end
   end
 
   context "when sorting" do
     it "retains filter" do
-      visit "/admin/posts?q=#{query}"
+      visit "/admin/announcements?q=#{query}"
 
       click_on "Title"
 
-      expect(page).to have_current_path("/admin/posts?q=#{query}&sort=title+asc")
+      expect(page).to have_current_path("/admin/announcements?q=#{query}&sort=title+asc")
       expect(page).to have_css("[name=q]", text: query)
     end
   end
 
   context "with history navigation" do
     it "restores search state" do
-      visit "/admin/posts"
+      visit "/admin/announcements"
 
       fill_in("Search", with: query).click
       click_on "Apply"
 
-      expect(page).to have_current_path("/admin/posts?q=#{query}")
+      expect(page).to have_current_path("/admin/announcements?q=#{query}")
 
       click_on "Koi" # leave the page with turbo
 
@@ -94,7 +94,7 @@ RSpec.describe "index/filtering" do
 
       page.go_back
 
-      expect(page).to have_current_path("/admin/posts?q=#{query}")
+      expect(page).to have_current_path("/admin/announcements?q=#{query}")
       expect(find("[name=q]").value).to eql(query)
     end
   end

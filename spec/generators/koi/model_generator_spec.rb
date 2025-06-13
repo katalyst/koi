@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-require "generators/koi/active_record/active_record_generator"
+require "generators/koi/model/model_generator"
 
-RSpec.describe Koi::ActiveRecordGenerator do
+RSpec.describe Koi::ModelGenerator do
   subject(:output) do
     gen = generator(%w(resource title:string slug:string content:rich_text))
     Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }

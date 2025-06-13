@@ -12,12 +12,9 @@ RSpec.describe Koi::AdminGenerator do
 
   it "invokes the expected generators" do
     expect(output.lines.grep(/invoke/).map { |line| line.split.last }).to contain_exactly(
-      "active_record",
       "admin_controller",
       "admin_route",
       "admin_views",
-      "factory_bot",
-      "rspec",
     )
   end
 end

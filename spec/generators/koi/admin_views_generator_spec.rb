@@ -37,7 +37,7 @@ RSpec.describe Koi::AdminViewsGenerator do
                          description:rich_text
                          ordinal:integer
                          archived_at:datetime
-                         post:belongs_to))
+                         announcement:belongs_to))
       Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.text :title %>" }
       it { is_expected.to contain "<% row.rich_text :description %>" }
       it { is_expected.to contain "<% row.datetime :archived_at %>" }
-      it { is_expected.to contain "<% row.link :post %>" }
+      it { is_expected.to contain "<% row.link :announcement %>" }
     end
 
     describe "views/admin/examples/index.html.erb" do
@@ -61,9 +61,9 @@ RSpec.describe Koi::AdminViewsGenerator do
     end
   end
 
-  context "with posts model introspection" do
+  context "with announcements model introspection" do
     subject(:output) do
-      gen = generator(%w(post))
+      gen = generator(%w(announcement))
       Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }
     end
 
@@ -71,19 +71,19 @@ RSpec.describe Koi::AdminViewsGenerator do
 
     it "generates views for existing models" do
       expect(output.lines.grep(/create/).map { |l| l.split.last }).to contain_exactly(
-        "app/views/admin/posts",
-        "app/views/admin/posts/index.html.erb",
-        "app/views/admin/posts/edit.html.erb",
-        "app/views/admin/posts/show.html.erb",
-        "app/views/admin/posts/new.html.erb",
-        "app/views/admin/posts/_form.html.erb",
+        "app/views/admin/announcements",
+        "app/views/admin/announcements/index.html.erb",
+        "app/views/admin/announcements/edit.html.erb",
+        "app/views/admin/announcements/show.html.erb",
+        "app/views/admin/announcements/new.html.erb",
+        "app/views/admin/announcements/_form.html.erb",
       )
     end
 
-    describe "views/admin/posts/show.html.erb" do
-      subject { file("app/views/admin/posts/show.html.erb") }
+    describe "views/admin/announcements/show.html.erb" do
+      subject { file("app/views/admin/announcements/show.html.erb") }
 
-      it { is_expected.to contain "<%= summary_table_with(model: post) do |row| %>" }
+      it { is_expected.to contain "<%= summary_table_with(model: announcement) do |row| %>" }
       it { is_expected.to contain "<% row.text :name %>" }
       it { is_expected.to contain "<% row.text :title %>" }
       it { is_expected.to contain "<% row.rich_text :content %>" }
@@ -91,8 +91,8 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.date :published_on %>" }
     end
 
-    describe "views/admin/posts/index.html.erb" do
-      subject { file("app/views/admin/posts/index.html.erb") }
+    describe "views/admin/announcements/index.html.erb" do
+      subject { file("app/views/admin/announcements/index.html.erb") }
 
       it { is_expected.to contain "<% row.link :name %>" } # First attribute is always a link
       it { is_expected.to contain "<% row.text :title %>" }
