@@ -1,6 +1,6 @@
 <%# locals: (admin_user:) %>
 
-<%= form_with(model: admin_user, url: admin_session_path, method: :post) do |form| %>
+<%= form_with(model: admin_user, scope: :admin, url: admin_session_path, method: :post) do |form| %>
   <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
   <%= form.govuk_text_field :token, autofocus: true, autocomplete: "off" %>
   <%= hidden_field_tag(:redirect, params[:redirect]) %>

@@ -1,7 +1,11 @@
-<% content_for :header do %>
-  <%= render Koi::Header::IndexComponent.new(model: Admin::User) do |component| %>
-    <% component.with_action "New", new_admin_admin_user_path %>
-    <% component.with_action "Archived", archived_admin_admin_users_path %>
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <h1>Admin users</h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("New", new_admin_admin_user_path) %></li>
+    <li><%= link_to("Archived", archived_admin_admin_users_path) %></li>
   <% end %>
 <% end %>
 
@@ -21,6 +25,7 @@
   <% row.boolean :otp, label: "MFA" do |cell| %>
     <%= cell.value.present? ? "Yes" : "No" %>
   <% end %>
+  <% row.date :last_sign_in_at, label: "Last active" %>
 <% end %>
 
 <%= table_pagination_with(collection:) %>

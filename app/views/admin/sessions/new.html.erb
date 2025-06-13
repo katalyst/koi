@@ -2,6 +2,7 @@
 
 <%= form_with(
       model: admin_user,
+      scope: :admin,
       url:   admin_session_path,
       data:  {
         controller:                            "webauthn-authentication",

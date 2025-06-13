@@ -19,7 +19,7 @@ RSpec.describe "admin/invites" do
     fill_in "Email", with: "john.doe@gmail.com"
     fill_in "Name", with: "John Doe"
 
-    click_on "Save"
+    click_on "Create"
 
     click_on "Generate login link"
 

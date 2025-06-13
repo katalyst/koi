@@ -38,7 +38,11 @@
 
 <!-- header -->
 <% if content_for?(:header) %>
-  <%= yield(:header) %>
+  <header class="page-header">
+    <div class="flow wrapper">
+      <%= yield(:header) %>
+    </div>
+  </header>
 <% end %>
 
 <main class="flow wrapper">
