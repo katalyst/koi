@@ -1,19 +1,21 @@
-<% content_for :header do %>
-  <%= render Koi::Header::ShowComponent.new(resource: url_rewrite) do |component| %>
-    <%= component.with_action "Preview", url_rewrite.to, target: "_blank" %>
+<%# locals: (url_rewrite:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Url Rewrites", admin_url_rewrites_path) %></li>
+  <% end %>
+
+  <h1><%= url_rewrite %></h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("Edit", edit_admin_url_rewrite_path(url_rewrite)) %></li>
+    <li><%= link_to("Preview", url_rewrite.to, rel: "noopener", target: "_blank") %></li>
   <% end %>
 <% end %>
 
 <%= summary_table_with(model: url_rewrite) do |row| %>
   <% row.text :from %>
-  <% row.link(:to, url: url_rewrite.to) %>
+  <% row.text :to %>
   <% row.boolean :active %>
-  <% row.number :status_code %>
+  <% row.enum :status_code %>
 <% end %>
-
-<div class="actions">
-  <%= button_to "Delete", admin_url_rewrite_path(url_rewrite),
-                class:  "button button--secondary",
-                method: :delete,
-                form:   { data: { turbo_confirm: "Are you sure?" } } %>
-</div>

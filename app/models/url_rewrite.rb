@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 class UrlRewrite < ApplicationRecord
-  StatusCode = Struct.new(:code, :label)
-
-  STATUS_CODES = [
-    StatusCode.new(303, "See other"),
-    StatusCode.new(307, "Temporary redirect"),
-    StatusCode.new(308, "Permanent redirect"),
-  ].freeze
-
-  enum :status_code, STATUS_CODES.map(&:code).index_by(&:itself)
+  enum :status_code, [303, 307, 308].index_by(&:itself)
 
   attribute :status_code, :integer, default: 303
 

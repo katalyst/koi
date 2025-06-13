@@ -1,16 +1,19 @@
-<%# locals: { table:, collection } %>
-<% content_for :header do %>
-  <%= render Koi::Header::IndexComponent.new(model: UrlRewrite) do |component| %>
-    <% component.with_action "New", new_admin_url_rewrite_path %>
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <h1>Url Rewrites</h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("New", new_admin_url_rewrite_path) %></li>
   <% end %>
 <% end %>
 
 <%= table_query_with(collection:) %>
 
 <%= table_with(collection:) do |row, url_rewrite| %>
-  <%= row.link :from, url: [:admin, url_rewrite] %>
-  <%= row.text :to %>
-  <%= row.boolean :active %>
+  <% row.link :from %>
+  <% row.text :to %>
+  <% row.boolean :active %>
 <% end %>
 
 <%= table_pagination_with(collection:) %>

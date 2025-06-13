@@ -16,6 +16,11 @@ en:
       new: New
       search: Search
   activerecord:
+    attributes:
+      url_rewrite/status_code:
+        303: "See other (303)"
+        307: "Temporary redirect (307)"
+        308: "Permanent redirect (308)"
     errors:
       models:
         admin_user:
