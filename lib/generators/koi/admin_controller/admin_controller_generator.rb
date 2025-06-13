@@ -3,12 +3,13 @@
 require "rails/generators/named_base"
 require "rails/generators/resource_helpers"
 
-require_relative "../helpers/admin_generator_attributes"
+require_relative "../helpers/attribute_helpers"
+require_relative "../helpers/resource_helpers"
 
 module Koi
   class AdminControllerGenerator < Rails::Generators::NamedBase
-    include Rails::Generators::ResourceHelpers
-    include Helpers::AdminGeneratorAttributes
+    include Helpers::AttributeHelpers
+    include Helpers::ResourceHelpers
 
     source_root File.expand_path("templates", __dir__)
 
@@ -35,10 +36,6 @@ module Koi
 
     private
 
-    def controller_class_path
-      ["admin"] + super
-    end
-
     def permitted_params
       attachments, others = attributes_names.partition { |name| attachments?(name) }
       params              = others.map { |name| ":#{name}" }
@@ -51,7 +48,7 @@ module Koi
       attribute&.attachments?
     end
 
-    def sort_attribute
+    def default_sort_attribute
       attributes.find { |attr| attr.type == :string }&.name
     end
   end

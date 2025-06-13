@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-RSpec.describe "index/pagination" do
+RSpec.describe "index/redirect" do
   let(:admin) { create(:admin) }
-  let!(:post) { create(:post) }
+  let!(:announcement) { create(:announcement) }
 
   before do
     visit "/admin"
@@ -20,15 +20,13 @@ RSpec.describe "index/pagination" do
   end
 
   it "can redirect to index via turbo" do
-    visit edit_admin_post_path(post)
-
-    expect(page).to have_css(".button", text: "Delete")
+    visit edit_admin_announcement_path(announcement)
 
     accept_confirm do
       click_on "Delete"
     end
 
-    expect(page).to have_current_path(admin_posts_path)
+    expect(page).to have_current_path(admin_announcements_path)
     expect(page).to have_css("a[href]", text: "New")
   end
 end

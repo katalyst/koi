@@ -2,5 +2,5 @@
 
 Koi::Engine.load_seed
 
-FactoryBot.create_list(:post, 25) # rubocop:disable FactoryBot/ExcessiveCreateList
-FactoryBot.create_list(:post, 5, active: false)
+FactoryBot.create_list(:announcement, 25) # rubocop:disable FactoryBot/ExcessiveCreateList
+FactoryBot.create_list(:announcement, 5, active: false)

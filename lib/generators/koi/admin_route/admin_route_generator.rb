@@ -3,11 +3,17 @@
 require "rails/generators/named_base"
 require "rails/generators/resource_helpers"
 
+require_relative "../helpers/attribute_helpers"
+require_relative "../helpers/resource_helpers"
+
 module Koi
   class AdminRouteGenerator < Rails::Generators::NamedBase
-    include Rails::Generators::ResourceHelpers
+    include Helpers::AttributeHelpers
+    include Helpers::ResourceHelpers
 
     source_root File.expand_path("templates", __dir__)
+
+    argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
     def create_routes
       return if Pathname.new(destination_root).join("config/routes/admin.rb").exist?
@@ -30,7 +36,7 @@ module Koi
         # Safe because we know that this only called during code generation
         config        = eval(match) # rubocop:disable Security/Eval
         label         = [*regular_class_path.map(&:humanize), human_name.pluralize].join(" ")
-        path          = "/admin#{route_url}"
+        path          = route_url
         config[label] = path
         config        = config.sort.to_h
         StringIO.new.tap do |io|

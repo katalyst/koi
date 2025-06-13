@@ -98,11 +98,16 @@ class Dummy < Thor
 
     inside("spec/dummy") do
       run <<~SH
-        rails g koi:admin Post name:string title:string content:rich_text active:boolean published_on:date
-        rails g koi:admin Banner name:string image:attachment ordinal:integer status:integer
+        rails g koi:model Announcement name:string title:string content:rich_text active:boolean published_on:date
+        rails g koi:model Banner name:string image:attachment ordinal:integer status:integer
       SH
 
       run "rails db:migrate"
+
+      run <<~SH
+        rails g koi:admin Announcement
+        rails g koi:admin Banner
+      SH
     end
 
     gsub_file("config/routes/admin.rb", "resources :banners\n", <<~RUBY)
