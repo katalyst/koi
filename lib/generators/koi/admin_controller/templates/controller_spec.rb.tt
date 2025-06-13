@@ -17,8 +17,33 @@ RSpec.describe <%= controller_class_name %>Controller do
       action
       expect(response).to have_http_status(:success)
     end
+    <%- if orderable? -%>
+
+    it "sorts by ordinal" do
+      first = create(:<%= singular_name %>, ordinal: 1)
+      second = create(:<%= singular_name %>, ordinal: 0)
+
+      action
+
+      expect(response.parsed_body.css("tbody td a").pluck(:href))
+        .to eq([second, first].map { |banner| <%= admin_show_helper %> })
+    end
+    <%- end -%>
   end
 
+  <%- if archivable? -%>
+  describe "GET /admin/<%= plural_name %>/archived" do
+    let(:action) { get <%= archived_admin_helper %> }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  <%- end -%>
   describe "GET /admin/<%= plural_name %>/new" do
     let(:action) { get <%= new_admin_helper %> }
 
@@ -38,7 +63,7 @@ RSpec.describe <%= controller_class_name %>Controller do
 
     it "renders successfully" do
       action
-      expect(response).to redirect_to([:admin, assigns(:<%= singular_name %>)])
+      expect(response).to redirect_to(<%= admin_show_helper("assigns(:#{singular_name})") %>)
     end
 
     it "creates a <%= singular_name %>" do
@@ -80,9 +105,11 @@ RSpec.describe <%= controller_class_name %>Controller do
     end
   end
 
-  describe "DELETE /admin/<%= plural_name %>/:id" do
-    let(:action) { delete <%= admin_show_helper %> }
-    let!(:<%= singular_name %>) { create(:<%= singular_name %>) }
+  <%- if archivable? -%>
+  describe "PUT /admin/<%= plural_name %>/archive" do
+    let(:action) { put <%= archive_admin_helper %>, params: }
+    let(:params) { { id: <%= plural_name %>.take(2).pluck(:id) } }
+    let(:<%= plural_name %>) { create_list(:<%= singular_name %>, 3) }
 
     it_behaves_like "requires admin"
 
@@ -91,8 +118,89 @@ RSpec.describe <%= controller_class_name %>Controller do
       expect(response).to redirect_to(<%= admin_index_helper %>)
     end
 
+    it "updates archived" do
+      expect { action }.to(change { <%= class_name %>.archived.count }.to(2))
+    end
+  end
+
+  <%- end -%>
+  <%- if archivable? -%>
+  describe "PUT /admin/<%= plural_name %>/restore" do
+    let(:action) { put <%= restore_admin_helper %>, params: }
+    let(:params) { { id: <%= plural_name %>.take(2).pluck(:id) } }
+    let(:<%= plural_name %>) { create_list(:<%= singular_name %>, 3, archived: true) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(<%= admin_index_helper %>)
+    end
+
+    it "updates archived" do
+      expect { action }.to(change { <%= class_name %>.not_archived.count }.by(2))
+    end
+  end
+
+  <%- end -%>
+  <%- if orderable? -%>
+  describe "PATCH /admin/<%= plural_name %>/order" do
+    let(:action) { patch <%= order_admin_helper %>, params: { order: params } }
+    let(:params) { { <%= plural_name %>: { first.id => { ordinal: 1 }, second.id => { ordinal: 0 } } } }
+    let(:first) { create(:<%= singular_name %>, ordinal: 0) }
+    let(:second) { create(:<%= singular_name %>, ordinal: 1) }
+
+    it_behaves_like "requires admin"
+
+    it "redirects back" do
+      action
+      expect(response).to redirect_to(<%= admin_index_helper %>)
+    end
+
+    it "updates ordinals" do
+      expect { action }.to change { first.reload.ordinal }.to(1)
+    end
+  end
+
+  <%- end -%>
+  describe "DELETE /admin/<%= plural_name %>/:id" do
+    let(:action) { delete <%= admin_show_helper %> }
+    let!(:<%= singular_name %>) { create(:<%= singular_name %>) }
+
+    it_behaves_like "requires admin"
+
+    <%- if !archivable? -%>
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(<%= admin_index_helper %>)
+    end
+
     it "deletes the <%= singular_name %>" do
       expect { action }.to change(<%= class_name %>, :count).by(-1)
     end
+    <%- else -%>
+    it "renders successfully" do
+      action
+      expect(response).to redirect_to(<%= admin_show_helper %>)
+    end
+
+    it "archives the <%= singular_name %>" do
+      expect { action }.to change { <%= singular_name %>.reload.archived }.to(true)
+    end
+
+    context "when admin is archived" do
+      let(:<%= singular_name %>) { create(:<%= singular_name %>, archived_at: 1.day.ago) }
+
+      it "renders successfully" do
+        action
+        expect(response).to redirect_to(<%= admin_index_helper %>)
+      end
+
+      it "deletes the <%= singular_name %>" do
+        <%= singular_name %>
+        expect { action }.to change(<%= class_name %>.with_archived, :count).by(-1)
+      end
+    end
+    <%- end -%>
   end
 end

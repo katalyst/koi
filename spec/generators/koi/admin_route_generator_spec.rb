@@ -87,11 +87,39 @@ RSpec.describe Koi::AdminRouteGenerator do
         set_shell_prompt_responses(gen, ask: "y")
       end
 
-      it { is_expected.to contain(<<-RUBY) }
-  namespace :nested do
-    resources :tests
-    resources :other
-  end
+      it { is_expected.to contain(<<~RUBY) }
+        namespace :admin do
+          namespace :nested do
+            resources :tests
+            resources :other
+          end
+        end
+      RUBY
+    end
+
+    context "when the module is archivable" do
+      let(:gen) { generator(%w(announcement)) }
+
+      it { is_expected.to contain(<<~RUBY) }
+        namespace :admin do
+          resources :announcements do
+            get :archived, on: :collection
+            put :archive, on: :collection
+            put :restore, on: :collection
+          end
+        end
+      RUBY
+    end
+
+    context "when the module is orderable" do
+      let(:gen) { generator(%w(banner)) }
+
+      it { is_expected.to contain(<<~RUBY) }
+        namespace :admin do
+          resources :banners do
+            patch :order, on: :collection
+          end
+        end
       RUBY
     end
   end

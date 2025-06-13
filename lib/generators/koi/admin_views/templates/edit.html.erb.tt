@@ -6,7 +6,7 @@
     <li><%%= link_to(<%= singular_name %>, <%= admin_show_helper %>) %></li>
   <%% end %>
 
-  <h1>Edit <%= singular_name %></h1>
+  <h1>Edit <%= human_name.downcase %></h1>
 
   <%%= actions_list do %>
     <%- if archivable? -%>

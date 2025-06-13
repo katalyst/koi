@@ -98,10 +98,16 @@ class Dummy < Thor
 
     inside("spec/dummy") do
       run <<~SH
-        rails g koi:model Announcement name:string title:string content:rich_text active:boolean published_on:date
+        rails g koi:model Announcement name:string title:string content:rich_text published_on:date archived_at:datetime
         rails g koi:model Banner name:string image:attachment ordinal:integer status:integer
       SH
+    end
 
+    insert_into_file("app/models/announcement.rb",
+                     "include Koi::Model::Archivable\n",
+                     after: "ApplicationRecord\n")
+
+    inside("spec/dummy") do
       run "rails db:migrate"
 
       run <<~SH
@@ -109,12 +115,6 @@ class Dummy < Thor
         rails g koi:admin Banner
       SH
     end
-
-    gsub_file("config/routes/admin.rb", "resources :banners\n", <<~RUBY)
-      resources :banners do
-        patch :order, on: :collection
-      end
-    RUBY
 
     Dir.glob(File.join(self.class.source_root, "**/*")).each do |file|
       copy_file(file[(self.class.source_root.size + 1)..], force: true) if File.file?(file)

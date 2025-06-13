@@ -1,15 +1,11 @@
 <%%# locals: (<%= singular_name %>:) %>
 
 <%% content_for(:header) do %>
-  <header class="page-header">
-    <div class="flow wrapper">
-      <%%= breadcrumb_list do %>
-        <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
-      <%% end %>
+  <%%= breadcrumb_list do %>
+    <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
+  <%% end %>
 
-      <h1 class="heading">New <%= singular_name %></h1>
-    </div>
-  </header>
+  <h1>New <%= human_name.downcase %></h1>
 <%% end %>
 
 <%%= render("form", <%= singular_name %>:) %>

@@ -71,6 +71,24 @@ module Koi
         )
         super
       end
+
+      # Create a collection select using an enum defined in the model.
+      #
+      # @api internal
+      # @see GOVUKDesignSystemFormBuilder::Builder#govuk_collection_select
+      def govuk_enum_select(attribute_name, **, &)
+        model       = object.class
+        enum_values = model.defined_enums[attribute_name.to_s].keys
+
+        govuk_collection_select(
+          attribute_name,
+          enum_values,
+          :itself,
+          ->(value) { model.human_attribute_name("#{attribute_name}.#{value}") },
+          **,
+          &
+        )
+      end
     end
   end
 end

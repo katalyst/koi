@@ -22,6 +22,8 @@ RSpec.describe "index/redirect" do
   it "can redirect to index via turbo" do
     visit edit_admin_announcement_path(announcement)
 
+    click_on "Archive"
+
     accept_confirm do
       click_on "Delete"
     end
