@@ -21,6 +21,9 @@ en:
         303: "See other (303)"
         307: "Temporary redirect (307)"
         308: "Permanent redirect (308)"
+      well_known/content_type:
+        text: "Plain text"
+        json: "JSON"
     errors:
       models:
         admin_user:

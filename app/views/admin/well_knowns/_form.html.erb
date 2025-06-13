@@ -1,0 +1,9 @@
+<%# locals: (well_known:) %>
+
+<%= form_with(model: well_known) do |form| %>
+  <%= form.govuk_text_field :name %>
+  <%= form.govuk_text_field :purpose %>
+  <%= form.govuk_enum_select :content_type %>
+  <%= form.govuk_text_field :content %>
+  <%= form.button(type: :submit, class: "button") %>
+<% end %>
