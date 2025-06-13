@@ -1,8 +1,8 @@
-<%# locals: (admin:) %>
+<%# locals: (admin_user:) %>
 
-<%= form_with(id:     dom_id(admin, :otp),
-              model:  admin,
-              url:    admin_admin_user_otp_path(admin),
+<%= form_with(id:     dom_id(admin_user, :otp),
+              model:  admin_user,
+              url:    admin_admin_user_otp_path(admin_user),
               method: :post,
               class:  "flow") do |form| %>
   <section class="flow prose">
@@ -15,8 +15,8 @@
     <ol class="flow">
       <li>Install an MFA app. Most password managers support MFA.</li>
       <li>Scan this code using your mobile device or password manager:<br>
-        <% otp_app_name = t("koi.auth.otp_app_name", host: URI.parse(root_url).host, email: admin.email) %>
-        <%== RQRCode::QRCode.new(admin.otp.provisioning_uri(otp_app_name)).as_svg(
+        <% otp_app_name = t("koi.auth.otp_app_name", host: URI.parse(root_url).host, email: admin_user.email) %>
+        <%== RQRCode::QRCode.new(admin_user.otp.provisioning_uri(otp_app_name)).as_svg(
                color:           "000",
                shape_rendering: "crispEdges",
                module_size:     3,

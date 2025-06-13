@@ -1,25 +1,27 @@
-<%# locals: (admin:) %>
+<%# locals: (admin_user:) %>
 
-<% content_for :header do %>
-  <%= render Koi::Header::ShowComponent.new(resource: admin) %>
-<% end %>
-
-<%= render Koi::SummaryTableComponent.new(model: admin, class: "item-table") do |builder| %>
-  <%= builder.text :name %>
-  <%= builder.text :email %>
-  <%= builder.date :created_at %>
-  <%= builder.date :last_sign_in_at, label: "Last sign in" %>
-  <%= builder.boolean :passkey %>
-  <%= builder.boolean :otp, label: "MFA" %>
-  <%= builder.boolean :archived? %>
-<% end %>
-
-<div class="actions">
-  <% if admin.archived? %>
-    <%= button_to "Delete", admin_admin_user_path(admin),
-                  class:  "button button--secondary",
-                  method: :delete,
-                  form:   { data: { turbo_confirm: "Are you sure?" } } %>
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Admin users", admin_admin_users_path) %></li>
   <% end %>
-  <%= button_to "Generate login link", admin_admin_user_tokens_path(admin), class: "button", form: { id: "invite" } %>
-</div>
+
+  <h1><%= admin_user %></h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("Edit", edit_admin_admin_user_path(admin_user)) %></li>
+  <% end %>
+<% end %>
+
+<%= summary_table_with(model: admin_user) do |row| %>
+  <% row.text :name %>
+  <% row.text :email %>
+  <% row.date :created_at %>
+  <% row.date :last_sign_in_at, label: "Last access" %>
+  <% row.boolean :passkey %>
+  <% row.boolean :otp, label: "MFA" %>
+  <% row.boolean :archived? %>
+<% end %>
+
+<% unless admin_user.archived? %>
+  <%= button_to "Generate login link", admin_admin_user_tokens_path(admin_user), class: "button", form: { id: "invite" } %>
+<% end %>

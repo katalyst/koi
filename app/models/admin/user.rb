@@ -6,8 +6,10 @@ module Admin
     include Koi::Model::OTP
 
     def self.model_name
-      ActiveModel::Name.new(self, nil, "Admin")
+      ActiveModel::Name.new(self, nil, "AdminUser")
     end
+
+    self.table_name = :admins
 
     # disable validations for password_digest
     has_secure_password validations: false
@@ -51,5 +53,9 @@ module Admin
       credentials.any?
     end
     alias passkey? passkey
+
+    def to_s
+      name
+    end
   end
 end

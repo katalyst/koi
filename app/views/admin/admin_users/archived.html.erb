@@ -1,7 +1,10 @@
-<% content_for :header do %>
-  <%= render Koi::Header::IndexComponent.new(model: Admin::User, title: "Archived") do |component| %>
-    <% component.with_breadcrumb "Admins", admin_admin_users_path %>
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Admin users", admin_admin_users_path) %></li>
   <% end %>
+  <h1>Archived</h1>
 <% end %>
 
 <%= table_query_with(collection:) %>

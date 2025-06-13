@@ -6,11 +6,7 @@
     <li><%= link_to(admin_user, admin_admin_user_path(admin_user)) %></li>
   <% end %>
 
-  <h1>Edit admin user</h1>
-
-  <%= actions_list do %>
-    <li><%= link_to_archive_or_delete(admin_user) %></li>
-  <% end %>
+  <h1>Edit profile</h1>
 <% end %>
 
 <%= render("form", admin_user:) %>

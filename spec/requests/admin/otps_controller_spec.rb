@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Admin::OtpsController do
   subject { action && response }
 
-  let(:admin) { create(:admin, otp_secret: nil) }
+  let(:admin) { create(:admin_user, otp_secret: nil) }
 
   include_context "with admin session"
 
@@ -34,7 +34,7 @@ RSpec.describe Admin::OtpsController do
       admin.otp_secret = ROTP::Base32.random
 
       post admin_admin_user_otp_path(admin),
-           params: { admin: { otp_secret: admin.otp_secret, token: admin.otp.now } },
+           params: { admin_user: { otp_secret: admin.otp_secret, token: admin.otp.now } },
            as:     :turbo_stream
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Admin::OtpsController do
         admin.otp_secret = ROTP::Base32.random
 
         post admin_admin_user_otp_path(admin),
-             params: { admin: { otp_secret: admin.otp_secret, token: "000000" } },
+             params: { admin_user: { otp_secret: admin.otp_secret, token: "000000" } },
              as:     :turbo_stream
       end
 
@@ -62,13 +62,13 @@ RSpec.describe Admin::OtpsController do
         action
         html = Nokogiri::HTML.fragment(response.body)
         root = Capybara::Node::Simple.new(html)
-        expect(root).to have_css("turbo-stream[action='replace'][target='otp_admin_#{admin.id}']")
+        expect(root).to have_css("turbo-stream[action='replace'][target='otp_admin_user_#{admin.id}']")
       end
 
       it "uses the same secret when re-rendering" do
         action
         html = Nokogiri::HTML.fragment(response.body)
-        secret = html.at_css("input[name='admin[otp_secret]']")
+        secret = html.at_css("input[name='admin_user[otp_secret]']")
         expect(secret.attributes["value"].value).to eq(admin.otp_secret)
       end
 
@@ -83,7 +83,7 @@ RSpec.describe Admin::OtpsController do
       delete admin_admin_user_otp_path(admin), as: :turbo_stream
     end
 
-    let(:admin) { create(:admin) }
+    let(:admin) { create(:admin_user) }
 
     it_behaves_like "requires admin"
 

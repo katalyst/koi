@@ -2,9 +2,9 @@
 
 module Admin
   class AdminUsersController < ApplicationController
-    before_action :set_admin, only: %i[show edit update destroy]
+    before_action :set_admin_user, only: %i[show edit update destroy]
 
-    attr_reader :admin
+    attr_reader :admin_user
 
     def index
       collection = Collection.new.with_params(params).apply(Admin::User.strict_loading)
@@ -19,34 +19,34 @@ module Admin
     end
 
     def show
-      render :show, locals: { admin: }
+      render locals: { admin_user: }
     end
 
     def new
-      @admin = Admin::User.new
+      @admin_user = Admin::User.new
 
-      render :new, locals: { admin: }
+      render locals: { admin_user: }
     end
 
     def edit
-      render :edit, locals: { admin: }
+      render :edit, locals: { admin_user: }
     end
 
     def create
-      admin = Admin::User.new(admin_user_params)
+      admin_user = Admin::User.new(admin_user_params)
 
-      if admin.save
-        redirect_to admin_admin_user_path(admin)
+      if admin_user.save
+        redirect_to admin_admin_user_path(admin_user)
       else
-        render :new, locals: { admin: }, status: :unprocessable_content
+        render :new, locals: { admin_user: }, status: :unprocessable_content
       end
     end
 
     def update
-      if admin.update(admin_user_params)
+      if admin_user.update(admin_user_params)
         redirect_to action: :show
       else
-        render :edit, locals: { admin: }, status: :unprocessable_content
+        render :edit, locals: { admin_user: }, status: :unprocessable_content
       end
     end
 
@@ -63,21 +63,27 @@ module Admin
     end
 
     def destroy
-      admin.destroy
+      if admin_user.archived?
+        admin_user.destroy!
 
-      redirect_to admin_admin_users_path
+        redirect_to admin_admin_users_path
+      else
+        admin_user.archive!
+
+        redirect_back_or_to(admin_admin_user_path(admin_user), status: :see_other)
+      end
     end
 
     private
 
-    def set_admin
-      @admin = Admin::User.with_archived.find(params[:id])
+    def set_admin_user
+      @admin_user = Admin::User.with_archived.find(params[:id])
 
-      request.variant << :self if @admin == current_admin_user
+      request.variant << :self if admin_user == current_admin_user
     end
 
     def admin_user_params
-      params.expect(admin: %i[name email password archived])
+      params.expect(admin_user: %i[name email password archived])
     end
 
     class Collection < Admin::Collection

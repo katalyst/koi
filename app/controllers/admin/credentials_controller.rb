@@ -6,25 +6,29 @@ module Admin
 
     before_action :set_admin_user
 
+    attr_reader :admin_user
+
     def new
-      unless @admin_user.webauthn_id
-        @admin_user.update!(webauthn_id: WebAuthn.generate_user_id)
+      unless admin_user.webauthn_id
+        admin_user.update!(webauthn_id: WebAuthn.generate_user_id)
       end
 
       options = webauthn_relying_party.options_for_registration(
         user:    {
-          id:           @admin_user.webauthn_id,
-          name:         @admin_user.email,
-          display_name: @admin_user.to_s,
+          id:           admin_user.webauthn_id,
+          name:         admin_user.email,
+          display_name: admin_user.name,
         },
-        exclude: @admin_user.credentials.map(&:external_id),
+        exclude: admin_user.credentials.map(&:external_id),
       )
 
       # Store the newly generated challenge somewhere so you can have it
       # for the verification phase.
       session[:creation_challenge] = options.challenge
 
-      render :new, locals: { admin: @admin_user, options: }
+      credential = admin_user.credentials.new
+
+      render locals: { admin_user:, credential:, options: }
     end
 
     def create
@@ -35,7 +39,7 @@ module Admin
         session.delete(:creation_challenge),
       )
 
-      credential = @admin_user.credentials.find_or_initialize_by(
+      credential = admin_user.credentials.find_or_initialize_by(
         external_id: webauthn_credential.id,
       )
 
@@ -46,18 +50,18 @@ module Admin
       )
 
       respond_to do |format|
-        format.html { redirect_to admin_admin_user_path(@admin_user), status: :see_other }
-        format.turbo_stream { render locals: { admin: @admin_user } }
+        format.html { redirect_to admin_admin_user_path(admin_user), status: :see_other }
+        format.turbo_stream { render locals: { admin_user: } }
       end
     end
 
     def destroy
-      credential = @admin_user.credentials.find(params[:id])
+      credential = admin_user.credentials.find(params[:id])
       credential.destroy!
 
       respond_to do |format|
-        format.html { redirect_to admin_admin_user_path(@admin_user), status: :see_other }
-        format.turbo_stream { render locals: { admin: @admin_user } }
+        format.html { redirect_to admin_admin_user_path(admin_user), status: :see_other }
+        format.turbo_stream { render locals: { admin_user: } }
       end
     end
 
@@ -70,7 +74,7 @@ module Admin
     def set_admin_user
       @admin_user = Admin::User.find(params[:admin_user_id])
 
-      if current_admin == @admin_user
+      if current_admin == admin_user
         request.variant = :self
       else
         head(:forbidden)

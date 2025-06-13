@@ -18,7 +18,7 @@ en:
   activerecord:
     errors:
       models:
-        admin:
+        admin_user:
           invalid: "Invalid login credentials"
   helpers:
     hint:

@@ -6,7 +6,7 @@ require "webauthn/fake_client"
 RSpec.describe Admin::CredentialsController do
   subject { action && response }
 
-  let(:admin) { create(:admin) }
+  let(:admin) { create(:admin_user) }
   let(:client) { WebAuthn::FakeClient.new(origin) }
   let(:origin) { "http://www.example.com" }
 
@@ -51,7 +51,7 @@ RSpec.describe Admin::CredentialsController do
       action
       html = Nokogiri::HTML.fragment(response.body)
       root = Capybara::Node::Simple.new(html)
-      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_#{admin.id}']")
+      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_user_#{admin.id}']")
     end
 
     it "creates an admin credential" do
@@ -77,7 +77,7 @@ RSpec.describe Admin::CredentialsController do
       action
       html = Nokogiri::HTML.fragment(response.body)
       root = Capybara::Node::Simple.new(html)
-      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_#{admin.id}']")
+      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_user_#{admin.id}']")
     end
 
     it "destroys an admin credential" do
