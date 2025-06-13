@@ -1,7 +1,12 @@
 <% content_for :header do %>
-  <%= render Koi::Header::ShowComponent.new(resource: menu, title: menu.title) do |component| %>
-    <% component.with_breadcrumb "Navigations", katalyst_navigation.menus_path %>
-    <% component.with_action "Edit", katalyst_navigation.edit_menu_path(menu) %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to "Navigations", katalyst_navigation.menus_path %></li>
+  <% end %>
+
+  <h1><%= menu.title %></h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("Edit", katalyst_navigation.edit_menu_path(menu)) %></li>
   <% end %>
 <% end %>
 

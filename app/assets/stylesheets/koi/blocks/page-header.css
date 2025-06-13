@@ -6,19 +6,20 @@
     padding-block: var(--gutter);
   }
 
-  .breadcrumbs,
-  .related {
+  .breadcrumbs-list,
+  .actions-list {
+    display: flex;
     gap: 0;
     align-items: baseline;
   }
 
-  .breadcrumbs > * + * {
+  .breadcrumbs-list > * + * {
     list-style-type: "›";
     margin-inline-start: 1.5ch;
     padding-inline-start: 0.75ch;
   }
 
-  .related > * + * {
+  .actions-list > * + * {
     list-style-type: "▪";
     margin-inline-start: 1.5ch;
     padding-inline-start: 0.5ch;

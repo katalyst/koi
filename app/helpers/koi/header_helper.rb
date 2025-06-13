@@ -21,7 +21,7 @@ module Koi
       return if (content = capture(&)).blank?
 
       tag.nav(**_koi_breadcrumbs_attributes(**)) do
-        tag.ol(content, role: "list")
+        tag.ol(content, class: "breadcrumbs-list", role: "list")
       end
     end
 
@@ -45,7 +45,7 @@ module Koi
       return if (content = capture(&)).blank?
 
       tag.nav(**_koi_actions_attributes(**)) do
-        tag.ul(content, role: "list")
+        tag.ul(content, class: "actions-list", role: "list")
       end
     end
 

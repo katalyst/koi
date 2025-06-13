@@ -1,22 +1,17 @@
-<% content_for :title, @title %>
-<header class="page-header">
-  <div class="flow wrapper">
-    <% if breadcrumbs? %>
-      <ul class="breadcrumbs | actions" role="list" aria-label="Breadcrumbs">
-        <% breadcrumbs.each_with_index do |breadcrumb, index| %>
-          <li><%= breadcrumb %></li>
-        <% end %>
-      </ul>
+<% if breadcrumbs? %>
+  <%= breadcrumb_list do %>
+    <% breadcrumbs.each do |breadcrumb| %>
+      <li><%= breadcrumb %></li>
     <% end %>
+  <% end %>
+<% end %>
 
-    <h1 class="heading"><%= @title %></h1>
+<h1><%= @title %></h1>
 
-    <% if actions? %>
-      <ul class="related | actions" role="list" aria-label="Related pages">
-        <% actions.each do |action| %>
-          <li><%= action %></li>
-        <% end %>
-      </ul>
+<% if actions? %>
+  <%= actions_list do %>
+    <% actions.each do |action| %>
+      <li><%= action %></li>
     <% end %>
-  </div>
-</header>
+  <% end %>
+<% end %>

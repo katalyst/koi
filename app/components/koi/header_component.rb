@@ -2,6 +2,8 @@
 
 module Koi
   class HeaderComponent < ViewComponent::Base
+    include HeaderHelper
+
     renders_many :actions, "LinkComponent"
     renders_many :breadcrumbs, "LinkComponent"
 
