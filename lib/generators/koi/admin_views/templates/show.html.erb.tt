@@ -5,7 +5,7 @@
     <li><%%= link_to("<%= human_name.pluralize.titleize %>", <%= admin_index_helper %>) %></li>
   <%% end %>
 
-  <h1><%= singular_name %></h1>
+  <h1><%%= <%= singular_name %> %></h1>
 
   <%%= actions_list do %>
     <li><%%= link_to("Edit", <%= edit_admin_helper %>) %></li>

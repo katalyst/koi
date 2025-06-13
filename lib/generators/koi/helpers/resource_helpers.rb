@@ -41,6 +41,14 @@ module Koi
         "#{plural_route_name}_#{type}"
       end
 
+      def archive_admin_helper(type: :path)
+        "archive_#{plural_route_name}_#{type}"
+      end
+
+      def archived_admin_helper(type: :path)
+        "archived_#{plural_route_name}_#{type}"
+      end
+
       def admin_show_helper(identifier = singular_name, type: :path)
         "#{singular_route_name}_#{type}(#{identifier})"
       end
@@ -49,12 +57,16 @@ module Koi
         "edit_#{admin_show_helper(identifier, type:)}"
       end
 
+      def new_admin_helper(type: :path)
+        "new_#{singular_route_name}_#{type}"
+      end
+
       def order_admin_helper(type: :path)
         "order_#{plural_route_name}_#{type}"
       end
 
-      def new_admin_helper(type: :path)
-        "new_#{singular_route_name}_#{type}"
+      def restore_admin_helper(type: :path)
+        "restore_#{plural_route_name}_#{type}"
       end
     end
   end

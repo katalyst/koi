@@ -49,7 +49,13 @@ module Koi
     end
 
     def default_sort_attribute
-      attributes.find { |attr| attr.type == :string }&.name
+      if orderable?
+        :ordinal
+      elsif (attribute = attributes.find { |attr| attr.type == :string })
+        attribute.name
+      else
+        attributes.first&.name
+      end
     end
   end
 end

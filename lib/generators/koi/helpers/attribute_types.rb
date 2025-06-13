@@ -141,7 +141,7 @@ module Koi
 
       class EnumType < Base
         def govuk_input
-          %(<%= form.collection_select :#{attribute.name} %>)
+          %(<%= form.govuk_enum_select :#{attribute.name} %>)
         end
 
         def index_row
@@ -151,9 +151,19 @@ module Koi
         def show_row
           %(<% row.enum :#{attribute.name} %>)
         end
+
+        def collection_attribute
+          %(attribute :#{attribute.name}, :enum)
+        end
       end
 
       class OrdinalType < Base
+      end
+
+      class ArchivedType < Base
+        def show_row
+          %(<% row.boolean :archived %>)
+        end
       end
 
       module GeneratedAttributeExtensions
@@ -195,6 +205,8 @@ module Koi
           EnumType.new(attribute)
         elsif attribute.name == "ordinal"
           OrdinalType.new(attribute)
+        elsif attribute.name == "archived_at"
+          ArchivedType.new(attribute)
         else
           TYPES.fetch(attribute.type, StringType).new(attribute)
         end

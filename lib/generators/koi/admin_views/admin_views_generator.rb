@@ -31,7 +31,14 @@ module Koi
     private
 
     def available_views
-      %w(index.html.erb edit.html.erb show.html.erb new.html.erb _form.html.erb)
+      [
+        "index.html.erb",
+        ("archived.html.erb" if archivable?),
+        "show.html.erb",
+        "new.html.erb",
+        "edit.html.erb",
+        "_form.html.erb",
+      ].compact
     end
   end
 end

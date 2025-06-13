@@ -47,7 +47,7 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<%= summary_table_with(model: example) do |row| %>" }
       it { is_expected.to contain "<% row.text :title %>" }
       it { is_expected.to contain "<% row.rich_text :description %>" }
-      it { is_expected.to contain "<% row.datetime :archived_at %>" }
+      it { is_expected.to contain "<% row.boolean :archived %>" }
       it { is_expected.to contain "<% row.link :announcement %>" }
     end
 
@@ -57,7 +57,6 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<%= table_with(collection:) do |row, example| %>" }
       it { is_expected.to contain "<% row.ordinal unless collection.filtered? %>" }
       it { is_expected.to contain "<% row.link :title %>" }
-      it { is_expected.to contain "<% row.datetime :archived_at %>" }
     end
   end
 
@@ -73,6 +72,7 @@ RSpec.describe Koi::AdminViewsGenerator do
       expect(output.lines.grep(/create/).map { |l| l.split.last }).to contain_exactly(
         "app/views/admin/announcements",
         "app/views/admin/announcements/index.html.erb",
+        "app/views/admin/announcements/archived.html.erb",
         "app/views/admin/announcements/edit.html.erb",
         "app/views/admin/announcements/show.html.erb",
         "app/views/admin/announcements/new.html.erb",
@@ -87,17 +87,26 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.text :name %>" }
       it { is_expected.to contain "<% row.text :title %>" }
       it { is_expected.to contain "<% row.rich_text :content %>" }
-      it { is_expected.to contain "<% row.boolean :active %>" }
+      it { is_expected.to contain "<% row.boolean :archived %>" }
       it { is_expected.to contain "<% row.date :published_on %>" }
     end
 
     describe "views/admin/announcements/index.html.erb" do
       subject { file("app/views/admin/announcements/index.html.erb") }
 
-      it { is_expected.to contain "<% row.link :name %>" } # First attribute is always a link
+      it { is_expected.to contain "<% row.link :name %>" }
       it { is_expected.to contain "<% row.text :title %>" }
-      it { is_expected.to contain "<% row.boolean :active %>" }
       it { is_expected.to contain "<% row.date :published_on %>" }
+      it { is_expected.not_to contain /:archived/ }
+    end
+
+    describe "views/admin/announcements/archived.html.erb" do
+      subject { file("app/views/admin/announcements/archived.html.erb") }
+
+      it { is_expected.to contain "<% row.link :name %>" }
+      it { is_expected.to contain "<% row.text :title %>" }
+      it { is_expected.to contain "<% row.date :published_on %>" }
+      it { is_expected.not_to contain /:archived/ }
     end
   end
 
@@ -126,13 +135,13 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.ordinal unless collection.filtered? %>" }
       it { is_expected.to contain "<% row.link :name %>" }
       it { is_expected.to contain "<% row.enum :status %>" }
-      it { is_expected.not_to contain /image/ }
+      it { is_expected.not_to contain /:image/ }
     end
 
     describe "views/admin/banners/show.html.erb" do
       subject { file("app/views/admin/banners/show.html.erb") }
 
-      it { is_expected.not_to contain /ordinal/ }
+      it { is_expected.not_to contain /row.ordinal/ }
       it { is_expected.to contain "<% row.text :name %>" }
       it { is_expected.to contain "<% row.enum :status %>" }
       it { is_expected.to contain "<% row.attachment :image %>" }

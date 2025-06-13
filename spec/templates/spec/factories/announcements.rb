@@ -5,7 +5,6 @@ FactoryBot.define do
     name { Faker::Book.author }
     title { Faker::Book.title }
     content { Faker::HTML.sandwich }
-    active { true }
     published_on { Faker::Date.backward }
   end
 end

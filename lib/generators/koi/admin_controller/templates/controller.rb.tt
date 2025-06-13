@@ -6,10 +6,18 @@ class <%= controller_class_name %>Controller < ApplicationController
   attr_reader :collection, :<%= singular_name %>
 
   def index
-    @collection = Collection.new.with_params(params).apply(::<%= class_name %>.strict_loading.all)
+    @collection = Collection.new.with_params(params).apply(<%= class_name %>.strict_loading.all)
 
     render locals: { collection: }
   end
+
+  <%- if archivable? -%>
+  def archived
+    collection = Collection.new.with_params(params).apply(<%= class_name %>.archived.strict_loading)
+
+    render locals: { collection: }
+  end
+  <%- end -%>
 
   def show
     render locals: { <%= singular_name %>: }
@@ -43,16 +51,56 @@ class <%= controller_class_name %>Controller < ApplicationController
     end
   end
 
+  <%- if archivable? -%>
+  def archive
+    <%= class_name %>.where(id: params[:id]).each(&:archive!)
+
+    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+  end
+
+  def restore
+    <%= class_name %>.archived.where(id: params[:id]).each(&:restore!)
+
+    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+  end
+  <%- end -%>
+
+  <%- if orderable? -%>
+  def order
+    order_params[:<%= table_name %>].each do |id, attrs|
+      <%= class_name %>.find(id).update(attrs)
+    end
+
+    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+  end
+  <%- end -%>
+
   def destroy
+    <%- if archivable? -%>
+    if <%= singular_name %>.archived?
+      <%= singular_name %>.destroy!
+
+      redirect_to <%= admin_index_helper %>, status: :see_other
+    else
+      <%= singular_name %>.archive!
+
+      redirect_back_or_to(<%= admin_show_helper %>, status: :see_other)
+    end
+    <%- else -%>
     @<%= singular_name %>.destroy!
 
     redirect_to <%= admin_index_helper %>, status: :see_other
+    <%- end -%>
   end
 
   private
 
   def set_<%= singular_name %>
+    <%- if archivable? -%>
+    @<%= singular_name %> = ::<%= class_name %>.with_archived.find(params[:id])
+    <%- else -%>
     @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+    <%- end -%>
   end
 
   def <%= "#{singular_table_name}_params" %>
@@ -62,6 +110,12 @@ class <%= controller_class_name %>Controller < ApplicationController
     params.expect(<%= singular_table_name %>: [<%= permitted_params %>])
     <%- end -%>
   end
+
+  <%- if orderable? -%>
+  def order_params
+    params.expect(order: { <%= table_name %>: [[:ordinal]] })
+  end
+  <%- end -%>
 
   class Collection < Admin::Collection
     config.sorting  = :<%= default_sort_attribute %>

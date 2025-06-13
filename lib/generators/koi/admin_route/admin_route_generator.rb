@@ -22,7 +22,17 @@ module Koi
     end
 
     def add_route
-      route "resources :#{file_name.pluralize}", namespace: regular_class_path
+      route "resources :#{file_name.pluralize}"
+
+      if orderable?
+        resource_route "patch :order, on: :collection"
+      end
+
+      if archivable?
+        resource_route "put :restore, on: :collection"
+        resource_route "put :archive, on: :collection"
+        resource_route "get :archived, on: :collection"
+      end
     end
 
     def create_navigation
@@ -61,7 +71,7 @@ module Koi
 
     # See Rails::Generators::Actions
     # Replaces hard-coded route with admin route file
-    def route(routing_code, namespace: nil)
+    def route(routing_code, namespace: regular_class_path)
       namespace         = Array(namespace)
       namespace_pattern = route_namespace_pattern(namespace)
       routing_code      = namespace.reverse.reduce(routing_code) do |code, name|
@@ -82,16 +92,52 @@ module Koi
       end
     end
 
+    def resource_route(routing_code, namespace: regular_class_path, resource: "resources :#{file_name.pluralize}")
+      namespace        = Array(namespace)
+      resource_pattern = route_namespace_pattern(namespace, resource)
+      block_pattern    = /#{resource_pattern}( do)?\n/
+
+      log :route, routing_code
+
+      in_root do
+        resource_match = match_file(route_file, block_pattern)
+
+        if resource_match.captures.last.nil?
+          *, current_indent = resource_match.captures.compact.map(&:length)
+          inject_into_file route_file, " do\n#{' ' * current_indent}end",
+                           after:   resource_pattern,
+                           verbose: false,
+                           force:   false
+        end
+
+        resource_match = match_file(route_file, block_pattern)
+
+        *, existing_block_indent, _ = resource_match.captures.compact.map(&:length)
+        routing_code = rebase_indentation(routing_code, existing_block_indent + 2)
+
+        inject_into_file route_file, routing_code, after: block_pattern, verbose: true, force: false
+      end
+    end
+
     # See Rails::Generators::Actions
     # Replaces Routes.draw with namespace :admin as the search term
-    def route_namespace_pattern(namespace)
-      namespace.each_with_index.reverse_each.reduce(nil) do |pattern, (name, i)|
+    def route_namespace_pattern(namespace, resource = nil)
+      seed = resource ? route_resource_pattern(namespace, resource) : nil
+
+      namespace.each_with_index.reverse_each.reduce(seed) do |pattern, (name, i)|
         cummulative_margin     = "\\#{i + 1}[ ]{2}"
         blank_or_indented_line = "^[ ]*\n|^#{cummulative_margin}.*\n"
         "(?:(?:#{blank_or_indented_line})*?^(#{cummulative_margin})namespace :#{name} do\n#{pattern})?"
       end.then do |pattern|
         /^( *)namespace :admin do\n#{pattern}/
       end
+    end
+
+    # Generate a regex for the resource block at the appropriate level of nesting
+    def route_resource_pattern(namespace, resource)
+      cummulative_margin     = "\\#{namespace.count + 1}[ ]{2}"
+      blank_or_indented_line = "^[ ]*\n|^#{cummulative_margin}.*\n"
+      "(?:(?:#{blank_or_indented_line})*?^(#{cummulative_margin})#{resource})"
     end
 
     def route_file
