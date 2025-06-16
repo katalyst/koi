@@ -9,6 +9,8 @@ module Koi
 
     config_accessor(:admin_name) { "Koi" }
 
+    config_accessor(:authenticate_local_admins) { Rails.env.development? }
+
     config_accessor(:resource_name_candidates) { %i[title name] }
 
     config_accessor(:admin_stylesheet) { "admin" }

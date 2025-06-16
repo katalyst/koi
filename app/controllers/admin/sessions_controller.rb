@@ -6,7 +6,7 @@ module Admin
     include Koi::Controller::RecordsAuthentication
 
     before_action :redirect_authenticated, only: %i[new], if: :admin_signed_in?
-    before_action :authenticate_local_admin, only: %i[new], if: :authenticate_local_admins?
+    before_action :authenticate_local_admin, only: %i[new], if: -> { Koi.config.authenticate_local_admins? }
 
     layout "koi/login"
 
@@ -92,6 +92,17 @@ module Admin
 
     def redirect_authenticated
       redirect_to(admin_dashboard_path, status: :see_other)
+    end
+
+    def authenticate_local_admin
+      return if admin_signed_in? || !Rails.env.development?
+
+      session[:admin_user_id] =
+        Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first&.id
+
+      flash.delete(:redirect) if (redirect = flash[:redirect])
+
+      redirect_to(redirect || admin_dashboard_path, status: :see_other)
     end
 
     def admin_sign_in(admin_user)

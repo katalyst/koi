@@ -2,6 +2,7 @@
 
 module Koi
   module IndexActionsHelper
+    # @deprecated to be removed in Koi 5
     def koi_index_actions(search: false, create: false, &)
       IndexActionsBuilder.new(self, search:, create:).render(&)
     end
