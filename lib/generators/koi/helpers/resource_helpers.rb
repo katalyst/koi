@@ -10,8 +10,40 @@ module Koi
       included do
         include Rails::Generators::ResourceHelpers
 
-        def controller_class_path
-          ["admin"] + super
+        private
+
+        def assign_controller_names!(name)
+          super
+          @controller_class_path = ["admin", *@controller_class_path]
+        end
+
+        def class_name
+          candidate = (class_path + [file_name]).map!(&:camelize).join("::")
+          if class_path_overlap.any?
+            "::#{candidate}"
+          else
+            candidate
+          end
+        end
+
+        def singular_route_name
+          parts = controller_class_path
+
+          # Gradually remove suffix parts from the prefix if they appear at the beginning of singular_table_name
+          (0..parts.count).detect do |n|
+            trial = parts.drop(n).join("_")
+            return "#{parts.take(n).join('_')}_#{singular_table_name}" if singular_table_name.start_with?(trial)
+          end
+        end
+
+        def plural_route_name
+          parts = controller_class_path
+
+          # Gradually remove suffix parts from the prefix if they appear at the beginning of plural_table_name
+          (0..parts.count).detect do |n|
+            trial = parts.drop(n).join("_")
+            return "#{parts.take(n).join('_')}_#{plural_table_name}" if plural_table_name.start_with?(trial)
+          end
         end
       end
 
@@ -31,6 +63,10 @@ module Koi
 
       def selectable?
         archivable?
+      end
+
+      def sortable?
+        default_sort_attribute.present?
       end
 
       def query?
@@ -67,6 +103,18 @@ module Koi
 
       def restore_admin_helper(type: :path)
         "restore_#{plural_route_name}_#{type}"
+      end
+
+      def class_path_overlap(controller = controller_class_path, model = class_path)
+        return [] unless controller.present? && model.present?
+
+        limit = [controller.size, model.size].min
+
+        (1..limit).reverse_each do |size|
+          return model.slice(0...size) if controller.slice(size - 1..-1) == model.slice(0...size)
+        end
+
+        []
       end
     end
   end

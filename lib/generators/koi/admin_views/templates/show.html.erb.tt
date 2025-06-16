@@ -13,7 +13,7 @@
 <%% end %>
 
 <%%= summary_table_with(model: <%= singular_name %>) do |row| %>
-  <%- attributes.each do |attribute| -%>
+<%- show_attributes.each do |attribute| -%>
   <%= show_attribute_for(attribute) %>
-  <%- end -%>
+<%- end -%>
 <%% end %>

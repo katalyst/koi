@@ -28,7 +28,7 @@
   <%% row.ordinal unless collection.filtered? %>
   <%- end -%>
   <%- if selectable? -%>
-    <%% row.select %>
+  <%% row.select %>
   <%- end -%>
   <%- index_attributes.each_with_index do |attribute, index| -%>
   <%- if index.zero? -%>

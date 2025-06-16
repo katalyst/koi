@@ -33,6 +33,12 @@ module Koi
         end
       end
 
+      def initialize(args, *options)
+        super
+
+        load_attributes! if attributes.empty?
+      end
+
       def govuk_input_for(attribute)
         AttributeTypes.for(attribute).govuk_input
       end
@@ -50,13 +56,21 @@ module Koi
       end
 
       def index_attributes
-        attributes
+        attributes.select { |attribute| index_attribute_for(attribute).present? }
       end
 
-      def initialize(args, *options)
-        super
+      def show_attributes
+        attributes.select { |attribute| show_attribute_for(attribute).present? }
+      end
 
-        load_attributes! if attributes.empty?
+      def default_sort_attribute
+        if orderable?
+          :ordinal
+        elsif (attribute = attributes.find { |attr| attr.type == :string })
+          attribute.name
+        else
+          attributes.first&.name
+        end
       end
 
       private
@@ -108,6 +122,11 @@ module Koi
             association:,
           )
         end
+      end
+
+      def attachments?(name)
+        attribute = attributes.find { |attr| attr.name == name }
+        attribute&.attachments?
       end
 
       def internal_column?(name)

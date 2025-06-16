@@ -14,6 +14,8 @@ module Koi
 
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
+    class_option :force, type: :boolean, default: true
+
     def create_root_folder
       empty_directory File.join("app/views", controller_file_path)
     end

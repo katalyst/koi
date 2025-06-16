@@ -145,6 +145,13 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.text :name %>" }
       it { is_expected.to contain "<% row.enum :status %>" }
       it { is_expected.to contain "<% row.attachment :image %>" }
+      it { is_expected.to contain(<<~ERB) }
+        <%= summary_table_with(model: banner) do |row| %>
+          <% row.text :name %>
+          <% row.enum :status %>
+          <% row.attachment :image %>
+        <% end %>
+      ERB
     end
   end
 end

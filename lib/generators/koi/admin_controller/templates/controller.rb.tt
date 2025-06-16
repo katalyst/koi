@@ -6,14 +6,18 @@ class <%= controller_class_name %>Controller < ApplicationController
   attr_reader :collection, :<%= singular_name %>
 
   def index
-    @collection = Collection.new.with_params(params).apply(<%= class_name %>.strict_loading.all)
+    <%- if archivable? -%>
+    @collection = Collection.with_params(params).apply(<%= class_name %>.not_archived.strict_loading)
+    <%- else -%>
+    @collection = Collection.with_params(params).apply(<%= class_name %>.strict_loading)
+    <%- end -%>
 
     render locals: { collection: }
   end
 
   <%- if archivable? -%>
   def archived
-    collection = Collection.new.with_params(params).apply(<%= class_name %>.archived.strict_loading)
+    collection = Collection.with_params(params).apply(<%= class_name %>.archived.strict_loading)
 
     render locals: { collection: }
   end
@@ -36,7 +40,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def create
     @<%= singular_name %> = <%= class_name %>.new(<%= singular_table_name %>_params)
 
-    if @<%= singular_name %>.save
+    if <%= singular_name %>.save
       redirect_to <%= admin_show_helper %>, status: :see_other
     else
       render :new, locals: { <%= singular_name %>: }, status: :unprocessable_content
@@ -87,7 +91,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       redirect_back_or_to(<%= admin_show_helper %>, status: :see_other)
     end
     <%- else -%>
-    @<%= singular_name %>.destroy!
+    <%= singular_name %>.destroy!
 
     redirect_to <%= admin_index_helper %>, status: :see_other
     <%- end -%>
@@ -97,9 +101,9 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   def set_<%= singular_name %>
     <%- if archivable? -%>
-    @<%= singular_name %> = ::<%= class_name %>.with_archived.find(params[:id])
+    @<%= singular_name %> = <%= class_name %>.with_archived.find(params[:id])
     <%- else -%>
-    @<%= singular_name %> = ::<%= class_name %>.find(params[:id])
+    @<%= singular_name %> = <%= class_name %>.find(params[:id])
     <%- end -%>
   end
 
@@ -118,7 +122,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   <%- end -%>
 
   class Collection < Admin::Collection
+    <%- if sortable? %>
     config.sorting  = :<%= default_sort_attribute %>
+    <%- end -%>
     <%- if paginate? -%>
     config.paginate = true
     <%- end -%>

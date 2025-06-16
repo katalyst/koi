@@ -15,6 +15,8 @@ module Koi
 
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
+    class_option :force, type: :boolean, default: true
+
     def create_routes
       return if Pathname.new(destination_root).join("config/routes/admin.rb").exist?
 

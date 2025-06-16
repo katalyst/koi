@@ -17,6 +17,8 @@ module Koi
 
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
+    class_option :force, type: :boolean, default: true
+
     def create_controller_files
       template("controller.rb",
                File.join("app/controllers",
@@ -41,21 +43,6 @@ module Koi
       params              = others.map { |name| ":#{name}" }
       params += attachments.map { |name| "#{name}: []" }
       params.join(", ")
-    end
-
-    def attachments?(name)
-      attribute = attributes.find { |attr| attr.name == name }
-      attribute&.attachments?
-    end
-
-    def default_sort_attribute
-      if orderable?
-        :ordinal
-      elsif (attribute = attributes.find { |attr| attr.type == :string })
-        attribute.name
-      else
-        attributes.first&.name
-      end
     end
   end
 end
