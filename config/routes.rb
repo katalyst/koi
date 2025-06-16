@@ -30,5 +30,5 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "flipper" if Object.const_defined?("Flipper::UI")
   end
 
-  resources :well_knowns, path: ".well-known", param: :name, only: %i[show], name: /[^\/]+/
+  resources :well_knowns, path: ".well-known", param: :name, only: %i[show], name: /.+/
 end
