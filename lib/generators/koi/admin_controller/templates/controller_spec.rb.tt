@@ -175,7 +175,7 @@ RSpec.describe <%= controller_class_name %>Controller do
       expect(response).to redirect_to(<%= admin_index_helper %>)
     end
 
-    it "deletes the <%= singular_name %>" do
+    it "deletes the <%= human_name %>" do
       expect { action }.to change(<%= class_name %>, :count).by(-1)
     end
     <%- else -%>
@@ -184,11 +184,11 @@ RSpec.describe <%= controller_class_name %>Controller do
       expect(response).to redirect_to(<%= admin_show_helper %>)
     end
 
-    it "archives the <%= singular_name %>" do
+    it "archives the <%= human_name %>" do
       expect { action }.to change { <%= singular_name %>.reload.archived }.to(true)
     end
 
-    context "when admin is archived" do
+    context "when the <%= human_name %> is archived" do
       let(:<%= singular_name %>) { create(:<%= singular_name %>, archived_at: 1.day.ago) }
 
       it "renders successfully" do
@@ -196,7 +196,7 @@ RSpec.describe <%= controller_class_name %>Controller do
         expect(response).to redirect_to(<%= admin_index_helper %>)
       end
 
-      it "deletes the <%= singular_name %>" do
+      it "deletes the <%= human_name %>" do
         <%= singular_name %>
         expect { action }.to change(<%= class_name %>.with_archived, :count).by(-1)
       end

@@ -163,7 +163,7 @@ RSpec.describe Admin::AdminUsersController do
       expect { action }.to change { admin_user.reload.archived }.to(true)
     end
 
-    context "when admin is archived" do
+    context "when the admin is archived" do
       let(:admin_user) { create(:admin_user, archived_at: 1.day.ago) }
 
       it "renders successfully" do
