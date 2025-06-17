@@ -25,6 +25,7 @@
   <%= index_attribute_for attribute %>
   <%- end -%>
   <%- end -%>
+  <%% row.date :archived_at %>
 <%% end %>
 
 <%- if paginate? -%>
