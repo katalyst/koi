@@ -24,6 +24,7 @@ module Koi
       # Koi Helpers
       helper FormHelper
       helper HeaderHelper
+      helper ModalHelper
       helper Pagy::Frontend
 
       # @deprecated to be removed in Koi 5
