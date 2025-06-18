@@ -4,7 +4,6 @@ require "rails/generators/named_base"
 
 module Koi
   class AdminGenerator < Rails::Generators::NamedBase
-
     class_option :force, type: :boolean, default: true
 
     hook_for :admin_controller, in: :koi, as: :admin, type: :boolean, default: true do |instance, controller|

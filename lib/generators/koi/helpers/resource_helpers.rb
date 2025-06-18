@@ -111,7 +111,7 @@ module Koi
         limit = [controller.size, model.size].min
 
         (1..limit).reverse_each do |size|
-          return model.slice(0...size) if controller.slice(size - 1..-1) == model.slice(0...size)
+          return model.slice(0...size) if controller.slice((size - 1)..-1) == model.slice(0...size)
         end
 
         []
