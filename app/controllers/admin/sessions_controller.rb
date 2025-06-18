@@ -6,7 +6,7 @@ module Admin
     include Koi::Controller::RecordsAuthentication
 
     before_action :redirect_authenticated, only: %i[new], if: :admin_signed_in?
-    before_action :authenticate_local_admin, only: %i[new], if: -> { Koi.config.authenticate_local_admins? }
+    before_action :authenticate_local_admin, only: %i[new], if: -> { Koi.config.authenticate_local_admins }
 
     layout "koi/login"
 
