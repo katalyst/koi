@@ -18,11 +18,12 @@ module Koi
       tag.header(class: "repel", data: "nowrap") do
         concat(tag.h2(title))
         concat(tag.button(
-          form:       form_id,
-          formmethod: "dialog",
-          class:      "button",
-          data:       { button_padding: "tight",
-                        "text-button":  "" },
+          class: "button",
+          data:  {
+            action:         "koi--modal#dismiss",
+            button_padding: "tight",
+            "text-button":  "",
+          },
         ) do
           tag.icon("&nbsp;".html_safe, aria: { hidden: true }, class: "icon", data: { icon: "close" }) +
             tag.span("Close", class: "visually-hidden")
