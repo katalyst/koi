@@ -41,7 +41,7 @@
         content: "";
         display: block;
         grid-area: input;
-        border-color: var(--site-text-color);
+        border-color: var(--color-dark);
         border-style: solid;
       }
 
