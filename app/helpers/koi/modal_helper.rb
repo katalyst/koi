@@ -14,7 +14,7 @@ module Koi
       end
     end
 
-    def koi_modal_header(title:, form_id:, **)
+    def koi_modal_header(title:, **)
       tag.header(class: "repel", data: "nowrap") do
         concat(tag.h2(title))
         concat(tag.button(
