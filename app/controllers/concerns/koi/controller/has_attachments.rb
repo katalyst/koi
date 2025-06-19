@@ -14,7 +14,7 @@ module Koi
       #       if @document.save
       #         redirect_to [:admin, @document], status: :see_other
       #       else
-      #         store_attachments(@document)
+      #         save_attachments!(@document)
       #         render :new, status: :unprocessable_content
       #       end
       #     end
