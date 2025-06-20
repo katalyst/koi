@@ -1,3 +1,9 @@
 .govuk-textarea--error:not(:focus-visible) {
   border-color: var(--govuk-error-color);
 }
+
+.govuk-textarea {
+  min-height: calc(
+    var(--size-step-0) * var(--leading-fine) * 5 + var(--space-3xs) * 2
+  );
+}

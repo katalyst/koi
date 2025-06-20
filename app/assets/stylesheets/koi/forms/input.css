@@ -1,9 +1,8 @@
 :is(
-  input:not([type="checkbox"], [type="radio"], [type="color"], [type="button"]),
-  select,
-  textarea,
-  trix-editor
-) {
+  input:not([type="checkbox"], [type="radio"], [type="color"], [type="button"])
+),
+:is(select, textarea),
+trix-editor {
   background: var(--color-light);
   border-radius: var(--input-radius);
   border: var(--stroke-input);
@@ -31,11 +30,13 @@
   }
 }
 
-:is(input, select, textarea) {
+:is(input, select, textarea, .govuk-richtextarea),
+trix-editor {
   accent-color: var(--color-primary);
 }
 
-:is(textarea, trix-editor) {
+:is(textarea),
+trix-editor {
   resize: vertical;
   line-height: var(--leading-fine);
 }
