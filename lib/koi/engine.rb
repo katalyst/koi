@@ -24,6 +24,12 @@ module Koi
       g.factory_bot dir: "spec/factories"
     end
 
+    initializer "koi.autoload", before: :setup_once_autoloader do
+      %w[lib/katalyst-koi.rb lib/generators lib/tasks].each do |path|
+        Rails.autoloaders.once.ignore File.expand_path(root.join(path))
+      end
+    end
+
     initializer "koi.assets" do |app|
       app.config.after_initialize do |_|
         if app.config.respond_to?(:assets)

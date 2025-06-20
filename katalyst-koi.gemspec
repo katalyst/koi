@@ -12,9 +12,8 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
   s.required_ruby_version = ">= 3.4"
 
-  s.files         = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
-                      .grep_v(%r{^lib/tasks})
-  s.require_paths = ["lib"]
+  s.files = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
+              .grep_v(%r{^lib/tasks})
   s.metadata["rubygems_mfa_required"] = "true"
 
   s.add_dependency "rails", ">= 8.0"
