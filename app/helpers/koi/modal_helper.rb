@@ -52,11 +52,12 @@ module Koi
 
     def _koi_modal_dialog_attributes(attributes)
       {
-        class: "modal",
-        data:  {
+        class:    "modal",
+        closedby: "any",
+        data:     {
           modal_target: "dialog",
           action:       %w[
-            click->modal#click
+            mousedown->modal#outside
             close->modal#dismiss
           ],
         },

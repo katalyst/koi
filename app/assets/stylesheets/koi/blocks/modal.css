@@ -3,11 +3,13 @@
   --modal-width: 80%;
   --modal-max-width: 36rem;
   --modal-max-height: 27rem;
-  --modal-padding: var(--space-s);
+  --modal-padding: var(--space-m);
 
   container-type: inline-size;
   padding: 0;
   width: var(--modal-width);
+  border: none; var(--stroke-input);
+  border-radius: var(--radius-m);
 
   max-width: min(
     calc(100svw - 2 * var(--modal-gutter)),
@@ -23,4 +25,5 @@
 
 .modal::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
 }
