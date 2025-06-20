@@ -13,6 +13,7 @@ module Koi
       default_form_builder "Koi::FormBuilder"
       default_table_component "Koi::TableComponent"
       default_table_query_component "Koi::TableQueryComponent"
+      default_table_pagination_component "Koi::PagyNavComponent"
       default_summary_table_component "Koi::SummaryTableComponent"
 
       # Dependency helpers
