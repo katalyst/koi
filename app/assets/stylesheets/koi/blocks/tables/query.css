@@ -24,10 +24,11 @@
     display: block;
     position: absolute;
     appearance: none;
-    top: 6px;
-    right: 6px;
+    top: var(--space-3xs);
+    right: var(--space-3xs);
+    bottom: var(--space-3xs);
+    max-height: 1.75rem;
     width: auto;
-    height: 1.75rem;
     min-width: 1.5rem;
     text-align: center;
     font-size: 0;
@@ -36,7 +37,7 @@
     padding: 0;
     line-height: 1;
     border-radius: 4px;
-    border: 1px solid #aaa;
+    border: 1px solid var(--color-mid);
     color: var(--color-mid);
 
     /* shows keyboard shortcut when not active */
