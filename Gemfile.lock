@@ -220,7 +220,7 @@ GEM
       activerecord
       katalyst-html-attributes
       view_component
-    katalyst-govuk-formbuilder (1.19.0)
+    katalyst-govuk-formbuilder (1.20.0)
       govuk_design_system_formbuilder (>= 5.8.0)
     katalyst-html-attributes (1.1.1)
       activesupport

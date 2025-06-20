@@ -2,7 +2,7 @@
 
 require "importmap-rails"
 require "katalyst/content"
-require "katalyst/govuk/formbuilder"
+require "katalyst-govuk-formbuilder"
 require "katalyst/navigation"
 require "katalyst/tables"
 require "pagy"
@@ -39,10 +39,6 @@ module Koi
 
     initializer "koi.factories", after: "factory_bot.set_factory_paths" do
       FactoryBot.definition_file_paths << root.join("spec/factories") if defined?(FactoryBot)
-    end
-
-    initializer "koi.forms" do
-      GOVUKDesignSystemFormBuilder::Builder.include(Koi::Form::GOVUKExtensions)
     end
 
     initializer "koi.importmap", before: "importmap" do |app|
