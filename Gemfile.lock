@@ -215,9 +215,10 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (3.0.0.alpha.6)
+    katalyst-content (3.0.0.alpha.7)
       active_storage_validations
       activerecord
+      katalyst-govuk-formbuilder
       katalyst-html-attributes
       view_component
     katalyst-govuk-formbuilder (1.20.0)
