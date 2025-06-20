@@ -26,11 +26,21 @@ RuboCop::Katalyst::ErbLintTask.new
 require "rubocop/katalyst/prettier_task"
 RuboCop::Katalyst::PrettierTask.new
 
+namespace :yarn do
+  desc "Compile javascript"
+  task build: :environment do
+    sh "yarn build"
+  end
+end
+
+desc "Compile assets"
+task build: ["yarn:build"]
+
 desc "Run security checks"
 task security: :environment do
   sh "bundle exec brakeman -q -w2"
 end
 
-task default: %i[lint spec security] do
+task default: %i[lint build spec security] do
   puts "🎉 build complete! 🎉"
 end

@@ -1,5 +1,13 @@
 {
+  "main": "app/assets/builds/katalyst/koi.js",
+  "scripts": {
+    "build": "yarn exec rollup -- -c",
+    "clean": "rm -rf app/assets/builds/*"
+  },
   "devDependencies": {
-    "prettier": "^3.5.3"
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "prettier": "^3.2.5",
+    "rollup": "^4.34.9"
   }
 }

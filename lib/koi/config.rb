@@ -15,6 +15,8 @@ module Koi
 
     config_accessor(:admin_stylesheet) { "admin" }
 
+    config_accessor(:admin_javascript_entry_point) { "@katalyst/koi" }
+
     config_accessor(:document_mime_types) do
       %w[image/png image/gif image/jpeg image/webp application/pdf audio/*].freeze
     end

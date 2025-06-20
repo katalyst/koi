@@ -8,5 +8,8 @@ pkg
 /.rakeTasks
 /node_modules
 
+# generated build files
+/app/assets/builds
+
 # dummy app is generated
 /spec/dummy

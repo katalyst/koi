@@ -33,7 +33,7 @@ module Koi
     initializer "koi.assets" do |app|
       app.config.after_initialize do |_|
         if app.config.respond_to?(:assets)
-          app.config.assets.precompile += %w(koi.js)
+          app.config.assets.precompile += %w(katalyst/koi.js)
         end
       end
     end
@@ -49,7 +49,7 @@ module Koi
 
     initializer "koi.importmap", before: "importmap" do |app|
       app.config.importmap.paths << root.join("config/importmap.rb")
-      app.config.importmap.cache_sweepers << root.join("app/assets/javascripts")
+      app.config.importmap.cache_sweepers << root.join("app/assets/builds")
     end
 
     initializer "koi.middleware" do |app|

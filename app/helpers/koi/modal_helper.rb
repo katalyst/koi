@@ -20,7 +20,7 @@ module Koi
         concat(tag.button(
           class: "button",
           data:  {
-            action:         "koi--modal#dismiss",
+            action:         "modal#dismiss",
             button_padding: "tight",
             "text-button":  "",
           },
@@ -46,7 +46,7 @@ module Koi
 
     def _koi_modal_frame_attributes(attributes)
       {
-        data: { controller: "koi--modal" },
+        data: { controller: "modal" },
       }.merge_html(attributes)
     end
 
@@ -54,10 +54,10 @@ module Koi
       {
         class: "modal",
         data:  {
-          koi__modal_target: "dialog",
-          action:            %w[
-            click->koi--modal#click
-            close->koi--modal#dismiss
+          modal_target: "dialog",
+          action:       %w[
+            click->modal#click
+            close->modal#dismiss
           ],
         },
       }.merge_html(attributes)

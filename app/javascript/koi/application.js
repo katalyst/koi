@@ -3,8 +3,8 @@ import { initAll } from "@katalyst/govuk-formbuilder";
 import "@rails/actiontext";
 import "trix";
 
-import "koi/controllers";
-import "koi/elements";
+import "./controllers";
+import "./elements";
 
 /** Let GOVUK know that we've got JS enabled */
 window.addEventListener("turbo:load", () => {
