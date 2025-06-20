@@ -1,0 +1,81 @@
+@import url("/hotwire_combobox.css");
+
+.hw-combobox:has(.govuk-combobox) {
+  --hw-border-radius: var(--input-radius);
+  --hw-border-width--slim: var(--stroke-input-width);
+  --hw-border-color: var(--color-dark);
+  --hw-focus-color: var(--focus-color);
+  --hw-combobox-width: 100%;
+  --hw-combobox-width--multiple: 100%;
+  --hw-active-bg-color: var(--color-primary);
+  --hw-padding--slimmer: var(--space-3xs);
+  --hw-padding--slim: var(--space-3xs);
+  --hw-padding--thick: var(--space-3xs);
+  --hw-font-size: var(--size-step-0);
+  --hw-line-height: var(--leading-fine);
+
+  display: flex;
+
+  .hw-combobox__main__wrapper {
+    display: flex;
+    min-height: var(--input-size);
+    align-items: center;
+  }
+
+  .hw-combobox__main__wrapper:focus-within {
+    outline: var(--focus-outline);
+    outline-offset: 0;
+    box-shadow: var(--focus-shadow);
+  }
+
+  .govuk-combobox {
+    /* override input styles from form / govuk */
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 0;
+    height: unset;
+    min-height: unset;
+  }
+
+  /* disabled */
+  &:has(.govuk-combobox:disabled) {
+    opacity: 0.5;
+    color: inherit;
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+
+  /* extend existing hover/active styles (--hw-active-bg-color) */
+  .hw-combobox__option:hover,
+  .hw-combobox__option--navigated,
+  .hw-combobox__option--selected {
+    color: var(--color-light);
+  }
+
+  .hw-combobox__dialog__input {
+    width: 100%;
+  }
+
+  .hw-combobox__listbox {
+    left: calc(-1 * var(--stroke-input-width));
+    right: calc(-1 * var(--stroke-input-width));
+    top: calc(100% + var(--stroke-input-width) * 2);
+    width: unset;
+  }
+
+  .hw-combobox__chip {
+    border: var(--stroke-input);
+    background-color: var(--color-tint);
+    border-radius: var(--radius-s);
+  }
+}
+
+.govuk-combobox--error {
+  border-color: var(--govuk-error-color);
+
+  .hw-combobox__main__wrapper:focus-within {
+    border: var(--stroke-input);
+  }
+}
