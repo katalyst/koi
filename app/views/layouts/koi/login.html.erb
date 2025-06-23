@@ -18,7 +18,7 @@
   <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
 
   <!-- SCRIPTS -->
-  <%= javascript_importmap_tags "koi/admin" %>
+  <%= javascript_importmap_tags Koi.config.admin_javascript_entry_point %>
 </head>
 <body>
 <main class="cover" data-centered>
