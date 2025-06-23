@@ -8,7 +8,7 @@
   container-type: inline-size;
   padding: 0;
   width: var(--modal-width);
-  border: none; var(--stroke-input);
+  border: none;
   border-radius: var(--radius-m);
 
   max-width: min(

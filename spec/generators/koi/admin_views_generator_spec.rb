@@ -106,7 +106,7 @@ RSpec.describe Koi::AdminViewsGenerator do
       it { is_expected.to contain "<% row.link :name %>" }
       it { is_expected.to contain "<% row.text :title %>" }
       it { is_expected.to contain "<% row.date :published_on %>" }
-      it { is_expected.not_to contain /:archived/ }
+      it { is_expected.to contain "<% row.date :archived_at %>" }
     end
   end
 

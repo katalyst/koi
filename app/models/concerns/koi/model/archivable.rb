@@ -24,11 +24,11 @@ module Koi
 
         default_scope { not_archived }
 
-        alias_method :archived?, :archived
+        alias_method :archived, :archived?
       end
 
-      # Returns true iff the record has been archived.
-      def archived
+      # @return true if the record has been archived.
+      def archived?
         archived_at.present?
       end
 

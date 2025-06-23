@@ -8,6 +8,17 @@ module Koi
   module Helpers
     module AttributeHelpers
       extend ActiveSupport::Concern
+      included do
+        private
+
+        def parse_attributes!
+          if attributes.none? && model_class && model_class < ActiveRecord::Base
+            load_attributes!
+          else
+            super
+          end
+        end
+      end
 
       class IntrospectedAttribute < Rails::Generators::GeneratedAttribute
         attr_reader :association, :attachment, :enum
@@ -31,12 +42,6 @@ module Koi
         def enum?
           @enum.present?
         end
-      end
-
-      def initialize(args, *options)
-        super
-
-        load_attributes! if attributes.empty?
       end
 
       def govuk_input_for(attribute)
@@ -80,8 +85,6 @@ module Koi
       end
 
       def load_attributes!
-        return unless model_class && model_class < ActiveRecord::Base
-
         load_basic_attributes!
         load_attachment_attributes!
         load_rich_text_attributes!

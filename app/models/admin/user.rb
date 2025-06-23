@@ -49,10 +49,10 @@ module Admin
       end
     end
 
-    def passkey
+    def passkey?
       credentials.any?
     end
-    alias passkey? passkey
+    alias passkey passkey?
 
     def to_s
       name

@@ -17,9 +17,17 @@ module Koi
           @controller_class_path = ["admin", *@controller_class_path]
         end
 
+        def controller_class_path
+          if options[:model_name] || @controller_class_path
+            @controller_class_path
+          else
+            class_path
+          end
+        end
+
         def class_name
           candidate = (class_path + [file_name]).map!(&:camelize).join("::")
-          if class_path_overlap.any?
+          if @controller_class_path && class_path_overlap.any?
             "::#{candidate}"
           else
             candidate

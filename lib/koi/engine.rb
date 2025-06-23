@@ -15,6 +15,7 @@ require "webauthn"
 module Koi
   class Engine < ::Rails::Engine
     engine_name "koi"
+    isolate_namespace Koi
     config.eager_load_namespaces << Koi
     config.paths.add("lib", autoload_once: true, exclude: %w[lib/generators lib/tasks])
 

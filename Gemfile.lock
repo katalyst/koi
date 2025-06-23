@@ -215,7 +215,7 @@ GEM
       base64
     katalyst-basic-auth (0.5.0)
       rack
-    katalyst-content (3.0.0.alpha.7)
+    katalyst-content (3.0.0.beta.1)
       active_storage_validations
       activerecord
       katalyst-govuk-formbuilder
@@ -226,7 +226,7 @@ GEM
     katalyst-html-attributes (1.1.1)
       activesupport
       html-attributes-utils
-    katalyst-navigation (2.0.0)
+    katalyst-navigation (2.0.4)
       katalyst-html-attributes
       katalyst-tables
       view_component
@@ -245,14 +245,14 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
-    matrix (0.4.2)
+    matrix (0.4.3)
     method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
       logger
     mini_mime (1.1.5)
     minitest (5.25.5)
-    net-imap (0.5.8)
+    net-imap (0.5.9)
       date
       net-protocol
     net-pop (0.1.2)
@@ -342,7 +342,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
-    rdoc (6.14.0)
+    rdoc (6.14.1)
       erb
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
@@ -362,7 +362,7 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (8.0.0)
+    rspec-rails (8.0.1)
       actionpack (>= 7.2)
       activesupport (>= 7.2)
       railties (>= 7.2)
@@ -371,7 +371,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
-    rubocop (1.76.2)
+    rubocop (1.77.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
