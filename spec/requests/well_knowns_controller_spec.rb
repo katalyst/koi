@@ -36,5 +36,14 @@ RSpec.describe WellKnownsController do
         expect(response.body).to eq(well_known.content)
       end
     end
+
+    context "when resource does not exist" do
+      let(:well_known) { build(:well_known) }
+
+      it "returns not found" do
+        action
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end

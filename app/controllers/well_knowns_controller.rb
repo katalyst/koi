@@ -3,13 +3,19 @@
 class WellKnownsController < ApplicationController
   before_action :set_well_known
 
+  attr_reader :well_known
+
   def show
-    render renderable: @well_known
+    if well_known.present?
+      render renderable: @well_known
+    else
+      head :not_found
+    end
   end
 
   private
 
   def set_well_known
-    @well_known = WellKnown.find_by!(name: params[:name])
+    @well_known = WellKnown.find_by(name: params[:name])
   end
 end
