@@ -26,6 +26,9 @@ import SluggableController from "./sluggable_controller";
 import WebauthnAuthenticationController from "./webauthn_authentication_controller";
 import WebauthnRegistrationController from "./webauthn_registration_controller";
 
+// Third party controllers
+import HwComboboxController from "controllers/hw_combobox_controller";
+
 const Definitions = [
   {
     identifier: "clipboard",
@@ -38,6 +41,10 @@ const Definitions = [
   {
     identifier: "form-request-submit",
     controllerConstructor: FormRequestSubmitController,
+  },
+  {
+    identifier: "hw-combobox",
+    controllerConstructor: HwComboboxController,
   },
   {
     identifier: "index-actions",
