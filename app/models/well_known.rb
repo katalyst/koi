@@ -22,4 +22,8 @@ class WellKnown < ApplicationRecord
   def format
     content_type.to_sym
   end
+
+  def to_s
+    name
+  end
 end
