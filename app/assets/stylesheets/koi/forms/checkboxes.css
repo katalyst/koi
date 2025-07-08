@@ -32,6 +32,8 @@
   grid-area: input;
   margin-block-start: calc(-0.5 * var(--input-size));
   translate: 0 calc(var(--stroke-input-width) + 0.25 * var(--input-size));
+  /* Firefox fix - unable to calculate baseline from dynamic height */
+  min-height: var(--input-size);
 }
 
 .govuk-checkboxes__item::after {
