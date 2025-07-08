@@ -1,9 +1,0 @@
-<header>
-  <h2 class="site-name"><%= URI.parse(root_url).host %></h2>
-  <%# show username on nav header and Koi Admin on login page %>
-  <% if local_assigns[:admin].present? %>
-    <%= link_to admin.name, main_app.admin_admin_user_path(admin), class: "admin-name" %>
-  <% else %>
-    <h3 class="admin-name">Koi Admin</h3>
-  <% end %>
-</header>
