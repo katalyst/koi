@@ -4,23 +4,25 @@
     grid-template-areas: "logo header" "logo site-name";
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto;
-    column-gap: var(--space-m);
-  }
+    column-gap: var(--space-s);
 
-  h1 {
-    grid-area: header;
-    font-weight: var(--font-light);
-  }
+    .icon {
+      --scale: 4;
+      --offset: 2px;
+      grid-area: logo;
+      align-self: center;
+    }
 
-  h2 {
-    grid-area: site-name;
-    font-weight: var(--font-medium);
-    font-size: var(--size-m);
-  }
+    h1 {
+      grid-area: header;
+      font-weight: var(--font-bold);
+    }
 
-  img {
-    max-height: 4rem;
-    grid-area: logo;
-    align-self: center;
+    h2 {
+      grid-area: site-name;
+      font-weight: var(--font-medium);
+      font-size: var(--size-step-1);
+      color: var(--color-mid);
+    }
   }
 }

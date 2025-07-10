@@ -6,7 +6,7 @@
   <!-- title -->
   <title><%= Koi.config.admin_name %><%= " - #{yield :title}" if content_for? :title %></title>
 
-  <!-- META -->
+  <!-- meta -->
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=0.6667">
@@ -17,10 +17,13 @@
   <meta name="turbo-refresh-scroll" content="preserve">
   <%= yield :head %>
 
-  <!-- STYLES -->
+  <!-- icons -->
+  <link rel="icon" sizes="any" type="image/svg+xml" href="<%= path_to_image("koi/logo.svg") %>">
+
+  <!-- styles -->
   <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
 
-  <!-- SCRIPTS -->
+  <!-- scripts -->
   <%= javascript_importmap_tags Koi.config.admin_javascript_entry_point %>
 </head>
 <body data-controller="keyboard"
