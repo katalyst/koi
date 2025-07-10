@@ -5,8 +5,14 @@ form:not([class]),
     margin-top: var(--flow-space, var(--space-m));
   }
 
+  /* if the first element in the form is hidden, create negative space to consume the next child's flow margin */
   &:has(> [type="hidden"]:first-child) {
     margin-top: calc(-1 * var(--flow-space, var(--space-m)));
+  }
+
+  /* if we're flowing ourselves then removing our flow margin is sufficient */
+  .flow > * + &:has(> [type="hidden"]:first-child) {
+    margin-top: 0;
   }
 }
 
