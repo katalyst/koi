@@ -8,7 +8,13 @@
   mask: url("icons/close.svg");
 }
 
+[data-icon="fingerprint"] {
+  -webkit-mask: url("icons/fingerprint.svg");
+  mask: url("icons/fingerprint.svg");
+}
+
 [data-icon="koi"] {
-  -webkit-mask: url("koi.png") center/cover no-repeat;
-  mask: url("koi.png") center/cover no-repeat;
+  -webkit-mask: url("logo.svg");
+  mask: url("logo.svg");
+  color: var(--color-brand);
 }
