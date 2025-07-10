@@ -3,6 +3,7 @@
         data-action="shortcut:go@document->navigation#toggle
           navigation:toggle@document->navigation#toggle
           shortcut:nav-toggle@document->navigation#toggle
+          turbo:before-cache@document->navigation#close
           turbo:before-morph-attribute->navigation#onMorphAttribute
           click->navigation#click">
   <nav aria-label="Main menu" role="navigation" class="flow">
