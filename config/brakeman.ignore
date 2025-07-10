@@ -1,0 +1,27 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 7,
+      "fingerprint": "bffc2950c37b9c59fe52697d8d7c5c859c70ca98dd67f33cf8e522bdcc4bff33",
+      "check_name": "ForgerySetting",
+      "message": "`protect_from_forgery` should be called in `Admin::ApplicationController`",
+      "file": "app/controllers/admin/application_controller.rb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
+      "code": null,
+      "render_path": null,
+      "location": {
+        "type": "controller",
+        "controller": "Admin::ApplicationController"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        352
+      ],
+      "note": "Koi::Controller includes protect_from_forgery with: :exception"
+    }
+  ],
+  "brakeman_version": "7.0.2"
+}
