@@ -15,5 +15,5 @@
   <%= form.govuk_text_field :title %>
   <%= form.govuk_text_field :slug %>
   <%= form.govuk_text_field :depth %>
-  <%= form.button(type: :submit, class: "button") %>
+  <%= form.button(type: :submit, class: "button", name: :commit, value: :save) %>
 <% end %>
