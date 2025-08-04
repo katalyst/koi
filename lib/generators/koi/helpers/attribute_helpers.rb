@@ -8,6 +8,7 @@ module Koi
   module Helpers
     module AttributeHelpers
       extend ActiveSupport::Concern
+
       included do
         private
 
