@@ -2,7 +2,6 @@ select {
   line-height: var(--leading-fine);
   min-width: 11.5em;
   max-width: 100%;
-  height: var(--input-size);
   background-color: var(--color-light);
 }
 
