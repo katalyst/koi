@@ -214,7 +214,7 @@ GEM
     jwt (2.10.2)
       base64
     katalyst-basic-auth (1.0.0)
-    katalyst-content (3.0.0)
+    katalyst-content (3.0.3)
       active_storage_validations
       activerecord
       katalyst-govuk-formbuilder
