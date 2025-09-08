@@ -97,8 +97,11 @@ module Admin
     def authenticate_local_admin
       return if admin_signed_in? || !Rails.env.development?
 
-      session[:admin_user_id] =
-        Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first&.id
+      @current_admin_user = Admin::User.find_by(email: "#{ENV.fetch('USER', nil)}@katalyst.com.au")
+
+      return unless admin_signed_in?
+
+      session[:admin_user_id] = current_admin_user.id
 
       flash.delete(:redirect) if (redirect = flash[:redirect])
 
