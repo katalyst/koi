@@ -15,10 +15,6 @@ class WellKnown < ApplicationRecord
     where(arel_table[:name].matches("%#{query}%"))
   end
 
-  def render_in(view_context)
-    view_context.render(plain: content)
-  end
-
   def format
     content_type.to_sym
   end

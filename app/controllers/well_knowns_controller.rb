@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
-class WellKnownsController < ApplicationController
-  before_action :set_well_known
-
-  attr_reader :well_known
-
+class WellKnownsController < ActionController::API
   def show
-    if well_known.present?
-      render renderable: @well_known
+    well_known = WellKnown.find_by(name: params[:name])
+
+    case well_known&.format
+    when :text
+      render plain: well_known.content
+    when :json
+      render json: well_known.content
     else
       head :not_found
     end
-  end
-
-  private
-
-  def set_well_known
-    @well_known = WellKnown.find_by(name: params[:name])
   end
 end
