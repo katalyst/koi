@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WellKnownsController < ApplicationController
+class WellKnownsController < ActionController::Base
   before_action :set_well_known
 
   attr_reader :well_known
