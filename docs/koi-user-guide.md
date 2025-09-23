@@ -7,6 +7,9 @@ This guide explains how to use Koi to build consistent administration areas in c
 - **Setting up a project:** see [`koi-setup-guide.md`](./koi-setup-guide.md) for end-to-end bootstrap steps (template workflow and retrofit path).
 - **Managing admin users:** see [`user-management.md`](./user-management.md) for provisioning, authentication options, and day-to-day maintenance tasks.
 - **Building admin modules:** see [`admin-module-workflow.md`](./admin-module-workflow.md) for the full generator-driven process and advanced tips on ordering, archiving, and regeneration.
+- **Working with Koi Content:** see [`content.md`](./content.md) for wiring the editor, preview workflow, and frontend rendering helpers.
+- **Archiving modules:** see [`archiving.md`](./archiving.md) for soft-delete conventions, UI wiring, and testing expectations.
+- **Serving CMS pages at root:** see [`root-level-page-routing.md`](./root-level-page-routing.md) for exposing `Page` slugs at `/slug` while keeping previews behind admin sessions.
 
 ## What Koi Provides (and What It Does Not)
 
