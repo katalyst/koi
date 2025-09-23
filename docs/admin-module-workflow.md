@@ -125,6 +125,8 @@ Including `Koi::Model::Archivable` in the model adds the `archived_at` scope and
 - The index view adds a bulk archive action and a link to the archived list (`lib/generators/koi/admin_views/templates/index.html.erb.tt:21`).
 - Destroy actions archive first, then delete once already archived (`lib/generators/koi/admin_controller/templates/controller.rb.tt:64`).
 
+Finish the setup by following the dedicated archiving guide (`archiving.md`) for form wiring, strong parameters, UI surfacing, and testing expectations. That guide captures the manual steps discovered while building the Pages module.
+
 ## Navigation Registration
 
 Every admin module is added to `Koi::Menu.modules` with a label derived from the namespace and model name. The generator rewrites the initializer block, keeping entries alphabetical (`lib/generators/koi/admin_route/admin_route_generator.rb:46`). Move the item into groups or submenus by editing `config/initializers/koi.rb` after generation. Because this lives in an initializer, restart the app (or reload Spring) before expecting the navigation dialog to pick up changes.
