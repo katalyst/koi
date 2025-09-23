@@ -154,13 +154,14 @@ This walkthrough assumes you already have a `Page` model with title/slug attribu
          @page = scope.find(params[:id])
        end
 
-       def fallback_version
-         @page.draft_version || @page.build_draft_version
-       end
-     end
-     ```
+   def fallback_version
+     @page.draft_version || @page.build_draft_version
+   end
+ end
+  ```
 
    - **Verification:** visit the public page and confirm blocks render respecting heading styles, themes, and visibility toggles. The status bar’s “Published/Preview” links should now resolve without overrides.
+   - **Need root-level slugs?** Follow the [`root-level-page-routing.md`](./root-level-page-routing.md) pattern to serve published pages at `/slug` while keeping previews admin-only.
 
 ## Built-in Content Types
 Koi registers the default block set from the engine (`Katalyst::Content.config.items`):

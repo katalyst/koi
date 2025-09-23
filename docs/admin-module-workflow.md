@@ -141,6 +141,7 @@ Every admin module is added to `Koi::Menu.modules` with a label derived from the
 - **Override form layouts** using ViewComponents or partials if you need multi-column layouts—just ensure the submit buttons continue to call `form.admin_save` so styles remain consistent.
 - **Additional actions** go inside the controller and can be surfaced in the header via `actions_list`.
 - **Non-standard inputs** (e.g., slug sync, toggles) can hook into existing Stimulus controllers such as `sluggable` or `show-hide`.
+- **Front-end routes** – when marketing pages should appear at `/slug` instead of `/pages/slug`, use the [`root-level-page-routing.md`](./root-level-page-routing.md) constraint pattern after scaffolding the public controller.
 
 ## Generator Reference
 

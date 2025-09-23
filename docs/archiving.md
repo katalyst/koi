@@ -6,7 +6,7 @@ Use this guide whenever you scaffold or retrofit a module that supports soft del
 
 When the schema contains an `archived_at` column _and_ the model mixes in `Koi::Model::Archivable` (add the concern before running `koi:admin`, or rerun the generator afterward so it picks up the capability):
 
-- `koi:model` inserts the concern include and keeps `archived_at` in the migration.
+- `koi:model` keeps `archived_at` in the migration but, as of Koi 5.0.3, does **not** insert `include Koi::Model::Archivable`; add the concern manually (before running `koi:admin`) so the admin generator can detect the capability.
 - `koi:admin` generates:
   - Bulk archive tooling on the index (`table_selection_with` + `Archive` button) and an `Archived` tab.
   - Controller actions `archive`, `restore`, and `archived`, plus the `destroy` behaviour that archives first, then hard-deletes once already archived.
@@ -49,6 +49,7 @@ When the schema contains an `archived_at` column _and_ the model mixes in `Koi::
    end
    ```
    Then render the published/draft versions in a controller (`render_content(page.published_version)` / `page.draft_version`) so `url_for(container)` resolves correctly. Without these routes, the status bar raises “undefined method `page_path`” and its links break.
+   If the site needs `/slug` URLs without the `/pages` prefix, layer on the constraint workflow in [`root-level-page-routing.md`](./root-level-page-routing.md).
 
 ## Typical Admin Workflow
 
