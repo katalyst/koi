@@ -18,7 +18,7 @@ jobs:
           cache: yarn
       - name: Setup
         run: |
-          bin/setup
+          bin/setup --skip-server
       - name: Test
         run: |
           bundle exec rake

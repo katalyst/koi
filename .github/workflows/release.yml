@@ -24,7 +24,7 @@ jobs:
           cache: yarn
       - name: Setup
         run: |
-          bin/setup
+          bin/setup --skip-server
       - uses: rubygems/release-gem@v1
       - name: Create GitHub release
         run: |
