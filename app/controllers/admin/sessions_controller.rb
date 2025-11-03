@@ -102,7 +102,7 @@ module Admin
 
       flash.delete(:redirect) if (redirect = flash[:redirect])
 
-      redirect_to(redirect || admin_dashboard_path, status: :see_other)
+      redirect_to(redirect || admin_dashboard_path, status: :see_other) if session[:admin_user_id]
     end
 
     def admin_sign_in(admin_user)
