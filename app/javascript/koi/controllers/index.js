@@ -14,14 +14,11 @@ application.load(tables);
 
 import ClipboardController from "./clipboard_controller";
 import FlashController from "./flash_controller";
-import FormRequestSubmitController from "./form_request_submit_controller";
-import IndexActionsController from "./index_actions_controller";
 import KeyboardController from "./keyboard_controller";
 import ModalController from "./modal_controller";
 import NavigationController from "./navigation_controller";
 import NavigationToggleController from "./navigation_toggle_controller";
 import PagyNavController from "./pagy_nav_controller";
-import ShowHideController from "./show_hide_controller";
 import SluggableController from "./sluggable_controller";
 import WebauthnAuthenticationController from "./webauthn_authentication_controller";
 import WebauthnRegistrationController from "./webauthn_registration_controller";
@@ -34,14 +31,6 @@ const Definitions = [
   {
     identifier: "flash",
     controllerConstructor: FlashController,
-  },
-  {
-    identifier: "form-request-submit",
-    controllerConstructor: FormRequestSubmitController,
-  },
-  {
-    identifier: "index-actions",
-    controllerConstructor: IndexActionsController,
   },
   {
     identifier: "keyboard",
@@ -62,10 +51,6 @@ const Definitions = [
   {
     identifier: "pagy-nav",
     controllerConstructor: PagyNavController,
-  },
-  {
-    identifier: "show-hide",
-    controllerConstructor: ShowHideController,
   },
   {
     identifier: "sluggable",

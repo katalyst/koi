@@ -9,10 +9,3 @@
   width: 1px;
   white-space: nowrap;
 }
-
-/* data-controller="show-hide" */
-[data-collapsed] {
-  max-height: 0;
-  overflow: hidden;
-  margin-bottom: 0 !important;
-}

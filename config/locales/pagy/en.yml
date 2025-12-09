@@ -1,0 +1,24 @@
+en:
+  pagy:
+    p11n: 'OneOther'
+    aria_label:
+      nav:
+        one: "Pagination"
+        other: "Pagination"
+      prev: "Previous page"
+      previous: "Previous page" # @deprecated
+      next: "Next page"
+    prev: "←&nbsp;&nbsp;Previous" # @deprecated
+    previous: "←&nbsp;&nbsp;Previous"
+    next: "Next&nbsp;&nbsp;→"
+    gap: "&hellip;"
+    item_name:
+      one: "item"
+      other: "items"
+    info_tag:
+      no_count: "Page %{page} of %{pages}"
+      no_items: "No %{item_name} found"
+      single_page: "Displaying %{count} %{item_name}"
+      multiple_pages: "Displaying %{item_name} %{from}-%{to} of %{count} in total"
+    input_nav_js: "Page %{page_input} of %{pages}"
+    limit_tag_js: "Show %{limit_input} %{item_name} per page"

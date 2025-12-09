@@ -64,7 +64,12 @@ module Koi
     end
 
     initializer "koi.pagination" do
-      Pagy::I18n.load(locale: "en", filepath: root.join("config/locales/pagy.en.yml"))
+      if Pagy::I18n.respond_to?(:pathnames)
+        Pagy::I18n.pathnames << root.join("config/locales/pagy")
+      else
+        # @deprecated support for Pagy <43
+        Pagy::I18n.load(locale: "en", filepath: root.join("config/locales/pagy/en.yml"))
+      end
     end
 
     initializer "koi.views" do

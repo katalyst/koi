@@ -63,7 +63,7 @@ RSpec.describe "index/filtering" do
 
       click_on "Next"
 
-      expect(page).to have_current_path("/admin/announcements?q=#{query}&page=2")
+      expect(page).to have_current_path("/admin/announcements?q=#{query}&search=#{query}&page=2")
       expect(page).to have_css("[name=q]", text: query)
     end
   end

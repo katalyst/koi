@@ -1,4 +1,5 @@
-.pagy.nav {
+.pagy.nav,
+.pagy.series-nav {
   /* Configuration */
   --button-padding: 0.5em 1em;
   --button-gap: 0.5em;
