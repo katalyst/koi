@@ -24,7 +24,7 @@ module Admin
 
         respond_to do |format|
           format.html { redirect_to admin_admin_user_path(admin_user), status: :see_other }
-          format.turbo_stream { render locals: { admin_user: }, status: :unprocessable_entity }
+          format.turbo_stream { render locals: { admin_user: }, status: :unprocessable_content }
         end
       end
     end

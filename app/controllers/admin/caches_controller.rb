@@ -5,7 +5,7 @@ module Admin
     def destroy
       Rails.logger.warn("[CACHE CLEAR] - Cleaning entire cache manually by #{current_admin} request")
       Rails.cache.clear
-      redirect_back(fallback_location: admin_dashboard_path)
+      redirect_back_or_to(admin_dashboard_path)
     end
   end
 end

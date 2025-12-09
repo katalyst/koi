@@ -41,9 +41,9 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_name %> = <%= class_name %>.new(<%= singular_table_name %>_params)
 
     if <%= singular_name %>.save
-      redirect_to <%= admin_show_helper %>, status: :see_other
+      redirect_to(<%= admin_show_helper %>, status: :see_other)
     else
-      render :new, locals: { <%= singular_name %>: }, status: :unprocessable_content
+      render(:new, locals: { <%= singular_name %>: }, status: :unprocessable_content)
     end
   end
 
@@ -51,7 +51,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     if <%= singular_name %>.update(<%= singular_table_name %>_params)
       redirect_to <%= admin_show_helper %>, status: :see_other
     else
-      render :edit, locals: { <%= singular_name %>: }, status: :unprocessable_content
+      render(:edit, locals: { <%= singular_name %>: }, status: :unprocessable_content)
     end
   end
 
@@ -59,13 +59,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   def archive
     <%= class_name %>.where(id: params[:id]).each(&:archive!)
 
-    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+    redirect_back_or_to(<%= admin_index_helper %>, status: :see_other)
   end
 
   def restore
     <%= class_name %>.archived.where(id: params[:id]).each(&:restore!)
 
-    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+    redirect_back_or_to(<%= admin_index_helper %>, status: :see_other)
   end
   <%- end -%>
 
@@ -75,7 +75,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       <%= class_name %>.find(id).update(attrs)
     end
 
-    redirect_back(fallback_location: <%= admin_index_helper %>, status: :see_other)
+    redirect_back_or_to(<%= admin_index_helper %>, status: :see_other)
   end
   <%- end -%>
 
@@ -84,7 +84,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     if <%= singular_name %>.archived?
       <%= singular_name %>.destroy!
 
-      redirect_to <%= admin_index_helper %>, status: :see_other
+      redirect_to(<%= admin_index_helper %>, status: :see_other)
     else
       <%= singular_name %>.archive!
 
@@ -93,7 +93,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     <%- else -%>
     <%= singular_name %>.destroy!
 
-    redirect_to <%= admin_index_helper %>, status: :see_other
+    redirect_to(<%= admin_index_helper %>, status: :see_other)
     <%- end -%>
   end
 
