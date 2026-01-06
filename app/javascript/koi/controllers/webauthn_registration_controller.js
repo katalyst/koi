@@ -1,14 +1,9 @@
 import { Controller } from "@hotwired/stimulus";
 
-import {
-  create,
-  parseCreationOptionsFromJSON,
-} from "@github/webauthn-json/browser-ponyfill";
-
 export default class WebauthnRegistrationController extends Controller {
   static values = {
     options: Object,
-    response: String,
+    response: Object,
   };
   static targets = ["intro", "nickname", "response"];
 
@@ -18,15 +13,15 @@ export default class WebauthnRegistrationController extends Controller {
       e.submitter.formMethod !== "dialog"
     ) {
       e.preventDefault();
-      this.createCredential();
+      this.createCredential().then();
     }
   }
 
   async createCredential() {
-    const response = await create(this.options);
+    const credential = await navigator.credentials.create(this.options);
 
-    this.responseValue = JSON.stringify(response);
-    this.responseTarget.value = JSON.stringify(response);
+    this.responseValue = credential.toJSON();
+    this.responseTarget.value = JSON.stringify(credential.toJSON());
   }
 
   responseValueChanged(response) {
@@ -36,6 +31,10 @@ export default class WebauthnRegistrationController extends Controller {
   }
 
   get options() {
-    return parseCreationOptionsFromJSON(this.optionsValue);
+    return {
+      publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(
+        this.optionsValue.publicKey,
+      ),
+    };
   }
 }
