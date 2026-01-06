@@ -18,6 +18,9 @@ module Admin
 
     has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
 
+    attribute :password_login, :string
+    enum :password_login, { none: "none", password_only: "password_only", mfa: "mfa" }, prefix: true
+
     validates :name, :email, presence: true
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
@@ -30,6 +33,17 @@ module Admin
     else
       scope :admin_search, ->(query) do
         where("email LIKE :query OR name LIKE :query", query: "%#{query}%")
+      end
+    end
+
+    scope :has_password_login, ->(type) do
+      case type&.to_sym
+      when :password_only
+        where.not(password_digest: "").where(otp_secret: nil)
+      when :mfa
+        where.not(password_digest: "").where.not(otp_secret: nil)
+      else
+        where(password_digest: "")
       end
     end
 
@@ -53,6 +67,16 @@ module Admin
       credentials.any?
     end
     alias passkey passkey?
+
+    def password_login
+      if password_digest.blank?
+        :none
+      elsif otp_secret.nil?
+        :password_only
+      else
+        :mfa
+      end
+    end
 
     def to_s
       name

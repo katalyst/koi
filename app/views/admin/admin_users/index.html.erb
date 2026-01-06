@@ -19,11 +19,9 @@
   <% row.select %>
   <% row.link :name, url: :admin_admin_user_path %>
   <% row.text :email %>
+  <% row.enum :password_login, label: "Password" %>
   <% row.boolean :credentials, label: "Passkey" do |cell| %>
     <%= cell.value.any? ? "Yes" : "No" %>
-  <% end %>
-  <% row.boolean :otp, label: "MFA" do |cell| %>
-    <%= cell.value.present? ? "Yes" : "No" %>
   <% end %>
   <% row.date :last_sign_in_at, label: "Last active" %>
 <% end %>
