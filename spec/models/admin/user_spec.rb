@@ -35,4 +35,28 @@ RSpec.describe Admin::User do
   describe ".archived" do
     it { expect(described_class.archived).to contain_exactly(archived) }
   end
+
+  describe ".has_password_login" do
+    let!(:no_password) { create(:admin, password_digest: "") }
+    let!(:password_only) { create(:admin, otp_secret: nil) }
+    let!(:mfa) { admin }
+
+    it { expect(described_class.has_password_login(:password_only)).to contain_exactly(password_only) }
+    it { expect(described_class.has_password_login(:mfa)).to contain_exactly(mfa) }
+    it { expect(described_class.has_password_login(:none)).to contain_exactly(no_password) }
+  end
+
+  describe "#password_login" do
+    it "returns :none when password_digest is blank" do
+      expect(create(:admin, password_digest: "").password_login).to eq(:none)
+    end
+
+    it "returns :password_only when password_digest is set without otp_secret" do
+      expect(create(:admin, otp_secret: nil).password_login).to eq(:password_only)
+    end
+
+    it "returns :mfa when password_digest and otp_secret are set" do
+      expect(create(:admin).password_login).to eq(:mfa)
+    end
+  end
 end
