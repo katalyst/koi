@@ -17,15 +17,20 @@
   <meta name="turbo-refresh-scroll" content="preserve">
   <%= yield :head %>
 
+  <!-- fonts -->
+  <%= preload_link_tag("koi/inter-variable-v4-1.woff2") %>
+  <%= preload_link_tag("koi/inter-variable-v4-1-italic.woff2") %>
+  <%= preload_link_tag("koi/inconsolata-v37-latin-regular.woff2") %>
+
   <!-- icons -->
-  <link rel="icon" sizes="any" type="image/svg+xml" href="<%= path_to_image("koi/logo.svg") %>">
+  <%= favicon_link_tag("koi/logo.svg") %>
 
   <!-- styles -->
-  <%= stylesheet_link_tag path_to_stylesheet("koi/login.css"), "data-turbo-track": "reload" %>
-  <%= stylesheet_link_tag Koi.config.admin_stylesheet, "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag(path_to_stylesheet("koi/login.css"), "data-turbo-track": "reload") %>
+  <%= stylesheet_link_tag(Koi.config.admin_stylesheet, "data-turbo-track": "reload") %>
 
   <!-- scripts -->
-  <%= javascript_importmap_tags Koi.config.admin_javascript_entry_point %>
+  <%= javascript_importmap_tags(Koi.config.admin_javascript_entry_point) %>
 </head>
 <body>
 <main class="cover" data-centered>
