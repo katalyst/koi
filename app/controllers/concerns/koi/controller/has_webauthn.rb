@@ -41,7 +41,7 @@ module Koi
         )
 
         stored_credential.admin
-      rescue ActiveRecord::RecordNotFound
+      rescue ActiveRecord::RecordNotFound, WebAuthn::VerificationError
         false
       end
     end
