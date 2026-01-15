@@ -41,7 +41,7 @@ module Koi
         #       <%= link_to "Download", cell.internal_path %>
         #    <% end %>
         def internal_path
-          rails_blob_path(value, disposition: :attachment)
+          rails_blob_path(value, disposition: :attachment) if value.try(:attached?)
         end
 
         private
