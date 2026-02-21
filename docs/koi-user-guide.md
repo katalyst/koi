@@ -174,15 +174,17 @@ In views, use the provided helpers:
 - `row.link` outputs a link to the record’s show (or a custom URL) (`app/components/concerns/koi/tables/cells.rb:18`).
 - `row.attachment` displays ActiveStorage attachments as downloads/thumbnails (`app/components/concerns/koi/tables/cells.rb:44`).
 - Use `table_selection_with` for bulk actions, as shown in `app/views/admin/admin_users/index.html.erb`.
+- For archivable resources, include selection controls on active and archived tables so users can bulk archive and bulk restore.
 
 ### Forms
 
-`Koi::FormBuilder` combines `GOVUKDesignSystemFormBuilder` with helper shortcuts (`lib/koi/form_builder.rb`). Key helpers include:
+`Koi::FormBuilder` combines `GOVUKDesignSystemFormBuilder` with helper shortcuts (`lib/koi/form_builder.rb`).
 
-- `form.admin_save` / `form.admin_delete` / `form.admin_archive` / `form.admin_discard` for consistent action buttons (`lib/koi/form/builder.rb:13`).
 - Automatic admin routes in `form_with` via `Koi::FormHelper` (`app/helpers/koi/form_helper.rb`).
 - File field helpers use size limits from configuration.
 - `Koi::Form::Content` provides macros for content block editors (heading fields, target selectors, etc.) used with `Katalyst::Content`.
+- In module forms, keep submit controls focused on saving form content (plain submit buttons).
+- Put non-form lifecycle actions in page header actions (`actions_list`) with `link_to_delete(record)` or `link_to_archive_or_delete(record)`.
 
 Remember to call `govuk_formbuilder_init` once when you render password fields so the GOV.UK show/hide toggle initialises (`app/views/admin/sessions/password.html.erb:12`).
 

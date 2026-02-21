@@ -24,7 +24,7 @@
   <%= form.hidden_field :response, data: { webauthn_authentication_target: "response" } %>
   <%= hidden_field_tag(:redirect, redirect) %>
   <div class="actions">
-    <%= form.admin_save "Next" %>
+    <%= form.button("Next", type: :submit, class: "button") %>
     <%= form.button(type: :button, class: "button button--secondary", data: { action: "webauthn-authentication#authenticate" }) do %>
       <icon class="icon" data-icon="fingerprint" aria-label="Passkey">&nbsp;</icon>
     <% end %>

@@ -4,5 +4,5 @@
   <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
   <%= form.govuk_text_field :token, autofocus: true, autocomplete: "off" %>
   <%= hidden_field_tag(:redirect, params[:redirect]) %>
-  <%= form.admin_save "Next" %>
+  <%= form.button("Next", type: :submit, class: "button") %>
 <% end %>
