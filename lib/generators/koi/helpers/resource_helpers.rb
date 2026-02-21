@@ -58,7 +58,7 @@ module Koi
       private
 
       def archivable?
-        model_class&.included_modules&.include?(Koi::Model::Archivable)
+        model_class&.include?(Koi::Model::Archivable)
       end
 
       def orderable?
