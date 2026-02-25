@@ -4,65 +4,43 @@ module Admin
   class CredentialsController < ApplicationController
     include Koi::Controller::HasWebauthn
 
-    before_action :set_admin_user
+    before_action :set_admin_user, only: %i[new create]
+    before_action :set_credential, only: %i[show update destroy]
 
-    attr_reader :admin_user
+    before_action :check_authorization!
+
+    attr_reader :admin_user, :credential
+
+    def show
+      render locals: { credential: }
+    end
 
     def new
-      unless admin_user.webauthn_id
-        admin_user.update!(webauthn_id: WebAuthn.generate_user_id)
-      end
-
-      options = webauthn_relying_party.options_for_registration(
-        user:    {
-          id:           admin_user.webauthn_id,
-          name:         admin_user.email,
-          display_name: admin_user.name,
-        },
-        exclude: admin_user.credentials.map(&:external_id),
-      )
-
-      # Store the newly generated challenge somewhere so you can have it
-      # for the verification phase.
-      session[:creation_challenge] = options.challenge
-
-      credential = admin_user.credentials.new
-
-      render locals: { admin_user:, credential:, options: }
+      render locals: { admin_user: }
     end
 
     def create
-      redirect_to(action: :new) if session[:creation_challenge].blank?
+      webauthn_register!(credential_params[:response])
 
-      webauthn_credential = webauthn_relying_party.verify_registration(
-        JSON.parse(credential_params[:response]),
-        session.delete(:creation_challenge),
-      )
+      if %r{/credentials/new$}.match?(request.referer)
+        redirect_to(admin_root_path, status: :see_other)
+      else
+        redirect_back_or_to(admin_admin_user_path(admin_user), status: :see_other)
+      end
+    end
 
-      credential = admin_user.credentials.find_or_initialize_by(
-        external_id: webauthn_credential.id,
-      )
-
-      credential.update!(
-        nickname:   credential_params[:nickname],
-        public_key: webauthn_credential.public_key,
-        sign_count: webauthn_credential.sign_count,
-      )
-
-      respond_to do |format|
-        format.html { redirect_to admin_admin_user_path(admin_user), status: :see_other }
-        format.turbo_stream { render locals: { admin_user: } }
+    def update
+      if credential.update(credential_params)
+        redirect_to(admin_admin_user_path(credential.admin), status: :see_other)
+      else
+        render :show, locals: { credential: }, status: :unprocessable_content
       end
     end
 
     def destroy
-      credential = admin_user.credentials.find(params[:id])
       credential.destroy!
 
-      respond_to do |format|
-        format.html { redirect_to admin_admin_user_path(admin_user), status: :see_other }
-        format.turbo_stream { render locals: { admin_user: } }
-      end
+      redirect_to(admin_admin_user_path(credential.admin), status: :see_other)
     end
 
     private
@@ -73,12 +51,15 @@ module Admin
 
     def set_admin_user
       @admin_user = Admin::User.find(params[:admin_user_id])
+    end
 
-      if current_admin == admin_user
-        request.variant = :self
-      else
-        head(:forbidden)
-      end
+    def set_credential
+      @credential = Credential.find(params[:id])
+      @admin_user = @credential.admin
+    end
+
+    def check_authorization!
+      head(:forbidden) unless admin_user == current_admin_user
     end
   end
 end

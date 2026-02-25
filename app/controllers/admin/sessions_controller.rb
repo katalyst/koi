@@ -8,10 +8,16 @@ module Admin
     before_action :redirect_authenticated, only: %i[new], if: :admin_signed_in?
     before_action :authenticate_local_admin, only: %i[new], if: -> { Koi.config.authenticate_local_admins }
 
-    layout "koi/login"
+    attr_reader :admin_user
 
     def new
-      render locals: { admin_user: Admin::User.new }
+      @admin_user = Admin::User.new
+
+      if (message = flash.alert || flash.notice)
+        admin_user.errors.add(:email, message)
+      end
+
+      render locals: { admin_user: }
     end
 
     def create
@@ -80,7 +86,7 @@ module Admin
     end
 
     def create_session_with_webauthn
-      if (admin_user = webauthn_authenticate!)
+      if (admin_user = webauthn_authenticate!(session_params[:response]))
         admin_sign_in(admin_user)
       else
         admin_user = Admin::User.new

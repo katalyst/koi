@@ -10,7 +10,7 @@ module Admin
 
     def show
       if (@admin_user = Admin::User.find_by_token_for(:password_reset, params[:token]))
-        render locals: { admin_user:, token: params[:token] }, layout: "koi/login"
+        render locals: { admin_user:, token: params[:token] }
       else
         redirect_to(new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid"))
       end
@@ -26,7 +26,11 @@ module Admin
 
         session[:admin_user_id] = admin_user.id
 
-        redirect_to admin_admin_user_path(admin_user), status: :see_other, notice: t("koi.auth.token_consumed")
+        if admin_user.credentials.any?
+          redirect_to(admin_root_path, status: :see_other)
+        else
+          redirect_to(new_admin_admin_user_credential_path(admin_user), status: :see_other)
+        end
       else
         redirect_to(new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid"))
       end

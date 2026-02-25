@@ -36,10 +36,19 @@
 
 <div class="repel">
   <h3>Passkeys</h3>
-  <%= link_to("New passkey", new_admin_admin_user_credential_path(admin_user),
-              class: "button", data: { turbo_frame: "edit" }) %>
+
+  <%= form_with(model: admin_user.credentials.new,
+                url:   admin_admin_user_credentials_path(admin_user),
+                data:  {
+                  controller:                          "webauthn-registration",
+                  action:                              "submit->webauthn-registration#submit",
+                  webauthn_registration_options_value:,
+                }) do |form| %>
+    <%= form.hidden_field :response, data: { webauthn_registration_target: "response" } %>
+    <%= form.button("Add passkey", type: :submit, class: "button") %>
+  <% end %>
 </div>
 
-<%= render "admin/credentials/credentials", admin_user: %>
+<%= render("admin/credentials/credentials", admin_user:) %>
 
 <%= koi_modal_tag("edit") %>

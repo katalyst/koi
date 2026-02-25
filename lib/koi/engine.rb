@@ -10,6 +10,7 @@ require "rotp"
 require "rqrcode"
 require "stimulus-rails"
 require "turbo-rails"
+require "useragent"
 require "webauthn"
 
 module Koi

@@ -1,8 +1,16 @@
 <%# locals: (admin_user:) %>
 
-<%= form_with(model: admin_user, scope: :admin, url: admin_session_path, method: :post) do |form| %>
-  <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
-  <%= form.govuk_text_field :token, autofocus: true, autocomplete: "off" %>
-  <%= hidden_field_tag(:redirect, params[:redirect]) %>
-  <%= form.admin_save "Next" %>
+<%= content_for(:roadblock) do %>
+  <header>
+    <icon aria-hidden="true" class="icon" data-icon="koi">&nbsp;</icon>
+    <h1>Koi</h1>
+    <h2><%= Koi.config.site_name || URI.parse(root_url).host %></h2>
+  </header>
+
+  <%= form_with(model: admin_user, scope: :admin, url: admin_session_path, method: :post) do |form| %>
+    <%# note, autocomplete off is ignored by browsers but required by PCI-DSS %>
+    <%= form.govuk_text_field :token, autofocus: true, autocomplete: "off" %>
+    <%= hidden_field_tag(:redirect, params[:redirect]) %>
+    <%= form.button("Next", type: :submit, class: "button") %>
+  <% end %>
 <% end %>

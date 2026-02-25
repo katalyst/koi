@@ -2,6 +2,8 @@
 
 module Admin
   class AdminUsersController < ApplicationController
+    include Koi::Controller::HasWebauthn
+
     before_action :set_admin_user, only: %i[show edit update destroy]
 
     attr_reader :admin_user

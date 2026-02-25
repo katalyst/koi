@@ -16,6 +16,21 @@ RSpec.describe Admin::CredentialsController do
 
   include_context "with admin session"
 
+  describe "GET /admin/credentials/:id" do
+    let(:action) do
+      get admin_credential_path(credential), params: { admin_credential: credential_params }
+    end
+    let!(:credential) do
+      admin.credentials.create!(nickname: "test", external_id: "asdf", public_key: "asdf")
+    end
+
+    let(:credential_params) { { nickname: "updated" } }
+
+    it_behaves_like "requires admin"
+
+    it { is_expected.to have_http_status(:ok).and(render_template(:show)) }
+  end
+
   describe "GET /admin/admin_users/:admin_user_id/credential/new" do
     let(:action) { get new_admin_admin_user_credential_path(admin), as: :turbo_stream }
 
@@ -33,35 +48,44 @@ RSpec.describe Admin::CredentialsController do
 
       return unless response.successful?
 
-      post admin_admin_user_credentials_path(admin),
-           params: { admin_credential: credential_params },
-           as:     :turbo_stream
-    end
+      response = client.create(challenge: session[:registration_challenge]).to_json
 
-    let(:credential_params) do
-      {
-        nickname: "My Key",
-        response: client.create(challenge: session[:creation_challenge]).to_json,
-      }
+      post admin_admin_user_credentials_path(admin),
+           params: { admin_credential: { response: } },
+           as:     :turbo_stream
     end
 
     it_behaves_like "requires admin"
 
-    it "returns an update to the credentials table" do
-      action
-      html = Nokogiri::HTML.fragment(response.body)
-      root = Capybara::Node::Simple.new(html)
-      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_user_#{admin.id}']")
-    end
+    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin))) }
 
     it "creates an admin credential" do
       expect { action }.to(change { admin.credentials.reload.count }.by(1))
     end
   end
 
-  describe "DELETE /admin/admin_users/:id" do
+  describe "PATCH /admin/credentials/:id" do
     let(:action) do
-      delete admin_admin_user_credential_path(admin, credential), as: :turbo_stream
+      patch admin_credential_path(credential), params: { admin_credential: credential_params }
+    end
+    let!(:credential) do
+      admin.credentials.create!(nickname: "test", external_id: "asdf", public_key: "asdf")
+    end
+
+    let(:credential_params) { { nickname: "updated" } }
+
+    it_behaves_like "requires admin"
+
+    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin))) }
+
+    it "updates the credential" do
+      expect { action }.to change { credential.reload.nickname }.to("updated")
+    end
+  end
+
+  describe "DELETE /admin/credentials/:id" do
+    let(:action) do
+      delete admin_credential_path(credential), as: :turbo_stream
     end
 
     let!(:credential) do
@@ -73,11 +97,9 @@ RSpec.describe Admin::CredentialsController do
 
     it_behaves_like "requires admin"
 
-    it "returns an update to the credentials table" do
+    it "returns to the user page" do
       action
-      html = Nokogiri::HTML.fragment(response.body)
-      root = Capybara::Node::Simple.new(html)
-      expect(root).to have_css("turbo-stream[action='replace'][target='credentials_admin_user_#{admin.id}']")
+      expect(response).to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin)))
     end
 
     it "destroys an admin credential" do

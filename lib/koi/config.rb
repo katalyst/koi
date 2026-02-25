@@ -12,7 +12,8 @@ module Koi
                   :document_mime_types,
                   :document_size_limit,
                   :image_mime_types,
-                  :image_size_limit
+                  :image_size_limit,
+                  :site_name
 
     def initialize
       @admin_name = "Koi"

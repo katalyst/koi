@@ -1,12 +1,16 @@
 <%# locals: (admin_user:, token:) %>
 
-<%= form_with(url: admin_session_token_path(token), method: :patch) do |form| %>
-  <p>Welcome to Koi Admin</p>
-  <%= summary_table_with(model: admin_user) do |row| %>
-    <%= row.text :name %>
-    <%= row.text :email %>
+<%= content_for(:roadblock) do %>
+  <header>
+    <icon aria-hidden="true" class="icon" data-icon="koi">&nbsp;</icon>
+    <h1>Koi</h1>
+    <h2><%= Koi.config.site_name || URI.parse(root_url).host %></h2>
+  </header>
+
+  <p>Welcome, <%= admin_user %>.</p>
+  <p>Please sign in to continue.</p>
+
+  <%= form_with(url: admin_session_token_path(token), method: :patch) do |form| %>
+    <%= form.button("Sign in", type: :submit, class: "button") %>
   <% end %>
-  <div class="actions">
-    <%= form.admin_save "Sign in" %>
-  </div>
 <% end %>

@@ -13,15 +13,19 @@
              data-action="input->navigation#filter change->navigation#filter
                         keydown.enter->navigation#go keydown.esc->navigation#clear">
     </div>
-    <ul class="navigation-group | flow" role="list">
-      <li>
-        <span><%= current_admin_user.name %></span>
-        <ul class="navigation-list | flow" role="list">
-          <li><%= link_to("Profile", main_app.admin_admin_user_path(current_admin_user)) %></li>
-          <li><%= link_to("Log out", main_app.admin_session_path, data: { turbo_method: :delete }) %></li>
-        </ul>
-      </li>
-    </ul>
+
+    <% if current_admin_user %>
+      <ul class="navigation-group | flow" role="list">
+        <li>
+          <span><%= current_admin_user.name %></span>
+          <ul class="navigation-list | flow" role="list">
+            <li><%= link_to("Profile", main_app.admin_admin_user_path(current_admin_user)) %></li>
+            <li><%= link_to("Log out", main_app.admin_session_path, data: { turbo_method: :delete }) %></li>
+          </ul>
+        </li>
+      </ul>
+    <% end %>
+
     <%= navigation_menu_with(
           menu:  Koi::Menu.admin_menu(self),
           list:  {

@@ -17,7 +17,7 @@ export default class WebauthnAuthenticationController extends Controller {
   get options() {
     return {
       publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(
-        this.optionsValue.publicKey,
+        this.optionsValue,
       ),
     };
   }

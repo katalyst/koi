@@ -1,7 +1,10 @@
-.login {
+.roadblock {
+  min-width: min(max(50%, 20rem), 100%);
+  max-width: min(max(50%, 20rem), 100%);
+
   header {
     display: grid;
-    grid-template-areas: "logo header" "logo site-name";
+    grid-template-areas: "icon heading" "icon sub-heading";
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto;
     column-gap: var(--space-s);
@@ -9,17 +12,17 @@
     .icon {
       --scale: 4;
       --offset: 2px;
-      grid-area: logo;
+      grid-area: icon;
       align-self: center;
     }
 
     h1 {
-      grid-area: header;
+      grid-area: heading;
       font-weight: var(--font-bold);
     }
 
     h2 {
-      grid-area: site-name;
+      grid-area: sub-heading;
       font-weight: var(--font-medium);
       font-size: var(--size-step-1);
       color: var(--color-mid);

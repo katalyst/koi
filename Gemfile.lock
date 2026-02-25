@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (5.3.1)
+    katalyst-koi (5.4.0)
       bcrypt
       importmap-rails
       katalyst-content (>= 3.0.0.alpha.1)
@@ -15,6 +15,7 @@ PATH
       rqrcode
       stimulus-rails
       turbo-rails (>= 2.0)
+      useragent
       view_component
       webauthn (>= 3.4.0)
 

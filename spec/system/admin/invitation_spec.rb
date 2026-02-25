@@ -32,10 +32,10 @@ RSpec.describe "admin/invites" do
 
     visit "admin/session/tokens/#{token}"
 
-    expect(page).to have_content(/Welcome to Koi Admin/)
+    expect(page).to have_content(/Welcome, #{admin.name}/)
 
     click_on "Sign in"
 
-    expect(page).to have_current_path(admin_admin_user_path(admin))
+    expect(page).to have_current_path(new_admin_admin_user_credential_path(admin))
   end
 end

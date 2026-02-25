@@ -42,7 +42,7 @@
           ArrowRight->shortcut:page-next
         ">
 <!-- application header -->
-<%= render "layouts/koi/application_header" %>
+<%= render "layouts/koi/application_header" unless content_for(:roadblock) %>
 
 <!-- header -->
 <% if content_for?(:header) %>
@@ -53,18 +53,27 @@
   </header>
 <% end %>
 
-<main class="flow wrapper">
-  <% unless flash.empty? %>
-    <!-- flash -->
-    <%= render "layouts/koi/flash" %>
-  <% end %>
+<!-- main -->
+<% if content_for(:roadblock) %>
+  <main class="cover">
+    <div class="roadblock | flow wrapper">
+      <%= yield(:roadblock) %>
+    </div>
+  </main>
+<% else %>
+  <main class="flow wrapper">
+    <% unless flash.empty? %>
+      <!-- flash -->
+      <%= render("layouts/koi/flash") %>
+    <% end %>
 
-  <!-- content -->
-  <%= yield %>
-</main>
+    <!-- content -->
+    <%= yield %>
+  </main>
+<% end %>
 
 <!-- application navigation -->
-<%= render "layouts/koi/application_navigation" %>
+<%= render("layouts/koi/application_navigation") unless content_for(:roadblock) %>
 
 </body>
 </html>

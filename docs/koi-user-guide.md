@@ -108,7 +108,6 @@ Koi wraps multiple authentication flows (password, OTP, passkeys, magic links) a
 
 - `app/views/layouts/koi/application.html.erb` is the default admin layout. It sets up the page title, includes configured assets, renders flash messages, and wraps page content in `.wrapper` containers.
 - Turbo frame responses use `app/views/layouts/koi/frame.html.erb`, ensuring Turbo includes CSRF meta tags and the admin assets when rendering partial screens.
-- The login area uses `app/views/layouts/koi/login.html.erb` with a slimmed-down stylesheet for a focused sign-in experience.
 
 ### Header and Actions
 

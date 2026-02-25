@@ -104,9 +104,12 @@ RSpec.describe Admin::SessionsController do
     end
 
     context "with webauthn params" do
-      before do
+      let(:session_params) { { response: webauthn_client.get(challenge: session[:authentication_challenge]).to_json } }
+      let(:webauthn_client) { WebAuthn::FakeClient.new(origin) }
+
+      def create_credential
         relying_party = WebAuthn.configuration.relying_party
-        result = client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
+        result = webauthn_client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
 
         response =
           WebAuthn::AuthenticatorAttestationResponse
@@ -124,31 +127,30 @@ RSpec.describe Admin::SessionsController do
         )
       end
 
-      let(:session_params) do
-        {
-          response: client.get(challenge: session[:authentication_challenge]).to_json,
-        }
-      end
-
       it "renders successfully" do
+        create_credential
         action
         expect(response).to redirect_to(admin_dashboard_path)
       end
 
       it "creates the admin session" do
+        create_credential
         action
         expect(session[:admin_user_id]).to be_present
       end
 
       it "updates login metadata" do
+        create_credential
         expect { action }.to(change { admin.reload.current_sign_in_at })
       end
 
       it "updates credential count" do
+        create_credential
         expect { action }.to(change { admin.credentials.last.sign_count })
       end
 
       it "touches the credential" do
+        create_credential
         expect { action }.to(change { admin.credentials.last.updated_at })
       end
     end

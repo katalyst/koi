@@ -7,13 +7,14 @@ Rails.application.routes.draw do
       resources :tokens, param: :token, only: %i[show update], token: /[^\/]+/
     end
 
-    resources :admin_users do
-      resources :credentials, only: %i[new create destroy]
-      resource :otp, only: %i[new create destroy]
-      resources :tokens, only: %i[create]
+    resources :admin_users, shallow: true do
       get :archived, on: :collection
       put :archive, on: :collection
       put :restore, on: :collection
+
+      resources :credentials, only: %i[show new create update destroy]
+      resource :otp, only: %i[new create destroy]
+      resources :tokens, only: %i[create]
     end
 
     resource :cache, only: %i[destroy]

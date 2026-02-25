@@ -3,7 +3,7 @@
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "katalyst-koi"
-  s.version     = "5.3.1"
+  s.version     = "5.4.0"
   s.authors     = ["Katalyst Interactive"]
   s.email       = ["developers@katalyst.com.au"]
 
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bcrypt"
   s.add_dependency "rotp"
   s.add_dependency "rqrcode"
+  s.add_dependency "useragent"
   s.add_dependency "webauthn", ">= 3.4.0"
 
   # Third party libraries for admin pages
