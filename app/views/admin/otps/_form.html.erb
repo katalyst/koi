@@ -2,7 +2,7 @@
 
 <%= form_with(id:     dom_id(admin_user, :otp),
               model:  admin_user,
-              url:    admin_admin_user_otp_path(admin_user),
+              url:    admin_profile_otp_path,
               method: :post,
               class:  "flow") do |form| %>
   <section class="flow prose">

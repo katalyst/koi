@@ -2,7 +2,6 @@
 
 <% content_for(:header) do %>
   <%= breadcrumb_list do %>
-    <li><%= link_to("Admin users", admin_admin_users_path) %></li>
     <li><%= link_to(admin_user, admin_admin_user_path(admin_user)) %></li>
   <% end %>
 

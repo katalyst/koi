@@ -9,8 +9,8 @@ RSpec.describe Admin::OtpsController do
 
   include_context "with admin session"
 
-  describe "GET /admin/admin_users/:admin_user_id/otp/new" do
-    let(:action) { get new_admin_admin_user_otp_path(admin), as: :turbo_stream }
+  describe "GET /admin/profile/otp/new" do
+    let(:action) { get new_admin_profile_otp_path, as: :turbo_stream }
 
     it_behaves_like "requires admin"
 
@@ -18,22 +18,13 @@ RSpec.describe Admin::OtpsController do
       action
       expect(response).to have_http_status(:success)
     end
-
-    context "with another user's id" do
-      let(:session_for) { create(:admin) }
-
-      it "returns an error" do
-        action
-        expect(response).to have_http_status(:forbidden)
-      end
-    end
   end
 
-  describe "POST /admin/admin_users/:admin_user_id/otp" do
+  describe "POST /admin/profile/otp" do
     let(:action) do
       admin.otp_secret = ROTP::Base32.random
 
-      post admin_admin_user_otp_path(admin),
+      post admin_profile_otp_path,
            params: { admin_user: { otp_secret: admin.otp_secret, token: admin.otp.now } },
            as:     :turbo_stream
     end
@@ -42,7 +33,7 @@ RSpec.describe Admin::OtpsController do
 
     it "redirects to user" do
       action
-      expect(response).to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin)))
+      expect(response).to have_http_status(:see_other).and(redirect_to(admin_profile_path))
     end
 
     it "sets otp secret" do
@@ -53,7 +44,7 @@ RSpec.describe Admin::OtpsController do
       let(:action) do
         admin.otp_secret = ROTP::Base32.random
 
-        post admin_admin_user_otp_path(admin),
+        post admin_profile_otp_path,
              params: { admin_user: { otp_secret: admin.otp_secret, token: "000000" } },
              as:     :turbo_stream
       end
@@ -78,9 +69,9 @@ RSpec.describe Admin::OtpsController do
     end
   end
 
-  describe "DELETE /admin/admin_users/:id/otp" do
+  describe "DELETE /admin/profile/otp" do
     let(:action) do
-      delete admin_admin_user_otp_path(admin), as: :turbo_stream
+      delete admin_profile_otp_path, as: :turbo_stream
     end
 
     let(:admin) { create(:admin_user) }

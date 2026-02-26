@@ -1,14 +1,10 @@
 <%# locals: (admin_user:) %>
 
 <% content_for(:header) do %>
-  <%= breadcrumb_list do %>
-    <li><%= link_to("Admin users", admin_admin_users_path) %></li>
-  <% end %>
-
   <h1><%= admin_user %></h1>
 
   <%= actions_list do %>
-    <li><%= link_to("Edit", edit_admin_admin_user_path(admin_user)) %></li>
+    <li><%= link_to("Edit", edit_admin_profile_path) %></li>
   <% end %>
 <% end %>
 
@@ -22,12 +18,12 @@
     <span class="repel">
       <%= otp %>
       <% if otp.value %>
-        <%= button_to("Remove", admin_admin_user_otp_path(admin_user),
+        <%= button_to("Remove", admin_profile_otp_path,
                       class:  "button button--text",
                       method: :delete,
                       form:   { data: { turbo_confirm: "Are you sure?" } }) %>
       <% else %>
-        <%= link_to("Add", new_admin_admin_user_otp_path(admin_user),
+        <%= link_to("Add", new_admin_profile_otp_path,
                     class: "button", data: { turbo_frame: "edit" }) %>
       <% end %>
     </span>
@@ -37,8 +33,8 @@
 <div class="repel">
   <h3>Passkeys</h3>
 
-  <%= form_with(model: admin_user.credentials.new,
-                url:   admin_admin_user_credentials_path(admin_user),
+  <%= form_with(model: Admin::Credential.new,
+                url:   admin_profile_credentials_path,
                 data:  {
                   controller:                          "webauthn-registration",
                   action:                              "submit->webauthn-registration#submit",

@@ -31,8 +31,8 @@ RSpec.describe Admin::CredentialsController do
     it { is_expected.to have_http_status(:ok).and(render_template(:show)) }
   end
 
-  describe "GET /admin/admin_users/:admin_user_id/credential/new" do
-    let(:action) { get new_admin_admin_user_credential_path(admin), as: :turbo_stream }
+  describe "GET /admin/profile/credentials/new" do
+    let(:action) { get new_admin_profile_credential_path, as: :turbo_stream }
 
     it_behaves_like "requires admin"
 
@@ -42,22 +42,22 @@ RSpec.describe Admin::CredentialsController do
     end
   end
 
-  describe "POST /admin/admin_users/:admin_user_id/credential" do
+  describe "POST /admin/profile/credentials" do
     let(:action) do
-      get new_admin_admin_user_credential_path(admin)
+      get new_admin_profile_credential_path
 
       return unless response.successful?
 
       response = client.create(challenge: session[:registration_challenge]).to_json
 
-      post admin_admin_user_credentials_path(admin),
+      post admin_profile_credentials_path(admin),
            params: { admin_credential: { response: } },
            as:     :turbo_stream
     end
 
     it_behaves_like "requires admin"
 
-    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin))) }
+    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_profile_path)) }
 
     it "creates an admin credential" do
       expect { action }.to(change { admin.credentials.reload.count }.by(1))
@@ -76,7 +76,7 @@ RSpec.describe Admin::CredentialsController do
 
     it_behaves_like "requires admin"
 
-    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin))) }
+    it { is_expected.to have_http_status(:see_other).and(redirect_to(admin_profile_path)) }
 
     it "updates the credential" do
       expect { action }.to change { credential.reload.nickname }.to("updated")
@@ -99,7 +99,7 @@ RSpec.describe Admin::CredentialsController do
 
     it "returns to the user page" do
       action
-      expect(response).to have_http_status(:see_other).and(redirect_to(admin_admin_user_path(admin)))
+      expect(response).to have_http_status(:see_other).and(redirect_to(admin_profile_path))
     end
 
     it "destroys an admin credential" do

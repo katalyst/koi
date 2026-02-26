@@ -2,8 +2,6 @@
 
 module Admin
   class AdminUsersController < ApplicationController
-    include Koi::Controller::HasWebauthn
-
     before_action :set_admin_user, only: %i[show edit update destroy]
 
     attr_reader :admin_user
@@ -65,6 +63,8 @@ module Admin
     end
 
     def destroy
+      return redirect_back_or_to(admin_admin_users_path, status: :see_other) if admin_user == current_admin
+
       if admin_user.archived?
         admin_user.destroy!
 
@@ -80,8 +80,6 @@ module Admin
 
     def set_admin_user
       @admin_user = Admin::User.with_archived.find(params[:id])
-
-      request.variant << :self if admin_user == current_admin_user
     end
 
     def admin_user_params

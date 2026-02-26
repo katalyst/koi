@@ -29,7 +29,7 @@ module Admin
         if admin_user.credentials.any?
           redirect_to(admin_root_path, status: :see_other)
         else
-          redirect_to(new_admin_admin_user_credential_path(admin_user), status: :see_other)
+          redirect_to(new_admin_profile_credential_path, status: :see_other)
         end
       else
         redirect_to(new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid"))

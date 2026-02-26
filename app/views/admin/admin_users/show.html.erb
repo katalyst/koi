@@ -8,6 +8,9 @@
   <h1><%= admin_user %></h1>
 
   <%= actions_list do %>
+    <% if admin_user == current_admin %>
+      <li><%= link_to("Profile", admin_profile_path) %></li>
+    <% end %>
     <li><%= link_to("Edit", edit_admin_admin_user_path(admin_user)) %></li>
   <% end %>
 <% end %>

@@ -1,6 +1,6 @@
 <%# locals: (admin_user:) %>
 
-<%= form_with(model: admin_user) do |form| %>
+<%= form_with(model: admin_user, url: admin_profile_path) do |form| %>
   <%= form.govuk_text_field :email %>
   <%= form.govuk_text_field :name %>
   <%= form.govuk_password_field :password, label: { text: "Password (optional)" } %>

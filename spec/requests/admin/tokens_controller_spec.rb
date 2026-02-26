@@ -61,7 +61,7 @@ RSpec.describe Admin::TokensController do
     let(:admin) { create(:admin, password: "") }
     let(:token) { admin.generate_token_for(:password_reset) }
 
-    it { is_expected.to redirect_to(new_admin_admin_user_credential_path(admin)) }
+    it { is_expected.to redirect_to(new_admin_profile_credential_path) }
 
     it "updates the admin login details" do
       expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present

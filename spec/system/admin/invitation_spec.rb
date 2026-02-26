@@ -36,6 +36,6 @@ RSpec.describe "admin/invites" do
 
     click_on "Sign in"
 
-    expect(page).to have_current_path(new_admin_admin_user_credential_path(admin))
+    expect(page).to have_current_path(new_admin_profile_credential_path)
   end
 end

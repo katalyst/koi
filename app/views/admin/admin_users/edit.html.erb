@@ -9,7 +9,9 @@
   <h1>Edit admin user</h1>
 
   <%= actions_list do %>
-    <li><%= link_to_archive_or_delete(admin_user) %></li>
+    <% unless admin_user == current_admin %>
+      <li><%= link_to_archive_or_delete(admin_user) %></li>
+    <% end %>
   <% end %>
 <% end %>
 
