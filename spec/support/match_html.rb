@@ -55,7 +55,7 @@ class HTMLMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
   end
 end
 
-module RSpec
+module RSpec # rubocop:disable Style/OneClassPerFile
   module Matchers
     def match_html(expected_html, **)
       HTMLMatcher.new(expected_html, **)

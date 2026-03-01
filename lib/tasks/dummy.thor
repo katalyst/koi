@@ -176,7 +176,7 @@ class Dummy < Thor
   end
 end
 
-class SchemaChecker
+class SchemaChecker # rubocop:disable Style/OneClassPerFile
   attr_reader :environment
 
   delegate_missing_to :@context
