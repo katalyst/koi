@@ -121,7 +121,7 @@ GEM
       smart_properties
     bigdecimal (4.0.1)
     bindata (2.5.1)
-    brakeman (8.0.2)
+    brakeman (8.0.4)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -182,14 +182,14 @@ GEM
     ffi (1.17.3-x86_64-darwin)
     ffi (1.17.3-x86_64-linux-gnu)
     ffi (1.17.3-x86_64-linux-musl)
-    flipper (1.3.6)
+    flipper (1.4.0)
       concurrent-ruby (< 2)
-    flipper-active_record (1.3.6)
+    flipper-active_record (1.4.0)
       activerecord (>= 4.2, < 9)
-      flipper (~> 1.3.6)
-    flipper-ui (1.3.6)
+      flipper (~> 1.4.0)
+    flipper-ui (1.4.0)
       erubi (>= 1.0.0, < 2.0.0)
-      flipper (~> 1.3.6)
+      flipper (~> 1.4.0)
       rack (>= 1.4, < 4)
       rack-protection (>= 1.5.3, < 5.0.0)
       rack-session (>= 1.0.2, < 3.0.0)
@@ -290,7 +290,7 @@ GEM
     openssl (4.0.1)
     openssl-signature_algorithm (1.3.0)
       openssl (> 2.0)
-    pagy (43.3.0)
+    pagy (43.3.1)
       json
       uri
       yaml
@@ -454,10 +454,10 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
-    sentry-rails (6.3.1)
+    sentry-rails (6.4.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.3.1)
-    sentry-ruby (6.3.1)
+      sentry-ruby (~> 6.4.0)
+    sentry-ruby (6.4.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -492,7 +492,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    view_component (4.4.0)
+    view_component (4.5.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
