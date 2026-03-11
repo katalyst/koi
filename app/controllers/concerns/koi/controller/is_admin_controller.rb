@@ -15,7 +15,15 @@ module Koi
         include HasAdminUsers
         include HasAttachments
         include Katalyst::Tables::Backend
-        include ::Pagy::Backend
+
+        if (pagy = "Pagy::Method".safe_constantize)
+          include pagy
+        elsif (pagy = "Pagy::Backend".safe_constantize)
+          # @deprecated Pagy <43
+          include pagy
+
+          helper "::Pagy::Frontend".safe_constantize
+        end
 
         default_form_builder "Koi::FormBuilder"
         default_table_component Koi::TableComponent
@@ -25,7 +33,6 @@ module Koi
         helper Katalyst::GOVUK::Formbuilder::Frontend
         helper Katalyst::Navigation::FrontendHelper
         helper Katalyst::Tables::Frontend
-        helper ::Pagy::Frontend
         helper Koi::Pagy::Frontend
         helper IndexActionsHelper
         helper :all

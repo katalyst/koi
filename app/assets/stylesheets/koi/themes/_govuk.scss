@@ -2,7 +2,6 @@
 
 @use "katalyst/govuk/formbuilder" with (
   $govuk-font-family: "Inter",
-  $govuk-text-colour: #{var(--site-text-color)},
   $govuk-typography-scale: (
     80: govuk-definition(h1),
     48: govuk-definition(h2),
@@ -12,9 +11,13 @@
     19: govuk-definition(h6),
     16: govuk-definition(paragraph),
     14: govuk-definition(small),
-  ),
-  $govuk-input-border-colour: #{var(--site-text-color)}
+  )
 );
+
+:root {
+  --govuk-text-colour: var(--site-text-color);
+  --govuk-input-border-colour: var(--site-text-color);
+}
 
 .govuk-input,
 .govuk-textarea {

@@ -1,6 +1,7 @@
 @use "../base/button" as *;
 
-.pagy.nav a {
+.pagy.nav a,
+.pagy.series-nav a {
   @include button-text;
   border: 2px solid transparent;
 

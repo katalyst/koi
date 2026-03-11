@@ -51,7 +51,7 @@ module Admin
         Banner.find(id).update(attrs)
       end
 
-      redirect_back(fallback_location: admin_banners_path, status: :see_other)
+      redirect_back_or_to(admin_banners_path, status: :see_other)
     end
 
     private

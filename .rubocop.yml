@@ -15,10 +15,13 @@ AllCops:
 
 # Disable cops that conflict with legacy Koi practices to reduce noise
 
-Naming/PredicateName:
+Naming/PredicateMethod:
   Enabled: false
 
 Rails/HelperInstanceVariable:
+  Enabled: false
+
+Style/OneClassPerFile:
   Enabled: false
 
 Metrics/BlockLength:
