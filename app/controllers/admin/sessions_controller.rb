@@ -41,7 +41,7 @@ module Admin
     end
 
     def destroy
-      record_sign_out!(current_admin_user)
+      record_sign_out!(Koi::Current.admin_user)
 
       session[:admin_user_id] = nil
 
@@ -103,11 +103,11 @@ module Admin
     def authenticate_local_admin
       return if admin_signed_in? || !Rails.env.development?
 
-      @current_admin_user = Admin::User.find_by(email: "#{ENV.fetch('USER', nil)}@katalyst.com.au")
+      Koi::Current.admin_user = Admin::User.find_by(email: "#{ENV.fetch('USER', nil)}@katalyst.com.au")
 
       return unless admin_signed_in?
 
-      session[:admin_user_id] = current_admin_user.id
+      session[:admin_user_id] = Koi::Current.admin_user.id
 
       flash.delete(:redirect) if (redirect = flash[:redirect])
 

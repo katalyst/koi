@@ -19,7 +19,13 @@ module Koi
         request = ActionDispatch::Request.new(env)
         session = ActionDispatch::Request::Session.find(request)
 
-        if requires_authentication?(request) && !authenticated?(session)
+        # Always retrieve user to ensure we are not vulnerable to timing attacks
+        Koi::Current.admin_user = Admin::User.find_by(id: session[:admin_user_id])
+
+        # Remove from session if not found
+        session.delete(:admin_user_id) if session.has_key?(:admin_user_id) && !authenticated?
+
+        if requires_authentication?(request) && !authenticated?
           # Set the redirection path for returning the user to their requested path after login
           if request.get?
             request.flash[:redirect] = request.fullpath
@@ -30,6 +36,8 @@ module Koi
         else
           @app.call(env)
         end
+      ensure
+        Koi::Current.admin_user = nil
       end
 
       private
@@ -38,8 +46,8 @@ module Koi
         !request.path.starts_with?("/admin/session")
       end
 
-      def authenticated?(session)
-        session[:admin_user_id].present?
+      def authenticated?
+        Koi::Current.admin_user.present?
       end
     end
   end

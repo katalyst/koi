@@ -14,18 +14,11 @@ module Koi
       end
 
       def admin_signed_in?
-        current_admin_user.present?
-      rescue ActiveRecord::RecordNotFound
-        false
+        Koi::Current.admin_user.present?
       end
 
       def current_admin_user
-        return @current_admin_user if instance_variable_defined?(:@current_admin_user)
-        return @current_admin_user = nil unless session.has_key?(:admin_user_id)
-
-        @current_admin_user = Admin::User.find(session[:admin_user_id])
-      ensure
-        session.delete(:admin_user_id) unless @current_admin_user
+        Koi::Current.admin_user
       end
 
       # @deprecated Use current_admin_user instead
@@ -40,11 +33,11 @@ module Koi
             before do
               view.singleton_class.module_eval do
                 def admin_signed_in?
-                  current_admin_user.present?
+                  Koi::Current.admin_user.present?
                 end
 
                 def current_admin_user
-                  respond_to?(:admin_user) ? admin_user : nil
+                  Koi::Current.admin_user = (respond_to?(:admin_user) ? admin_user : nil)
                 end
 
                 alias_method :current_admin, :current_admin_user

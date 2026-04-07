@@ -27,7 +27,7 @@ module Koi
         end
 
         def webauthn_registration_options_value
-          user = current_admin_user.tap do |u|
+          user = Koi::Current.admin_user.tap do |u|
             u.update!(webauthn_id: WebAuthn.generate_user_id) unless u.webauthn_id
           end
 
@@ -74,7 +74,8 @@ module Koi
           session.delete(:registration_challenge),
         )
 
-        current_admin_user
+        Koi::Current
+          .admin_user
           .credentials
           .create_with(nickname:   webauthn_nickname,
                        public_key: webauthn_credential.public_key,
