@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     resource :cache, only: %i[destroy]
     resource :dashboard, only: %i[show]
 
+    resources :device_authorizations, param: :user_code, only: %i[create show update]
+    resources :device_tokens, only: %i[create]
+
     resource :profile, only: %i[show edit update], shallow: true do
       resources :credentials, only: %i[show new create update destroy]
       resource :otp, only: %i[new create destroy]

@@ -41,7 +41,7 @@ module Koi
       private
 
       def requires_authentication?(request)
-        !request.path.starts_with?("/admin/session")
+        !request.path.starts_with?("/admin/session") && !device_flow_request?(request)
       end
 
       def authenticated?
@@ -80,6 +80,10 @@ module Koi
 
           [303, { "Location" => "/admin/session/new" }, []]
         end
+      end
+
+      def device_flow_request?(request)
+        request.post? && %w[/admin/device_authorizations /admin/device_tokens].include?(request.path)
       end
     end
   end
