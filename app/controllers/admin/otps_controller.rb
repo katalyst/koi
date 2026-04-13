@@ -4,6 +4,8 @@ module Admin
   class OtpsController < ApplicationController
     alias_method :admin_user, :current_admin
 
+    before_action :requires_session_authentication!
+
     def new
       admin_user.otp_secret = ROTP::Base32.random
 

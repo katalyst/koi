@@ -24,6 +24,10 @@ module Koi
       # @deprecated Use current_admin_user instead
       alias_method :current_admin, :current_admin_user
 
+      def requires_session_authentication!
+        head(:forbidden) if session[:admin_user_id].blank?
+      end
+
       module Test
         # Include in view specs to stub out the current admin user
         module ViewHelper

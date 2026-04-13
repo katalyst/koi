@@ -4,6 +4,8 @@ module Admin
   class ProfilesController < ApplicationController
     include Koi::Controller::HasWebauthn
 
+    before_action :requires_session_authentication!
+
     alias_method :admin_user, :current_admin
 
     def show

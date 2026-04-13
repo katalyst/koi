@@ -29,6 +29,14 @@ RSpec.describe Admin::CredentialsController do
     it_behaves_like "requires admin"
 
     it { is_expected.to have_http_status(:ok).and(render_template(:show)) }
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(admin_credential_path(credential), headers:, params: { admin_credential: credential_params })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/profile/credentials/new" do
@@ -39,6 +47,14 @@ RSpec.describe Admin::CredentialsController do
     it "renders successfully" do
       action
       expect(response).to have_http_status(:success)
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(new_admin_profile_credential_path, headers:, as: :turbo_stream)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -62,6 +78,17 @@ RSpec.describe Admin::CredentialsController do
     it "creates an admin credential" do
       expect { action }.to(change { admin.credentials.reload.count }.by(1))
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        post admin_profile_credentials_path(admin),
+             headers: { **headers, "ACCEPT" => "text/vnd.turbo-stream.html" },
+             params:  { admin_credential: { response: "{}" } },
+             as:      :turbo_stream
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "PATCH /admin/credentials/:id" do
@@ -80,6 +107,14 @@ RSpec.describe Admin::CredentialsController do
 
     it "updates the credential" do
       expect { action }.to change { credential.reload.nickname }.to("updated")
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        patch(admin_credential_path(credential), headers:, params: { admin_credential: credential_params })
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -104,6 +139,14 @@ RSpec.describe Admin::CredentialsController do
 
     it "destroys an admin credential" do
       expect { action }.to(change { admin.credentials.reload.count }.by(-1))
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        delete(admin_credential_path(credential), headers:, as: :turbo_stream)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end

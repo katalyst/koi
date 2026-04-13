@@ -16,6 +16,14 @@ RSpec.describe Admin::ProfilesController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(admin_profile_path, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/profile/edit" do
@@ -26,6 +34,14 @@ RSpec.describe Admin::ProfilesController do
     it "renders successfully" do
       action
       expect(response).to have_http_status(:success)
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(edit_admin_profile_path, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -38,6 +54,14 @@ RSpec.describe Admin::ProfilesController do
     it "renders successfully" do
       action
       expect(response).to redirect_to(admin_profile_path)
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        patch(admin_profile_path, headers:, params: { admin_user: admin_params })
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     it "updates name" do

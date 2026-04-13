@@ -4,6 +4,7 @@ module Admin
   class CredentialsController < ApplicationController
     include Koi::Controller::HasWebauthn
 
+    before_action :requires_session_authentication!
     before_action :set_admin_user, only: %i[new create]
     before_action :set_credential, only: %i[show update destroy]
 

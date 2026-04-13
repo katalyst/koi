@@ -2,6 +2,7 @@
 
 module Admin
   class AdminUsersController < ApplicationController
+    before_action :requires_session_authentication!
     before_action :set_admin_user, only: %i[show edit update destroy]
 
     attr_reader :admin_user

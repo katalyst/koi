@@ -16,6 +16,14 @@ RSpec.describe Admin::AdminUsersController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(admin_admin_users_path, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/admin_users/archived" do
@@ -27,6 +35,14 @@ RSpec.describe Admin::AdminUsersController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(archived_admin_admin_users_path, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/admin_users/new" do
@@ -37,6 +53,14 @@ RSpec.describe Admin::AdminUsersController do
     it "renders successfully" do
       action
       expect(response).to have_http_status(:success)
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(new_admin_admin_user_path, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -54,6 +78,14 @@ RSpec.describe Admin::AdminUsersController do
     it "creates an admin" do
       expect { action }.to change(Admin::User, :count).by(1)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        post(admin_admin_users_path, headers:, params: { admin_user: admin_params })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/admin_users/:id" do
@@ -65,6 +97,14 @@ RSpec.describe Admin::AdminUsersController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(admin_admin_user_path(admin_user), headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "GET /admin/admin_users/:id/edit" do
@@ -75,6 +115,14 @@ RSpec.describe Admin::AdminUsersController do
     it "renders successfully" do
       action
       expect(response).to have_http_status(:success)
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(edit_admin_admin_user_path(admin_user), headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -113,6 +161,14 @@ RSpec.describe Admin::AdminUsersController do
         expect(response.body).to have_css("#admin-user-name-error")
       end
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        patch(admin_admin_user_path(admin_user), headers:, params: { admin_user: admin_params })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "PUT /admin/admin_users/archive" do
@@ -130,6 +186,14 @@ RSpec.describe Admin::AdminUsersController do
     it "updates archived" do
       expect { action }.to(change { Admin::User.archived.count }.to(2))
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        put(archive_admin_admin_users_path, headers:, params:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "PUT /admin/admin_users/restore" do
@@ -146,6 +210,14 @@ RSpec.describe Admin::AdminUsersController do
 
     it "updates archived" do
       expect { action }.to(change { Admin::User.not_archived.count }.from(1).to(3))
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        put(restore_admin_admin_users_path, headers:, params:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -174,6 +246,14 @@ RSpec.describe Admin::AdminUsersController do
       it "deletes the admin" do
         admin_user
         expect { action }.to change(Admin::User.with_archived, :count).by(-1)
+      end
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        delete(admin_admin_user_path(admin_user), headers:)
+
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

@@ -18,6 +18,14 @@ RSpec.describe Admin::OtpsController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(new_admin_profile_otp_path, headers:, as: :turbo_stream)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe "POST /admin/profile/otp" do
@@ -38,6 +46,19 @@ RSpec.describe Admin::OtpsController do
 
     it "sets otp secret" do
       expect { action }.to(change { admin.reload.otp_secret })
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        admin.otp_secret = ROTP::Base32.random
+
+        post admin_profile_otp_path,
+             headers: { **headers, "ACCEPT" => "text/vnd.turbo-stream.html" },
+             params:  { admin_user: { otp_secret: admin.otp_secret, token: admin.otp.now } },
+             as:      :turbo_stream
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     context "with token mismatch" do
@@ -80,6 +101,14 @@ RSpec.describe Admin::OtpsController do
 
     it "removes the otp secret" do
       expect { action }.to(change { admin.reload.otp_secret }.to(nil))
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        delete(admin_profile_otp_path, headers:, as: :turbo_stream)
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end
