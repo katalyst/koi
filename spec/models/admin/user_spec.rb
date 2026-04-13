@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Admin::User do
+  include ActiveSupport::Testing::TimeHelpers
+
   subject!(:admin) { create(:admin) }
 
   let!(:archived) { create(:admin, archived: true) }
@@ -57,6 +59,30 @@ RSpec.describe Admin::User do
 
     it "returns :mfa when password_digest and otp_secret are set" do
       expect(create(:admin).password_login).to eq(:mfa)
+    end
+  end
+
+  describe "API access tokens" do
+    it "is valid immediately after issuance" do
+      token = admin.generate_token_for(:api_access)
+
+      expect(described_class.find_by_token_for(:api_access, token)).to eq(admin)
+    end
+
+    it "is rejected after 12 hours" do
+      token = admin.generate_token_for(:api_access)
+
+      travel 12.hours + 1.second do
+        expect(described_class.find_by_token_for(:api_access, token)).to be_nil
+      end
+    end
+
+    it "is invalidated when current_sign_in_at changes" do
+      token = admin.generate_token_for(:api_access)
+
+      admin.update!(current_sign_in_at: 1.second.from_now)
+
+      expect(described_class.find_by_token_for(:api_access, token)).to be_nil
     end
   end
 end

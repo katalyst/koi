@@ -1,25 +1,19 @@
-# Koi
+# Katalyst Koi
 
 Koi is a framework for building Rails admin functionality.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+In most cases, Koi is installed using `https://github.com/katalyst/koi-template`.
 
-```ruby
-gem "katalyst-koi"
-```
+## API Access
 
-And then execute:
-
-```sh
-bundle install
-```
+See [docs/api-access.md](docs/api-access.md).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/katalyst/katalyst-tables.
+Bug reports and pull requests are welcome on GitHub at https://github.com/katalyst/koi.
 
 ## License
 
-Katalyst Tables is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Koi is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

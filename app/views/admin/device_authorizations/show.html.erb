@@ -1,0 +1,38 @@
+<%# locals: (device_authorization:) %>
+
+<%= content_for(:roadblock) do %>
+  <header>
+    <icon aria-hidden="true" class="icon" data-icon="koi">&nbsp;</icon>
+    <h1>API access request</h1>
+  </header>
+
+  <% if device_authorization.pending? && !device_authorization.expired? %>
+    <p>
+      A device is requesting a short-lived API token.
+    </p>
+    <dl>
+      <dt>Code</dt><dd><%= device_authorization.user_code %></dd>
+    </dl>
+
+    <div class="actions">
+      <%= button_to("Approve",
+                    admin_device_authorization_path(device_authorization.user_code),
+                    method: :patch,
+                    params: { decision: "approve" },
+                    class:  "button") %>
+      <%= button_to("Deny",
+                    admin_device_authorization_path(device_authorization.user_code),
+                    method: :patch,
+                    params: { decision: "deny" },
+                    class:  "button button--secondary") %>
+    </div>
+  <% end %>
+
+  <%= summary_table_with(model: device_authorization) do |row| %>
+    <% row.enum(:status) %>
+    <% row.text(:requested_ip) %>
+    <% row.text(:user_agent) %>
+    <% row.datetime(:request_expires_at) %>
+    <% row.datetime(:token_expires_at) %>
+  <% end %>
+<% end %>
