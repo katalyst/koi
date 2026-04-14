@@ -38,6 +38,13 @@ module Koi
       layout -> { turbo_frame_request? ? "koi/frame" : "koi/application" }
 
       protect_from_forgery with: :exception
+      skip_forgery_protection if: :bearer_token_request?
+    end
+
+    private
+
+    def bearer_token_request?
+      request.authorization.to_s.match?(/\ABearer .+\z/)
     end
   end
 end
