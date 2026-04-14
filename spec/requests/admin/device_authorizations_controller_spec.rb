@@ -31,10 +31,10 @@ RSpec.describe Admin::DeviceAuthorizationsController do
         create(:admin_device_authorization, request_expires_at: 1.second.ago)
       end
 
-      it "shows an expired message" do
+      it "shows expired token" do
         action
 
-        expect(response.parsed_body).to have_css(:p, text: /can no longer be approved/)
+        expect(response.parsed_body).to have_css(:td, text: /Less than a minute ago/)
       end
     end
 
@@ -153,7 +153,7 @@ RSpec.describe Admin::DeviceAuthorizationsController do
       it "renders the show page as unprocessable" do
         action
 
-        expect(response.parsed_body).to have_css(:p, text: /can no longer be approved/)
+        expect(response.parsed_body).to have_css(:td, text: /Less than a minute ago/)
       end
     end
 
