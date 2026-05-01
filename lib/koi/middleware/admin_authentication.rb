@@ -27,7 +27,10 @@ module Koi
                                   end
 
         # Remove from session if not found
-        session.delete(:admin_user_id) if session.has_key?(:admin_user_id) && !authenticated?
+        if session.has_key?(:admin_user_id) && !authenticated?
+          session.delete(:admin_user_id)
+          session.delete(:admin_user_signed_in_at)
+        end
 
         if requires_authentication?(request) && !authenticated?
           unauthorized_response(request)
@@ -58,7 +61,20 @@ module Koi
       end
 
       def session_admin_user(session)
-        Admin::User.find_by(id: session[:admin_user_id])
+        admin_user = Admin::User.find_by(id: session[:admin_user_id])
+        return unless admin_user
+
+        signed_in_at = session_signed_in_at(session)
+        return if signed_in_at.blank?
+        return if admin_user.last_sign_out_at.present? && signed_in_at < admin_user.last_sign_out_at
+
+        admin_user
+      end
+
+      def session_signed_in_at(session)
+        Time.zone.parse(session[:admin_user_signed_in_at].to_s)
+      rescue ArgumentError
+        nil
       end
 
       def bearer_token(request)

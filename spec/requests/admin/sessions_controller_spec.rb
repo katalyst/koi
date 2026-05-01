@@ -91,6 +91,15 @@ RSpec.describe Admin::SessionsController do
         post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
         expect(response).to have_http_status(:see_other).and(redirect_to(admin_dashboard_path))
       end
+
+      it "creates the admin session with timestamp" do # rubocop:disable RSpec/ExampleLength
+        post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
+        post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
+        aggregate_failures do
+          expect(session[:admin_user_id]).to eq(admin.id)
+          expect(session[:admin_user_signed_in_at]).to be_present
+        end
+      end
     end
 
     context "with archived user" do
@@ -170,7 +179,14 @@ RSpec.describe Admin::SessionsController do
 
     it "destroys the admin session" do
       action
-      expect(session[:admin_user_id]).to be_nil
+      aggregate_failures do
+        expect(session[:admin_user_id]).to be_nil
+        expect(session[:admin_user_signed_in_at]).to be_nil
+      end
+    end
+
+    it "updates logout metadata" do
+      expect { action }.to change { admin.reload.last_sign_out_at }.from(nil).to be_present
     end
   end
 end

@@ -41,9 +41,7 @@ module Admin
     end
 
     def destroy
-      record_sign_out!(Koi::Current.admin_user)
-
-      session[:admin_user_id] = nil
+      destroy_admin_session!
 
       redirect_to new_admin_session_path
     end
@@ -103,11 +101,14 @@ module Admin
     def authenticate_local_admin
       return if admin_signed_in? || !Rails.env.development?
 
-      Koi::Current.admin_user = Admin::User.find_by(email: "#{ENV.fetch('USER', nil)}@katalyst.com.au")
+      Koi::Current.admin_user = Admin::User.find_by(email: [
+        ENV.fetch("EMAIL", nil),
+        "#{ENV.fetch('USER', nil)}@katalyst.com.au",
+      ].compact)
 
       return unless admin_signed_in?
 
-      session[:admin_user_id] = Koi::Current.admin_user.id
+      create_admin_session!
 
       flash.delete(:redirect) if (redirect = flash[:redirect])
 
@@ -115,9 +116,9 @@ module Admin
     end
 
     def admin_sign_in(admin_user)
-      record_sign_in!(admin_user)
+      Koi::Current.admin_user = admin_user
 
-      session[:admin_user_id] = admin_user.id
+      create_admin_session!
 
       redirect_to(url_from(params[:redirect].presence) || admin_dashboard_path, status: :see_other)
     end
