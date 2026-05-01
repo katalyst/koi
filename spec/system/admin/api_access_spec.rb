@@ -33,12 +33,12 @@ RSpec.describe "admin/api access" do
     fill_in "Token", with: admin.otp.now
     click_on "Next"
 
-    expect(page).to have_content("API access request")
-    expect(page).to have_content(user_code)
+    expect(page).to have_text("API access request")
+    expect(page).to have_text(user_code)
 
     click_on "Approve"
 
-    expect(page).to have_content("Approved")
+    expect(page).to have_text("Approved")
 
     device.driver.post(
       admin_device_tokens_path,

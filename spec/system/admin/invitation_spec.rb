@@ -32,7 +32,7 @@ RSpec.describe "admin/invites" do
 
     visit "admin/session/tokens/#{token}"
 
-    expect(page).to have_content(/Welcome, #{admin.name}/)
+    expect(page).to have_text(/Welcome, #{admin.name}/)
 
     click_on "Sign in"
 
