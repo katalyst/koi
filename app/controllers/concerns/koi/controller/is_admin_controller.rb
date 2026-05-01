@@ -49,8 +49,12 @@ module Koi
       def authenticate_local_admin
         return if admin_signed_in? || !Rails.env.development?
 
-        session[:admin_user_id] =
-          Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first&.id
+        admin_user = Admin::User.where(email: %W[#{ENV.fetch('USER', nil)}@katalyst.com.au admin@katalyst.com.au]).first
+
+        return unless admin_user
+
+        session[:admin_user_id] = admin_user.id
+        session[:admin_user_signed_in_at] = Time.current.iso8601(6)
 
         flash.delete(:redirect) if (redirect = flash[:redirect])
 

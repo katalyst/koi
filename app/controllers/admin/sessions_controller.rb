@@ -35,9 +35,7 @@ module Admin
     end
 
     def destroy
-      record_sign_out!(current_admin_user)
-
-      session[:admin_user_id] = nil
+      destroy_admin_session!(current_admin_user)
 
       redirect_to new_admin_session_path
     end
@@ -95,9 +93,7 @@ module Admin
     end
 
     def admin_sign_in(admin_user)
-      record_sign_in!(admin_user)
-
-      session[:admin_user_id] = admin_user.id
+      create_admin_session!(admin_user)
 
       redirect_to(url_from(params[:redirect].presence) || admin_dashboard_path, status: :see_other)
     end

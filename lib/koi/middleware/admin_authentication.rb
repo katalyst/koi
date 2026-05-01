@@ -18,8 +18,9 @@ module Koi
       def admin_call(env)
         request = ActionDispatch::Request.new(env)
         session = ActionDispatch::Request::Session.find(request)
+        authenticated = authenticated?(session)
 
-        if requires_authentication?(request) && !authenticated?(session)
+        if requires_authentication?(request) && !authenticated
           # Set the redirection path for returning the user to their requested path after login
           if request.get?
             request.flash[:redirect] = request.fullpath
@@ -39,7 +40,34 @@ module Koi
       end
 
       def authenticated?(session)
-        session[:admin_user_id].present?
+        admin_user = Admin::User.find_by(id: session[:admin_user_id])
+        unless admin_user
+          clear_admin_session(session)
+          return false
+        end
+
+        signed_in_at = session_signed_in_at(session)
+        if signed_in_at.blank? || session_expired?(admin_user, signed_in_at)
+          clear_admin_session(session)
+          return false
+        end
+
+        true
+      end
+
+      def session_signed_in_at(session)
+        Time.zone.parse(session[:admin_user_signed_in_at].to_s)
+      rescue ArgumentError
+        nil
+      end
+
+      def session_expired?(admin_user, signed_in_at)
+        admin_user.last_sign_out_at.present? && signed_in_at < admin_user.last_sign_out_at
+      end
+
+      def clear_admin_session(session)
+        session.delete(:admin_user_id)
+        session.delete(:admin_user_signed_in_at)
       end
     end
   end

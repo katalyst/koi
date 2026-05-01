@@ -132,11 +132,7 @@ class Dummy < Thor
   private
 
   def template_base
-    base = Pathname.new(__dir__).join("../../../koi-template")
-
-    return base if base.exist?
-
-    "https://raw.githubusercontent.com/katalyst/koi-template/main"
+    "https://raw.githubusercontent.com/katalyst/koi-template/release/4.x"
   end
 
   def reset_to_head
