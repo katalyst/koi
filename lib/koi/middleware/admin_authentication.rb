@@ -21,10 +21,10 @@ module Koi
       # @return [Array(Integer, Hash, #each)]
       def admin_call(env)
         request           = ActionDispatch::Request.new(env)
-        cookie_session_id = request.cookie_jar.signed[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE]
+        cookie_session_id = request.cookie_jar.signed[Admin::Session::COOKIE_NAME]
 
         # Always retrieve user to ensure we are not vulnerable to timing attacks
-        auth_strategy = authenticate_request(request, cookie_session_id)
+        auth_strategy = authenticate_request(request)
 
         response = if requires_authentication?(request) && !authenticated?
                      unauthorized_response(request)
@@ -63,15 +63,14 @@ module Koi
 
       # Authenticates the request and records which auth strategy was used.
       # @param request [ActionDispatch::Request]
-      # @param cookie_session_id [String, nil]
       # @return [Symbol] `:bearer` when the Authorization header was used,
       #   `:cookie` when the signed admin session cookie was used.
-      def authenticate_request(request, cookie_session_id)
+      def authenticate_request(request)
         if bearer_token(request).present?
           Koi::Current.admin_user = bearer_admin_user(request)
           :bearer
         else
-          Koi::Current.admin_session = cookie_admin_session(cookie_session_id)
+          Koi::Current.admin_session = Admin::Session.from_request(request)
           :cookie
         end
       end
@@ -89,22 +88,10 @@ module Koi
       # @param response [Array(Integer, Hash, #each)]
       # @return [Array(Integer, Hash, #each)]
       def clear_admin_cookie(request, response)
-        request.cookie_jar.delete(Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE)
+        request.cookie_jar.delete(Admin::Session::COOKIE_NAME)
         rack_response = Rack::Response.new(response[2], response[0], response[1])
         request.cookie_jar.write(rack_response)
         rack_response.finish
-      end
-
-      # Loads the persisted admin session referenced by the signed cookie.
-      # @param session_id [String, nil]
-      # @return [Admin::Session, nil]
-      def cookie_admin_session(session_id)
-        return if session_id.blank?
-
-        admin_session = Admin::Session.includes(:admin).find_by(id: session_id)
-        return if admin_session&.admin.blank?
-
-        admin_session
       end
 
       # Extracts a bearer token from the Authorization header.

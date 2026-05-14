@@ -42,7 +42,7 @@ RSpec.describe "admin authentication" do
         action
 
         expect(Array(response.headers["Set-Cookie"]).join("\n")).not_to include(
-          "#{Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE}=;",
+          "#{Admin::Session::COOKIE_NAME}=;",
         )
       end
     end
@@ -68,7 +68,7 @@ RSpec.describe "admin authentication" do
         action
 
         expect(Array(response.headers["Set-Cookie"]).join("\n")).to include(
-          "#{Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE}=",
+          "#{Admin::Session::COOKIE_NAME}=",
         )
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe "admin authentication" do
         action
 
         expect(Array(response.headers["Set-Cookie"]).join("\n")).to include(
-          "#{Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE}=",
+          "#{Admin::Session::COOKIE_NAME}=",
         )
       end
     end

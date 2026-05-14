@@ -8,6 +8,7 @@ module Koi
       included do
         helper_method :admin_signed_in?
         helper_method :current_admin_user
+        before_action :set_koi_admin_session, unless: :koi_admin_controller?
 
         # @deprecated use current admin user instead
         helper_method :current_admin
@@ -19,6 +20,16 @@ module Koi
 
       def current_admin_user
         Koi::Current.admin_user
+      end
+
+      def set_koi_admin_session
+        return if Koi::Current.admin_session.present? || Koi::Current.admin_user.present?
+
+        Koi::Current.admin_session = Admin::Session.from_request(request)
+      end
+
+      def koi_admin_controller?
+        self.class < Admin::ApplicationController
       end
 
       # @deprecated Use current_admin_user instead

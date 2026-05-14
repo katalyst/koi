@@ -240,7 +240,7 @@ Koi.
           end
      
           def admin?
-            request.session[:admin_user_id].present?
+            Admin::Session.from_request(request).present?
           end
      
           def page
@@ -258,6 +258,8 @@ Koi.
 
     - **Verification:** visit the public page and confirm blocks render respecting heading styles, themes, and
       visibility toggles. The status bar’s “Published/Preview” links should now resolve without overrides.
+    - **Public controller auth helpers:** if your public controller needs `admin_signed_in?` or `current_admin_user`,
+      include `Koi::Controller::HasAdminUsers`. The concern hydrates admin state automatically for non-Koi-admin controllers.
     - **Need root-level slugs?** Follow the [`root-level-page-routing.md`](./root-level-page-routing.md) pattern to
       serve published pages at `/slug` while keeping previews admin-only.
 

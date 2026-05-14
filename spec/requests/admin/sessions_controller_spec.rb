@@ -108,7 +108,7 @@ RSpec.describe Admin::SessionsController do
         post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
         post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
 
-        expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
+        expect(cookies[Admin::Session::COOKIE_NAME.to_s]).to be_present
       end
     end
 
@@ -162,7 +162,7 @@ RSpec.describe Admin::SessionsController do
         create_credential
         action
 
-        expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
+        expect(cookies[Admin::Session::COOKIE_NAME.to_s]).to be_present
       end
 
       it "updates login metadata" do
@@ -204,7 +204,7 @@ RSpec.describe Admin::SessionsController do
     it "clears the admin session cookie" do
       action
 
-      expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to eq("")
+      expect(cookies[Admin::Session::COOKIE_NAME.to_s]).to eq("")
     end
 
     it "only destroys the current persisted session" do

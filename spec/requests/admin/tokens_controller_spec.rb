@@ -69,7 +69,7 @@ RSpec.describe Admin::TokensController do
     it "sets the admin session cookie" do
       action
 
-      expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
+      expect(cookies[Admin::Session::COOKIE_NAME.to_s]).to be_present
     end
 
     context "with invalid token" do

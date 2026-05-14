@@ -91,7 +91,7 @@ class PagesController < ApplicationController
 
     def action = request.params[:action]
 
-    def admin? = request.session[:admin_user_id].present?
+    def admin? = Admin::Session.from_request(request).present?
 
     def page
       return unless request.params[:slug] && request.get?
@@ -106,7 +106,7 @@ Highlights:
 - The constraint only runs for GET requests with a `slug` param, letting other verbs fall through.
 - Matched pages are cached on the request, so the controller, SEO helpers, and downstream services (e.g. layout components) share one lookup.
 - `match?` returns `false` when no page is found or when a non-admin requests a preview, letting the router continue to the next route.
-- `admin?` piggybacks on the `admin_user_id` session that Koi already sets when an admin is signed in.
+- `admin?` resolves Koi's persisted admin session from the signed admin session cookie.
 - `preview` redirects to `show` when the page is already published, ensuring canonical URLs.
 - The `seo_metadatum` pass-through demonstrates how additional controller actions can reuse the cached page without hitting the database again.
 
@@ -116,6 +116,7 @@ Highlights:
 - **Slug uniqueness** – ensure the `pages` table validates and indexes `slug` uniqueness; otherwise collisions produce confusing fallbacks.
 - **Route ordering** – keep explicit static routes (`get "/health"`) above the constraint block. Anything defined below may never run because the constraint claims the slug first.
 - **Preview access** – verify that admin authentication is in place (via `Koi.config.authenticate_local_admins` or real login) before relying on previews.
+- **Public controller checks** – if the controller itself needs `admin_signed_in?`, include `Koi::Controller::HasAdminUsers`. The concern hydrates `Koi::Current.admin_user` automatically for non-Koi-admin controllers.
 - **Caching hooks** – if you add middleware or helpers that assume `request.page`, use the header set in `match?` to avoid duplicate queries.
 - **Specs** – cover `GET /:slug` for published pages, `GET /:slug/preview` for admins, and missing slugs falling through to a 404.
 
@@ -128,4 +129,3 @@ This approach works for any single module that owns the remaining root paths—s
 - update `resolve("ModelName")` accordingly so polymorphic helpers stay correct.
 
 If you genuinely need multiple modules sharing the root namespace, consider a dispatcher that inspects the slug format or a database-backed router instead of duplicating this constraint class.
-
