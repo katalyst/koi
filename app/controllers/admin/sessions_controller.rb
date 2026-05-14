@@ -70,10 +70,7 @@ module Admin
       # assume that the previous step injected the user's ID into the session and remove it regardless of outcome
       admin_user = Admin::User.find_by(id: session.delete(:pending_admin_user_id))
 
-      if admin_user&.otp&.verify(session_params[:token],
-                                 drift_ahead:  15,
-                                 drift_behind: 15,
-                                 after:        admin_user.current_sign_in_at)
+      if admin_user&.otp&.verify(session_params[:token], drift_ahead: 15, drift_behind: 15)
         admin_sign_in(admin_user)
       else
         admin_user = Admin::User.new

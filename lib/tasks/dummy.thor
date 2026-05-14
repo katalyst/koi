@@ -76,8 +76,8 @@ class Dummy < Thor
       $LOAD_PATH.unshift File.expand_path("../../../lib", __dir__)
     RUBY
 
-    # Remove Koi migrations that will be loaded directly from Koi
-    run "rm -f spec/dummy/db/migrate/*.koi.rb"
+    remove_copied_koi_migrations
+    remove_stale_dummy_schema
 
     reset_database(migrate: true)
 
@@ -173,6 +173,27 @@ class Dummy < Thor
       awk '{print "spec/dummy/" $2}'|
       xargs erblint -a
     SH
+  end
+
+  # Remove copied Koi migrations from the dummy app so `app:db:migrate`
+  # only runs the engine migrations once.
+  def remove_copied_koi_migrations
+    migration_names = Dir.glob(File.expand_path("../../db/migrate/*.rb", __dir__)).map do |file|
+      migration_name(file)
+    end
+
+    Dir.glob(File.join(destination_root, "db/migrate/*.rb")).each do |file|
+      File.delete(file) if migration_names.include?(migration_name(file))
+    end
+  end
+
+  def remove_stale_dummy_schema
+    schema_path = File.join(destination_root, "db/schema.rb")
+    File.delete(schema_path) if File.exist?(schema_path) # rubocop:disable Lint/NonAtomicFileOperation
+  end
+
+  def migration_name(file)
+    File.basename(file).sub(/^\d+_/, "").sub(/(?:\.[^.]+)?\.rb$/, "")
   end
 end
 

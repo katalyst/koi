@@ -12,7 +12,7 @@
   <% row.text :name %>
   <% row.text :email %>
   <% row.date :created_at %>
-  <% row.date(:last_sign_in_at, label: "Last access") %>
+  <% row.text :sign_in_count, label: "Sign-ins" %>
   <% row.boolean :passkey %>
   <% row.boolean(:otp, label: "MFA") do |otp| %>
     <span class="repel">

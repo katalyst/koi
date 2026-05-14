@@ -28,22 +28,6 @@ RSpec.describe Admin::TokensController do
 
     it { is_expected.to be_successful }
 
-    context "with a consumed token" do
-      before do
-        # force token generation
-        token
-        # simulate sign-in after token creation
-        admin.update(current_sign_in_at: 1.second.from_now)
-      end
-
-      it { is_expected.to redirect_to(new_admin_session_path) }
-
-      it "shows a flash message" do
-        action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
-      end
-    end
-
     context "with invalid token" do
       let(:token) { "token" }
 
@@ -63,8 +47,8 @@ RSpec.describe Admin::TokensController do
 
     it { is_expected.to redirect_to(new_admin_profile_credential_path) }
 
-    it "updates the admin login details" do
-      expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present
+    it "increments sign in count" do
+      expect { action }.to change { admin.reload.sign_in_count }.by(1)
     end
 
     it "creates the persisted admin session" do
@@ -86,22 +70,6 @@ RSpec.describe Admin::TokensController do
       action
 
       expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
-    end
-
-    context "with a consumed token" do
-      before do
-        # force token generation
-        token
-        # simulate sign-in after token creation
-        admin.update(current_sign_in_at: 1.second.from_now)
-      end
-
-      it { is_expected.to redirect_to(new_admin_session_path) }
-
-      it "shows a flash message" do
-        action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
-      end
     end
 
     context "with invalid token" do

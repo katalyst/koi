@@ -88,13 +88,21 @@ RSpec.describe Admin::User do
         expect(described_class.find_by_token_for(:api_access, token)).to be_nil
       end
     end
+  end
 
-    it "is invalidated when current_sign_in_at changes" do
-      token = admin.generate_token_for(:api_access)
+  describe "password reset tokens" do
+    it "is valid immediately after issuance" do
+      token = admin.generate_token_for(:password_reset)
 
-      admin.update!(current_sign_in_at: 1.second.from_now)
+      expect(described_class.find_by_token_for(:password_reset, token)).to eq(admin)
+    end
 
-      expect(described_class.find_by_token_for(:api_access, token)).to be_nil
+    it "is rejected after 30 minutes" do
+      token = admin.generate_token_for(:password_reset)
+
+      travel 30.minutes + 1.second do
+        expect(described_class.find_by_token_for(:password_reset, token)).to be_nil
+      end
     end
   end
 end

@@ -28,15 +28,6 @@ RSpec.describe "admin authentication" do
         action
         expect(Admin::Session.count).to eq(0)
       end
-
-      it "is rejected after the admin signs in again" do
-        token = admin.generate_token_for(:api_access)
-        admin.update!(current_sign_in_at: 1.second.from_now)
-
-        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{token}" }
-
-        expect(response).to have_http_status(:unauthorized)
-      end
     end
 
     context "with a valid bearer token and valid admin session cookie" do

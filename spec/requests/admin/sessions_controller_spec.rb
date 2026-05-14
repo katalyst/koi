@@ -78,9 +78,11 @@ RSpec.describe Admin::SessionsController do
     it "accepts otp and updates login metadata" do
       expect do
         post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
-        post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
+        post admin_session_path,
+             params: { admin: { email: admin.email, password: admin.password } },
+             as:     :turbo_stream
         post admin_session_path, params: { admin: { token: admin.otp.now } }, as: :turbo_stream
-      end.to(change { admin.reload.current_sign_in_at })
+      end.to(change { admin.reload.sign_in_count }.by(1))
     end
 
     context "with no otp present" do
@@ -165,7 +167,7 @@ RSpec.describe Admin::SessionsController do
 
       it "updates login metadata" do
         create_credential
-        expect { action }.to(change { admin.reload.current_sign_in_at })
+        expect { action }.to(change { admin.reload.sign_in_count }.by(1))
       end
 
       it "updates credential count" do
@@ -205,8 +207,10 @@ RSpec.describe Admin::SessionsController do
       expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to eq("")
     end
 
-    it "updates logout metadata" do
-      expect { action }.to change { admin.reload.last_sign_out_at }.from(nil).to be_present
+    it "only destroys the current persisted session" do
+      admin.sessions.create!(ip_address: "127.0.0.2", user_agent: "Other Session")
+
+      expect { action }.to change { admin.reload.sessions.count }.from(2).to(1)
     end
   end
 end
