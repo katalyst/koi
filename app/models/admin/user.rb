@@ -18,6 +18,7 @@ module Admin
     generates_token_for(:password_reset, expires_in: 30.minutes) { current_sign_in_at }
 
     has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
+    has_many :sessions, inverse_of: :admin, class_name: "Admin::Session", dependent: :destroy
 
     attribute :password_login, :string
     enum :password_login, { none: "none", password_only: "password_only", mfa: "mfa" }, prefix: true
@@ -77,6 +78,11 @@ module Admin
       else
         :mfa
       end
+    end
+
+    def archive
+      sessions.destroy_all
+      super
     end
 
     def to_s

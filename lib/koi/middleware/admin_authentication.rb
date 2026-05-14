@@ -2,6 +2,7 @@
 
 module Koi
   module Middleware
+    # Authenticates admin requests via bearer token or persisted browser session.
     class AdminAuthentication
       def initialize(app)
         @app = app
@@ -15,30 +16,30 @@ module Koi
         end
       end
 
+      # Handles authentication for admin requests and clears invalid session cookies.
+      # @param env [Hash]
+      # @return [Array(Integer, Hash, #each)]
       def admin_call(env)
-        request = ActionDispatch::Request.new(env)
-        session = ActionDispatch::Request::Session.find(request)
+        request           = ActionDispatch::Request.new(env)
+        cookie_session_id = request.cookie_jar.signed[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE]
 
         # Always retrieve user to ensure we are not vulnerable to timing attacks
-        Koi::Current.admin_user = if bearer_token(request).present?
-                                    bearer_admin_user(request)
-                                  else
-                                    session_admin_user(session)
-                                  end
+        auth_strategy = authenticate_request(request, cookie_session_id)
 
-        # Remove from session if not found
-        if session.has_key?(:admin_user_id) && !authenticated?
-          session.delete(:admin_user_id)
-          session.delete(:admin_user_signed_in_at)
-        end
+        response = if requires_authentication?(request) && !authenticated?
+                     unauthorized_response(request)
+                   else
+                     @app.call(env)
+                   end
 
-        if requires_authentication?(request) && !authenticated?
-          unauthorized_response(request)
+        if invalid_admin_cookie?(cookie_session_id, auth_strategy)
+          clear_admin_cookie(request, response)
         else
-          @app.call(env)
+          response
         end
       ensure
-        Koi::Current.admin_user = nil
+        Koi::Current.admin_session = nil
+        Koi::Current.admin_user    = nil
       end
 
       private
@@ -60,23 +61,55 @@ module Koi
         Admin::User.find_by_token_for(:api_access, token)
       end
 
-      def session_admin_user(session)
-        admin_user = Admin::User.find_by(id: session[:admin_user_id])
-        return unless admin_user
-
-        signed_in_at = session_signed_in_at(session)
-        return if signed_in_at.blank?
-        return if admin_user.last_sign_out_at.present? && signed_in_at < admin_user.last_sign_out_at
-
-        admin_user
+      # Authenticates the request and records which auth strategy was used.
+      # @param request [ActionDispatch::Request]
+      # @param cookie_session_id [String, nil]
+      # @return [Symbol] `:bearer` when the Authorization header was used,
+      #   `:cookie` when the signed admin session cookie was used.
+      def authenticate_request(request, cookie_session_id)
+        if bearer_token(request).present?
+          Koi::Current.admin_user = bearer_admin_user(request)
+          :bearer
+        else
+          Koi::Current.admin_session = cookie_admin_session(cookie_session_id)
+          :cookie
+        end
       end
 
-      def session_signed_in_at(session)
-        Time.zone.parse(session[:admin_user_signed_in_at].to_s)
-      rescue ArgumentError
-        nil
+      # Determines whether an admin session cookie should be cleared.
+      # @param cookie_session_id [String, nil]
+      # @param auth_strategy [Symbol]
+      # @return [Boolean]
+      def invalid_admin_cookie?(cookie_session_id, auth_strategy)
+        auth_strategy == :cookie && cookie_session_id.present? && Koi::Current.admin_session.blank?
       end
 
+      # Writes a deleted admin session cookie to the Rack response.
+      # @param request [ActionDispatch::Request]
+      # @param response [Array(Integer, Hash, #each)]
+      # @return [Array(Integer, Hash, #each)]
+      def clear_admin_cookie(request, response)
+        request.cookie_jar.delete(Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE)
+        rack_response = Rack::Response.new(response[2], response[0], response[1])
+        request.cookie_jar.write(rack_response)
+        rack_response.finish
+      end
+
+      # Loads the persisted admin session referenced by the signed cookie.
+      # @param session_id [String, nil]
+      # @return [Admin::Session, nil]
+      def cookie_admin_session(session_id)
+        return if session_id.blank?
+
+        admin_session = Admin::Session.includes(:admin).find_by(id: session_id)
+        return if admin_session&.admin.blank?
+
+        admin_session
+      end
+
+      # Extracts a bearer token from the Authorization header.
+      # @param request [ActionDispatch::Request]
+      # @return [String, nil]
       def bearer_token(request)
         return nil if request.authorization.blank?
 

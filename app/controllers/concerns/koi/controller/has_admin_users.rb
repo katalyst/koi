@@ -25,7 +25,7 @@ module Koi
       alias_method :current_admin, :current_admin_user
 
       def requires_session_authentication!
-        head(:forbidden) if session[:admin_user_id].blank?
+        head(:forbidden) if Koi::Current.admin_session.blank?
       end
 
       module Test

@@ -13,6 +13,7 @@ RSpec.describe Admin::User do
   it { is_expected.to validate_presence_of(:email) }
 
   it { is_expected.to have_many(:credentials).class_name("Admin::Credential").dependent(:destroy) }
+  it { is_expected.to have_many(:sessions).class_name("Admin::Session").dependent(:destroy) }
 
   it { is_expected.to allow_values("a@b.com").for(:email) }
   it { is_expected.not_to allow_values("@b.com", "fail").for(:email) }
@@ -59,6 +60,17 @@ RSpec.describe Admin::User do
 
     it "returns :mfa when password_digest and otp_secret are set" do
       expect(create(:admin).password_login).to eq(:mfa)
+    end
+  end
+
+  describe "#archive!" do
+    before do
+      admin.sessions.create!(ip_address: "127.0.0.1", user_agent: "RSpec")
+      admin.sessions.create!(ip_address: "127.0.0.2", user_agent: "RSpec")
+    end
+
+    it "destroys persisted sessions" do
+      expect { admin.archive! }.to change { admin.sessions.count }.from(2).to(0)
     end
   end
 

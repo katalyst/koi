@@ -187,6 +187,12 @@ RSpec.describe Admin::AdminUsersController do
       expect { action }.to(change { Admin::User.archived.count }.to(2))
     end
 
+    it "destroys persisted sessions for archived admins" do
+      admins.each { |admin| admin.sessions.create!(ip_address: "127.0.0.1", user_agent: "RSpec") }
+
+      expect { action }.to change(Admin::Session, :count).by(-2)
+    end
+
     it_behaves_like "with bearer token authentication" do
       it "fails with an authentication error" do
         put(archive_admin_admin_users_path, headers:, params:)
@@ -233,6 +239,12 @@ RSpec.describe Admin::AdminUsersController do
 
     it "archives the admin" do
       expect { action }.to change { admin_user.reload.archived }.to(true)
+    end
+
+    it "destroys persisted sessions for the archived admin" do
+      admin_user.sessions.create!(ip_address: "127.0.0.1", user_agent: "RSpec")
+
+      expect { action }.to change(Admin::Session, :count).by(-1)
     end
 
     context "when the admin is archived" do

@@ -22,6 +22,9 @@ module Admin
 
     def update
       if (@admin_user = Admin::User.find_by_token_for(:password_reset, params[:token]))
+        # Treat token-based recovery sign-in as a password reset boundary and
+        # revoke other browser sessions before issuing a fresh one.
+        admin_user.sessions.destroy_all
         create_admin_session!(admin_user)
 
         if admin_user.credentials.any?

@@ -67,12 +67,25 @@ RSpec.describe Admin::TokensController do
       expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present
     end
 
-    it "creates the admin session with timestamp" do
-      action
-      aggregate_failures do
-        expect(session[:admin_user_id]).to eq(admin.id)
-        expect(session[:admin_user_signed_in_at]).to be_present
+    it "creates the persisted admin session" do
+      expect { action }.to change { admin.sessions.count }.by(1)
+    end
+
+    context "with existing persisted sessions" do
+      before do
+        admin.sessions.create!(ip_address: "127.0.0.1", user_agent: "Old Session")
+        admin.sessions.create!(ip_address: "127.0.0.2", user_agent: "Older Session")
       end
+
+      it "replaces previous persisted sessions" do
+        expect { action }.to change { admin.sessions.count }.from(2).to(1)
+      end
+    end
+
+    it "sets the admin session cookie" do
+      action
+
+      expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
     end
 
     context "with a consumed token" do

@@ -3,6 +3,8 @@
 module Koi
   module Controller
     module RecordsAuthentication
+      ADMIN_SESSION_COOKIE = :koi_admin_session_id
+
       def create_admin_session!(admin_user = Koi::Current.admin_user)
         sign_in_at = Time.current
 
@@ -14,13 +16,23 @@ module Koi
 
         admin_user.save!
 
-        session[:admin_user_id] = admin_user.id
-        session[:admin_user_signed_in_at] = sign_in_at.iso8601
+        Koi::Current.admin_session = admin_user.sessions.create!(
+          ip_address: request.remote_ip,
+          user_agent: request.user_agent,
+        )
+
+        cookies.signed.permanent[ADMIN_SESSION_COOKIE] = {
+          value:     Koi::Current.admin_session.id,
+          httponly:  true,
+          same_site: :lax,
+        }
       end
 
       def destroy_admin_session!(admin_user = Koi::Current.admin_user)
-        session[:admin_user_id] = nil
-        session[:admin_user_signed_in_at] = nil
+        Koi::Current.admin_session&.destroy!
+        Koi::Current.admin_session = nil
+
+        cookies.delete(ADMIN_SESSION_COOKIE)
 
         return unless admin_user
 

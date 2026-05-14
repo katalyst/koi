@@ -92,13 +92,21 @@ RSpec.describe Admin::SessionsController do
         expect(response).to have_http_status(:see_other).and(redirect_to(admin_dashboard_path))
       end
 
-      it "creates the admin session with timestamp" do # rubocop:disable RSpec/ExampleLength
+      it "creates the persisted admin session" do
+        post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
+
+        expect do
+          post admin_session_path,
+               params: { admin: { email: admin.email, password: admin.password } },
+               as:     :turbo_stream
+        end.to change { admin.sessions.count }.by(1)
+      end
+
+      it "sets the admin session cookie" do
         post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
         post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
-        aggregate_failures do
-          expect(session[:admin_user_id]).to eq(admin.id)
-          expect(session[:admin_user_signed_in_at]).to be_present
-        end
+
+        expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
       end
     end
 
@@ -142,10 +150,17 @@ RSpec.describe Admin::SessionsController do
         expect(response).to redirect_to(admin_dashboard_path)
       end
 
-      it "creates the admin session" do
+      it "creates the persisted admin session" do
+        create_credential
+
+        expect { action }.to change { admin.sessions.count }.by(1)
+      end
+
+      it "sets the admin session cookie" do
         create_credential
         action
-        expect(session[:admin_user_id]).to be_present
+
+        expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to be_present
       end
 
       it "updates login metadata" do
@@ -177,12 +192,17 @@ RSpec.describe Admin::SessionsController do
       expect(response).to redirect_to(new_admin_session_path)
     end
 
-    it "destroys the admin session" do
+    it "destroys the persisted admin session" do
+      current_session = admin.sessions.sole
       action
-      aggregate_failures do
-        expect(session[:admin_user_id]).to be_nil
-        expect(session[:admin_user_signed_in_at]).to be_nil
-      end
+
+      expect(Admin::Session.find_by(id: current_session.id)).to be_nil
+    end
+
+    it "clears the admin session cookie" do
+      action
+
+      expect(cookies[Koi::Controller::RecordsAuthentication::ADMIN_SESSION_COOKIE.to_s]).to eq("")
     end
 
     it "updates logout metadata" do
