@@ -16,15 +16,15 @@ module Koi
                   :site_name
 
     def initialize
-      @admin_name = "Koi"
-      @authenticate_local_admins = Rails.env.development?
-      @resource_name_candidates = %i[title name]
-      @admin_stylesheet = "admin"
+      @admin_name                   = "Koi"
+      @authenticate_local_admins    = Rails.env.development?
+      @resource_name_candidates     = %i[title name]
+      @admin_stylesheet             = "admin"
       @admin_javascript_entry_point = "@katalyst/koi"
-      @document_mime_types = %w[image/png image/gif image/jpeg image/webp application/pdf audio/*].freeze
-      @document_size_limit = 10.megabytes
-      @image_mime_types = %w[image/png image/gif image/jpeg image/webp].freeze
-      @image_size_limit = 10.megabytes
+      @document_mime_types          = %w[image/png image/gif image/jpeg image/webp application/pdf audio/*].freeze
+      @document_size_limit          = 10.megabytes
+      @image_mime_types             = %w[image/png image/gif image/jpeg image/webp].freeze
+      @image_size_limit             = 10.megabytes
     end
   end
 end

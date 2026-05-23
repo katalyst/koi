@@ -8,7 +8,7 @@ module Koi
 
     hook_for :admin_controller, in: :koi, as: :admin, type: :boolean, default: true do |instance, controller|
       args, opts, config = @_initializer
-      opts               ||= {}
+      opts             ||= {}
 
       # setting model_name so that generators will use the controller_class_path
       instance.invoke controller, args, { model_name: instance.name, **opts }, config

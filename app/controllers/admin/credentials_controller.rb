@@ -55,7 +55,7 @@ module Admin
     end
 
     def set_credential
-      @credential = Credential.find(params[:id])
+      @credential = Credential.find(params.expect(:id))
       @admin_user = @credential.admin
     end
 

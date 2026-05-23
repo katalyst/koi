@@ -41,7 +41,7 @@ module Koi
       # @see GOVUKDesignSystemFormBuilder::Builder#govuk_document_field
       def govuk_document_field(attribute_name, hint: {}, **, &)
         if hint.is_a?(Hash)
-          max_size = hint.fetch(:max_size, Koi.config.document_size_limit)
+          max_size      = hint.fetch(:max_size, Koi.config.document_size_limit)
           hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
         end
 
@@ -52,7 +52,7 @@ module Koi
       # @see GOVUKDesignSystemFormBuilder::Builder#govuk_image_field
       def govuk_image_field(attribute_name, hint: {}, **, &)
         if hint.is_a?(Hash)
-          max_size = hint.fetch(:max_size, Koi.config.image_size_limit)
+          max_size      = hint.fetch(:max_size, Koi.config.image_size_limit)
           hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
         end
 

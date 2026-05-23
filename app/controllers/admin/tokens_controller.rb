@@ -37,7 +37,7 @@ module Admin
     private
 
     def set_admin_user
-      @admin_user = Admin::User.find(params[:admin_user_id])
+      @admin_user = Admin::User.find(params.expect(:admin_user_id))
     end
   end
 end

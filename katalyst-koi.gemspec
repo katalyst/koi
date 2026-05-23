@@ -2,18 +2,19 @@
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "katalyst-koi"
-  s.version     = "5.6.0"
-  s.authors     = ["Katalyst Interactive"]
-  s.email       = ["developers@katalyst.com.au"]
+  s.name     = "katalyst-koi"
+  s.version  = "5.6.0"
+  s.authors  = ["Katalyst Interactive"]
+  s.email    = ["developers@katalyst.com.au"]
+  s.summary  = "Koi CMS admin framework"
+  s.homepage = "https://github.com/katalyst/koi"
+  s.license  = "MIT"
 
-  s.summary     = "Koi CMS admin framework"
-  s.homepage    = "https://github.com/katalyst/koi"
-  s.license     = "MIT"
   s.required_ruby_version = ">= 3.4"
 
   s.files = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
               .grep_v(%r{^lib/tasks})
+
   s.metadata["rubygems_mfa_required"] = "true"
 
   s.add_dependency "rails", ">= 8.0"

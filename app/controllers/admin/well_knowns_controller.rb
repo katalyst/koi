@@ -53,7 +53,7 @@ module Admin
     private
 
     def set_well_known
-      @well_known = ::WellKnown.find(params[:id])
+      @well_known = ::WellKnown.find(params.expect(:id))
     end
 
     def well_known_params

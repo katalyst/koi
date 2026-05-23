@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "admin/api access" do
   it "supports device flow approval and bearer-authenticated API access" do
-    admin = create(:admin)
+    admin  = create(:admin)
     device = Capybara::Session.new(:rack_test, Rails.application)
 
     device.driver.post(
@@ -19,8 +19,8 @@ RSpec.describe "admin/api access" do
     expect(device.status_code).to eq(200)
 
     device_response = JSON.parse(device.html)
-    device_code = device_response.fetch("device_code")
-    user_code = device_response.fetch("user_code")
+    device_code     = device_response.fetch("device_code")
+    user_code       = device_response.fetch("user_code")
 
     visit admin_device_authorization_path(user_code)
 
@@ -52,7 +52,7 @@ RSpec.describe "admin/api access" do
     expect(device.status_code).to eq(200)
 
     token_response = JSON.parse(device.html)
-    access_token = token_response.fetch("access_token")
+    access_token   = token_response.fetch("access_token")
 
     device.driver.get(
       "/admin/dashboard",

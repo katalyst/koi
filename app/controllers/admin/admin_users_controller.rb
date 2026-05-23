@@ -80,7 +80,7 @@ module Admin
     private
 
     def set_admin_user
-      @admin_user = Admin::User.with_archived.find(params[:id])
+      @admin_user = Admin::User.with_archived.find(params.expect(:id))
     end
 
     def admin_user_params

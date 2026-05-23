@@ -86,8 +86,10 @@ module Koi
         if (namespace_match = match_file(route_file, namespace_pattern))
           base_indent, *, existing_block_indent = namespace_match.captures.compact.map(&:length)
           existing_line_pattern                 = /^ {,#{existing_block_indent}}\S.+\n?/
-          routing_code = rebase_indentation(routing_code, base_indent + 2).gsub(existing_line_pattern, "")
-          namespace_pattern = /#{Regexp.escape namespace_match.to_s}/
+          routing_code                          = rebase_indentation(routing_code, base_indent + 2).gsub(
+            existing_line_pattern, ""
+          )
+          namespace_pattern                     = /#{Regexp.escape namespace_match.to_s}/
         end
 
         inject_into_file route_file, routing_code, after: namespace_pattern, verbose: true, force: false
@@ -115,7 +117,7 @@ module Koi
         resource_match = match_file(route_file, block_pattern)
 
         *, existing_block_indent, _ = resource_match.captures.compact.map(&:length)
-        routing_code = rebase_indentation(routing_code, existing_block_indent + 2)
+        routing_code                = rebase_indentation(routing_code, existing_block_indent + 2)
 
         inject_into_file route_file, routing_code, after: block_pattern, verbose: true, force: false
       end

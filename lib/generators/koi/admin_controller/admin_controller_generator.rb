@@ -41,7 +41,7 @@ module Koi
     def permitted_params
       attachments, others = attributes_names.partition { |name| attachments?(name) }
       params              = others.map { |name| ":#{name}" }
-      params += attachments.map { |name| "#{name}: []" }
+      params             += attachments.map { |name| "#{name}: []" }
       params.join(", ")
     end
   end

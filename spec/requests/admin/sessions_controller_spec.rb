@@ -118,7 +118,7 @@ RSpec.describe Admin::SessionsController do
 
       def create_credential
         relying_party = WebAuthn.configuration.relying_party
-        result = webauthn_client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
+        result        = webauthn_client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
 
         response =
           WebAuthn::AuthenticatorAttestationResponse

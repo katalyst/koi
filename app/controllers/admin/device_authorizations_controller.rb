@@ -3,7 +3,7 @@
 module Admin
   class DeviceAuthorizationsController < ApplicationController
     EXPIRES_IN = 10.minutes
-    INTERVAL = 5
+    INTERVAL   = 5
 
     rate_limit to: 3, within: 1.minute, only: :create
     skip_before_action :verify_authenticity_token, only: :create
@@ -52,7 +52,7 @@ module Admin
     private
 
     def set_device_authorization
-      @device_authorization = Admin::DeviceAuthorization.find_by!(user_code: params[:user_code])
+      @device_authorization = Admin::DeviceAuthorization.find_by!(user_code: params.expect(:user_code))
     end
   end
 end

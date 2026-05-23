@@ -9,7 +9,7 @@ module Koi
       include HasAttachments
       include Katalyst::Tables::Backend
 
-      if (pagy = "Pagy::Method".safe_constantize)
+      if (pagy    = "Pagy::Method".safe_constantize)
         include pagy
       elsif (pagy = "Pagy::Backend".safe_constantize)
         # @deprecated Pagy <43

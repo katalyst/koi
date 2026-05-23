@@ -28,8 +28,8 @@ module Koi
           super(name, type, **)
 
           @association = association
-          @attachment = attachment
-          @enum = enum
+          @attachment  = attachment
+          @enum        = enum
         end
 
         def association?

@@ -26,8 +26,8 @@ module Koi
           def initialize(cell:, url:, default_url:, **)
             super(**)
 
-            @cell = cell
-            @url = url
+            @cell        = cell
+            @url         = url
             @default_url = default_url
           end
 
