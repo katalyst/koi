@@ -67,12 +67,8 @@ RSpec.describe Admin::TokensController do
       expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present
     end
 
-    it "creates the admin session with timestamp" do
-      action
-      aggregate_failures do
-        expect(session[:admin_user_id]).to eq(admin.id)
-        expect(session[:admin_user_signed_in_at]).to be_present
-      end
+    it "creates the admin session" do
+      expect { action }.to change { admin.sessions.count }.by(1)
     end
 
     context "with a consumed token" do

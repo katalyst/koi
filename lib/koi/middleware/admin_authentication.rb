@@ -17,20 +17,20 @@ module Koi
 
       def admin_call(env)
         request = ActionDispatch::Request.new(env)
-        session = ActionDispatch::Request::Session.find(request)
+        cookies = request.cookie_jar
 
         # Always retrieve user to ensure we are not vulnerable to timing attacks
-        Koi::Current.admin_user = if bearer_token(request).present?
-                                    bearer_admin_user(request)
-                                  else
-                                    session_admin_user(session)
-                                  end
+        if (token         = bearer_token(request:)).present?
+          Koi::Current.device_authorization = find_device_authentication(token:)
+
+          # disable Rails session for API requests
+          request.session_options[:skip]    = true
+        elsif (session_id = cookies.signed[:admin_session_id]).present?
+          Koi::Current.session = find_admin_session(session_id:)
+        end
 
         # Remove from session if not found
-        if session.has_key?(:admin_user_id) && !authenticated?
-          session.delete(:admin_user_id)
-          session.delete(:admin_user_signed_in_at)
-        end
+        cookies.delete(:admin_session_id) unless authenticated?
 
         if requires_authentication?(request) && !authenticated?
           unauthorized_response(request)
@@ -38,53 +38,29 @@ module Koi
           @app.call(env)
         end
       ensure
-        Koi::Current.admin_user = nil
+        Koi::Current.reset
       end
 
       private
 
       def requires_authentication?(request)
-        !request.path.starts_with?("/admin/session") && !device_flow_request?(request)
+        !request.path.starts_with?("/admin/session") && !device_flow_request?(request:)
       end
 
       def authenticated?
         Koi::Current.admin_user.present?
       end
 
-      def bearer_admin_user(request)
-        token = bearer_token(request)
-        return if token.blank?
-
-        request.session_options[:skip] = true
-
-        Admin::User.find_by_token_for(:api_access, token)
+      def find_device_authentication(token:)
+        Admin::DeviceAuthorization.find_by_token_for(:api_access, token)
       end
 
-      def session_admin_user(session)
-        admin_user = Admin::User.find_by(id: session[:admin_user_id])
-        return unless admin_user
-
-        signed_in_at = session_signed_in_at(session)
-        return if signed_in_at.blank?
-        return if admin_user.last_sign_out_at.present? && signed_in_at < admin_user.last_sign_out_at
-
-        admin_user
-      end
-
-      def session_signed_in_at(session)
-        Time.zone.parse(session[:admin_user_signed_in_at].to_s)
-      rescue ArgumentError
-        nil
-      end
-
-      def bearer_token(request)
-        return nil if request.authorization.blank?
-
-        request.authorization.match(/^Bearer (?<token>.+)$/)&.named_captures&.fetch("token", nil)
+      def find_admin_session(session_id:)
+        Admin::Session.find_by(id: session_id)
       end
 
       def unauthorized_response(request)
-        if bearer_token(request).present?
+        if bearer_token(request:).present?
           # If the user provided a token, it was not valid, and the request requires authentication
           [401, {}, []]
         else
@@ -98,8 +74,14 @@ module Koi
         end
       end
 
-      def device_flow_request?(request)
+      def device_flow_request?(request:)
         request.post? && %w[/admin/device_authorizations /admin/device_tokens].include?(request.path)
+      end
+
+      def bearer_token(request:)
+        return nil if request.authorization.blank?
+
+        request.authorization.match(/^Bearer (?<token>.+)$/)&.named_captures&.fetch("token", nil)
       end
     end
   end

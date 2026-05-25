@@ -11,19 +11,23 @@ module Admin
 
     self.table_name = :admins
 
-    # disable validations for password_digest
-    has_secure_password validations: false
-
-    generates_token_for(:api_access, expires_in: 12.hours) { current_sign_in_at }
-    generates_token_for(:password_reset, expires_in: 30.minutes) { current_sign_in_at }
-
-    has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
-
     attribute :password_login, :string
     enum :password_login, { none: "none", password_only: "password_only", mfa: "mfa" }, prefix: true
 
+    # disable validations for password_digest – we don't require a password (i.e. passkey only user)
+    has_secure_password validations: false
+
+    normalizes :email, with: ->(e) { e.strip.downcase }
+
     validates :name, :email, presence: true
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+    generates_token_for(:password_reset, expires_in: 30.minutes) { current_sign_in_at }
+
+    has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
+    has_many :device_authorizations, inverse_of: :admin_user, class_name: "Admin::DeviceAuthorization",
+      dependent: :destroy
+    has_many :sessions, inverse_of: :admin, class_name: "Admin::Session", dependent: :destroy
 
     scope :alphabetical, -> { order(name: :asc) }
 

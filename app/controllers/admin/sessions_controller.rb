@@ -6,7 +6,12 @@ module Admin
     include Koi::Controller::RecordsAuthentication
 
     before_action :redirect_authenticated, only: %i[new], if: :admin_signed_in?
+    before_action :requires_session_authentication!, only: %i[destroy]
     before_action :authenticate_local_admin, only: %i[new], if: -> { Koi.config.authenticate_local_admins }
+
+    rate_limit to: 10, within: 3.minutes, only: :create, with: -> do
+      redirect_to(new_admin_session_path, status: :too_many_requests, alert: t("koi.auth.too_many_requests"))
+    end
 
     attr_reader :admin_user
 
@@ -29,19 +34,19 @@ module Admin
         create_session_with_password
       elsif session_params[:email].present?
         # conversational flow, ask for password regardless of email
-        admin_user = Admin::User.new(session_params.slice(:email))
+        @admin_user = Admin::User.new(session_params.slice(:email))
 
         render(:password, status: :unprocessable_content, locals: { admin_user: })
       else
         # invalid request, re-render new
-        admin_user = Admin::User.new
+        @admin_user = Admin::User.new
 
         render(:new, status: :unprocessable_content, locals: { admin_user: })
       end
     end
 
     def destroy
-      destroy_admin_session!
+      destroy_admin_sessions!(Koi::Current.admin_user)
 
       redirect_to new_admin_session_path
     end
@@ -50,7 +55,7 @@ module Admin
 
     def create_session_with_password
       # constant time lookup for user with password verification
-      admin_user = Admin::User.authenticate_by(session_params.slice(:email, :password))
+      @admin_user = Admin::User.authenticate_by(session_params.slice(:email, :password))
 
       if admin_user.present? && admin_user.requires_otp?
         session[:pending_admin_user_id] = admin_user.id
@@ -59,7 +64,7 @@ module Admin
       elsif admin_user.present?
         admin_sign_in(admin_user)
       else
-        admin_user = Admin::User.new(session_params.slice(:email, :password))
+        @admin_user = Admin::User.new(session_params.slice(:email, :password))
         admin_user.errors.add(:email, :invalid)
 
         render(:new, status: :unprocessable_content, locals: { admin_user: })
@@ -68,7 +73,7 @@ module Admin
 
     def create_session_with_token
       # assume that the previous step injected the user's ID into the session and remove it regardless of outcome
-      admin_user = Admin::User.find_by(id: session.delete(:pending_admin_user_id))
+      @admin_user = Admin::User.find_by(id: session.delete(:pending_admin_user_id))
 
       if admin_user&.otp&.verify(session_params[:token],
                                  drift_ahead:  15,
@@ -76,7 +81,7 @@ module Admin
                                  after:        admin_user.current_sign_in_at)
         admin_sign_in(admin_user)
       else
-        admin_user = Admin::User.new
+        @admin_user = Admin::User.new
         admin_user.errors.add(:email, :invalid)
 
         render(:new, status: :unprocessable_content, locals: { admin_user: })
@@ -84,10 +89,10 @@ module Admin
     end
 
     def create_session_with_webauthn
-      if (admin_user = webauthn_authenticate!(session_params[:response]))
+      if (@admin_user = webauthn_authenticate!(session_params[:response]))
         admin_sign_in(admin_user)
       else
-        admin_user = Admin::User.new
+        @admin_user = Admin::User.new
         admin_user.errors.add(:email, :invalid)
 
         render(:new, status: :unprocessable_content, locals: { admin_user: })
@@ -101,14 +106,14 @@ module Admin
     def authenticate_local_admin
       return if admin_signed_in? || !Rails.env.development?
 
-      Koi::Current.admin_user = Admin::User.find_by(email: [
+      @admin_user = Admin::User.find_by(email: [
         ENV.fetch("EMAIL", nil),
         "#{ENV.fetch('USER', nil)}@katalyst.com.au",
       ].compact)
 
-      return unless admin_signed_in?
+      return if admin_user.nil?
 
-      create_admin_session!
+      create_admin_session!(admin_user)
 
       flash.delete(:redirect) if (redirect = flash[:redirect])
 
@@ -116,9 +121,7 @@ module Admin
     end
 
     def admin_sign_in(admin_user)
-      Koi::Current.admin_user = admin_user
-
-      create_admin_session!
+      create_admin_session!(admin_user)
 
       redirect_to(url_from(params[:redirect].presence) || admin_dashboard_path, status: :see_other)
     end

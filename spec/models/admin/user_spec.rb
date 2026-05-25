@@ -3,8 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Admin::User do
-  include ActiveSupport::Testing::TimeHelpers
-
   subject!(:admin) { create(:admin) }
 
   let!(:archived) { create(:admin, archived: true) }
@@ -13,9 +11,17 @@ RSpec.describe Admin::User do
   it { is_expected.to validate_presence_of(:email) }
 
   it { is_expected.to have_many(:credentials).class_name("Admin::Credential").dependent(:destroy) }
+  it { is_expected.to have_many(:device_authorizations).class_name("Admin::DeviceAuthorization").dependent(:destroy) }
+  it { is_expected.to have_many(:sessions).class_name("Admin::Session").dependent(:destroy) }
 
   it { is_expected.to allow_values("a@b.com").for(:email) }
   it { is_expected.not_to allow_values("@b.com", "fail").for(:email) }
+
+  it "normalizes email" do
+    admin.email = " ADMIN@EXAMPLE.COM "
+
+    expect(admin.email).to eq("admin@example.com")
+  end
 
   describe "#admin_search" do
     it { expect(described_class.admin_search(admin.name)).to include(admin) }
@@ -59,30 +65,6 @@ RSpec.describe Admin::User do
 
     it "returns :mfa when password_digest and otp_secret are set" do
       expect(create(:admin).password_login).to eq(:mfa)
-    end
-  end
-
-  describe "API access tokens" do
-    it "is valid immediately after issuance" do
-      token = admin.generate_token_for(:api_access)
-
-      expect(described_class.find_by_token_for(:api_access, token)).to eq(admin)
-    end
-
-    it "is rejected after 12 hours" do
-      token = admin.generate_token_for(:api_access)
-
-      travel 12.hours + 1.second do
-        expect(described_class.find_by_token_for(:api_access, token)).to be_nil
-      end
-    end
-
-    it "is invalidated when current_sign_in_at changes" do
-      token = admin.generate_token_for(:api_access)
-
-      admin.update!(current_sign_in_at: 1.second.from_now)
-
-      expect(described_class.find_by_token_for(:api_access, token)).to be_nil
     end
   end
 end
