@@ -80,7 +80,7 @@ RSpec.describe Admin::SessionsController do
         post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
         post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
         post admin_session_path, params: { admin: { token: admin.otp.now } }, as: :turbo_stream
-      end.to(change { admin.reload.current_sign_in_at })
+      end.to(change { admin.reload.last_sign_in_at })
     end
 
     context "with no otp present" do
@@ -148,7 +148,7 @@ RSpec.describe Admin::SessionsController do
 
       it "updates login metadata" do
         create_credential
-        expect { action }.to(change { admin.reload.current_sign_in_at })
+        expect { action }.to(change { admin.reload.last_sign_in_at })
       end
 
       it "updates credential count" do

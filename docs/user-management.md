@@ -22,7 +22,7 @@ Admins can register WebAuthn credentials from their profile (`/admin/admin_users
 
 ### Magic Login Links
 
-`Admin::TokensController` uses `generates_token_for(:password_reset, expires_in: 30.minutes)` to mint short-lived login links. Tokens expire after the first successful sign-in (because the generator ties validity to `current_sign_in_at`). Use these links when inviting new admins or when someone forgets their password. Koi renders the link in the UI; projects are responsible for delivering it (email, chat, etc.).
+`Admin::TokensController` uses `generates_token_for(:password_reset, expires_in: 30.minutes)` to mint short-lived login links. Tokens expire after the first successful sign-in (because the generator ties validity to `last_sign_in_at`). Use these links when inviting new admins or when someone forgets their password. Koi renders the link in the UI; projects are responsible for delivering it (email, chat, etc.).
 
 ### Development Auto-login
 

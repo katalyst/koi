@@ -17,14 +17,18 @@ module Admin
 
     enum :status, %w[pending approved denied consumed].index_with(&:to_s)
 
-    generates_token_for(:api_access, expires_in: 12.hours) { admin_user&.current_sign_in_at }
+    generates_token_for(:api_access, expires_in: 12.hours) { admin_user&.last_sign_in_at }
 
     validates :device_code_digest, presence: true, uniqueness: true
     validates :request_expires_at, presence: true
     validates :status, presence: true, inclusion: { in: statuses.values }
     validates :user_code, presence: true, uniqueness: true
 
-    belongs_to :admin_user, class_name: "Admin::User", optional: true, inverse_of: :device_authorizations
+    belongs_to :admin_user,
+               class_name:    "Admin::User",
+               counter_cache: true,
+               inverse_of:    :device_authorizations,
+               optional:      true
 
     def self.issue!(requested_ip:, user_agent:)
       device_code = SecureRandom.urlsafe_base64(32)

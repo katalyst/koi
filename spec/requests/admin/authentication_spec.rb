@@ -31,7 +31,7 @@ RSpec.describe "admin authentication" do
 
       it "is rejected after the admin signs in again" do
         token = device_authorization.generate_token_for(:api_access)
-        device_authorization.admin_user.update!(current_sign_in_at: 1.second.from_now)
+        device_authorization.admin_user.update!(last_sign_in_at: 1.second.from_now)
 
         get "/admin/dashboard", headers: { "Authorization" => "Bearer #{token}" }
 

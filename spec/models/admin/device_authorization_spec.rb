@@ -172,10 +172,10 @@ RSpec.describe Admin::DeviceAuthorization do
       end
     end
 
-    it "is invalidated when current_sign_in_at changes" do
+    it "is invalidated when last_sign_in_at changes" do
       token = device_authorization.generate_token_for(:api_access)
 
-      device_authorization.admin_user.update!(current_sign_in_at: 1.second.from_now)
+      device_authorization.admin_user.update!(last_sign_in_at: 1.second.from_now)
 
       expect(described_class.find_by_token_for(:api_access, token)).to be_nil
     end
