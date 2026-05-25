@@ -92,13 +92,12 @@ RSpec.describe Admin::SessionsController do
         expect(response).to have_http_status(:see_other).and(redirect_to(admin_dashboard_path))
       end
 
-      it "creates the admin session with timestamp" do # rubocop:disable RSpec/ExampleLength
-        post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
-        post admin_session_path, params: { admin: { email: admin.email, password: admin.password } }, as: :turbo_stream
-        aggregate_failures do
-          expect(session[:admin_user_id]).to eq(admin.id)
-          expect(session[:admin_user_signed_in_at]).to be_present
-        end
+      it "creates the admin session" do
+        expect do
+          post admin_session_path, params: { admin: { email: admin.email } }, as: :turbo_stream
+          post admin_session_path, params: { admin: { email: admin.email, password: admin.password } },
+                                   as:     :turbo_stream
+        end.to(change { admin.sessions.count }.by(1))
       end
     end
 
@@ -144,8 +143,7 @@ RSpec.describe Admin::SessionsController do
 
       it "creates the admin session" do
         create_credential
-        action
-        expect(session[:admin_user_id]).to be_present
+        expect { action }.to(change { admin.sessions.count }.by(1))
       end
 
       it "updates login metadata" do
@@ -177,16 +175,31 @@ RSpec.describe Admin::SessionsController do
       expect(response).to redirect_to(new_admin_session_path)
     end
 
-    it "destroys the admin session" do
-      action
-      aggregate_failures do
-        expect(session[:admin_user_id]).to be_nil
-        expect(session[:admin_user_signed_in_at]).to be_nil
-      end
+    it "destroys all admin sessions" do
+      admin.sessions.create!(user_agent: "Other browser", ip_address: "127.0.0.2")
+
+      expect { action }.to change { admin.sessions.count }.to(0)
+    end
+
+    it "destroys all device authorizations" do
+      create(:admin_device_authorization, :approved, admin_user: admin)
+
+      expect { action }.to change { admin.device_authorizations.count }.to(0)
     end
 
     it "updates logout metadata" do
       expect { action }.to change { admin.reload.last_sign_out_at }.from(nil).to be_present
+    end
+
+    context "when there is no admin session" do
+      def create_admin_session(_)
+        nil # no-op, skip session creation
+      end
+
+      it "returns authentication error" do
+        action
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end

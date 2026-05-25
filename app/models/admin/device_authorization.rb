@@ -15,14 +15,16 @@ module Admin
 
     self.table_name = :admin_device_authorizations
 
-    belongs_to :admin_user, class_name: "Admin::User", optional: true
-
     enum :status, %w[pending approved denied consumed].index_with(&:to_s)
+
+    generates_token_for(:api_access, expires_in: 12.hours) { admin_user&.current_sign_in_at }
 
     validates :device_code_digest, presence: true, uniqueness: true
     validates :request_expires_at, presence: true
     validates :status, presence: true, inclusion: { in: statuses.values }
     validates :user_code, presence: true, uniqueness: true
+
+    belongs_to :admin_user, class_name: "Admin::User", optional: true, inverse_of: :device_authorizations
 
     def self.issue!(requested_ip:, user_agent:)
       device_code = SecureRandom.urlsafe_base64(32)
@@ -57,7 +59,7 @@ module Admin
           raise TokenError.new(error)
         end
 
-        access_token = device_authorization.admin_user.generate_token_for(:api_access)
+        access_token = device_authorization.generate_token_for(:api_access)
         device_authorization.consume!(token_expires_in:)
 
         {

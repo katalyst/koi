@@ -14,8 +14,12 @@ RSpec.describe Admin::DeviceTokensController do
     end
     let(:device_code) { "device-code-123" }
 
+    def device_code_digest
+      Admin::DeviceAuthorization.digest(device_code)
+    end
+
     it "returns authorization_pending for pending authorizations" do
-      create(:admin_device_authorization, device_code_digest: Admin::DeviceAuthorization.digest(device_code))
+      create(:admin_device_authorization, device_code_digest:)
 
       action
 
@@ -23,7 +27,7 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns access_denied for denied authorizations" do
-      create(:admin_device_authorization, :denied, device_code_digest: Admin::DeviceAuthorization.digest(device_code))
+      create(:admin_device_authorization, :denied, device_code_digest:)
 
       action
 
@@ -34,7 +38,7 @@ RSpec.describe Admin::DeviceTokensController do
       create(
         :admin_device_authorization,
         :approved,
-        device_code_digest: Admin::DeviceAuthorization.digest(device_code),
+        device_code_digest:,
         request_expires_at: 1.second.ago,
       )
 
@@ -44,7 +48,7 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns invalid_grant for consumed authorizations" do
-      create(:admin_device_authorization, :consumed, device_code_digest: Admin::DeviceAuthorization.digest(device_code))
+      create(:admin_device_authorization, :consumed, device_code_digest:)
 
       action
 
@@ -70,13 +74,7 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns an access token for approved authorizations" do
-      admin_user = create(:admin)
-      create(
-        :admin_device_authorization,
-        :approved,
-        admin_user:,
-        device_code_digest: Admin::DeviceAuthorization.digest(device_code),
-      )
+      create(:admin_device_authorization, :approved, device_code_digest:)
 
       action
 
@@ -88,12 +86,7 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns success for approved authorizations" do
-      create(
-        :admin_device_authorization,
-        :approved,
-        admin_user:         create(:admin),
-        device_code_digest: Admin::DeviceAuthorization.digest(device_code),
-      )
+      create(:admin_device_authorization, :approved, device_code_digest:)
 
       action
 
@@ -101,26 +94,17 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns a token that authenticates the approving admin" do
-      admin_user = create(:admin)
-      create(
-        :admin_device_authorization,
-        :approved,
-        admin_user:,
-        device_code_digest: Admin::DeviceAuthorization.digest(device_code),
-      )
+      device_authorization = create(:admin_device_authorization, :approved, device_code_digest:)
 
       action
 
-      expect(Admin::User.find_by_token_for(:api_access, response.parsed_body.fetch("access_token"))).to eq(admin_user)
+      access_token = response.parsed_body.fetch("access_token")
+      expect(Admin::DeviceAuthorization.find_by_token_for(:api_access, access_token))
+        .to eq(device_authorization)
     end
 
     it "consumes approved authorizations when issuing a token" do
-      device_authorization = create(
-        :admin_device_authorization,
-        :approved,
-        admin_user:         create(:admin),
-        device_code_digest: Admin::DeviceAuthorization.digest(device_code),
-      )
+      device_authorization = create(:admin_device_authorization, :approved, device_code_digest:)
 
       action
 

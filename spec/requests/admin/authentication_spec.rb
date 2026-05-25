@@ -17,21 +17,21 @@ RSpec.describe "admin authentication" do
     end
 
     context "with a valid bearer token" do
-      let(:admin) { create(:admin) }
+      let(:device_authorization) { create(:admin_device_authorization, :approved) }
       let(:action) do
-        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{admin.generate_token_for(:api_access)}" }
+        get "/admin/dashboard",
+            headers: { "Authorization" => "Bearer #{device_authorization.generate_token_for(:api_access)}" }
       end
 
       it { is_expected.to have_http_status(:success) }
 
       it "does not create a session" do
-        action
-        expect(session[:admin_user_id]).to be_nil
+        expect { action }.not_to change(Admin::Session, :count)
       end
 
       it "is rejected after the admin signs in again" do
-        token = admin.generate_token_for(:api_access)
-        admin.update!(current_sign_in_at: 1.second.from_now)
+        token = device_authorization.generate_token_for(:api_access)
+        device_authorization.admin_user.update!(current_sign_in_at: 1.second.from_now)
 
         get "/admin/dashboard", headers: { "Authorization" => "Bearer #{token}" }
 
@@ -51,35 +51,14 @@ RSpec.describe "admin authentication" do
       include_context "with admin session"
 
       before do
-        admin.update!(last_sign_out_at: Time.current)
+        admin.sessions.destroy_all
       end
 
       it { is_expected.to have_http_status(:see_other).and(redirect_to("/admin/session/new")) }
 
       it "clears the admin session" do
         action
-        aggregate_failures do
-          expect(session[:admin_user_id]).to be_nil
-          expect(session[:admin_user_signed_in_at]).to be_nil
-        end
-      end
-    end
-
-    context "with a session missing its sign in timestamp" do
-      include_context "with admin session"
-
-      before do
-        allow_any_instance_of(Koi::Middleware::AdminAuthentication).to receive(:session_signed_in_at).and_return(nil)
-      end
-
-      it { is_expected.to have_http_status(:see_other).and(redirect_to("/admin/session/new")) }
-
-      it "clears the admin session" do
-        action
-        aggregate_failures do
-          expect(session[:admin_user_id]).to be_nil
-          expect(session[:admin_user_signed_in_at]).to be_nil
-        end
+        expect(cookies[:admin_session_id]).to be_blank
       end
     end
   end

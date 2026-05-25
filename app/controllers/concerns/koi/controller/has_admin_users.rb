@@ -14,10 +14,14 @@ module Koi
       end
 
       def admin_signed_in?
+        resume_admin_session
+
         Koi::Current.admin_user.present?
       end
 
       def current_admin_user
+        resume_admin_session
+
         Koi::Current.admin_user
       end
 
@@ -25,7 +29,17 @@ module Koi
       alias_method :current_admin, :current_admin_user
 
       def requires_session_authentication!
-        head(:forbidden) if session[:admin_user_id].blank?
+        head(:forbidden) unless resume_admin_session
+      end
+
+      # @return [Admin::Session, nil]
+      def resume_admin_session
+        Koi::Current.session ||= find_admin_session_by_cookie
+      end
+
+      # @return [Admin::Session, nil]
+      def find_admin_session_by_cookie
+        Admin::Session.find_by(id: cookies.signed[:admin_session_id]) if cookies.signed[:admin_session_id]
       end
 
       module Test
@@ -37,14 +51,18 @@ module Koi
             before do
               view.singleton_class.module_eval do
                 def admin_signed_in?
-                  Koi::Current.admin_user.present?
+                  resume_admin_session.present?
                 end
 
                 def current_admin_user
-                  Koi::Current.admin_user = (respond_to?(:admin_user) ? admin_user : nil)
+                  resume_admin_session&.admin
                 end
 
                 alias_method :current_admin, :current_admin_user
+
+                def resume_admin_session
+                  Koi::Current.session ||= admin_user.sessions.new if respond_to?(:admin_user)
+                end
               end
             end
           end

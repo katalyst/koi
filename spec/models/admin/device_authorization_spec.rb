@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Admin::DeviceAuthorization do
+  include ActiveSupport::Testing::TimeHelpers
+
   subject(:device_authorization) { build(:admin_device_authorization) }
 
   it { is_expected.to belong_to(:admin_user).class_name("Admin::User").optional }
@@ -127,24 +129,19 @@ RSpec.describe Admin::DeviceAuthorization do
     end
 
     it "returns a token that authenticates the approving admin" do
-      admin_user = create(:admin)
-      create(
-        :admin_device_authorization,
-        :approved,
-        admin_user:,
-        device_code_digest: described_class.digest(device_code),
-      )
+      device_authorization = create(:admin_device_authorization, :approved,
+                                    device_code_digest: described_class.digest(device_code))
 
       payload = described_class.issue_access_token!(device_code:)
 
-      expect(Admin::User.find_by_token_for(:api_access, payload.fetch(:access_token))).to eq(admin_user)
+      expect(described_class.find_by_token_for(:api_access, payload.fetch(:access_token)))
+        .to eq(device_authorization)
     end
 
     it "consumes approved authorizations when issuing a token" do
       device_authorization = create(
         :admin_device_authorization,
         :approved,
-        admin_user:         create(:admin),
         device_code_digest: described_class.digest(device_code),
       )
 
@@ -155,6 +152,32 @@ RSpec.describe Admin::DeviceAuthorization do
         consumed_at:      be_present,
         token_expires_at: be_present,
       )
+    end
+  end
+
+  describe "API access tokens" do
+    subject(:device_authorization) { create(:admin_device_authorization, :approved) }
+
+    it "is valid immediately after issuance" do
+      token = device_authorization.generate_token_for(:api_access)
+
+      expect(described_class.find_by_token_for(:api_access, token)).to eq(device_authorization)
+    end
+
+    it "is rejected after 12 hours" do
+      token = device_authorization.generate_token_for(:api_access)
+
+      travel(12.hours + 1.second) do
+        expect(described_class.find_by_token_for(:api_access, token)).to be_nil
+      end
+    end
+
+    it "is invalidated when current_sign_in_at changes" do
+      token = device_authorization.generate_token_for(:api_access)
+
+      device_authorization.admin_user.update!(current_sign_in_at: 1.second.from_now)
+
+      expect(described_class.find_by_token_for(:api_access, token)).to be_nil
     end
   end
 end
