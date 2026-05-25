@@ -85,8 +85,8 @@ class Dummy < Thor
           - config/routes/**/*.rb
     YAML
 
-    # Remove Koi migrations that will be loaded directly from Koi
-    run "rm -f spec/dummy/db/migrate/*.koi.rb"
+    # Remove cached dummy app schema and migrations that should be loaded directly
+    run "rm -f spec/dummy/db/schema.rb spec/dummy/db/migrate/*.koi.rb"
 
     reset_database(migrate: true)
 
