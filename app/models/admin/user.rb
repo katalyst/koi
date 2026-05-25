@@ -22,12 +22,20 @@ module Admin
     validates :name, :email, presence: true
     validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-    generates_token_for(:password_reset, expires_in: 30.minutes) { current_sign_in_at }
+    generates_token_for(:password_reset, expires_in: 30.minutes) { last_sign_in_at }
 
-    has_many :credentials, inverse_of: :admin, class_name: "Admin::Credential", dependent: :destroy
-    has_many :device_authorizations, inverse_of: :admin_user, class_name: "Admin::DeviceAuthorization",
-      dependent: :destroy
-    has_many :sessions, inverse_of: :admin, class_name: "Admin::Session", dependent: :destroy
+    has_many :credentials,
+             class_name: "Admin::Credential",
+             dependent:  :destroy,
+             inverse_of: :admin
+    has_many :device_authorizations,
+             class_name: "Admin::DeviceAuthorization",
+             dependent:  :destroy,
+             inverse_of: :admin_user
+    has_many :sessions,
+             class_name: "Admin::Session",
+             dependent:  :destroy,
+             inverse_of: :admin
 
     scope :alphabetical, -> { order(name: :asc) }
 
@@ -72,6 +80,20 @@ module Admin
       credentials.any?
     end
     alias passkey passkey?
+
+    # Describe the last time the user signed in or out. For self-reflection, excludes the current session.
+    #
+    # @return [ActiveSupport::TimeWithZone, nil] the last time the user was active
+    def last_active_at
+      [last_sign_in_at, last_sign_out_at].compact.max
+    end
+
+    # Describe the last time the user signed in or out, excluding the current session (for self).
+    #
+    # @return [ActiveSupport::TimeWithZone, nil] the last time the user was active
+    def previous_active_at(current_session = Koi::Current.session)
+      [last_sign_out_at, sessions.where.not(id: current_session.id).maximum(:created_at)].compact.max
+    end
 
     def password_login
       if password_digest.blank?

@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Admin::User do
+  include ActiveSupport::Testing::TimeHelpers
+
   subject!(:admin) { create(:admin) }
 
   let!(:archived) { create(:admin, archived: true) }
@@ -65,6 +67,26 @@ RSpec.describe Admin::User do
 
     it "returns :mfa when password_digest and otp_secret are set" do
       expect(create(:admin).password_login).to eq(:mfa)
+    end
+  end
+
+  describe "#last_active_at" do
+    it "returns the most recent active session" do
+      travel_to(2.days.ago.at_noon) { admin.sessions.create!(ip_address: "1.2.3.4", user_agent: "Mozilla") }
+      expect(admin.last_active_at).to eq(2.days.ago.at_noon)
+    end
+
+    it "returns the most recent log out if no active sessions" do
+      travel_to(2.days.ago.at_noon) { admin.sessions.create!(ip_address: "1.2.3.4", user_agent: "Mozilla") }
+      travel_to(1.day.ago.at_noon) { admin.sessions.destroy_all }
+      expect(admin.last_active_at).to eq(1.day.ago.at_noon)
+    end
+  end
+
+  describe "#previous_active_at" do
+    it "excludes current session" do
+      Koi::Current.session = admin.sessions.create!(ip_address: "1.2.3.4", user_agent: "Mozilla")
+      expect(admin.previous_active_at).to be_nil
     end
   end
 end

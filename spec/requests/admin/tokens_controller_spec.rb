@@ -33,7 +33,7 @@ RSpec.describe Admin::TokensController do
         # force token generation
         token
         # simulate sign-in after token creation
-        admin.update(current_sign_in_at: 1.second.from_now)
+        admin.update(last_sign_in_at: 1.second.from_now)
       end
 
       it { is_expected.to redirect_to(new_admin_session_path) }
@@ -64,7 +64,7 @@ RSpec.describe Admin::TokensController do
     it { is_expected.to redirect_to(new_admin_profile_credential_path) }
 
     it "updates the admin login details" do
-      expect { action }.to change { admin.reload.current_sign_in_at }.from(nil).to be_present
+      expect { action }.to change { admin.reload.last_sign_in_at }.from(nil).to be_present
     end
 
     it "creates the admin session" do
@@ -76,7 +76,7 @@ RSpec.describe Admin::TokensController do
         # force token generation
         token
         # simulate sign-in after token creation
-        admin.update(current_sign_in_at: 1.second.from_now)
+        admin.update(last_sign_in_at: 1.second.from_now)
       end
 
       it { is_expected.to redirect_to(new_admin_session_path) }

@@ -78,7 +78,7 @@ module Admin
       if admin_user&.otp&.verify(session_params[:token],
                                  drift_ahead:  15,
                                  drift_behind: 15,
-                                 after:        admin_user.current_sign_in_at)
+                                 after:        admin_user.last_sign_in_at)
         admin_sign_in(admin_user)
       else
         @admin_user = Admin::User.new

@@ -16,13 +16,15 @@
 <% end %>
 
 <%= summary_table_with(model: admin_user) do |row| %>
-  <% row.text :name %>
-  <% row.text :email %>
-  <% row.date :created_at %>
-  <% row.date :last_sign_in_at, label: "Last access" %>
-  <% row.boolean :passkey %>
-  <% row.boolean :otp, label: "MFA" %>
-  <% row.boolean :archived? %>
+  <% row.text(:name) %>
+  <% row.text(:email) %>
+  <% row.date(:created_at) %>
+  <% row.text(:sessions_count, label: "Sessions") %>
+  <% row.date(:last_active_at, label: "Last active") %>
+  <% row.text(:sign_in_count, label: "Total logins") %>
+  <% row.boolean(:passkey) %>
+  <% row.boolean(:otp, label: "MFA") %>
+  <% row.boolean(:archived?) %>
 <% end %>
 
 <% unless admin_user.archived? %>

@@ -95,6 +95,7 @@ module Admin
       attribute :email, :string
       attribute :last_sign_in_at, :date
       attribute :last_sign_out_at, :date
+      attribute :sessions_count, :integer
       attribute :sign_in_count, :integer
       attribute :password_login, :enum, scope: :has_password_login, multiple: false
       attribute :passkey, :boolean, scope: :has_passkey
