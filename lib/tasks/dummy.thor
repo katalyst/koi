@@ -69,12 +69,21 @@ class Dummy < Thor
   desc "adopt", "Re-configure dummy app to use local koi"
 
   def adopt
+    # Point app boot at Koi root, adopting as a dummy app
     gsub_file("config/boot.rb", %r{"../Gemfile"}, '"../../../Gemfile"')
 
     append_to_file("config/boot.rb", <<~RUBY)
 
       $LOAD_PATH.unshift File.expand_path("../../../lib", __dir__)
     RUBY
+
+    # Configures exclusions required to run rubocop on an app inside spec/dummy
+    # e.g. Rails/HttpPositionalArguments is configured to run on **/spec/**
+    append_to_file(".rubocop.yml", <<~YAML)
+      Rails/HttpPositionalArguments:
+        Exclude:
+          - config/routes/**/*.rb
+    YAML
 
     # Remove Koi migrations that will be loaded directly from Koi
     run "rm -f spec/dummy/db/migrate/*.koi.rb"
