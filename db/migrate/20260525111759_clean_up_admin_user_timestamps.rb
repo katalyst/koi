@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/BulkChangeTable
 class CleanUpAdminUserTimestamps < ActiveRecord::Migration[8.1]
   def change
     # remove 'last sign in' tracking columns, database sessions make these redundant
@@ -21,3 +22,4 @@ class CleanUpAdminUserTimestamps < ActiveRecord::Migration[8.1]
     end
   end
 end
+# rubocop:enable Rails/BulkChangeTable
