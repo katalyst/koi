@@ -10,6 +10,6 @@ class WellKnownsController < ApplicationController
   private
 
   def set_well_known
-    @well_known = WellKnown.find_by!(name: params[:name])
+    @well_known = WellKnown.find_by!(name: params.expect(:name))
   end
 end

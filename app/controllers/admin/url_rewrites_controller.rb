@@ -56,7 +56,7 @@ module Admin
     end
 
     def set_url_rewrite
-      @url_rewrite = UrlRewrite.find(params[:id])
+      @url_rewrite = UrlRewrite.find(params.expect(:id))
     end
 
     class Collection < Admin::Collection

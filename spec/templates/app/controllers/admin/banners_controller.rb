@@ -66,7 +66,7 @@ module Admin
 
     # Use callbacks to share common setup or constraints between actions.
     def set_banner
-      @banner = ::Banner.find(params[:id])
+      @banner = ::Banner.find(params.expect(:id))
     end
 
     class Collection < Admin::Collection

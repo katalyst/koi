@@ -40,7 +40,7 @@ module Admin
     end
 
     def set_admin_user
-      @admin_user = Admin::User.find(params[:admin_user_id])
+      @admin_user = Admin::User.find(params.expect(:admin_user_id))
 
       if current_admin == @admin_user
         request.variant = :self

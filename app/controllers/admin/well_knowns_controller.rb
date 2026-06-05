@@ -55,7 +55,7 @@ module Admin
 
     # Use callbacks to share common setup or constraints between actions.
     def set_well_known
-      @well_known = ::WellKnown.find(params[:id])
+      @well_known = ::WellKnown.find(params.expect(:id))
     end
 
     class Collection < Admin::Collection

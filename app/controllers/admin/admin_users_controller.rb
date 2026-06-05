@@ -71,7 +71,7 @@ module Admin
     private
 
     def set_admin
-      @admin = Admin::User.with_archived.find(params[:id])
+      @admin = Admin::User.with_archived.find(params.expect(:id))
 
       request.variant << :self if @admin == current_admin_user
     end
