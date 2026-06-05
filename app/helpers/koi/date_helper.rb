@@ -5,8 +5,8 @@ module Koi
     # Returns a string representing the number of days ago or from now.
     # If the date is not 'recent' returns nil.
     def days_ago_in_words(value)
-      from_time = value.to_time
-      to_time = Date.current.to_time
+      from_time        = value.to_time
+      to_time          = Date.current.to_time
       distance_in_days = ((to_time - from_time) / (24.0 * 60.0 * 60.0)).round
 
       case distance_in_days

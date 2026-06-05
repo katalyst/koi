@@ -11,7 +11,7 @@ module Koi
         super()
 
         @resource = resource
-        @title = title
+        @title    = title
 
         @header = HeaderComponent.new(title: self.title)
       end

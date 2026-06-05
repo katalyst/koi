@@ -67,7 +67,7 @@ RSpec.describe Admin::OtpsController do
 
       it "uses the same secret when re-rendering" do
         action
-        html = Nokogiri::HTML.fragment(response.body)
+        html   = Nokogiri::HTML.fragment(response.body)
         secret = html.at_css("input[name='admin[otp_secret]']")
         expect(secret.attributes["value"].value).to eq(admin.otp_secret)
       end

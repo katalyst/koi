@@ -16,8 +16,8 @@ module Koi
       end
 
       def admin_call(env)
-        request = ActionDispatch::Request.new(env)
-        session = ActionDispatch::Request::Session.find(request)
+        request       = ActionDispatch::Request.new(env)
+        session       = ActionDispatch::Request::Session.find(request)
         authenticated = authenticated?(session)
 
         if requires_authentication?(request) && !authenticated

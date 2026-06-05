@@ -116,7 +116,7 @@ RSpec.describe Admin::SessionsController do
     context "with webauthn params" do
       before do
         relying_party = WebAuthn.configuration.relying_party
-        result = client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
+        result        = client.create(challenge: Base64.urlsafe_encode64(SecureRandom.random_bytes(32)))
 
         response =
           WebAuthn::AuthenticatorAttestationResponse

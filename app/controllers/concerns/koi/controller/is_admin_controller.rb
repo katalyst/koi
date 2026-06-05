@@ -16,7 +16,7 @@ module Koi
         include HasAttachments
         include Katalyst::Tables::Backend
 
-        if (pagy = "Pagy::Method".safe_constantize)
+        if (pagy    = "Pagy::Method".safe_constantize)
           include pagy
         elsif (pagy = "Pagy::Backend".safe_constantize)
           # @deprecated Pagy <43
@@ -53,7 +53,7 @@ module Koi
 
         return unless admin_user
 
-        session[:admin_user_id] = admin_user.id
+        session[:admin_user_id]           = admin_user.id
         session[:admin_user_signed_in_at] = Time.current.iso8601(6)
 
         flash.delete(:redirect) if (redirect = flash[:redirect])
