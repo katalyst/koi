@@ -16,6 +16,7 @@ group :development, :test do
   gem "flipper-ui"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
+  gem "katalyst-thermite", git: "https://github.com/katalyst/thermite.git"
   gem "propshaft"
   gem "puma"
   gem "rails"
@@ -24,6 +25,7 @@ group :development, :test do
   gem "rubocop-katalyst", require: false
   gem "sentry-rails"
   gem "shoulda-matchers"
+  gem "solid_queue"
   gem "sqlite3"
 end
 

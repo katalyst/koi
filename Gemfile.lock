@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/katalyst/thermite.git
+  revision: e031fffc9e6eb91a6f330135c3086b3e2e6c0f27
+  specs:
+    katalyst-thermite (1.0.0)
+      activesupport
+      railties
+
 PATH
   remote: .
   specs:
@@ -161,6 +169,8 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
+    et-orbi (1.4.0)
+      tzinfo
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
@@ -186,6 +196,9 @@ GEM
       rack-protection (>= 1.5.3, < 5.0.0)
       rack-session (>= 1.0.2, < 3.0.0)
       sanitize (< 8)
+    fugit (1.12.2)
+      et-orbi (~> 1.4)
+      raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
     govuk_design_system_formbuilder (6.2.1)
@@ -300,6 +313,7 @@ GEM
     public_suffix (7.0.5)
     puma (8.0.2)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.6)
     rack-protection (4.2.1)
@@ -450,6 +464,13 @@ GEM
     shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
     smart_properties (1.17.0)
+    solid_queue (1.4.0)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      concurrent-ruby (>= 1.3.1)
+      fugit (~> 1.11)
+      railties (>= 7.1)
+      thor (>= 1.3.1)
     sqlite3 (2.9.5-aarch64-linux-gnu)
     sqlite3 (2.9.5-aarch64-linux-musl)
     sqlite3 (2.9.5-arm-linux-gnu)
@@ -531,6 +552,7 @@ DEPENDENCIES
   image_processing
   katalyst-basic-auth
   katalyst-koi!
+  katalyst-thermite!
   propshaft
   puma
   rack_session_access
@@ -541,6 +563,7 @@ DEPENDENCIES
   rubocop-katalyst
   sentry-rails
   shoulda-matchers
+  solid_queue
   sqlite3
   webmock
 
