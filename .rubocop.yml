@@ -15,6 +15,10 @@ AllCops:
     - spec/dummy/tmp/**/*
   TargetRubyVersion: 3.4
 
+Rails/RakeEnvironment:
+  Exclude:
+    - Rakefile
+
 RSpec/MultipleExpectations:
   Exclude:
     - spec/generators/**/*

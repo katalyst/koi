@@ -40,6 +40,9 @@ task security: :environment do
   sh "bundle exec brakeman -q -w2"
 end
 
-task default: %i[lint build spec security] do
-  puts "🎉 build complete! 🎉"
+desc "Run the full CI suite (style, assets, specs, security) via bin/ci"
+task :ci do
+  sh "bin/ci"
 end
+
+task default: :ci
