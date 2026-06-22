@@ -40,7 +40,7 @@ RSpec.describe Admin::TokensController do
 
       it "shows a flash message" do
         action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
+        expect(flash[:notice]).to include("Token invalid or consumed already")
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe Admin::TokensController do
 
       it "shows a flash message" do
         action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
+        expect(flash[:notice]).to include("Token invalid or consumed already")
       end
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Admin::TokensController do
 
       it "shows a flash message" do
         action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
+        expect(flash[:notice]).to include("Token invalid or consumed already")
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe Admin::TokensController do
 
       it "shows a flash message" do
         action
-        expect(flash[:notice]).to match(/Token invalid or consumed already/)
+        expect(flash[:notice]).to include("Token invalid or consumed already")
       end
     end
   end
