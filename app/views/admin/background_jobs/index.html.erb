@@ -1,0 +1,15 @@
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <h1>Background jobs</h1>
+<% end %>
+
+<%= table_query_with(collection:) %>
+
+<%= table_with(collection:) do |row, job| %>
+  <% row.link(:class_name, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
+  <% row.text(:queue_name, label: "Queue") %>
+  <% row.datetime(:scheduled_at, label: "Scheduled") %>
+<% end %>
+
+<%= table_pagination_with(collection:) %>

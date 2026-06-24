@@ -7,7 +7,8 @@ Koi::Menu.modules = {
 }
 
 Koi::Menu.advanced = {
-  "Admin Users"  => "/admin/admin_users",
-  "URL Rewriter" => "/admin/url_rewrites",
-  "Well Knowns"  => "/admin/well_knowns",
+  "Admin users"      => "/admin/admin_users",
+  "Background jobs"  => "/admin/background_jobs",
+  "URL rewriter"     => "/admin/url_rewrites",
+  "Well knowns"      => "/admin/well_knowns",
 }
