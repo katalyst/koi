@@ -4,4 +4,5 @@
   <% state_counts.each do |state, count| %>
     <li><%= link_to("#{state.to_s.humanize} (#{count})", background_job_state_path(state)) %></li>
   <% end %>
+  <li><%= link_to("Recurring tasks", admin_recurring_tasks_path) %></li>
 <% end %>

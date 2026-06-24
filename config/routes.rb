@@ -43,6 +43,9 @@ Rails.application.routes.draw do
         delete :discard
       end
     end
+    resources :recurring_tasks, only: %i[index show], param: :key do
+      post :run, on: :member
+    end
     resources :url_rewrites
     resources :well_knowns
 

@@ -1,0 +1,33 @@
+<%# locals: (recurring_task:, jobs:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Recurring tasks", admin_recurring_tasks_path) %></li>
+  <% end %>
+
+  <h1><%= recurring_task %></h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("Run", run_admin_recurring_task_path(recurring_task), data: { turbo_method: :post }) %></li>
+  <% end %>
+<% end %>
+
+<%= summary_table_with(model: recurring_task) do |row| %>
+  <% row.text(:job_class) %>
+  <% row.text(:arguments) do |cell| %>
+    <code><%= JSON.pretty_generate(cell.value).strip %></code>
+  <% end %>
+  <% row.text(:schedule) %>
+<% end %>
+
+<h2>Jobs</h2>
+
+<%= table_with(collection: jobs) do |row| %>
+  <% row.link(:job_id, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
+  <% row.datetime(:enqueued_at) %>
+  <% row.datetime(:finished_at) %>
+  <% row.number(:duration) %>
+  <% row.enum(:state) %>
+<% end %>
+
+<%= table_pagination_with(collection: jobs) %>
