@@ -1,0 +1,22 @@
+<%# locals: (background_job:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Background jobs", admin_background_jobs_path) %></li>
+  <% end %>
+
+  <h1><%= background_job %></h1>
+<% end %>
+
+<%= summary_table_with(model: background_job) do |row| %>
+  <% row.text(:job_id) %>
+  <% row.text(:queue_name, label: "Queue") %>
+  <% row.datetime(:enqueued_at, label: "Enqueued") %>
+  <% if background_job.finished? %>
+    <% row.datetime(:finished_at, label: "Finished") %>
+    <% row.text(:duration, label: "Duration") %>
+  <% end %>
+  <% row.text(:job, label: "Raw data") do |cell| %>
+    <pre><%= JSON.pretty_generate(cell.value.as_json).strip %></pre>
+  <% end %>
+<% end %>
