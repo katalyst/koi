@@ -12,6 +12,12 @@ module Admin
       render locals: { collection: }
     end
 
+    def failed
+      @collection = Collection.with_params(params).apply(SolidQueue::Job.failed.strict_loading)
+
+      render locals: { collection: }
+    end
+
     def show
       render locals: { background_job: }
     end

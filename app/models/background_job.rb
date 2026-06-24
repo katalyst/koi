@@ -36,6 +36,18 @@ class BackgroundJob
     ActiveSupport::Duration.build(seconds.round(precision)).inspect
   end
 
+  # Exception class and message from the current failure, e.g. "RuntimeError: boom".
+  def failure_reason
+    return unless (failure = failed_execution)
+
+    "#{failure.exception_class}: #{failure.message}"
+  end
+
+  # Backtrace lines from the current failure, joined into a single string.
+  def backtrace
+    failed_execution&.backtrace&.join("\n")
+  end
+
   def to_param
     active_job_id
   end

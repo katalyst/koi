@@ -1,11 +1,11 @@
 <%# locals: (collection:) %>
 
 <% content_for(:header) do %>
-  <h1>Background jobs</h1>
-
-  <%= actions_list do %>
-    <li><%= link_to("Failed", failed_admin_background_jobs_path) %></li>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Background jobs", admin_background_jobs_path) %></li>
   <% end %>
+
+  <h1>Failed background jobs</h1>
 <% end %>
 
 <%= table_query_with(collection:) %>
@@ -13,7 +13,10 @@
 <%= table_with(collection:) do |row, job| %>
   <% row.link(:class_name, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
   <% row.text(:queue_name, label: "Queue") %>
-  <% row.datetime(:scheduled_at, label: "Scheduled") %>
+  <% row.datetime(:updated_at, label: "Last failed") %>
+  <% row.text(:error, label: "Error") do %>
+    <%= BackgroundJob.new(job).failure_reason %>
+  <% end %>
 <% end %>
 
 <%= table_pagination_with(collection:) %>

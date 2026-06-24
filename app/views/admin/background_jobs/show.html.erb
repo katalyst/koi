@@ -16,6 +16,13 @@
     <% row.datetime(:finished_at, label: "Finished") %>
     <% row.text(:duration, label: "Duration") %>
   <% end %>
+  <% if background_job.failed? %>
+    <% row.datetime(:updated_at, label: "Last failed") %>
+    <% row.text(:failure_reason, label: "Reason") %>
+    <% row.text(:backtrace, label: "Stacktrace") do |cell| %>
+      <pre><%= cell.value %></pre>
+    <% end %>
+  <% end %>
   <% row.text(:job, label: "Raw data") do |cell| %>
     <pre><%= JSON.pretty_generate(cell.value.as_json).strip %></pre>
   <% end %>
