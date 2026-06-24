@@ -67,6 +67,22 @@ class BackgroundJob
     "#{failure.exception_class}: #{failure.message}"
   end
 
+  def state
+    if finished?
+      :finished
+    elsif failed?
+      :failed
+    elsif claimed_execution.present?
+      :in_progress
+    elsif blocked_execution.present?
+      :blocked
+    elsif scheduled_execution.present?
+      :scheduled
+    else
+      :pending
+    end
+  end
+
   # Backtrace lines from the current failure, joined into a single string.
   def backtrace
     failed_execution&.backtrace&.join("\n")

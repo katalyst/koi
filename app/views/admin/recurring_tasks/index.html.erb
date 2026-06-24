@@ -1,0 +1,20 @@
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Background jobs", admin_background_jobs_path) %></li>
+  <% end %>
+
+  <h1>Recurring tasks</h1>
+
+<% end %>
+
+<%= table_query_with(collection:) %>
+
+<%= table_with(collection:) do |row| %>
+  <% row.link(:key, url: ->(record) { admin_recurring_task_path(record.key) }, label: "Job name") %>
+  <% row.text(:schedule, label: "Schedule") %>
+  <% row.datetime(:last_enqueued_time, label: "Last enqueued") %>
+<% end %>
+
+<%= table_pagination_with(collection:) %>
