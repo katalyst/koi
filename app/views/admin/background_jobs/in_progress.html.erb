@@ -1,19 +1,14 @@
 <%# locals: (collection:, state_counts:) %>
 
 <% content_for(:header) do %>
-  <h1>Pending jobs</h1>
+  <h1>In progress jobs</h1>
 
   <%= render "navigation", state_counts: %>
 <% end %>
 
 <%= table_query_with(collection:) %>
 
-<%= table_selection_with(collection:) do %>
-  <%= tag.button("Discard", formaction: discard_all_admin_background_jobs_path, formmethod: :delete, class: "button") %>
-<% end %>
-
 <%= table_with(collection:) do |row, job| %>
-  <% row.select %>
   <% row.link(:class_name, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
   <% row.text(:queue_name, label: "Queue") %>
   <% row.datetime(:scheduled_at, label: "Scheduled") %>

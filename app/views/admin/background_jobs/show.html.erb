@@ -6,9 +6,21 @@
   <% end %>
 
   <h1><%= background_job %></h1>
+
+  <%= actions_list do %>
+    <% if background_job.failed? %>
+      <li><%= link_to("Retry", retry_admin_background_job_path(background_job), data: { turbo_method: :post }) %></li>
+    <% end %>
+    <% if background_job.discardable? %>
+      <li><%= link_to_delete(background_job.job, "Discard", url: discard_admin_background_job_path(background_job)) %></li>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= summary_table_with(model: background_job) do |row| %>
+  <% row.text(:serialized_arguments, label: "Arguments") do |cell| %>
+    <code><%= JSON.pretty_generate(cell.value).strip %></code>
+  <% end %>
   <% row.text(:job_id) %>
   <% row.text(:queue_name, label: "Queue") %>
   <% row.datetime(:enqueued_at, label: "Enqueued") %>

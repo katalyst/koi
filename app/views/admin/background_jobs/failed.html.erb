@@ -1,16 +1,20 @@
-<%# locals: (collection:) %>
+<%# locals: (collection:, state_counts:) %>
 
 <% content_for(:header) do %>
-  <%= breadcrumb_list do %>
-    <li><%= link_to("Background jobs", admin_background_jobs_path) %></li>
-  <% end %>
+  <h1>Failed jobs</h1>
 
-  <h1>Failed background jobs</h1>
+  <%= render "navigation", state_counts: %>
 <% end %>
 
 <%= table_query_with(collection:) %>
 
+<%= table_selection_with(collection:) do %>
+  <%= tag.button("Retry", formaction: retry_all_admin_background_jobs_path, formmethod: :post, class: "button") %>
+  <%= tag.button("Discard", formaction: discard_all_admin_background_jobs_path, formmethod: :delete, class: "button button--secondary") %>
+<% end %>
+
 <%= table_with(collection:) do |row, job| %>
+  <% row.select %>
   <% row.link(:class_name, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
   <% row.text(:queue_name, label: "Queue") %>
   <% row.datetime(:updated_at, label: "Last failed") %>

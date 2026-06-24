@@ -21,10 +21,56 @@ RSpec.describe Admin::BackgroundJobsController do
     end
   end
 
+  describe "GET /admin/background_jobs/completed" do
+    let(:action) { get completed_admin_background_jobs_path }
+
+    before { solid_job.update!(finished_at: Time.current) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "GET /admin/background_jobs/failed" do
     let(:action) { get failed_admin_background_jobs_path }
 
     before { SolidQueue::FailedExecution.create!(job: solid_job, exception: StandardError.new("boom")) }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/background_jobs/scheduled" do
+    let(:action) { get scheduled_admin_background_jobs_path }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/background_jobs/in_progress" do
+    let(:action) { get in_progress_admin_background_jobs_path }
+
+    it_behaves_like "requires admin"
+
+    it "renders successfully" do
+      action
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET /admin/background_jobs/blocked" do
+    let(:action) { get blocked_admin_background_jobs_path }
 
     it_behaves_like "requires admin"
 
@@ -51,6 +97,78 @@ RSpec.describe Admin::BackgroundJobsController do
         action
         expect(response).to have_http_status(:success)
       end
+    end
+  end
+
+  describe "POST /admin/background_jobs/:id/retry" do
+    let(:action) { post retry_admin_background_job_path(background_job) }
+
+    before { SolidQueue::FailedExecution.create!(job: solid_job, exception: StandardError.new("boom")) }
+
+    it_behaves_like "requires admin"
+
+    it "redirects to the index" do
+      action
+      expect(response).to redirect_to(admin_background_jobs_path)
+    end
+
+    it "clears the failure" do
+      action
+      expect(solid_job.reload.failed_execution).to be_nil
+    end
+  end
+
+  describe "DELETE /admin/background_jobs/:id/discard" do
+    let(:action) { delete discard_admin_background_job_path(background_job) }
+
+    before { SolidQueue::FailedExecution.create!(job: solid_job, exception: StandardError.new("boom")) }
+
+    it_behaves_like "requires admin"
+
+    it "redirects to the failed jobs" do
+      action
+      expect(response).to redirect_to(failed_admin_background_jobs_path)
+    end
+
+    it "destroys the job" do
+      action
+      expect(SolidQueue::Job).not_to exist(solid_job.id)
+    end
+  end
+
+  describe "POST /admin/background_jobs/retry_all" do
+    let(:action) { post retry_all_admin_background_jobs_path, params: { id: [solid_job.id] } }
+
+    before { SolidQueue::FailedExecution.create!(job: solid_job, exception: StandardError.new("boom")) }
+
+    it_behaves_like "requires admin"
+
+    it "redirects to the failed jobs" do
+      action
+      expect(response).to redirect_to(failed_admin_background_jobs_path)
+    end
+
+    it "clears the failure" do
+      action
+      expect(solid_job.reload.failed_execution).to be_nil
+    end
+  end
+
+  describe "DELETE /admin/background_jobs/discard_all" do
+    let(:action) { delete discard_all_admin_background_jobs_path, params: { id: [solid_job.id] } }
+
+    before { SolidQueue::FailedExecution.create!(job: solid_job, exception: StandardError.new("boom")) }
+
+    it_behaves_like "requires admin"
+
+    it "redirects to the index" do
+      action
+      expect(response).to redirect_to(admin_background_jobs_path)
+    end
+
+    it "destroys the selected jobs" do
+      action
+      expect(SolidQueue::Job).not_to exist(solid_job.id)
     end
   end
 end

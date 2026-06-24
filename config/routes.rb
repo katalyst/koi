@@ -27,7 +27,21 @@ Rails.application.routes.draw do
     end
 
     resources :background_jobs, only: %i[index show], param: :active_job_id do
-      get :failed, on: :collection
+      collection do
+        get :scheduled
+        get :in_progress
+        get :blocked
+        get :failed
+        get :completed
+
+        post :retry_all
+        delete :discard_all
+      end
+
+      member do
+        post :retry
+        delete :discard
+      end
     end
     resources :url_rewrites
     resources :well_knowns
