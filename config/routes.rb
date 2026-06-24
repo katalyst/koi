@@ -26,7 +26,9 @@ Rails.application.routes.draw do
       resources :tokens, param: :token, only: %i[show update], token: /[^\/]+/
     end
 
-    resources :background_jobs, only: %i[index show], param: :active_job_id
+    resources :background_jobs, only: %i[index show], param: :active_job_id do
+      get :failed, on: :collection
+    end
     resources :url_rewrites
     resources :well_knowns
 
