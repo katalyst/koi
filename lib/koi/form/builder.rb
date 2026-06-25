@@ -69,7 +69,7 @@ module Koi
       # @see GOVUKDesignSystemFormBuilder::Builder#govuk_rich_text_area
       def govuk_rich_text_area(attribute_name, data: {}, **, &)
         data = data.reverse_merge(
-          direct_upload_url: @template.katalyst_content.direct_uploads_url,
+          direct_upload_url: @template.admin_direct_uploads_url,
           controller:        "content--editor--trix",
           action:            "trix-initialize->content--editor--trix#trixInitialize",
         )
