@@ -10,12 +10,14 @@ module Koi
       end
 
       # Generates a submit button for saving admin resources.
+      # @deprecated will be removed in Koi 6.0
       def admin_save(text = "Save", name: :commit, value: :save, class: "button", **)
         button(text, name:, value:, class:, **)
       end
 
       # Generates a delete link formatted as a button that will perform a turbo
       # delete with a confirmation.
+      # @deprecated will be removed in Koi 6.0
       def admin_delete(text = "Delete", url: nil, confirm: "Are you sure?", data: {}, **)
         return unless object.persisted?
 
@@ -27,12 +29,14 @@ module Koi
 
       # Generates an archive link formatted as a button that will perform a turbo
       # delete with a confirmation.
+      # @deprecated will be removed in Koi 6.0
       def admin_archive(text = "Archive", **)
         admin_delete(text, **)
       end
 
       # Generates a discard changes link formatted as a text button that navigates
       # the user back to the previous page.
+      # @deprecated will be removed in Koi 6.0
       def admin_discard(text = "Discard", url: :back, **)
         link_to(text, url, class: "button", data: { text_button: "" }, **)
       end
