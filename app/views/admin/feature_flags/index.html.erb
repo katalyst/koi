@@ -1,0 +1,14 @@
+<%# locals: (collection:) %>
+
+<% content_for(:header) do %>
+  <h1>Feature flags</h1>
+
+  <%= actions_list do %>
+    <li><%= link_to("New", new_admin_feature_flag_path) %></li>
+  <% end %>
+<% end %>
+
+<%= table_with(collection:) do |row, feature_flag| %>
+  <% row.link(:key, url: ->(record) { admin_feature_flag_path(record) }, label: "Name") %>
+  <% row.text(:state, label: "Status") { |cell| cell.value.to_s.humanize } %>
+<% end %>

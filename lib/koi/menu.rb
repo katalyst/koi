@@ -27,14 +27,18 @@ module Koi
       builder.add_menu(title: "Advanced") do |b|
         b.add_items(advanced)
 
+        # @deprecated use /admin/feature_flags instead, remove in 6.0
         if Object.const_defined?("Flipper::UI")
           b.add_link(title:  "Flipper", url: context.main_app.admin_root_path.concat("/flipper"),
                      target: :blank)
         end
+
+        # @deprecated superseded by /admin/background_jobs for Solid Queue apps, remove in 6.0
         if Object.const_defined?("Sidekiq::Web")
           b.add_link(title:  "Sidekiq", url: context.main_app.admin_root_path.concat("sidekiq"),
                      target: :blank)
         end
+
         b.add_button(title:       "Clear cache", url: context.main_app.admin_cache_path,
                      http_method: :delete)
       end

@@ -1,0 +1,30 @@
+<%# locals: (feature_flag:, groups:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Feature flags", admin_feature_flags_path) %></li>
+  <% end %>
+
+  <h1><%= feature_flag %></h1>
+
+  <%= actions_list do %>
+    <li><%= link_to_delete(feature_flag, "Delete", url: admin_feature_flag_path(feature_flag)) %></li>
+  <% end %>
+<% end %>
+
+<%= form_with(model: feature_flag, url: admin_feature_flag_path(feature_flag), method: :patch) do |form| %>
+  <%= form.govuk_radio_buttons_fieldset(:state, legend: { text: "Availability" }) do %>
+    <%= form.govuk_radio_button(:state, :on, label: { text: "On for everyone" }) %>
+    <%= form.govuk_radio_button(:state, :conditional, label: { text: "Conditional" }) do %>
+      <% if groups.any? %>
+        <%= form.govuk_collection_check_boxes(:groups, groups.map(&:to_s), :to_s, :humanize, legend: { text: "Groups" }) %>
+      <% end %>
+      <%= form.govuk_number_field(:percentage_of_actors, label: { text: "Percentage of actors" }, min: 0, max: 100) %>
+      <%= form.govuk_number_field(:percentage_of_time, label: { text: "Percentage of time" }, min: 0, max: 100) %>
+      <%= form.govuk_text_area(:actors, label: { text: "Actors" }, hint: { text: "One flipper id per line, e.g. Admin::User;1" }) %>
+    <% end %>
+    <%= form.govuk_radio_button(:state, :off, label: { text: "Off for everyone" }) %>
+  <% end %>
+
+  <%= form.button("Save", class: "button") %>
+<% end %>
