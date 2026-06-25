@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     resources :recurring_tasks, only: %i[index show], param: :key do
       post :run, on: :member
     end
+    resources :feature_flags, except: :edit, param: :key if Object.const_defined?(:Flipper)
     resources :url_rewrites
     resources :well_knowns
 
@@ -55,6 +56,8 @@ Rails.application.routes.draw do
   scope :admin do
     mount Katalyst::Content::Engine, at: "content"
     mount Katalyst::Navigation::Engine, at: "navigation"
+
+    # @deprecated use /admin/feature_flags instead, remove in 6.0
     mount Flipper::UI.app(Flipper) => "flipper" if Object.const_defined?("Flipper::UI")
   end
 

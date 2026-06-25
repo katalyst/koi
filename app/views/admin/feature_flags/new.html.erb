@@ -1,0 +1,14 @@
+<%# locals: (feature_flag:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Feature flags", admin_feature_flags_path) %></li>
+  <% end %>
+
+  <h1>New feature flag</h1>
+<% end %>
+
+<%= form_with(model: feature_flag, url: admin_feature_flags_path) do |form| %>
+  <%= form.govuk_text_field(:key, label: { text: "Name" }) %>
+  <%= form.button("Create", class: "button") %>
+<% end %>

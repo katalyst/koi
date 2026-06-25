@@ -13,7 +13,6 @@ group :development, :test do
   gem "faker"
   gem "flipper"
   gem "flipper-active_record"
-  gem "flipper-ui"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
   gem "katalyst-thermite", git: "https://github.com/katalyst/thermite.git"
