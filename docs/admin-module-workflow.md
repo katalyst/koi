@@ -79,7 +79,9 @@ Picking a stable attribute (title, name, slug) keeps UI labels consistent across
 
 - Form templates iterate through the discovered attributes in order and render `govuk_*` helpers (`lib/generators/koi/admin_views/templates/_form.html.erb.tt:3`). Reorder or group fields by rearranging the generated ERB.
 - If you pass attribute arguments to `koi:admin`, the generated forms respect the order you provide. When you omit arguments, discovery follows the migration order for columns—i.e., the order you specified when running `koi:model`—then appends attachments, rich text, and `belongs_to` associations in declaration order.
-- `Koi::FormBuilder` injects admin-friendly buttons (`form.admin_save`, `form.admin_delete`) and smart defaults for file hints and ActionText direct uploads (`lib/koi/form/builder.rb:13`).
+- Keep form actions focused on saving form content (plain submit buttons in form sections).
+- Put non-form actions (archive/delete/view/preview) in page header actions via `actions_list`, `link_to_delete`, and `link_to_archive_or_delete`.
+- `Koi::FormBuilder` provides smart defaults for file hints and ActionText direct uploads (`lib/koi/form/builder.rb:13`).
 - The first attribute becomes the default index link via `row.link`, so choose something human-readable (title/name) or update the generated `index.html.erb`.
 - For structured content components, mix in helpers from `Koi::Form::Content` to reuse heading/style selectors inside custom forms (`lib/koi/form/content.rb:8`).
 
@@ -98,7 +100,7 @@ Picking a stable attribute (title, name, slug) keeps UI labels consistent across
 ### Table Layout
 
 - Lists render inside `table_with`, and the first attribute becomes the linked column. Subsequent attributes follow in declaration order (`lib/generators/koi/admin_views/templates/index.html.erb.tt:33`).
-- When the module is archivable, a selection column and bulk archive button appear automatically (`lib/generators/koi/admin_views/templates/index.html.erb.tt:19`).
+- When the module is archivable, selection columns and bulk archive/restore actions should be available on active/archived indexes (`lib/generators/koi/admin_views/templates/index.html.erb.tt:19`).
 - Summary pages render every “show attribute” using `row.text`, `row.enum`, etc. (`lib/generators/koi/admin_views/templates/show.html.erb.tt:10`).
 
 ### Collections & Filters
@@ -122,7 +124,7 @@ Each controller defines an inner `Collection` class extending `Admin::Collection
 Including `Koi::Model::Archivable` in the model adds the `archived_at` scope and helpers (`app/models/concerns/koi/model/archivable.rb:17`). When the generator spots an `archived_at` column:
 
 - Extra routes (`archive`, `restore`, `archived`) are added (`lib/generators/koi/admin_route/admin_route_generator.rb:33`).
-- The index view adds a bulk archive action and a link to the archived list (`lib/generators/koi/admin_views/templates/index.html.erb.tt:21`).
+- Index/archived views include bulk archive/restore via selection controls plus a link between active and archived lists (`lib/generators/koi/admin_views/templates/index.html.erb.tt:21`).
 - Destroy actions archive first, then delete once already archived (`lib/generators/koi/admin_controller/templates/controller.rb.tt:64`).
 
 Finish the setup by following the dedicated archiving guide (`archiving.md`) for form wiring, strong parameters, UI surfacing, and testing expectations. That guide captures the manual steps discovered while building the Pages module.
@@ -138,7 +140,7 @@ Every admin module is added to `Koi::Menu.modules` with a label derived from the
 ## Common Customisations
 
 - **Add custom filters** by extending the inner `Collection` and declaring attributes manually; anything you add shows up in `table_query_with` automatically.
-- **Override form layouts** using ViewComponents or partials if you need multi-column layouts—just ensure the submit buttons continue to call `form.admin_save` so styles remain consistent.
+- **Override form layouts** using ViewComponents or partials if you need multi-column layouts—keep form controls save-focused and move non-form actions to header actions.
 - **Additional actions** go inside the controller and can be surfaced in the header via `actions_list`.
 - **Non-standard inputs** (e.g., slug sync, toggles) can hook into existing Stimulus controllers such as `sluggable` or `show-hide`.
 - **Front-end routes** – when marketing pages should appear at `/slug` instead of `/pages/slug`, use the [`root-level-page-routing.md`](./root-level-page-routing.md) constraint pattern after scaffolding the public controller.
@@ -166,6 +168,7 @@ Every admin module is added to `Koi::Menu.modules` with a label derived from the
 - Generators overwrite files without prompting. Keep commits small so you can regenerate confidently.
 - `belongs_to` relationships only appear on the show page; add your own form fields/filters if you need to edit them in the UI.
 - When handling attachments, always call `save_attachments!` before rendering to avoid losing uploads.
+- In request specs, prefer combined redirect assertions (`have_http_status(:see_other).and(redirect_to(...))`).
 - Pagination is disabled for orderable lists. If you have a large dataset, consider a dedicated reorder screen instead of relying on the default drag-and-drop.
 - Navigation entries are stored in code, not the database. Remember to adjust `config/initializers/koi.rb` when you rename modules.
 - After scaffolding, step through the CRUD screens (create → show → edit → delete) to confirm helpers, validations, and menu wiring behave as expected.
