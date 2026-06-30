@@ -63,16 +63,31 @@ module Koi
         super
       end
 
-      # Use content editor trix setup by default.
+      using Katalyst::HtmlAttributes::HasHtmlAttributes
+
+      # Use Koi's admin direct uploads URL.
       #
       # @api internal
-      # @see GOVUKDesignSystemFormBuilder::Builder#govuk_rich_text_area
-      def govuk_rich_text_area(attribute_name, data: {}, **, &)
-        data = data.reverse_merge(
-          direct_upload_url: @template.admin_direct_uploads_url,
-          controller:        "content--editor--trix",
-          action:            "trix-initialize->content--editor--trix#trixInitialize",
-        )
+      # @see Lexxy::FormBuilder#lexxy_rich_textarea
+      def lexxy_rich_textarea(attribute_name, **attributes, &)
+        attributes = {
+          class: "lexxy-content",
+          data:  { direct_upload_url: @template.admin_direct_uploads_url },
+        }.merge_html(**attributes)
+
+        super
+      end
+
+      # Use Koi's admin direct uploads URL.
+      #
+      # @api internal
+      # @see Koi::ActionText::FormBuilder#trix_rich_textarea
+      def trix_rich_textarea(attribute_name, **attributes, &)
+        attributes = {
+          class: "trix-content",
+          data:  { direct_upload_url: @template.admin_direct_uploads_url },
+        }.merge_html(**attributes)
+
         super
       end
     end

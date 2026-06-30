@@ -1,0 +1,53 @@
+:root {
+  /* Colors */
+  --lexxy-color-ink: var(--color-dark);
+  --lexxy-color-ink-medium: var(--color-dark-glare);
+  --lexxy-color-ink-light: var(--color-mid);
+  --lexxy-color-ink-lighter: var(--color-tint);
+  --lexxy-color-ink-lightest: var(--color-tint);
+  --lexxy-color-ink-inverted: var(--color-light);
+
+  /* Typography */
+  --lexxy-font-base: var(--font-base);
+  --lexxy-font-mono: var(--font-mono);
+  --lexxy-text-small: var(--size-step--1);
+  --lexxy-content-margin: var(--space-s);
+
+  /* Focus ring */
+  --lexxy-focus-ring-color: var(--focus-color);
+}
+
+:where(lexxy-toolbar) {
+  border: none;
+}
+
+:where(lexxy-editor) {
+  --lexxy-editor-padding: var(--space-2xs);
+  --lexxy-editor-rows: 5lh;
+
+  @supports (min-block-size: attr(rows lh)) {
+    --lexxy-editor-rows: attr(rows lh, 5lh);
+  }
+
+  border: none;
+  margin-block-end: var(--flow-space, var(--space-2xs));
+
+  [role="textbox"] {
+    border-radius: var(--input-radius);
+    border: var(--stroke-input);
+
+    &:focus-visible {
+      outline: var(--focus-outline);
+      outline-offset: 0;
+      box-shadow: var(--focus-shadow);
+    }
+
+    .govuk-rich-textarea--error &:not(:focus-visible) {
+      border-color: var(--govuk-error-color);
+    }
+  }
+}
+
+.govuk-error-message:has(+ lexxy-editor) {
+  margin-block-end: unset;
+}

@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
 module Koi
-  extend self
+  class << self
+    def config
+      @config ||= Config.new
+    end
 
-  def config
-    @config ||= Config.new
-  end
+    def configure
+      yield config
+    end
 
-  def configure
-    yield config
+    def action_text_editor
+      return config.action_text_editor if config.action_text_editor.present?
+
+      defined?(::Lexxy) && defined?(::Flipper) && Flipper.enabled?(:lexxy, Koi::Current.admin_user) ? :lexxy : :trix
+    end
   end
 end
 

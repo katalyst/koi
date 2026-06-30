@@ -34,11 +34,12 @@ Gem::Specification.new do |s|
   s.add_dependency "webauthn", ">= 3.4.0"
 
   # Third party libraries for admin pages
+  s.add_dependency "lexxy"
   s.add_dependency "pagy", ">= 8.0"
   s.add_dependency "view_component"
 
   # Katalyst libraries
-  s.add_dependency "katalyst-content", ">= 3.0.0.alpha.1"
+  s.add_dependency "katalyst-content", ">= 3.2"
   s.add_dependency "katalyst-govuk-formbuilder", ">= 1.28.0", "< 2"
   s.add_dependency "katalyst-html-attributes"
   s.add_dependency "katalyst-navigation", ">= 2"

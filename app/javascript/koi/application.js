@@ -1,7 +1,8 @@
 import "@hotwired/turbo-rails";
 import { initAll } from "@katalyst/govuk-formbuilder";
 import "@rails/actiontext";
-import "trix";
+import Lexxy from "./utils/lexxy";
+import Trix from "./utils/trix";
 
 import "./controllers";
 import "./elements";
@@ -18,3 +19,5 @@ function initGOVUK() {
 
 window.addEventListener("turbo:load", initGOVUK);
 if (window.Turbo) initGOVUK();
+
+export default { Lexxy, Trix };

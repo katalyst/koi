@@ -5,6 +5,7 @@ require "katalyst/content"
 require "katalyst-govuk-formbuilder"
 require "katalyst/navigation"
 require "katalyst/tables"
+require "lexxy"
 require "pagy"
 require "rotp"
 require "rqrcode"
@@ -36,6 +37,28 @@ module Koi
         if app.config.respond_to?(:assets)
           app.config.assets.precompile += %w(katalyst/koi.js)
         end
+      end
+    end
+
+    # Rails 8.0/8.1 shim for allowing flipper swapping between lexxy/trix
+    # Rails 8.2 will introduce action_text.editors, not yet implemented.
+    initializer "koi.actiontext.initialize", after: "lexxy.initialize" do |app|
+      # disable lexxy injection in favour of Koi injection
+      app.config.lexxy.override_action_text_defaults = false
+
+      # Capture ActionText defaults (trix) once
+      ActionText.capture_action_text_defaults
+
+      # Based on Lexxy::Engine's 'lexxy.initialize'
+      app.config.to_prepare do
+        ::ActionText::TagHelper.prepend(ActionText::TagHelper)
+        ::ActionView::Helpers::FormHelper.prepend(ActionText::FormHelper)
+        ::ActionView::Helpers::FormBuilder.prepend(ActionText::FormBuilder)
+        ::ActionView::Helpers::Tags::ActionText.prepend(ActionText::ActionTextTag)
+
+        # Install Koi's stubs.
+        # In Rails 8.2 this should be replaced by action_text.editors
+        ActionText.override_action_text_defaults
       end
     end
 

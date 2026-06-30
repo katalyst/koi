@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/katalyst/thermite.git
-  revision: 0cbd61b25bd26951afe09e328e8a16b03e61805f
+  revision: cb7c4970b79d777d17aeb40afc3b8f83e8cf5f62
   specs:
     katalyst-thermite (1.0.0)
       activesupport
@@ -12,11 +12,12 @@ PATH
     katalyst-koi (5.8.0)
       bcrypt
       importmap-rails
-      katalyst-content (>= 3.0.0.alpha.1)
+      katalyst-content (>= 3.2)
       katalyst-govuk-formbuilder (>= 1.28.0, < 2)
       katalyst-html-attributes
       katalyst-navigation (>= 2)
       katalyst-tables (>= 3.5)
+      lexxy
       pagy (>= 8.0)
       rails (>= 8.0)
       rotp
@@ -219,7 +220,7 @@ GEM
     jwt (3.2.0)
       base64
     katalyst-basic-auth (1.0.0)
-    katalyst-content (3.1.3)
+    katalyst-content (3.2.0)
       active_storage_validations
       activerecord
       katalyst-govuk-formbuilder
@@ -238,6 +239,8 @@ GEM
       katalyst-html-attributes
       view_component (>= 4.0.0)
     language_server-protocol (3.17.0.5)
+    lexxy (0.9.21)
+      rails (>= 8.0.2)
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.25.1)

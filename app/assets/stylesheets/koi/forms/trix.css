@@ -26,12 +26,36 @@ trix-toolbar {
   }
 }
 
-.govuk-rich-textarea {
+trix-editor {
+  background: var(--color-light);
+  border-radius: var(--input-radius);
+  border: var(--stroke-input);
+  color: var(--color-dark);
+  padding: var(--space-2xs);
   min-block-size: calc(
     var(--size-step-0) * var(--leading-fine) * 5 + var(--space-3xs) * 2
   );
-}
 
-.govuk-rich-textarea--error:not(:focus-visible) {
-  border-color: var(--govuk-error-color);
+  &::placeholder {
+    color: var(--color-mid);
+    opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    color: inherit;
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 0;
+    box-shadow: var(--focus-shadow);
+  }
+
+  /* Note: turbo-permanent prevents govuk-rich-textarea--error toggle */
+  .govuk-form-group--error > &:not(:focus-visible) {
+    border-color: var(--govuk-error-color);
+  }
 }

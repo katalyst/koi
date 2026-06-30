@@ -4,7 +4,8 @@ require "active_support/core_ext/numeric"
 
 module Koi
   class Config
-    attr_accessor :admin_name,
+    attr_accessor :action_text_editor,
+                  :admin_name,
                   :authenticate_local_admins,
                   :resource_name_candidates,
                   :admin_stylesheet,
@@ -16,6 +17,7 @@ module Koi
                   :site_name
 
     def initialize
+      @action_text_editor           = nil
       @admin_name                   = "Koi"
       @authenticate_local_admins    = Rails.env.development?
       @resource_name_candidates     = %i[title name]

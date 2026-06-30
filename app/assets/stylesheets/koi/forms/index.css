@@ -1,3 +1,4 @@
+@import url("/lexxy.css");
 @import url("/trix.css");
 
 @import url("label.css");
@@ -15,6 +16,7 @@
 @import url("file-upload.css");
 @import url("image-field.css");
 @import url("document-field.css");
+@import url("lexxy.css");
 @import url("radios.css");
 @import url("password.css");
 @import url("select.css");
