@@ -13,7 +13,7 @@ AllCops:
     - spec/dummy/config/**/*
     - spec/dummy/db/**/*
     - spec/dummy/tmp/**/*
-  TargetRubyVersion: 3.4
+  TargetRubyVersion: 4.0
 
 Rails/RakeEnvironment:
   Exclude:

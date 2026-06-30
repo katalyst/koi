@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/katalyst/koi"
   s.license  = "MIT"
 
-  s.required_ruby_version = ">= 3.4"
+  s.required_ruby_version = ">= 4.0"
 
   s.files = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "MIT-LICENSE", "README.md", "Upgrade.md"]
               .grep_v(%r{^lib/tasks})
