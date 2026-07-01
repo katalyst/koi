@@ -62,4 +62,9 @@ Rails.application.routes.draw do
   end
 
   resources :well_knowns, path: ".well-known", param: :name, only: %i[show], name: /.+/
+
+  # Fallbacks for optional dependencies
+  unless Object.const_defined?("HotwireCombobox")
+    get "hotwire_combobox", to: ->(_) { [204, {}, []] }, as: nil
+  end
 end
