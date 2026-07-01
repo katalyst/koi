@@ -13,7 +13,7 @@ PATH
       bcrypt
       importmap-rails
       katalyst-content (>= 3.0.0.alpha.1)
-      katalyst-govuk-formbuilder (< 2)
+      katalyst-govuk-formbuilder (>= 1.28.0, < 2)
       katalyst-html-attributes
       katalyst-navigation (>= 2)
       katalyst-tables (>= 3.5)
@@ -194,7 +194,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    govuk_design_system_formbuilder (6.2.1)
+    govuk_design_system_formbuilder (6.3.0)
       actionview (>= 7.2)
       activemodel (>= 7.2)
       activesupport (>= 7.2)
@@ -225,7 +225,7 @@ GEM
       katalyst-govuk-formbuilder
       katalyst-html-attributes
       view_component
-    katalyst-govuk-formbuilder (1.27.0)
+    katalyst-govuk-formbuilder (1.28.0)
       govuk_design_system_formbuilder (>= 6.2.0)
     katalyst-html-attributes (1.1.2)
       activesupport

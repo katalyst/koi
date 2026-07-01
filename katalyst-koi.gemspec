@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
 
   # Katalyst libraries
   s.add_dependency "katalyst-content", ">= 3.0.0.alpha.1"
-  s.add_dependency "katalyst-govuk-formbuilder", "< 2"
+  s.add_dependency "katalyst-govuk-formbuilder", ">= 1.28.0", "< 2"
   s.add_dependency "katalyst-html-attributes"
   s.add_dependency "katalyst-navigation", ">= 2"
   s.add_dependency "katalyst-tables", ">= 3.5"

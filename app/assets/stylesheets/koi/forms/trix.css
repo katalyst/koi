@@ -26,12 +26,12 @@ trix-toolbar {
   }
 }
 
-.govuk-richtextarea {
+.govuk-rich-textarea {
   min-block-size: calc(
     var(--size-step-0) * var(--leading-fine) * 5 + var(--space-3xs) * 2
   );
 }
 
-.govuk-richtextarea--error:not(:focus-visible) {
+.govuk-rich-textarea--error:not(:focus-visible) {
   border-color: var(--govuk-error-color);
 }
