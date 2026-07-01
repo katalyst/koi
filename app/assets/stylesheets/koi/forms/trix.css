@@ -13,7 +13,7 @@ trix-toolbar {
   }
 
   .trix-button--dialog {
-    min-height: 2.2rem;
+    min-block-size: 2.2rem;
   }
 
   .trix-button:not(:first-child) {
@@ -27,7 +27,7 @@ trix-toolbar {
 }
 
 .govuk-richtextarea {
-  min-height: calc(
+  min-block-size: calc(
     var(--size-step-0) * var(--leading-fine) * 5 + var(--space-3xs) * 2
   );
 }

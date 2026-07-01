@@ -9,7 +9,7 @@ trix-editor {
   color: var(--color-dark);
   padding: var(--space-3xs);
   width: 100%;
-  min-height: var(--input-size);
+  min-block-size: var(--input-size);
 
   &::placeholder {
     color: var(--color-mid);

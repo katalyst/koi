@@ -33,7 +33,7 @@
   margin-block-start: calc(-0.5 * var(--input-size));
   translate: 0 calc(var(--stroke-input-width) + 0.25 * var(--input-size));
   /* Firefox fix - unable to calculate baseline from dynamic height */
-  min-height: var(--input-size);
+  min-block-size: var(--input-size);
 }
 
 .govuk-checkboxes__item::after {
@@ -57,7 +57,7 @@
   cursor: pointer;
   touch-action: manipulation;
   margin-block-end: 0;
-  min-height: var(--input-size);
+  min-block-size: var(--input-size);
 }
 
 .govuk-checkboxes__hint {

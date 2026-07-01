@@ -18,7 +18,7 @@
 
   .hw-combobox__main__wrapper {
     display: flex;
-    min-height: var(--input-size);
+    min-block-size: var(--input-size);
     align-items: center;
   }
 
@@ -36,7 +36,7 @@
     width: 100%;
     padding: 0;
     height: unset;
-    min-height: unset;
+    min-block-size: unset;
   }
 
   /* disabled */
