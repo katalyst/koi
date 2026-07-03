@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    katalyst-koi (5.8.1)
+    katalyst-koi (5.8.2)
       bcrypt
       importmap-rails
       katalyst-content (>= 3.2)
