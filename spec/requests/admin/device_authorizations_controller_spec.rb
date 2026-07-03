@@ -23,7 +23,7 @@ RSpec.describe Admin::DeviceAuthorizationsController do
     it "shows the approval UI" do
       action
 
-      expect(response.parsed_body).to have_css(:button, text: "Approve")
+      expect(response.parsed_body).to have_button(text: "Approve")
     end
 
     context "with an expired authorization" do
@@ -34,7 +34,7 @@ RSpec.describe Admin::DeviceAuthorizationsController do
       it "shows expired token" do
         action
 
-        expect(response.parsed_body).to have_css(:td, text: /Less than a minute ago/)
+        expect(response.parsed_body).to have_css("td", text: /Less than a minute ago/)
       end
     end
 
@@ -153,7 +153,7 @@ RSpec.describe Admin::DeviceAuthorizationsController do
       it "renders the show page as unprocessable" do
         action
 
-        expect(response.parsed_body).to have_css(:td, text: /Less than a minute ago/)
+        expect(response.parsed_body).to have_css("td", text: /Less than a minute ago/)
       end
     end
 

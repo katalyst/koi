@@ -17,7 +17,7 @@ module Koi
       def admin_delete(text = "Delete", url: nil, confirm: "Are you sure?", data: {}, **)
         return unless object.persisted?
 
-        link_to(text, url || url_for(action: :destroy),
+        link_to(text, url || @template.url_for(action: :destroy),
                 class: "button",
                 data:  data.reverse_merge(turbo_method: :delete, turbo_confirm: confirm, ghost_button: ""),
                 **)
@@ -42,7 +42,8 @@ module Koi
       def govuk_document_field(attribute_name, hint: {}, **, &)
         if hint.is_a?(Hash)
           max_size      = hint.fetch(:max_size, Koi.config.document_size_limit)
-          hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
+          hint[:text] ||= @template.t("helpers.hint.default.document",
+                                      max_size: @template.number_to_human_size(max_size))
         end
 
         super
@@ -53,7 +54,8 @@ module Koi
       def govuk_image_field(attribute_name, hint: {}, **, &)
         if hint.is_a?(Hash)
           max_size      = hint.fetch(:max_size, Koi.config.image_size_limit)
-          hint[:text] ||= t("helpers.hint.default.document", max_size: @template.number_to_human_size(max_size))
+          hint[:text] ||= @template.t("helpers.hint.default.document",
+                                      max_size: @template.number_to_human_size(max_size))
         end
 
         super
