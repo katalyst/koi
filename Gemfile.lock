@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    katalyst-koi (5.8.0)
+    katalyst-koi (5.8.1)
       bcrypt
       importmap-rails
       katalyst-content (>= 3.2)
@@ -220,7 +220,7 @@ GEM
     jwt (3.2.0)
       base64
     katalyst-basic-auth (1.0.0)
-    katalyst-content (3.2.0)
+    katalyst-content (3.2.1)
       active_storage_validations
       activerecord
       katalyst-govuk-formbuilder

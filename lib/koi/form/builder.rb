@@ -5,10 +5,6 @@ module Koi
     module Builder
       extend ActiveSupport::Concern
 
-      included do
-        delegate_missing_to :@template
-      end
-
       # Generates a submit button for saving admin resources.
       # @deprecated will be removed in Koi 6.0
       def admin_save(text = "Save", name: :commit, value: :save, class: "button", **)
