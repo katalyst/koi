@@ -1,5 +1,6 @@
 {
   "main": "app/assets/builds/katalyst/koi.js",
+  "license": "MIT",
   "scripts": {
     "build": "yarn exec rollup -- -c",
     "clean": "rm -rf app/assets/builds/*"

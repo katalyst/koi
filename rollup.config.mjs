@@ -11,6 +11,7 @@ const external = [
   "@katalyst/tables",
   "@rails/actiontext",
   "controllers/hw_combobox_controller", // optional
+  "lexxy",
   "trix",
 ];
 
