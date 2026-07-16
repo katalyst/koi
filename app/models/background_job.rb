@@ -3,6 +3,15 @@
 class BackgroundJob
   include ActiveModel::Model
 
+  module Scopes
+    def admin_search(query)
+      where(
+        "solid_queue_jobs.class_name LIKE :query OR solid_queue_jobs.queue_name LIKE :query",
+        query: "%#{query}%",
+      )
+    end
+  end
+
   # @return [SolidQueue::Job]
   attr_reader :job
 
@@ -18,7 +27,7 @@ class BackgroundJob
       blocked:     SolidQueue::Job.where.associated(:blocked_execution),
       failed:      SolidQueue::Job.failed,
       completed:   SolidQueue::Job.finished,
-    }
+    }.transform_values { |jobs| jobs.extending(Scopes) }
   end
 
   # @param [SolidQueue::Job] job
