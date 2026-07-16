@@ -19,6 +19,18 @@ RSpec.describe Admin::BackgroundJobsController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it "sorts by scheduled time by default" do
+      first  = solid_job
+      second = SolidQueue::Job.enqueue(Admin::DeviceAuthorizationsCleanupJob.new)
+      first.update!(scheduled_at: 1.hour.ago)
+      second.update!(scheduled_at: Time.current)
+
+      action
+
+      expect(response.parsed_body.css("tbody td a").pluck(:href))
+        .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
+    end
   end
 
   describe "GET /admin/background_jobs/completed" do
@@ -32,6 +44,18 @@ RSpec.describe Admin::BackgroundJobsController do
       action
       expect(response).to have_http_status(:success)
     end
+
+    it "sorts by finished time by default" do
+      first  = solid_job
+      second = SolidQueue::Job.enqueue(Admin::DeviceAuthorizationsCleanupJob.new)
+      first.update!(finished_at: 1.hour.ago)
+      second.update!(finished_at: Time.current)
+
+      action
+
+      expect(response.parsed_body.css("tbody td a").pluck(:href))
+        .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
+    end
   end
 
   describe "GET /admin/background_jobs/failed" do
@@ -44,6 +68,19 @@ RSpec.describe Admin::BackgroundJobsController do
     it "renders successfully" do
       action
       expect(response).to have_http_status(:success)
+    end
+
+    it "sorts by last failed time by default" do
+      first  = solid_job
+      second = SolidQueue::Job.enqueue(Admin::DeviceAuthorizationsCleanupJob.new)
+      SolidQueue::FailedExecution.create!(job: second, exception: StandardError.new("boom"))
+      first.update!(updated_at: 1.hour.ago)
+      second.update!(updated_at: Time.current)
+
+      action
+
+      expect(response.parsed_body.css("tbody td a").pluck(:href))
+        .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
     end
   end
 

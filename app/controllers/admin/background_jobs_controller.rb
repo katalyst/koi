@@ -47,9 +47,21 @@ module Admin
 
     def render_state(state)
       states      = BackgroundJob.states
-      @collection = Collection.with_params(params).apply(states.fetch(state).strict_loading)
+      collection  = Collection.new(sorting: default_sort(state))
+      @collection = collection.with_params(params).apply(states.fetch(state).strict_loading)
 
       render locals: { collection:, state_counts: states.transform_values(&:count) }
+    end
+
+    def default_sort(state)
+      case state
+      when :completed
+        "finished_at desc"
+      when :failed
+        "updated_at desc"
+      else
+        "scheduled_at desc"
+      end
     end
 
     def set_background_job
