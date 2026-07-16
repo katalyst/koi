@@ -7,7 +7,7 @@ module Admin
     attr_reader :recurring_task
 
     def index
-      collection = Collection.with_params(params).apply(SolidQueue::RecurringTask.all)
+      collection = Collection.with_params(params).apply(RecurringTask.scope)
 
       render locals: { collection: }
     end
@@ -43,7 +43,6 @@ module Admin
 
       attribute :key, :string
       attribute :schedule, :string
-      attribute :last_enqueued_time, :date
     end
 
     class JobsCollection < Admin::Collection

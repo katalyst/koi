@@ -74,7 +74,6 @@ module Admin
 
       attribute :class_name, :string
       attribute :queue_name, :string
-      attribute :scheduled_at, :date
     end
   end
 end
