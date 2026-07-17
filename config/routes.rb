@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resource :dashboard, only: %i[show]
 
     resources :device_authorizations, param: :user_code, only: %i[create show update]
-    resources :device_tokens, only: %i[create]
+    post "/tokens", to: "tokens#create", constraints: { format: :json }
 
     scope :active_storage, module: :active_storage do
       post :direct_uploads, to: "direct_uploads#create"

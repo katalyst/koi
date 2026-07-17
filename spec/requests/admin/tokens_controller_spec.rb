@@ -2,17 +2,16 @@
 
 require "rails_helper"
 
-RSpec.describe Admin::DeviceTokensController do
-  describe "POST /admin/device_tokens" do
-    subject(:action) { post admin_device_tokens_path, as: :json, params: }
-
-    let(:params) do
-      {
-        grant_type:  "urn:ietf:params:oauth:grant-type:device_code",
-        device_code:,
-      }
-    end
+RSpec.describe Admin::TokensController do
+  describe "POST /admin/tokens with a device code" do
     let(:device_code) { "device-code-123" }
+
+    def action(as: :json,
+               grant_type: "urn:ietf:params:oauth:grant-type:device-code",
+               device_code: self.device_code,
+               **params)
+      post(admin_tokens_path, as:, params: { grant_type:, device_code:, **params })
+    end
 
     def device_code_digest
       Admin::DeviceAuthorization.digest(device_code)
@@ -62,7 +61,7 @@ RSpec.describe Admin::DeviceTokensController do
     end
 
     it "returns invalid_request for an invalid grant type" do
-      post admin_device_tokens_path, as: :json, params: { grant_type: "invalid", device_code: }
+      action(grant_type: "invalid")
 
       expect(response.parsed_body).to eq("error" => "invalid_request")
     end

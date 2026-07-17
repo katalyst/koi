@@ -41,9 +41,9 @@ RSpec.describe "admin/api access" do
     expect(page).to have_text("Approved")
 
     device.driver.post(
-      admin_device_tokens_path,
+      admin_tokens_path,
       {
-        grant_type:  "urn:ietf:params:oauth:grant-type:device_code",
+        grant_type:  "urn:ietf:params:oauth:grant-type:device-code",
         device_code:,
       },
       { "HTTP_ACCEPT" => "application/json" },

@@ -75,7 +75,7 @@ module Koi
       end
 
       def device_flow_request?(request:)
-        request.post? && %w[/admin/device_authorizations /admin/device_tokens].include?(request.path)
+        request.post? && %w[/admin/device_authorizations /admin/tokens].include?(request.path)
       end
 
       def bearer_token(request:)

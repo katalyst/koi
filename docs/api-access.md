@@ -23,9 +23,9 @@ printf 'Approve device flow for code: %s\n' "$USER_CODE"
 open -a "Google Chrome" "$VERIFICATION_URI"
 
 while true; do
-  TOKEN_JSON=$(curl -k -sS -X POST https://<hostname>/admin/device_tokens \
+  TOKEN_JSON=$(curl -k -sS -X POST https://<hostname>/admin/tokens \
     -H "Accept: application/json" \
-    -d "grant_type=urn:ietf:params:oauth:grant-type:device_code" \
+    -d "grant_type=urn:ietf:params:oauth:grant-type:device-code" \
     -d "device_code=$DEVICE_CODE")
 
   if jq -e '.access_token' >/dev/null <<< "$TOKEN_JSON"
