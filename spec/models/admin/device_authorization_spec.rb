@@ -124,7 +124,7 @@ RSpec.describe Admin::DeviceAuthorization do
       expect(payload).to include(
         access_token: a_kind_of(String),
         token_type:   "Bearer",
-        expires_in:   43_200,
+        expires_in:   3600,
       )
     end
 
@@ -164,10 +164,10 @@ RSpec.describe Admin::DeviceAuthorization do
       expect(described_class.find_by_token_for(:api_access, token)).to eq(device_authorization)
     end
 
-    it "is rejected after 12 hours" do
+    it "is rejected after an hour" do
       token = device_authorization.generate_token_for(:api_access)
 
-      travel(12.hours + 1.second) do
+      travel(1.hour + 1.second) do
         expect(described_class.find_by_token_for(:api_access, token)).to be_nil
       end
     end

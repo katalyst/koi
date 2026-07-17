@@ -2,7 +2,8 @@
 
 module Admin
   class DeviceAuthorization < ApplicationRecord
-    EXPIRES_IN = 10.minutes
+    EXPIRES_IN       = 10.minutes
+    TOKEN_EXPIRES_IN = 1.hour
 
     class TokenError < StandardError
       attr_reader :code
@@ -17,7 +18,7 @@ module Admin
 
     enum :status, %w[pending approved denied consumed].index_with(&:to_s)
 
-    generates_token_for(:api_access, expires_in: 12.hours) { admin_user&.last_sign_in_at }
+    generates_token_for(:api_access, expires_in: TOKEN_EXPIRES_IN) { admin_user&.last_sign_in_at }
 
     validates :device_code_digest, presence: true, uniqueness: true
     validates :request_expires_at, presence: true
@@ -52,7 +53,7 @@ module Admin
       "#{SecureRandom.alphanumeric(4).upcase}-#{SecureRandom.alphanumeric(4).upcase}"
     end
 
-    def self.issue_access_token!(device_code:, token_expires_in: 12.hours)
+    def self.issue_access_token!(device_code:)
       device_authorization = find_by(device_code_digest: digest(device_code.to_s))
       raise TokenError.new("invalid_grant") unless device_authorization
 
@@ -64,12 +65,12 @@ module Admin
         end
 
         access_token = device_authorization.generate_token_for(:api_access)
-        device_authorization.consume!(token_expires_in:)
+        device_authorization.consume!
 
         {
           access_token:,
           token_type:   "Bearer",
-          expires_in:   token_expires_in.to_i,
+          expires_in:   (device_authorization.token_expires_at - Time.current).round,
         }
       end
     end
@@ -89,11 +90,11 @@ module Admin
       "invalid_grant" if consumed? || expired?
     end
 
-    def consume!(token_expires_in:)
+    def consume!
       update!(
         status:           "consumed",
         consumed_at:      Time.current,
-        token_expires_at: token_expires_in.from_now,
+        token_expires_at: TOKEN_EXPIRES_IN.from_now,
       )
     end
 

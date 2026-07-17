@@ -35,7 +35,7 @@ RSpec.describe Admin::ActiveStorage::DirectUploadsController do
     let(:access_token) { device_authorization.generate_token_for(:api_access) }
 
     before do
-      device_authorization.consume!(token_expires_in: 12.hours)
+      device_authorization.consume!
     end
 
     it { is_expected.to be_successful }
