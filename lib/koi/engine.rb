@@ -62,6 +62,10 @@ module Koi
       end
     end
 
+    initializer "koi.config" do |app|
+      Koi.config.load(app)
+    end
+
     initializer "koi.content" do
       Katalyst::Content.config.base_controller  = "Admin::ApplicationController"
       Katalyst::Content.config.errors_component = "Koi::Content::Editor::ErrorsComponent"

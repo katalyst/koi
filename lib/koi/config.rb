@@ -28,5 +28,26 @@ module Koi
       @image_mime_types             = %w[image/png image/gif image/jpeg image/webp].freeze
       @image_size_limit             = 10.megabytes
     end
+
+    # Load config/koi.yml, if present
+    def load(app)
+      app.config_for(:koi).each do |attribute, value|
+        public_send("#{attribute}=", value)
+      end
+
+      self
+    rescue RuntimeError => e
+      raise unless e.message.start_with?("Could not load configuration")
+
+      self
+    end
+
+    private
+
+    def method_missing(name, *) # rubocop:disable Style/MissingRespondToMissing
+      return super unless name.to_s.end_with?("=")
+
+      raise ArgumentError, "Unknown Koi config setting: #{name.to_s.chomp('=')}"
+    end
   end
 end

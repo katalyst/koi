@@ -45,7 +45,19 @@ Use the setup guide for explicit commands, alternate workflows, and troubleshoot
 
 ## Configuration Reference
 
-Configure Koi in an initializer (created by `koi:admin_route`) or any boot file. The defaults live in `lib/koi/config.rb`.
+Configure Koi declaratively in `config/koi.yml`. The defaults live in `lib/koi/config.rb`.
+
+```yaml
+shared:
+  admin_name: Acme CMS
+  admin_stylesheet: admin_bundle
+  admin_javascript_entry_point: application
+
+production:
+  site_name: <%= ENV["SITE_NAME"] %>
+```
+
+The file is read with Rails' `config_for`, so it supports a `shared:`, per-environment settings, and ERB.
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
@@ -57,13 +69,13 @@ Configure Koi in an initializer (created by `koi:admin_route`) or any boot file.
 | `document_mime_types` / `image_mime_types` | Lists of allowed MIME types | Used by `Koi::Form::Builder` when rendering file fields (`lib/koi/form/builder.rb:28`). |
 | `document_size_limit` / `image_size_limit` | `10.megabytes` | Size hints shown next to upload fields. |
 
-Call `Koi.configure` in an initializer to override values:
+You can also call `Koi.configure` during boot from an initializer (e.g. `config/initializers/koi.rb`),
+or directly from `config/application.rb`:
 
 ```ruby
 Koi.configure do |config|
-  config.admin_name = "Acme CMS"
-  config.admin_stylesheet = "admin_bundle"
-  config.admin_javascript_entry_point = "application"
+  config.resource_name_candidates = %i[heading title name]
+  config.image_size_limit = 5.megabytes
 end
 ```
 
