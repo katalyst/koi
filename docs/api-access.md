@@ -1,6 +1,6 @@
 # Koi API Access
 
-Koi supports an RFC 8628 device flow to create a bearer token for admin access with a 12h max duration:
+Koi supports an RFC 8628 device flow to create a bearer token for admin access with a 1h max duration:
 
 1. Start the device flow with no cookies or session state.
 2. Parse `device_code`, `user_code`, and `verification_uri_complete` from the JSON response.

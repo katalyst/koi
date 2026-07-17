@@ -80,7 +80,7 @@ RSpec.describe Admin::TokensController do
       expect(response.parsed_body).to include(
         "access_token" => a_kind_of(String),
         "token_type"   => "Bearer",
-        "expires_in"   => 43_200,
+        "expires_in"   => 3600,
       )
     end
 
