@@ -2,33 +2,60 @@
   position: relative;
 
   .copy-to-clipboard-feedback {
-    animation: ease-in-out 0.5s;
-    display: none;
+    /* position */
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    margin-top: -1em;
-    z-index: 10;
-    white-space: nowrap;
-    text-align: center;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
 
-    &:after {
-      content: "Link copied to your clipboard!";
-      display: inline-block;
-      padding: 0.33em 1em 0.33em 1em;
-      border-radius: 3rem;
-      color: white;
-      background-color: black;
-    }
+    /* behaviour and animation */
+    display: none;
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+    transition:
+      display var(--transition-fade) allow-discrete,
+      opacity var(--transition-fade);
+
+    /* look and feel */
+    background-color: var(--color-success);
+    border-radius: 3rem;
+    color: white;
+    padding: var(--space-3xs) var(--space-s);
+    text-align: center;
+    white-space: nowrap;
   }
 
   &.copied .copy-to-clipboard-feedback {
     display: block;
+    opacity: 1;
+
+    @starting-style {
+      opacity: 0;
+    }
   }
 
   .clipboard-button {
     display: none;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--color-dark-glare);
+      color: var(--color-light);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-color);
+      /* inset so the outline isn't hidden behind the adjoining input */
+      outline-offset: -2px;
+    }
+
+    &:active {
+      transform: scale(99%);
+    }
   }
 
   &.clipboard--supported .clipboard-button {

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Admin::TokensController do
+RSpec.describe Admin::Sessions::TokensController do
   subject { action && response }
 
   describe "POST /admin/admin_users/:id/tokens" do

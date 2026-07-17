@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       put :archive, on: :collection
       put :restore, on: :collection
 
-      resources :tokens, only: %i[create]
+      resources :tokens, only: %i[create], module: :sessions
     end
 
     resource :cache, only: %i[destroy]
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
     resource :session, only: %i[new create destroy] do
       # JWT tokens contain periods
-      resources :tokens, param: :token, only: %i[show update], token: /[^\/]+/
+      resources :tokens, param: :token, only: %i[show update], token: /[^\/]+/, module: :sessions
     end
 
     resources :background_jobs, only: %i[index show], param: :active_job_id do
