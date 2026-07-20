@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/hash/deep_merge"
 require "active_support/core_ext/numeric"
+require "active_support/ordered_options"
 
 module Koi
   class Config
@@ -27,6 +29,15 @@ module Koi
       @document_size_limit          = 10.megabytes
       @image_mime_types             = %w[image/png image/gif image/jpeg image/webp].freeze
       @image_size_limit             = 10.megabytes
+    end
+
+    # Identity & access settings for OIDC authentication.
+    def identity
+      @identity ||= ActiveSupport::OrderedOptions.new.merge!(providers: {})
+    end
+
+    def identity=(options)
+      identity.deep_merge!(options.to_h)
     end
 
     # Load config/koi.yml, if present

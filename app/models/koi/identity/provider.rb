@@ -1,0 +1,111 @@
+# frozen_string_literal: true
+
+module Koi
+  module Identity
+    class Provider
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+
+      attribute :name, :string
+      attribute :issuer, :string
+      attribute :keys, :string
+      attribute :audience, :string
+      attribute :subject, :string
+      attribute :scope, :string
+
+      # Acceptable signature algorithms: asymmetric families only, so a
+      # provider's public key can never be replayed as an HMAC secret and
+      # unsigned (none) tokens are rejected before key lookup.
+      attribute :algorithms, default: -> { %w[ES256 ES384 ES512 RS256 RS384 RS512 PS256 PS384 PS512].freeze }
+
+      # Allowed clock drift for verification
+      attribute :leeway, default: -> { 15.seconds }
+
+      validates :keys, inclusion: { in: %w[env discover] }
+
+      # Upper bound on how long a key removed from the issuer's JWKS remains
+      # trusted. Newly rotated-in keys are picked up immediately, as an
+      # unknown kid invalidates the cache.
+      KEY_SET_TTL = 1.hour
+
+      # A cached key set younger than this cannot be invalidated, so a stream
+      # of unknown-kid assertions cannot force a discovery refetch per
+      # request. A rotated-in key may take this long to be honoured.
+      INVALIDATION_GRACE = 5.minutes
+
+      # Generates a typed reader for the assertion claims based on the provider.
+      def principal_for(assertion)
+        case URI.parse(issuer).host
+        when /\.sts\.global\.api\.aws\z/
+          Principal::Aws.new(assertion)
+        else
+          Principal.new(assertion)
+        end
+      end
+
+      # This provider's JWKS: pinned from ENV or fetched via OIDC discovery
+      # and cached. Passed to JWT.decode as its jwks loader, which retries
+      # with invalidate: true when a presented kid is missing from the set.
+      def key_set(options = {})
+        invalidate_key_set if options[:invalidate]
+
+        JWT::JWK::Set.new(jwks)
+      end
+
+      # Atomically claims an assertion's jti for its replayable lifetime:
+      # the first presentation writes the key, a replay finds it taken and
+      # is rejected. jti uniqueness is only promised within an issuer
+      # (RFC 7519), so entries are scoped per provider. Requires a cache
+      # store shared by all app processes.
+      def consume_jti(jti, claims)
+        jti.present? &&
+          Rails.cache.write("koi/identity/jti/#{name}/#{jti}", true,
+                            unless_exist: true,
+                            expires_in:   Time.zone.at(claims["exp"].to_i) + leeway - Time.current)
+      end
+
+      private
+
+      def jwks
+        case keys
+        when "env"
+          JSON.parse(ENV.fetch("KOI_API_JWKS_#{name.upcase}"))
+        when "discover"
+          cached_discovery.fetch("jwks")
+        end
+      end
+
+      def cached_discovery
+        Rails.cache.fetch(key_set_cache_key, expires_in: KEY_SET_TTL) do
+          { "fetched_at" => Time.current.to_i, "jwks" => discover_jwks }
+        end
+      end
+
+      def discover_jwks
+        discovery = JSON.parse(Net::HTTP.get(URI.parse("#{issuer}/.well-known/openid-configuration")))
+
+        # Mix-up defence: only the configured issuer's own keys are trusted.
+        unless discovery["issuer"] == issuer
+          raise JWT::JWKError, "#{name} discovery names issuer #{discovery['issuer'].inspect}, expected #{issuer}"
+        end
+
+        JSON.parse(Net::HTTP.get(URI.parse(discovery.fetch("jwks_uri"))))
+      rescue JWT::JWKError
+        raise
+      rescue StandardError => e
+        raise JWT::JWKError, "key discovery for #{name} failed: #{e.message} (#{e.class})"
+      end
+
+      def invalidate_key_set
+        cached = Rails.cache.read(key_set_cache_key)
+        return if cached && cached.fetch("fetched_at") > INVALIDATION_GRACE.ago.to_i
+
+        Rails.cache.delete(key_set_cache_key)
+      end
+
+      def key_set_cache_key
+        "koi/identity/jwks/#{name}"
+      end
+    end
+  end
+end

@@ -54,6 +54,42 @@ RSpec.describe Koi::Config do
         expect { config.load(Rails.application) }.to raise_error(/YAML syntax error/)
       end
     end
+
+    context "with an identity section" do
+      it "exposes providers as an OrderedOptions namespace" do
+        File.write(path, <<~YAML)
+          shared:
+            identity:
+              providers:
+                example:
+                  issuer: example-issuer
+          test:
+            identity:
+              providers:
+                example:
+                  audience: example-aud
+        YAML
+
+        config.load(Rails.application)
+
+        # config_for deep-merges shared into the environment, so the provider
+        # keeps its shared issuer and gains the environment's audience.
+        expect(config.identity.providers[:example]).to eq(issuer: "example-issuer", audience: "example-aud")
+      end
+    end
+  end
+
+  describe "the identity namespace" do
+    it "defaults providers to empty" do
+      expect(config.identity.providers).to eq({})
+    end
+
+    it "deep-merges assignments instead of clobbering the namespace" do
+      config.identity = { providers: { avr: { issuer: "avr" } } }
+      config.identity = { providers: { avr: { audience: "aud" } } }
+
+      expect(config.identity.providers[:avr]).to eq(issuer: "avr", audience: "aud")
+    end
   end
 
   describe "assigning an unknown setting directly" do

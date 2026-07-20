@@ -12,6 +12,7 @@ PATH
     katalyst-koi (5.8.3)
       bcrypt
       importmap-rails
+      jwt (>= 3.0)
       katalyst-content (>= 3.2)
       katalyst-govuk-formbuilder (>= 1.28.0, < 2)
       katalyst-html-attributes
