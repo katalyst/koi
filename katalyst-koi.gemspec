@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
 
   # Authorization
   s.add_dependency "bcrypt"
+  s.add_dependency "jwt", ">= 3.0"
   s.add_dependency "rotp"
   s.add_dependency "rqrcode"
   s.add_dependency "useragent"
