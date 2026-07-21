@@ -309,7 +309,12 @@ RSpec.describe Koi::Identity do
   end
 
   describe "boot validation" do
-    after { Koi.config.instance_variable_set(:@identity, nil) }
+    before { ENV["KOI_API_JWKS_KOMET"] = { keys: [] }.to_json }
+
+    after do
+      ENV.delete("KOI_API_JWKS_KOMET")
+      Koi.config.instance_variable_set(:@identity, nil)
+    end
 
     # Constructing providers and members validates them, as the engine does
     # on to_prepare.
@@ -335,6 +340,18 @@ RSpec.describe Koi::Identity do
       ActiveSupport::Notifications.subscribed(callback, "sql.active_record") { validate! }
 
       expect(queries).to be_empty
+    end
+
+    it "rejects an env provider whose key set is missing at boot" do
+      ENV.delete("KOI_API_JWKS_KOMET")
+
+      expect { validate! }.to raise_error(ArgumentError, /KOI_API_JWKS_KOMET/)
+    end
+
+    it "rejects an env provider whose key set does not parse at boot" do
+      ENV["KOI_API_JWKS_KOMET"] = "not-a-key-set"
+
+      expect { validate! }.to raise_error(ArgumentError, /KOI_API_JWKS_KOMET/)
     end
 
     it "rejects a member naming an undeclared provider at boot" do

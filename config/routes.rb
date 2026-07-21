@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :tokens, only: %i[create], module: :sessions
     end
 
+    resources :admin_roles, only: %i[index show]
+
     resource :cache, only: %i[destroy]
     resource :dashboard, only: %i[show]
 

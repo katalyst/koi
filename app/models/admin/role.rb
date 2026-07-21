@@ -25,5 +25,17 @@ module Admin
     def orphaned?
       Koi::Identity.role_slugs.exclude?(slug)
     end
+
+    # Members granting this role in the current trust config.
+    def members
+      Koi::Identity.members.select { |member| member.role_slug == slug }
+    end
+
+    # Roles authenticate by exchanging an assertion for a token; requests
+    # made with the token never touch this row, so issuance is the freshest
+    # signal available.
+    def last_authenticated_at
+      device_authorizations.maximum(:consumed_at)
+    end
   end
 end

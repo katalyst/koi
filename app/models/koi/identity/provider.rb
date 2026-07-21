@@ -30,6 +30,7 @@ module Koi
       attribute :leeway, default: -> { 15.seconds }
 
       validates :keys, inclusion: { in: %w[env discover] }
+      validate :pinned_keys_parse, if: -> { keys == "env" }
 
       # This provider's JWKS: pinned from ENV or fetched via OIDC discovery
       # and cached. Passed to JWT.decode as its jwks loader, which retries
@@ -38,6 +39,24 @@ module Koi
         invalidate_key_set if options[:invalidate]
 
         JWT::JWK::Set.new(jwks)
+      end
+
+      # Trusted-keys summary for the roles page: RFC 7638 thumbprints, plus
+      # when a discovered set was cached. Viewing may prime the discovery
+      # cache — the same fail-closed path verification uses — and an
+      # unreachable issuer reports itself rather than raising.
+      def key_status
+        case keys
+        when "env"
+          { fingerprints: fingerprints(jwks) }
+        when "discover"
+          cached = cached_discovery
+
+          { fingerprints: fingerprints(cached.fetch("jwks")),
+            fetched_at:   Time.zone.at(cached.fetch("fetched_at")) }
+        end
+      rescue JWT::JWKError => e
+        { error: e.message }
       end
 
       # Identity attributes are issuer-specific: AWS issuers carry
@@ -67,10 +86,24 @@ module Koi
 
       private
 
+      def pinned_keys_parse
+        JWT::JWK::Set.new(JSON.parse(ENV.fetch(env_name)))
+      rescue KeyError, JSON::ParserError, JWT::JWKError => e
+        errors.add(:keys, "ENV #{env_name} is unavailable or invalid (#{e.message})")
+      end
+
+      def fingerprints(jwks)
+        JWT::JWK::Set.new(jwks).map { |jwk| JWT::JWK::Thumbprint.new(jwk).generate }
+      end
+
+      def env_name
+        "KOI_API_JWKS_#{name.upcase}"
+      end
+
       def jwks
         case keys
         when "env"
-          JSON.parse(ENV.fetch("KOI_API_JWKS_#{name.upcase}"))
+          JSON.parse(ENV.fetch(env_name))
         when "discover"
           cached_discovery.fetch("jwks")
         end

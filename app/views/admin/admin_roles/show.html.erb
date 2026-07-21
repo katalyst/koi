@@ -1,0 +1,41 @@
+<%# locals: (role:, members:, providers:) %>
+
+<% content_for(:header) do %>
+  <%= breadcrumb_list do %>
+    <li><%= link_to("Admin roles", admin_admin_roles_path) %></li>
+  <% end %>
+
+  <h1><%= role.slug %></h1>
+<% end %>
+
+<%= summary_table_with(model: role) do |row| %>
+  <% row.text(:slug) %>
+  <% row.date(:created_at, label: "Materialized") %>
+  <% row.datetime(:last_authenticated_at, label: "Last authenticated") %>
+  <% row.boolean(:orphaned?) %>
+  <% row.datetime(:tokens_revoked_at) %>
+<% end %>
+
+<h2>Trust</h2>
+
+<%= table_with(collection: members) do |row| %>
+  <% row.text(:name, label: "Member") %>
+  <% row.text(:subject) %>
+  <% row.text(:provider) %>
+<% end %>
+
+<%= table_with(collection: providers) do |row, provider| %>
+  <% row.text(:name, label: "Provider") %>
+  <% row.text(:issuer) %>
+  <% row.text(:keys) do %>
+    <% status = provider.key_status %>
+    <% if status[:fingerprints] %>
+      <%= "#{provider.keys}: #{status[:fingerprints].join(', ')}" %>
+      <% if status[:fetched_at] %>
+        (fetched <%= l(status[:fetched_at], format: :short) %>)
+      <% end %>
+    <% else %>
+      <%= "#{provider.keys}: #{status[:error]}" %>
+    <% end %>
+  <% end %>
+<% end %>
