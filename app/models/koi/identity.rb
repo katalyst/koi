@@ -23,19 +23,13 @@ module Koi
         raise(JWT::InvalidIssuerError, "unknown issuer #{assertion.issuer}")
     end
 
-    # Generates a reader for the assertion claims based on configuration.
+    # Resolves the member matching the verified (provider, subject) into a
+    # principal, typed by the issuer.
     def principal_for(provider, assertion)
-      principal_type = case URI.parse(provider.issuer).host
-                       when /\.sts\.global\.api\.aws\z/
-                         Principal::Aws
-                       else
-                         Principal
-                       end
-
-      Koi.config.identity.members
-        .select { |_, config| config[:provider].to_s == provider.name }
-        .filter_map do |name, config|
-          principal_type.new(assertion:, name:, **config) if config[:subject] == assertion.subject
+      Koi.config.identity.members.values
+        .select { |config| config[:provider].to_s == provider.name }
+        .filter_map do |config|
+          Principal.from_assertion(config:, provider:, assertion:)
         end.first
     end
 

@@ -6,44 +6,55 @@ module Koi
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      attribute :name, :string
+      def self.from_assertion(config:, provider:, assertion:)
+        # Note: consider pattern matching to extract name/email in the future
+        return nil unless config[:subject] == assertion.subject
+
+        attributes = {
+          provider: config[:provider],
+          scope:    config[:scope],
+          subject:  assertion.subject,
+        }
+
+        case URI.parse(provider.issuer).host
+        when /\.sts\.global\.api\.aws\z/
+          attributes.merge!(
+            **assertion.claims.dig("https://sts.amazonaws.com/", "principal_tags")&.slice("name", "email"),
+          )
+        end
+
+        Principal.new(**attributes)
+      end
+
+      def self.dump(principal)
+        principal&.attributes&.to_json
+      end
+
+      def self.load(json)
+        return if json.blank?
+
+        Principal.new(**JSON.parse(json).slice(*attribute_names))
+      end
+
+      # Required attributes
       attribute :provider, :string
       attribute :subject, :string
       attribute :scope, :string
 
-      attr_reader :assertion
-
-      def initialize(assertion:, **)
-        super(**)
-
-        @assertion = assertion
-      end
+      # Optional extensions, required for user authentication
+      attribute :name, :string
+      attribute :email, :string
 
       def attributes_for_find
-        { id: nil }
+        { email: }
       end
 
-      class Aws < Principal
-        def email
-          tag("email")
-        end
-
-        def name
-          tag("name")
-        end
-
-        def attributes_for_find
-          { email: }
-        end
-
-        private
-
-        def tag(name)
-          raise JWT::VerificationError, "unverified assertion" unless @assertion.verified?
-
-          @assertion.claims.dig("https://sts.amazonaws.com/", "principal_tags", name)
-        end
+      def inspect
+        "<#{self.class.name} provider=#{provider.inspect} scope=#{scope.inspect} subject=#{subject.inspect} " \
+          "name=#{name.inspect} email=#{email.inspect}>"
       end
+
+      alias :to_s :inspect
     end
   end
 end

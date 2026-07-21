@@ -19,7 +19,7 @@ module Admin
     end
 
     def create
-      device_authorization, device_code = Admin::DeviceAuthorization.issue!(
+      device_authorization, device_code = Admin::DeviceAuthorization.create_request!(
         requested_ip: request.remote_ip,
         user_agent:   request.user_agent,
       )
