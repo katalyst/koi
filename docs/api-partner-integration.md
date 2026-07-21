@@ -175,6 +175,7 @@ rejected assertion, deliberately without detail. Work through this list:
 | Check | Common cause |
 |---|---|
 | Server clock | `exp` already passed on arrival — sync NTP |
+| `exp` | Missing, or more than an hour away — keep it ≤5 minutes |
 | `aud` | Must be exactly `https://example.com/admin` |
 | `kid` header | Must match the key id you registered |
 | `jti` | Missing or reused — generate a fresh UUID per assertion |
