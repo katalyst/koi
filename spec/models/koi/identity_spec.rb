@@ -52,13 +52,14 @@ RSpec.describe Koi::Identity do
     before do
       Koi.config.identity = {
         providers: {
-          katalyst_agents: {
+          katalyst_aws: {
             issuer:,
             keys:     "discover",
             audience:,
-            subject:  role_arn,
-            scope:    "admin_user",
           },
+        },
+        members:   {
+          engineers: { provider: :katalyst_aws, scope: "admin/user", subject: role_arn },
         },
       }
 
@@ -147,13 +148,13 @@ RSpec.describe Koi::Identity do
     end
 
     it "uses the caller-supplied audience when the provider does not pin one" do
-      Koi.config.identity = { providers: { katalyst_agents: { audience: nil } } }
+      Koi.config.identity = { providers: { katalyst_aws: { audience: nil } } }
 
       expect(authorize.principal).to have_attributes(email:)
     end
 
     it "rejects verification without an expected audience" do
-      Koi.config.identity = { providers: { katalyst_agents: { audience: nil } } }
+      Koi.config.identity = { providers: { katalyst_aws: { audience: nil } } }
 
       expect { authorize(audience: nil) }.to raise_error(JWT::InvalidAudError)
     end
@@ -223,7 +224,7 @@ RSpec.describe Koi::Identity do
         .to_return(headers: { "Content-Type" => "application/json" },
                    body:    { issuer: "https://elsewhere.example.com", jwks_uri: "#{issuer}/keys" }.to_json)
 
-      expect { authorize }.to raise_error(JWT::JWKError, /\Akatalyst_agents discovery names issuer/)
+      expect { authorize }.to raise_error(JWT::JWKError, /\Akatalyst_aws discovery names issuer/)
     end
 
     it "does not refetch for repeated unknown kids inside the invalidation grace", :aggregate_failures do
@@ -255,8 +256,13 @@ RSpec.describe Koi::Identity do
             issuer:   "partner",
             keys:     "env",
             audience:,
+          },
+        },
+        members:   {
+          partner: {
+            provider: "partner",
+            scope:    "admin/user",
             subject:  "partner-production",
-            scope:    "admin_user",
           },
         },
       }

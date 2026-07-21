@@ -117,6 +117,10 @@ RSpec.describe Admin::TokensController do
 
   describe "POST /admin/tokens with a signed jwt" do
     let(:issuer) { "https://00000000-0000-0000-0000-000000000000.tokens.sts.global.api.aws" }
+    let(:role_arn) do
+      "arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com" \
+        "/ap-southeast-2/AWSReservedSSO_Engineer_0123456789abcdef"
+    end
     let(:admin) { create(:admin) }
 
     def action(as: :json,
@@ -129,13 +133,13 @@ RSpec.describe Admin::TokensController do
     before do
       Koi.config.identity = {
         providers: {
-          katalyst_agents: {
+          aws: {
             issuer:,
-            keys:    "discover",
-            subject: "arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com" \
-                     "/ap-southeast-2/AWSReservedSSO_Engineer_0123456789abcdef",
-            scope:   "admin_user",
+            keys:   "discover",
           },
+        },
+        members:   {
+          engineers: { provider: :aws, scope: "admin/user", subject: role_arn },
         },
       }
     end
@@ -148,8 +152,7 @@ RSpec.describe Admin::TokensController do
       let(:jwk) { JWT::JWK.new(signing_key) }
 
       def claims(iss: issuer,
-                 sub: "arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com" \
-                      "/ap-southeast-2/AWSReservedSSO_Engineer_0123456789abcdef",
+                 sub: role_arn,
                  aud: audience,
                  iat: Time.zone.now.to_i,
                  exp: iat + 300,
@@ -259,7 +262,7 @@ RSpec.describe Admin::TokensController do
       end
 
       it "prefers the provider's pinned audience over the requesting site" do
-        Koi.config.identity = { providers: { katalyst_agents: { audience: "https://pinned.example.com/admin" } } }
+        Koi.config.identity = { providers: { aws: { audience: "https://pinned.example.com/admin" } } }
 
         action(assertion: assertion(aud: "https://pinned.example.com/admin"))
 
@@ -279,11 +282,8 @@ RSpec.describe Admin::TokensController do
         Koi.config.identity = {
           providers: {
             partner: {
-              issuer:   "https://partner.example.com",
-              keys:     "discover",
-              audience:,
-              subject:  claims[:sub],
-              scope:    "admin_user",
+              issuer: "https://partner.example.com",
+              keys:   "discover",
             },
           },
         }
@@ -303,6 +303,20 @@ RSpec.describe Admin::TokensController do
 
       it "rejects an assertion whose identity claim matches no admin without detail", :aggregate_failures do
         action(assertion: assertion(admin: build(:admin, email: "nobody@katalyst.com.au")))
+
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body).to eq("error" => "invalid_grant")
+      end
+
+      it "binds the grant to the member's matched admin", :aggregate_failures do
+        action
+
+        expect(response).to have_http_status(:success)
+        expect(Admin::DeviceAuthorization.last.admin_user).to eq(admin)
+      end
+
+      it "rejects a verified subject matching no member without detail", :aggregate_failures do
+        action(assertion: assertion(sub: "arn:aws:iam::123456789012:role/unmatched-role"))
 
         expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to eq("error" => "invalid_grant")
