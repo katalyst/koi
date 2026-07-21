@@ -25,5 +25,23 @@ FactoryBot.define do
       consumed_at { Time.current }
       admin_user
     end
+
+    # An authorization issued for an admin role
+    trait :admin_role do
+      admin_role
+      principal do
+        Koi::Identity::Principal.new(
+          provider: "komet",
+          scope:    "admin/role/#{admin_role.slug}",
+          subject:  "komet-production",
+        )
+      end
+      status { :consumed }
+      consumed_at { Time.current }
+      token_expires_at { consumed_at + 1.hour }
+      device_code_digest { nil }
+      user_code { nil }
+      request_expires_at { nil }
+    end
   end
 end
