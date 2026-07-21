@@ -135,6 +135,18 @@ RSpec.describe Koi::Identity do
       expect { authorize }.to raise_error(JWT::ExpiredSignature)
     end
 
+    it "rejects an assertion without an expiry" do
+      claims.delete(:exp)
+
+      expect { authorize }.to raise_error(JWT::MissingRequiredClaim)
+    end
+
+    it "rejects an assertion whose expiry is too distant" do
+      claims[:exp] = 2.hours.from_now.to_i
+
+      expect { authorize }.to raise_error(an_instance_of(JWT::InvalidPayload))
+    end
+
     it "accepts clock skew within tolerance" do
       claims[:iat] = 10.seconds.from_now.to_i
 

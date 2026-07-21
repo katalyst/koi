@@ -127,9 +127,11 @@ Semantics:
   library enforces: an asymmetric-only algorithm allowlist (per-provider
   override available; unsigned tokens and HMAC key-confusion are rejected by
   construction), its key set as the library's JWKS loader, the expected
-  audience, 15 seconds of clock leeway, and single-use `jti` consumption
-  backed by the shared cache, scoped per issuer. Every assertion must carry
-  a fresh `jti` — platform tokens included. The library's typed errors are
+  audience, a required expiry no more than an hour out (assertions are
+  exchanged immediately, so a distant expiry is a misconfiguration minting
+  long-lived credentials), 15 seconds of clock leeway, and single-use `jti`
+  consumption backed by the shared cache, scoped per issuer. Every
+  assertion must carry a fresh `jti` — platform tokens included. The library's typed errors are
   the rejection taxonomy; the endpoint collapses them all to an opaque
   `invalid_grant`.
 - **The expected audience is the requesting site.** By default a token must

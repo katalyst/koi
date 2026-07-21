@@ -29,6 +29,12 @@ module Koi
       # Allowed clock drift for verification
       attribute :leeway, default: -> { 15.seconds }
 
+      # Upper bound on assertion lifetime. Exchange is immediate, so a
+      # distant expiry indicates an integration minting long-lived
+      # credentials; require assertions to be short-lived instead
+      # (RFC 7523 §3).
+      attribute :max_expiry, default: -> { 1.hour }
+
       validates :keys, inclusion: { in: %w[env discover] }
       validate :pinned_keys_parse, if: -> { keys == "env" }
 
