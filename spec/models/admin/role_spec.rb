@@ -15,4 +15,25 @@ RSpec.describe Admin::Role do
       expect(described_class.materialize("event_editor")).to eq(existing)
     end
   end
+
+  describe "#orphaned?" do
+    before do
+      Koi.config.identity = {
+        providers: { komet: { issuer: "komet", keys: "env" } },
+        members:   {
+          komet: { provider: :komet, scope: "admin/role/event_editor", subject: "komet-production" },
+        },
+      }
+    end
+
+    after { Koi.config.instance_variable_set(:@identity, nil) }
+
+    it "reports a row orphaned once no member grants its slug" do
+      expect(described_class.create!(slug: "retired")).to be_orphaned
+    end
+
+    it "reports a granted row as current" do
+      expect(described_class.materialize("event_editor")).not_to be_orphaned
+    end
+  end
 end

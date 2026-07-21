@@ -40,6 +40,19 @@ module Koi
         JWT::JWK::Set.new(jwks)
       end
 
+      # Identity attributes are issuer-specific: AWS issuers carry
+      # admin-controlled principal tags; other issuers assert no identity
+      # beyond their subject. Keyed by the verified issuer — never by claim
+      # shape, which any trusted signer could imitate.
+      def identity_attributes(claims)
+        case URI.parse(issuer.to_s).host
+        when /\.sts\.global\.api\.aws\z/
+          claims.dig("https://sts.amazonaws.com/", "principal_tags")&.slice("name", "email") || {}
+        else
+          {}
+        end
+      end
+
       # Atomically claims an assertion's jti for its replayable lifetime:
       # the first presentation writes the key, a replay finds it taken and
       # is rejected. jti uniqueness is only promised within an issuer

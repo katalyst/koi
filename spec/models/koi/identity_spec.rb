@@ -307,4 +307,46 @@ RSpec.describe Koi::Identity do
       end
     end
   end
+
+  describe "boot validation" do
+    after { Koi.config.instance_variable_set(:@identity, nil) }
+
+    # Constructing providers and members validates them, as the engine does
+    # on to_prepare.
+    def validate!(members: {})
+      Koi.config.identity = {
+        providers: { komet: { issuer: "komet", keys: "env" } },
+        members:   {
+          komet: { provider: :komet, scope: "admin/role/event_editor", subject: "komet-production" },
+          **members,
+        },
+      }
+
+      described_class.providers
+      described_class.members
+    end
+
+    it "validates trust config without touching the database" do
+      queries  = []
+      callback = lambda do |_name, _start, _finish, _id, payload|
+        queries << payload[:sql] unless payload[:name] == "SCHEMA"
+      end
+
+      ActiveSupport::Notifications.subscribed(callback, "sql.active_record") { validate! }
+
+      expect(queries).to be_empty
+    end
+
+    it "rejects a member naming an undeclared provider at boot" do
+      rogue = { provider: :missing, scope: "admin/user", subject: "rogue-production" }
+
+      expect { validate!(members: { rogue: }) }.to raise_error(ArgumentError, /rogue/)
+    end
+
+    it "rejects a member whose scope is outside the allowlist at boot" do
+      rogue = { provider: :komet, scope: "admin/other", subject: "rogue-production" }
+
+      expect { validate!(members: { rogue: }) }.to raise_error(ArgumentError, /rogue/)
+    end
+  end
 end

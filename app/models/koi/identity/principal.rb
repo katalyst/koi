@@ -6,26 +6,6 @@ module Koi
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      def self.from_assertion(config:, provider:, assertion:)
-        # Note: consider pattern matching to extract name/email in the future
-        return nil unless config[:subject] == assertion.subject
-
-        attributes = {
-          provider: config[:provider],
-          scope:    config[:scope],
-          subject:  assertion.subject,
-        }
-
-        case URI.parse(provider.issuer).host
-        when /\.sts\.global\.api\.aws\z/
-          attributes.merge!(
-            **assertion.claims.dig("https://sts.amazonaws.com/", "principal_tags")&.slice("name", "email"),
-          )
-        end
-
-        Principal.new(**attributes)
-      end
-
       def self.dump(principal)
         principal&.attributes&.to_json
       end
