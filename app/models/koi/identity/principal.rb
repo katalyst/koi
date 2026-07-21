@@ -3,7 +3,19 @@
 module Koi
   module Identity
     class Principal
-      def initialize(assertion)
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+
+      attribute :name, :string
+      attribute :provider, :string
+      attribute :subject, :string
+      attribute :scope, :string
+
+      attr_reader :assertion
+
+      def initialize(assertion:, **)
+        super(**)
+
         @assertion = assertion
       end
 

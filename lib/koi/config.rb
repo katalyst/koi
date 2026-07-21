@@ -33,7 +33,7 @@ module Koi
 
     # Identity & access settings for OIDC authentication.
     def identity
-      @identity ||= ActiveSupport::OrderedOptions.new.merge!(providers: {})
+      @identity ||= ActiveSupport::OrderedOptions.new.merge!(providers: {}, members: {})
     end
 
     def identity=(options)

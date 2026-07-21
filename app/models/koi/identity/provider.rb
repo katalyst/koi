@@ -6,23 +6,6 @@ module Koi
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      attribute :name, :string
-      attribute :issuer, :string
-      attribute :keys, :string
-      attribute :audience, :string
-      attribute :subject, :string
-      attribute :scope, :string
-
-      # Acceptable signature algorithms: asymmetric families only, so a
-      # provider's public key can never be replayed as an HMAC secret and
-      # unsigned (none) tokens are rejected before key lookup.
-      attribute :algorithms, default: -> { %w[ES256 ES384 ES512 RS256 RS384 RS512 PS256 PS384 PS512].freeze }
-
-      # Allowed clock drift for verification
-      attribute :leeway, default: -> { 15.seconds }
-
-      validates :keys, inclusion: { in: %w[env discover] }
-
       # Upper bound on how long a key removed from the issuer's JWKS remains
       # trusted. Newly rotated-in keys are picked up immediately, as an
       # unknown kid invalidates the cache.
@@ -33,15 +16,20 @@ module Koi
       # request. A rotated-in key may take this long to be honoured.
       INVALIDATION_GRACE = 5.minutes
 
-      # Generates a typed reader for the assertion claims based on the provider.
-      def principal_for(assertion)
-        case URI.parse(issuer).host
-        when /\.sts\.global\.api\.aws\z/
-          Principal::Aws.new(assertion)
-        else
-          Principal.new(assertion)
-        end
-      end
+      attribute :name, :string
+      attribute :issuer, :string
+      attribute :keys, :string
+      attribute :audience, :string
+
+      # Acceptable signature algorithms: asymmetric families only, so a
+      # provider's public key can never be replayed as an HMAC secret and
+      # unsigned (none) tokens are rejected before key lookup.
+      attribute :algorithms, default: -> { %w[ES256 ES384 ES512 RS256 RS384 RS512 PS256 PS384 PS512].freeze }
+
+      # Allowed clock drift for verification
+      attribute :leeway, default: -> { 15.seconds }
+
+      validates :keys, inclusion: { in: %w[env discover] }
 
       # This provider's JWKS: pinned from ENV or fetched via OIDC discovery
       # and cached. Passed to JWT.decode as its jwks loader, which retries

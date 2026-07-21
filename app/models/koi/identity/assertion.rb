@@ -33,15 +33,19 @@ module Koi
           algorithms: provider.algorithms,
           jwks:       provider.method(:key_set),
           aud:        provider.audience,
-          sub:        provider.subject,
           leeway:     provider.leeway.to_i,
           verify_aud: true,
-          verify_jti: provider.method(:consume_jti),
-          verify_sub: true
+          verify_jti: provider.method(:consume_jti)
         )
 
-        @state     = :verified
-        @principal = provider.principal_for(self)
+        # ensure that we can map the claim to a valid principal using the claim's subject
+        @principal = Identity.principal_for(provider, self)
+
+        if principal.blank? || principal.subject.blank?
+          raise(JWT::InvalidSubError, "unknown subject #{subject} for provider #{provider.name}")
+        end
+
+        @state = :verified
 
         self
       end
@@ -59,6 +63,7 @@ module Koi
       def inspect
         "<#{self.class.name} iss=#{iss.inspect} sub=#{sub.inspect}>"
       end
+      alias :to_s :inspect
     end
   end
 end
