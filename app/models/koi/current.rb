@@ -8,6 +8,16 @@ module Koi
     # @return [Admin::Session, nil]
     attribute :session
 
+    # @return [Admin::User, Admin::Role, nil]
+    def actor
+      device_authorization&.actor || session&.admin
+    end
+
+    # @return [Koi::Identity::Principal, nil]
+    def principal
+      device_authorization&.principal
+    end
+
     # @return [Admin::User, nil]
     def admin_user
       device_authorization&.admin_user || session&.admin

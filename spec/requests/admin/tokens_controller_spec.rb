@@ -315,11 +315,120 @@ RSpec.describe Admin::TokensController do
         expect(Admin::DeviceAuthorization.last.admin_user).to eq(admin)
       end
 
+      it "snapshots the verified principal onto the grant at issuance" do
+        action
+
+        expect(Admin::DeviceAuthorization.last.principal)
+          .to be_a(Koi::Identity::Principal).and(have_attributes(subject: role_arn, email: admin.email))
+      end
+
       it "rejects a verified subject matching no member without detail", :aggregate_failures do
         action(assertion: assertion(sub: "arn:aws:iam::123456789012:role/unmatched-role"))
 
         expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to eq("error" => "invalid_grant")
+      end
+    end
+
+    context "with a pinned-key role provider" do
+      let(:audience) { "http://www.example.com/admin" }
+      let(:signing_key) { OpenSSL::PKey::EC.generate("secp384r1") }
+      let(:jwk) { JWT::JWK.new(signing_key) }
+
+      def claims(iss: "komet",
+                 sub: "komet-production",
+                 aud: audience,
+                 iat: Time.zone.now.to_i,
+                 exp: iat + 300,
+                 jti: SecureRandom.uuid)
+        { iss:, sub:, aud:, iat:, exp:, jti: }
+      end
+
+      def assertion(**)
+        JWT.encode(claims(**), signing_key, "ES384", { kid: jwk.kid })
+      end
+
+      def token
+        action
+        response.parsed_body.fetch("access_token")
+      end
+
+      before do
+        ENV["KOI_API_JWKS_KOMET"] = { keys: [jwk.export] }.to_json
+        Koi.config.identity       = {
+          providers: {
+            komet: {
+              issuer: "komet",
+              keys:   "env",
+            },
+          },
+          members:   {
+            komet: { provider: :komet, scope: "admin/role/event_editor", subject: "komet-production" },
+          },
+        }
+      end
+
+      after { ENV.delete("KOI_API_JWKS_KOMET") }
+
+      it "exchanges the assertion for a bearer token", :aggregate_failures do
+        action
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body).to include(
+          "access_token" => a_kind_of(String),
+          "token_type"   => "Bearer",
+          "expires_in"   => 3600,
+        )
+      end
+
+      it "materializes the role on first issuance and finds it thereafter", :aggregate_failures do
+        expect { action }.to change(Admin::Role, :count).by(1)
+        expect { action }.not_to change(Admin::Role, :count)
+      end
+
+      it "binds the grant to the role, not an admin", :aggregate_failures do
+        action
+
+        grant = Admin::DeviceAuthorization.last
+        expect(grant).to have_attributes(admin_role: Admin::Role.find_by(slug: "event_editor"), admin_user: nil)
+      end
+
+      it "issues a token that authenticates the dashboard as the role", :aggregate_failures do
+        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{token}" }
+
+        expect(response).to have_http_status(:success)
+        expect(response.headers["Set-Cookie"]).to be_blank
+      end
+
+      it "denies role tokens anything outside their surface with 403" do
+        get "/admin/admin_users", headers: { "Authorization" => "Bearer #{token}" }
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it "adds machine request attribution to the request instrumentation payload" do
+        bearer     = token
+        payload    = nil
+        subscriber = ActiveSupport::Notifications.subscribe("process_action.action_controller") do |event|
+          payload = event.payload
+        end
+
+        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{bearer}" }
+
+        expect(payload).to include(principal: { provider: "komet", subject: "komet-production" })
+      ensure
+        ActiveSupport::Notifications.unsubscribe(subscriber)
+      end
+
+      it "invalidates outstanding tokens when the role's tokens are revoked", :aggregate_failures do
+        bearer = token
+        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{bearer}" }
+        expect(response).to have_http_status(:success)
+
+        Admin::Role.find_by!(slug: "event_editor").update!(tokens_revoked_at: Time.current)
+
+        get "/admin/dashboard", headers: { "Authorization" => "Bearer #{bearer}" }
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

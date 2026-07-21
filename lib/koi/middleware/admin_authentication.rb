@@ -48,7 +48,7 @@ module Koi
       end
 
       def authenticated?
-        Koi::Current.admin_user.present?
+        Koi::Current.actor.present?
       end
 
       def find_device_authentication(token:)

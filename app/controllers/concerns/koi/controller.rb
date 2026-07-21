@@ -46,5 +46,16 @@ module Koi
     def bearer_token_request?
       request.authorization.to_s.match?(/\ABearer .+\z/)
     end
+
+    # Surface the grant's stored principal on the request's process_action
+    # payload so structured loggers attribute machine requests to the
+    # verified identity that minted the token.
+    def append_info_to_payload(payload)
+      super
+
+      if (principal = Koi::Current.principal)
+        payload[:principal] = { provider: principal.provider, subject: principal.subject }
+      end
+    end
   end
 end
