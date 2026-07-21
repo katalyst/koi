@@ -5,6 +5,8 @@ require "net/http"
 
 module Koi
   module Identity
+    module_function
+
     def authorize_bearer_token!(token, audience:)
       assertion = Assertion.new(token)
       provider  = provider_for(assertion)
@@ -24,13 +26,16 @@ module Koi
     end
 
     # Resolves the member matching the verified (provider, subject) into a
-    # principal, typed by the issuer.
+    # principal, carrying whatever identity attributes the issuer publishes.
     def principal_for(provider, assertion)
-      Koi.config.identity.members.values
-        .select { |config| config[:provider].to_s == provider.name }
-        .filter_map do |config|
-          Principal.from_assertion(config:, provider:, assertion:)
-        end.first
+      member = members.find { |m| m.provider == provider.name && m.subject == assertion.subject }
+
+      return if member.nil?
+
+      Principal.new(provider: provider.name,
+                    scope:    member.scope,
+                    subject:  assertion.subject,
+                    **provider.identity_attributes(assertion.claims))
     end
 
     def providers
@@ -44,6 +49,22 @@ module Koi
       end
     end
 
-    module_function :authorize_bearer_token!, :provider_for, :principal_for, :providers
+    def members
+      provider_names = Koi.config.identity.providers.keys.map(&:to_s)
+
+      Koi.config.identity.members.map do |name, config|
+        member = Member.new(name:, provider_names:, **config)
+        unless member.valid?
+          raise ArgumentError, "Invalid identity member #{name}: #{member.errors.full_messages.to_sentence}"
+        end
+
+        member
+      end
+    end
+
+    # Role slugs granted by config; roles outside this set are not assumable.
+    def role_slugs
+      members.filter_map(&:role_slug)
+    end
   end
 end

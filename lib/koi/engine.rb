@@ -65,6 +65,13 @@ module Koi
 
     initializer "koi.config" do |app|
       Koi.config.load(app)
+
+      # Constructing providers and members validates the trust config, so a
+      # config error fails the deploy rather than a partner's exchange.
+      app.config.to_prepare do
+        Koi::Identity.providers
+        Koi::Identity.members
+      end
     end
 
     initializer "koi.content" do

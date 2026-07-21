@@ -19,5 +19,11 @@ module Admin
     def self.materialize(slug)
       create_or_find_by!(slug:)
     end
+
+    # Config is authoritative for grants: a row whose slug no longer appears
+    # in any member's scope is not assumable, but remains for attribution.
+    def orphaned?
+      Koi::Identity.role_slugs.exclude?(slug)
+    end
   end
 end
