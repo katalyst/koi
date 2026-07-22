@@ -39,12 +39,23 @@ module Koi
 
       protect_from_forgery with: :exception
       skip_forgery_protection if: :bearer_token_request?
+
+      after_action :set_release_headers
     end
 
     private
 
     def bearer_token_request?
       request.authorization.to_s.match?(/\ABearer .+\z/)
+    end
+
+    # HTML responses carry the release in meta tags (see Koi::Release.meta_tags);
+    # JSON consumers get the same information as response headers.
+    def set_release_headers
+      return unless response.media_type == "application/json"
+
+      response.set_header("X-Application-Version", Koi::Release.version)
+      response.set_header("X-Application-Revision", Koi::Release.revision)
     end
 
     # Surface the grant's stored principal on the request's process_action
