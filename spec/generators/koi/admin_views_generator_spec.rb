@@ -150,6 +150,7 @@ RSpec.describe Koi::AdminViewsGenerator do
           <% row.text :name %>
           <% row.enum :status %>
           <% row.attachment :image %>
+          <% row.attachment :gallery %>
         <% end %>
       ERB
     end

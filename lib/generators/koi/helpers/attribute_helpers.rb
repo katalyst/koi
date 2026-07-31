@@ -40,6 +40,12 @@ module Koi
           @attachment.present?
         end
 
+        # Introspected attachments are all built with type :attachment;
+        # whether the field submits an array follows the reflection's macro.
+        def attachments?
+          @attachment.present? && @attachment.macro == :has_many_attached
+        end
+
         def enum?
           @enum.present?
         end

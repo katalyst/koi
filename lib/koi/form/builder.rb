@@ -70,8 +70,8 @@ module Koi
       def lexxy_rich_textarea(attribute_name, **attributes, &)
         attributes = {
           class: "lexxy-content",
-          data:  { direct_upload_url: @template.main_app.admin_direct_uploads_url },
-        }.merge_html(**attributes)
+          data:  { direct_upload_url: },
+        }.merge_html(attributes)
 
         super
       end
@@ -83,10 +83,20 @@ module Koi
       def trix_rich_textarea(attribute_name, **attributes, &)
         attributes = {
           class: "trix-content",
-          data:  { direct_upload_url: @template.main_app.admin_direct_uploads_url },
-        }.merge_html(**attributes)
+          data:  { direct_upload_url: },
+        }.merge_html(attributes)
 
         super
+      end
+
+      private
+
+      def direct_upload_url
+        if @template.respond_to?(:admin_direct_uploads_url)
+          @template.admin_direct_uploads_url
+        elsif @template.respond_to?(:main_app) && @template.main_app.respond_to?(:admin_direct_uploads_url)
+          @template.main_app.admin_direct_uploads_url
+        end
       end
     end
   end

@@ -32,6 +32,25 @@ RSpec.describe "admin/authentication" do
     expect(page).to have_current_path("/admin/dashboard")
   end
 
+  it "reveals and hides the password with the show/hide toggle" do
+    admin = create(:admin)
+    visit "/admin"
+
+    fill_in "Email", with: admin.email
+    click_on "Next"
+
+    expect(page).to have_field("Password", type: "password")
+
+    # The toggle is rendered hidden and only becomes visible when the GOV.UK
+    # password input enhancement runs, so finding it proves the login page
+    # enhances without any per-view initialisation.
+    find(".govuk-password-input__toggle").click
+    expect(page).to have_field("Password", type: "text")
+
+    find(".govuk-password-input__toggle").click
+    expect(page).to have_field("Password", type: "password")
+  end
+
   it "supports redirect after login" do
     admin = create(:admin)
     visit "/admin/admin_users"

@@ -3,7 +3,7 @@
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name     = "katalyst-koi"
-  s.version  = "5.9.0"
+  s.version  = "5.10.0"
   s.authors  = ["Katalyst Interactive"]
   s.email    = ["developers@katalyst.com.au"]
   s.summary  = "Koi CMS admin framework"
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
 
   # Katalyst libraries
   s.add_dependency "katalyst-content", ">= 3.2"
-  s.add_dependency "katalyst-govuk-formbuilder", ">= 1.28.0", "< 2"
+  s.add_dependency "katalyst-govuk-formbuilder", ">= 2"
   s.add_dependency "katalyst-html-attributes"
   s.add_dependency "katalyst-navigation", ">= 2"
   s.add_dependency "katalyst-tables", ">= 3.5"

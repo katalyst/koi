@@ -197,8 +197,6 @@ In views, use the provided helpers:
 - In module forms, keep submit controls focused on saving form content (plain submit buttons).
 - Put non-form lifecycle actions in page header actions (`actions_list`) with `link_to_delete(record)` or `link_to_archive_or_delete(record)`.
 
-Remember to call `govuk_formbuilder_init` once when you render password fields so the GOV.UK show/hide toggle initialises (`app/views/admin/sessions/password.html.erb:12`).
-
 ### Model Concerns
 
 - `Koi::Model::Archivable` adds an `archived_at` flag, default scopes, and helper methods such as `archive!`/`restore!` (see `app/models/concerns/koi/model/archivable.rb`). Use it for content that can be soft-deleted from the interface.

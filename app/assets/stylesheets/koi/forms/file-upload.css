@@ -1,3 +1,5 @@
+/* HTML File inputs */
+
 .govuk-file-upload {
   max-width: 100%;
 }
@@ -17,4 +19,261 @@
 .govuk-file-upload:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Drop zone (JS uploads) */
+
+.govuk-file-upload-wrapper {
+  display: block;
+  position: relative;
+  z-index: 0;
+  border: var(--stroke-input);
+  border-radius: var(--input-radius);
+  padding: var(--space-xs-s);
+
+  .govuk-form-group--error & {
+    border-color: var(--govuk-error-color);
+  }
+
+  &:has(.govuk-file-upload-button:hover) {
+    border-color: var(--color-dark-glare);
+  }
+}
+
+.govuk-file-upload-wrapper--disabled {
+  /* the button disables pointer events, so the cursor lives on the wrapper */
+  cursor: not-allowed;
+}
+
+.govuk-file-upload-button {
+  --button-font-weight: 400;
+
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: var(--radius-s);
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible .govuk-button {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .govuk-attachment + & {
+    margin-block-start: var(--flow-space, var(--space-s));
+  }
+}
+
+.govuk-file-upload-wrapper:has(.govuk-file-upload-button--dragging) {
+  background-color: var(--color-tint);
+}
+
+.govuk-file-upload-button__status {
+  /* visually hidden */
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+.govuk-file-upload-button__pseudo-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2xs);
+}
+
+.govuk-file-upload-button__pseudo-button {
+  flex-shrink: 0;
+}
+
+.govuk-file-upload-button__instruction {
+  margin: 0;
+  text-align: left;
+}
+
+/* Attachments */
+
+.govuk-attachment {
+  display: grid;
+  grid-template-areas: "preview caption actions";
+  grid-template-columns: auto 1fr auto;
+  margin: 0 0 var(--flow-space) 0;
+  padding: var(--space-xs);
+  grid-gap: var(--space-s);
+  border: 1px solid var(--color-mid);
+  border-radius: var(--input-radius);
+
+  .preview {
+    grid-area: preview;
+    max-width: 4rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: var(--radius-s);
+  }
+
+  .caption {
+    display: flex;
+    flex-direction: column;
+    grid-area: caption;
+    font-family: var(--font-base);
+    font-size: var(--size-step-0);
+    padding-block-start: unset;
+  }
+
+  .filename {
+    font-weight: var(--font-bold);
+  }
+
+  .size {
+    color: var(--govuk-hint-color);
+  }
+
+  .govuk-attachment-progress {
+    inline-size: auto;
+    max-inline-size: 16em;
+    margin-block-start: var(--space-xs);
+    block-size: var(--space-2xs);
+    appearance: none;
+    border: none;
+    border-radius: var(--radius-s);
+    overflow: hidden;
+
+    background-color: var(--color-mid);
+
+    &::-webkit-progress-bar {
+      background-color: var(--color-mid);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--color-dark);
+      transition: width var(--transition-movement);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-dark);
+    }
+  }
+
+  .actions {
+    grid-area: actions;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .actions button {
+    display: none; /* Buttons require JavaScript */
+  }
+
+  &[data-state] .status {
+    margin-block-start: auto;
+  }
+
+  &[data-state="upload-successful"] {
+    .status {
+      color: var(--color-success);
+    }
+  }
+
+  &[data-state="upload-failed"] {
+    border-color: var(--govuk-error-color);
+
+    .status {
+      color: var(--govuk-error-color);
+    }
+  }
+}
+
+/* With JavaScript running the button is the figure's only interactive
+control; the select still carries the submitted value but leaves the
+display, tab order, and accessibility tree. */
+.govuk-frontend-supported .govuk-attachment {
+  .actions select {
+    display: none;
+  }
+
+  .actions button {
+    display: revert;
+  }
+}
+
+/*
+ * Hide duplicate inputs when multiple is not enabled, this allows reverting
+ * but the value from the last select will overwrite the others in save.
+ */
+.govuk-file-upload-wrapper:has(input[type="file"]:not([multiple])) {
+  .govuk-attachment:has(+ .govuk-attachment) {
+    display: none;
+  }
+}
+
+/* Movement */
+
+.govuk-attachment {
+  .status {
+    align-self: flex-start;
+  }
+
+  &[data-state="upload-successful"] {
+    .status {
+      animation: govuk-attachment-state-pop var(--transition-bounce);
+    }
+  }
+
+  &[data-state="upload-failed"] {
+    .status {
+      animation: govuk-attachment-state-pop var(--transition-bounce);
+    }
+  }
+}
+
+@keyframes govuk-attachment-state-pop {
+  50% {
+    scale: 1.05;
+  }
+}
+
+.govuk-attachment {
+  &:has(.govuk-attachment-progress):has(.preview) {
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      margin: var(--space-xs);
+      width: calc(64px - 2 * var(--space-xs));
+      padding: 4px; /* spinner width */
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--color-light);
+      --mask:
+        conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+      -webkit-mask: var(--mask);
+      mask: var(--mask);
+      -webkit-mask-composite: source-out;
+      mask-composite: subtract;
+      animation: govuk-attachment-upload-spinner 1s infinite linear;
+    }
+  }
+}
+
+@keyframes govuk-attachment-upload-spinner {
+  to {
+    transform: rotate(1turn);
+  }
 }

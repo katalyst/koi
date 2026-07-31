@@ -108,7 +108,7 @@ class Dummy < Thor
     inside("spec/dummy") do
       run <<~SH
         rails g koi:model Announcement name:string title:string content:rich_text published_on:date archived_at:datetime
-        rails g koi:model Banner name:string image:attachment ordinal:integer status:integer
+        rails g koi:model Banner name:string image:attachment gallery:attachments ordinal:integer status:integer
       SH
     end
 

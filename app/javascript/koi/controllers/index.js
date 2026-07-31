@@ -3,8 +3,8 @@ import { application } from "./application";
 import content from "@katalyst/content";
 application.load(content);
 
-import govuk from "@katalyst/govuk-formbuilder";
-application.load(govuk);
+import GOVUK from "@katalyst/govuk-formbuilder";
+GOVUK.start(application);
 
 import navigation from "@katalyst/navigation";
 application.load(navigation);

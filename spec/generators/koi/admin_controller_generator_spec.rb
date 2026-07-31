@@ -29,4 +29,31 @@ RSpec.describe Koi::AdminControllerGenerator do
     expect(Pathname.new(file("app/controllers/admin/announcements_controller.rb"))).to exist
     expect(Pathname.new(file("spec/requests/admin/announcements_controller_spec.rb"))).to exist
   end
+
+  # Introspected attachments follow their reflection's macro: a has_one
+  # submits a scalar signed id, a has_many an array (the attachment
+  # field's `name[]` inputs), so the permit shapes must differ.
+  context "with a model with attachments" do
+    subject(:output) do
+      gen = generator(%w(banner))
+      Ammeter::OutputCapturer.capture(:stdout) { gen.invoke_all }
+    end
+
+    let(:controller) { File.read(file("app/controllers/admin/banners_controller.rb")) }
+
+    it "permits a has_many attachment as an array" do
+      output
+      expect(controller).to include("gallery: []")
+    end
+
+    it "permits a has_one attachment as a scalar" do
+      output
+      expect(controller).to include(":image")
+    end
+
+    it "does not permit the has_one attachment as an array" do
+      output
+      expect(controller).not_to include("image: []")
+    end
+  end
 end
