@@ -22,6 +22,7 @@ group :development, :test do
   gem "rake"
   gem "rspec-rails"
   gem "rubocop-katalyst", require: false
+  gem "ruby-vips"
   gem "sentry-rails"
   gem "shoulda-matchers"
   gem "solid_queue"
