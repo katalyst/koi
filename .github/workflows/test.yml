@@ -9,6 +9,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        env:
+          DEPENDENCIES: libvips
+        run: sudo apt-get install -y $DEPENDENCIES || (sudo apt-get update && sudo apt-get install -y $DEPENDENCIES)
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
