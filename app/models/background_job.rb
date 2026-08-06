@@ -42,7 +42,7 @@ class BackgroundJob
 
   # Serialized as an ISO8601 string in the payload; parse so views can format it.
   def enqueued_at
-    job.arguments["enqueued_at"]&.then { |value| Time.iso8601(value) }
+    job.arguments["enqueued_at"]&.then { |value| Time.zone.iso8601(value) }
   end
 
   # The arguments the job was enqueued with, from the serialized payload.
