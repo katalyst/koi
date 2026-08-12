@@ -5,13 +5,11 @@ class RecurringTask
 
   module Scopes
     def admin_search(query)
-      where(
-        <<~SQL.squish,
-          solid_queue_recurring_tasks.key LIKE :query
-          OR solid_queue_recurring_tasks.class_name LIKE :query
-        SQL
-        query: "%#{query}%",
-      )
+      pattern            = "%#{SolidQueue::RecurringTask.sanitize_sql_like(query)}%"
+      table              = SolidQueue::RecurringTask.arel_table
+      key_matches        = table[:key].matches(pattern)
+      class_name_matches = table[:class_name].matches(pattern)
+      where(key_matches.or(class_name_matches))
     end
   end
 

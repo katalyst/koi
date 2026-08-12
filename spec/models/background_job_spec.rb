@@ -3,6 +3,17 @@
 require "rails_helper"
 
 RSpec.describe BackgroundJob do
+  describe ".admin_search" do
+    subject(:results) { described_class.states[:pending].admin_search(query) }
+
+    let(:job) { SolidQueue::Job.enqueue(Admin::DeviceAuthorizationsCleanupJob.new) }
+    let(:query) { "deviceauthorizations" }
+
+    it "searches class names case-insensitively" do
+      expect(results).to include(job)
+    end
+  end
+
   describe "#enqueued_at" do
     around do |example|
       Time.use_zone("Australia/Adelaide") { example.run }

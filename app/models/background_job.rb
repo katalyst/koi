@@ -5,10 +5,11 @@ class BackgroundJob
 
   module Scopes
     def admin_search(query)
-      where(
-        "solid_queue_jobs.class_name LIKE :query OR solid_queue_jobs.queue_name LIKE :query",
-        query: "%#{query}%",
-      )
+      pattern            = "%#{SolidQueue::Job.sanitize_sql_like(query)}%"
+      table              = SolidQueue::Job.arel_table
+      class_name_matches = table[:class_name].matches(pattern)
+      queue_name_matches = table[:queue_name].matches(pattern)
+      where(class_name_matches.or(queue_name_matches))
     end
   end
 
