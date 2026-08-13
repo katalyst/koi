@@ -18,6 +18,7 @@
 
 :root {
   --gutter: var(--space-m-l);
+  --measure: 60ch;
   --transition-base: 250ms ease;
   --transition-movement: 200ms linear;
   --transition-fade: 300ms ease;

@@ -1,5 +1,5 @@
 .prose {
-  --flow-space: var(--space-l);
+  --flow-space: var(--space-m);
 }
 
 .prose :is(h1, h2, h3) {
@@ -8,22 +8,24 @@
 }
 
 .prose :is(p, li, dl, figcaption, blockquote) {
-  max-width: 60ch;
+  max-width: var(--measure);
   text-wrap: pretty;
 }
 
-.prose :is(h1, h2, h3, h4) + *:not([class]) {
+/* Set space between headings and their content */
+.prose :is(h1, h2, h3, h4, h5, h6) + *:not([class]) {
   --flow-space: var(--space-m);
 }
 
-/* Add more space on and around figures and tables */
-.prose :is(figure, table),
-.prose :is(figure, table) + * {
-  --flow-space: var(--space-2xl);
+/* Set space between sections */
+.prose * + :is(h1, h2, h3, h4, h5, h6):not([class]),
+.prose * + :has(> :is(h1, h2, h3, h4, h5, h6):first-child:not([class])) {
+  --flow-space: var(--space-xl);
 }
 
-/* Add more space to headings on block start */
-.prose * + :is(h1, h2, h3, h4):not([class]) {
+/* Add more space on and around figures and tables */
+.prose :is(figure, table):not([class]),
+.prose :is(figure, table):not([class]) + * {
   --flow-space: var(--space-xl);
 }
 

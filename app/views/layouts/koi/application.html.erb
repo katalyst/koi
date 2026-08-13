@@ -60,8 +60,10 @@
       <%= yield(:roadblock) %>
     </div>
   </main>
+<% elsif content_for?(:main) %>
+  <%= yield(:main) %>
 <% else %>
-  <main class="flow wrapper">
+  <main class="flow prose wrapper">
     <% unless flash.empty? %>
       <!-- flash -->
       <%= render("layouts/koi/flash") %>
