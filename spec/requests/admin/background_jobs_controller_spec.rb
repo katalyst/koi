@@ -28,7 +28,7 @@ RSpec.describe Admin::BackgroundJobsController do
 
       action
 
-      expect(response.parsed_body.css("tbody td a").pluck(:href))
+      expect(response.parsed_body.css("tbody th a").pluck(:href))
         .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe Admin::BackgroundJobsController do
 
       action
 
-      expect(response.parsed_body.css("tbody td a").pluck(:href))
+      expect(response.parsed_body.css("tbody th a").pluck(:href))
         .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
     end
   end
@@ -79,7 +79,7 @@ RSpec.describe Admin::BackgroundJobsController do
 
       action
 
-      expect(response.parsed_body.css("tbody td a").pluck(:href))
+      expect(response.parsed_body.css("tbody th a").pluck(:href))
         .to eq([second, first].map { |job| admin_background_job_path(job.active_job_id) })
     end
   end

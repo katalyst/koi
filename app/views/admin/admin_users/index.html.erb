@@ -17,7 +17,7 @@
 
 <%= table_with(collection:) do |row| %>
   <% row.select %>
-  <% row.link(:name, url: :admin_admin_user_path) %>
+  <% row.link(:name, heading: true, url: :admin_admin_user_path) %>
   <% row.text(:email) %>
   <% row.enum(:password_login, label: "Password") %>
   <% row.boolean(:credentials, label: "Passkey") do |cell| %>

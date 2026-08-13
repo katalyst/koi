@@ -25,7 +25,7 @@ RSpec.describe <%= controller_class_name %>Controller do
 
       action
 
-      expect(response.parsed_body.css("tbody td a").pluck(:href))
+      expect(response.parsed_body.css("tbody th a").pluck(:href))
         .to eq([second, first].map { |<%= singular_name %>| <%= admin_show_helper %> })
     end
     <%- end -%>

@@ -8,7 +8,10 @@
   <% end %>
 <% end %>
 
-<%= table_with(collection:) do |row, feature_flag| %>
-  <% row.link(:key, url: ->(record) { admin_feature_flag_path(record) }, label: "Name") %>
+<%= table_with(collection:) do |row| %>
+  <% row.link(:key,
+              label:   "Name",
+              heading: true,
+              url:     ->(record) { admin_feature_flag_path(record) }) %>
   <% row.text(:state, label: "Status") { |cell| cell.value.to_s.humanize } %>
 <% end %>

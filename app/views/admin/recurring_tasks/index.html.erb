@@ -12,7 +12,10 @@
 <%= table_query_with(collection:) %>
 
 <%= table_with(collection:) do |row| %>
-  <% row.link(:key, url: ->(record) { admin_recurring_task_path(record.key) }, label: "Job name") %>
+  <% row.link(:key,
+              label:   "Job name",
+              heading: true,
+              url:     ->(record) { admin_recurring_task_path(record.key) }) %>
   <% row.text(:schedule, label: "Schedule") %>
   <% row.datetime(:last_enqueued_time, label: "Last enqueued") %>
 <% end %>

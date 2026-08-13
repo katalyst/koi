@@ -14,7 +14,10 @@
 
 <%= table_with(collection:) do |row, job| %>
   <% row.select %>
-  <% row.link(:class_name, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
+  <% row.link(:class_name,
+              label:   "Job",
+              heading: true,
+              url:     ->(record) { admin_background_job_path(record.active_job_id) }) %>
   <% row.text(:queue_name, label: "Queue") %>
   <% row.datetime(:scheduled_at, label: "Scheduled") %>
 <% end %>
