@@ -77,6 +77,10 @@ class BackgroundJob
     "#{failure.exception_class}: #{failure.message}"
   end
 
+  def failure_class
+    failed_execution.exception_class
+  end
+
   def state
     if finished?
       :finished
