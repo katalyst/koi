@@ -2,6 +2,16 @@
   --tag-color: var(--color-primary);
   --on-tag-color: white;
 
+  th:first-child,
+  td:first-child {
+    padding-inline-start: 0;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-inline-end: 0;
+  }
+
   td.type-enum small {
     color: var(--on-tag-color);
     font-size: small;
@@ -34,7 +44,10 @@
       cursor: pointer;
       margin-block-end: 0;
       min-height: 1.5rem;
-      transform: translateY(1px);
+      transform: translateY(0.2ch);
+      margin-inline-start: calc(
+        -1 * var(--space-s) + 2 * var(--stroke-input-width)
+      );
 
       &::before,
       &::after {
@@ -61,9 +74,9 @@
     }
   }
 
-  tbody [data-cell-type="selection"] {
+  thead [data-cell-type="selection"] {
     label {
-      transform: translateY(3px);
+      transform: translateY(0.4ch);
     }
   }
 
