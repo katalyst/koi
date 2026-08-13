@@ -90,6 +90,35 @@
   }
 }
 
+.katalyst--summary-table {
+  --table-min-width: min(90ch, 100cqi);
+
+  border-block-start: var(--stroke);
+
+  th {
+    padding-inline-start: unset;
+    padding-inline-end: var(--space-s);
+  }
+}
+
+@container (width < 60ch) {
+  .katalyst--summary-table {
+    th,
+    td {
+      padding-inline: unset;
+    }
+
+    th {
+      box-shadow: none;
+      padding-block-end: 0;
+    }
+
+    td {
+      padding-block-start: var(--space-2xs);
+    }
+  }
+}
+
 .tables--selection--form {
   p {
     margin-bottom: var(--space-2xs);
