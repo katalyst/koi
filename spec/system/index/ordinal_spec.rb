@@ -31,7 +31,7 @@ RSpec.describe "index/ordinal" do
       first.drag_to(last, steps: 10)
     end
 
-    expect(page).to have_css("tr:last-child td", text: "first")
+    expect(page).to have_css("tbody tr:last-child th", text: "first")
 
     expect(Banner.all).to contain_exactly(
       have_attributes(name: "second", ordinal: 0),
@@ -45,6 +45,6 @@ RSpec.describe "index/ordinal" do
 
     find("table").send_keys("ff", "k", [:shift, "k"])
 
-    expect(page).to have_css("tr:last-child td", text: "second")
+    expect(page).to have_css("tbody tr:last-child th", text: "second")
   end
 end

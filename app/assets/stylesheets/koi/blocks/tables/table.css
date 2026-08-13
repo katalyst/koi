@@ -2,6 +2,10 @@
   --tag-color: var(--color-primary);
   --on-tag-color: white;
 
+  th.type-link a[href]:not(:hover) {
+    text-decoration: none;
+  }
+
   th:first-child,
   td:first-child {
     padding-inline-start: 0;

@@ -10,8 +10,8 @@
 
 <%= table_query_with(collection:) %>
 
-<%= table_with(collection:) do |row, well_known| %>
-  <% row.link :name %>
+<%= table_with(collection:) do |row| %>
+  <% row.link(:name, heading: true) %>
   <% row.text :purpose %>
 <% end %>
 

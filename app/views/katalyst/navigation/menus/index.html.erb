@@ -7,6 +7,6 @@
 <% end %>
 
 <%= table_with(collection:) do |row, menu| %>
-  <%= row.link :title, url: (katalyst_navigation.menu_path(menu) if menu) %>
+  <%= row.link(:title, heading: true, url: (katalyst_navigation.menu_path(menu) if menu)) %>
   <%= row.text :slug %>
 <% end %>

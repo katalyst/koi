@@ -23,7 +23,10 @@
 <h2>Jobs</h2>
 
 <%= table_with(collection: jobs) do |row| %>
-  <% row.link(:job_id, url: ->(record) { admin_background_job_path(record.active_job_id) }, label: "Job") %>
+  <% row.link(:job_id,
+              label:   "Job",
+              heading: true,
+              url:     ->(record) { admin_background_job_path(record.active_job_id) }) %>
   <% row.datetime(:enqueued_at) %>
   <% row.datetime(:finished_at) %>
   <% row.number(:duration) %>

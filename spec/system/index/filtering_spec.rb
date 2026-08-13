@@ -30,21 +30,21 @@ RSpec.describe "index/filtering" do
     click_on "Apply"
 
     expect(page).to have_current_path("/admin/announcements?q=#{query}")
-    expect(page).to have_css("td", text: "first")
-    expect(page).to have_no_css("td", text: "third")
+    expect(page).to have_css("tbody th", text: "first")
+    expect(page).to have_no_css("tbody th", text: "third")
   end
 
   it "clears filters" do
     visit "/admin/announcements?q=#{query}"
 
     expect(page).to have_css("[name=q]", text: query)
-    expect(page).to have_no_css("td", text: "third")
+    expect(page).to have_no_css("tbody th", text: "third")
 
     fill_in("Search", with: "").click
     click_on "Apply"
 
     expect(page).to have_current_path("/admin/announcements")
-    expect(page).to have_css("td", text: "third")
+    expect(page).to have_css("tbody th", text: "third")
   end
 
   context "when there are no results" do

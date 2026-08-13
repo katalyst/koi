@@ -7,7 +7,7 @@
 <%= table_query_with(collection:) %>
 
 <%= table_with(collection:) do |row| %>
-  <% row.link(:slug, url: :admin_admin_role_path) %>
+  <% row.link(:slug, heading: true, url: :admin_admin_role_path) %>
   <% row.date(:created_at, label: "Materialized") %>
   <% row.datetime(:last_authenticated_at, label: "Last authenticated") %>
   <% row.boolean(:orphaned?, label: "Orphaned") %>
