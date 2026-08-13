@@ -2,6 +2,10 @@
   background: var(--color-tint);
   color: var(--color-dark);
 
+  h1 {
+    font-size: var(--size-step-5);
+  }
+
   > .wrapper {
     padding-block: var(--gutter);
   }
