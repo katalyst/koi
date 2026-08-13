@@ -19,7 +19,7 @@
   <% row.text(:queue_name, label: "Queue") %>
   <% row.datetime(:updated_at, label: "Last failed") %>
   <% row.text(:error, label: "Error") do %>
-    <%= BackgroundJob.new(job).failure_reason %>
+    <%= BackgroundJob.new(job).failure_class %>
   <% end %>
 <% end %>
 
