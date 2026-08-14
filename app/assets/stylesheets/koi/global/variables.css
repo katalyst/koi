@@ -19,6 +19,8 @@
 :root {
   --gutter: var(--space-m-l);
   --measure: 60ch;
+  --wrapper-max-width: 85rem;
+  --prose-width: min(57rem, 100cqi); /* 2/3rds of wrapper */
   --transition-base: 250ms ease;
   --transition-movement: 200ms linear;
   --transition-fade: 300ms ease;

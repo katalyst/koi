@@ -108,7 +108,7 @@
 }
 
 .katalyst--summary-table {
-  --table-min-width: min(90ch, 100cqi);
+  --table-min-width: var(--prose-width);
 
   border-block-start: var(--stroke);
 
