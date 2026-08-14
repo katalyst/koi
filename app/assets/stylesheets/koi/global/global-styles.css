@@ -193,7 +193,7 @@ figcaption {
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  min-width: var(--table-min-width, 100%);
 }
 
 th {
