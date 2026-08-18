@@ -1,5 +1,5 @@
 trix-toolbar {
-  margin-block-end: var(--flow-space, var(--space-2xs));
+  margin-block-end: var(--space-2xs);
 
   .trix-button-group {
     border: var(--stroke-input);
