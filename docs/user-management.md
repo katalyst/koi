@@ -26,7 +26,7 @@ Admins can register WebAuthn credentials from their profile (`/admin/admin_users
 
 ### Development Auto-login
 
-With `Koi.config.authenticate_local_admins` (true by default in development), visiting `/admin` looks up `#{ENV['USER']}@katalyst.com.au` or `admin@katalyst.com.au`, sets `session[:admin_user_id]`, and skips the login form. Disable this behaviour by setting `authenticate_local_admins = false` in `config/initializers/koi.rb` when you need to rehearse the full login flow.
+With `Koi.config.authenticate_local_admins` (true by default in development), reaching the login form looks up an admin by `ENV["EMAIL"]` or `#{ENV['USER']}@katalyst.com.au`, creates an `Admin::Session` (setting the signed `admin_session_id` cookie), and redirects straight to the dashboard. Disable this behaviour by setting `authenticate_local_admins: false` under `development:` in `config/koi.yml`.
 
 ## Working With Admin Users in Code
 

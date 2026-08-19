@@ -42,14 +42,7 @@ When the schema contains an `archived_at` column _and_ the model mixes in `Koi::
    - Form-driven archiving via the checkbox on create/update.
    Use `Page.archived` / `Page.not_archived` to assert state changes.
 
-5. **Content status bar links** – if the module uses Katalyst::Content, make sure you expose matching public routes so the editor’s status bar can link to the live and preview versions. Add something like:
-   ```ruby
-   resources :pages, only: :show do
-     get :preview, on: :member
-   end
-   ```
-   Then render the published/draft versions in a controller (`render_content(page.published_version)` / `page.draft_version`) so `url_for(container)` resolves correctly. Without these routes, the status bar raises “undefined method `page_path`” and its links break.
-   If the site needs `/slug` URLs without the `/pages` prefix, layer on the constraint workflow in [`root-level-page-routing.md`](./root-level-page-routing.md).
+5. **Content status bar links** – if the module uses Katalyst::Content, make sure you expose matching public `show`/`preview` routes so the editor’s status bar can link to the live and preview versions; without them the status bar raises “undefined method `page_path`”. See [Routing and previews](https://katalyst.github.io/content/developers/routing-and-previews.html), which also covers serving `/slug` URLs without the `/pages` prefix.
 
 ## Typical Admin Workflow
 

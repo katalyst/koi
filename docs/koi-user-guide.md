@@ -7,9 +7,9 @@ This guide explains how to use Koi to build consistent administration areas in c
 - **Setting up a project:** see [`koi-setup-guide.md`](./koi-setup-guide.md) for end-to-end bootstrap steps (template workflow and retrofit path).
 - **Managing admin users:** see [`user-management.md`](./user-management.md) for provisioning, authentication options, and day-to-day maintenance tasks.
 - **Building admin modules:** see [`admin-module-workflow.md`](./admin-module-workflow.md) for the full generator-driven process and advanced tips on ordering, archiving, and regeneration.
-- **Working with Koi Content:** see [`content.md`](./content.md) for wiring the editor, preview workflow, and frontend rendering helpers.
+- **Working with Koi Content:** see the [Katalyst Content documentation](https://katalyst.github.io/content/) for wiring the editor, preview workflow, and frontend rendering helpers.
 - **Archiving modules:** see [`archiving.md`](./archiving.md) for soft-delete conventions, UI wiring, and testing expectations.
-- **Serving CMS pages at root:** see [`root-level-page-routing.md`](./root-level-page-routing.md) for exposing `Page` slugs at `/slug` while keeping previews behind admin sessions.
+- **Serving CMS pages at root:** see [Routing and previews](https://katalyst.github.io/content/developers/routing-and-previews.html) for exposing `Page` slugs at `/slug` while keeping previews behind admin sessions.
 
 ## What Koi Provides (and What It Does Not)
 
@@ -39,7 +39,7 @@ Use the setup guide for explicit commands, alternate workflows, and troubleshoot
 
 ### Development Tips
 
-- In development the default config `Koi.config.authenticate_local_admins` automatically signs in a matching admin user based on your shell `USER` (`app/controllers/admin/sessions_controller.rb:18`). Disable this for demos by setting `Koi.configure { |c| c.authenticate_local_admins = false }`. See `user-management.md` for deeper guidance on managing seeded admins and adjusting their emails.
+- In development the default config `Koi.config.authenticate_local_admins` automatically signs in a matching admin user based on your shell `USER` (`app/controllers/admin/sessions_controller.rb:10`). Disable this by setting `authenticate_local_admins: false` under `development:` in `config/koi.yml`. See `user-management.md` for deeper guidance on managing seeded admins and adjusting their emails.
 - Run `bundle exec rspec` and `bundle exec rake lint` before committing changes, matching repository guidelines.
 - Use `yarn build` (and `yarn clean` if you need to clear previous artifacts) to regenerate `app/assets/builds/katalyst/koi.min.js` if you change the JavaScript package.
 
@@ -62,7 +62,7 @@ The file is read with Rails' `config_for`, so it supports a `shared:`, per-envir
 | Setting | Default | Purpose |
 | --- | --- | --- |
 | `admin_name` | `"Koi"` | Display name in page titles and the header (`app/views/layouts/koi/application.html.erb:7`). |
-| `authenticate_local_admins` | `Rails.env.development?` | Auto-login behaviour used in `Admin::SessionsController#authenticate_local_admin` (`app/controllers/admin/sessions_controller.rb:59`). |
+| `authenticate_local_admins` | `Rails.env.development?` | Auto-login behaviour used in `Admin::SessionsController#authenticate_local_admin` (`app/controllers/admin/sessions_controller.rb:106`). |
 | `resource_name_candidates` | `%i[title name]` | Candidate attributes used by view helpers to label resources. |
 | `admin_stylesheet` | `"admin"` | Stylesheet tag rendered in layouts (`app/views/layouts/koi/application.html.erb:21`). |
 | `admin_javascript_entry_point` | `"@katalyst/koi"` | JavaScript import map entry used by layouts (`app/views/layouts/koi/application.html.erb:24`). |
