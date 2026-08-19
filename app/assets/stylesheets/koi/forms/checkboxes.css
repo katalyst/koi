@@ -132,6 +132,14 @@
   }
 }
 
+/* reduce space between single-checkbox inputs */
+.govuk-form-group:has(> .govuk-fieldset > .govuk-checkboxes--small:only-child)
+  + .govuk-form-group:has(
+    > .govuk-fieldset > .govuk-checkboxes--small:only-child
+  ) {
+  --flow-space: var(--space-xs);
+}
+
 @media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .govuk-checkboxes--small {
     .govuk-checkboxes__item:hover:has(.govuk-checkboxes__input:focus)::before {
