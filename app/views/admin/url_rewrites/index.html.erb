@@ -11,7 +11,7 @@
 <%= table_query_with(collection:) %>
 
 <%= table_with(collection:) do |row, url_rewrite| %>
-  <% row.link :from %>
+  <% row.link(:from, heading: true) %>
   <% row.text :to %>
   <% row.boolean :active %>
 <% end %>
