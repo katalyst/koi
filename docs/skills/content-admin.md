@@ -2,7 +2,7 @@
 
 Use this guide when adding Katalyst Content editing to an already-existing admin resource in a Koi app.
 
-This is the canonical v3 pattern the planned content-admin generator should produce.
+This is the canonical v3 pattern the planned content-admin generator should produce. For the gem itself (containers, items, rendering, configuration), see the [Katalyst Content documentation](https://katalyst.github.io/content/).
 
 ## Scope
 
@@ -66,18 +66,7 @@ Before wiring actions/views, confirm all of the following.
    - Model includes `Katalyst::Content::Container`.
    - Nested `Version` model includes `Katalyst::Content::Version`.
    - Model has `draft_version_id` and `published_version_id` references.
-
-   Example:
-
-   ```ruby
-   class Page < ApplicationRecord
-     include Katalyst::Content::Container
-
-     class Version < ApplicationRecord
-       include Katalyst::Content::Version
-     end
-   end
-   ```
+   - See [Getting started](https://katalyst.github.io/content/developers/getting-started.html) for the migration and model code.
 
 3. **Admin base controller**
    - Resource controller inherits from your admin base (typically `Admin::ApplicationController`).
