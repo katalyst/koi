@@ -1,83 +1,95 @@
-# Form patterns for module view and edit pages
+# Structuring a Koi module's view and edit pages
 
-How a Koi module's view and edit pages are structured, and how to choose the right pattern for a module. There are three patterns, all built from the existing Koi components — same header band, section headings, field styles and buttons everywhere. The patterns differ only in how many sections a page has and where the Edit action sits.
+Your module's content is grouped under headings, but on the page it doesn't look that way: the show page reads as one long run of rows, and editing means opening one long form no matter how small the change. This guide shows three ways to present the sections a module already has, so the grouping is obvious on the page and the way admins edit matches the way they actually work. It helps you pick one per module.
 
-The short version: count the headings the module already has. One heading means the single-section pattern. Two or more means multi-section, and how admins edit the module picks between one page-level Edit and per-section Edits.
+Everything here is built from the components Koi already has: the same header band, section headings, fields and buttons you see across the admin. You're choosing a structure, not building new UI.
 
-## Global rules
+**If you're looking into how a form's content should be better grouped** (which fields belong together, what the headings should be), this document doesn't cover that. It assumes the module's fields are already grouped under headings that make sense.
 
-These hold for every pattern:
+## Two habits that make every pattern work
 
-1. **A section = a heading the module already has.** Section count comes from the existing show page headings. Regrouping content into different sections is separate work, out of scope here.
-2. **View and Edit use the same headings and names.** A section is called the same thing on the show page and on its form, and field labels match in both directions. Where they currently disagree, the show page heading is the canonical one (e.g. "Ticket quantity options", not "Ticket quantity selection").
-3. **A group of fields without a heading of its own is titled "Details".** This applies to a single-section module's only group, and to the unnamed first group of a multi-section module.
+**Count sections by the headings you already have.** When this guide says "section", it means a heading on the module's show page. One heading (or none) means a single-section module; several headings mean a multi-section module. If a group of fields has no heading of its own, title it "Details".
 
-## Classifying a module
+**Keep the view and the edit form matching.** Call a section the same thing on the show page and on its form, and use the same field labels in both places. If the two disagree today, use the show page's wording (for example, the show page says "Ticket quantity options", so the form should too). This is what lets an admin move between viewing and editing without re-orienting.
+
+## Which pattern do I need?
 
 ```mermaid
 flowchart TD
-    A[Count the module's existing headings] --> B{How many sections?}
-    B -- 1 --> C[Single-section · page-level Edit]
-    B -- 2 or more --> D{How do admins edit it?}
-    D -- "Review or update the whole form at once" --> E[Multi-section · page-level Edit]
-    D -- "Return for one section at a time,<br>or different sections have different owners" --> F[Multi-section · per-section Edit]
+    A[How many headings does the show page have?] -->|One| B[Single-section · page-level Edit]
+    A -->|Two or more| C{How do admins edit this module?}
+    C -->|The whole form at once| D[Multi-section · page-level Edit]
+    C -->|One section at a time| E[Multi-section · per-section Edit]
+    C -->|Not sure| D
 ```
 
-The second question is about admin behaviour, not content. Signals that point to per-section Edits: admins come back after setup to change just one section (tweak a value, fix one line), different people look after different sections, or an accidental change slipping into a whole-form save would be costly. When in doubt, prefer the page-level Edit; the view is identical in both multi-section patterns, so a module can move to per-section Edits later without the show page changing.
+The second question is about people, not fields. Do admins open this module to work through the whole thing, or do they come back to change one section (fix a value, update one group) and leave? Ask whoever knows how the client's admins work, if you can.
 
-## The patterns
+> [!TIP]
+> **Not sure how admins edit it? Start with the page-level Edit.** The show page looks identical in both multi-section patterns, so a module can move to per-section Edits later without the view changing. You are not locking anything in.
 
-### Single-section · page-level Edit
+## Single-section · page-level Edit
 
 Example: Mailing list.
 
-- **View:** one section titled "Details" (global rule 3), rendered as label/value rows. A single Edit button sits in the page heading band.
-- **Edit:** the Edit button opens the whole form on its own page, under the same "Details" heading, with the same field labels as the view rows. One primary submit ("Update …") plus a Cancel link.
+- **When to use it:** the module has one section. Most Koi modules sit here. This is the existing behaviour, written down.
+- **The view:** one section titled "Details", shown as label/value rows, with a single Edit button in the page heading band.
+- **Editing:** Edit opens the whole form on its own page, under the same "Details" heading, with the same field labels as the view. One "Update …" button, plus Cancel.
 
-Pick for modules with one section. Most Koi modules sit here; this is the existing behaviour, formalised.
+<table>
+<tr><th>View</th><th>Edit</th></tr>
+<tr>
+<td><img src="images/admin-form-patterns/single-section-page-edit-view.png" alt="Single-section view: one Details section, one Edit in the page heading band"></td>
+<td><img src="images/admin-form-patterns/single-section-page-edit-edit.png" alt="Single-section edit: the whole form on its own page under the same Details heading"></td>
+</tr>
+</table>
 
-![Single-section view: one "Details" section, one Edit in the page heading band](images/admin-form-patterns/single-section-page-edit-view.png)
-
-![Single-section edit: the whole form on its own page under the same "Details" heading](images/admin-form-patterns/single-section-page-edit-edit.png)
-
-### Multi-section · page-level Edit
-
-Example: Priceband concession type.
-
-- **View:** two or more titled sections (Details, Ticket quantity options, Purchase restrictions, Visibility, Analytics), each rendered as label/value rows under its heading. A single Edit button sits in the page heading band.
-- **Edit:** the Edit button opens the whole form on its own page, with the same sections in the same order under the same headings. One primary submit for the whole form.
-
-Pick when admins usually return to review or update the form as a whole. Note the whole-form trade-off: every field saves together, so this pattern suits modules where that is acceptable.
-
-![Multi-section view: titled sections, one Edit in the page heading band](images/admin-form-patterns/multi-section-page-edit-view.png)
-
-![Multi-section edit: the whole form on its own page, same sections and headings as the view](images/admin-form-patterns/multi-section-page-edit-edit.png)
-
-### Multi-section · per-section Edit
+## Multi-section · page-level Edit
 
 Example: Priceband concession type.
 
-- **View:** the same sectioned show page as above, but each section heading carries its own Edit button on the right, and there is no page-level Edit.
-- **Edit:** a section's Edit opens a scoped form containing only that section's fields, titled with the section's own heading. In the demonstration this scoped form opens as a modal over the show page, with Save and Cancel actions. Saving affects only that section's fields.
+- **When to use it:** the module has several sections, and admins usually work through the form as a whole, reviewing or updating everything in one sitting.
+- **The view:** each section under its own heading, shown as label/value rows. One Edit button in the page heading band.
+- **Editing:** Edit opens the whole form on its own page, with the same sections in the same order under the same headings. One "Update …" button for everything.
+- **Worth knowing:** every field saves together. That's fine for most modules, but if an accidental change slipping through with a save would be costly, look at per-section Edits below.
 
-Pick when admins usually return to change one section at a time, or when different sections are looked after separately.
+<table>
+<tr><th>View</th><th>Edit</th></tr>
+<tr>
+<td><img src="images/admin-form-patterns/multi-section-page-edit-view.png" alt="Multi-section view: titled sections, one Edit in the page heading band"></td>
+<td><img src="images/admin-form-patterns/multi-section-page-edit-edit.png" alt="Multi-section edit: the whole form on its own page, same sections and headings as the view"></td>
+</tr>
+</table>
 
-![Per-section view: each section heading carries its own Edit; no page-level Edit](images/admin-form-patterns/multi-section-per-section-view.png)
+## Multi-section · per-section Edit
 
-![Per-section edit: a scoped form for one section, opened as a modal, titled with the section's heading](images/admin-form-patterns/multi-section-per-section-modal.png)
+Example: Priceband concession type.
 
-<!-- To confirm before merging: the scoped form is shown as a modal in the demo. If the team settles on a separate page (or another container) instead, update the sentence above and re-export the last screenshot — the scoping behaviour is the pattern; the container is an implementation choice. -->
+- **When to use it:** the module has several sections and admins come back for one of them at a time, or different people look after different sections.
+- **The view:** the same sectioned show page as above, but each section heading carries its own Edit button, and there's no page-level Edit.
+- **Editing:** a section's Edit opens a small form containing just that section's fields, titled with the section's own heading. Saving changes only that section; the rest of the record can't be touched by accident.
 
-## Edit behaviour at a glance
+<table>
+<tr><th>View</th><th>Edit (modal)</th></tr>
+<tr>
+<td><img src="images/admin-form-patterns/multi-section-per-section-view.png" alt="Per-section view: each section heading carries its own Edit; no page-level Edit"></td>
+<td><img src="images/admin-form-patterns/multi-section-per-section-modal.png" alt="Per-section edit: a scoped form for one section, opened as a modal"></td>
+</tr>
+</table>
+
+### Modal or a separate page? (not settled yet)
+
+The design intent behind this pattern is to keep the show page in view while editing one piece of it. There are two ways to open the scoped form:
+
+- **A modal** (what the screenshots show): keeps the show page visible behind the edit, and matches how Koi handles this today (Content pages and news work the same way). The original proposal was a slide-in panel; the modal is the closest thing Koi already has.
+- **A separate page:** gives the form more room, and matches how the other two patterns edit.
+
+Until this is settled (with Jason), treat the *scoping* as the pattern (one section's fields, saved alone) and the container as an open choice. If you're building this pattern now, raise it before committing to one.
+
+## The three patterns at a glance
 
 | Pattern | Edit action | Opens | Saves |
 |---|---|---|---|
 | Single-section · page-level Edit | One Edit in the page heading band | The whole form on its own page | All fields |
-| Multi-section · page-level Edit | One Edit in the page heading band | The whole form on its own page, same sections and headings as the view | All fields |
-| Multi-section · per-section Edit | One Edit per section heading | A scoped form for that section only (modal in the demo) | That section's fields only |
-
-## Out of scope
-
-- Visual redesign, including how sections are visually separated (cards, dividers, spacing). These patterns describe structure and behaviour using existing Koi styling.
-- A navigation side menu for very long forms. Identified as a later addition; not part of this round.
-- Regrouping module content into different sections.
+| Multi-section · page-level Edit | One Edit in the page heading band | The whole form on its own page, matching the view | All fields |
+| Multi-section · per-section Edit | One Edit per section heading | A small form for that section only | That section's fields only |
