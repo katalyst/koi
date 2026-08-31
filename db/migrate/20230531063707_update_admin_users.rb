@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Rails/BulkChangeTable
+# rubocop:disable-next Rails/BulkChangeTable
 class UpdateAdminUsers < ActiveRecord::Migration[7.0]
   class Admin < ApplicationRecord; end
 
@@ -39,4 +39,3 @@ class UpdateAdminUsers < ActiveRecord::Migration[7.0]
     remove_column :admins, :name, :string
   end
 end
-# rubocop:enable Rails/BulkChangeTable
