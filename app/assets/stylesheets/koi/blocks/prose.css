@@ -28,7 +28,7 @@
   }
 }
 
-.prose :is(p, li, dl, figcaption, blockquote) {
+.prose :is(p, li, dl, figcaption, blockquote):not([class]) {
   max-width: var(--measure);
   text-wrap: pretty;
 }
