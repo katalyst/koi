@@ -114,7 +114,7 @@
   display: grid;
   grid-template-areas: "preview caption actions";
   grid-template-columns: auto 1fr auto;
-  margin: 0 0 var(--flow-space) 0;
+  margin: unset;
   padding: var(--space-xs);
   grid-gap: var(--space-s);
   border: 1px solid var(--color-mid);
@@ -240,6 +240,12 @@ display, tab order, and accessibility tree. */
 .govuk-file-upload-wrapper:has(input[type="file"]:not([multiple])) {
   .govuk-attachment:has(+ .govuk-attachment) {
     display: none;
+  }
+}
+
+.govuk-file-upload-wrapper:has(input[type="file"][multiple]) {
+  .govuk-attachment + .govuk-attachment {
+    margin-block-start: var(--space-xs);
   }
 }
 
