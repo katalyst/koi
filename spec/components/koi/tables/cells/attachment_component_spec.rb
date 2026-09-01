@@ -67,6 +67,25 @@ RSpec.describe Koi::Tables::Cells::AttachmentComponent do
     end
   end
 
+  context "with has_many_attached" do
+    let(:collection) { create_list(:banner, 1, :with_gallery) }
+    let(:rendered) { render_inline(table) { |row| row.attachment(:gallery) } }
+
+    it "renders a representation of each attachment" do
+      expect(data).to have_css("td.type-attachment img[src*='dummy.png']", count: 2)
+    end
+  end
+
+  context "with has_many_attached and nothing attached" do
+    let(:rendered) { render_inline(table) { |row| row.attachment(:gallery) } }
+
+    it "renders data as falsey" do
+      expect(data).to match_html(<<~HTML)
+        <td class="type-attachment"></td>
+      HTML
+    end
+  end
+
   context "when given a block" do
     let(:rendered) { render_inline(table) { |row| row.attachment(:image) { |cell| cell.tag.span(cell) } } }
 

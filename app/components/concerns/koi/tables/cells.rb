@@ -31,7 +31,8 @@ module Koi
                   ), &)
       end
 
-      # Generates a column that renders an ActiveStorage attachment as a downloadable link.
+      # Generates a column that renders ActiveStorage attachments, from either
+      # has_one_attached or has_many_attached associations.
       #
       # @param column [Symbol] the column's name, called as a method on the record
       # @param label [String|nil] the label to use for the column header

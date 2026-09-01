@@ -7,7 +7,9 @@ class Banner < ApplicationRecord
     image.variant :thumb, resize_to_fill: [100, 100]
   end
 
-  has_many_attached :gallery
+  has_many_attached :gallery do |image|
+    image.variant :thumb, resize_to_fill: [100, 100]
+  end
 
   scope :admin_search, ->(query) do
     where("name LIKE :query", query: "%#{query}%")

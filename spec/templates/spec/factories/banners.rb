@@ -9,5 +9,11 @@ FactoryBot.define do
     trait :with_image do
       image { Rack::Test::UploadedFile.new(Rails.root.join("../fixtures/images/dummy.png"), "image/png") }
     end
+
+    trait :with_gallery do
+      gallery do
+        Array.new(2) { Rack::Test::UploadedFile.new(Rails.root.join("../fixtures/images/dummy.png"), "image/png") }
+      end
+    end
   end
 end

@@ -5,9 +5,10 @@ module Koi
     module Cells
       # Shows an attachment
       #
-      # The value is expected to be an ActiveStorage attachment
+      # The value is expected to be an ActiveStorage attachment, either
+      # singular (has_one_attached) or plural (has_many_attached).
       #
-      # If it is representable, shows as a image tag using the specified variant.
+      # If it is representable, shows as an image tag using the specified variant.
       #
       # Otherwise shows as a link to download.
       class AttachmentComponent < Katalyst::Tables::CellComponent
@@ -18,21 +19,19 @@ module Koi
         end
 
         def rendered_value
-          representation
+          safe_join(attachments.map { |attachment| representation(attachment) })
         end
 
-        def representation
-          if value.try(:variable?) && named_variant.present?
-            image_tag(value.variant(@variant))
-          elsif value.try(:attached?)
-            filename.to_s
+        def representation(attachment = value.attachment)
+          if attachment&.variable? && named_variant.present?
+            image_tag(attachment.variant(@variant))
           else
-            ""
+            attachment&.filename.to_s
           end
         end
 
         def filename
-          value.blob.filename
+          value.attachment&.filename
         end
 
         # Utility for accessing the path Rails provides for retrieving the
@@ -45,6 +44,11 @@ module Koi
         end
 
         private
+
+        # Attached::One and Attached::Many normalized to [ActiveStorage::Attachment]
+        def attachments
+          value.is_a?(ActiveStorage::Attached::Many) ? value.attachments : Array(value.attachment)
+        end
 
         def default_html_attributes
           { class: "type-attachment" }

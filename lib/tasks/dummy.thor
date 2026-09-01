@@ -118,15 +118,17 @@ class Dummy < Thor
 
     inside("spec/dummy") do
       run "rails db:migrate"
-
-      run <<~SH
-        rails g koi:admin Announcement
-        rails g koi:admin Banner
-      SH
     end
 
     Dir.glob(File.join(self.class.source_root, "**/*")).each do |file|
       copy_file(file[(self.class.source_root.size + 1)..], force: true) if File.file?(file)
+    end
+
+    inside("spec/dummy") do
+      run <<~SH
+        rails g koi:admin Announcement
+        rails g koi:admin Banner
+      SH
     end
 
     # Load the schema
