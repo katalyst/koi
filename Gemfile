@@ -15,7 +15,7 @@ group :development, :test do
   gem "flipper-active_record"
   gem "image_processing" # only required for projects using active storage
   gem "katalyst-basic-auth"
-  gem "katalyst-thermite", git: "https://github.com/katalyst/thermite.git"
+  gem "katalyst-thermite"
   gem "propshaft"
   gem "puma"
   gem "rails"

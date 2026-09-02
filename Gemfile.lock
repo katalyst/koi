@@ -1,15 +1,7 @@
-GIT
-  remote: https://github.com/katalyst/thermite.git
-  revision: f6bb60d087566ed36474a2ab9c396fa40ef0e282
-  specs:
-    katalyst-thermite (1.0.0)
-      activesupport
-      railties
-
 PATH
   remote: .
   specs:
-    katalyst-koi (5.11.2)
+    katalyst-koi (5.11.3)
       bcrypt
       importmap-rails
       jwt (>= 3.0)
@@ -171,7 +163,7 @@ GEM
       rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
-    et-orbi (1.4.1)
+    et-orbi (1.4.2)
       tzinfo
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
@@ -214,7 +206,7 @@ GEM
       activesupport (>= 6.1.4.4)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.3)
+    image_processing (2.1.0)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -235,7 +227,7 @@ GEM
       katalyst-govuk-formbuilder
       katalyst-html-attributes
       view_component
-    katalyst-govuk-formbuilder (2.0.0)
+    katalyst-govuk-formbuilder (2.0.1)
       activestorage (>= 8.0.0)
       govuk_design_system_formbuilder (>= 6.2.0)
     katalyst-html-attributes (1.1.2)
@@ -248,6 +240,9 @@ GEM
     katalyst-tables (3.13.0)
       katalyst-html-attributes
       view_component (>= 4.0.0)
+    katalyst-thermite (1.1.0)
+      activesupport
+      railties
     language_server-protocol (3.17.0.6)
     lexxy (0.9.31)
       rails (>= 8.0.2)
@@ -458,10 +453,10 @@ GEM
     safety_net_attestation (0.5.0)
       jwt (>= 2.0, < 4.0)
     securerandom (0.4.1)
-    sentry-rails (6.7.0)
+    sentry-rails (7.0.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.7.0)
-    sentry-ruby (6.7.0)
+      sentry-ruby (~> 7.0.0)
+    sentry-ruby (7.0.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -554,7 +549,7 @@ DEPENDENCIES
   image_processing
   katalyst-basic-auth
   katalyst-koi!
-  katalyst-thermite!
+  katalyst-thermite
   propshaft
   puma
   rack_session_access
