@@ -258,13 +258,13 @@ At minimum, generate and maintain these templates:
 <%= render(editor.status_bar) %>
 <%= render(editor) do |editor_component| %>
   <% editor_component.with_new_items do |component| %>
-    <h4>Content</h4>
+    <p><strong>Content</strong></p>
     <ul role="list" class="items-list">
       <%= component.item(:content) %>
       <%= component.item(:figure) %>
     </ul>
 
-    <h4>Layout</h4>
+    <p><strong>Layout</strong></p>
     <ul role="list" class="items-list">
       <%= component.item(:section) %>
       <%= component.item(:group) %>

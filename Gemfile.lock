@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (5.11.3)
+    katalyst-koi (5.11.4)
       bcrypt
       importmap-rails
       jwt (>= 3.0)
@@ -70,7 +70,7 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_storage_validations (4.1.0)
+    active_storage_validations (4.1.1)
       activejob (>= 7.0.1)
       activemodel (>= 7.0.1)
       activestorage (>= 7.0.1)
@@ -237,10 +237,10 @@ GEM
       katalyst-html-attributes
       katalyst-tables
       view_component
-    katalyst-tables (3.13.0)
+    katalyst-tables (3.13.1)
       katalyst-html-attributes
       view_component (>= 4.0.0)
-    katalyst-thermite (1.1.0)
+    katalyst-thermite (1.1.1)
       activesupport
       railties
     language_server-protocol (3.17.0.6)
