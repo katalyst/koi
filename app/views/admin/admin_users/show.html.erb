@@ -24,7 +24,7 @@
   <% row.text(:sign_in_count, label: "Total logins") %>
   <% row.boolean(:passkey) %>
   <% row.boolean(:otp, label: "MFA") %>
-  <% row.boolean(:archived?) %>
+  <% row.boolean(:archived) %>
 <% end %>
 
 <% unless admin_user.archived? %>
