@@ -12,8 +12,13 @@
 <% end %>
 
 <%= form_with model: menu, url: katalyst_navigation.menu_path(menu) do |form| %>
-  <%= form.govuk_text_field :title %>
-  <%= form.govuk_text_field :slug %>
+  <%= form.govuk_fieldset legend: nil, data: { controller: "sluggable", sluggable_slug_value: form.object.slug } do %>
+    <%= form.govuk_text_field :title,
+                              data: { sluggable_target: "source", action: "keyup->sluggable#sourceChanged" } %>
+    <%= form.govuk_text_field :slug,
+                              data: { sluggable_target: "slug", action: "keyup->sluggable#slugChanged" } %>
+  <% end %>
+
   <%= form.govuk_text_field :depth %>
   <%= form.button(type: :submit, class: "button", name: :commit, value: :save) %>
 <% end %>
