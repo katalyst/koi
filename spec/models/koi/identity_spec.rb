@@ -102,7 +102,7 @@ RSpec.describe Koi::Identity do
     end
 
     it "rejects a malformed assertion" do
-      expect { authorize("not-a-jwt") }.to raise_error(an_instance_of(JWT::DecodeError))
+      expect { authorize("not-a-jwt") }.to raise_error(JWT::MalformedTokenError)
     end
 
     it "rejects an assertion signed by an unregistered key" do
@@ -125,7 +125,7 @@ RSpec.describe Koi::Identity do
     it "rejects an assertion with an unknown kid" do
       assertion = JWT.encode(claims, signing_key, "ES384", { kid: "unknown-kid" })
 
-      expect { authorize(assertion) }.to raise_error(an_instance_of(JWT::DecodeError))
+      expect { authorize(assertion) }.to raise_error(JWT::SignatureError)
     end
 
     it "rejects an expired assertion" do

@@ -148,7 +148,7 @@ RSpec.describe "admin rich textarea integration" do
       select_lexxy_range(0, 0)
 
       # ensure the toolbar has identified the current block as a large heading
-      expect(page).to have_css("button[name=heading-large][aria-pressed=true]", visible: :all)
+      expect(page).to have_css("button[name=heading-large][aria-checked=true]", visible: :all)
     end
   end
 
