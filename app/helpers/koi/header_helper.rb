@@ -75,8 +75,8 @@ module Koi
     # @param model [ActiveRecord::Base] The record to create an archive/delete link for
     # @param archive_text [String] Text to display for archive link (default: "Archive")
     # @param delete_text [String] Text to display for delete link (default: "Delete")
-    # @param confirm [String] Confirmation message for delete action (default: "Are you sure?")
-    # @param url [String] Target url for delete actions (defaults to admin_<record>_path)
+    # @param confirm [String] Confirmation message for archive and delete actions (default: "Are you sure?")
+    # @param url [String] Target url for archive and delete actions (defaults to admin_<record>_path)
     # @param ** Additional HTML attributes to pass to the link
     # @return [String, nil] Returns the HTML link element, or nil if record is not persisted
     #
@@ -97,7 +97,7 @@ module Koi
       if model.archived?
         link_to(delete_text, url, data: { turbo_method: :delete, turbo_confirm: confirm }, **)
       else
-        link_to(archive_text, url, data: { turbo_method: :delete }, **)
+        link_to(archive_text, url, data: { turbo_method: :delete, turbo_confirm: confirm }, **)
       end
     end
 
