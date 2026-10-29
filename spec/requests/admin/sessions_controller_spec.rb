@@ -161,6 +161,17 @@ RSpec.describe Admin::SessionsController do
         expect { action }.to(change { admin.credentials.last.updated_at })
       end
     end
+
+    ["testing@example.com", "1", "[]", '"text"'].each do |value|
+      context "with a webauthn response that is not a json object: #{value}" do
+        let(:session_params) { { response: value } }
+
+        it "fails" do
+          action
+          expect(response).to have_http_status(:unprocessable_content).and(have_rendered("new"))
+        end
+      end
+    end
   end
 
   describe "DELETE /admin/session" do
