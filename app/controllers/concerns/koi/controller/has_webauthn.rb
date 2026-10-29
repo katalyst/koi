@@ -49,8 +49,11 @@ module Koi
       def webauthn_authenticate!(response)
         return if response.blank?
 
+        credential = JSON.parse(response)
+        return false unless credential.is_a?(Hash)
+
         webauthn_credential, stored_credential = webauthn_relying_party.verify_authentication(
-          JSON.parse(response),
+          credential,
           session.delete(:authentication_challenge),
         ) do |credential|
           Admin::Credential.find_by!(external_id: credential.id)
@@ -62,7 +65,7 @@ module Koi
         )
 
         stored_credential.admin
-      rescue ActiveRecord::RecordNotFound, WebAuthn::VerificationError
+      rescue ActiveRecord::RecordNotFound, WebAuthn::VerificationError, JSON::ParserError
         false
       end
 
