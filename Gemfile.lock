@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    katalyst-koi (5.13.0)
+    katalyst-koi (5.13.1)
       bcrypt
       importmap-rails
       jwt (>= 3.0)

@@ -40,7 +40,7 @@ module Koi
       # @api internal
       # @see GOVUKDesignSystemFormBuilder::Builder#govuk_document_field
       def govuk_document_field(attribute_name, hint: {}, **, &)
-        if hint.is_a?(Hash)
+        if hint.is_a?(Hash) && !localised_hint?(attribute_name)
           max_size      = hint.fetch(:max_size, Koi.config.document_size_limit)
           hint[:text] ||= @template.t("helpers.hint.default.document",
                                       max_size: @template.number_to_human_size(max_size))
@@ -52,9 +52,9 @@ module Koi
       # @api internal
       # @see GOVUKDesignSystemFormBuilder::Builder#govuk_image_field
       def govuk_image_field(attribute_name, hint: {}, **, &)
-        if hint.is_a?(Hash)
+        if hint.is_a?(Hash) && !localised_hint?(attribute_name)
           max_size      = hint.fetch(:max_size, Koi.config.image_size_limit)
-          hint[:text] ||= @template.t("helpers.hint.default.document",
+          hint[:text] ||= @template.t("helpers.hint.default.image",
                                       max_size: @template.number_to_human_size(max_size))
         end
 
@@ -90,6 +90,13 @@ module Koi
       end
 
       private
+
+      # True when the GOV.UK form builder will find a hint in the locale files,
+      # e.g. helpers.hint.banner.image, so Koi's size limit default doesn't
+      # replace it.
+      def localised_hint?(attribute_name)
+        GOVUKDesignSystemFormBuilder::Elements::Hint.new(self, object_name, attribute_name).active?
+      end
 
       def direct_upload_url
         if @template.respond_to?(:admin_direct_uploads_url)

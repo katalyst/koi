@@ -12,6 +12,16 @@ RSpec.describe Koi::FormBuilder do
         visible: :all,
       )
     end
+
+    it "uses the localised hint" do
+      expect(builder.govuk_image_field(:image)).to have_css(".govuk-hint", text: "Displayed on the homepage")
+    end
+
+    it "falls back to the image size limit" do
+      builder = described_class.new(:poster, Banner.new, helper, {})
+
+      expect(builder.govuk_image_field(:image)).to have_css(".govuk-hint", text: "Must be less than")
+    end
   end
 
   context "with a rich text attribute" do
