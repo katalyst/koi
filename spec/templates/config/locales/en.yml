@@ -5,3 +5,7 @@ en:
         draft: Draft
         published: Published
         archived: Archived
+  helpers:
+    hint:
+      banner:
+        image: Displayed on the homepage
