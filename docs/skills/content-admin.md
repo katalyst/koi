@@ -2,7 +2,8 @@
 
 Use this guide when adding Katalyst Content editing to an already-existing admin resource in a Koi app.
 
-This is the canonical v3 pattern the planned content-admin generator should produce. For the gem itself (containers, items, rendering, configuration), see the [Katalyst Content documentation](https://katalyst.github.io/content/).
+This is the canonical v3 pattern the planned content-admin generator should produce. For the gem itself (containers,
+items, rendering, configuration), see the [Katalyst Content documentation](https://katalyst.github.io/content/).
 
 ## Scope
 
@@ -50,7 +51,8 @@ Use this as the short, testable contract for generator templates and generator s
 
 - Use parentheses for method calls with multiple arguments.
 - In views, use parentheses for helper calls that take arguments, including calls that take a block.
-- In DSL-style Ruby code (for example request-spec `get/post/patch` flows), omitting parentheses is acceptable when it reads more clearly.
+- In DSL-style Ruby code (for example request-spec `get/post/patch` flows), omitting parentheses is acceptable when it
+  reads more clearly.
 - In request specs, prefer combined redirect assertions:
   - `expect(response).to have_http_status(:see_other).and(redirect_to(...))`
 
@@ -66,7 +68,8 @@ Before wiring actions/views, confirm all of the following.
    - Model includes `Katalyst::Content::Container`.
    - Nested `Version` model includes `Katalyst::Content::Version`.
    - Model has `draft_version_id` and `published_version_id` references.
-   - See [Getting started](https://katalyst.github.io/content/developers/getting-started.html) for the migration and model code.
+   - See [Getting started](https://katalyst.github.io/content/developers/getting-started.html) for the migration and
+     model code.
 
 3. **Admin base controller**
    - Resource controller inherits from your admin base (typically `Admin::ApplicationController`).
@@ -283,7 +286,15 @@ Notes:
 ### `new` / `edit`
 
 - Render metadata fields only.
-- Keep the form actions focused on saving form content (plain submit button).
+- Keep the form actions focused on saving form content: a single submit button. On `edit`, it submits `commit=save`,
+  because `update` only saves for that value:
+
+  ```erb
+  <%= form.button("Save", name: :commit, value: :save, class: "button") %>
+  ```
+
+  `new` posts to `create`, which ignores `commit`, so a plain `form.button` is enough there.
+
 - Place non-form actions (for example view/preview/delete/unpublish) in the page header actions section.
 - Keep content tree editing in `show`.
 
@@ -380,7 +391,8 @@ end
 
 ## Force Regeneration Workflow
 
-Force-overwrite is expected for upgrade diffs.
+Force-overwrite is expected for upgrade diffs once the content-admin generator exists. Do not force-run `koi:admin` on a
+content admin: it has no content support, and overwrites the editor, publishing actions and slug routing.
 
 1. Re-run generator with force enabled.
 2. Review generated diff against current implementation.

@@ -17,13 +17,17 @@ Pick lifecycle semantics before touching controller/view code.
 
 - `Simple CRUD` (eg project types, industries): no lifecycle state; optional ordering.
 - `Archivable` (eg staff, clients): boolean lifecycle with `archive/restore`; optional archived index.
-- `Content stateful` (eg articles, pages, case studies): `publish/unpublish` via content state (`draft_version_id` / `published_version_id`).
+- `Content stateful` (eg articles, pages, case studies): `publish/unpublish` via content state (`draft_version_id` /
+  `published_version_id`).
 
 Do not mix archetypes inside one module unless there is a strong product reason.
 
 ## Canonical module workflow
 
-1. Regenerate with `bin/rails generate koi:admin <model> --force`.
+1. Regenerate with `bin/rails generate koi:admin <model> --force`. Skip this for `Content stateful` modules: the
+   generator has no content support, and a forced run overwrites the editor, publishing actions and slug routing. Follow
+   [Content admin](skills/content-admin.md) instead, and copy header markup from the generator's view templates
+   (`lib/generators/koi/admin_views/templates`).
 2. Fix routes first (dedupe generator inserts, correct collection/member actions, confirm helpers with `rails routes`).
 3. Align controller shape to Koi 5:
    - locals-based rendering
@@ -52,7 +56,11 @@ Do not translate repeated nested structures from `permit` without checking shape
 - Avoid images on index/archived unless operationally required.
 - State-scoped pages should not show the state column.
 - Prefer explicit path helpers and avoid polymorphic path indirection where readability suffers.
-- Use plain submit buttons; avoid `form.admin_save` / `form.admin_delete` in new Koi 5 work.
+- Use plain submit buttons. `form.admin_save`, `form.admin_delete`, `form.admin_archive` and `form.admin_discard` are
+  deprecated and removed in Koi 6.0.
+- On `Content stateful` edit forms, the save button submits `commit=save`, because `update` only saves for that value:
+  `form.button("Save", name: :commit, value: :save, class: "button")`. A button without it redirects as normal and saves
+  nothing.
 - Keep `form_with` in `new`/`edit` and use shared fields partials (`_metadata_fields`) for common inputs.
 - Keep custom sections (eg SEO) explicit in `edit`, not hidden behind option locals.
 - In ERB, use parentheses for helper calls with arguments, especially helper calls that also take a block.
@@ -122,9 +130,11 @@ When converting legacy lifecycle models (eg `active` -> content state):
 
 ## References
 
-- Koi controller patterns: `koi/app/controllers/admin/admin_users_controller.rb`, `koi/app/controllers/admin/url_rewrites_controller.rb`
+- Koi controller patterns: `koi/app/controllers/admin/admin_users_controller.rb`,
+  `koi/app/controllers/admin/url_rewrites_controller.rb`
 - Koi views: `koi/app/views/admin/admin_users/index.html.erb`, `koi/app/views/admin/admin_users/archived.html.erb`
-- Real-world archive/order pattern: `frg/app/controllers/admin/merchandise_controller.rb`, `frg/app/views/admin/merchandise/index.html.erb`
+- Real-world archive/order pattern: `frg/app/controllers/admin/merchandise_controller.rb`,
+  `frg/app/views/admin/merchandise/index.html.erb`
 - Content editor contract: `koi/docs/skills/content-admin.md`
 - Local upgrade examples in this repo:
   - `kat/app/controllers/admin/staff_controller.rb`
