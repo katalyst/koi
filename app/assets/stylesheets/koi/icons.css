@@ -1,20 +1,20 @@
 [data-icon="add"] {
-  -webkit-mask: url("icons/add.svg");
-  mask: url("icons/add.svg");
+  -webkit-mask-image: url("icons/add.svg");
+  mask-image: url("icons/add.svg");
 }
 
 [data-icon="close"] {
-  -webkit-mask: url("icons/close.svg");
-  mask: url("icons/close.svg");
+  -webkit-mask-image: url("icons/close.svg");
+  mask-image: url("icons/close.svg");
 }
 
 [data-icon="fingerprint"] {
-  -webkit-mask: url("icons/fingerprint.svg");
-  mask: url("icons/fingerprint.svg");
+  -webkit-mask-image: url("icons/fingerprint.svg");
+  mask-image: url("icons/fingerprint.svg");
 }
 
 [data-icon="koi"] {
-  -webkit-mask: url("logo.svg");
-  mask: url("logo.svg");
+  -webkit-mask-image: url("logo.svg");
+  mask-image: url("logo.svg");
   color: var(--color-brand);
 }
