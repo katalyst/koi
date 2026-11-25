@@ -8,7 +8,7 @@ module Koi
       end
 
       def call(env)
-        if env["PATH_INFO"].starts_with?("/admin")
+        if admin_path?(env["PATH_INFO"])
           admin_call(env)
         else
           @app.call(env)
@@ -43,8 +43,17 @@ module Koi
 
       private
 
+      # Compare paths the way the router will see them, e.g. "//admin" routes to "/admin"
+      def normalize_path(path)
+        ActionDispatch::Journey::Router::Utils.normalize_path(path)
+      end
+
+      def admin_path?(path)
+        normalize_path(path).starts_with?("/admin")
+      end
+
       def requires_authentication?(request)
-        !request.path.starts_with?("/admin/session") && !device_flow_request?(request:)
+        !normalize_path(request.path).starts_with?("/admin/session") && !device_flow_request?(request:)
       end
 
       def authenticated?

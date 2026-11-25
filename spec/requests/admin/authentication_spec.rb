@@ -63,6 +63,21 @@ RSpec.describe "admin authentication" do
     end
   end
 
+  describe "GET //admin/dashboard" do
+    subject { action && response }
+
+    # Rails routes repeated slashes as if they were single slashes
+    let(:action) { get "http://www.example.com//admin/dashboard" }
+
+    it { is_expected.to have_http_status(:see_other).and(redirect_to("/admin/session/new")) }
+
+    context "with a valid admin session" do
+      include_context "with admin session"
+
+      it { is_expected.to have_http_status(:success) }
+    end
+  end
+
   describe "GET /admin/guess" do
     subject { action && response }
 
