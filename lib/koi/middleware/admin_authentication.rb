@@ -49,11 +49,30 @@ module Koi
       end
 
       def admin_path?(path)
-        normalize_path(path).starts_with?("/admin")
+        path = normalize_path(path)
+
+        return false unless path.starts_with?("/admin")
+
+        unless path == "/admin" || path.starts_with?("/admin/")
+          Koi.deprecator.warn(
+            "#{path.inspect} is authenticated as an admin path because it starts with \"/admin\". " \
+            "Koi 6.0 will only authenticate \"/admin\" and paths under \"/admin/\". " \
+            "Move the route under \"/admin/\" to keep it protected.",
+          )
+        end
+
+        true
+      end
+
+      # The session resource and its nested routes, e.g. "/admin/session", "/admin/session/new".
+      def session_path?(path)
+        path = normalize_path(path)
+
+        path == "/admin/session" || path.starts_with?("/admin/session/")
       end
 
       def requires_authentication?(request)
-        !normalize_path(request.path).starts_with?("/admin/session") && !device_flow_request?(request:)
+        !session_path?(request.path) && !device_flow_request?(request:)
       end
 
       def authenticated?

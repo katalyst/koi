@@ -26,6 +26,14 @@ RSpec.describe Admin::DeviceAuthorizationsController do
       expect(response.parsed_body).to have_button(text: "Approve")
     end
 
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        get(admin_device_authorization_path(device_authorization.user_code), headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
     context "with an expired authorization" do
       let(:device_authorization) do
         create(:admin_device_authorization, request_expires_at: 1.second.ago)
@@ -125,6 +133,45 @@ RSpec.describe Admin::DeviceAuthorizationsController do
       action
 
       expect(response).to redirect_to(admin_device_authorization_path(device_authorization.user_code))
+    end
+
+    it_behaves_like "with bearer token authentication" do
+      it "fails with an authentication error" do
+        patch(admin_device_authorization_path(device_authorization.user_code),
+              params: { decision: "approve" }, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it "does not change the authorization" do
+        expect do
+          patch(admin_device_authorization_path(device_authorization.user_code),
+                params: { decision: "approve" }, headers:)
+        end.not_to(change { device_authorization.reload.status })
+      end
+    end
+
+    context "with a role bearer token" do
+      let(:role_authorization) { create(:admin_device_authorization, :admin_role) }
+      let(:headers) { { "Authorization" => "Bearer #{role_authorization.generate_token_for(:api_access)}" } }
+
+      def create_admin_session(_)
+        nil # no-op, skip session creation
+      end
+
+      it "fails with an authentication error" do
+        patch(admin_device_authorization_path(device_authorization.user_code),
+              params: { decision: "approve" }, headers:)
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it "does not change the authorization" do
+        expect do
+          patch(admin_device_authorization_path(device_authorization.user_code),
+                params: { decision: "approve" }, headers:)
+        end.not_to(change { device_authorization.reload.status })
+      end
     end
 
     context "when denying" do

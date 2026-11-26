@@ -78,6 +78,53 @@ RSpec.describe "admin authentication" do
     end
   end
 
+  describe "GET /admin/session/new" do
+    subject { action && response }
+
+    let(:action) { get "/admin/session/new" }
+
+    it { is_expected.to have_http_status(:success) }
+  end
+
+  # Only the session resource is exempt from authentication, not every path that shares its prefix
+  %w[/admin/sessions /admin/sessions/1 /admin/session_types /admin/session-types /admin/session.json].each do |path|
+    describe "GET #{path}" do
+      subject { action && response }
+
+      let(:action) { get path }
+
+      it { is_expected.to have_http_status(:see_other).and(redirect_to("/admin/session/new")) }
+    end
+  end
+
+  describe "GET /administrator" do
+    subject { action && response }
+
+    let(:action) { get "/administrator" }
+
+    around { |example| Koi.deprecator.silence { example.run } }
+
+    it { is_expected.to have_http_status(:see_other).and(redirect_to("/admin/session/new")) }
+
+    it "warns that the path will not be authenticated in Koi 6" do
+      allow(Koi.deprecator).to receive(:warn)
+
+      action
+
+      expect(Koi.deprecator).to have_received(:warn).with(a_string_including('"/administrator"', "Koi 6.0"))
+    end
+  end
+
+  describe "GET /admin" do
+    it "does not warn" do
+      allow(Koi.deprecator).to receive(:warn)
+
+      get "/admin"
+
+      expect(Koi.deprecator).not_to have_received(:warn)
+    end
+  end
+
   describe "GET /admin/guess" do
     subject { action && response }
 

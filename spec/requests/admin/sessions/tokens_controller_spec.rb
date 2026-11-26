@@ -5,22 +5,6 @@ require "rails_helper"
 RSpec.describe Admin::Sessions::TokensController do
   subject { action && response }
 
-  describe "POST /admin/admin_users/:id/tokens" do
-    let(:action) { post admin_admin_user_tokens_path(admin), as: :turbo_stream }
-    let(:admin) { create(:admin) }
-
-    include_context "with admin session"
-
-    it_behaves_like "requires admin"
-
-    it { is_expected.to be_successful }
-
-    it "renders the token" do
-      action
-      expect(response.body).to have_css("turbo-stream[action=replace][target='invite']")
-    end
-  end
-
   describe "GET /admin/session/tokens/:token" do
     let(:action) { get admin_session_token_path(token) }
     let(:admin) { create(:admin, password: "") }

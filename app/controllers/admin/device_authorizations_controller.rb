@@ -8,6 +8,7 @@ module Admin
     rate_limit to: 3, within: 1.minute, only: :create
     skip_before_action :verify_authenticity_token, only: :create
 
+    before_action :requires_session_authentication!, only: %i[show update]
     before_action :set_device_authorization, only: %i[show update]
 
     attr_reader :device_authorization
