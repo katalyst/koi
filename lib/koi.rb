@@ -10,6 +10,10 @@ module Koi
       yield config
     end
 
+    def deprecator
+      @deprecator ||= ActiveSupport::Deprecation.new("6.0", "Koi")
+    end
+
     def action_text_editor
       return config.action_text_editor if config.action_text_editor.present?
 

@@ -79,6 +79,10 @@ module Koi
       Katalyst::Content.config.errors_component = "Koi::Content::Editor::ErrorsComponent"
     end
 
+    initializer "koi.deprecator" do |app|
+      app.deprecators[:koi] = Koi.deprecator
+    end
+
     initializer "koi.factories", after: "factory_bot.set_factory_paths" do
       FactoryBot.definition_file_paths << root.join("spec/factories") if defined?(FactoryBot)
     end
