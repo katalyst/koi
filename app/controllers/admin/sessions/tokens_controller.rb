@@ -5,8 +5,6 @@ module Admin
     class TokensController < ApplicationController
       include Koi::Controller::RecordsAuthentication
 
-      before_action :set_admin_user, only: %i[create]
-
       attr_reader :admin_user
 
       def show
@@ -15,10 +13,6 @@ module Admin
         else
           redirect_to(new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid"))
         end
-      end
-
-      def create
-        render locals: { token: admin_user.generate_token_for(:password_reset) }
       end
 
       def update
@@ -33,12 +27,6 @@ module Admin
         else
           redirect_to(new_admin_session_path, status: :see_other, notice: I18n.t("koi.auth.token_invalid"))
         end
-      end
-
-      private
-
-      def set_admin_user
-        @admin_user = Admin::User.find(params.expect(:admin_user_id))
       end
     end
   end

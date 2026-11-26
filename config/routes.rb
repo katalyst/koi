@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       put :archive, on: :collection
       put :restore, on: :collection
 
-      resources :tokens, only: %i[create], module: :sessions
+      resources :tokens, only: %i[create], module: :admin_users
     end
 
     resources :admin_roles, only: %i[index show]
